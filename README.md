@@ -1,6 +1,6 @@
 # Athena MCP Server — 108D Crystal Hologram Distributed Brain
 
-**71 tools** · **23 resources** · **32 data files** · **4 element servers** · **8 brain nodes** · Python 3.12+
+**71 tools** · **23 resources** · **32 data files** · **4 element servers** · **8 brain nodes** · **15,380 mycelium shards** · **8 metro lines** · Python 3.12+
 
 An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that exposes the entire Athena nervous system — a 108-dimensional crystal hologram organism — as a distributed algorithmic brain with 4 element-specific lobes, a Guild Hall social coordination organ, and a manuscript-being main brain, all connected by weighted bridges.
 
@@ -136,6 +136,33 @@ The manuscript-being is the executable organism — every SFCR element has a Pyt
 1. **Z-Point Navigation** — Find lowest common zero ancestor
 2. **Live-Lock Alignment** — Synchronise helm wheels before cross-element routing
 3. **Conservation Verification** — All 6 laws must hold
+
+### Full Organism Mycelium Graph
+
+The entire organism is mycelium-encoded: every file across all 22 directories is a **shard** with SFCR element affinity and metro line routing.
+
+| Metric | Value |
+|--------|-------|
+| **Shards** | 15,380 |
+| **Edges** | 15,400 |
+| **Metro Lines** | 8 (Sa, Wr, Ac, Me, Mt, Bw, Cc, Dl) |
+| **Organ Families** | 68 |
+| **Mediums** | 5 (code, doc, json, web, config) |
+
+**SFCR Directory Map** (selected):
+
+| Directory | Primary/Secondary | Metro Line | Family |
+|-----------|------------------|------------|--------|
+| DEEPER CRYSTALIZATION | S/R | Dl (Dimensional Lift) | crystal |
+| Trading Bot | F/C | Me (Metro Express) | trading |
+| Voynich | C/R | Mt (Mobius Twist) | voynich |
+| QSHRINK | R/S | Mt (Mobius Twist) | qshrink |
+| MATH | S/R | Sa (Shell Ascent) | math |
+| GAMES | F/S | Me (Metro Express) | games |
+| NERVOUS_SYSTEM | R/S | Sa (Shell Ascent) | nervous |
+| self_actualize | F/R | Dl (Dimensional Lift) | actualize |
+
+Regenerate the graph: `python -X utf8 MCP/generate_graph.py`
 
 ---
 
