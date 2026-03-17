@@ -1,8 +1,11 @@
 """
 Athena Mycelium Graph Generator
 ================================
-Scans MCP/data/*.json, MCP/crystal_108d/*.py, and MCP/element_servers/*.py
-to produce the universal shard/edge graph manifest.
+Scans the ENTIRE Athena organism — MCP tools, data, element servers,
+Guild Hall, manuscript-being Python framework, AND the full local corpus
+(Voynich, Trading Bot, Neural Network, QSHRINK, Math, Games, Manuscripts,
+Nervous System, etc.) — to produce the universal shard/edge graph manifest
+with metro line mappings.
 
 Usage:
     python -X utf8 MCP/generate_graph.py
@@ -102,6 +105,82 @@ ELEMENT_LENS = {
 }
 
 SKIP_MODULES = {"__init__", "_cache", "constants", "__pycache__"}
+
+# ── Full Organism SFCR Element Mapping ─────────────────────────────
+# Every top-level directory → (primary_lens, secondary_lens, metro_line, family)
+# Metro lines: Sa=Shell Ascent, Wr=Wreath Ring, Ac=Archetype Column,
+#   Me=Metro Express, Mt=Mobius Twist, Bw=Bridge Walk, Cc=Crown Circuit, Dl=Dimensional Lift
+
+ORGANISM_DIR_MAP = {
+    "Athena FLEET":         ("R", "F", "Cc", "fleet"),          # Fractal: fleet coordination, recursive org
+    "Athenachka Collective Books": ("S", "C", "Ac", "books"),   # Square: structured knowledge corpus
+    "CLEAN":                ("C", "S", "Bw", "manuscript"),     # Cloud: distilled/purified manuscripts
+    "DEEPER CRYSTALIZATION": ("S", "R", "Dl", "crystal"),       # Square: deep structural crystallization
+    "ECOSYSTEM":            ("F", "C", "Wr", "ecosystem"),      # Flower: living ecosystem dynamics
+    "FRESH":                ("C", "F", "Me", "manuscript"),     # Cloud: fresh perspective, new captures
+    "GAMES":                ("F", "S", "Me", "games"),          # Flower: game dynamics, play
+    "GLOBAL COMMAND":       ("S", "F", "Cc", "command"),        # Square: command structure, governance
+    "GUILDMASTER":          ("F", "S", "Cc", "guild"),          # Flower: guild mastery, social dynamics
+    "I AM ATHENA":          ("R", "C", "Mt", "identity"),       # Fractal: self-referential identity
+    "MATH":                 ("S", "R", "Sa", "math"),           # Square: mathematical structure
+    "NERUAL NETWORK":       ("C", "F", "Dl", "neural"),         # Cloud: learning, observation, inference
+    "NERVOUS_SYSTEM":       ("R", "S", "Sa", "nervous"),        # Fractal: recursive nervous system
+    "ORGIN":                ("S", "C", "Ac", "origin"),         # Square: origin structure, foundation
+    "QSHRINK - ATHENA (internal use)": ("R", "S", "Mt", "qshrink"),  # Fractal: compression, holographic seed
+    "Quadrant Binary":      ("S", "R", "Sa", "binary"),         # Square: binary/discrete structure
+    "Stoicheia (Element Sudoku)": ("F", "S", "Wr", "games"),    # Flower: element play, sudoku dynamics
+    "Trading Bot":          ("F", "C", "Me", "trading"),        # Flower: market dynamics, fire
+    "Voynich":              ("C", "R", "Mt", "voynich"),        # Cloud: observation, decoding
+    "mycelial_unified_nervous_system_bundle": ("R", "C", "Bw", "mycelium"),  # Fractal: mycelium recursion
+    "self_actualize":       ("F", "R", "Dl", "actualize"),      # Flower: growth dynamics, emergence
+    ".github":              ("S", "F", "Bw", "infra"),          # Square: infrastructure
+}
+
+# Subdirectory overrides for deeper SFCR precision
+ORGANISM_SUBDIR_MAP = {
+    "DEEPER CRYSTALIZATION/13_ACCEPTED_INPUTS":   ("C", "S", "Bw", "accepted"),
+    "DEEPER CRYSTALIZATION/CRYSTAL_SEEDS":        ("R", "S", "Mt", "seed"),
+    "DEEPER CRYSTALIZATION/MANUSCRIPTS":          ("S", "C", "Ac", "manuscript"),
+    "MATH/FINAL FORM":                            ("S", "R", "Cc", "math_final"),
+    "MATH/lp57omega":                             ("F", "S", "Wr", "lp57"),
+    "NERUAL NETWORK/ATHENA Neural Network":       ("C", "F", "Dl", "neural_core"),
+    "NERVOUS_SYSTEM/10_OVERVIEW":                 ("R", "S", "Sa", "nervous_overview"),
+    "NERVOUS_SYSTEM/20_CORPUS":                   ("S", "R", "Ac", "corpus"),
+    "NERVOUS_SYSTEM/30_APPENDIX":                 ("S", "C", "Bw", "appendix"),
+    "QSHRINK - ATHENA (internal use)/00_CONTROL": ("S", "R", "Cc", "qshrink_control"),
+    "QSHRINK - ATHENA (internal use)/CODEC":      ("R", "S", "Mt", "qshrink_codec"),
+    "Trading Bot/CRYPTO CURRENCY":                ("F", "C", "Me", "crypto"),
+    "Trading Bot/FOREX":                          ("F", "S", "Me", "forex"),
+    "Voynich/eva":                                ("C", "S", "Mt", "voynich_eva"),
+    "Voynich/decoder":                            ("C", "R", "Mt", "voynich_decoder"),
+    "Athena FLEET/FLEET_MYCELIUM_NETWORK":        ("R", "F", "Bw", "fleet_mycelium"),
+    "GAMES/FINAL GAME PRINTS":                    ("F", "S", "Cc", "games_final"),
+    "GLOBAL COMMAND/ATHENA":                      ("S", "F", "Cc", "command_core"),
+    "self_actualize/mycelium_brain":              ("R", "F", "Dl", "mycelium_brain"),
+}
+
+# Skip directories that are not meaningful organism content
+ORGANISM_SKIP_DIRS = {
+    ".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache",
+    ".claude", "MCP", "tests", "_repo_root", ".mypy_cache", "dist", "build",
+    "egg-info", ".eggs", ".tox",
+}
+
+# File extensions to scan as organism shards
+ORGANISM_EXTENSIONS = {".py", ".md", ".json", ".js", ".ts", ".yaml", ".yml", ".html", ".css"}
+
+# Metro line descriptions for the graph metadata
+METRO_LINES = {
+    "Sa": {"name": "Shell Ascent",      "desc": "Structural hierarchy — dimension layers",       "element": "S"},
+    "Wr": {"name": "Wreath Ring",       "desc": "Cyclical grouping — 7-chapter wreath bodies",   "element": "F"},
+    "Ac": {"name": "Archetype Column",  "desc": "12-archetype classification threads",           "element": "S"},
+    "Me": {"name": "Metro Express",     "desc": "Fast routing — core logic and dynamics",        "element": "F"},
+    "Mt": {"name": "Mobius Twist",      "desc": "Parity/inversion — compression and decoding",   "element": "R"},
+    "Bw": {"name": "Bridge Walk",       "desc": "Cross-domain connection corridors",             "element": "C"},
+    "Cc": {"name": "Crown Circuit",     "desc": "Organism-level governance and command",         "element": "S"},
+    "Dl": {"name": "Dimensional Lift",  "desc": "Higher-D emergence and actualization",          "element": "R"},
+}
+
 
 MANUSCRIPT_MODULE_FAMILY = {
     "address": "crystal",
@@ -417,6 +496,137 @@ def scan_manuscript_being() -> list[Shard]:
     return shards
 
 
+def scan_full_organism() -> list[Shard]:
+    """Scan the ENTIRE Athena Agent organism — every directory, every file.
+
+    Maps each file to:
+    - SFCR element affinity (primary + secondary lens)
+    - Metro line class (Sa/Wr/Ac/Me/Mt/Bw/Cc/Dl)
+    - Family (organism organ)
+    - Medium (code/doc/json/web/config)
+
+    Skips: .git, .venv, node_modules, MCP/ (already scanned), tests/
+    """
+    shards = []
+    root = _MCP_DIR.parent  # Athena Agent root
+
+    def _medium_for(ext: str) -> str:
+        if ext in (".py", ".js", ".ts"):
+            return "code"
+        if ext in (".md",):
+            return "doc"
+        if ext in (".json",):
+            return "json"
+        if ext in (".html", ".css"):
+            return "web"
+        if ext in (".yaml", ".yml"):
+            return "config"
+        return "doc"
+
+    def _should_skip(parts: tuple[str, ...]) -> bool:
+        """Check if any path component is in the skip set."""
+        for p in parts:
+            if p in ORGANISM_SKIP_DIRS:
+                return True
+            if p.endswith(".egg-info"):
+                return True
+        return False
+
+    def _lookup_dir(rel_parts: tuple[str, ...]) -> tuple[str, str, str, str]:
+        """Find best SFCR/metro mapping for a file's directory path.
+        Returns (primary_lens, secondary_lens, metro_line, family).
+        Checks subdirectory overrides first, then top-level directory.
+        """
+        # Try subdirectory overrides (most specific first)
+        for depth in range(min(3, len(rel_parts)), 0, -1):
+            subpath = "/".join(rel_parts[:depth])
+            if subpath in ORGANISM_SUBDIR_MAP:
+                return ORGANISM_SUBDIR_MAP[subpath]
+
+        # Fall back to top-level directory
+        if rel_parts and rel_parts[0] in ORGANISM_DIR_MAP:
+            return ORGANISM_DIR_MAP[rel_parts[0]]
+
+        # Unknown directory — balanced
+        return ("S", "C", "Bw", "misc")
+
+    def _seed_vector(primary: str, secondary: str) -> list[float]:
+        """Compute SFCR seed vector from primary+secondary lens."""
+        vec = [0.1, 0.1, 0.1, 0.1]
+        idx = {"S": 0, "F": 1, "C": 2, "R": 3}
+        vec[idx.get(primary, 0)] = 0.6
+        vec[idx.get(secondary, 1)] = 0.2
+        return vec
+
+    scanned = 0
+    for dirpath, dirnames, filenames in os.walk(root):
+        dp = Path(dirpath)
+        rel = dp.relative_to(root)
+        parts = rel.parts if str(rel) != "." else ()
+
+        # Filter out skip directories in-place (prunes os.walk)
+        dirnames[:] = [d for d in dirnames if d not in ORGANISM_SKIP_DIRS
+                       and not d.endswith(".egg-info")]
+
+        # Skip top-level dirs already scanned by other functions
+        if parts and parts[0] in ("MCP", "tests"):
+            dirnames.clear()
+            continue
+
+        for fname in filenames:
+            fp = dp / fname
+            ext = fp.suffix.lower()
+            if ext not in ORGANISM_EXTENSIONS:
+                continue
+
+            file_rel = fp.relative_to(root)
+            file_parts = file_rel.parts
+            dir_parts = file_parts[:-1]
+
+            if _should_skip(file_parts):
+                continue
+
+            primary, secondary, metro, family = _lookup_dir(dir_parts)
+            medium = _medium_for(ext)
+            rel_str = str(file_rel).replace("\\", "/")
+            sid = make_shard_id(medium, f"organism/{rel_str}")
+
+            # Build summary from filename
+            stem = fp.stem
+            if ext == ".py":
+                summary = _extract_docstring(fp)
+            elif ext == ".md" and stem.startswith("#"):
+                summary = stem.lstrip("# ").strip()[:80]
+            else:
+                summary = stem.replace("_", " ").replace("-", " ").title()[:80]
+
+            shards.append(Shard(
+                shard_id=sid,
+                lineage_id=sid,
+                medium=medium,
+                repo="manuscript-being",
+                lens=primary,
+                dimensional_scope="all",
+                payload_ref=rel_str,
+                summary=summary,
+                seed_vector=_seed_vector(primary, secondary),
+                route_refs=[metro],
+                cert_refs=[],
+                mirror_refs=[],
+                truth_status="CANONICAL",
+                promotion_status="PROMOTED",
+                family=family,
+                tags=[stem[:40], f"lens_{primary}", f"metro_{metro}", family,
+                      dir_parts[0] if dir_parts else "root"],
+                created_at=NOW,
+                updated_at=NOW,
+            ))
+            scanned += 1
+
+    print(f"  scanned {scanned} organism files")
+    return shards
+
+
 # ── Edge Building ───────────────────────────────────────────────────
 
 def build_edges(shards: list[Shard]) -> list[Edge]:
@@ -492,10 +702,10 @@ def build_edges(shards: list[Shard]) -> list[Edge]:
                     metadata={"mirror_type": "lobe_to_unified"},
                 ))
 
-    # REF edges: JSON files in same family
+    # REF edges: MCP data JSON files in same family (NOT organism JSON files)
     family_groups: dict[str, list[str]] = {}
     for s in shards:
-        if s.medium == "json":
+        if s.medium == "json" and s.repo == "athena-mcp-server":
             family_groups.setdefault(s.family, []).append(s.shard_id)
     for family, sids in family_groups.items():
         if len(sids) > 1:
@@ -566,6 +776,78 @@ def build_edges(shards: list[Shard]) -> list[Edge]:
                     weight=0.9,
                     medium_cross=False,
                     metadata={"seed_type": "unified_to_lobe"},
+                ))
+
+    # ── METRO edges: organism shards sharing the same metro line ──
+    # Group organism shards by metro line, then connect shards within each line
+    metro_groups: dict[str, list[Shard]] = {}
+    for s in shards:
+        for route in (s.route_refs or []):
+            if route in METRO_LINES:
+                metro_groups.setdefault(route, []).append(s)
+
+    for metro_code, group in metro_groups.items():
+        # Connect each shard to the next in the group (chain topology)
+        # Limit to avoid O(n^2) explosion — chain, not full mesh
+        for i in range(len(group) - 1):
+            a, b = group[i], group[i + 1]
+            eid = make_edge_id(a.shard_id, b.shard_id, "METRO")
+            edges.append(Edge(
+                edge_id=eid,
+                source_shard=a.shard_id,
+                target_shard=b.shard_id,
+                edge_type="METRO",
+                weight=0.5,
+                medium_cross=(a.medium != b.medium),
+                metadata={"metro_line": metro_code, "line_name": METRO_LINES[metro_code]["name"]},
+            ))
+
+    # ── BRIDGE edges: organism shards → MCP tool modules by SFCR lens ──
+    # Connect organism files with matching lens to the corresponding element server
+    element_server_sids = {}
+    for fp in sorted(ELEMENT_DIR.glob("*.py")):
+        if fp.stem == "__init__":
+            continue
+        lens = ELEMENT_LENS.get(fp.stem)
+        if lens:
+            element_server_sids[lens] = shard_by_ref.get(f"element_servers/{fp.name}")
+
+    organism_shards = [s for s in shards if s.repo == "manuscript-being" and s.lens]
+    # Sample: connect first shard of each family to its element server (avoid explosion)
+    family_connected: dict[tuple[str, str], bool] = {}
+    for os_shard in organism_shards:
+        key = (os_shard.family, os_shard.lens)
+        if key in family_connected:
+            continue
+        srv_sid = element_server_sids.get(os_shard.lens)
+        if srv_sid:
+            eid = make_edge_id(os_shard.shard_id, srv_sid, "BRIDGE")
+            edges.append(Edge(
+                edge_id=eid,
+                source_shard=os_shard.shard_id,
+                target_shard=srv_sid,
+                edge_type="BRIDGE",
+                weight=0.4,
+                medium_cross=True,
+                metadata={"bridge_type": "organism_to_element", "family": os_shard.family},
+            ))
+            family_connected[key] = True
+
+    # ── BRIDGE edges: organism families → brain_network ──
+    if brain_sid:
+        organism_families_seen = set()
+        for os_shard in organism_shards:
+            if os_shard.family not in organism_families_seen:
+                organism_families_seen.add(os_shard.family)
+                eid = make_edge_id(os_shard.shard_id, brain_sid, "BRIDGE")
+                edges.append(Edge(
+                    edge_id=eid,
+                    source_shard=os_shard.shard_id,
+                    target_shard=brain_sid,
+                    edge_type="BRIDGE",
+                    weight=0.3,
+                    medium_cross=True,
+                    metadata={"bridge_type": "organism_family_to_brain", "family": os_shard.family},
                 ))
 
     return edges
@@ -745,11 +1027,16 @@ def main():
     guild_shards = scan_guild_hall()
     print(f"  {len(guild_shards)} guild hall shards")
 
-    print("Scanning manuscript-being ...")
+    print("Scanning manuscript-being Python framework ...")
     ms_shards = scan_manuscript_being()
     print(f"  {len(ms_shards)} manuscript-being shards")
 
-    all_shards = json_shards + code_shards + element_shards + [main_shard] + guild_shards + ms_shards
+    print("Scanning FULL ORGANISM (every directory) ...")
+    organism_shards = scan_full_organism()
+    print(f"  {len(organism_shards)} organism shards")
+
+    all_shards = (json_shards + code_shards + element_shards + [main_shard]
+                  + guild_shards + ms_shards + organism_shards)
     print(f"\nTotal shards: {len(all_shards)}")
 
     print("Building edges ...")
@@ -773,13 +1060,25 @@ def main():
     for s in all_shards:
         family_sizes[s.family] = family_sizes.get(s.family, 0) + 1
 
+    # Compute metro line stats
+    metro_stats = {}
+    for s in all_shards:
+        for route in (s.route_refs or []):
+            if route in METRO_LINES:
+                metro_stats[route] = metro_stats.get(route, 0) + 1
+
+    # Compute lens distribution
+    lens_dist = {}
+    for s in all_shards:
+        lens_dist[s.lens or "balanced"] = lens_dist.get(s.lens or "balanced", 0) + 1
+
     # Emit mycelium_graph.json
     graph = {
         "meta": {
             "title": "Athena Mycelium Graph",
-            "description": "Universal shard/edge/node graph manifest for the Athena distributed superbrain",
+            "description": "Universal shard/edge/node graph manifest for the ENTIRE Athena distributed superbrain organism",
             "generated_at": NOW,
-            "generator": "generate_graph.py v1",
+            "generator": "generate_graph.py v2 — full organism",
             "shard_count": len(all_shards),
             "edge_count": len(edges),
             "mirror_count": len(mirrors),
@@ -787,6 +1086,9 @@ def main():
             "families": families,
             "mediums": mediums,
         },
+        "metro_lines": METRO_LINES,
+        "sfcr_directory_map": {k: {"primary": v[0], "secondary": v[1], "metro": v[2], "family": v[3]}
+                               for k, v in ORGANISM_DIR_MAP.items()},
         "shards": [to_dict(s) for s in all_shards],
         "edges": [to_dict(e) for e in edges],
         "mirrors": [to_dict(e) for e in mirrors],
@@ -795,6 +1097,8 @@ def main():
             "edge_type_distribution": edge_dist,
             "family_sizes": family_sizes,
             "medium_distribution": {m: sum(1 for s in all_shards if s.medium == m) for m in mediums},
+            "metro_line_distribution": metro_stats,
+            "sfcr_lens_distribution": lens_dist,
         },
     }
 
