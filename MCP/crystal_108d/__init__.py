@@ -140,6 +140,7 @@ def register_108d_tools(mcp) -> None:
     from .agent_watcher import query_agent_watcher
     from .quantum_crystal import query_quantum_crystal
     from .crystal_weights import query_crystal_weights
+    from .neural_engine import neural_forward_pass
 
     # Initialize telemetry singleton
     _telemetry = Telemetry.instance()
@@ -208,6 +209,7 @@ def register_108d_tools(mcp) -> None:
     mcp.tool()(query_agent_watcher)
     mcp.tool()(query_quantum_crystal)
     mcp.tool()(query_crystal_weights)
+    mcp.tool()(neural_forward_pass)
 
 def register_108d_resources(mcp) -> None:
     """Register all 108D crystal resources onto the MCP server."""
