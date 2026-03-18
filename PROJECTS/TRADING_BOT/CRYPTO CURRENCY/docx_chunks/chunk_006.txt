@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S18 | face=S | node=223 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A8:S17→Xi108:W2:A8:S19→Xi108:W1:A8:S18→Xi108:W3:A8:S18→Xi108:W2:A7:S18→Xi108:W2:A9:S18
+
 ols
 05.R4.a — Deterministic hatch construction protocol
 A HatchEvent must include:
@@ -35,7 +39,6 @@ def carry_triangle_step(ts: TriangleState, signals: dict) -> TriangleState:
     t1 = (ts.t1 + int(signals.get("defect_inc", 0))) % 3
     t2 = (ts.t2 + int(signals.get("depth_gate_inc", 0))) % 3
     return TriangleState(t0=t0, t1=t1, t2=t2, depth_budget=ts.depth_budget, pins=ts.pins)
-
 
 05.R4.d — Audit protocol for mode integrity
 At every recursion boundary (hatch), verify:
@@ -264,7 +267,6 @@ def residual(phi_vec, hub_vec):
         out.append(r)
     return out
 
-
 06.S4.b — Multi-axis tunnel steps and legality test
 STEP = [ 1/6, -1/6, 1/12, -1/12, 1/4, -1/4, 1/3, -1/3, 1/36, -1/36, 0.0 ]
 
@@ -276,7 +278,6 @@ def legal_step(delta_vec) -> bool:
 
 def apply_step(phi_vec, delta_vec):
     return [ (phi + d) % 1.0 for phi, d in zip(phi_vec, delta_vec) ]
-
 
 06.S4.c — Hub-first route synthesis (coordinatewise canonical plan)
 def hub_first_route(phiA, phiB):

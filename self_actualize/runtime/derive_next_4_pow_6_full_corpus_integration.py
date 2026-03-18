@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S25→Xi108:W2:A12:S27→Xi108:W1:A12:S26→Xi108:W3:A12:S26→Xi108:W2:A11:S26
+
 from __future__ import annotations
 
 import json
@@ -15,7 +19,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_text,
 )
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 MYCELIUM_ROOT = SELF_ACTUALIZE_ROOT / "mycelium_brain"
@@ -27,7 +30,6 @@ if str(ATHENA_PACKAGE_ROOT) not in sys.path:
     sys.path.insert(0, str(ATHENA_PACKAGE_ROOT))
 
 from athenachka.contracts import AwakeningAgentTransitionNote, FullCorpusIntegrationState  # noqa: E402
-
 
 DERIVATION_VERSION = "2026-03-13.next-4-pow-6.full-corpus-integration.v1"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_next_4_pow_6_full_corpus_integration"
@@ -80,14 +82,11 @@ INTEGRATION_TEST_PATH = WORKSPACE_ROOT / "NERUAL NETWORK" / "TEST SUITES" / "ver
 MERGE_TEST_PATH = WORKSPACE_ROOT / "NERUAL NETWORK" / "TEST SUITES" / "verify_jointatlas_merge_automaton.py"
 MOTION_TEST_PATH = WORKSPACE_ROOT / "NERUAL NETWORK" / "TEST SUITES" / "verify_motion_constitution_l1.py"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> Any:
     return json.loads(read_text(path))
-
 
 def docs_gate_status() -> str:
     credentials_path = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
@@ -98,18 +97,14 @@ def docs_gate_status() -> str:
         return "blocked-by-missing-token"
     return "open" if "Command status: `OPEN`" in read_text(DOCS_GATE_MD_PATH) else "blocked-by-auth-failure"
 
-
 def rel(path: Path) -> str:
     return relative_string(path)
-
 
 def note_ref(agent_id: str) -> str:
     return f"{rel(NOTES_JSON_PATH)}::{agent_id}"
 
-
 def canonical_source_count() -> int:
     return sum(1 for line in read_text(CANONICAL_SOURCES_PATH).splitlines() if line.startswith("- `"))
-
 
 def insert_before(text: str, block: str, anchor: str) -> str:
     if block.strip() in text:
@@ -118,14 +113,12 @@ def insert_before(text: str, block: str, anchor: str) -> str:
         return text.rstrip() + "\n\n" + block.strip() + "\n"
     return text.replace(anchor, block.strip() + "\n\n" + anchor, 1)
 
-
 def insert_after(text: str, block: str, anchor: str) -> str:
     if block.strip() in text:
         return text
     if anchor not in text:
         return text.rstrip() + "\n\n" + block.strip() + "\n"
     return text.replace(anchor, anchor + "\n\n" + block.strip(), 1)
-
 
 def run_command(command: list[str]) -> dict[str, Any]:
     result = subprocess.run(command, cwd=WORKSPACE_ROOT, capture_output=True, text=True)
@@ -142,7 +135,6 @@ def run_command(command: list[str]) -> dict[str, Any]:
         except json.JSONDecodeError:
             pass
     return payload
-
 
 def build_ap6d_notes(ap6d_registry: dict[str, Any]) -> list[AwakeningAgentTransitionNote]:
     advice = {
@@ -172,7 +164,6 @@ def build_ap6d_notes(ap6d_registry: dict[str, Any]) -> list[AwakeningAgentTransi
             )
         )
     return notes
-
 
 def build_adventurer_notes(agent_state: dict[str, Any]) -> list[AwakeningAgentTransitionNote]:
     specs = {
@@ -208,7 +199,6 @@ def build_adventurer_notes(agent_state: dict[str, Any]) -> list[AwakeningAgentTr
         )
     return notes
 
-
 def build_neglect_map(ap6d_atlas: dict[str, Any]) -> dict[str, Any]:
     move_weight = {"Diagnose": 1.0, "Refine": 0.95, "Synthesize": 0.9, "Scale": 0.85}
     band_weight = {"Residual-Stabilize": 0.9, "Boundary-Bridge": 1.0, "Council-Coordinate": 0.95, "Symbolic-Guard": 0.85}
@@ -230,7 +220,6 @@ def build_neglect_map(ap6d_atlas: dict[str, Any]) -> dict[str, Any]:
         })
     rows.sort(key=lambda item: (-item["transition_leverage"], item["prime_addr_6d"]))
     return {"generated_at": utc_now(), "truth": INTEGRATION_TRUTH, "entry_count": len(rows), "top_ranked": rows[:32], "source_atlas_path": rel(AP6D_ATLAS_PATH)}
-
 
 def update_control_surfaces() -> None:
     active_queue = insert_after(
@@ -348,7 +337,6 @@ This wave keeps the same feeder story: `Q42`, `Q46`, `TQ04`, and `TQ06` remain l
     write_text(ACTIVE_RUN_PATH, active_run)
     write_text(WHOLE_CRYSTAL_COORDINATION_PATH, coordination)
 
-
 def render_notes_markdown(notes: list[AwakeningAgentTransitionNote]) -> str:
     chunks = []
     for note in notes:
@@ -372,7 +360,6 @@ def render_notes_markdown(notes: list[AwakeningAgentTransitionNote]) -> str:
 - Truth: `{note.truth}`"""
         )
     return "# Awakening Agent Transition Notes\n\n" + "\n\n".join(chunks) + "\n"
-
 
 def main() -> int:
     ap6d_registry = load_json(AP6D_AGENT_REGISTRY_PATH)
@@ -489,7 +476,6 @@ def main() -> int:
     print(f"Wrote awakening notes: {rel(NOTES_JSON_PATH)}")
     print(f"Truth: {verification['truth']}")
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

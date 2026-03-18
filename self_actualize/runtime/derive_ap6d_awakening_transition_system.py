@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=349 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
@@ -8,7 +12,6 @@ from pathlib import Path
 from typing import Any
 
 from . import swarm_board
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -106,32 +109,25 @@ PATH_DRIFT_RECONCILIATIONS = [
     },
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def rel(path: Path) -> str:
     return path.relative_to(WORKSPACE_ROOT).as_posix()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
-
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def normalize_note_target(target: str) -> str:
     normalized = target.replace("\\", "/").strip()
@@ -141,14 +137,11 @@ def normalize_note_target(target: str) -> str:
         return f"self_actualize/mycelium_brain/{normalized}"
     return normalized
 
-
 def docs_gate_status() -> str:
     return swarm_board.docs_gate_status()["status"]
 
-
 def docs_gate_reason() -> str:
     return "Trading Bot/credentials.json and Trading Bot/token.json are still missing."
-
 
 def parse_canonical_sources() -> list[dict[str, Any]]:
     pattern = re.compile(
@@ -171,7 +164,6 @@ def parse_canonical_sources() -> list[dict[str, Any]]:
         )
     return docs
 
-
 def build_doc_move_map() -> dict[int, str]:
     mapping: dict[int, str] = {}
     for element, doc_ids in ELEMENT_BASIS_ORDER.items():
@@ -179,56 +171,43 @@ def build_doc_move_map() -> dict[int, str]:
             mapping[doc_id] = move
     return mapping
 
-
 DOC_TO_MOVE = build_doc_move_map()
 ELEMENT_MOVE_TO_DOC = {
     (element, DOC_TO_MOVE[doc_id]): doc_id for element, doc_ids in ELEMENT_BASIS_ORDER.items() for doc_id in doc_ids
 }
 
-
 def macro_id(element: str, move: str) -> str:
     return f"AP6D-H-{element.upper()}-{move}"
-
 
 def packet_id(element: str, move: str, band: str) -> str:
     return f"{macro_id(element, move)}-{band}"
 
-
 def fiber_id(element: str, move: str, band: str, surface: str) -> str:
     return f"AP6D-FIBER-{element.upper()}-{move}-{band}-{surface}"
-
 
 def seat_id(element: str, move: str, band: str, surface: str, phase: str) -> str:
     return f"AP6D-SEAT-{element.upper()}-{move}-{band}-{surface}-{phase}"
 
-
 def sorted_unique(items: list[str]) -> list[str]:
     return sorted({item for item in items if item})
-
 
 def load_agent_registry() -> dict[str, Any]:
     return read_json(AGENT_REGISTRY_PATH)
 
-
 def load_atlas() -> dict[str, Any]:
     return read_json(ATLAS_PATH)
-
 
 def active_atlas_seats(atlas: dict[str, Any]) -> list[dict[str, Any]]:
     return [seat for seat in atlas["seats"] if seat["activation_state"] == "ACTIVE"]
 
-
 def element_from_macro(macro: str) -> str:
     return macro.split("-")[2].title()
-
 
 def move_from_macro(macro: str) -> str:
     return macro.split("-")[3]
 
-
 def surface_from_fiber(fiber: str) -> str:
     return fiber.rsplit("-", 1)[1]
-
 
 def seat_id_from_atlas_record(record: dict[str, Any]) -> str:
     macro = record["hall_macro_parent"]
@@ -239,7 +218,6 @@ def seat_id_from_atlas_record(record: dict[str, Any]) -> str:
         surface=surface_from_fiber(record["governance_fiber_parent"]),
         phase=record["synaptic_phase"],
     )
-
 
 AGENT_BLUEPRINTS = {
     "AP6D-PRIME": {
@@ -401,7 +379,6 @@ FEEDER_BLUEPRINTS = {
     },
 }
 
-
 def normalize_agent_registry(agent_registry: dict[str, Any]) -> dict[str, Any]:
     payload = deepcopy(agent_registry)
     payload["generated_at"] = DATE_STAMP
@@ -475,7 +452,6 @@ def normalize_agent_registry(agent_registry: dict[str, Any]) -> dict[str, Any]:
         record["notes_targets"] = [normalize_note_target(item) for item in record.get("notes_targets", [])]
     return payload
 
-
 def build_transition_notes(agent_registry: dict[str, Any]) -> list[dict[str, Any]]:
     records = {item["agent_id"]: item for item in agent_registry["agent_records"]}
     notes: list[dict[str, Any]] = []
@@ -512,7 +488,6 @@ def build_transition_notes(agent_registry: dict[str, Any]) -> list[dict[str, Any
         )
     return notes
 
-
 def build_feeder_notes() -> list[dict[str, Any]]:
     notes: list[dict[str, Any]] = []
     for front_id in ["Q42", "Q46", "TQ04", "TQ06"]:
@@ -537,7 +512,6 @@ def build_feeder_notes() -> list[dict[str, Any]]:
         )
     return notes
 
-
 def build_matrix_cells(doc: dict[str, Any]) -> list[dict[str, Any]]:
     doc_id = doc["basis_id"]
     move = DOC_TO_MOVE[doc_id]
@@ -561,7 +535,6 @@ def build_matrix_cells(doc: dict[str, Any]) -> list[dict[str, Any]]:
             "meaning": "the basis document hands pressure to the next elemental lane through the same move grammar",
         },
     ]
-
 
 def build_bridge_lattice(canonical_sources: list[dict[str, Any]], atlas: dict[str, Any]) -> list[dict[str, Any]]:
     active_seats = active_atlas_seats(atlas)
@@ -591,7 +564,6 @@ def build_bridge_lattice(canonical_sources: list[dict[str, Any]], atlas: dict[st
             }
         )
     return records
-
 
 def build_bundle(
     agent_record: dict[str, Any],
@@ -631,7 +603,6 @@ def build_bundle(
         "truth": "OK",
     }
 
-
 def build_transition_bundles(
     agent_registry: dict[str, Any],
     transition_notes: list[dict[str, Any]],
@@ -643,7 +614,6 @@ def build_transition_bundles(
         build_bundle(agent_record, note_map[agent_record["agent_id"]], feeder_notes, atlas)
         for agent_record in agent_registry["agent_records"]
     ]
-
 
 def build_crosswalk(
     transition_notes: list[dict[str, Any]],
@@ -725,7 +695,6 @@ def build_crosswalk(
             for item in PATH_DRIFT_RECONCILIATIONS
         ],
     }
-
 
 def render_transition_summary(
     transition_notes: list[dict[str, Any]],
@@ -826,7 +795,6 @@ def render_transition_summary(
     )
     return "\n".join(lines)
 
-
 def render_hall_synthesis(
     transition_notes: list[dict[str, Any]],
     feeder_notes: list[dict[str, Any]],
@@ -905,7 +873,6 @@ def render_hall_synthesis(
     )
     return "\n".join(lines)
 
-
 def render_instruction_bundle(transition_notes: list[dict[str, Any]]) -> str:
     lines = [
         "# AP6D Elemental Agent Instruction Bundle",
@@ -968,7 +935,6 @@ def render_instruction_bundle(transition_notes: list[dict[str, Any]]) -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def render_temple_decree(feeder_notes: list[dict[str, Any]]) -> str:
     lines = [
@@ -1044,7 +1010,6 @@ def render_temple_decree(feeder_notes: list[dict[str, Any]]) -> str:
     )
     return "\n".join(lines)
 
-
 def render_temple_crystal(bridge_lattice: list[dict[str, Any]]) -> str:
     lines = [
         "# AP6D 256 Governance Crystal",
@@ -1092,7 +1057,6 @@ def render_temple_crystal(bridge_lattice: list[dict[str, Any]]) -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def render_whole_coordination(
     transition_notes: list[dict[str, Any]],
@@ -1173,7 +1137,6 @@ def render_whole_coordination(
     )
     return "\n".join(lines)
 
-
 def render_packet_contract() -> str:
     return "\n".join(
         [
@@ -1239,7 +1202,6 @@ def render_packet_contract() -> str:
         ]
     )
 
-
 def render_receipt() -> str:
     lines = [
         "# AP6D Awakening Transition Lattice Receipt",
@@ -1292,7 +1254,6 @@ def render_receipt() -> str:
     )
     return "\n".join(lines)
 
-
 def main() -> int:
     gate = docs_gate_status()
     canonical_sources = parse_canonical_sources()
@@ -1327,7 +1288,6 @@ def main() -> int:
     print(f"Wrote AP6D crosswalk: {CROSSWALK_PATH}")
     print(f"Docs gate: {gate}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

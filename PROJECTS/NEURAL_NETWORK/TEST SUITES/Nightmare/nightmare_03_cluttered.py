@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S33 | face=S | node=540 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S32→Xi108:W2:A3:S34→Xi108:W1:A3:S33→Xi108:W3:A3:S33→Xi108:W2:A2:S33→Xi108:W2:A4:S33
+
 """
 NIGHTMARE BENCHMARK 03: CLUTTERED SCENE
 ========================================

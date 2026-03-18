@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=143 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - SQUARING THE CIRCLE: CIRCLE SYSTEM
 ===============================================
@@ -42,7 +46,6 @@ from enum import Enum, IntEnum
 import numpy as np
 import math
 
-
 # =============================================================================
 # ENUMS - CIRCULAR SYSTEM
 # =============================================================================
@@ -54,7 +57,6 @@ class Mode(IntEnum):
     FIXED = 1      # Stabilizing, maintaining
     MUTABLE = 2    # Transitioning, adapting
 
-
 class Element(IntEnum):
     """The four classical elements."""
     
@@ -62,7 +64,6 @@ class Element(IntEnum):
     WATER = 1   # Cold + Wet
     AIR = 2     # Hot + Wet
     EARTH = 3   # Cold + Dry
-
 
 class Archetype(IntEnum):
     """The twelve zodiacal archetypes (3 modes × 4 elements)."""
@@ -87,7 +88,6 @@ class Archetype(IntEnum):
     TAURUS = 1       # Earth-Fixed
     VIRGO = 5        # Earth-Mutable
 
-
 # Archetype ordering by degree (0° Aries start)
 ARCHETYPE_ORDER = [
     Archetype.ARIES,       # 0° - 30°
@@ -103,7 +103,6 @@ ARCHETYPE_ORDER = [
     Archetype.AQUARIUS,    # 300° - 330°
     Archetype.PISCES       # 330° - 360°
 ]
-
 
 # =============================================================================
 # ARCHETYPE PROPERTIES
@@ -150,7 +149,6 @@ class ArchetypeProperties:
         """Check if degree falls within this archetype."""
         deg = degree % 360
         return self.start_degree <= deg < self.end_degree
-
 
 # Archetype definitions
 ARCHETYPE_DATA: Dict[Archetype, ArchetypeProperties] = {
@@ -204,7 +202,6 @@ ARCHETYPE_DATA: Dict[Archetype, ArchetypeProperties] = {
     ),
 }
 
-
 # =============================================================================
 # FACE (DECANATE)
 # =============================================================================
@@ -247,7 +244,6 @@ class Face:
     def __hash__(self) -> int:
         return hash(self.index)
 
-
 def generate_faces() -> List[Face]:
     """Generate all 36 faces of the zodiac."""
     faces = []
@@ -268,9 +264,7 @@ def generate_faces() -> List[Face]:
     
     return faces
 
-
 FACES = generate_faces()
-
 
 # =============================================================================
 # CIRCULAR POSITION
@@ -380,7 +374,6 @@ class CircularPosition:
     def __repr__(self) -> str:
         arch = self.archetype_props
         return f"{self.degree:.2f}° ({arch.name} {arch.symbol})"
-
 
 # =============================================================================
 # CIRCLE SYSTEM
@@ -505,7 +498,6 @@ class CircleSystem:
             "product_check": f"3 × 4 = {3*4}, 12 × 3 = {12*3}, 36 × 10 = {36*10}"
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -563,7 +555,6 @@ def validate_circle_system() -> bool:
     assert pos_a.aspect_to(pos_c) == "square"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Circle System...")

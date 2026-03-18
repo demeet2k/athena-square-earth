@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 """
 LP-57Ω Economic ABI — Typed Schemas
 
@@ -10,7 +14,6 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, List, Optional, Tuple
 
-
 # ═══════════════════════════════════════════════════════════════
 # ENUMS
 # ═══════════════════════════════════════════════════════════════
@@ -21,7 +24,6 @@ class Truth4(Enum):
     AMBIG = "AMBIG"
     FAIL = "FAIL"
 
-
 class Intent(Enum):
     READ = "READ"
     PROVE = "PROVE"
@@ -31,19 +33,16 @@ class Intent(Enum):
     PLAY = "PLAY"
     REWARD = "REWARD"
 
-
 class Pass3(Enum):
     SULFUR = "Sulfur"
     MERCURY = "Mercury"
     SALT = "Salt"
-
 
 class Element4(Enum):
     FIRE = "Fire"
     AIR = "Air"
     WATER = "Water"
     EARTH = "Earth"
-
 
 class QuestClass(Enum):
     # Core classes (KernelConst_v1.json canonical set)
@@ -65,7 +64,6 @@ class QuestClass(Enum):
     EVENT = "Event"
     CONVERGENCE = "Convergence"
 
-
 class QuestStatus(Enum):
     DRAFT = "Draft"
     ACTIVE = "Active"
@@ -74,11 +72,9 @@ class QuestStatus(Enum):
     PUBLISHED = "Published"
     ARCHIVED = "Archived"
 
-
 class BoardKind(Enum):
     GUILD = "Guild"
     TEMPLE = "Temple"
-
 
 class QueueName(Enum):
     FEATURED = "featured"
@@ -93,13 +89,11 @@ class QueueName(Enum):
     COMPRESSION = "compression"
     SOVEREIGN = "sovereign"
 
-
 class VaultState(Enum):
     LOCKED = "Locked"
     PARTIALLY_RELEASED = "PartiallyReleased"
     RELEASED = "Released"
     BURNED = "Burned"
-
 
 class StormState(Enum):
     DORMANT = "Dormant"
@@ -107,7 +101,6 @@ class StormState(Enum):
     ACTIVE = "Active"
     SATURATED = "Saturated"
     EXHAUSTED = "Exhausted"
-
 
 # ═══════════════════════════════════════════════════════════════
 # SHARED ABI TYPES
@@ -119,7 +112,6 @@ PolicyID = Ptr
 QuestID = Ptr
 AgentID = Ptr
 Epoch = int
-
 
 @dataclass
 class Vec4:
@@ -145,7 +137,6 @@ class Vec4:
     def as_tuple(self) -> Tuple[float, float, float, float]:
         return (self.fire, self.air, self.water, self.earth)
 
-
 @dataclass
 class Coord12:
     """12-slot liminal coordinate tuple."""
@@ -162,7 +153,6 @@ class Coord12:
     Hs: str = ""   # hierarchy level
     Os: str = ""   # zero-point / aether relation (Ωs)
 
-
 @dataclass
 class Corridor:
     """Route corridor constraints."""
@@ -171,7 +161,6 @@ class Corridor:
     hub_budget: int = 6
     sigma_locked: bool = True
     policy_digests: List[Ptr] = field(default_factory=list)
-
 
 @dataclass
 class TruthRecord:
@@ -190,7 +179,6 @@ class TruthRecord:
     evidence_plan: Optional[Ptr] = None
     # FAIL-specific
     quarantine_capsule: Optional[Ptr] = None
-
 
 @dataclass
 class LedgerStamp:
@@ -219,7 +207,6 @@ class LedgerStamp:
     risk_level: float = 0.0
     closure_status: str = ""
     carry_forward_class: str = ""
-
 
 # ═══════════════════════════════════════════════════════════════
 # QUEST OBJECTS
@@ -252,7 +239,6 @@ class Quest:
     vesting_mode: str = "None"
     status: QuestStatus = QuestStatus.DRAFT
 
-
 @dataclass
 class CommunityQuest(Quest):
     """Quest requiring multi-party coordination."""
@@ -269,7 +255,6 @@ class CommunityQuest(Quest):
     anti_sybil_receipts: List[Ptr] = field(default_factory=list)
     split_policy_id: Optional[Ptr] = None
 
-
 @dataclass
 class TempleRite(Quest):
     """Quest for certification, purity, and corridor law."""
@@ -281,7 +266,6 @@ class TempleRite(Quest):
     grace_weight: float = 0.0
     resonance_weight: float = 0.0
     publish_block_set: List[GlobalAddr] = field(default_factory=list)
-
 
 # ═══════════════════════════════════════════════════════════════
 # STORM / PHEROMONE
@@ -307,7 +291,6 @@ class PhiStorm:
     replay_ptr: Optional[Ptr] = None
     witness_ptr: Optional[Ptr] = None
 
-
 @dataclass
 class PheromoneField:
     """Route/quest pheromone field with positive and shadow channels."""
@@ -323,7 +306,6 @@ class PheromoneField:
     shadow_threshold: float = 13.0
     contributor_root: Optional[Ptr] = None
     pulse_score: float = 0.0
-
 
 # ═══════════════════════════════════════════════════════════════
 # REWARD / SETTLEMENT
@@ -356,7 +338,6 @@ class PoPhiXCapsule:
     replay_ptr: Optional[Ptr] = None
     witness_ptr: Optional[Ptr] = None
 
-
 @dataclass
 class VestingVault:
     """NEAR settlement vesting container."""
@@ -375,7 +356,6 @@ class VestingVault:
     unlock_replay_ptrs: List[Ptr] = field(default_factory=list)
     state: VaultState = VaultState.LOCKED
 
-
 @dataclass
 class RewardPolicyMIGRATE:
     """Versioned reward policy change object."""
@@ -393,7 +373,6 @@ class RewardPolicyMIGRATE:
     rollback_plan_ptr: Optional[Ptr] = None
     truth_record: Optional[TruthRecord] = None
 
-
 # ═══════════════════════════════════════════════════════════════
 # BOARD CONTAINERS
 # ═══════════════════════════════════════════════════════════════
@@ -409,7 +388,6 @@ class GuildHallBoard:
     coord12: Optional[Coord12] = None
     ledger_chain: List[Ptr] = field(default_factory=list)
 
-
 @dataclass
 class TempleRegistry:
     """Temple certification registry."""
@@ -421,7 +399,6 @@ class TempleRegistry:
     sort_key_id: Optional[Ptr] = None
     coord12: Optional[Coord12] = None
     ledger_chain: List[Ptr] = field(default_factory=list)
-
 
 # ═══════════════════════════════════════════════════════════════
 # RECEIPT BUNDLE OBJECTS
@@ -445,7 +422,6 @@ class ClaimPack:
     replay_bundle_ref: Optional[Ptr] = None
     receipt_registry_ref: Optional[Ptr] = None
 
-
 @dataclass
 class WitnessBundle:
     """Typed witness carrier."""
@@ -458,7 +434,6 @@ class WitnessBundle:
     aux_data: List[Ptr] = field(default_factory=list)
     discharges: List[Dict[str, Ptr]] = field(default_factory=list)
     witness_digest: Ptr = ""
-
 
 @dataclass
 class ReplayBundle:
@@ -474,7 +449,6 @@ class ReplayBundle:
     determinism_mode: str = "strict"
     replay_digest: Ptr = ""
 
-
 @dataclass
 class ReceiptEntry:
     """Single receipt in the canonical chain."""
@@ -488,14 +462,12 @@ class ReceiptEntry:
     phase_rank: int = 0
     type_rank: int = 0
 
-
 @dataclass
 class ReceiptRegistry:
     """Ordered receipt chain."""
     receipt_registry_ver: str = "JointAtlas.v1"
     receipt_entries: List[ReceiptEntry] = field(default_factory=list)
     receipt_chain_root: Ptr = ""
-
 
 @dataclass
 class ReleaseManifest:
@@ -506,7 +478,6 @@ class ReleaseManifest:
     entries: List[Dict[str, str]] = field(default_factory=list)
     manifest_digest: Ptr = ""
     release_id: Ptr = ""
-
 
 @dataclass
 class SealedReceiptBundle:
@@ -522,7 +493,6 @@ class SealedReceiptBundle:
     claim_packs: List[Ptr] = field(default_factory=list)
     witness_bundles: List[Ptr] = field(default_factory=list)
     replay_bundles: List[Ptr] = field(default_factory=list)
-
 
 # ═══════════════════════════════════════════════════════════════
 # BOARD KERNEL OBJECTS
@@ -549,7 +519,6 @@ class Candidate:
     witness_ptrs: List[str] = field(default_factory=list)
     replay_ptrs: List[str] = field(default_factory=list)
 
-
 @dataclass(frozen=True)
 class RouteTicket:
     """Deterministic route compilation result."""
@@ -563,7 +532,6 @@ class RouteTicket:
     mode: str
     overlay: Optional[str]
 
-
 @dataclass
 class BoardEntry:
     """Scored board entry ready for queue assignment."""
@@ -573,7 +541,6 @@ class BoardEntry:
     score: float
     queue: QueueName
     reason: str = ""
-
 
 @dataclass
 class AgentProfile:

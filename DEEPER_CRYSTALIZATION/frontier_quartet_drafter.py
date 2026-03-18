@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 from __future__ import annotations
 
 import argparse
@@ -10,7 +14,6 @@ from pathlib import Path
 from canonical_manuscript_builder import DEFAULT_MANIFEST, build_manuscript_volumes
 from chapter_frontier_compiler import CHAPTER_FRONTIER_CODES, cell_groups_for_chapter, chapter_from_code
 from nervous_system_core import presentation_name, utc_now, write_json, write_text
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 ACTIVE_ROOT = PROJECT_ROOT / "ACTIVE_NERVOUS_SYSTEM"
@@ -82,7 +85,6 @@ FACET_OPENINGS = {
     "Certificates": "The certificate layer seals the chapter's claims with replayable closure and makes promotion lawful.",
 }
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Draft the frontier quartet into canonical manuscript sections.")
     parser.add_argument("--chapter", required=True, choices=[*CHAPTER_FRONTIER_CODES, "all"])
@@ -90,14 +92,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--json", action="store_true", dest="as_json")
     return parser.parse_args()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def load_frontier_manifest() -> dict:
     return load_json(FRONTIER_MANIFEST_PATH)
-
 
 def chapter_entry(frontier_manifest: dict, chapter_code: str) -> dict:
     for item in frontier_manifest["chapter_packs"]:
@@ -105,17 +104,14 @@ def chapter_entry(frontier_manifest: dict, chapter_code: str) -> dict:
             return item
     raise KeyError(f"Missing chapter pack in frontier manifest: {chapter_code}")
 
-
 def load_chapter_payload(entry: dict) -> dict:
     return load_json(Path(entry["evidence_pack"]))
-
 
 def clean_sentence(text: str) -> str:
     cleaned = text.replace("`", "")
     cleaned = cleaned.replace("CANDIDATE", "").replace("OPEN - ", "")
     cleaned = re.sub(r"\s+", " ", cleaned).strip()
     return cleaned
-
 
 def archive_source(chapter_code: str, payload: dict) -> tuple[str, str]:
     LEGACY_DIR.mkdir(parents=True, exist_ok=True)
@@ -128,16 +124,13 @@ def archive_source(chapter_code: str, payload: dict) -> tuple[str, str]:
     shutil.copy2(source_path, archive_path)
     return str(source_path), str(archive_path)
 
-
 def atom_title(title: str, lens_label: str) -> str:
     if title.startswith(f"{lens_label} "):
         return title[len(lens_label) + 1 :]
     return title
 
-
 def evidence_lookup(payload: dict) -> dict[str, dict]:
     return {item["id"]: item for item in payload["results"]["frontier_sources"]}
-
 
 def render_cell_sentence(cell: dict, chapter_title: str, lookup: dict[str, dict], lens_label: str) -> str:
     title = atom_title(cell["title"], lens_label)
@@ -157,7 +150,6 @@ def render_cell_sentence(cell: dict, chapter_title: str, lookup: dict[str, dict]
     if cell["facet_index"] == 3:
         return f"{title} operationalizes {chapter_title} as executable machinery rather than inert description.{evidence_phrase}".strip()
     return f"{title} seals the corresponding object, law, or construction for {chapter_title} with replayable closure.{evidence_phrase}".strip()
-
 
 def render_facet_paragraph(
     chapter_title: str,
@@ -181,7 +173,6 @@ def render_facet_paragraph(
     body = " ".join(render_cell_sentence(cell, chapter_title, lookup, lens_label) for cell in cells)
     return f"{lead} {body}".strip()
 
-
 def route_sentence(routes: list[dict], label: str) -> str:
     if not routes:
         return f"The {label} field is currently empty under the local-only evidence regime."
@@ -189,7 +180,6 @@ def route_sentence(routes: list[dict], label: str) -> str:
     src = presentation_name(first["src_display_name"])
     dst = presentation_name(first["dst_display_name"])
     return f"The highest-yield {label} in the present corpus is the route {src} <-> {dst}, which concentrates the chapter's current bridge pressure into one reusable transition surface."
-
 
 def render_chapter_markdown(chapter_code: str, payload: dict) -> str:
     chapter = chapter_from_code(chapter_code)
@@ -256,16 +246,13 @@ def render_chapter_markdown(chapter_code: str, payload: dict) -> str:
     )
     return "\n".join(lines)
 
-
 def write_canonical_section(chapter_code: str, markdown: str) -> Path:
     target = SECTIONS_DIR / CANONICAL_TARGETS[chapter_code]
     write_text(target, markdown)
     return target
 
-
 def section_word_count(path: Path) -> int:
     return len(path.read_text(encoding="utf-8").split())
-
 
 def replace_or_append_section(text: str, heading: str, body_lines: list[str]) -> str:
     block = "\n".join([heading, "", *body_lines]).rstrip()
@@ -273,7 +260,6 @@ def replace_or_append_section(text: str, heading: str, body_lines: list[str]) ->
     if heading in text:
         return pattern.sub("\n" + block + "\n", text).rstrip() + "\n"
     return text.rstrip() + "\n\n" + block + "\n"
-
 
 def update_readme(draft_manifest: dict) -> None:
     text = README_PATH.read_text(encoding="utf-8")
@@ -288,7 +274,6 @@ def update_readme(draft_manifest: dict) -> None:
     updated = replace_or_append_section(text, "## Frontier Quartet Draft State", body)
     write_text(README_PATH, updated)
 
-
 def update_full_stack_manifest(draft_manifest: dict) -> None:
     manifest = load_json(FULL_STACK_MANIFEST_PATH)
     manifest.setdefault("layers", {})
@@ -302,7 +287,6 @@ def update_full_stack_manifest(draft_manifest: dict) -> None:
         "live_docs_blocked": draft_manifest["live_docs_blocked"],
     }
     write_json(FULL_STACK_MANIFEST_PATH, manifest)
-
 
 def draft_one(chapter_code: str, frontier_manifest: dict) -> dict:
     entry = chapter_entry(frontier_manifest, chapter_code)
@@ -327,7 +311,6 @@ def draft_one(chapter_code: str, frontier_manifest: dict) -> dict:
         "candidate_cell_count": entry["candidate_cell_count"],
         "status": "drafted",
     }
-
 
 def build_draft_manifest(chapters: list[dict], volume_receipt: dict | None, live_docs_error: str) -> dict:
     spine_receipt = (volume_receipt or {}).get("volumes", {}).get("spine")
@@ -360,7 +343,6 @@ def build_draft_manifest(chapters: list[dict], volume_receipt: dict | None, live
             }),
         },
     }
-
 
 def main() -> int:
     args = parse_args()
@@ -399,7 +381,6 @@ def main() -> int:
         print(f"Master manuscript rebuilt: {draft_manifest['master_manuscript']['rebuilt']}")
         print(f"Supplements volume rebuilt: {draft_manifest['supplements_manuscript']['rebuilt']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=302 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import heapq
@@ -5,7 +9,6 @@ import re
 from typing import Any, Dict, Iterable, List, Tuple
 
 from self_actualize.runtime.phase4_query_engine import objective_vector, shorten
-
 
 PT2_FILTER_ORDER = [
     "authority",
@@ -20,15 +23,12 @@ PT2_FILTER_ORDER = [
     "tags",
 ]
 
-
 def normalize(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", value.lower()).strip()
-
 
 def _registry_items(registries: Dict[str, Any], key: str, list_key: str) -> List[Dict[str, Any]]:
     payload = registries.get(key, {})
     return list(payload.get(list_key, []))
-
 
 def build_alias_map(registries: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     alias_map: Dict[str, Dict[str, Any]] = {}
@@ -82,7 +82,6 @@ def build_alias_map(registries: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
 
     return alias_map
 
-
 def _match_text(query_norm: str, fields: Iterable[str]) -> float:
     haystack = normalize(" ".join(str(field) for field in fields if field))
     if not query_norm or not haystack:
@@ -99,7 +98,6 @@ def _match_text(query_norm: str, fields: Iterable[str]) -> float:
         return 0.0
     return round(0.4 + (0.45 * (len(overlap) / len(tokens))), 3)
 
-
 def _requested_lenses(objective: str, registries: Dict[str, Any]) -> List[str]:
     query_norm = normalize(objective)
     requested: List[str] = []
@@ -112,7 +110,6 @@ def _requested_lenses(objective: str, registries: Dict[str, Any]) -> List[str]:
             if normalize(field) and normalize(field) in query_norm:
                 requested.append(item["lens_id"])
     return list(dict.fromkeys(requested))
-
 
 def _needs_quarantine(interlock_record: Dict[str, Any], registries: Dict[str, Any]) -> bool:
     if registries["dashboard"]["docs_gate"] != "BLOCKED":
@@ -127,7 +124,6 @@ def _needs_quarantine(interlock_record: Dict[str, Any], registries: Dict[str, An
         ]
     )
     return any(token in normalize(text) for token in ["trading bot", "historical", "reservoir"])
-
 
 def locate(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, Any]:
     query_norm = normalize(query)
@@ -199,7 +195,6 @@ def locate(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str,
         "results": results[:limit],
     }
 
-
 def interlock(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, Any]:
     query_norm = normalize(query)
     matches: List[Dict[str, Any]] = []
@@ -241,7 +236,6 @@ def interlock(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[s
         "query": query,
         "results": matches[:limit],
     }
-
 
 def lens(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, Any]:
     query_norm = normalize(query)
@@ -312,7 +306,6 @@ def lens(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, A
         "profiles": profile_hits[:limit],
         "states": state_hits[:limit],
     }
-
 
 def field(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, Any]:
     query_norm = normalize(query)
@@ -403,7 +396,6 @@ def field(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, 
         "aether_points": aether_hits[:limit],
     }
 
-
 def project(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, Any]:
     query_norm = normalize(query)
     spaces = _registry_items(registries, "projection_space_registry", "spaces")
@@ -469,7 +461,6 @@ def project(query: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str
         "assignments": assignment_hits[:limit],
     }
 
-
 def _resolve_system(query: str, registries: Dict[str, Any]) -> Tuple[str | None, Dict[str, Any] | None]:
     alias_map = build_alias_map(registries)
     hit = alias_map.get(normalize(query))
@@ -496,7 +487,6 @@ def _resolve_system(query: str, registries: Dict[str, Any]) -> Tuple[str | None,
     if kind == "aether_point":
         return payload["system_id"], payload
     return None, payload
-
 
 def route(source: str, target: str, registries: Dict[str, Any]) -> Dict[str, Any]:
     source_system, source_payload = _resolve_system(source, registries)
@@ -572,7 +562,6 @@ def route(source: str, target: str, registries: Dict[str, Any]) -> Dict[str, Any
         "reason": "No lawful interlock chain was found.",
     }
 
-
 def fire(objective: str, registries: Dict[str, Any], limit: int = 12) -> Dict[str, Any]:
     objective_weights = objective_vector(objective)
     requested_lenses = _requested_lenses(objective, registries)
@@ -620,7 +609,6 @@ def fire(objective: str, registries: Dict[str, Any], limit: int = 12) -> Dict[st
         "topk_policy": "sparse_pt2_lens_and_field_firing",
         "results": candidates[:limit],
     }
-
 
 def promote(candidate: str | None, registries: Dict[str, Any]) -> Dict[str, Any]:
     if not candidate:

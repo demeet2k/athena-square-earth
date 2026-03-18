@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      TROPICAL GEOMETRY MODULE                                ║
@@ -27,7 +31,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Dict, Set
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TROPICAL NUMBER
@@ -83,7 +86,6 @@ class TropicalNumber:
     
     def is_infinity(self) -> bool:
         return self.value == float('inf')
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TROPICAL MATRIX
@@ -182,7 +184,6 @@ class TropicalMatrix:
         np.fill_diagonal(data, 0)
         return cls(data)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TROPICAL POLYNOMIAL
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -273,7 +274,6 @@ class TropicalPolynomial:
             result = result * factor
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TROPICAL CURVE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -340,7 +340,6 @@ class TropicalCurve:
             (2, 0): 0, (1, 1): 0, (0, 2): 0
         })
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # VALUATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -388,7 +387,6 @@ class Valuation:
         return [-np.log(v) / np.log(base) if v > 0 else float('inf') 
                 for v in values]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # D-POLE TROPICAL BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -426,7 +424,6 @@ class DPoleTropicalBridge:
         trop = TropicalMatrix.from_graph(adj)
         return trop.kleene_star()
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -435,16 +432,13 @@ def tropical(x: float) -> TropicalNumber:
     """Create tropical number."""
     return TropicalNumber(x)
 
-
 def tropical_matrix(data: NDArray) -> TropicalMatrix:
     """Create tropical matrix."""
     return TropicalMatrix(data)
 
-
 def tropical_poly(*coeffs: float) -> TropicalPolynomial:
     """Create tropical polynomial."""
     return TropicalPolynomial(list(coeffs))
-
 
 def all_pairs_shortest_paths(adj: NDArray) -> NDArray:
     """Compute all-pairs shortest paths."""
@@ -452,11 +446,9 @@ def all_pairs_shortest_paths(adj: NDArray) -> NDArray:
     star = trop.kleene_star()
     return star.data
 
-
 def p_adic_valuation(n: int, p: int) -> float:
     """p-adic valuation of n."""
     return Valuation.p_adic(n, p)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S26 | face=F | node=335 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S25→Xi108:W2:A1:S27→Xi108:W1:A1:S26→Xi108:W3:A1:S26→Xi108:W2:A2:S26
+
 """`Atlas`: a single object that *runs the kernel* and *stores the meaning*.
 
 AtlasForge has two layers:
@@ -35,14 +39,12 @@ from atlasforge.recipes.recipe import Blueprint, SolvePlan, Recipe, RecipeExecut
 from atlasforge.memory.store import MemoryStore
 from atlasforge.core.enums import TruthProfile
 
-
 @dataclass
 class AtlasConfig:
     """Configuration for an :class:`~atlasforge.atlas.atlas.Atlas`."""
 
     memory_dir: Optional[str] = None
     auto_bootstrap: bool = True
-
 
 class Atlas:
     """High-level orchestrator for *math as memory*.
@@ -181,7 +183,6 @@ class Atlas:
             address=address,
         )
 
-
     # ------------------------------------------------------------------
     # Structured knowledge helpers (Definitions/Lemmas/Theorems/...)
     # ------------------------------------------------------------------
@@ -225,7 +226,6 @@ class Atlas:
     # ------------------------------------------------------------------
     # Book compiler
     # ------------------------------------------------------------------
-
 
     def export_book(
         self,
@@ -302,7 +302,6 @@ class Atlas:
         if fmt_norm in ("tex", "latex"):
             return builder.export_tex(output_path, cfg)
         return builder.export_markdown(output_path, cfg)
-
 
     def recall(
         self,

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=418 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 from __future__ import annotations
 
 import copy
@@ -29,7 +33,6 @@ from self_actualize.runtime.derive_q42_canonical_bundle import (
     main as derive_q42_canonical_bundle_main,
     q42_allowed_touched_paths,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -63,27 +66,21 @@ TEXT_NORMALIZED_SUFFIXES = {
     ".yml",
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def local_now() -> datetime:
     return datetime.now(LOCAL_TIMEZONE)
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-
 
 def write_if_changed(path: Path, text: str) -> bool:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -94,20 +91,16 @@ def write_if_changed(path: Path, text: str) -> bool:
     path.write_text(normalized_text, encoding="utf-8")
     return True
 
-
 def normalize_text_for_comparison(text: str) -> str:
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     normalized = "\n".join(line.rstrip() for line in normalized.split("\n")).rstrip("\n")
     return f"{normalized}\n"
 
-
 def relative_posix(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
 
-
 def absolute_from_relative(relative_path: str) -> Path:
     return WORKSPACE_ROOT / Path(relative_path.replace("\\", "/"))
-
 
 def display_path(path_value: str) -> str:
     candidate = Path(path_value)
@@ -118,10 +111,8 @@ def display_path(path_value: str) -> str:
             return path_value.replace("\\", "/")
     return path_value.replace("\\", "/")
 
-
 def surface_is_textual(path: Path) -> bool:
     return path.suffix.lower() in TEXT_NORMALIZED_SUFFIXES
-
 
 def surface_hash(path: Path) -> str | None:
     if not path.exists():
@@ -132,13 +123,11 @@ def surface_hash(path: Path) -> str | None:
         payload = path.read_bytes()
     return hashlib.sha256(payload).hexdigest()
 
-
 def snapshot_surface_hashes(relative_paths: list[str]) -> dict[str, str | None]:
     return {
         path: surface_hash(absolute_from_relative(path))
         for path in sorted(set(relative_paths))
     }
-
 
 def controlled_surface_paths() -> list[str]:
     return sorted(
@@ -151,7 +140,6 @@ def controlled_surface_paths() -> list[str]:
         }
     )
 
-
 def compute_actual_touched_paths(
     pre_run_hashes: dict[str, str | None],
     final_hashes: dict[str, str | None],
@@ -161,7 +149,6 @@ def compute_actual_touched_paths(
         for path in final_hashes
         if final_hashes.get(path) != pre_run_hashes.get(path)
     )
-
 
 def compute_transient_touched_paths(
     pre_run_hashes: dict[str, str | None],
@@ -177,14 +164,12 @@ def compute_transient_touched_paths(
             transient.append(path)
     return sorted(transient)
 
-
 def extract_block(text: str, header: str) -> str:
     pattern = re.compile(rf"(?ms)^{re.escape(header)}\n(?P<body>.*?)(?=^### |\Z)")
     match = pattern.search(text)
     if not match:
         raise ValueError(f"Could not locate block: {header}")
     return match.group("body").rstrip()
-
 
 def replace_block(text: str, header: str, body: str) -> str:
     pattern = re.compile(rf"(?ms)^{re.escape(header)}\n.*?(?=^### |\Z)")
@@ -193,7 +178,6 @@ def replace_block(text: str, header: str, body: str) -> str:
     if count != 1:
         raise ValueError(f"Could not replace block: {header}")
     return updated
-
 
 def replace_header_block(
     text: str,
@@ -208,10 +192,8 @@ def replace_header_block(
         raise ValueError(f"Could not replace block matching: {header_pattern}")
     return updated
 
-
 def render_backticked_lines(values: list[str], indent: str = "  ") -> str:
     return "\n".join(f"{indent}`{value}`" for value in values)
-
 
 def render_q42_quest_block(bundle: dict[str, Any]) -> str:
     hall = bundle["hall_contract"]
@@ -237,7 +219,6 @@ def render_q42_quest_block(bundle: dict[str, Any]) -> str:
             "",
         ]
     )
-
 
 def render_q42_active_queue_block(bundle: dict[str, Any]) -> str:
     hall = bundle["hall_contract"]
@@ -265,7 +246,6 @@ def render_q42_active_queue_block(bundle: dict[str, Any]) -> str:
             "",
         ]
     )
-
 
 def render_q42_active_front(bundle: dict[str, Any]) -> str:
     hall = bundle["hall_contract"]
@@ -321,7 +301,6 @@ def render_q42_active_front(bundle: dict[str, Any]) -> str:
         ]
     )
 
-
 def render_q42_next_self_prompt(bundle: dict[str, Any]) -> str:
     hall = bundle["hall_contract"]
     selected = bundle["selected_pressure"]
@@ -356,7 +335,6 @@ def render_q42_next_self_prompt(bundle: dict[str, Any]) -> str:
         ]
     )
 
-
 def render_q42_corridor_membrane(bundle: dict[str, Any]) -> str:
     runtime_rail = bundle["runtime_rail"]
     return "\n".join(
@@ -386,7 +364,6 @@ def render_q42_corridor_membrane(bundle: dict[str, Any]) -> str:
             "",
         ]
     )
-
 
 def render_q42_athena_fleet_route_map(bundle: dict[str, Any]) -> str:
     route = bundle["route_contract"]["athena_fleet"]
@@ -421,7 +398,6 @@ def render_q42_athena_fleet_route_map(bundle: dict[str, Any]) -> str:
         ]
     )
 
-
 def render_q42_orgin_route_map(bundle: dict[str, Any]) -> str:
     route = bundle["route_contract"]["orgin"]
     return "\n".join(
@@ -446,7 +422,6 @@ def render_q42_orgin_route_map(bundle: dict[str, Any]) -> str:
             "",
         ]
     )
-
 
 def render_q42_receipt(bundle: dict[str, Any]) -> str:
     hall = bundle["hall_contract"]
@@ -506,11 +481,9 @@ def render_q42_receipt(bundle: dict[str, Any]) -> str:
         ]
     )
 
-
 def load_q42_bundle() -> dict[str, Any]:
     derive_q42_canonical_bundle_main()
     return load_json(Q42_BUNDLE_JSON_PATH)
-
 
 def sync_q42_quest_board(bundle: dict[str, Any]) -> bool:
     text = load_text(QUEST_BOARD_PATH)
@@ -521,7 +494,6 @@ def sync_q42_quest_board(bundle: dict[str, Any]) -> bool:
         render_q42_quest_block(bundle),
     )
     return write_if_changed(QUEST_BOARD_PATH, updated)
-
 
 def sync_q42_active_queue(bundle: dict[str, Any]) -> bool:
     text = load_text(ACTIVE_QUEUE_PATH)
@@ -536,10 +508,8 @@ def sync_q42_active_queue(bundle: dict[str, Any]) -> bool:
     )
     return write_if_changed(ACTIVE_QUEUE_PATH, updated)
 
-
 def sync_q42_active_front(bundle: dict[str, Any]) -> bool:
     return write_if_changed(QSHRINK_ACTIVE_FRONT_PATH, render_q42_active_front(bundle))
-
 
 def sync_q42_next_self_prompt(bundle: dict[str, Any]) -> bool:
     rendered = render_q42_next_self_prompt(bundle)
@@ -548,13 +518,11 @@ def sync_q42_next_self_prompt(bundle: dict[str, Any]) -> bool:
         return False
     return write_if_changed(NEXT_SELF_PROMPT_PATH, rendered)
 
-
 def sync_q42_corridor_membrane(bundle: dict[str, Any]) -> bool:
     return write_if_changed(
         ATHENA_OS_CORRIDOR_MEMBRANE_MD_PATH,
         render_q42_corridor_membrane(bundle),
     )
-
 
 def sync_q42_athena_fleet_route_map(bundle: dict[str, Any]) -> bool:
     return write_if_changed(
@@ -562,15 +530,12 @@ def sync_q42_athena_fleet_route_map(bundle: dict[str, Any]) -> bool:
         render_q42_athena_fleet_route_map(bundle),
     )
 
-
 def sync_q42_orgin_route_map(bundle: dict[str, Any]) -> bool:
     return write_if_changed(ORGIN_ROUTE_MAP_PATH, render_q42_orgin_route_map(bundle))
-
 
 def sync_q42_receipt(bundle: dict[str, Any]) -> bool:
     receipt_path = absolute_from_relative(bundle["receipt_path"])
     return write_if_changed(receipt_path, render_q42_receipt(bundle))
-
 
 def handle_q42_sync(_: dict[str, Any]) -> tuple[str, list[str]]:
     bundle = load_q42_bundle()
@@ -591,7 +556,6 @@ def handle_q42_sync(_: dict[str, Any]) -> tuple[str, list[str]]:
     if sync_q42_receipt(bundle):
         changed.append(relative_posix(receipt_path))
     return "q42_sync", changed
-
 
 def render_atlas_regen_receipt(
     ranking_payload: dict[str, Any],
@@ -620,7 +584,6 @@ def render_atlas_regen_receipt(
 
 {promoted_sample}
 """
-
 
 def handle_front_full_atlas_regen(ranking_payload: dict[str, Any]) -> tuple[str, list[str]]:
     before_atlas = load_text(CORPUS_ATLAS_PATH)
@@ -659,7 +622,6 @@ def handle_front_full_atlas_regen(ranking_payload: dict[str, Any]) -> tuple[str,
         changed.append(relative_posix(ATLAS_REGEN_RECEIPT_PATH))
     return "front_full_atlas_regen", changed
 
-
 def handle_q50_wave_handoff(ranking_payload: dict[str, Any]) -> tuple[str, list[str]]:
     payload = load_json(WAVE_STATE_PATH)
     desired = {
@@ -684,13 +646,11 @@ def handle_q50_wave_handoff(ranking_payload: dict[str, Any]) -> tuple[str, list[
     write_json(WAVE_STATE_PATH, payload)
     return "q50_wave_handoff", [relative_posix(WAVE_STATE_PATH)]
 
-
 HANDLER_REGISTRY: dict[str, Callable[[dict[str, Any]], tuple[str, list[str]]]] = {
     "Q42": handle_q42_sync,
     "FRONT-FULL-ATLAS-REGEN": handle_front_full_atlas_regen,
     "Q50": handle_q50_wave_handoff,
 }
-
 
 def apply_writeback_handler(ranking_payload: dict[str, Any]) -> tuple[str, list[str], list[str]]:
     winner = ranking_payload["winning_move"]
@@ -714,7 +674,6 @@ def apply_writeback_handler(ranking_payload: dict[str, Any]) -> tuple[str, list[
       )
     return handler_name, sorted(set(attempted_paths)), []
 
-
 def render_docs_gate_section(docs_gate_status: dict[str, Any]) -> str:
     state = docs_gate_status.get("state", "UNKNOWN")
     lines = [f"`{state}`"]
@@ -723,13 +682,11 @@ def render_docs_gate_section(docs_gate_status: dict[str, Any]) -> str:
         lines.extend(["", "```text", detail, "```"])
     return "\n".join(lines)
 
-
 def render_neglected_areas(entries: list[dict[str, Any]]) -> str:
     return "\n".join(
         f"{entry['rank']}. `{entry['body']}` via `{entry['representative_candidate_id']}` (score `{entry['final_score']}`): {entry['rationale']}"
         for entry in entries
     )
-
 
 def render_missing_bridges(entries: list[dict[str, Any]]) -> str:
     lines = []
@@ -739,7 +696,6 @@ def render_missing_bridges(entries: list[dict[str, Any]]) -> str:
             f"(score `{entry['final_score']}`, readiness `{entry['score_breakdown']['execution_readiness']}`): {entry['rationale']}"
         )
     return "\n".join(lines)
-
 
 def render_winning_move(run_payload: dict[str, Any]) -> str:
     winner = run_payload["winning_move"]
@@ -752,18 +708,15 @@ def render_winning_move(run_payload: dict[str, Any]) -> str:
     ]
     return "\n".join(lines)
 
-
 def render_touched_paths(run_payload: dict[str, Any]) -> str:
     if not run_payload["actual_touched_paths"]:
         return "none"
     return "\n".join(f"- `{path}`" for path in run_payload["actual_touched_paths"])
 
-
 def render_blockers(blockers: list[str]) -> str:
     if not blockers:
         return "none"
     return "\n".join(f"- {blocker}" for blocker in blockers)
-
 
 def render_report_markdown(run_payload: dict[str, Any], title: str) -> str:
     timestamp = local_now().strftime("%Y-%m-%d %H:%M:%S %z")
@@ -805,7 +758,6 @@ def render_report_markdown(run_payload: dict[str, Any], title: str) -> str:
         ]
     )
 
-
 def build_run_payload(
     ranking_payload: dict[str, Any],
     applied_handler: str,
@@ -842,11 +794,9 @@ def build_run_payload(
     )
     return run_payload
 
-
 def write_report(run_payload: dict[str, Any]) -> None:
     report_path = absolute_from_relative(run_payload["selected_report_path"])
     write_if_changed(report_path, run_payload["report_markdown"])
-
 
 def execute_corpus_weave_run() -> dict[str, Any]:
     pre_all_hashes = snapshot_surface_hashes(controlled_surface_paths())
@@ -883,11 +833,9 @@ def execute_corpus_weave_run() -> dict[str, Any]:
     write_json(RUN_JSON_PATH, run_payload)
     return run_payload
 
-
 def main() -> int:
     execute_corpus_weave_run()
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

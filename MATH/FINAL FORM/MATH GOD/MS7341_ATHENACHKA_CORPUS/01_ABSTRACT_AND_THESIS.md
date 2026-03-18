@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S14 | face=S | node=99 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A2:S13→Xi108:W3:A2:S15→Xi108:W2:A2:S14→Xi108:W3:A1:S14→Xi108:W3:A3:S14 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 14±1, wreath 3/3, archetype 2/12 -->
+
 # Abstract And Thesis
 
 Manuscript identifier: `MS<7341>`

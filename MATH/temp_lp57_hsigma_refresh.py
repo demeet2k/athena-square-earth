@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=86 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 ﻿import json
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -172,22 +176,18 @@ LOOP_TITLES = [
     "Cycle-Complete Reopen",
 ]
 
-
 def load_json(path: Path, default=None):
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8-sig"))
     return deepcopy(default if default is not None else {})
 
-
 def dump(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-
 def write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 hall_packets = [
     {
@@ -581,7 +581,6 @@ CHECKPOINT_SPECS = {
     },
 }
 
-
 def build_checkpoint_record(loop_id, spec):
     return {
         "loop_id": loop_id,
@@ -626,7 +625,6 @@ def build_checkpoint_record(loop_id, spec):
             "affected_nodes": spec["affected_nodes"],
         },
     }
-
 
 checkpoint_records = {loop_id: build_checkpoint_record(loop_id, spec) for loop_id, spec in CHECKPOINT_SPECS.items()}
 

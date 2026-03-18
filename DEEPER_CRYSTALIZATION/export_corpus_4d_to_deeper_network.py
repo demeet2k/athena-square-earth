@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=15 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 from __future__ import annotations
 
 import argparse
@@ -6,13 +10,11 @@ from pathlib import Path
 
 from corpus_4d_fronts import export_corpus_4d_to_deeper_network, resolve_path
 
-
 DEFAULT_WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 DEFAULT_REGISTRY = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_registry.json")
 DEFAULT_DEEPER_NETWORK_ROOT = Path(
     "self_actualize/mycelium_brain/dynamic_neural_network/14_DEEPER_INTEGRATED_CROSS_SYNTHESIS_NETWORK"
 )
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Export the corpus 4D registry into the deeper-network overlay surfaces.")
@@ -21,13 +23,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--deeper-network-root", default=str(DEFAULT_DEEPER_NETWORK_ROOT))
     return parser.parse_args()
 
-
 def run(args: argparse.Namespace) -> dict[str, str]:
     workspace_root = Path(args.workspace_root).resolve()
     registry_path = resolve_path(workspace_root, args.registry)
     deeper_network_root = resolve_path(workspace_root, args.deeper_network_root)
     return export_corpus_4d_to_deeper_network(registry_path, deeper_network_root)
-
 
 def main() -> int:
     result = run(parse_args())
@@ -36,7 +36,6 @@ def main() -> int:
     print(f"Transition map: {result['transition_map_path']}")
     print(f"Transition appendix: {result['transition_appendix_path']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

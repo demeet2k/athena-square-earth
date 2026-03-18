@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=132 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - HDCS: HYBRID DYNAMICAL CONTROL SYSTEM
 ==================================================
@@ -202,7 +206,6 @@ from .spectral import (
     validate_spectral,
 )
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -216,14 +219,12 @@ def validate_hdcs() -> bool:
     assert validate_spectral()
     return True
 
-
 # =============================================================================
 # INTEGRATED CONTROL SYSTEM
 # =============================================================================
 
 import numpy as np
 from typing import Dict, Optional, Callable
-
 
 class HDCSController:
     """
@@ -414,7 +415,6 @@ class HDCSController:
             "spectral_domain": self.spectral.domain.value
         }
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -456,7 +456,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "hdcs"
-
 
 if __name__ == "__main__":
     print("=" * 70)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=85 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - Hub Routing System
 ==============================
@@ -31,7 +35,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Set
 
 from .atlas import Element, AtlasAddress, Archetype, ARCHETYPE_CATALOG
-
 
 # =============================================================================
 # HUB DEFINITIONS
@@ -97,7 +100,6 @@ class Hub(Enum):
         }
         return mapping[self]
 
-
 # =============================================================================
 # HUB ROUTES
 # =============================================================================
@@ -126,7 +128,6 @@ class HubRoute:
         hubs = self.all_hubs()
         return " → ".join(h.name for h in hubs)
 
-
 # Default routes for each clan (16 archetypes)
 ARCHETYPE_ROUTES: Dict[Tuple[Element, Element], HubRoute] = {
     # Fire clan
@@ -154,12 +155,10 @@ ARCHETYPE_ROUTES: Dict[Tuple[Element, Element], HubRoute] = {
     (Element.EARTH, Element.EARTH): HubRoute(Hub.H5, [Hub.H6, Hub.H7]),
 }
 
-
 def get_route(addr: AtlasAddress) -> HubRoute:
     """Get hub route for an atlas address."""
     key = addr.parent_address()
     return ARCHETYPE_ROUTES.get(key, HubRoute(Hub.H0))
-
 
 # =============================================================================
 # HUB NETWORK
@@ -205,7 +204,6 @@ class HubNetwork:
     def hubs_for_element(self, element: Element) -> List[Hub]:
         """Get primary hubs for an element."""
         return [h for h in Hub if h.primary_element == element]
-
 
 # =============================================================================
 # DECISION TREE
@@ -278,7 +276,6 @@ class PhenomenonQuery:
         addr = self.determine_address()
         return get_route(addr)
 
-
 class DecisionTree:
     """
     The compact decision tree for phenomenon routing.
@@ -350,7 +347,6 @@ class DecisionTree:
             'primary_hub': route.primary.name_full,
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -406,7 +402,6 @@ def validate_hubs() -> bool:
     assert parent == Element.WATER
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Hubs Module...")

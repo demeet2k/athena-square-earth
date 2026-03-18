@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=335 | depth=2 | phase=Mutable
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -6,14 +10,12 @@ from .config import AthenaBotConfig
 from .models import PortfolioState, Position, SignalSnapshot
 from .utils import now_utc, to_iso
 
-
 @dataclass(slots=True)
 class BrokerResult:
     portfolio: PortfolioState
     order: dict | None
     fill: dict | None
     notes: list[str]
-
 
 class PaperBroker:
     def __init__(self, config: AthenaBotConfig | None = None):

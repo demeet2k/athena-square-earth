@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=142 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - TORAT HA-MISPAR (תורת המספר)
 =========================================
@@ -38,7 +42,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
-
 # =============================================================================
 # SOUL LEVELS
 # =============================================================================
@@ -58,7 +61,6 @@ class SoulLevel(Enum):
         self.sefirah = sefirah
         self.world = world
         self._function = function
-
 
 # =============================================================================
 # WORLD DEFINITION
@@ -97,7 +99,6 @@ class World:
     def concealment_level(self) -> int:
         """Level of concealment (higher = more concealment)."""
         return 5 - self.number  # 4, 3, 2, 1
-
 
 # =============================================================================
 # THE FOUR WORLDS
@@ -174,7 +175,6 @@ WORLDS = [
     ),
 ]
 
-
 # =============================================================================
 # INTER-WORLD DYNAMICS
 # =============================================================================
@@ -240,7 +240,6 @@ class InterWorldDynamics:
             "Assiyah": "Vessel > Light - primarily material",
         }
 
-
 # =============================================================================
 # CORRESPONDENCES
 # =============================================================================
@@ -290,7 +289,6 @@ class WorldCorrespondences:
             "Yetzirah": "Speech (Dibur)",
             "Assiyah": "Action (Maaseh)",
         }
-
 
 # =============================================================================
 # OLAMOT SYSTEM
@@ -348,7 +346,6 @@ class OlamotSystem:
             "soul_levels": [s.name for s in SoulLevel],
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -402,7 +399,6 @@ def validate_olamot() -> bool:
     assert summary["total_sefirot"] == 40
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Olamot Module...")

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S11 | face=R | node=60 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S10→Xi108:W3:A12:S12→Xi108:W2:A12:S11→Xi108:W3:A11:S11 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 11±1, wreath 3/3, archetype 12/12 -->
+
 ﻿# Total Synthesis Protocol v4.3
 
 Status: Canonical whole-corpus synthesis protocol for Chapters 1-21 with multi-resolution metro outputs.

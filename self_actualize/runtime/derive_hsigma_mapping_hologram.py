@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=311 | depth=2 | phase=Mutable
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from statistics import mean, pstdev
 from zoneinfo import ZoneInfo
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -197,36 +200,28 @@ AP6D_BRIDGE_SPAN_ROWS = {
 # Override the mnemonic with explicit Unicode escapes so downstream witnesses stay stable.
 SEED_STRING = "ATH-HSIGMA::11\u039b/16S+2F+1I/13R/6T/5D/256\u03a8/4864M/\u03bcFIX"
 
-
 def local_now() -> datetime:
     return datetime.now(TIMEZONE)
 
-
 def docs_gate() -> str:
     return "BLOCKED" if not CREDENTIALS_PATH.exists() or not TOKEN_PATH.exists() else "OPEN"
-
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def row_lookup() -> dict[str, dict[str, object]]:
     return {row["id"]: row for row in ROW_DEFS}
-
 
 def route_lookup() -> dict[str, dict[str, object]]:
     return {route["id"]: route for route in ROUTES}
 
-
 def encode_byte(q0: int, q1: int, q2: int, q3: int) -> int:
     return q0 + 4 * q1 + 16 * q2 + 64 * q3
-
 
 def decode_byte(byte: int) -> dict[str, int]:
     return {
@@ -235,7 +230,6 @@ def decode_byte(byte: int) -> dict[str, int]:
         "q2": (byte // 16) % 4,
         "q3": (byte // 64) % 4,
     }
-
 
 def axis_neighbors(byte: int) -> list[int]:
     coords = decode_byte(byte)
@@ -247,7 +241,6 @@ def axis_neighbors(byte: int) -> list[int]:
             neighbors.append(encode_byte(updated["q0"], updated["q1"], updated["q2"], updated["q3"]))
     return sorted(set(neighbors))
 
-
 def surrogate_coords(now: datetime) -> dict[str, int]:
     return {
         "q0": now.hour // 6,
@@ -256,20 +249,17 @@ def surrogate_coords(now: datetime) -> dict[str, int]:
         "q3": now.timetuple().tm_yday % 4,
     }
 
-
 def route_gate_score(route_id: str, byte: int) -> float:
     coords = decode_byte(byte)
     gate = route_lookup()[route_id]["gate"]
     hits = sum(1 for key in ("q0", "q1", "q2", "q3") if coords[key] in gate[key])
     return hits / 4.0
 
-
 def exposure_score(row_id: str, byte: int) -> float:
     coords = decode_byte(byte)
     gate = row_lookup()[row_id]["exposure"]
     hits = sum(1 for key in ("q0", "q1", "q2", "q3") if coords[key] in gate[key])
     return hits / 4.0
-
 
 def tunnel_activation(byte: int, active_routes: set[str]) -> set[str]:
     coords = decode_byte(byte)
@@ -287,7 +277,6 @@ def tunnel_activation(byte: int, active_routes: set[str]) -> set[str]:
     if "R8" in active_routes and coords["q3"] in {0, 3}:
         active.add("T/BC")
     return active
-
 
 def reachable_rows(start_row_id: str, byte: int) -> tuple[list[str], set[str], set[str], set[str]]:
     if exposure_score(start_row_id, byte) < 0.5:
@@ -319,7 +308,6 @@ def reachable_rows(start_row_id: str, byte: int) -> tuple[list[str], set[str], s
                 queue.append(other_id)
     return sorted(seen), reached_routes, reached_layers, reached_strata
 
-
 def replay_value(reach: set[str]) -> float:
     score = 0.0
     if "RA" in reach:
@@ -331,7 +319,6 @@ def replay_value(reach: set[str]) -> float:
     if "SC" in reach:
         score += 1.0
     return score / 3.5
-
 
 def hidden_pressure_components(row_id: str, byte: int, reach: set[str], active_routes: set[str]) -> dict[str, float]:
     cross = 1.0 if "R10" in active_routes and "MC" not in reach else 0.0
@@ -349,14 +336,12 @@ def hidden_pressure_components(row_id: str, byte: int, reach: set[str], active_r
         "u_transfer": transfer,
     }
 
-
 def contradiction_components(reach: set[str], active_routes: set[str]) -> dict[str, int]:
     pole = int({"Z0", "A0"} <= reach and not ({"L0", "DB"} & reach))
     tunnel = int("R7" in active_routes and not ({"TE", "TX"} <= reach))
     dimensional = int(bool({"R9", "R10"} & active_routes) and not bool({"DB", "DL", "MC"} & reach))
     replay = int("R11" in active_routes and not bool({"RA", "WA", "MR", "PA"} & reach))
     return {"v_pole": pole, "v_tunnel": tunnel, "v_dim": dimensional, "v_replay": replay}
-
 
 def cell_visibility(status: str, exposure: float) -> str:
     if exposure >= 0.5 and status in {"seated", "frontier"}:
@@ -365,13 +350,11 @@ def cell_visibility(status: str, exposure: float) -> str:
         return "implied"
     return "absent"
 
-
 def aggregate_class(classes: list[str]) -> str:
     for name in CLASS_PRECEDENCE:
         if name in classes:
             return name
     return "degenerate"
-
 
 def build_cells() -> dict[str, object]:
     row_stats: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -492,7 +475,6 @@ def build_cells() -> dict[str, object]:
         }
     return {"cells_by_row": row_stats, "candidate_support": candidate_support}
 
-
 def current_state(cells_by_row: dict[str, list[dict[str, object]]], now: datetime) -> dict[str, object]:
     coords = surrogate_coords(now)
     byte = encode_byte(coords["q0"], coords["q1"], coords["q2"], coords["q3"])
@@ -511,7 +493,6 @@ def current_state(cells_by_row: dict[str, list[dict[str, object]]], now: datetim
         "hidden_pressure_rows": [row_id for row_id, cell in rows.items() if cell["class"] == "hidden-pressure"],
     }
 
-
 def aggregate_bundle_state(save_state: dict[str, object], row_ids: list[str]) -> dict[str, object]:
     row_state_map = save_state["current_state"]["rows"]
     selected = [row_state_map[row_id] for row_id in row_ids]
@@ -526,7 +507,6 @@ def aggregate_bundle_state(save_state: dict[str, object], row_ids: list[str]) ->
         "strata": strata,
         "restart_seed": save_state["regeneration_seed"]["mnemonic"],
     }
-
 
 def build_bundle(now: datetime | None = None) -> dict[str, object]:
     now = now or local_now()
@@ -639,7 +619,6 @@ def build_bundle(now: datetime | None = None) -> dict[str, object]:
     }
     return {"manifest": manifest, "mindsweeper": mindsweeper, "save_state": save_state, "summary": summary}
 
-
 def render_witness(summary: dict[str, object], docs_state: str) -> str:
     lines = [
         "# Athena HSigma Runtime Witness",
@@ -669,12 +648,10 @@ def render_witness(summary: dict[str, object], docs_state: str) -> str:
     lines.extend(["", "## Honesty", "", "- local schema graph only", "- no live Google Docs witness", "- no live ephemeris or instance-level coordinate claims"])
     return "\n".join(lines)
 
-
 def write_witnesses(bundle: dict[str, object]) -> None:
     witness = render_witness(bundle["summary"], bundle["manifest"]["docs_gate"])
     for path in [HSIGMA_WITNESS_PATH, HALL_WITNESS_PATH, TEMPLE_WITNESS_PATH, RUNTIME_WITNESS_PATH, RECEIPT_WITNESS_PATH]:
         write_text(path, witness)
-
 
 def ensure_hsigma_artifacts(now: datetime | None = None) -> dict[str, object]:
     bundle = build_bundle(now)
@@ -683,7 +660,6 @@ def ensure_hsigma_artifacts(now: datetime | None = None) -> dict[str, object]:
     write_json(HSIGMA_SAVE_STATE_PATH, bundle["save_state"])
     write_witnesses(bundle)
     return bundle
-
 
 def load_hsigma_artifacts(now: datetime | None = None) -> dict[str, object]:
     if HSIGMA_SAVE_STATE_PATH.exists() and HSIGMA_MANIFEST_PATH.exists() and HSIGMA_MINDSWEEPER_PATH.exists() and now is None:
@@ -694,7 +670,6 @@ def load_hsigma_artifacts(now: datetime | None = None) -> dict[str, object]:
         }
     return ensure_hsigma_artifacts(now)
 
-
 def main() -> int:
     bundle = ensure_hsigma_artifacts()
     print(f"Wrote HSigma manifest: {HSIGMA_MANIFEST_PATH}")
@@ -702,7 +677,6 @@ def main() -> int:
     print(f"Wrote HSigma save state: {HSIGMA_SAVE_STATE_PATH}")
     print(f"Current byte: {bundle['summary']['byte']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=85 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Klein-4 & Holographic Seed Module            ║
@@ -34,7 +38,6 @@ import math
 
 import numpy as np
 from numpy.typing import NDArray
-
 
 class TetradicPhase(IntEnum):
     """Tetradic phases corresponding to K₄ elements."""
@@ -76,7 +79,6 @@ class TetradicPhase(IntEnum):
     def __add__(self, other: 'TetradicPhase') -> 'TetradicPhase':
         """Same as XOR for K₄."""
         return self ^ other
-
 
 class Klein4Group:
     """
@@ -134,7 +136,6 @@ class Klein4Group:
     def from_phase(cls, phase: TetradicPhase) -> Tuple[int, int]:
         """Convert tetradic phase to group element."""
         return cls.ELEMENTS[phase.value]
-
 
 @dataclass
 class HolographicSeed:
@@ -263,7 +264,6 @@ class HolographicSeed:
             lines.append(f"| {row} |")
         return '\n'.join(lines)
 
-
 @dataclass
 class TetradicKernel:
     """
@@ -317,7 +317,6 @@ class TetradicKernel:
         """Return eigenvalues and eigenvectors."""
         return np.linalg.eig(self.kernel)
 
-
 class PhaseRotor:
     """
     Discrete phase rotation engine using the holographic seed.
@@ -369,7 +368,6 @@ class PhaseRotor:
         
         return (quantity, space, new_change, new_phase)
 
-
 @dataclass
 class SeedTiling:
     """
@@ -413,7 +411,6 @@ class SeedTiling:
                 result[i, j] = TetradicPhase(self.pattern[i, j])
         return result
 
-
 def create_tetradic_laplacian(n: int = 4) -> NDArray[np.float64]:
     """
     Create graph Laplacian with tetradic structure.
@@ -433,7 +430,6 @@ def create_tetradic_laplacian(n: int = 4) -> NDArray[np.float64]:
     
     return L
 
-
 def seed_encode_signal(signal: NDArray, seed: HolographicSeed) -> NDArray:
     """
     Encode a continuous signal using seed quantization.
@@ -451,7 +447,6 @@ def seed_encode_signal(signal: NDArray, seed: HolographicSeed) -> NDArray:
     encoded[signal >= q3] = 3  # Fire
     
     return encoded
-
 
 def seed_decode_signal(encoded: NDArray, levels: Tuple[float, ...] = (-1, -0.5, 0.5, 1)) -> NDArray:
     """

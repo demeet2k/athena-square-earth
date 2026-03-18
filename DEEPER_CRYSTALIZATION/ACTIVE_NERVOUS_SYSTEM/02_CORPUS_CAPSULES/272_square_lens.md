@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # Square Lens -- Contract / Address / Admissibility
 
 The Square lens is the formal contract face of the kernel object. The Square projection is Pi_Sq(x,y) = (x, y, K(x,y)). More fully, S(x,y) = ((x,y), K(x,y), Sigma_{x,y}, omega^Sq_{x,y}) where Sigma_{x,y} is the local contract and omega^Sq is the square witness. Square is the discrete admissibility ledger: it fixes WHERE the object is, WHAT state it carries, and WHAT exact law generated it. Square is the cockpit of commitment.

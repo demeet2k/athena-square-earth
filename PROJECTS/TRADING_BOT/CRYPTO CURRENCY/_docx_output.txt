@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S24 | face=S | node=403 | depth=1 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24
+
 here’s the classic “love horoscope” compatibility list (Sun-sign style): most compatible vs least compatible for each zodiac sign.
 Quick note: these lists are “general horoscope” pairings (Sun signs only). Real compatibility changes a lot with Venus/Moon/Mars placements.
 Love compatibility + non-compatibility (by sign)
@@ -4554,17 +4558,4 @@ Compiler: a way to derive ((e,\tau,\phi)) from square addresses and circle wraps
 Router: a stable path-finding method that uses sextile/quarter/third hubs as “stations,” preserving coherence across all octaves.
 
 This is the core rudimentary framework within the ASTROLOGICAL SYSTEMS.
-
-
-
-
-
-
-
-
-
-
-
-
-
 

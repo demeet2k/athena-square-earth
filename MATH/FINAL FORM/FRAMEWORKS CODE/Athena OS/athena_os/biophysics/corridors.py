@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=97 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - Viability Corridors and Shadow Systems
 ===================================================
@@ -41,7 +45,6 @@ import math
 
 from .aether import BioPillar, BioState, BiologicalAether
 
-
 # =============================================================================
 # CORRIDOR CONSTRAINTS
 # =============================================================================
@@ -77,7 +80,6 @@ class CorridorConstraint:
         else:
             return abs(value)
 
-
 # =============================================================================
 # STANDARD CORRIDOR CONSTRAINTS
 # =============================================================================
@@ -94,7 +96,6 @@ ENERGY_CORRIDOR = CorridorConstraint(
     check=_energy_check
 )
 
-
 def _atp_check(state: BioState) -> float:
     """ATP budget must be above minimum."""
     min_atp = 10.0
@@ -108,7 +109,6 @@ ATP_CORRIDOR = CorridorConstraint(
     check=_atp_check
 )
 
-
 def _boundary_check(state: BioState) -> float:
     """Boundary must exist."""
     return 0.0 if state.has_boundary else 1.0
@@ -120,7 +120,6 @@ BOUNDARY_CORRIDOR = CorridorConstraint(
     threshold=0.0,
     check=_boundary_check
 )
-
 
 def _error_check(state: BioState) -> float:
     """Error must be below catastrophe threshold."""
@@ -135,7 +134,6 @@ ERROR_CORRIDOR = CorridorConstraint(
     check=_error_check
 )
 
-
 def _viability_check(state: BioState) -> float:
     """Overall viability must be above threshold."""
     threshold = 0.25
@@ -149,7 +147,6 @@ VIABILITY_CORRIDOR = CorridorConstraint(
     check=_viability_check
 )
 
-
 # All standard constraints
 STANDARD_CONSTRAINTS: List[CorridorConstraint] = [
     ENERGY_CORRIDOR,
@@ -158,7 +155,6 @@ STANDARD_CONSTRAINTS: List[CorridorConstraint] = [
     ERROR_CORRIDOR,
     VIABILITY_CORRIDOR,
 ]
-
 
 # =============================================================================
 # VIABILITY CORRIDOR
@@ -240,10 +236,8 @@ class ViabilityCorridor:
         """Add a custom constraint."""
         self.constraints.append(constraint)
 
-
 # Global corridor instance
 VIABILITY = ViabilityCorridor()
-
 
 # =============================================================================
 # INNER SHADOW (Code Depth)
@@ -301,7 +295,6 @@ class InnerShadow:
             network_nodes=int(state.information / 10),
             redundancy_factor=2.0 if state.error_budget < 0.05 else 1.0
         )
-
 
 # =============================================================================
 # OUTER SHADOW (Saturation Horizons)
@@ -382,7 +375,6 @@ class OuterShadow:
         nearest = min(distances.items(), key=lambda x: x[1])
         return nearest
 
-
 # =============================================================================
 # ANTI-AETHER (Impossible Moves)
 # =============================================================================
@@ -438,7 +430,6 @@ class AntiAether:
             "time_reversal_biology"
         ]
 
-
 # =============================================================================
 # SHADOW POLE DETECTION
 # =============================================================================
@@ -470,7 +461,6 @@ def detect_shadow_pole(state: BioState, inner: InnerShadow,
         return "inner"
     else:
         return "outer"
-
 
 # =============================================================================
 # VALIDATION
@@ -529,7 +519,6 @@ def validate_corridors() -> bool:
     assert pole in ("inner", "outer")
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Viability Corridors...")

@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=360 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -56,34 +59,27 @@ AUTHORITY_BASIS = (
 )
 CORRECTION_NOTE_MARKER = "## Q40 Correction Note (2026-03-13)"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def relative(path: Path) -> str:
     return path.relative_to(WORKSPACE_ROOT).as_posix()
-
 
 def docs_gate_status() -> str:
     credentials = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
     token = WORKSPACE_ROOT / "Trading Bot" / "token.json"
     return "READY" if credentials.exists() and token.exists() else "BLOCKED"
-
 
 def classify_reference(path: Path) -> str:
     if path in RECONCILIATION_PATHS:
@@ -92,14 +88,12 @@ def classify_reference(path: Path) -> str:
         return "historical_receipt"
     return "stale_live"
 
-
 def action_for_classification(reference_class: str) -> str:
     return {
         "stale_live": "replace_live_ref",
         "historical_receipt": "add_correction_note",
         "reconciliation_evidence": "preserve_mapping",
     }[reference_class]
-
 
 def note_for(path: Path, old_ref: str, live_ref: str, reference_class: str) -> str:
     if reference_class == "stale_live":
@@ -114,11 +108,9 @@ def note_for(path: Path, old_ref: str, live_ref: str, reference_class: str) -> s
         f"into `{live_ref}`."
     )
 
-
 def line_excerpt(line: str) -> str:
     collapsed = " ".join(line.strip().split())
     return collapsed[:220]
-
 
 def scan_path(path: Path) -> list[dict[str, Any]]:
     text = read_text(path)
@@ -146,7 +138,6 @@ def scan_path(path: Path) -> list[dict[str, Any]]:
                 }
             )
     return records
-
 
 def render_ledger(payload: dict[str, Any]) -> str:
     summary = payload["summary"]
@@ -199,7 +190,6 @@ def render_ledger(payload: dict[str, Any]) -> str:
         )
     return "\n".join(lines)
 
-
 def derive_payload() -> dict[str, Any]:
     records: list[dict[str, Any]] = []
     clean_live_surfaces: list[str] = []
@@ -228,7 +218,6 @@ def derive_payload() -> dict[str, Any]:
         },
     }
 
-
 def main() -> int:
     payload = derive_payload()
     write_json(OUTPUT_JSON_PATH, payload)
@@ -237,7 +226,6 @@ def main() -> int:
     print(f"Wrote Bruno stale reference sweep ledger: {LEDGER_PATH}")
     print(f"Truth candidate: {payload['summary']['truth_candidate']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

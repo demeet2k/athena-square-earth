@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - KEY OF SOLOMON COMPUTATIONAL FRAMEWORK
 ===================================================
@@ -40,7 +44,6 @@ from .pentacles import PentacleSpec, PentacleLibrary, EffectType
 from .spirits import Spirit, SpiritRegistry, SpiritState, FunctionDomain
 from .operator import OperatorState, PurityLevel, PurificationProtocol
 
-
 # =============================================================================
 # SPELL TYPES
 # =============================================================================
@@ -63,7 +66,6 @@ class SpellCategory(Enum):
         self.short_name = short_name
         self._description = description
 
-
 class SpellResult(Enum):
     """Possible spell outcomes."""
     
@@ -81,7 +83,6 @@ class SpellResult(Enum):
     @property
     def is_positive(self) -> bool:
         return self in [SpellResult.SUCCESS, SpellResult.PARTIAL]
-
 
 # =============================================================================
 # SPELL SPECIFICATION
@@ -126,7 +127,6 @@ class SpellSpec:
     def id(self) -> str:
         """Unique spell ID."""
         return self.name.upper().replace(" ", "_")
-
 
 # =============================================================================
 # SPELL INSTANCE
@@ -481,7 +481,6 @@ class SpellInstance:
             self.phase_7_release()
             return self.result
 
-
 # =============================================================================
 # SPELL LIBRARY
 # =============================================================================
@@ -579,7 +578,6 @@ SPELL_LIBRARY = [
     ),
 ]
 
-
 @dataclass
 class SpellBook:
     """
@@ -621,7 +619,6 @@ class SpellBook:
         result = instance.execute(operator, registry, current_planet)
         
         return (result, instance.log)
-
 
 # =============================================================================
 # VALIDATION
@@ -676,7 +673,6 @@ def validate_spells() -> bool:
     assert len(log) > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Spells Module...")

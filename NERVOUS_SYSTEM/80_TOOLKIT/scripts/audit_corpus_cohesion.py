@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S12 | face=R | node=72 | depth=2 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S11→Xi108:W2:A6:S13→Xi108:W1:A6:S12→Xi108:W3:A6:S12→Xi108:W2:A5:S12→Xi108:W2:A7:S12
+
 from __future__ import annotations
 
 import json
@@ -5,7 +9,6 @@ import re
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 CODEX_ROOT = Path(r"C:\Users\dmitr\.codex")
@@ -33,10 +36,8 @@ RELATIVE_ROOTS = {child.name for child in WORKSPACE_ROOT.iterdir()}
 RELATIVE_ROOTS.update({"VOID_CH11.md", "MYCELIUM_TOME_PART1.md", "FULL_PROJECT_TESSERACT_SYNTHESIS_2026-03-11.md"})
 CODE_SPAN_PATTERN = re.compile(r"`([^`\n]+)`")
 
-
 def candidate_paths(text: str) -> list[str]:
     return [match.group(1).strip() for match in CODE_SPAN_PATTERN.finditer(text)]
-
 
 def should_skip(token: str) -> bool:
     return (
@@ -46,7 +47,6 @@ def should_skip(token: str) -> bool:
         or "/" not in token
         and "\\" not in token
     )
-
 
 def resolve_reference(token: str) -> Path | None:
     normalized = token.strip().strip('"').strip("'")
@@ -63,11 +63,9 @@ def resolve_reference(token: str) -> Path | None:
         return WORKSPACE_ROOT / normalized.replace("/", "\\")
     return None
 
-
 def is_gate_blocker_path(path: Path) -> bool:
     normalized = str(path).replace("/", "\\")
     return normalized.endswith(r"Trading Bot\credentials.json") or normalized.endswith(r"Trading Bot\token.json")
-
 
 def scan_file(path: Path) -> dict:
     text = path.read_text(encoding="utf-8", errors="ignore")
@@ -102,7 +100,6 @@ def scan_file(path: Path) -> dict:
         "gate_blockers": sorted(set(blockers)),
         "historical_markers": sorted(set(historical)),
     }
-
 
 def main() -> None:
     records = []
@@ -153,7 +150,6 @@ def main() -> None:
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(json.dumps(payload["stats"], indent=2))
-
 
 if __name__ == "__main__":
     main()

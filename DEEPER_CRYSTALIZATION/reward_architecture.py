@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 from __future__ import annotations
 
 import json
@@ -15,7 +19,6 @@ from canonical_manuscript_audit import (
 )
 from canonical_manuscript_builder import DEFAULT_MANIFEST
 from nervous_system_core import utc_now, write_json, write_text
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 WORKSPACE_ROOT = PROJECT_ROOT.parent
@@ -176,24 +179,19 @@ QUEST_CLASS_HINTS = {
     "alchemy": ("alchemy", "metallic", "transmutation", "transmute"),
 }
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
-
 
 def load_json(path: Path) -> Any:
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
 
-
 def round6(value: float) -> float:
     return round(float(value), 6)
-
 
 def rel(path: Path) -> str:
     try:
@@ -201,10 +199,8 @@ def rel(path: Path) -> str:
     except ValueError:
         return str(path.resolve())
 
-
 def docs_gate_blocked() -> bool:
     return "BLOCKED" in read_text(LIVE_DOCS_GATE_PATH)
-
 
 def title_for_total(total: float) -> str:
     chosen = "Unlit"
@@ -213,25 +209,20 @@ def title_for_total(total: float) -> str:
             chosen = str(tier["title"])
     return chosen
 
-
 def rank_class_for_level(level: int) -> str:
     for rank, low, high in RANK_BANDS:
         if low <= level <= high:
             return rank
     return "S"
 
-
 def zero_stats() -> dict[str, float]:
     return {name: 0.0 for name in STAT_NAMES}
-
 
 def zero_attunements() -> dict[str, int]:
     return {name: 0 for name in METALLIC_CONSTANTS}
 
-
 def zero_net_gain_metrics() -> dict[str, float]:
     return {name: 0.0 for name in NET_GAIN_METRICS}
-
 
 def organ_from_frontier(frontier: str) -> str:
     if frontier.startswith("TQ"):
@@ -239,7 +230,6 @@ def organ_from_frontier(frontier: str) -> str:
     if frontier.startswith("Q"):
         return "Guild Hall"
     return "Command"
-
 
 def quest_class_for_payload(title: str, quest_class: str | None, organ: str) -> str:
     if quest_class:
@@ -254,20 +244,17 @@ def quest_class_for_payload(title: str, quest_class: str | None, organ: str) -> 
         return "alchemy"
     return "standard"
 
-
 def ensure_metric_vector(metrics: dict[str, Any] | None) -> dict[str, float]:
     base = zero_net_gain_metrics()
     for name in NET_GAIN_METRICS:
         base[name] = round6(clamp(float((metrics or {}).get(name, 0.0)), -1.0, 1.0))
     return base
 
-
 def compute_net_gain_score(metrics: dict[str, float]) -> float:
     score = 0.0
     for name, weight in NET_GAIN_WEIGHTS.items():
         score += metrics[name] * weight
     return round6(clamp(score, -1.0, 1.0))
-
 
 def normalize_metallic_expression(expression: dict[str, Any] | None) -> dict[str, Any]:
     payload = dict(expression or {})
@@ -286,7 +273,6 @@ def normalize_metallic_expression(expression: dict[str, Any] | None) -> dict[str
             "exponent": round6(clamp(exponent, 0.0, 3.0)),
         },
     }
-
 
 def compile_amplifier_scalar(
     expression: dict[str, Any] | None,
@@ -324,7 +310,6 @@ def compile_amplifier_scalar(
         "policy_cap": MAX_AMPLIFIER_SCALAR,
     }
 
-
 def stat_deltas_from_metrics(organ: str, metrics: dict[str, float], amplifier_scalar: float) -> dict[str, float]:
     positive = {name: max(0.0, value) for name, value in metrics.items()}
     lens = ORGAN_LENSES[organ]
@@ -342,7 +327,6 @@ def stat_deltas_from_metrics(organ: str, metrics: dict[str, float], amplifier_sc
     for stat_name, lens_weight in lens.items():
         deltas[stat_name] = round6(translation[stat_name] * lens_weight * 10.0 * min(amplifier_scalar, 8.0))
     return deltas
-
 
 def seed_agent_progress(v1_row: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -370,7 +354,6 @@ def seed_agent_progress(v1_row: dict[str, Any]) -> dict[str, Any]:
         "net_gain_history": [],
     }
 
-
 def ensure_agent_progress(agent_id: str, current: dict[str, Any] | None = None) -> dict[str, Any]:
     if current:
         seeded = seed_agent_progress({"agent_id": agent_id, **current})
@@ -395,7 +378,6 @@ def ensure_agent_progress(agent_id: str, current: dict[str, Any] | None = None) 
         seeded["net_gain_history"] = list(current.get("net_gain_history", []))[-NET_GAIN_HISTORY_LIMIT:]
         return seeded
     return seed_agent_progress({"agent_id": agent_id})
-
 
 def recalculate_progress_status(agent_state: dict[str, Any]) -> None:
     ascension_receipts: list[dict[str, Any]] = []
@@ -426,11 +408,9 @@ def recalculate_progress_status(agent_state: dict[str, Any]) -> None:
     if ascension_receipts:
         agent_state.setdefault("_ascension_receipts", []).extend(ascension_receipts)
 
-
 def append_net_gain_history(agent_state: dict[str, Any], event: dict[str, Any]) -> None:
     agent_state["net_gain_history"].append(event)
     agent_state["net_gain_history"] = agent_state["net_gain_history"][-NET_GAIN_HISTORY_LIMIT:]
-
 
 def net_gain_snapshot(
     metrics: dict[str, Any] | None,
@@ -448,7 +428,6 @@ def net_gain_snapshot(
         "net_gain_score": compute_net_gain_score(metric_vector),
     }
 
-
 def reward_profile(organ: str, quest_class: str) -> dict[str, Any]:
     if quest_class == "chapter11":
         return QUEST_CLASS_BASE["chapter11"]
@@ -459,7 +438,6 @@ def reward_profile(organ: str, quest_class: str) -> dict[str, Any]:
     if quest_class == "blocked":
         return QUEST_CLASS_BASE["blocked"]
     return QUEST_CLASS_BASE["standard"]
-
 
 def score_quest_payload(payload: dict[str, Any], prior_agent_state: dict[str, Any] | None = None) -> dict[str, Any]:
     agent_state = ensure_agent_progress(str(payload["agent_id"]), prior_agent_state)
@@ -557,7 +535,6 @@ def score_quest_payload(payload: dict[str, Any], prior_agent_state: dict[str, An
         "affected_nodes": list(payload.get("affected_nodes", [])),
     }
 
-
 def apply_reward_receipt_to_agent(agent_state: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
     paydown = 0
     xp_credit = 0
@@ -612,10 +589,8 @@ def apply_reward_receipt_to_agent(agent_state: dict[str, Any], receipt: dict[str
         "ascension_receipts": list(agent_state.pop("_ascension_receipts", [])),
     }
 
-
 def event_time_key(row: dict[str, Any]) -> str:
     return str(row.get("reward_timestamp_utc", ""))
-
 
 def historical_metrics_from_row(row: dict[str, Any]) -> dict[str, float]:
     reward_status = str(row.get("claim_reward_status", "no_reward"))
@@ -644,7 +619,6 @@ def historical_metrics_from_row(row: dict[str, Any]) -> dict[str, float]:
     }
     return {name: round6(value) for name, value in metrics.items()}
 
-
 def historical_amplifier_expression(row: dict[str, Any], organ: str) -> dict[str, Any]:
     reward_status = str(row.get("claim_reward_status", ""))
     capillary_bonus = float(row.get("capillary_bonus", 0.0))
@@ -663,7 +637,6 @@ def historical_amplifier_expression(row: dict[str, Any], organ: str) -> dict[str
         "multipliers": multipliers,
         "bounded_power": {"base": "phi", "exponent": 0.0},
     }
-
 
 def backfill_receipt_from_row(row: dict[str, Any], prior_agent_state: dict[str, Any]) -> dict[str, Any]:
     organ = organ_from_frontier(str(row.get("frontier", "")))
@@ -694,7 +667,6 @@ def backfill_receipt_from_row(row: dict[str, Any], prior_agent_state: dict[str, 
         "jackpot_settled": reward_status == "jackpot_winner",
     }
     return score_quest_payload(payload, prior_agent_state)
-
 
 def build_policy_snapshot(command_manifest: dict[str, Any], runner_manifest: dict[str, Any], live_docs_blocked: bool) -> dict[str, Any]:
     return {
@@ -761,7 +733,6 @@ def build_policy_snapshot(command_manifest: dict[str, Any], runner_manifest: dic
         ],
     }
 
-
 def build_leaderboard(agent_progress: list[dict[str, Any]]) -> dict[str, Any]:
     heaven_sorted = sorted(agent_progress, key=lambda item: (-item["heaven_total"], item["agent_id"]))
     xp_sorted = sorted(
@@ -785,7 +756,6 @@ def build_leaderboard(agent_progress: list[dict[str, Any]]) -> dict[str, Any]:
         "xp_debt_watch": [agent for agent in debt_sorted if agent["xp_debt"] > 0][:8],
     }
 
-
 def build_readable_state_block(state: dict[str, Any]) -> list[str]:
     top_agent = state["agent_progress"][0] if state["agent_progress"] else {}
     return [
@@ -801,14 +771,12 @@ def build_readable_state_block(state: dict[str, Any]) -> list[str]:
         f"- Temple of Alchemy: `Temple sub-order`",
     ]
 
-
 def replace_or_append_section(text: str, heading: str, body_lines: list[str]) -> str:
     block = "\n".join([heading, "", *body_lines]).rstrip() + "\n"
     pattern = re.compile(rf"(?ms)^{re.escape(heading)}\n.*?(?=^## |\Z)")
     if pattern.search(text):
         return pattern.sub(block, text).rstrip() + "\n"
     return text.rstrip() + "\n\n" + block
-
 
 def update_active_readme(state: dict[str, Any]) -> None:
     text = read_text(README_PATH)
@@ -827,7 +795,6 @@ def update_active_readme(state: dict[str, Any]) -> None:
 
     text = replace_or_append_section(text, "## Reward Architecture State", build_readable_state_block(state))
     write_text(README_PATH, text)
-
 
 def update_full_stack_manifest(state: dict[str, Any]) -> None:
     manifest = load_json(FULL_STACK_MANIFEST_PATH)
@@ -848,7 +815,6 @@ def update_full_stack_manifest(state: dict[str, Any]) -> None:
         "live_docs_blocked": True,
     }
     write_json(FULL_STACK_MANIFEST_PATH, manifest)
-
 
 def build_hall_mirror(state: dict[str, Any], leaderboard: dict[str, Any]) -> str:
     top_paths = state.get("event_reward_receipts", [])
@@ -895,7 +861,6 @@ def build_hall_mirror(state: dict[str, Any], leaderboard: dict[str, Any]) -> str
         )
     return "\n".join(lines)
 
-
 def build_temple_doctrine() -> str:
     return "\n".join(
         [
@@ -913,7 +878,6 @@ def build_temple_doctrine() -> str:
             "- Docs gate remains `BLOCKED` and no reward surface may pretend live Google Docs success.",
         ]
     )
-
 
 def build_temple_of_alchemy_mirror(state: dict[str, Any]) -> str:
     header = [
@@ -953,7 +917,6 @@ def build_temple_of_alchemy_mirror(state: dict[str, Any]) -> str:
     ]
     return "\n".join(lines)
 
-
 def build_layer_overview() -> str:
     return "\n".join(
         [
@@ -968,7 +931,6 @@ def build_layer_overview() -> str:
             "- Temple of Alchemy is a Temple sub-order, not a peer authority.",
         ]
     )
-
 
 def build_scoring_law_doc() -> str:
     lines = [
@@ -999,7 +961,6 @@ def build_scoring_law_doc() -> str:
     )
     return "\n".join(lines)
 
-
 def build_level_ladder_doc() -> str:
     lines = [
         "# Level Ladder and Ascension",
@@ -1026,7 +987,6 @@ def build_level_ladder_doc() -> str:
     )
     return "\n".join(lines)
 
-
 def build_stat_lens_doc() -> str:
     lines = [
         "# Stat Vector and Organ Lenses",
@@ -1045,7 +1005,6 @@ def build_stat_lens_doc() -> str:
     lines.append("Temple of Alchemy is a Temple sub-order and owns metallic amplifiers, transmutation quest classes, ascension logic, and Chapter 11 boost handling.")
     return "\n".join(lines)
 
-
 def build_reward_supplement() -> str:
     return "\n".join(
         [
@@ -1059,7 +1018,6 @@ def build_reward_supplement() -> str:
         ]
     )
 
-
 def build_alchemy_supplement() -> str:
     return "\n".join(
         [
@@ -1070,7 +1028,6 @@ def build_alchemy_supplement() -> str:
             "Chapter 11 quests occupy the maximum reward class in the organism. They receive the highest base XP bucket, the largest heaven ceiling, and a permanent increase in `chapter11_attunement`. Future lawful rewards are then multiplied by `phi ^ chapter11_attunement`, and each dimensional ascension adds one more persistent `phi` layer. In this way the Temple of Alchemy binds metallic means, ascension logic, and the helical manuscript core into one shared reward grammar.",
         ]
     )
-
 
 def build_reward_examples(scenarios: dict[str, Any]) -> str:
     lines = [
@@ -1097,7 +1054,6 @@ def build_reward_examples(scenarios: dict[str, Any]) -> str:
         )
     return "\n".join(lines)
 
-
 def write_mirror_and_layer_docs(state: dict[str, Any], leaderboard: dict[str, Any], verification: dict[str, Any]) -> None:
     write_text(HALL_MIRROR_PATH, build_hall_mirror(state, leaderboard))
     write_text(TEMPLE_DOCTRINE_PATH, build_temple_doctrine())
@@ -1111,10 +1067,8 @@ def write_mirror_and_layer_docs(state: dict[str, Any], leaderboard: dict[str, An
     write_text(SUPPLEMENT_REWARD_PATH, build_reward_supplement())
     write_text(SUPPLEMENT_ALCHEMY_PATH, build_alchemy_supplement())
 
-
 def seed_test_agent(agent_id: str) -> dict[str, Any]:
     return ensure_agent_progress(agent_id)
-
 
 def verification_payload(
     agent_id: str,
@@ -1152,7 +1106,6 @@ def verification_payload(
     }
     payload.update(extra)
     return payload
-
 
 def run_verification_scenarios() -> dict[str, Any]:
     scenarios: dict[str, Any] = {}
@@ -1383,7 +1336,6 @@ def run_verification_scenarios() -> dict[str, Any]:
     }
     return {"generated_at": utc_now(), "scenarios": scenarios, "checks": checks}
 
-
 def build_authoritative_state() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     v1_state = load_json(STATE_PATH)
     command_manifest = load_json(COMMAND_MANIFEST_PATH)
@@ -1482,7 +1434,6 @@ def build_authoritative_state() -> tuple[dict[str, Any], dict[str, Any], dict[st
     write_json(PROGRESS_REGISTRY_PATH, {"generated_at": utc_now(), "protocol_id": PROTOCOL_ID, "agent_progress": agent_progress})
     return state, leaderboard, policy_snapshot
 
-
 def build_reward_manifest(state: dict[str, Any], verification: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -1504,7 +1455,6 @@ def build_reward_manifest(state: dict[str, Any], verification: dict[str, Any]) -
         "verification_passed": all(verification["checks"].values()),
         "live_docs_blocked": state["docs_gate"] == "BLOCKED",
     }
-
 
 def build_reward_architecture() -> dict[str, Any]:
     state, leaderboard, policy_snapshot = build_authoritative_state()
@@ -1535,14 +1485,12 @@ def build_reward_architecture() -> dict[str, Any]:
         "supplements_output_path": str(SELF_ROOT / "VOID_MANUSCRIPT_SUPPLEMENTS.md"),
     }
 
-
 def score_quest_file(path: Path) -> dict[str, Any]:
     payload = load_json(path)
     agent_id = str(payload.get("agent_id", "unknown-agent"))
     authoritative_state = load_json(STATE_PATH)
     current_agent = next((row for row in authoritative_state.get("agent_progress", []) if row["agent_id"] == agent_id), None)
     return score_quest_payload(payload, current_agent)
-
 
 def apply_receipt_file(path: Path) -> dict[str, Any]:
     authoritative_state = load_json(STATE_PATH)
@@ -1573,7 +1521,6 @@ def apply_receipt_file(path: Path) -> dict[str, Any]:
         "state_path": str(STATE_PATH),
     }
 
-
 def reward_status() -> dict[str, Any]:
     authoritative_state = load_json(STATE_PATH)
     manifest = load_json(REWARD_MANIFEST_PATH)
@@ -1584,7 +1531,6 @@ def reward_status() -> dict[str, Any]:
         "top_agents": authoritative_state.get("agent_progress", [])[:5],
         "manifest": manifest,
     }
-
 
 def reward_promotions() -> dict[str, Any]:
     authoritative_state = load_json(STATE_PATH)

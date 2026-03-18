@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S3:u6:Su:S:d0",
+    "shell": 3,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "S",
+    "node_id": 6,
+    "depth": 0,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S2",
+      "Xi108:W1:A4:S4",
+      "Xi108:W2:A4:S3",
+      "Xi108:W1:A3:S3",
+      "Xi108:W1:A5:S3"
+    ],
+    "regenerate": "shell 3±1, wreath 1/3, archetype 4/12"
+  },
   "schema": "ReceiptVerifierSpec",
   "version": "1.9",
   "description": "Receipt-chain verifier and linter specification",
@@ -32,10 +53,37 @@
     "lint_zero_failures": "full_lint() must return 0 failures for valid bundles"
   },
   "required_fields": {
-    "claim_pack": ["quest_id", "agent_id", "station", "truth_state", "element_vector", "timestamp"],
-    "witness_bundle": ["quest_id", "witnesses", "evidence_hash", "timestamp"],
-    "replay_bundle": ["quest_id", "replay_steps", "determinism_proof", "timestamp"],
-    "receipt_entry": ["entry_hash", "chain_hash", "phase", "timestamp"],
-    "sealed_bundle": ["bundle_hash", "registry", "seal_timestamp", "verifier_version"]
+    "claim_pack": [
+      "quest_id",
+      "agent_id",
+      "station",
+      "truth_state",
+      "element_vector",
+      "timestamp"
+    ],
+    "witness_bundle": [
+      "quest_id",
+      "witnesses",
+      "evidence_hash",
+      "timestamp"
+    ],
+    "replay_bundle": [
+      "quest_id",
+      "replay_steps",
+      "determinism_proof",
+      "timestamp"
+    ],
+    "receipt_entry": [
+      "entry_hash",
+      "chain_hash",
+      "phase",
+      "timestamp"
+    ],
+    "sealed_bundle": [
+      "bundle_hash",
+      "registry",
+      "seal_timestamp",
+      "verifier_version"
+    ]
   }
 }

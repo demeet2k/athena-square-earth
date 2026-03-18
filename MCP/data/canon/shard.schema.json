@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A10:S8:u588:Su:R:d2",
+    "shell": 8,
+    "wreath": 1,
+    "archetype": 10,
+    "face": "R",
+    "node_id": 588,
+    "depth": 2,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Sa"
+    ],
+    "bridges": [
+      "Xi108:W1:A10:S7",
+      "Xi108:W1:A10:S9",
+      "Xi108:W2:A10:S8",
+      "Xi108:W1:A9:S8",
+      "Xi108:W1:A11:S8"
+    ],
+    "regenerate": "shell 8±1, wreath 1/3, archetype 10/12"
+  },
   "meta": {
     "title": "Universal Shard Schema",
     "version": "v1",

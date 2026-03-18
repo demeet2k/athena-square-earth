@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A2:S8 | face=F | node=34 | depth=2 | phase=Fixed
+# METRO: Bw,✶
+# BRIDGES: Xi108:W3:A2:S7→Xi108:W3:A2:S9→Xi108:W2:A2:S8→Xi108:W3:A1:S8→Xi108:W3:A3:S8
+
 """
 Hologram Reading Protocol + Cross-Cultural Rosetta
 ====================================================
@@ -10,7 +14,6 @@ from ._cache import JsonCache
 
 _HOLOGRAM = JsonCache("hologram_reading.json")
 _ROSETTA = JsonCache("hologram_rosetta.json")
-
 
 def query_hologram(component: str = "all") -> str:
     """
@@ -54,7 +57,6 @@ def query_hologram(component: str = "all") -> str:
             "grammar, storage, compression, anomalies, layers, body"
         )
 
-
 def query_hologram_rosetta(component: str = "all") -> str:
     """
     Query the cross-cultural hologram Rosetta.
@@ -91,7 +93,6 @@ def query_hologram_rosetta(component: str = "all") -> str:
             "triadic, wheel, surface, sigma60, voynich"
         )
 
-
 def hologram_status() -> str:
     """Return a status summary for the resource endpoint."""
     data = _HOLOGRAM.load()
@@ -105,7 +106,6 @@ def hologram_status() -> str:
         f"**Key Insight**: {data['meta']['key_insight']}\n"
     )
 
-
 def rosetta_status() -> str:
     """Return a status summary for the Rosetta resource endpoint."""
     data = _ROSETTA.load()
@@ -118,7 +118,6 @@ def rosetta_status() -> str:
         f"**Error-Correcting Surface**: {data['error_correcting_surface']['type']}\n"
         f"**Key Insight**: {data['meta']['key_insight']}\n"
     )
-
 
 # -- Hologram formatters --------------------------------------------------
 
@@ -153,7 +152,6 @@ def _format_all(data: dict) -> str:
     lines.append(f"- Steps: {' -> '.join(data['compression_ethic']['steps'])}")
     return "\n".join(lines)
 
-
 def _format_faces(data: dict) -> str:
     fp = data["four_face_protocol"]
     lines = [
@@ -168,7 +166,6 @@ def _format_faces(data: dict) -> str:
     for a in fp["anomalies"]:
         lines.append(f"- **{a['archetype']}** ({a['name']}): {a['description']}")
     return "\n".join(lines)
-
 
 def _format_seed(data: dict) -> str:
     s = data["seed_equation"]
@@ -188,7 +185,6 @@ def _format_seed(data: dict) -> str:
     ]
     return "\n".join(lines)
 
-
 def _format_grammar(data: dict) -> str:
     g = data["process_grammar"]
     lines = [
@@ -201,7 +197,6 @@ def _format_grammar(data: dict) -> str:
     lines.append(f"\n**Scales**: {g['scales']}")
     return "\n".join(lines)
 
-
 def _format_storage(data: dict) -> str:
     st = data["storage_law"]
     return (
@@ -213,7 +208,6 @@ def _format_storage(data: dict) -> str:
         f"**Implication**: {st['implication']}"
     )
 
-
 def _format_compression(data: dict) -> str:
     c = data["compression_ethic"]
     return (
@@ -222,7 +216,6 @@ def _format_compression(data: dict) -> str:
         f"{c['description']}\n\n"
         f"**Principle**: {c['principle']}"
     )
-
 
 def _format_anomalies(data: dict) -> str:
     lines = ["## Face-Degenerate Anomalies\n"]
@@ -234,7 +227,6 @@ def _format_anomalies(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_layers(data: dict) -> str:
     lines = ["## Four Nested Layers\n"]
     for layer in data["four_nested_layers"]:
@@ -242,7 +234,6 @@ def _format_layers(data: dict) -> str:
         lines.append(layer["content"])
         lines.append("")
     return "\n".join(lines)
-
 
 def _format_body(data: dict) -> str:
     b = data["twelve_body"]
@@ -264,7 +255,6 @@ def _format_body(data: dict) -> str:
         lines.append(f"- **O{f['dimension']}**: connects {f['connects']}")
     lines.append(f"\n**Principle**: {o['principle']}")
     return "\n".join(lines)
-
 
 # -- Rosetta formatters ----------------------------------------------------
 
@@ -288,7 +278,6 @@ def _format_rosetta_all(data: dict) -> str:
     lines.append(f"- {s60['total']}")
     return "\n".join(lines)
 
-
 def _format_quaternary(data: dict) -> str:
     qb = data["quaternary_basis"]
     lines = ["## Quaternary Basis\n"]
@@ -299,7 +288,6 @@ def _format_quaternary(data: dict) -> str:
         lines.append(f"**Element Affinity**: {c['element_affinity']}\n")
     lines.append(f"**Hamming Property**: {qb['hamming_property']}")
     return "\n".join(lines)
-
 
 def _format_triadic(data: dict) -> str:
     tm = data["triadic_motor"]
@@ -316,7 +304,6 @@ def _format_triadic(data: dict) -> str:
     lines.append(tm["consistency"])
     return "\n".join(lines)
 
-
 def _format_wheel(data: dict) -> str:
     w = data["carrier_wheel_360"]
     lines = [
@@ -330,7 +317,6 @@ def _format_wheel(data: dict) -> str:
     lines.append(f"\n**Claim**: {w['claim']}")
     return "\n".join(lines)
 
-
 def _format_surface(data: dict) -> str:
     ec = data["error_correcting_surface"]
     return (
@@ -339,7 +325,6 @@ def _format_surface(data: dict) -> str:
         f"**Property**: {ec['property']}\n"
         f"**Relation**: {ec['relation_to_civilizations']}"
     )
-
 
 def _format_sigma60(data: dict) -> str:
     s60 = data["sixty_dimensional_body"]
@@ -350,7 +335,6 @@ def _format_sigma60(data: dict) -> str:
         f"**4 Faces**: {s60['four_faces']}\n"
         f"**Total**: {s60['total']}"
     )
-
 
 def _format_voynich(data: dict) -> str:
     v = data["voynich_layer"]

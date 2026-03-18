@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=87 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - ZERO-POINT COMPUTING
 ================================
@@ -179,7 +183,6 @@ from .topological import (
     validate_topological_protection,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -191,7 +194,6 @@ def validate_zero_point() -> bool:
     assert validate_superconducting()
     assert validate_topological_protection()
     return True
-
 
 # =============================================================================
 # ZERO-POINT COMPUTING SYSTEM
@@ -386,7 +388,6 @@ class ZeroPointComputer:
             "wu_wei_efficiency": self.mover.wu_wei_efficiency()
         }
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -426,11 +427,9 @@ __all__ = [
 __version__ = "1.0.0"
 __module_name__ = "zero_point"
 
-
 # Type hints
 from typing import Dict, List, Optional, Callable
 import numpy as np
-
 
 if __name__ == "__main__":
     print("=" * 70)

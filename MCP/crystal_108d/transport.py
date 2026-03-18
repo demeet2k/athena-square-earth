@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W1:A10:S10 | face=F | node=49 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A10:S9→Xi108:W1:A10:S11→Xi108:W2:A10:S10→Xi108:W1:A9:S10→Xi108:W1:A11:S10
+
 """Transport stack per dimension."""
 
 from ._cache import JsonCache
 
 _transport = JsonCache("transport_stacks.json")
-
 
 def query_transport_stack(dimension: int) -> str:
     """

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=306 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import re
@@ -19,7 +23,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -86,7 +89,6 @@ FRACTAL_SUBFRONT = "QS64-20 Connectivity-Diagnose-Fractal"
 DERIVATION_VERSION = "2026-03-13.q42-flower-pass-v1"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_q42_flower_pass_activation"
 
-
 def run_module(module: str) -> Dict[str, Any]:
     result = subprocess.run(
         [sys.executable, "-m", module],
@@ -102,7 +104,6 @@ def run_module(module: str) -> Dict[str, Any]:
         "ok": result.returncode == 0,
     }
 
-
 def docs_gate_status() -> str:
     credentials_path = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
     token_path = WORKSPACE_ROOT / "Trading Bot" / "token.json"
@@ -114,7 +115,6 @@ def docs_gate_status() -> str:
     if "Command status: `OPEN`" in gate_text:
         return "open"
     return "blocked-by-auth-failure"
-
 
 def build_runtime_membrane() -> RuntimeCorridorMembraneRecord:
     runtime_payload = load_json(RUNTIME_VERIFICATION_PATH)
@@ -133,7 +133,6 @@ def build_runtime_membrane() -> RuntimeCorridorMembraneRecord:
         next_seed=CLOUD_SUBFRONT,
         note="Athena OS runtime is now witnessed as the M3 corridor membrane for local Flower closure.",
     )
-
 
 def build_seed_packet_witness() -> SeedPacketWitnessRecord:
     orgin_atlas = load_json(ORGIN_ATLAS_PATH)
@@ -162,7 +161,6 @@ def build_seed_packet_witness() -> SeedPacketWitnessRecord:
         note="ORGIN is now packet-backed inside the M5 rail instead of staying route-map-only.",
     )
 
-
 def render_runtime_membrane_markdown(record: RuntimeCorridorMembraneRecord) -> str:
     witnesses = "\n".join(f"- `{item}`" for item in record.witness_basis)
     return f"""# ATHENA OS QSHRINK CORRIDOR MEMBRANE
@@ -186,7 +184,6 @@ Truth: `{record.truth_state}`
 
 {record.note}
 """
-
 
 def render_seed_packet_markdown(record: SeedPacketWitnessRecord) -> str:
     witnesses = "\n".join(f"- `{item}`" for item in record.witness_basis)
@@ -212,7 +209,6 @@ Truth: `{record.truth_state}`
 {record.note}
 """
 
-
 def render_orgin_route_map(record: SeedPacketWitnessRecord) -> str:
     return f"""# FAMILY ORGIN Route Map
 
@@ -237,7 +233,6 @@ Mirror surfaces may feed local Flower closure, but they do not outrank the block
 
 `ORGIN -> Q42 local Flower writeback -> {CLOUD_SUBFRONT}`
 """
-
 
 def render_q42_queue_block() -> str:
     return f"""### FRONT-Q42-QSHRINK-AGENT-SWEEP
@@ -274,7 +269,6 @@ def render_q42_queue_block() -> str:
 - Next Seed:
   keep `Q42` open on `{FLOWER_SUBFRONT}` as the highest executable Hall-side frontier, keep `Q02` blocked while OAuth is missing, keep `TQ04` as the deeper Temple receiver, and emit `{CLOUD_SUBFRONT}` only after Flower closure is witnessed
 """
-
 
 def render_qshrink_active_front() -> str:
     return f"""# QSHRINK ACTIVE FRONT
@@ -324,10 +318,8 @@ Activate The First QSHRINK Agent Sweep
 `BLOCKED`
 """
 
-
 def restore_qshrink_active_front() -> None:
     write_text(QSHRINK_ACTIVE_FRONT_PATH, render_qshrink_active_front())
-
 
 def authority_front_state() -> Dict[str, str]:
     if not QSHRINK_ACTIVE_FRONT_PATH.exists():
@@ -340,7 +332,6 @@ def authority_front_state() -> Dict[str, str]:
         "next_seed": next_seed_match.group(1) if next_seed_match else "",
     }
 
-
 def should_write_live_flower_control_surfaces() -> bool:
     authority_state = authority_front_state()
     return (
@@ -348,13 +339,11 @@ def should_write_live_flower_control_surfaces() -> bool:
         and authority_state["next_seed"] == CLOUD_SUBFRONT
     )
 
-
 def replace_q42_queue_block() -> None:
     text = read_text(ACTIVE_QUEUE_PATH)
     pattern = r"### FRONT-Q42-QSHRINK-AGENT-SWEEP\n.*?(?=\n### FRONT-|\Z)"
     updated = re.sub(pattern, render_q42_queue_block().rstrip() + "\n\n", text, flags=re.S)
     write_text(ACTIVE_QUEUE_PATH, updated)
-
 
 def update_weakest_front_queue() -> None:
     write_text(
@@ -417,7 +406,6 @@ Advance `FRONT-Q42-QSHRINK-AGENT-SWEEP` as the highest local frontier that can g
 """,
     )
 
-
 def update_next_self_prompt() -> None:
     write_text(
         NEXT_SELF_PROMPT_PATH,
@@ -473,7 +461,6 @@ Preferred frontier order:
 """,
     )
 
-
 def render_qshrink_family() -> str:
     return f"""# FAMILY QSHRINK Internal Use
 
@@ -509,10 +496,8 @@ reserve-only, and `Q02` stays blocked while OAuth material is absent.
 - Immediate Temple execution: `receiver only; do not make current`
 """
 
-
 def update_qshrink_family() -> None:
     write_text(QSHRINK_FAMILY_PATH, render_qshrink_family())
-
 
 def render_qshrink_route_map() -> str:
     return f"""# FAMILY QSHRINK Athena Internal Use Route Map
@@ -556,10 +541,8 @@ def render_qshrink_route_map() -> str:
 - `F5 reserve loop`: `Q45`
 """
 
-
 def update_qshrink_route_map() -> None:
     write_text(QSHRINK_ROUTE_MAP_PATH, render_qshrink_route_map())
-
 
 def render_temple_state() -> str:
     return f"""# Temple State
@@ -653,10 +636,8 @@ The Hall and Temple now share one live control story:
 `Keep Q41/TQ06 active as the hourly packet-fed coordination membrane, keep Q42 active on {FLOWER_SUBFRONT}, preserve {CLOUD_SUBFRONT} as the sole next Hall restart seed, keep TQ04 as the deeper Temple receiver, keep Q45 reserve-only, and keep Q02 externally blocked while the Docs gate remains BLOCKED.`
 """
 
-
 def update_temple_state() -> None:
     write_text(TEMPLE_STATE_PATH, render_temple_state())
-
 
 def update_active_run_manifest() -> None:
     text = read_text(ACTIVE_RUN_PATH)
@@ -690,7 +671,6 @@ def update_active_run_manifest() -> None:
     text = text.replace(old_next_output_bullet, new_next_output_bullet, 1)
     write_text(ACTIVE_RUN_PATH, text)
 
-
 def update_build_queue_manifest() -> None:
     text = read_text(BUILD_QUEUE_PATH)
     old_priority_line = (
@@ -721,7 +701,6 @@ def update_build_queue_manifest() -> None:
         text = text.replace(anchor_line, anchor_line + "\n" + insertion, 1)
     write_text(BUILD_QUEUE_PATH, text)
 
-
 def render_manifest(outputs: Dict[str, str], module_runs: List[Dict[str, Any]]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     run_lines = "\n".join(
@@ -749,7 +728,6 @@ Wave: `Q42 / QS64-18 Connectivity-Diagnose-Flower`
 
 {run_lines}
 """
-
 
 def render_dashboard(payload: Dict[str, Any]) -> str:
     verifier_truth = payload.get("verifier_truth", {})
@@ -781,7 +759,6 @@ Truth: `{payload['truth']}`
 `{payload['next_restart_seed']}`
 """
 
-
 def render_verification(payload: Dict[str, Any]) -> str:
     check_lines = "\n".join(f"- `{name}`: `{value}`" for name, value in payload["checks"].items())
     unresolved_lines = "\n".join(f"- {item}" for item in payload["unresolved"]) or "- none"
@@ -799,7 +776,6 @@ Truth: `{payload['truth']}`
 {unresolved_lines}
 """
 
-
 def render_runtime(outputs: Dict[str, str], verification: Dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# 32 Q42 FLOWER PASS ACTIVATION RUNTIME
@@ -812,7 +788,6 @@ Docs gate: `{verification['docs_gate_status']}`
 
 {output_lines}
 """
-
 
 def render_receipt(
     membrane: RuntimeCorridorMembraneRecord,
@@ -845,7 +820,6 @@ def render_receipt(
 
 {unresolved_lines}
 """
-
 
 def build_verification(generated_paths: List[Path], module_runs: List[Dict[str, Any]]) -> Dict[str, Any]:
     flower = load_json(FLOWER_JSON_PATH)
@@ -985,7 +959,6 @@ def build_verification(generated_paths: List[Path], module_runs: List[Dict[str, 
         "unresolved": unresolved,
     }
 
-
 def build_dashboard(verification: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "generated_at": verification["generated_at"],
@@ -999,7 +972,6 @@ def build_dashboard(verification: Dict[str, Any]) -> Dict[str, Any]:
         "verifier_truth": verification["verifier_truth"],
         "next_restart_seed": verification["next_restart_seed"],
     }
-
 
 def main() -> int:
     restore_qshrink_active_front()
@@ -1153,7 +1125,6 @@ def main() -> int:
     print(f"Wrote Q42 Flower-pass activation artifacts under {SELF_ACTUALIZE_ROOT}")
     print(f"Truth: {verification['truth']}")
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

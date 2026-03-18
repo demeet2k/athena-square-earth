@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A9:S24 | face=C | node=527 | depth=3 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A9:S23→Xi108:W3:A9:S25→Xi108:W2:A9:S24→Xi108:W3:A8:S24→Xi108:W3:A10:S24
+
 """
 Holographic Crystal Embedder — inscribes crystal coordinates INTO every file.
 
@@ -59,8 +63,7 @@ _MD_BLOCK_RE = re.compile(
     re.DOTALL,
 )
 
-_PY_CRYSTAL_START = "# CRYSTAL:"
-_PY_BLOCK_RE = re.compile(
+_PY_CRYSTAL_START = "_PY_BLOCK_RE = re.compile(
     r"# CRYSTAL:.*\n"
     r"(?:# METRO:.*\n)?"
     r"(?:# BRIDGES:.*\n)?",
@@ -71,13 +74,11 @@ _GENERIC_BLOCK_RE = _PY_BLOCK_RE  # same format for .txt, .cfg, etc.
 
 _JSON_CRYSTAL_KEY = "_crystal"
 
-
 # ---------------------------------------------------------------------------
 # Coordinate loading
 # ---------------------------------------------------------------------------
 
 _coord_cache: dict[str, dict] | None = None
-
 
 def _load_coordinates() -> dict[str, dict]:
     """Load crystal_coordinates.json and return the coordinates dict."""
@@ -94,7 +95,6 @@ def _load_coordinates() -> dict[str, dict]:
         data = json.load(f)
     _coord_cache = data.get("coordinates", {})
     return _coord_cache
-
 
 def _find_coordinate(file_path: str) -> dict | None:
     """Find the crystal coordinate for a file by its relative path."""
@@ -125,7 +125,6 @@ def _find_coordinate(file_path: str) -> dict | None:
             return coords[key]
 
     return None
-
 
 def _compute_neighbors(coord: dict) -> list[str]:
     """Compute neighbor addresses from a coordinate.
@@ -165,7 +164,6 @@ def _compute_neighbors(coord: dict) -> list[str]:
 
     return neighbors
 
-
 def _make_address(coord: dict) -> str:
     """Build the Xi108 canonical address string."""
     sp = ("Su", "Me", "Sa")[coord["wreath"] - 1]
@@ -173,7 +171,6 @@ def _make_address(coord: dict) -> str:
         f"Xi108:W{coord['wreath']}:A{coord['archetype']}:S{coord['shell']}"
         f":u{coord['node_id']}:{sp}:{coord['face']}:d{coord['depth']}"
     )
-
 
 # ---------------------------------------------------------------------------
 # Header builders per file type
@@ -203,7 +200,6 @@ def _build_md_header(coord: dict) -> str:
     ]
     return "\n".join(lines) + "\n"
 
-
 def _build_py_header(coord: dict) -> str:
     """Build Python-comment holographic header."""
     addr = (
@@ -222,11 +218,9 @@ def _build_py_header(coord: dict) -> str:
     ]
     return "\n".join(lines) + "\n"
 
-
 def _build_generic_header(coord: dict) -> str:
     """Build hash-comment header for .txt, .cfg, .yaml, .toml, etc."""
     return _build_py_header(coord)  # same format
-
 
 def _build_json_crystal_value(coord: dict) -> dict:
     """Build the _crystal object for JSON files."""
@@ -247,7 +241,6 @@ def _build_json_crystal_value(coord: dict) -> dict:
             f" archetype {coord['archetype']}/12"
         ),
     }
-
 
 # ---------------------------------------------------------------------------
 # File type detection
@@ -283,7 +276,6 @@ def _should_skip(file_path: Path) -> str | None:
 
     return None
 
-
 def _is_text_file(file_path: Path) -> bool:
     """Quick heuristic: try reading first 512 bytes as UTF-8."""
     try:
@@ -293,7 +285,6 @@ def _is_text_file(file_path: Path) -> bool:
         return True
     except (OSError, UnicodeDecodeError):
         return False
-
 
 # ---------------------------------------------------------------------------
 # Core embed / strip / verify functions
@@ -331,7 +322,6 @@ def embed_file(file_path: str) -> bool:
             return False
         return _embed_text(fp, coord, _GENERIC_BLOCK_RE, _build_generic_header, insert_after_shebang=True)
 
-
 def _generate_fallback_coordinate(file_path: str) -> dict:
     """Generate a deterministic coordinate for files not in crystal_coordinates.json."""
     import hashlib
@@ -346,7 +336,6 @@ def _generate_fallback_coordinate(file_path: str) -> dict:
         "phase": ("Fixed", "Cardinal", "Mutable")[(h >> 48) % 3],
         "metro_stops": ["Sa"],
     }
-
 
 def _embed_python(fp: Path, coord: dict) -> bool:
     """Embed into .py file, preserving shebang and encoding declarations."""
@@ -380,7 +369,6 @@ def _embed_python(fp: Path, coord: dict) -> bool:
     fp.write_text(new_content, encoding="utf-8")
     return True
 
-
 def _embed_text(fp: Path, coord: dict, block_re: re.Pattern,
                 header_builder, insert_after_shebang: bool = False) -> bool:
     """Embed header into a text file (.md, .txt, etc.)."""
@@ -412,7 +400,6 @@ def _embed_text(fp: Path, coord: dict, block_re: re.Pattern,
     fp.write_text(new_content, encoding="utf-8")
     return True
 
-
 def _embed_json(fp: Path, coord: dict) -> bool:
     """Embed _crystal key into a JSON file."""
     try:
@@ -439,7 +426,6 @@ def _embed_json(fp: Path, coord: dict) -> bool:
         encoding="utf-8",
     )
     return True
-
 
 def strip_header(file_path: str) -> bool:
     """Remove holographic header from a file. Returns True if modified."""
@@ -484,7 +470,6 @@ def strip_header(file_path: str) -> bool:
         return True
 
     return False
-
 
 def verify_header(file_path: str) -> dict | None:
     """Check if a file has a valid holographic header.
@@ -534,7 +519,6 @@ def verify_header(file_path: str) -> dict | None:
         "phase": m.group(7),
     }
 
-
 # ---------------------------------------------------------------------------
 # Directory / repo level operations
 # ---------------------------------------------------------------------------
@@ -578,7 +562,6 @@ def embed_directory(dir_path: str, recursive: bool = True) -> dict:
 
     return stats
 
-
 def embed_repo(repo_root: str = "") -> dict:
     """Embed holographic headers in the entire repo.
 
@@ -586,7 +569,6 @@ def embed_repo(repo_root: str = "") -> dict:
     """
     root = Path(repo_root).resolve() if repo_root else REPO_ROOT
     return embed_directory(str(root), recursive=True)
-
 
 def _scan_status(root: Path) -> dict:
     """Scan repo and return counts of files with/without headers."""
@@ -634,7 +616,6 @@ def _scan_status(root: Path) -> dict:
         "skipped": skipped,
         "coverage_pct": round(100 * has_header / max(total - skipped, 1), 1),
     }
-
 
 # ---------------------------------------------------------------------------
 # MCP tool function

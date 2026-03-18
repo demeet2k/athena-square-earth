@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S22 | face=R | node=239 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S21→Xi108:W3:A8:S23→Xi108:W2:A8:S22→Xi108:W3:A7:S22→Xi108:W3:A9:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 8/12 -->
+
 # Dense 65 T Antispin Atlas
 
 ## T01

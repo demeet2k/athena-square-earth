@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=304 | depth=2 | phase=Mutable
+# METRO: Wr,Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -27,7 +31,6 @@ from .derive_four_agent_57_cycle_orchestration import (
     write_json,
 )
 
-
 EXPECTED_HALL_IDS = {
     "FA57-Q-FIRE-RESEARCH",
     "FA57-Q-WATER-PLANNER",
@@ -43,19 +46,15 @@ EXPECTED_TEMPLE_IDS = {
     "T57-EARTH-PRUNE-RETURN",
 }
 
-
 def absolute_from_relative(path_str: str) -> Path:
     return WORKSPACE_ROOT / path_str
-
 
 def heading_ids(text: str, prefix: str) -> list[str]:
     return re.findall(rf"^### ({re.escape(prefix)}[A-Z0-9-]+)", text, re.M)
 
-
 def marker_block(text: str) -> str:
     match = re.search(r"<!-- FOUR_AGENT_57_CYCLE:START -->(.*?)<!-- FOUR_AGENT_57_CYCLE:END -->", text, re.S)
     return match.group(1) if match else text
-
 
 def contract_violations(receipt_index_payload: dict[str, Any]) -> list[str]:
     violations: list[str] = []
@@ -67,7 +66,6 @@ def contract_violations(receipt_index_payload: dict[str, Any]) -> list[str]:
         if not receipt_exists or not all(path.exists() for path in artifact_paths):
             violations.append(entry["loop_id"])
     return violations
-
 
 def main() -> int:
     docs_gate = docs_gate_payload()
@@ -161,7 +159,6 @@ def main() -> int:
     write_json(RUNTIME_VERIFICATION_PATH, payload)
     print(json.dumps(payload, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

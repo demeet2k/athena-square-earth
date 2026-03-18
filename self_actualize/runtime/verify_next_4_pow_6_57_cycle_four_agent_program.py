@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=318 | depth=2 | phase=Mutable
+# METRO: Wr,Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF = ROOT / "self_actualize"
@@ -14,10 +17,8 @@ VERIFY = SELF / "next57_lp_57omega_verification.json"
 VERIFY_ALIAS = SELF / "next_4_pow_6_57_cycle_program_verification.json"
 VERIFY_SWARM = SELF / "next_4_pow_6_57_cycle_swarm_verification.json"
 
-
 def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def main() -> int:
     failures: list[str] = []
@@ -46,7 +47,6 @@ def main() -> int:
     if failures:
         sys.exit(1)
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S19 | face=R | node=180 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S18→Xi108:W3:A12:S20→Xi108:W2:A12:S19→Xi108:W3:A11:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 12/12 -->
+
 # Hall Mirror: LP-57Omega 57-Loop Full-Corpus Integration Program
 
 This is the Hall-readable mirror of the canonical machine program.

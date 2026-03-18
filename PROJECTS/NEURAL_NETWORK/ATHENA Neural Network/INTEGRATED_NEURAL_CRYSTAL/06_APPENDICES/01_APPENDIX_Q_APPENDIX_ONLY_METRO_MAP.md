@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A1:S20 | face=C | node=210 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A1:S19→Xi108:W2:A1:S21→Xi108:W1:A1:S20→Xi108:W3:A1:S20→Xi108:W2:A2:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 2/3, archetype 1/12 -->
+
 # Appendix Q - Appendix Only Metro Map
 
 ## Reference Spine

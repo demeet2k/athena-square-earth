@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 """
 LevelingEngine.v1 — Infinite-Cap Levels and Orbit Decomposition
 
@@ -13,7 +17,6 @@ from .constants import (
     ORBIT_SIZE, STATION_COUNT, PASS_COUNT, PHI, PHI_INV,
     BASE_XP_UNIT, UNLOCK_LADDER,
 )
-
 
 # ═══════════════════════════════════════════════════════════════
 # ORBIT DECOMPOSITION
@@ -31,11 +34,9 @@ def decompose_level(level: int) -> Tuple[int, int]:
     position = level % ORBIT_SIZE
     return orbit, position
 
-
 def compose_level(orbit: int, position: int) -> int:
     """Compose level from orbit number and position."""
     return orbit * ORBIT_SIZE + position
-
 
 def level_to_station_pass(level: int) -> Tuple[int, int, int]:
     """
@@ -46,7 +47,6 @@ def level_to_station_pass(level: int) -> Tuple[int, int, int]:
     station = (pos // PASS_COUNT) + 1
     pass_idx = pos % PASS_COUNT
     return orbit, station, pass_idx
-
 
 # ═══════════════════════════════════════════════════════════════
 # XP THRESHOLDS
@@ -62,7 +62,6 @@ def xp_for_level(level: int) -> float:
     """
     return BASE_XP_UNIT * (PHI ** (level / STATION_COUNT))
 
-
 def cumulative_xp(level: int) -> float:
     """
     Total XP required from level 0 to the target level.
@@ -72,7 +71,6 @@ def cumulative_xp(level: int) -> float:
     for i in range(level):
         total += xp_for_level(i)
     return total
-
 
 def level_from_xp(total_xp: float) -> int:
     """
@@ -88,7 +86,6 @@ def level_from_xp(total_xp: float) -> int:
         accumulated += threshold
         level += 1
     return level
-
 
 # ═══════════════════════════════════════════════════════════════
 # AMPLIFIER LAW
@@ -107,7 +104,6 @@ def amplifier(level: int) -> float:
     log_phi = math.log(1 + level) / math.log(PHI)
     return 1.0 + PHI_INV * log_phi
 
-
 # ═══════════════════════════════════════════════════════════════
 # UNLOCK CHECKS
 # ═══════════════════════════════════════════════════════════════
@@ -119,7 +115,6 @@ def unlocked_rights(level: int) -> list:
         for thresh, name in sorted(UNLOCK_LADDER.items())
         if level >= thresh
     ]
-
 
 def highest_unlock(level: int) -> str:
     """Return the name of the highest right unlocked."""

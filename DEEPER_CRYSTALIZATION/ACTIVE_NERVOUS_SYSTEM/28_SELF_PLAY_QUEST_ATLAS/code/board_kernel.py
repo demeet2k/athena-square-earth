@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A1:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A1:S2→Xi108:W2:A1:S1→Xi108:W1:A2:S1
+
 """
 BoardKernel.v1 — Deterministic Board Engine
 
@@ -21,7 +25,6 @@ from .types import (
 from .route_compiler import compile_route
 from .station_atlas import STATIONS, station_for_loop
 
-
 # ═══════════════════════════════════════════════════════════════
 # CANDIDATE NORMALIZATION
 # ═══════════════════════════════════════════════════════════════
@@ -37,7 +40,6 @@ def normalize_candidate(c: Candidate) -> Candidate:
             c.elemental_signature = sdef.element_vector
     return c
 
-
 # ═══════════════════════════════════════════════════════════════
 # SCORING HELPERS (BoardKernelPolicy.json)
 # ═══════════════════════════════════════════════════════════════
@@ -45,7 +47,6 @@ def normalize_candidate(c: Candidate) -> Candidate:
 def pass_decay(p: Pass3) -> float:
     """φ^(-(pass-1)): Sulfur=1.0, Mercury=φ⁻¹, Salt=φ⁻²."""
     return {Pass3.SULFUR: 1.0, Pass3.MERCURY: PHI_INV, Pass3.SALT: PHI_INV2}[p]
-
 
 def element_coherence(v: Vec4) -> float:
     """
@@ -62,7 +63,6 @@ def element_coherence(v: Vec4) -> float:
     max_var = 3.0 * mean ** 2  # variance when single-element (0.75, 0.25³ ×3)
     normalised_var = var / max_var if max_var > 0 else 0.0
     return 1.0 + PHI_INV * (1.0 - normalised_var)
-
 
 # ═══════════════════════════════════════════════════════════════
 # SCORING
@@ -92,7 +92,6 @@ def guild_score(c: Candidate, route: RouteTicket) -> float:
 
     return base * truth_w * diff * pd * coherence * pressure * community_mult * guild_amp
 
-
 def temple_score(c: Candidate, route: RouteTicket) -> float:
     """
     Temple score per BoardKernelPolicy:
@@ -111,7 +110,6 @@ def temple_score(c: Candidate, route: RouteTicket) -> float:
 
     return base * truth_w * depth * pd * coherence * temple_amp
 
-
 def _truth_weight(truth: Truth4) -> float:
     """Map truth state to scoring weight."""
     return {
@@ -120,7 +118,6 @@ def _truth_weight(truth: Truth4) -> float:
         Truth4.AMBIG: PHI_INV,
         Truth4.FAIL: 0.0,
     }[truth]
-
 
 # ═══════════════════════════════════════════════════════════════
 # QUEUE ASSIGNMENT
@@ -145,7 +142,6 @@ def assign_guild_queue(c: Candidate, route: RouteTicket) -> QueueName:
 
     return QueueName.LADDER
 
-
 def assign_temple_queue(c: Candidate, route: RouteTicket) -> QueueName:
     """Assign a candidate to a Temple queue."""
     if route.truth == Truth4.FAIL:
@@ -164,7 +160,6 @@ def assign_temple_queue(c: Candidate, route: RouteTicket) -> QueueName:
         return QueueName.SOVEREIGN
 
     return QueueName.COMPRESSION
-
 
 # ═══════════════════════════════════════════════════════════════
 # BOARD BUILDERS
@@ -190,20 +185,17 @@ def build_board_entry(c: Candidate, kind: BoardKind) -> BoardEntry:
         queue=queue,
     )
 
-
 def build_guild_board(candidates: List[Candidate]) -> List[BoardEntry]:
     """Build sorted Guild Hall board from candidates."""
     entries = [build_board_entry(c, BoardKind.GUILD) for c in candidates]
     entries.sort(key=lambda e: e.score, reverse=True)
     return entries
 
-
 def build_temple_board(candidates: List[Candidate]) -> List[BoardEntry]:
     """Build sorted Temple board from candidates."""
     entries = [build_board_entry(c, BoardKind.TEMPLE) for c in candidates]
     entries.sort(key=lambda e: e.score, reverse=True)
     return entries
-
 
 # ═══════════════════════════════════════════════════════════════
 # ORBIT-WIDE DRIVER

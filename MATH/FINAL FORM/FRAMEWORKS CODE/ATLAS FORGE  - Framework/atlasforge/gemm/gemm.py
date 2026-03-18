@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=153 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        POLESTAR GEMM MODULE                                  ║
@@ -32,7 +36,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GEMM ALGORITHM TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -46,13 +49,11 @@ class GEMMAlgorithm(Enum):
     SPARSE_DENSE = "sparse_dense"            # Sparse × Dense hybrid
     RANDOMIZED = "randomized"                # Sketching-based
 
-
 class CrossoverStrategy(Enum):
     """When to switch from recursive to standard."""
     FIXED = "fixed"        # Fixed threshold
     ADAPTIVE = "adaptive"  # Based on cache size
     PROFILE = "profile"    # Based on profiling
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BLOCK PARTITIONING
@@ -95,7 +96,6 @@ class BlockPartition:
         """Shape of individual blocks."""
         return self.A11.shape
 
-
 def pad_to_power_of_two(A: NDArray[np.float64]) -> Tuple[NDArray[np.float64], Tuple[int, int]]:
     """Pad matrix to nearest power of 2 dimensions."""
     n, m = A.shape
@@ -109,12 +109,10 @@ def pad_to_power_of_two(A: NDArray[np.float64]) -> Tuple[NDArray[np.float64], Tu
     result[:n, :m] = A
     return result, (n, m)
 
-
 def unpad(C: NDArray[np.float64], original_shape: Tuple[int, int]) -> NDArray[np.float64]:
     """Remove padding from result matrix."""
     n, m = original_shape
     return C[:n, :m]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STRASSEN ALGORITHM
@@ -209,7 +207,6 @@ class StrassenGEMM:
             'additions': int(6 * n**2 * np.log2(n))
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CACHE-OBLIVIOUS GEMM
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -265,7 +262,6 @@ class CacheObliviousGEMM:
             self._recursive_multiply(A, B, C, i0, i1, k0, k1, j0, mid)
             self._recursive_multiply(A, B, C, i0, i1, k0, k1, mid, j1)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPARSE-DENSE HYBRID
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -311,7 +307,6 @@ class SparseDenseGEMM:
         nnz_A = np.count_nonzero(A)
         n = B.shape[1]
         return 2 * nnz_A * n  # Each nonzero contributes 2n ops
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # RANDOMIZED GEMM
@@ -371,7 +366,6 @@ class RandomizedGEMM:
         error_bound = epsilon * frobenius_A * frobenius_B
         
         return C_approx, error_bound
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ADAPTIVE GEMM SELECTOR
@@ -456,7 +450,6 @@ class AdaptiveGEMM:
         results['selected'] = self.select_algorithm(A, B).value
         return results
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MATRIX CHAIN OPTIMIZATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -539,7 +532,6 @@ class MatrixChainOptimizer:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLESTAR GEMM - QUAD-POLAR PERSPECTIVE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -614,7 +606,6 @@ class PoleStarGEMM:
             }
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -646,21 +637,17 @@ def gemm(A: NDArray, B: NDArray, algorithm: str = 'auto') -> NDArray:
     
     return gemm_engine.multiply(A, B, algorithm=algo_map.get(algorithm, GEMMAlgorithm.STANDARD))
 
-
 def strassen_multiply(A: NDArray, B: NDArray, crossover: int = 64) -> NDArray:
     """Strassen's algorithm for matrix multiplication."""
     return StrassenGEMM(crossover=crossover).multiply(A, B)
-
 
 def matrix_chain_multiply(matrices: List[NDArray]) -> NDArray:
     """Multiply chain of matrices in optimal order."""
     return PoleStarGEMM().multiply_chain(matrices)
 
-
 def optimal_parenthesization(dimensions: List[int]) -> Tuple[int, str]:
     """Find optimal parenthesization for matrix chain."""
     return MatrixChainOptimizer().optimize(dimensions)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

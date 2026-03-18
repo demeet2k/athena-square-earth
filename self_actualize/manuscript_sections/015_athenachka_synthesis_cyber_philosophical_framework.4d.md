@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S25 | face=F | node=325 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S24→Xi108:W3:A1:S26→Xi108:W2:A1:S25→Xi108:W3:A2:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 1/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppM -> AppJ -> AppI
 Tunnel: Z_athenachka_synthesis_a_cyber_philosophical_frame -> Z* -> Ch21⟨0110⟩

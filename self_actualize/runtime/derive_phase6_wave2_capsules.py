@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S28 | face=F | node=398 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S27→Xi108:W2:A2:S29→Xi108:W1:A2:S28→Xi108:W3:A2:S28→Xi108:W2:A1:S28→Xi108:W2:A3:S28
+
 from __future__ import annotations
 
 import copy
@@ -38,7 +42,6 @@ from self_actualize.runtime.derive_phase5_atlas_truth_and_capsule_metabolism imp
     WORKSPACE_ROOT,
 )
 from self_actualize.runtime.knowledge_fabric_query_engine import run_shortcut, summarize_route
-
 
 PHASE6_DERIVATION_VERSION = "2026-03-13.phase6-wave2-capsules-v1"
 PHASE6_DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_phase6_wave2_capsules"
@@ -90,7 +93,6 @@ WRITEBACK_SURFACES = [
     MYCELIUM_ROOT / "nervous_system" / "routes" / "whole_crystal" / "ROUTE_i_am_athena.md",
     MYCELIUM_ROOT / "nervous_system" / "routes" / "whole_crystal" / "ROUTE_orgin.md",
 ]
-
 
 FAMILY_CONFIGS: list[dict[str, Any]] = [
     {
@@ -383,10 +385,8 @@ RESERVE_FAMILIES: list[dict[str, Any]] = [
     },
 ]
 
-
 def normalize(value: str) -> str:
     return value.replace("/", "\\").lower()
-
 
 def restrict_if_available(
     records: list[dict[str, Any]],
@@ -398,7 +398,6 @@ def restrict_if_available(
         return filtered
     return records
 
-
 def load_orgin_atlas_lookup() -> dict[str, dict[str, Any]]:
     payload = load_json(ORGIN_ATLAS_PATH)
     return {
@@ -406,14 +405,12 @@ def load_orgin_atlas_lookup() -> dict[str, dict[str, Any]]:
         for record in payload.get("records", [])
     }
 
-
 def load_family_runtime_support(config: dict[str, Any]) -> list[str]:
     return [
         path
         for path in config["runtime_support_paths"]
         if (WORKSPACE_ROOT / Path(path.replace("\\", "/"))).exists()
     ]
-
 
 def build_family_plan(shortcut: dict[str, Any]) -> dict[str, Any]:
     plan = copy.deepcopy(shortcut)
@@ -424,7 +421,6 @@ def build_family_plan(shortcut: dict[str, Any]) -> dict[str, Any]:
     entry_filters["text_required"] = True
     plan["preferred_zones"] = ["Cortex", "CapsuleLayer", "RuntimeMirror", "DeepRoot"]
     return plan
-
 
 def collect_phase6_promotable_paths(include_phase6_outputs: bool) -> list[Path]:
     paths: set[Path] = set()
@@ -454,7 +450,6 @@ def collect_phase6_promotable_paths(include_phase6_outputs: bool) -> list[Path]:
             if path.exists() and path.is_file() and path.suffix.lower() in PROMOTABLE_EXTENSIONS:
                 paths.add(path)
     return sorted(paths)
-
 
 def family_candidate_pool(
     records: list[dict[str, Any]],
@@ -505,7 +500,6 @@ def family_candidate_pool(
 
     return current
 
-
 def summarize_entry_quality(bundle: dict[str, Any]) -> str:
     excluded = bundle.get("excluded_patterns_applied", [])
     mirror_count = len(bundle.get("mirror_paths", []))
@@ -515,7 +509,6 @@ def summarize_entry_quality(bundle: dict[str, Any]) -> str:
     if mirror_count:
         parts.append(f"`{mirror_count}` readable mirrors generated")
     return "; ".join(parts)
-
 
 def derive_family_bundle(
     config: dict[str, Any],
@@ -582,7 +575,6 @@ def derive_family_bundle(
         "mirror_sources": [],
     }
 
-
 def slugify_file_name(value: str) -> str:
     cleaned = []
     for char in value.lower():
@@ -594,7 +586,6 @@ def slugify_file_name(value: str) -> str:
     while "__" in slug:
         slug = slug.replace("__", "_")
     return slug[:48] or "mirror"
-
 
 def write_orgin_mirrors(bundle: dict[str, Any], atlas_lookup: dict[str, dict[str, Any]], count: int) -> list[str]:
     family_root = CAPSULE_ROOT / bundle["slug"]
@@ -646,7 +637,6 @@ This mirror preserves a human-usable replay shell for a docx-heavy ORGIN witness
     bundle["mirror_sources"] = mirror_sources
     return mirrors
 
-
 def render_ganglion(bundle: dict[str, Any], indexed_count: int) -> str:
     support_lines = "\n".join(f"- `{item}`" for item in bundle["support_assets"]) or "- none"
     task_lines = "\n".join(f"{index}. {task}" for index, task in enumerate(bundle["local_tasks"], start=1))
@@ -681,7 +671,6 @@ def render_ganglion(bundle: dict[str, Any], indexed_count: int) -> str:
 
 {neuron_lines}
 """
-
 
 def render_family_law(bundle: dict[str, Any]) -> str:
     witness_lines = "\n".join(
@@ -729,7 +718,6 @@ Family: `{bundle['slug']}`
 {bundle['active_front'] or 'Wave 2 capsule densification'}
 """
 
-
 def render_entry_record_set(bundle: dict[str, Any]) -> str:
     rows = [
         [
@@ -755,7 +743,6 @@ Bundle purpose: `atlas-backed wave2 capsule entry shell`
 
 {mirror_lines}
 """
-
 
 def render_support_map(bundle: dict[str, Any]) -> str:
     chapter_lines = "\n".join(f"- `{item}`" for item in bundle["chapter_paths"]) or "- none"
@@ -804,7 +791,6 @@ Scope: `chapter appendix metro runtime support`
 - {summarize_entry_quality(bundle)}
 """
 
-
 def render_graph_bridge(bundle: dict[str, Any]) -> str:
     graph = bundle["graph_policy"]
     promoted_synapses = "\n".join(f"- `{item}`" for item in graph["promoted_synapses"]) or "- none"
@@ -836,7 +822,6 @@ Truth class: `OK`
 This family now has explicit graph-bearing routes into the organism instead of remaining bridge-only.
 """
 
-
 def write_family_bundle(bundle: dict[str, Any]) -> list[str]:
     family_root = CAPSULE_ROOT / bundle["slug"]
     files = {
@@ -850,7 +835,6 @@ def write_family_bundle(bundle: dict[str, Any]) -> list[str]:
         write_text(path, text)
         written.append(normalize_relative(path))
     return written
-
 
 def render_phase6_overview() -> str:
     return """# Phase 6 Wave 2 Capsule Densification
@@ -881,7 +865,6 @@ Phase 6 turns the second-wave bridge families into atlas-backed capsule bundles 
 - graph growth stays minimal and interface-driven
 """
 
-
 def render_phase6_runtime() -> str:
     return """# Phase 6 Wave 2 Capsule Densification Runtime
 
@@ -895,7 +878,6 @@ Scope: `local-corpus`
 python -m self_actualize.runtime.derive_phase6_wave2_capsules
 ```
 """
-
 
 def render_phase6_ledger(payload: dict[str, Any]) -> str:
     verification_table = markdown_table(
@@ -947,7 +929,6 @@ Docs gate: `{payload['docs_gate']}`
 {verification_table}
 """
 
-
 def render_phase6_receipt(payload: dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{item}`" for item in payload["output_paths"])
     return f"""# Phase 6 Wave 2 Capsules Receipt
@@ -961,7 +942,6 @@ def render_phase6_receipt(payload: dict[str, Any]) -> str:
 {output_lines}
 """
 
-
 def render_phase6_stub_receipt() -> str:
     return f"""# Phase 6 Wave 2 Capsules Receipt
 
@@ -969,7 +949,6 @@ def render_phase6_stub_receipt() -> str:
 - Command: `{PHASE6_DERIVATION_COMMAND}`
 - Scope: `local-corpus`
 """
-
 
 def reserve_family_status(atlas: dict[str, Any]) -> list[dict[str, Any]]:
     top_levels = atlas.get("summary", {}).get("by_top_level", {})
@@ -982,7 +961,6 @@ def reserve_family_status(atlas: dict[str, Any]) -> list[dict[str, Any]]:
         }
         for item in RESERVE_FAMILIES
     ]
-
 
 def main() -> int:
     docs_gate = parse_docs_gate()
@@ -1092,7 +1070,6 @@ def main() -> int:
         safe_restore(CORPUS_ATLAS_PATH, atlas_backup)
         safe_restore(CORPUS_ATLAS_SUMMARY_PATH, summary_backup)
         raise
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

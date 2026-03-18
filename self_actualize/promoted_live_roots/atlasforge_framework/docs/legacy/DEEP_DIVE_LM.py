@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=390 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                                                      ║
@@ -38,7 +42,6 @@ Mathematics faces a hidden crisis: SEMANTIC DRIFT
     • Continuous or discontinuous?
 
 LM addresses this by making ALL semantic content EXPLICIT and DECIDABLE.
-
 
 §1.2 THE DISTINCTION CALCULUS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -82,7 +85,6 @@ DISTINCTION COMPOSITION:
     
     IMPLIES: D₁ → D₂
     Equivalent to ¬D₁ ∨ D₂
-
 
 §1.3 CORRIDOR SEMANTICS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -128,7 +130,6 @@ CORRIDOR TEST ALGORITHM:
     4. If P(ρ) = Undecidable:
        - Return (AMBIGUOUS, 0, ambiguity_description)
 
-
 §1.4 TYPED OUTCOMES
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -170,7 +171,6 @@ WHY FOUR OUTCOMES?
     
     These are EXHAUSTIVE and MUTUALLY EXCLUSIVE.
 
-
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                     TOME II: DYNAMICS & ECOLOGY
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -211,7 +211,6 @@ EXAMPLE: Bouncing Ball
     
     Guard Ground→Flying: Applied force > 0
 
-
 §2.2 LIMINAL ECOLOGY
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -245,7 +244,6 @@ ECOLOGICAL CONSTRAINTS:
     ENERGY BALANCE: d/dt(Σ energies) = work_in - work_out - dissipation
     ENTROPY PRODUCTION: dS/dt ≥ 0 (second law)
 
-
 §2.3 LIMINAL RESIDENTS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -278,7 +276,6 @@ RESIDENT CERTIFICATE:
     stability_witness: Lyapunov/spectral/contraction
     basin_radius: Size of attraction basin
 
-
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                    TOME III: RENORMALIZATION
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -302,7 +299,6 @@ THE COHERENCE PROBLEM:
     • What information is lost/gained?
 
 LM answers this with COHERENCE FUNCTIONALS and the RG TOWER.
-
 
 §3.2 COHERENCE FUNCTIONALS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -329,7 +325,6 @@ COHERENCE LEDGER:
     
     VIOLATION FLAG: Set when coherence exceeds threshold.
     REMEDIATION: Procedure to restore coherence.
-
 
 §3.3 COMPRESSION AND CARRY
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -364,7 +359,6 @@ DISTORTION LEDGER:
     PRESERVED: Claim valid at both scales
     WEAKENED: Claim requires micro-expansion to verify
     FORBIDDEN: Claim invalid at macro scale
-
 
 §3.4 THE RENORMALIZATION GROUP TOWER
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -404,7 +398,6 @@ CRITICAL EXPONENTS:
     The exponent Δ is the SCALING DIMENSION.
     
     Exponents are UNIVERSAL within a universality class.
-
 
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                     TOME IV: MECHANIZATION
@@ -500,7 +493,6 @@ AUDIT:
     • "Who certified this?"
     • "What would change if X changed?"
 
-
 §4.2 KERNEL OBJECT UNIVERSE
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -548,7 +540,6 @@ JETSPEC:
     • Local model: Taylor/Padé approximation
     • Remainder bound: Error certificate
 
-
 §4.3 CERTIFICATE STACK
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -581,7 +572,6 @@ BOUNDED VERIFIER:
     • Time: Maximum CPU cycles
     • Space: Maximum memory
     • Dimension: Maximum Hilbert space dimension
-
 
 §4.4 DOMAIN PACKS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -617,7 +607,6 @@ EXTENSION PACKET:
         test_fixtures: [...]
     }
 
-
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                      TOME V: THE LIMINAL TOWER
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -652,7 +641,6 @@ THE LIMINAL CORRIDOR:
     "Property of cave" → "Property of cell"
     
     Environment-dependent → Self-maintaining
-
 
 §5.2 DESIRE AS CAUSAL OPERATOR
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -707,7 +695,6 @@ CONSEQUENCE:
     
     The "pull" is selection + amplification, not time reversal.
 
-
 §5.3 MIRACLES AND RATCHETS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -756,7 +743,6 @@ PHASE TRANSITION:
     1. IMPOSSIBLE: Below entropic floor or above ceiling
     2. POSSIBLE: In corridor, but no ratchet yet (miracle needed)
     3. PROBABLE: Ratchet exists, copies propagate autocatalytically
-
 
 §5.4 STEERED CLOSURE ENGINEERING
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────

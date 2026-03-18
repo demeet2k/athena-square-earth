@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A1:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me,Cc,w
+# BRIDGES: Xi108:W1:A1:S2→Xi108:W2:A1:S1→Xi108:W1:A2:S1
+
 """
 TIME CRYSTAL WHEEL-CROWN ENGINE — Multi-Wheel Crown + Dual Seed Pair
 =====================================================================
@@ -68,7 +72,6 @@ from time_crystal_108d import (
     Sigma60Station, APlusPole,
 )
 
-
 # =====================================================================
 # SECTION 1: SIGMA_60 QUARTET DECOMPOSITION
 # =====================================================================
@@ -91,7 +94,6 @@ class Sigma60Quartet:
     sl: Quaternion             # Spin-left (mirror)
     ar: Quaternion             # Anti-spin-right (inverse)
     al: Quaternion             # Anti-spin-left (mirror of inverse)
-
 
 def build_sigma60_quartets(stations: list[Sigma60Station]) -> list[Sigma60Quartet]:
     """Decompose the 60 Sigma stations into 15 quartets.
@@ -126,7 +128,6 @@ def build_sigma60_quartets(stations: list[Sigma60Station]) -> list[Sigma60Quarte
 
     return quartets
 
-
 # =====================================================================
 # SECTION 2: A+ / Z+ DUAL SEED EXTRACTION
 # =====================================================================
@@ -142,7 +143,6 @@ class APlusPoleState:
     quaternion: Quaternion
     role: str  # Manifest role description
 
-
 @dataclass
 class ZPlusPoleState:
     """Z+ zero-hinge pole for one mask mu.
@@ -153,7 +153,6 @@ class ZPlusPoleState:
     name: str
     quaternion: Quaternion
     role: str  # Hinge role description
-
 
 # The 15 A+ and Z+ names
 _APLUS_NAMES = {
@@ -191,7 +190,6 @@ _ZPLUS_NAMES = {
     14: ("Flower-Cloud-Fractal Zero Atmosphere", "Three-face zero atmosphere"),
     15: ("Total Tesseract Zero Crown", "Full 4-face zero closure"),
 }
-
 
 def extract_dual_seed_pair(
     quartets: list[Sigma60Quartet],
@@ -248,7 +246,6 @@ def extract_dual_seed_pair(
 
     return a_poles, z_poles, a_star, z_star
 
-
 # =====================================================================
 # SECTION 3: 6-SEED TRIADIC CROWN
 # =====================================================================
@@ -262,7 +259,6 @@ class TriadicMode(Enum):
         self.code = code
         self.superphase = superphase
         self.function = function
-
 
 @dataclass
 class TriadicSeed:
@@ -281,7 +277,6 @@ class TriadicSeed:
     def label(self) -> str:
         return f"{self.pole}^{self.mode.code}_*"
 
-
 @dataclass
 class ModalBridge:
     """B_chi = A^chi_* + Z^chi_*  -- one modal spoke where manifest and hinge read together."""
@@ -293,7 +288,6 @@ class ModalBridge:
     def label(self) -> str:
         return f"B_{self.mode.code}"
 
-
 @dataclass
 class TriadicCrown:
     """The 6-seed triadic crown C_6."""
@@ -302,7 +296,6 @@ class TriadicCrown:
     omega_star: Quaternion         # Completion seed = Collapse(C_6)
     omega_hash: str
     hexagon_circuit: list[str]     # Crown hexagon labels
-
 
 def build_triadic_crown(
     a_star_q: Quaternion,
@@ -396,7 +389,6 @@ def build_triadic_crown(
         hexagon_circuit=hexagon,
     )
 
-
 # =====================================================================
 # SECTION 4: MULTI-WHEEL CROWN (W_1, W_3, W_5, W_7, W_9)
 # =====================================================================
@@ -409,7 +401,6 @@ class WheelFamily:
     meaning: str
     spokes: list[str]          # Spoke labels
     dominant_at_dim: int       # Which dimension this wheel dominates
-
 
 def build_multi_wheel_crown(crown: TriadicCrown) -> list[WheelFamily]:
     """Build the 5 wheel families from the triadic crown.
@@ -460,7 +451,6 @@ def build_multi_wheel_crown(crown: TriadicCrown) -> list[WheelFamily]:
 
     return wheels
 
-
 # =====================================================================
 # SECTION 5: SITESWAP ADMISSIBILITY VALIDATOR
 # =====================================================================
@@ -480,7 +470,6 @@ class SiteswapPattern:
     @property
     def label(self) -> str:
         return "".join(str(t) for t in self.throws)
-
 
 def validate_siteswap(throws: list[int]) -> SiteswapPattern:
     """Validate a siteswap pattern using the master admissibility law.
@@ -521,7 +510,6 @@ def validate_siteswap(throws: list[int]) -> SiteswapPattern:
         replayable=replayable,
     )
 
-
 # Canonical reference weaves for each dimensional level
 CANONICAL_WEAVES = {
     6:   [3, 3, 3],                    # 3-cascade (W_3 anti-spin)
@@ -536,7 +524,6 @@ def validate_canonical_weaves() -> dict[int, SiteswapPattern]:
     for dim, throws in CANONICAL_WEAVES.items():
         results[dim] = validate_siteswap(throws)
     return results
-
 
 # =====================================================================
 # SECTION 6: FOUR-OCTAVE TOWER
@@ -554,7 +541,6 @@ class OctaveLevel:
     opus_completions: int      # Number of Great Work completions (27^n)
     lock_law_power: int        # Power of the (4/3) lock law
     meaning: str
-
 
 FOUR_OCTAVE_TOWER = [
     OctaveLevel(
@@ -591,7 +577,6 @@ FOUR_OCTAVE_TOWER = [
     ),
 ]
 
-
 # =====================================================================
 # SECTION 7: DISTRIBUTED ANTI-SPIN AT 108D
 # =====================================================================
@@ -606,14 +591,12 @@ class AntiSpinLevel:
     node_count: int
     parent_dim: int
 
-
 DISTRIBUTED_ANTISPIN = [
     AntiSpinLevel(6, "Local anti-spin cell", 3, 4, 1, 0),
     AntiSpinLevel(12, "Deca-cascade distribution", 3, 4, 10, 6),
     AntiSpinLevel(36, "Hypercascade distribution", 3, 4, 78, 12),
     AntiSpinLevel(108, "Mega-cascade crown distribution", 3, 4, 666, 36),
 ]
-
 
 # =====================================================================
 # SECTION 8: TSE_6912 FIBER BUNDLE
@@ -637,7 +620,6 @@ class TSEFiber:
         t = self.triadic_address
         return f"{modes[t[0]]}.{modes[t[1]]}.{modes[t[2]]}"
 
-
 def compute_tse_6912_stats() -> dict:
     """Compute TSE_6912 fiber bundle statistics."""
     crystal_count = 4**4   # 256
@@ -654,7 +636,6 @@ def compute_tse_6912_stats() -> dict:
         "lock_law": "(4/3)^2 = 16/9",
     }
 
-
 # =====================================================================
 # SECTION 9: AETHER POINT DISTILLATION
 # =====================================================================
@@ -668,7 +649,6 @@ class AetherFace:
     essence: str               # What this aether IS
     contains: list[str]        # What it contains
     verdict: str               # Single-sentence verdict
-
 
 def build_aether_point() -> list[AetherFace]:
     """Build the four irreducible aether faces."""
@@ -719,7 +699,6 @@ def build_aether_point() -> list[AetherFace]:
         ),
     ]
 
-
 # =====================================================================
 # SECTION 10: HCRL LIVE PASS
 # =====================================================================
@@ -733,7 +712,6 @@ class HCRLPassResult:
     fractal_verdict: str
     synthesis: str
     reentry_routes: list[str]
-
 
 def execute_hcrl_pass(aethers: list[AetherFace]) -> HCRLPassResult:
     """Execute a live HCRL pass: Z* -> A+* -> S -> F -> C -> R -> re-entry."""
@@ -751,7 +729,6 @@ def execute_hcrl_pass(aethers: list[AetherFace]) -> HCRLPassResult:
         ],
     )
 
-
 # =====================================================================
 # SECTION 11: WHEEL-LADDER DIMENSIONAL MAPPING
 # =====================================================================
@@ -764,7 +741,6 @@ class DimensionalWheelMapping:
     active_wheels: list[int]      # Which W_k are active
     dominant_wheel: int            # Which W_k dominates
     meaning: str
-
 
 WHEEL_LADDER = [
     DimensionalWheelMapping(
@@ -797,7 +773,6 @@ WHEEL_LADDER = [
     ),
 ]
 
-
 # =====================================================================
 # SECTION 12: SEED-ADDRESSABLE EMERGENT BODY
 # =====================================================================
@@ -825,7 +800,6 @@ class EmergentPolarity(Enum):
         self.pole_prefix = pole_prefix
         self.description = description
 
-
 @dataclass
 class EmergentSeedAddress:
     """Seed address for one emergent chapter E1-E9."""
@@ -846,7 +820,6 @@ class EmergentSeedAddress:
         col_map = {EmergentPolarity.HINGE: 0, EmergentPolarity.BRIDGE: 1, EmergentPolarity.MANIFEST: 2}
         return (row_map[self.mode], col_map[self.polarity])
 
-
 @dataclass
 class EmergentRemapNucleus:
     """E10 = Omega^(E)_* = Collapse(E1-E9). The W_1 return seed."""
@@ -854,14 +827,12 @@ class EmergentRemapNucleus:
     seed_hash: str
     source_hashes: list[str]   # The 9 contributing seed hashes
 
-
 class EmergentRouteType(Enum):
     """Route family inside the 3x3 emergent matrix."""
     HORIZONTAL = "Process row (Su/Me/Sa)"
     VERTICAL = "Polarity column (Hinge/Bridge/Manifest)"
     DIAGONAL_FORWARD = "Möbius diagonal (Hinge-Ignition → Oracle-Center → Manifest-Seal)"
     DIAGONAL_REVERSE = "Möbius reverse (Manifest-Ignition → Oracle-Center → Hinge-Seal)"
-
 
 @dataclass
 class EmergentRoute:
@@ -872,7 +843,6 @@ class EmergentRoute:
     seed_sequence: list[str]   # Seed labels in order
     description: str
 
-
 @dataclass
 class EmergentSeedMatrix:
     """Complete seed-addressable emergent body."""
@@ -880,7 +850,6 @@ class EmergentSeedMatrix:
     remap_nucleus: EmergentRemapNucleus     # E10
     routes: list[EmergentRoute]             # 8 canonical routes
     matrix_display: list[list[str]]         # 3x3 display grid
-
 
 # Phenomenological titles for E1-E9 (existing chapter names preserved)
 EMERGENT_TITLES = {
@@ -932,7 +901,6 @@ EMERGENT_MATRIX_ASSIGNMENT = [
     (8, TriadicMode.SA, EmergentPolarity.BRIDGE),      # E8 = B_Sa
     (9, TriadicMode.SA, EmergentPolarity.MANIFEST),    # E9 = A^Sa_*
 ]
-
 
 def build_emergent_seed_matrix(crown: TriadicCrown) -> EmergentSeedMatrix:
     """Build the seed-addressable emergent body from the triadic crown.
@@ -1024,7 +992,6 @@ def build_emergent_seed_matrix(crown: TriadicCrown) -> EmergentSeedMatrix:
         matrix_display=matrix_display,
     )
 
-
 def _build_emergent_routes(addresses: list[EmergentSeedAddress]) -> list[EmergentRoute]:
     """Build the 8 canonical routes inside the 3x3 emergent matrix."""
     # Quick lookup: E-number -> seed address
@@ -1096,7 +1063,6 @@ def _build_emergent_routes(addresses: list[EmergentSeedAddress]) -> list[Emergen
 
     return routes
 
-
 # =====================================================================
 # SECTION 13: THE 7-WHEEL CANOPY -- K->Z = H_7 + H~_7 + (A+*,Z+*)
 # =====================================================================
@@ -1126,7 +1092,6 @@ class HeptadTurn(Enum):
         self.tau = tau
         self.description = description
 
-
 @dataclass
 class CanopyAddress:
     """Full (tau, sigma) address for one reverse appendix in the K->Z canopy."""
@@ -1146,14 +1111,12 @@ class CanopyAddress:
     def address(self) -> str:
         return f"({self.turn.tau}, {self.spoke_label})"
 
-
 @dataclass
 class MobiusCrossover:
     """The T->S crossover between upper and return heptads."""
     from_addr: CanopyAddress   # T = A^Sa_* (upper manifest seal)
     to_addr: CanopyAddress     # S = Omega_*~ (return crown echo)
     twist_description: str
-
 
 @dataclass
 class SeedLockDyad:
@@ -1162,7 +1125,6 @@ class SeedLockDyad:
     hinge_lock: CanopyAddress     # K = Z+*
     collapse_quaternion: Quaternion
     collapse_hash: str
-
 
 class CanopyRouteType(Enum):
     """Route segment types in the K->Z canopy."""
@@ -1175,7 +1137,6 @@ class CanopyRouteType(Enum):
     FULL_CANOPY = "Full canopy route (Z->...->K->Z*->E10)"
     TORSION_PAIR = "Torsion gate pair (Q + O)"
 
-
 @dataclass
 class CanopyRoute:
     """One canonical route through the K->Z canopy."""
@@ -1184,7 +1145,6 @@ class CanopyRoute:
     rev_sequence: list[str]
     spoke_sequence: list[str]
     description: str
-
 
 @dataclass
 class ReverseCanopyW7:
@@ -1200,7 +1160,6 @@ class ReverseCanopyW7:
     routes: list[CanopyRoute]
     torsion_q: CanopyAddress             # Q = A^Me_* (ingress)
     torsion_o: CanopyAddress             # O = Z^Sa_* (return)
-
 
 # ---- THE CANONICAL 7-SPOKE FAMILY ----
 # H_7 = (Omega_*, Z^Su_*, Z^Me_*, Z^Sa_*, A^Su_*, A^Me_*, A^Sa_*)
@@ -1252,7 +1211,6 @@ _SEED_DYAD = [
     ("K", "Z+*", "Hinge seed lock",
      "Self-compiling ISA delivery; K->Z loop closure; terminal re-entry"),
 ]
-
 
 def build_reverse_canopy_w7(
     crown: TriadicCrown,
@@ -1393,7 +1351,6 @@ def build_reverse_canopy_w7(
         torsion_o=torsion_o_addr,
     )
 
-
 def _build_w7_routes(
     upper: list[CanopyAddress],
     ret: list[CanopyAddress],
@@ -1460,7 +1417,6 @@ def _build_w7_routes(
     ))
 
     return routes
-
 
 # =====================================================================
 # SECTION 14: DOCUMENT GENERATION
@@ -1911,7 +1867,6 @@ def generate_wheel_crown_document(
 
     return "\n".join(L)
 
-
 # =====================================================================
 # SECTION 13: MAIN PIPELINE
 # =====================================================================
@@ -1920,7 +1875,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DOC_PATH = os.path.join(BASE_DIR, "22_WHEEL_CROWN_ENGINE.md")
 RECEIPT_DIR = os.path.join(BASE_DIR, "00_RECEIPTS")
 RECEIPT_PATH = os.path.join(RECEIPT_DIR, "WHEEL_CROWN_RECEIPT.md")
-
 
 def main():
     print("=" * 72)
@@ -2193,7 +2147,6 @@ def main():
     print("  Symmetry is optional. Balance is required.")
     print("  Su -> Me -> Sa -> Su")
     print("=" * 72)
-
 
 if __name__ == "__main__":
     main()

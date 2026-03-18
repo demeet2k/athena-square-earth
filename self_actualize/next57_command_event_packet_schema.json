@@ -1,4 +1,26 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A10:S29:u434:Su:F:d1",
+    "shell": 29,
+    "wreath": 1,
+    "archetype": 10,
+    "face": "F",
+    "node_id": 434,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Me",
+      "Cc"
+    ],
+    "bridges": [
+      "Xi108:W1:A10:S28",
+      "Xi108:W1:A10:S30",
+      "Xi108:W2:A10:S29",
+      "Xi108:W1:A9:S29",
+      "Xi108:W1:A11:S29"
+    ],
+    "regenerate": "shell 29±1, wreath 1/3, archetype 10/12"
+  },
   "schema_id": "COMMAND_MEMBRANE_PACKET_SCHEMA_V1",
   "coord12_labels": [
     "earth_utc_anchor",

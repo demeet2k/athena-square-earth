@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S14→Xi108:W2:A4:S16→Xi108:W1:A4:S15→Xi108:W3:A4:S15→Xi108:W2:A3:S15→Xi108:W2:A5:S15
+
 """
 ATHENA OS - Crystal Expression Validators
 ==========================================
@@ -27,7 +31,6 @@ from .lattice import (
     CrystalAddress, CrystalExpression
 )
 
-
 # =============================================================================
 # VIOLATION TYPES
 # =============================================================================
@@ -44,7 +47,6 @@ class ViolationType(IntEnum):
     REVERSIBILITY = 7     # Reversing irreversible processes
     PHASE_COHERENCE = 8   # Breaking phase relationships
     SELF_SIMILARITY = 9   # Violating scale invariance
-
 
 @dataclass
 class ImpossibleMove:
@@ -73,7 +75,6 @@ class ImpossibleMove:
     def is_impossible(self) -> bool:
         """Check if this is truly impossible (κ > 1)."""
         return self.kappa_cost > 1.0
-
 
 # =============================================================================
 # ANTI-π IMPOSSIBLE MOVES (64)
@@ -219,7 +220,6 @@ ANTI_PI_MOVES: Dict[Tuple[Sector, Element, Level], ImpossibleMove] = {
 
 # Continue for FLOWER, CLOUD, FRACTAL sectors... (abbreviated for space)
 
-
 # =============================================================================
 # ANTI-e IMPOSSIBLE MOVES (64)
 # =============================================================================
@@ -272,7 +272,6 @@ ANTI_E_MOVES: Dict[Tuple[Sector, Element, Level], ImpossibleMove] = {
     ),
 }
 
-
 # =============================================================================
 # ANTI-i IMPOSSIBLE MOVES (64)
 # =============================================================================
@@ -317,7 +316,6 @@ ANTI_I_MOVES: Dict[Tuple[Sector, Element, Level], ImpossibleMove] = {
     ),
 }
 
-
 # =============================================================================
 # ANTI-φ IMPOSSIBLE MOVES (64)
 # =============================================================================
@@ -361,7 +359,6 @@ ANTI_PHI_MOVES: Dict[Tuple[Sector, Element, Level], ImpossibleMove] = {
         kappa_cost=np.inf
     ),
 }
-
 
 # =============================================================================
 # EXPRESSION VALIDATOR
@@ -443,7 +440,6 @@ class ExpressionValidator:
                     all_moves.append(move)
         return all_moves
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -475,7 +471,6 @@ def validate_expressions() -> bool:
     assert len(density_violations) > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Expression System...")

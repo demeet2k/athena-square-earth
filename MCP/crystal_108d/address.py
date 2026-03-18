@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A8:S2 | face=R | node=3 | depth=0 | phase=Fixed
+# METRO: □
+# BRIDGES: Xi108:W1:A8:S1→Xi108:W1:A8:S3→Xi108:W2:A8:S2→Xi108:W1:A7:S2→Xi108:W1:A9:S2
+
 """Extended 108D address grammar parser."""
 
 import re
@@ -6,7 +10,6 @@ from ._cache import JsonCache
 
 _shells = JsonCache("shell_registry.json")
 _dims = JsonCache("dimensional_ladder.json")
-
 
 def parse_108d_address(address: str) -> dict | None:
     """
@@ -48,7 +51,6 @@ def parse_108d_address(address: str) -> dict | None:
         return {"shell": int(m.group(1))}
 
     return None
-
 
 def navigate_108d(
     shell: int = 0,

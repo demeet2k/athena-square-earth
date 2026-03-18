@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 PoleStarGEMM: Quick GEMM benchmark + ablation demo
 
@@ -17,7 +21,6 @@ This prints summary tables for:
 import numpy as np
 
 from polestargemm.core import PoleStarGEMM, make_ablation_configs, summarize_ablation
-
 
 def make_workloads(seed: int = 0):
     rng = np.random.default_rng(seed)
@@ -41,7 +44,6 @@ def make_workloads(seed: int = 0):
     B4 = rng.standard_normal((240, 120))
 
     return [(A1, B1), (A2, B2), (A3, B3), (A4, B4)]
-
 
 def run_case(case_name: str, *, allow_approx: bool, rtol: float, reuse_a: bool, reuse_b: bool):
     workloads = make_workloads(seed=1)
@@ -81,7 +83,6 @@ def run_case(case_name: str, *, allow_approx: bool, rtol: float, reuse_a: bool, 
             f"{str(None if s['mean_err'] is None else round(s['mean_err'], 6)):>12} "
             f"{str(None if s['worst_err'] is None else round(s['worst_err'], 6)):>12}"
         )
-
 
 if __name__ == "__main__":
     run_case("EXACT (allow_approx=False)", allow_approx=False, rtol=1e-2, reuse_a=False, reuse_b=False)

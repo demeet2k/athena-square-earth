@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A3:S7 | face=F | node=378 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A3:S6→Xi108:W3:A3:S8→Xi108:W2:A3:S7→Xi108:W3:A2:S7→Xi108:W3:A4:S7
+
 _{\text{ckpt}}) — checkpoint policy pin
 (\pi_{\text{rng}}) — RNG/seed derivation pin (if any stochasticity exists)
 Rule: If any pin above is referenced by a replay capsule, it MUST be import‑verifiable (ImportCert, §16.8).
@@ -233,7 +237,6 @@ ExecUnified(S_total, K, Profiles, Inputs):
 
   finalD = FinalDigest(S_total, Pi.pi_enc, Pi.pi_H)
   return (S_total, checkpoints, finalD, transcript)
-
 
 (B) Replay capsule format (minimum)
 Ch16 defines the minimal ReplayCapsule for unified steps.

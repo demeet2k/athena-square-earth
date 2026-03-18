@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A3:S12 | face=F | node=245 | depth=3 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A3:S11→Xi108:W1:A3:S13→Xi108:W2:A3:S12→Xi108:W1:A2:S12→Xi108:W1:A4:S12
+
  deterministically from the link record with InterID and signatures zeroed.
 P.S1.c — Compatibility edge objects (CompatRef)
 CompatRef points to one of:
@@ -200,5 +204,4 @@ Cross-corpus routing must compute deterministic closure, apply import verificati
 CrossCorpusCert and ScopeIntegrityCert are required, import-verifiable, and bind closure validity and scope enforcement for cross-corpus routes.
 
 AppP — Mycelium Interface: Cross-Corpus Linking, External Connectors, and Scope
-
 

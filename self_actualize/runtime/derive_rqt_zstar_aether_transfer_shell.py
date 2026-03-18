@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Sa,Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
 from pathlib import Path
-
 
 WORKSPACE = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 SECTION_PATH = WORKSPACE / "self_actualize" / "manuscript_sections" / "026_rqt_zstar_aether_transfer_shell.md"
@@ -98,24 +101,19 @@ T_DATA = {
 
 MU_ORDER = list(S_DATA.keys())
 
-
 def ordered_for_ring(values: list[str]) -> list[str]:
     return [value for value in RING_ORDER if value in values]
-
 
 def gate_addr(record_class: str, mu: str) -> str:
     class_digit = {"R": "1", "Q": "2", "T": "3"}[record_class]
     return f"Gate<{2}{class_digit}{mu}>"
 
-
 def z_list(values: list[str]) -> list[str]:
     return [f"Z({POLE_GAUGE[pole]})" for pole in ordered_for_ring(values)]
-
 
 def shell_slot(record_class: str, index: int) -> str:
     base = {"R": 21, "Q": 36, "T": 51}[record_class]
     return f"{base + index}/65"
-
 
 def transfer_signature(record_class: str, src: list[str]) -> dict[str, object]:
     primary_hub = "AppF" if record_class in {"R", "Q"} else "AppG"
@@ -133,7 +131,6 @@ def transfer_signature(record_class: str, src: list[str]) -> dict[str, object]:
         "landing_signature": " -> ".join(route),
     }
 
-
 def route_witness(record_class: str, mu: str) -> dict[str, object]:
     is_t = record_class == "T"
     route = ANTISPIN_ROUTE if is_t else ROTATION_ROUTE
@@ -148,7 +145,6 @@ def route_witness(record_class: str, mu: str) -> dict[str, object]:
         "supporting_appendices": supporting,
     }
 
-
 def witness_ptr(record_class: str, mu: str) -> list[str]:
     shared = [
         "C:\\Users\\dmitr\\Documents\\Athena Agent\\MYCELIUM_TOME_PART1.md::D.010",
@@ -159,7 +155,6 @@ def witness_ptr(record_class: str, mu: str) -> list[str]:
     extra = "C:\\Users\\dmitr\\Documents\\Athena Agent\\MYCELIUM_TOME_PART1.md::AppG" if record_class == "T" else "C:\\Users\\dmitr\\Documents\\Athena Agent\\MYCELIUM_TOME_PART1.md::AppF"
     return shared + [extra, f"{'S' if record_class in {'R', 'T'} else 'R'}{mu}"]
 
-
 def replay_ptr(record_class: str, mu: str) -> list[str]:
     route = "AppA -> AppG -> AppC -> AppI -> AppM" if record_class == "T" else "AppA -> AppF -> AppC -> AppI -> AppM"
     return [
@@ -168,14 +163,12 @@ def replay_ptr(record_class: str, mu: str) -> list[str]:
         f"replay::mu={mu}::ring=A->C->B->D",
     ]
 
-
 def record_note(record_class: str) -> str:
     if record_class == "R":
         return "Metadata attachment over rotation/counter-rotation pair; no source-set rewrite."
     if record_class == "Q":
         return "Metadata attachment over base-4 orbit closure; orbit body preserved exactly."
     return "Metadata attachment over base-3 antispin lock; hidden-pole law preserved exactly."
-
 
 def make_records() -> list[dict[str, object]]:
     records: list[dict[str, object]] = []
@@ -257,7 +250,6 @@ def make_records() -> list[dict[str, object]]:
         )
     return records
 
-
 def row_text(record: dict[str, object]) -> str:
     hide = record["hide"] if record["hide"] is not None else "-"
     transfer = record["z_transfer_signature"]
@@ -268,7 +260,6 @@ def row_text(record: dict[str, object]) -> str:
         f"`{transfer['tunnel']} -> {transfer['aether_endpoint']} via {transfer['landing_signature']}` | "
         f"`{route['prior_record']} :: {route['route']}` | `{record['truth_class']}` |"
     )
-
 
 def build_markdown(records: list[dict[str, object]]) -> str:
     grouped = {"R": [], "Q": [], "T": []}
@@ -340,7 +331,6 @@ def build_markdown(records: list[dict[str, object]]) -> str:
     )
     return "\n".join(parts) + "\n"
 
-
 def verify(records: list[dict[str, object]]) -> dict[str, object]:
     gate_addrs = [record["gate_addr"] for record in records]
     counts = {
@@ -403,7 +393,6 @@ def verify(records: list[dict[str, object]]) -> dict[str, object]:
         ),
     }
 
-
 def main() -> int:
     records = make_records()
     SECTION_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -415,7 +404,6 @@ def main() -> int:
     print(f"Wrote {REGISTRY_PATH}")
     print(f"Wrote {VERIFY_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=130 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - THE MATH OF ALCHEMY
 ================================
@@ -39,7 +43,6 @@ from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
 from .elements import ElementalState, Element
-
 
 # =============================================================================
 # PLANETARY TYPES
@@ -83,7 +86,6 @@ class Planet(Enum):
             Planet.SATURN: {"heat": -1, "moisture": -1},
         }
         return influences[self]
-
 
 # =============================================================================
 # PLANETARY MATRICES
@@ -183,7 +185,6 @@ class PlanetaryMatrices:
         }
         return matrices[planet]()
 
-
 # =============================================================================
 # PLANETARY OPERATOR
 # =============================================================================
@@ -258,7 +259,6 @@ class PlanetaryOperator:
             "synodic_period_days": self.planet.synodic_period,
             "frequency": self.frequency,
         }
-
 
 # =============================================================================
 # PLANETARY SYSTEM
@@ -347,7 +347,6 @@ class PlanetarySystem:
                          for p, op in self.operators.items()},
         }
 
-
 # =============================================================================
 # METALLIC TRANSFORMATIONS
 # =============================================================================
@@ -394,7 +393,6 @@ class MetallicTransformation:
         from_state = MetallicTransformation.get_metallic_composition(from_metal)
         to_state = MetallicTransformation.get_metallic_composition(to_metal)
         return float(np.linalg.norm(from_state.vector - to_state.vector))
-
 
 # =============================================================================
 # VALIDATION
@@ -456,7 +454,6 @@ def validate_planetary() -> bool:
     assert dist > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Planetary Module...")

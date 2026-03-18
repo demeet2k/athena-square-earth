@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 """
 PheromoneEngine.v1 — 4+4 Channel Pheromone Field
 
@@ -19,7 +23,6 @@ from .types import (
     Vec4, PheromoneField, AgentProfile, Element4, Epoch,
 )
 
-
 # ═══════════════════════════════════════════════════════════════
 # DEPOSIT
 # ═══════════════════════════════════════════════════════════════
@@ -39,7 +42,6 @@ def deposit_positive(field: PheromoneField, delta: Vec4, kappa: float = PHEROMON
     )
     return field
 
-
 def deposit_shadow(field: PheromoneField, delta: Vec4, kappa: float = PHEROMONE_KAPPA) -> PheromoneField:
     """
     Deposit shadow pheromone (failure/ambiguity traces).
@@ -54,7 +56,6 @@ def deposit_shadow(field: PheromoneField, delta: Vec4, kappa: float = PHEROMONE_
         earth=field.shadow.earth + kappa * delta.earth,
     )
     return field
-
 
 # ═══════════════════════════════════════════════════════════════
 # DECAY
@@ -89,7 +90,6 @@ def decay_field(field: PheromoneField, current_epoch: Epoch) -> PheromoneField:
     field.last_epoch = current_epoch
     return field
 
-
 # ═══════════════════════════════════════════════════════════════
 # STORM DETECTION
 # ═══════════════════════════════════════════════════════════════
@@ -103,7 +103,6 @@ def check_storm_trigger(field: PheromoneField) -> bool:
     shadow_total = field.shadow.norm1() if field.shadow else 0.0
     return pos_total >= STORM_TRIGGER and shadow_total <= SHADOW_CUTOFF
 
-
 def compute_pulse(field: PheromoneField) -> float:
     """
     Pulse score = positive_norm - shadow_norm.
@@ -112,7 +111,6 @@ def compute_pulse(field: PheromoneField) -> float:
     pos = field.positive.norm1() if field.positive else 0.0
     shd = field.shadow.norm1() if field.shadow else 0.0
     return pos - shd
-
 
 # ═══════════════════════════════════════════════════════════════
 # MAGNETIC ROUTING
@@ -149,7 +147,6 @@ def magnetic_score(
         - MAGNET_UNFINISHED_WEIGHT * unfinished_count
         + MAGNET_PULSE_WEIGHT * pulse
     )
-
 
 def rank_fields(
     fields: List[PheromoneField],

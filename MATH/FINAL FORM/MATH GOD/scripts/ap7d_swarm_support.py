@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S13 | face=S | node=83 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S12→Xi108:W2:A5:S14→Xi108:W1:A5:S13→Xi108:W3:A5:S13→Xi108:W2:A4:S13→Xi108:W2:A6:S13
+
 from __future__ import annotations
 
 from collections import Counter
@@ -8,22 +12,18 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 def utc_now_string() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
-
 
 def _write_json(path: str, payload: Any) -> None:
     file_path = Path(path)
     file_path.parent.mkdir(parents=True, exist_ok=True)
     file_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def _write_text(path: str, body: str) -> None:
     file_path = Path(path)
     file_path.parent.mkdir(parents=True, exist_ok=True)
     file_path.write_text(body, encoding="utf-8")
-
 
 def _write_ndjson(path: str, rows: list[dict[str, Any]]) -> None:
     file_path = Path(path)
@@ -33,17 +33,14 @@ def _write_ndjson(path: str, rows: list[dict[str, Any]]) -> None:
         payload += "\n"
     file_path.write_text(payload, encoding="utf-8")
 
-
 def _lineages(alphabet: list[str], depth: int) -> list[str]:
     return ["".join(chars) for chars in product(alphabet, repeat=depth)]
-
 
 def _ordinal(lineage: str, value_map: dict[str, int]) -> int:
     total = 0
     for char in lineage:
         total = total * 4 + value_map[char]
     return total
-
 
 def _dominant_element(lineage: str, symbol_to_element: dict[str, str]) -> str:
     counts = Counter(lineage)
@@ -53,10 +50,8 @@ def _dominant_element(lineage: str, symbol_to_element: dict[str, str]) -> str:
             return symbol_to_element[char]
     return symbol_to_element[lineage[0]]
 
-
 def _human_line(event_type: str, ts_utc: str, a: str, b: str, c: str, d: str, e: str) -> str:
     return f"{event_type}::{ts_utc}::{a}::{b}::{c}::{d}::{e}"
-
 
 def _intent_event(actor_id: str, actor_type: str, objective: str, inputs: list[str], output: str, replay_ptr: str) -> dict[str, Any]:
     ts_utc = utc_now_string()
@@ -74,7 +69,6 @@ def _intent_event(actor_id: str, actor_type: str, objective: str, inputs: list[s
         "human_line": _human_line("INT", ts_utc, actor_id, objective, ",".join(inputs), output, "NEAR"),
     }
 
-
 def _heartbeat_event(actor_id: str, actor_type: str, state: str, intent: str, target: str, replay_ptr: str) -> dict[str, Any]:
     ts_utc = utc_now_string()
     return {
@@ -90,7 +84,6 @@ def _heartbeat_event(actor_id: str, actor_type: str, state: str, intent: str, ta
         "replay_ptr": replay_ptr,
         "human_line": _human_line("HB", ts_utc, actor_id, state, intent, target, "NEAR"),
     }
-
 
 def _delta_event(actor_id: str, actor_type: str, artifact: str, change_kind: str, status: str, replay_ptr: str) -> dict[str, Any]:
     ts_utc = utc_now_string()
@@ -108,7 +101,6 @@ def _delta_event(actor_id: str, actor_type: str, artifact: str, change_kind: str
         "human_line": _human_line("DELTA", ts_utc, actor_id, artifact, change_kind, status, "NEAR"),
     }
 
-
 def _handoff_event(from_agent: str, to_agent: str, reason: str, next_step: str, replay_ptr: str) -> dict[str, Any]:
     ts_utc = utc_now_string()
     return {
@@ -124,7 +116,6 @@ def _handoff_event(from_agent: str, to_agent: str, reason: str, next_step: str, 
         "human_line": _human_line("HAND", ts_utc, from_agent, to_agent, reason, next_step, "NEAR"),
     }
 
-
 def _objective_for(element: str, front: str) -> str:
     if element == "FIRE":
         return f"Ignite the next lawful move for {front} without overburn."
@@ -133,7 +124,6 @@ def _objective_for(element: str, front: str) -> str:
     if element == "AIR":
         return f"Keep naming, topology, and route legibility stable for {front}."
     return f"Gate admissibility, quarantine, and replay closure for {front}."
-
 
 def build_ap7d_bundle(seed7_bundle: dict[str, Any], docs_gate: dict[str, str], next46_support: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     alphabet = config["lineage_alphabet"]
@@ -358,7 +348,6 @@ def build_ap7d_bundle(seed7_bundle: dict[str, Any], docs_gate: dict[str, str], n
         surface["state"] = "OK" if Path(surface["path"]).exists() else "MISSING"
     return bundle
 
-
 def build_ap7d_level_markdown(bundle: dict[str, Any]) -> str:
     manifest = bundle["swarm_manifest"]
     lines = ["# Level 7 Agent Nervous System Map", "", f"Generated: {bundle['generated_at']}", "", "## Scope", "", f"- Docs gate: `{bundle['docs_gate_status']}`", f"- Truth class: `{bundle['truth_class']}`", f"- Overlay stage: `{bundle['swarm_stage']}`", f"- Ceiling stage: `{bundle['ceiling_stage']}`", "", "## Hierarchy", "", f"- Prime: `AP7D-PRIME`", f"- Councils: `{manifest['hierarchy']['council_count']}`", f"- Macros: `{manifest['hierarchy']['macro_count']}`", f"- Packets: `{manifest['hierarchy']['packet_count']}`", f"- Fibers: `{manifest['hierarchy']['fiber_count']}`", f"- Active fibers: `{len(manifest['activation_summary']['active_fibers'])}` / dormant=`{manifest['activation_summary']['dormant_fibers']}`", "", "## Active Seeded Fibers", ""]
@@ -369,7 +358,6 @@ def build_ap7d_level_markdown(bundle: dict[str, Any]) -> str:
     lines.extend(["", "## Event Law", "", "- `INT` starts work.", "- `HB` proves a live state.", "- `DELTA` proves what changed.", "- `HAND` proves cross-layer transfer.", "- `RST` preserves resumable continuity.", "", "## Mirrors", "", f"- Hall status: `{bundle['hall_status_path']}`", f"- Temple quest: `{bundle['temple_quest_path']}`", ""])
     return "\n".join(lines).strip() + "\n"
 
-
 def build_ap7d_hall_status_markdown(bundle: dict[str, Any]) -> str:
     manifest = bundle["swarm_manifest"]
     lines = ["# AP7D Swarm Status", "", f"Generated: {bundle['generated_at']}", "", f"- Swarm: `{manifest['swarm_id']}`", f"- Docs gate: `{bundle['docs_gate_status']}`", f"- Ceiling: `{bundle['ceiling_stage']}`", f"- Active fibers: `{len(manifest['activation_summary']['active_fibers'])}` / `256`", f"- Active macros: `{', '.join(manifest['activation_summary']['active_macros'])}`", "- Current ownerable next move: `AP7D_TQ01_INSTALL_RESTART_SAFE_SWARM`", "", "## Active Fronts", ""]
@@ -377,7 +365,6 @@ def build_ap7d_hall_status_markdown(bundle: dict[str, Any]) -> str:
         lines.append(f"- `{row['agent_id']}` -> `{row['current_front']}` [{row['dominant_element']}; target={row['target_surface_id']}]")
     lines.extend(["", "## Blocked Fronts", "", "- Google Docs remains `BLOCKED`.", "- Contradiction-bearing routes must pass through `AppK` and Earth legality before reactivation.", "", "## Canonical Feeds", "", f"- Intent feed: `{bundle['feeds']['intent_path']}`", f"- Heartbeat feed: `{bundle['feeds']['heartbeat_path']}`", f"- Delta feed: `{bundle['feeds']['delta_path']}`", f"- Handoff feed: `{bundle['feeds']['handoff_path']}`", f"- Restart registry: `{bundle['feeds']['restart_path']}`", ""])
     return "\n".join(lines).strip() + "\n"
-
 
 def build_ap7d_temple_quest_markdown(bundle: dict[str, Any]) -> str:
     return "\n".join([
@@ -413,7 +400,6 @@ def build_ap7d_temple_quest_markdown(bundle: dict[str, Any]) -> str:
         "",
     ]) + "\n"
 
-
 def build_ap7d_export_markdown(bundle: dict[str, Any], title: str) -> str:
     manifest = bundle["swarm_manifest"]
     return "\n".join([
@@ -432,7 +418,6 @@ def build_ap7d_export_markdown(bundle: dict[str, Any], title: str) -> str:
         "This export mirror is downstream-only. The live deep root remains canonical.",
         "",
     ])
-
 
 def build_ap7d_markdown(bundle: dict[str, Any]) -> str:
     manifest = bundle["swarm_manifest"]

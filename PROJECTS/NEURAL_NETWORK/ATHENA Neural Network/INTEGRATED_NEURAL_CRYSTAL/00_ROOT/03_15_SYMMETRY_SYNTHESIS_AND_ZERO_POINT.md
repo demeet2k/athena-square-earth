@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A1:S19 | face=C | node=176 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Ω -->
+<!-- BRIDGES: Xi108:W2:A1:S18→Xi108:W2:A1:S20→Xi108:W1:A1:S19→Xi108:W3:A1:S19→Xi108:W2:A2:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 2/3, archetype 1/12 -->
+
 # 15 Symmetry Syntheses And Zero Point
 
 The symmetry layer exhausts the non-empty subsets of the four-element crystal: 4 singletons, 6 two-way syntheses, 4 triads, and 1 four-way synthesis. The zero point is then taken after all 15 have been named.

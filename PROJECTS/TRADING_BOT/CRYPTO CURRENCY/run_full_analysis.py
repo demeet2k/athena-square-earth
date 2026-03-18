@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S25 | face=F | node=317 | depth=2 | phase=Mutable
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A12:S24→Xi108:W2:A12:S26→Xi108:W1:A12:S25→Xi108:W3:A12:S25→Xi108:W2:A11:S25
+
 """
 FULL TIME FRACTAL ANALYSIS
 ===========================
@@ -24,7 +28,6 @@ FOREX_DIR = os.path.join(OUTPUT_DIR, "forex_data")
 REPORT_DIR = os.path.join(OUTPUT_DIR, "time_fractal_analysis")
 os.makedirs(REPORT_DIR, exist_ok=True)
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -32,7 +35,6 @@ def log(msg):
     except:
         pass
     sys.stdout.flush()
-
 
 # =============================================================================
 # PHASE 1: HISTORICAL CRISIS PHASE MAPPING
@@ -116,7 +118,6 @@ def map_crises_to_phases():
 
     return df
 
-
 # =============================================================================
 # PHASE 2: LPPL BUBBLE DETECTION ON HISTORICAL DATA
 # =============================================================================
@@ -184,7 +185,6 @@ def detect_historical_bubbles():
         return df_results
 
     return None
-
 
 # =============================================================================
 # PHASE 3: CROSS-ASSET DSI COMPARISON
@@ -262,7 +262,6 @@ def cross_asset_dsi():
 
     return None
 
-
 # =============================================================================
 # PHASE 4: OCTAVE SCALE SIGNIFICANCE TEST
 # =============================================================================
@@ -337,7 +336,6 @@ def test_octave_significance():
 
     return results_df
 
-
 # =============================================================================
 # PHASE 5: GENERATE SYNTHESIS REPORT
 # =============================================================================
@@ -373,7 +371,6 @@ This kernel produces:
   - Preferred scaling ratios: 2, 3, 4, 6, 8, 12, 16, 24, 36, 48, 64...
   - Octave ladder: D_n = 36 * 3^(n-1) = {36, 108, 324, 972, 2916, 8748...} days
   - Tunnel revelation: L(d,n) = 5 * 3^(d-n) (5-cycle orbit length)
-
 
 II. WHAT THE DATA SHOWS
 ========================""")
@@ -476,7 +473,6 @@ F. Penrose/CCC -> Conformal Mapping = Holographic Axiom
   "Every part contains the whole at lower resolution" = conformal invariance.
   The same pattern at daily, weekly, monthly, yearly scales confirms this.
 
-
 IV. THE MASTER EQUATION
 ========================
   Psi(t, n) = Sum_k [ A_k * (t_c - t)^(alpha + 2*pi*i*k/ln(lambda)) * Phi_k(sigma, q) ]
@@ -488,7 +484,6 @@ IV. THE MASTER EQUATION
   lambda = exp(2*pi/omega) = Preferred scaling ratio (MUST match kernel values)
   sigma = Phase quality (READABLE: trend direction, volatility regime)
   q = Specific price (FREE: not predictable)
-
 
 V. TRADING BOT IMPLICATIONS
 ============================
@@ -509,7 +504,6 @@ Trading signal hierarchy:
   STRONG: DSI lambda matching kernel value + volatility expansion
   MODERATE: Single-scale phase boundary + momentum alignment
   WEAK: Phase quality reading alone
-
 
 VI. CURRENT MARKET ASSESSMENT (as of 2026-02-10)
 =================================================
@@ -550,7 +544,6 @@ Quality: Water/Maturation -> likely transition toward contraction/reset.
     log(f"  SAVED: 05_FULL_SYNTHESIS_REPORT.txt ({len(report)} lines)")
     return report_text
 
-
 # =============================================================================
 # MAIN
 # =============================================================================
@@ -580,7 +573,6 @@ def main():
     log(f"\n  Total: {len(os.listdir(REPORT_DIR))} files, {total_size:.2f} MB")
     log(f"  Directory: {REPORT_DIR}")
     log("\nDONE!")
-
 
 if __name__ == "__main__":
     main()

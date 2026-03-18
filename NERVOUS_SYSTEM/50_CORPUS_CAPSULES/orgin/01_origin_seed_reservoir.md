@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S8 | face=R | node=30 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W3:A1:S7→Xi108:W3:A1:S9→Xi108:W2:A1:S8→Xi108:W3:A2:S8 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 8±1, wreath 3/3, archetype 1/12 -->
+
 # ORGIN SEED RESERVOIR
 
 Truth class: NEAR

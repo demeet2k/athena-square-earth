@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - HDCS Objectives
 ===========================
@@ -28,7 +32,6 @@ import math
 
 from .primitives import ControllerState, Plan, Action, ActionType
 from .telemetry import Observation, TelemetryRecord
-
 
 # =============================================================================
 # OBJECTIVE COMPONENTS
@@ -95,7 +98,6 @@ class ObjectiveValues:
             delta_c=baseline.churn - self.churn
         )
 
-
 @dataclass
 class ObjectiveDelta:
     """Change in objectives (positive = improvement)."""
@@ -115,7 +117,6 @@ class ObjectiveDelta:
         if self.delta_s < 0:
             return False
         return self.delta_c > 0
-
 
 # =============================================================================
 # VIOLATION TRACKING
@@ -161,7 +162,6 @@ class ViolationIndicator:
         # Check near-threshold
         near_bound = self.threshold * (1 - self.near_threshold_margin)
         self.is_near_threshold = near_bound <= latency <= self.threshold
-
 
 # =============================================================================
 # OBJECTIVE CALCULATOR
@@ -278,7 +278,6 @@ class ObjectiveCalculator:
             if v.is_near_threshold
         ]
 
-
 # =============================================================================
 # OBJECTIVE PREDICTOR
 # =============================================================================
@@ -369,7 +368,6 @@ class ObjectivePredictor:
             churn=0.0  # Churn computed separately from plan
         )
 
-
 # =============================================================================
 # DOMINANCE CHECKER
 # =============================================================================
@@ -445,7 +443,6 @@ class DominanceChecker:
             return True
         return False
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -499,7 +496,6 @@ def validate_objectives() -> bool:
     assert not checker.is_admissible(worse, baseline)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating HDCS Objectives...")

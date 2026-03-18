@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed
+# METRO: Me,Cc,✶
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 """
 CROWN OF CROWNS -- 108D A+ Holographic Extraction Engine
 ==========================================================
@@ -141,7 +145,6 @@ class TensorStats:
     per_view: Dict[str, Dict[str, int]]
     per_wreath: Dict[str, Dict[str, int]]
     per_element: Dict[str, int]
-
 
 # =====================================================================
 # GATE BUILDER -- 36+1 Gates with 11-tradition mappings
@@ -417,7 +420,6 @@ def build_gates() -> List[Gate]:
 
     return gates
 
-
 # =====================================================================
 # CHAPTER BUILDER
 # =====================================================================
@@ -502,7 +504,6 @@ def build_chapters() -> List[Chapter]:
         ))
     return chapters
 
-
 # =====================================================================
 # APPENDIX BUILDER
 # =====================================================================
@@ -554,7 +555,6 @@ def build_appendices() -> List[Appendix]:
         ))
     return appendices
 
-
 # =====================================================================
 # CONSERVATION LAW BUILDER
 # =====================================================================
@@ -587,7 +587,6 @@ def build_conservation_laws() -> List[ConservationLaw]:
                         "SU(2) (seed-return spinor symmetry)",
                         "Seed-Return spinor psi_SR"),
     ]
-
 
 # =====================================================================
 # DIMENSION BUILDER -- All 108 dimensions
@@ -729,7 +728,6 @@ def build_dimensions() -> List[Dimension]:
 
     return dims
 
-
 # =====================================================================
 # EMERGENT CHAPTERS
 # =====================================================================
@@ -766,7 +764,6 @@ def build_emergent_chapters() -> List[Dict[str, str]]:
          "position": "Post-Ch21 gateway; fires after terminal self-reference"},
     ]
 
-
 # =====================================================================
 # FAMILY BUILDER
 # =====================================================================
@@ -798,7 +795,6 @@ def build_families_static() -> List[Family]:
             total=ok + near + ambig + fail,
         ))
     return families
-
 
 # =====================================================================
 # TENSOR CSV READER
@@ -895,7 +891,6 @@ def read_tensor_csv(csv_path: Path) -> Optional[TensorStats]:
         per_element=per_element,
     )
 
-
 def get_tensor_stats(csv_path: Path) -> TensorStats:
     """Get tensor stats from CSV or use pre-computed fallback."""
     live = read_tensor_csv(csv_path)
@@ -956,7 +951,6 @@ def get_tensor_stats(csv_path: Path) -> TensorStats:
         },
         per_element={"Fire": 1620, "Water": 1620, "Air": 1620, "Earth": 1620},
     )
-
 
 # =====================================================================
 # 420-BEAT MASTER CLOCK
@@ -1019,7 +1013,6 @@ def build_420_clock() -> Dict[str, Any]:
     clock["quad_sync"] = [b for b in range(420) if b % 84 == 0]    # 4*3*7 = 84
 
     return clock
-
 
 # =====================================================================
 # CORPUS DOCUMENT INDEX
@@ -1113,7 +1106,6 @@ def build_corpus_index() -> List[Dict[str, Any]]:
         },
     ]
 
-
 # =====================================================================
 # CROWN HEXAGON CIRCUIT
 # =====================================================================
@@ -1147,7 +1139,6 @@ def build_crown_hexagon() -> Dict[str, Any]:
         "invariant": "The hexagon is self-dual under 60-degree rotation",
     }
 
-
 # =====================================================================
 # HASH COMPUTATION
 # =====================================================================
@@ -1155,7 +1146,6 @@ def build_crown_hexagon() -> Dict[str, Any]:
 def compute_crown_hash(content: str) -> str:
     """Compute the SHA-256 hash of the crown document."""
     return hashlib.sha256(content.encode("utf-8")).hexdigest()
-
 
 def compute_aplus_transform(stats: TensorStats) -> Dict[str, Any]:
     """Compute the final A+ transform metrics."""
@@ -1192,7 +1182,6 @@ def compute_aplus_transform(stats: TensorStats) -> Dict[str, Any]:
         "families": 15,
         "routes": 24,
     }
-
 
 # =====================================================================
 # DOCUMENT GENERATOR
@@ -1854,7 +1843,6 @@ def generate_document(
 
     return "\n".join(lines)
 
-
 # =====================================================================
 # RECEIPT GENERATOR
 # =====================================================================
@@ -1935,7 +1923,6 @@ def generate_receipt(
     w()
 
     return "\n".join(lines)
-
 
 # =====================================================================
 # MAIN EXECUTION -- 9-Phase Extraction Protocol
@@ -2112,7 +2099,6 @@ def main():
     print()
     print("The seed contains the crown. The crown IS the seed.")
     print()
-
 
 if __name__ == "__main__":
     main()

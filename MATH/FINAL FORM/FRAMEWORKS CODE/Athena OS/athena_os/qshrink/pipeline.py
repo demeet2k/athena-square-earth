@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - Q-SHRINK PIPELINE OPERATORS
 =======================================
@@ -32,7 +36,6 @@ from .lenses import (
     LensType, FlowerLens, PetalPartition, 
     CloudLens, ProbabilityTable, EntropyContract
 )
-
 
 # =============================================================================
 # OPERATOR BASE CLASS
@@ -75,7 +78,6 @@ class PipelineOperator(ABC):
             return np.allclose(data, recovered, atol=tol)
         return data == recovered
 
-
 # =============================================================================
 # P: PARTITION / COORDINATE OPERATOR
 # =============================================================================
@@ -92,7 +94,6 @@ class PartitionResult:
     
     # Metadata
     partition_overhead: int = 0    # Bits to encode partition
-
 
 class PartitionOperator(PipelineOperator):
     """
@@ -199,7 +200,6 @@ class PartitionOperator(PipelineOperator):
         
         return data
 
-
 # =============================================================================
 # Q: QUANTIZE OPERATOR
 # =============================================================================
@@ -214,7 +214,6 @@ class QuantizeResult:
     
     # Error bounds
     max_error: float = 0.0
-
 
 class QuantizeOperator(PipelineOperator):
     """
@@ -295,7 +294,6 @@ class QuantizeOperator(PipelineOperator):
             return 0.0
         return self.step_size / 2
 
-
 # =============================================================================
 # B: BUCKET / SPLIT OPERATOR
 # =============================================================================
@@ -311,7 +309,6 @@ class BucketResult:
     # Statistics
     bulk_fraction: float = 0.0
     escape_fraction: float = 0.0
-
 
 class BucketOperator(PipelineOperator):
     """
@@ -390,7 +387,6 @@ class BucketOperator(PipelineOperator):
         
         return merged
 
-
 # =============================================================================
 # C: CODE + CONTAINERIZE OPERATOR
 # =============================================================================
@@ -417,7 +413,6 @@ class ChunkHeader:
             checksum=parts[2]
         )
 
-
 @dataclass
 class Chunk:
     """A container chunk with header and payload."""
@@ -430,7 +425,6 @@ class Chunk:
         computed = hashlib.sha256(self.payload).hexdigest()[:16]
         return computed == self.header.checksum
 
-
 @dataclass
 class ContainerResult:
     """Result of containerization."""
@@ -442,7 +436,6 @@ class ContainerResult:
     # Legality
     is_streaming_legal: bool = True
     is_seek_legal: bool = False
-
 
 class ContainerOperator(PipelineOperator):
     """
@@ -582,7 +575,6 @@ class ContainerOperator(PipelineOperator):
         
         return chunks
 
-
 # =============================================================================
 # COMPLETE CODEC PIPELINE
 # =============================================================================
@@ -608,7 +600,6 @@ class CodecProfile:
     chunk_size: int = 4096
     enable_checksums: bool = True
     enable_seek: bool = False
-
 
 class QShrinkCodec:
     """
@@ -714,7 +705,6 @@ class QShrinkCodec:
             max_error = self.Q.error_bound()
             return np.all(np.abs(data.flatten() - decoded.flatten()) <= max_error + tol)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -791,7 +781,6 @@ def validate_pipeline() -> bool:
     assert codec_lossy.verify_roundtrip(lossy_data)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Q-SHRINK Pipeline...")

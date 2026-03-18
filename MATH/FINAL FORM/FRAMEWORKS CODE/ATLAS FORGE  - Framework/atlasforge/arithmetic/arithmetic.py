@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                     ARITHMETIC GEOMETRY MODULE                               ║
@@ -25,7 +29,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HEIGHT FUNCTIONS
@@ -70,7 +73,6 @@ class Height:
         """
         return "ĥ(P) = lim h([n]P) / n²"
 
-
 @dataclass
 class HeightPairing:
     """
@@ -95,7 +97,6 @@ class HeightPairing:
     def is_positive_definite(self) -> bool:
         """Pairing is positive definite mod torsion."""
         return True
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ARAKELOV THEORY
@@ -128,7 +129,6 @@ class ArakelovDivisor:
             new_arch
         )
 
-
 @dataclass
 class ArakelovBundle:
     """
@@ -148,7 +148,6 @@ class ArakelovBundle:
     def arithmetic_degree(self) -> str:
         """Arithmetic degree deg(E, h)."""
         return f"deg(E, h) = deg(det E) + (1/2) log(covolume)"
-
 
 @dataclass
 class ArakelovIntersection:
@@ -170,7 +169,6 @@ class ArakelovIntersection:
     def adjunction(self, C: str) -> str:
         """Arithmetic adjunction formula."""
         return f"2g({C}) - 2 = ⟨{C}, {C} + K⟩"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ARITHMETIC RIEMANN-ROCH
@@ -204,7 +202,6 @@ class ArithmeticRiemannRoch:
         """Arithmetic Noether formula for surfaces."""
         return "12 ĉ_1(ω)² = ĉ_2(Ω) + (correction terms)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MORDELL-WEIL AND DIOPHANTINE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -235,7 +232,6 @@ class MordellWeil:
         """Left side of BSD conjecture."""
         return f"ord_{{s=1}} L({self.variety_name}, s) = {self.rank}"
 
-
 @dataclass
 class RothTheorem:
     """
@@ -255,7 +251,6 @@ class RothTheorem:
         """Vojta's higher-dimensional generalization."""
         return "Points of bounded height outside divisor are sparse"
 
-
 @dataclass
 class FaltingsTheorem:
     """
@@ -272,7 +267,6 @@ class FaltingsTheorem:
     def effective_bounds(self) -> str:
         """Known effective height bounds."""
         return "log h(P) ≤ exp(exp(exp(deg K × g^{O(1)})))"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PRODUCT FORMULA
@@ -302,7 +296,6 @@ class ProductFormula:
     def non_archimedean_contribution(self) -> str:
         """Sum at finite places."""
         return "Σ_{p} v_p(x) log p = log|N(x)|"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -355,7 +348,6 @@ class ArithmeticPoleBridge:
   • Infinite places (Σ): |σ(x)| contributions
   • Product formula (Gateway): ensures balance"""
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -364,26 +356,21 @@ def height(name: str = "h") -> Height:
     """Create height function."""
     return Height(name)
 
-
 def arakelov_divisor(finite: str, arch: Dict[str, float]) -> ArakelovDivisor:
     """Create Arakelov divisor."""
     return ArakelovDivisor(finite, arch)
-
 
 def arakelov_bundle(rank: int, base: str = "O_K") -> ArakelovBundle:
     """Create Arakelov bundle."""
     return ArakelovBundle(rank, base)
 
-
 def mordell_weil(variety: str, rank: int) -> MordellWeil:
     """Create Mordell-Weil group."""
     return MordellWeil(variety, rank)
 
-
 def product_formula(K: str = "K") -> ProductFormula:
     """Create product formula object."""
     return ProductFormula(K)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

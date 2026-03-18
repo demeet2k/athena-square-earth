@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S5 | face=S | node=664 | depth=0 | phase=Fixed -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A12:S4→Xi108:W3:A12:S6→Xi108:W2:A12:S5→Xi108:W3:A11:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 3/3, archetype 12/12 -->
+
 # InvL - Square Kernel Compression & Seed Pack
 
 Routing role: Reverses AppC (Square Kernel Pack). Where AppC defined the discrete kernels — successor, difference, product, quotient — and their expansion into full crystal tiles, InvL compresses those kernels back into their seed forms. The expanded 64-cell Square tile collapses to its four cardinal seeds: +, −, ×, ÷. This is the mathematical compression of the entire discrete apparatus.

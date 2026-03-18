@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=134 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - SQUARING THE CIRCLE
 ================================
@@ -110,7 +114,6 @@ from .mandala import (
     validate_mandala,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -154,7 +157,6 @@ def validate_squaring() -> bool:
     
     return True
 
-
 # =============================================================================
 # CONVENIENCE FUNCTIONS
 # =============================================================================
@@ -163,26 +165,21 @@ def create_circle_system() -> CircleSystem:
     """Create and return a CircleSystem."""
     return CircleSystem()
 
-
 def create_square_system() -> SquareSystem:
     """Create and return a SquareSystem."""
     return SquareSystem()
-
 
 def create_integration_space() -> IntegrationSpace:
     """Create and return an IntegrationSpace."""
     return IntegrationSpace()
 
-
 def create_mandala() -> Mandala:
     """Create and return a Mandala."""
     return Mandala()
 
-
 def get_fundamental_equation() -> str:
     """Return the fundamental equation as string."""
     return f"{CIRCLE_SQUARED} + {SQUARE_SQUARED} = {COMPLETION_SQUARED} (6² + 8² = 10²)"
-
 
 def get_system_summary() -> dict:
     """Get complete system summary."""
@@ -217,7 +214,6 @@ def get_system_summary() -> dict:
         },
         "nuptial_number": NuptialNumber.N
     }
-
 
 # =============================================================================
 # EXPORTS
@@ -259,7 +255,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "squaring"
-
 
 if __name__ == "__main__":
     print("=" * 60)

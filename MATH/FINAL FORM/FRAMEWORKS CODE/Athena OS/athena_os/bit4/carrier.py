@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - BIT4
 ================
@@ -31,7 +35,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Set, Tuple, Optional, List, FrozenSet
 from enum import Enum, auto
-
 
 # =============================================================================
 # BIT4 VALUE CLASS
@@ -127,7 +130,6 @@ class B4(Enum):
     def __repr__(self) -> str:
         return self.glyph
 
-
 # =============================================================================
 # TWO-RAIL ENCODING
 # =============================================================================
@@ -178,7 +180,6 @@ class TwoRail:
     
     def __repr__(self) -> str:
         return f"({self.t}, {self.f})"
-
 
 # =============================================================================
 # ONE-HOT ENCODING
@@ -239,7 +240,6 @@ class OneHot:
     def __repr__(self) -> str:
         return f"({self.u_bot}, {self.u_zero}, {self.u_one}, {self.u_top})"
 
-
 # =============================================================================
 # ENCODING CONVERSIONS
 # =============================================================================
@@ -248,11 +248,9 @@ def two_rail_to_one_hot(tr: TwoRail) -> OneHot:
     """Convert two-rail to one-hot encoding."""
     return OneHot.encode(tr.decode())
 
-
 def one_hot_to_two_rail(oh: OneHot) -> TwoRail:
     """Convert one-hot to two-rail encoding."""
     return TwoRail.encode(oh.decode())
-
 
 # =============================================================================
 # BIT4 VECTOR
@@ -308,7 +306,6 @@ class B4Vector:
     
     def __repr__(self) -> str:
         return f"[{', '.join(v.glyph for v in self.values)}]"
-
 
 # =============================================================================
 # VALIDATION
@@ -369,7 +366,6 @@ def validate_carrier() -> bool:
     assert v2.is_classical
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating BIT4 Carrier...")

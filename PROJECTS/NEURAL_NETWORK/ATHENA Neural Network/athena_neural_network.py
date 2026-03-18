@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S22 | face=C | node=253 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S21→Xi108:W2:A1:S23→Xi108:W1:A1:S22→Xi108:W3:A1:S22→Xi108:W2:A2:S22
+
 """
 ATHENA NEURAL NETWORK - COMPATIBILITY WRAPPER
 =============================================
@@ -27,10 +31,8 @@ from athenachka.core import (
     rank_transform,
 )
 
-
 AthenaNeuralNetwork = AthenaKernel
 AthenachkaOrganism = AthenachkaOrganismV0
-
 
 def draw_digit(d: int) -> np.ndarray:
     img = np.zeros((28, 28), dtype=np.float32)
@@ -102,7 +104,6 @@ def draw_digit(d: int) -> np.ndarray:
     img = ndimage.gaussian_filter(img, 0.8)
     return img / (img.max() + 1e-8)
 
-
 def aug_geometric(img: np.ndarray, rng) -> np.ndarray:
     angle = rng.uniform(-25, 25)
     scale = rng.uniform(0.9, 1.1)
@@ -117,11 +118,9 @@ def aug_geometric(img: np.ndarray, rng) -> np.ndarray:
         img = np.pad(img, ((pad, 28 - h - pad), (pad, 28 - w - pad)), mode="constant")
     return np.clip(img[:28, :28], 0, 1)
 
-
 def aug_adversarial(img: np.ndarray, rng) -> np.ndarray:
     noise = rng.randn(*img.shape) * 0.25
     return np.clip(img + noise, 0, 1)
-
 
 def aug_cluttered(img: np.ndarray, rng) -> np.ndarray:
     out = img.copy()
@@ -130,7 +129,6 @@ def aug_cluttered(img: np.ndarray, rng) -> np.ndarray:
         s = rng.randint(2, 4)
         out[y : y + s, x : x + s] = rng.uniform(0.1, 0.3)
     return out
-
 
 def aug_camouflage(img: np.ndarray, rng) -> np.ndarray:
     freq = rng.uniform(0.3, 0.6)
@@ -145,7 +143,6 @@ def aug_camouflage(img: np.ndarray, rng) -> np.ndarray:
     out = np.where(mask, fg, bg)
     return np.clip(out, 0, 1)
 
-
 def generate_data(n: int, aug_fn, seed: int):
     rng = np.random.RandomState(seed)
     X = np.zeros((n, 784), dtype=np.float32)
@@ -155,7 +152,6 @@ def generate_data(n: int, aug_fn, seed: int):
         X[i] = aug_fn(draw_digit(d), rng).flatten()
         Y[i, d] = 1
     return X, Y
-
 
 def run_benchmark():
     import time
@@ -206,7 +202,6 @@ def run_benchmark():
     print("-" * 30)
     print(f"{'AVERAGE':<15} {avg * 100:>11.1f}%")
     return results
-
 
 if __name__ == "__main__":
     run_benchmark()

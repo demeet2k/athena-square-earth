@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - SYNTAX
 ==================
@@ -169,7 +173,6 @@ from .obligations import (
     validate_obligations,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -183,7 +186,6 @@ def validate_syntax() -> bool:
     assert validate_obligations()
     return True
 
-
 # =============================================================================
 # CONVENIENCE FUNCTIONS
 # =============================================================================
@@ -192,28 +194,23 @@ def create_algebra() -> SyntaxAlgebra:
     """Create a new syntax algebra instance."""
     return SyntaxAlgebra()
 
-
 def create_tower() -> RepresentationTower:
     """Create a new representation tower."""
     return RepresentationTower()
 
-
 def create_index() -> CrystalIndex:
     """Create a new 256-cell crystal index."""
     return CrystalIndex()
-
 
 def spin(artifact: SyntaxArtifact, target: RepLevel) -> TransformResult:
     """Apply SPIN transforms to artifact."""
     tower = create_tower()
     return tower.spin(artifact, target)
 
-
 def reverse_spin(artifact: SyntaxArtifact, target: RepLevel) -> TransformResult:
     """Apply REVERSE-SPIN transforms to artifact."""
     tower = create_tower()
     return tower.reverse_spin(artifact, target)
-
 
 def collapse(artifact: Artifact, 
              coord: CrystalCoord,
@@ -224,7 +221,6 @@ def collapse(artifact: Artifact,
     chamber = get_zero_chamber()
     return chamber.collapse(artifact, coord, phase, kind, message)
 
-
 def check_satisfaction(program: SyntaxArtifact,
                        obligation: OutArtifact,
                        world: WorldState,
@@ -232,7 +228,6 @@ def check_satisfaction(program: SyntaxArtifact,
     """Check if program satisfies obligation."""
     checker = SatisfactionChecker()
     return checker.check(program, obligation, world, result)
-
 
 # =============================================================================
 # DEMO
@@ -330,7 +325,6 @@ def demo():
     print("✓ SYNTAX ALGEBRA OPERATIONAL")
     print("=" * 70)
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -384,7 +378,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "syntax"
-
 
 if __name__ == "__main__":
     print("Validating SYNTAX module...")

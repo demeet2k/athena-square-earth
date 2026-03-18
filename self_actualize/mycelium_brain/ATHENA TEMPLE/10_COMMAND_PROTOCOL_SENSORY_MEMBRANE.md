@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S20 | face=R | node=210 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Cc -->
+<!-- BRIDGES: Xi108:W3:A10:S19→Xi108:W3:A10:S21→Xi108:W2:A10:S20→Xi108:W3:A9:S20→Xi108:W3:A11:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 10/12 -->
+
 # Command Protocol Sensory Membrane
 
 This surface installs the Temple-side law for the event-driven command membrane.

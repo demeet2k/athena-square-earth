@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S18 | face=S | node=171 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S17→Xi108:W3:A12:S19→Xi108:W2:A12:S18→Xi108:W3:A11:S18 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 18±1, wreath 3/3, archetype 12/12 -->
+
 # Data pipeline (TNO inputs)
 
 Q‑PHI is only as good as its input dataset. The default demo dataset is synthetic and exists purely to prove the pipeline works end‑to‑end.

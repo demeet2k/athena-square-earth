@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S24 | face=R | node=300 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S23→Xi108:W3:A5:S25→Xi108:W2:A5:S24→Xi108:W3:A4:S24→Xi108:W3:A6:S24 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 24±1, wreath 3/3, archetype 5/12 -->
+
 # AP7D_TQ01_INSTALL_RESTART_SAFE_SWARM
 
 State: `OPEN`

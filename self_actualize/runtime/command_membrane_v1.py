@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S29 | face=F | node=419 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S28→Xi108:W2:A10:S30→Xi108:W1:A10:S29→Xi108:W3:A10:S29→Xi108:W2:A9:S29→Xi108:W2:A11:S29
+
 from __future__ import annotations
 
 import argparse
@@ -12,7 +16,6 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -123,7 +126,6 @@ ANTS = [
     {"ant_id": "ARCHIVIST-01", "role": "archivist", "coord_focus": 0.70, "pheromone_bias": 0.60, "domains": {"ledger": 1.0, "archive": 1.0}},
 ]
 
-
 @dataclass
 class CommandMembraneConfig:
     workspace_root: Path = WORKSPACE_ROOT
@@ -174,40 +176,32 @@ class CommandMembraneConfig:
     def __post_init__(self) -> None:
         self.local_zone = ZoneInfo(self.local_zone_name)
 
-
 def parse_iso(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
-
 def iso_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-
 
 def append_jsonl(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
 
-
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
-
 
 def stable_scalar(value: str) -> float:
     digest = hashlib.sha256(value.encode("utf-8")).hexdigest()[:12]
     return round(int(digest, 16) / float(int("f" * 12, 16)), 6)
-
 
 def relpath(path: Path, root: Path) -> str:
     try:
@@ -215,18 +209,15 @@ def relpath(path: Path, root: Path) -> str:
     except ValueError:
         return path.as_posix()
 
-
 def local_rotation_phase(now_utc: datetime, zone: ZoneInfo) -> float:
     local_now = now_utc.astimezone(zone)
     seconds = local_now.hour * 3600 + local_now.minute * 60 + local_now.second + (local_now.microsecond / 1_000_000.0)
     return round(seconds / 86400.0, 6)
 
-
 def orbital_phase(now_utc: datetime) -> float:
     day_index = now_utc.timetuple().tm_yday - 1
     year_days = 366 if (now_utc.year % 4 == 0 and (now_utc.year % 100 != 0 or now_utc.year % 400 == 0)) else 365
     return round(day_index / float(year_days), 6)
-
 
 def lunar_phase(now_utc: datetime) -> float:
     reference = datetime(2000, 1, 6, 18, 14, tzinfo=timezone.utc)
@@ -234,13 +225,11 @@ def lunar_phase(now_utc: datetime) -> float:
     elapsed = (now_utc - reference).total_seconds() / 86400.0
     return round((elapsed % synodic_days) / synodic_days, 6)
 
-
 def sidereal_phase(now_utc: datetime) -> float:
     reference = datetime(2000, 1, 1, 12, tzinfo=timezone.utc)
     elapsed_days = (now_utc - reference).total_seconds() / 86400.0
     gmst_hours = 18.697374558 + 24.06570982441908 * elapsed_days
     return round((gmst_hours % 24.0) / 24.0, 6)
-
 
 class WindowsChangeSignal:
     FILE_NOTIFY_CHANGE_FILE_NAME = 0x00000001
@@ -275,7 +264,6 @@ class WindowsChangeSignal:
         if self.handle:
             self.kernel32.FindCloseChangeNotification(self.handle)
             self.handle = 0
-
 
 class CommandMembraneService:
     def __init__(self, config: CommandMembraneConfig | None = None) -> None:
@@ -1110,7 +1098,6 @@ class CommandMembraneService:
         self.save_state(state)
         return packet
 
-
 def parser() -> argparse.ArgumentParser:
     cli = argparse.ArgumentParser(description="Athena command membrane runtime.")
     subparsers = cli.add_subparsers(dest="command", required=True)
@@ -1154,13 +1141,11 @@ def parser() -> argparse.ArgumentParser:
     reinforce.add_argument("--noise-penalty", type=float, default=0.0)
     return cli
 
-
 def config_from_root(root: str) -> CommandMembraneConfig:
     command_root = Path(root)
     if not command_root.is_absolute():
         command_root = WORKSPACE_ROOT / root
     return CommandMembraneConfig(command_root=command_root)
-
 
 def main() -> int:
     args = parser().parse_args()
@@ -1192,7 +1177,6 @@ def main() -> int:
         print(json.dumps(service.reinforce_event(args.event_id, path=args.path or None, result=args.result, latency_score=args.latency_score, noise_penalty=args.noise_penalty, allow_uncommitted=False), indent=2))
         return 0
     raise RuntimeError(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

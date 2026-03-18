@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=14 | depth=0 | phase=Fixed
+# METRO: Me,Bw
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 """
 POLAR CROSS-SYMMETRY ENGINE
 ============================
@@ -988,7 +992,6 @@ class PolarCrossSymmetryEngine:
             f.write(doc)
         print(f"  -> {len(lines)} lines written to {output_path}")
         return doc
-
 
 # ─── MAIN ─────────────────────────────────────────────────────────
 if __name__ == "__main__":

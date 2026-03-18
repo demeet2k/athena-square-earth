@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S11 | face=R | node=60 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S10→Xi108:W3:A12:S12→Xi108:W2:A12:S11→Xi108:W3:A11:S11 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 11±1, wreath 3/3, archetype 12/12 -->
+
 # QUADRANT BINARY FULL-CORPUS SYNTHESIS
 
 Date: 2026-03-09

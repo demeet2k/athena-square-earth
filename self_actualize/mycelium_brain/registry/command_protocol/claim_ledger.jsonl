@@ -1,3 +1,6 @@
+# CRYSTAL: Xi108:W3:A2:S15 | face=C | node=514 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A2:S14→Xi108:W3:A2:S16→Xi108:W2:A2:S15→Xi108:W3:A1:S15→Xi108:W3:A3:S15
 
 {"event_id": "EVT-20260313-205847-115540", "claimer_id": "M3-WORK", "role_class": "worker", "lease_ms": 1200, "claimed_at": "2026-03-13T20:59:23.840385+00:00", "expires_at": "2026-03-13T20:59:25.040385+00:00", "status": "claimed"}
 {"event_id": "EVT-20260313-205847-115540", "claimer_id": "Athena-A", "role_class": "worker", "lease_ms": 1200, "claimed_at": "2026-03-13T20:59:23.842385+00:00", "expires_at": "2026-03-13T20:59:25.042385+00:00", "status": "deferred", "blocked_by": "M3-WORK"}

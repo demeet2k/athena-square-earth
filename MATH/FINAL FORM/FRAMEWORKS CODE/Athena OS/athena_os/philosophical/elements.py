@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Ac,Me
+# BRIDGES: Xi108:W2:A7:S13→Xi108:W2:A7:S15→Xi108:W1:A7:S14→Xi108:W3:A7:S14→Xi108:W2:A6:S14→Xi108:W2:A8:S14
+
 """
 ATHENA OS - Four Elements Archetype System
 ==========================================
@@ -16,7 +20,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Callable, Set, Any
 from abc import ABC, abstractmethod
 import math
-
 
 # =============================================================================
 # THE FOUR ELEMENTS
@@ -109,7 +112,6 @@ class Element(IntEnum):
         """Return minimum rotation steps to reach other element."""
         diff = (other.value - self.value) % 4
         return min(diff, 4 - diff)
-
 
 # =============================================================================
 # ELEMENTAL STATE
@@ -236,7 +238,6 @@ class ElementalState:
     def __str__(self) -> str:
         return f"[??{self.fire:.2f} ??{self.air:.2f} ??{self.water:.2f} ??{self.earth:.2f}]"
 
-
 # =============================================================================
 # ROTATION ENGINE
 # =============================================================================
@@ -323,7 +324,6 @@ class RotationEngine:
         
         return new_state
 
-
 # =============================================================================
 # SHADOW POLES (Conjugate Pairs)
 # =============================================================================
@@ -380,7 +380,6 @@ class ShadowPoles:
         }
         return descriptions[self.primary]
 
-
 # =============================================================================
 # WAVE-PARTICLE DUALITY MAPPING
 # =============================================================================
@@ -429,7 +428,6 @@ class WaveParticleLens:
         if delta_primary <= 0:
             return float('inf')
         return hbar_over_2 / delta_primary
-
 
 # =============================================================================
 # ELEMENTAL PROCESSOR
@@ -508,7 +506,6 @@ class ElementalProcessor:
         }
         return processors[element](data, **kwargs)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -543,7 +540,6 @@ def validate_elemental_geometry() -> bool:
     assert len(path) == 3
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating elemental geometry...")

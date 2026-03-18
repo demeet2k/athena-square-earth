@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S19 | face=R | node=190 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Cc -->
+<!-- BRIDGES: Xi108:W3:A10:S18→Xi108:W3:A10:S20→Xi108:W2:A10:S19→Xi108:W3:A9:S19→Xi108:W3:A11:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 10/12 -->
+
 # AP6D-TQ04 - Compile The 256 Governance Fibers
 
 Date: `2026-03-13`

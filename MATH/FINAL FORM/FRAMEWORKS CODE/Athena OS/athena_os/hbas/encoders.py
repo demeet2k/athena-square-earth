@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=83 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - HBAS-Ω: ENCODERS MODULE
 ====================================
@@ -36,7 +40,6 @@ from enum import Enum, auto
 from abc import ABC, abstractmethod
 import numpy as np
 
-
 # =============================================================================
 # ENCODER TYPES
 # =============================================================================
@@ -49,7 +52,6 @@ class EncoderType(Enum):
     SPECTRAL = "spectral"       # Harmonic / eigenmode encoders
     METROLOGICAL = "metrology"  # Number system / measurement
     TRANSITION = "transition"   # State change / error correction
-
 
 # =============================================================================
 # BINARY / HYPERCUBE ENCODERS
@@ -124,7 +126,6 @@ class BinaryEncoder:
         
         return adj
 
-
 class IfaEncoder(BinaryEncoder):
     """
     Ọpẹ́-256: The Ifá 8-bit Binary Encoder.
@@ -167,7 +168,6 @@ class IfaEncoder(BinaryEncoder):
         left, right = self.tensor_decompose(odu, 4)
         return self.get_principal_odu(right), self.get_principal_odu(left)
 
-
 class IChingEncoder(BinaryEncoder):
     """
     I Ching 6-bit Binary Encoder.
@@ -199,7 +199,6 @@ class IChingEncoder(BinaryEncoder):
         lower = hexagram & 0b111
         upper = (hexagram >> 3) & 0b111
         return self.trigrams.get(lower, "?"), self.trigrams.get(upper, "?")
-
 
 # =============================================================================
 # GRAPH / WORLD-TREE ENCODERS
@@ -266,7 +265,6 @@ class GraphEncoder:
         
         return [i for i in range(self.n_nodes) if self._adjacency[node, i]]
 
-
 class YggdrasilEncoder(GraphEncoder):
     """
     Yggdrasil: Norse 9-World Graph Encoder.
@@ -320,7 +318,6 @@ class YggdrasilEncoder(GraphEncoder):
         ]
         
         self.build_adjacency()
-
 
 class SefirotEncoder(GraphEncoder):
     """
@@ -385,7 +382,6 @@ class SefirotEncoder(GraphEncoder):
         }
         return sum(values.get(c, 0) for c in word)
 
-
 # =============================================================================
 # SPECTRAL / HARMONIC ENCODERS
 # =============================================================================
@@ -421,7 +417,6 @@ class SpectralEncoder:
         """
         product = ratio[0] * ratio[1]
         return 1.0 / np.log(product + 1)
-
 
 class PythagoreanEncoder(SpectralEncoder):
     """
@@ -488,7 +483,6 @@ class PythagoreanEncoder(SpectralEncoder):
         
         return sorted(frequencies)
 
-
 # =============================================================================
 # METROLOGICAL ENCODERS
 # =============================================================================
@@ -535,7 +529,6 @@ class MetrologicalEncoder:
                           for d in base_digits)
         return ' '.join(str(d) for d in base_digits)
 
-
 class SumerianEncoder(MetrologicalEncoder):
     """
     Sumerian Sexagesimal (Base-60) Encoder.
@@ -564,7 +557,6 @@ class SumerianEncoder(MetrologicalEncoder):
         self.sar = 3600
         self.ner = 600
         self.great_year = 25920  # Years for precession
-
 
 class MayaEncoder(MetrologicalEncoder):
     """
@@ -599,7 +591,6 @@ class MayaEncoder(MetrologicalEncoder):
                 tun * 360 + 
                 uinal * 20 + 
                 kin)
-
 
 # =============================================================================
 # TRANSITION / REPAIR ENCODERS
@@ -665,7 +656,6 @@ class TransitionEncoder:
         
         return history
 
-
 class BardoEncoder(TransitionEncoder):
     """
     Tibetan Bardo Transition Encoder.
@@ -721,7 +711,6 @@ class BardoEncoder(TransitionEncoder):
             "Animal", "Preta", "Naraka"
         ]
 
-
 class DuatEncoder(TransitionEncoder):
     """
     Egyptian Duat (Underworld) Transition Encoder.
@@ -756,7 +745,6 @@ class DuatEncoder(TransitionEncoder):
         
         # 42 Negative Confessions
         self.n_confessions = 42
-
 
 # =============================================================================
 # ENCODER FACTORY
@@ -808,7 +796,6 @@ class EncoderFactory:
             "egyptian": DuatEncoder(),
         }
         return encoders.get(culture.lower(), TransitionEncoder("Generic", 12))
-
 
 # =============================================================================
 # VALIDATION
@@ -897,7 +884,6 @@ def validate_encoders() -> bool:
     assert isinstance(ygg2, YggdrasilEncoder)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating HBAS Encoders Module...")

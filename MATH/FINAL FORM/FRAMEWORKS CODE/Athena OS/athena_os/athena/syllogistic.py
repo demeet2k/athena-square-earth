@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - SYLLOGISTIC PROCESSOR MODULE
 ========================================
@@ -41,7 +45,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Set
 from enum import Enum, auto
 
-
 # =============================================================================
 # PROPOSITION TYPES
 # =============================================================================
@@ -52,7 +55,6 @@ class PropositionType(Enum):
     E = auto()  # Universal Negative: No S are P
     I = auto()  # Particular Affirmative: Some S are P
     O = auto()  # Particular Negative: Some S are not P
-
 
 @dataclass(frozen=True)
 class PropositionSpec:
@@ -65,7 +67,6 @@ class PropositionSpec:
     is_affirmative: bool
     subject_distributed: bool
     predicate_distributed: bool
-
 
 PROP_A = PropositionSpec(
     PropositionType.A, "Universal Affirmative",
@@ -94,7 +95,6 @@ PROPOSITION_SPECS: Dict[PropositionType, PropositionSpec] = {
     PropositionType.O: PROP_O,
 }
 
-
 # =============================================================================
 # TERMS AND PROPOSITIONS
 # =============================================================================
@@ -106,7 +106,6 @@ class Term:
     
     def __repr__(self) -> str:
         return self.name
-
 
 @dataclass
 class Proposition:
@@ -158,7 +157,6 @@ class Proposition:
     def __repr__(self) -> str:
         return f"{self.prop_type.name}({self.subject}, {self.predicate})"
 
-
 # =============================================================================
 # SYLLOGISTIC FIGURES
 # =============================================================================
@@ -170,7 +168,6 @@ class Figure(Enum):
     FIGURE_3 = 3  # M-P, M-S ∴ S-P
     FIGURE_4 = 4  # P-M, M-S ∴ S-P
 
-
 @dataclass(frozen=True)
 class FigureSpec:
     """Specification of a syllogistic figure."""
@@ -180,7 +177,6 @@ class FigureSpec:
     minor_pattern: str  # Position of middle term in minor premise
     conclusion_pattern: str
     description: str
-
 
 FIGURE_SPECS: Dict[Figure, FigureSpec] = {
     Figure.FIGURE_1: FigureSpec(
@@ -200,7 +196,6 @@ FIGURE_SPECS: Dict[Figure, FigureSpec] = {
         "Middle is predicate of major, subject of minor"
     ),
 }
-
 
 # =============================================================================
 # SYLLOGISM
@@ -277,7 +272,6 @@ class Syllogism:
                 f"  Minor: {self.minor_premise.statement}\n"
                 f"  ∴ {self.conclusion.statement}")
 
-
 # =============================================================================
 # VALIDITY CHECKING
 # =============================================================================
@@ -292,7 +286,6 @@ class ValidityError(Enum):
     AFFIRMATIVE_CONCLUSION_ERROR = auto()
     EXISTENTIAL_FALLACY = auto()
 
-
 @dataclass
 class ValidityResult:
     """Result of validity check."""
@@ -300,7 +293,6 @@ class ValidityResult:
     is_valid: bool
     errors: List[ValidityError] = field(default_factory=list)
     messages: List[str] = field(default_factory=list)
-
 
 def check_validity(syllogism: Syllogism) -> ValidityResult:
     """
@@ -366,7 +358,6 @@ def check_validity(syllogism: Syllogism) -> ValidityResult:
         messages=messages
     )
 
-
 # =============================================================================
 # VALID MOODS
 # =============================================================================
@@ -406,16 +397,13 @@ MOOD_NAMES: Dict[Tuple[Figure, str], str] = {
     (Figure.FIGURE_4, "EIO"): "Fresison",
 }
 
-
 def get_mood_name(figure: Figure, mood: str) -> Optional[str]:
     """Get traditional name for a mood."""
     return MOOD_NAMES.get((figure, mood))
 
-
 def is_valid_mood(figure: Figure, mood: str) -> bool:
     """Check if mood is valid for figure."""
     return mood in VALID_MOODS.get(figure, [])
-
 
 # =============================================================================
 # SYLLOGISM CONSTRUCTION
@@ -466,7 +454,6 @@ def construct_syllogism(
     conclusion = Proposition(S, P, conclusion_type)
     
     return Syllogism(major, minor, conclusion)
-
 
 # =============================================================================
 # CONCLUSION GENERATOR
@@ -537,7 +524,6 @@ def generate_conclusion(
         return conclusion
     return None
 
-
 # =============================================================================
 # SYLLOGISTIC PROCESSOR
 # =============================================================================
@@ -570,7 +556,6 @@ class SyllogisticProcessor:
                 name = self.mood_names.get((figure, mood), "")
                 result.append((figure, mood, name))
         return result
-
 
 # =============================================================================
 # VALIDATION
@@ -629,7 +614,6 @@ def validate_syllogistic() -> bool:
     assert total_valid == 19
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

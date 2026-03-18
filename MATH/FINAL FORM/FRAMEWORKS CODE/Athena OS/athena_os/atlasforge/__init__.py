@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=142 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - AtlasForge
 ======================
@@ -127,7 +131,6 @@ from .verify import (
     validate_verify,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -141,7 +144,6 @@ def validate_atlasforge() -> bool:
     assert validate_crystal()
     assert validate_verify()
     return True
-
 
 # =============================================================================
 # CONVENIENCE FUNCTIONS
@@ -164,16 +166,13 @@ def forge_root(name: str,
     pipeline = SolveVerifyPipeline()
     return pipeline.run(constraint, a, b)
 
-
 def create_forge_registry() -> Registry:
     """Create new AtlasForge registry."""
     return Registry()
 
-
 def parse_blueprint(source: str) -> Blueprint:
     """Parse blueprint from source."""
     return BlueprintParser.from_string(source)
-
 
 # =============================================================================
 # EXPORTS
@@ -215,7 +214,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "atlasforge"
-
 
 if __name__ == "__main__":
     print("=" * 60)

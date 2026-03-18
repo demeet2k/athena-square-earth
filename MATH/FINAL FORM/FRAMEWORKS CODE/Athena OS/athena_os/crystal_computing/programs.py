@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S13→Xi108:W2:A4:S15→Xi108:W1:A4:S14→Xi108:W3:A4:S14→Xi108:W2:A3:S14→Xi108:W2:A5:S14
+
 """
 ATHENA OS - Crystal Computing Programs
 ======================================
@@ -33,7 +37,6 @@ from .lattice import CrystalCell, MetaCrystal, CrystalAdjacency, Pole
 from .kappa import KappaField, KappaFlow, KappaFlowGraph, ConservationLaw
 from .states import AethericState
 from .operators import CrystalOperator, OperatorFactory, IdentityOperator
-
 
 # =============================================================================
 # PROGRAM STEP
@@ -73,7 +76,6 @@ class ProgramStep:
     
     def __str__(self) -> str:
         return f"Step[{self.step_index}]: {self.cell.signature} -> {self.operator.name}"
-
 
 # =============================================================================
 # CRYSTAL PROGRAM
@@ -235,7 +237,6 @@ class CrystalProgram:
             "conserving": self.is_conserving() if self.is_executed else None
         }
 
-
 # =============================================================================
 # PROGRAM BUILDER
 # =============================================================================
@@ -281,7 +282,6 @@ class ProgramBuilder:
         """Build and return program."""
         self.program.compile()
         return self.program
-
 
 # =============================================================================
 # PATH ANALYSIS
@@ -358,7 +358,6 @@ class PathAnalysis:
         
         return min(self.program.steps, key=lambda s: s.kappa_delta)
 
-
 # =============================================================================
 # PROGRAM LIBRARY
 # =============================================================================
@@ -390,7 +389,6 @@ class ProgramLibrary:
     def search_aetheric(self) -> List[CrystalProgram]:
         """Get all Aetheric programs."""
         return [p for p in self.programs.values() if p.is_aetheric()]
-
 
 # =============================================================================
 # VALIDATION
@@ -440,7 +438,6 @@ def validate_programs() -> bool:
     assert library.get("quantum_circuit") is not None
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Crystal Computing Programs...")

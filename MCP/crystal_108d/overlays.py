@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W1:A8:S14 | face=R | node=105 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A8:S13→Xi108:W1:A8:S15→Xi108:W2:A8:S14→Xi108:W1:A7:S14→Xi108:W1:A9:S14
+
 """4 overlay registries (lens, alchemy, animal, completion) and Sigma-15."""
 
 from ._cache import JsonCache
 
 _overlays = JsonCache("overlay_registries.json")
-
 
 def query_overlay(registry: str, index: int = 0) -> str:
     """
@@ -73,7 +76,6 @@ def query_overlay(registry: str, index: int = 0) -> str:
         for dp in desc_parts:
             lines.append(f"  - {dp}")
     return "\n".join(lines) + "\n"
-
 
 def query_sigma15(sigma: int) -> str:
     """

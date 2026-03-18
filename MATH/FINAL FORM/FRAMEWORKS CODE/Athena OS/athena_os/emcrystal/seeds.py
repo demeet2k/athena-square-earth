@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me,w
+# BRIDGES: Xi108:W2:A1:S17→Xi108:W2:A1:S19→Xi108:W1:A1:S18→Xi108:W3:A1:S18→Xi108:W2:A2:S18
+
 """
 ATHENA OS - Seed Encoding System
 ================================
@@ -36,7 +40,6 @@ from .aether import (
     ZeroPoint, AetherFactory
 )
 
-
 # =============================================================================
 # ENCODING ENUMS
 # =============================================================================
@@ -49,7 +52,6 @@ class ZStarMode(Enum):
     TOPOLOGICAL_INSULATOR = 3
     CAVITY = 4
 
-
 class ClampMode(Enum):
     """Clamp mode encoding."""
     NONE = 0
@@ -57,7 +59,6 @@ class ClampMode(Enum):
     SCHWINGER_ZWANZIGER = 2
     QUANTUM_HALL = 3
     ANOMALY = 4
-
 
 class BoundaryMode(Enum):
     """Boundary condition mode."""
@@ -67,7 +68,6 @@ class BoundaryMode(Enum):
     PERIODIC = 3
     DELTA_THETA = 4
 
-
 class MediumMode(Enum):
     """Medium mode."""
     VACUUM = 0
@@ -76,7 +76,6 @@ class MediumMode(Enum):
     TOPOLOGICAL_INSULATOR = 3
     CAVITY = 4
 
-
 class SymmetryMode(Enum):
     """Symmetry mode."""
     U1_ONLY = 0
@@ -84,7 +83,6 @@ class SymmetryMode(Enum):
     ANOMALY_ENABLED = 2
     TR_Z2_ENABLED = 3
     CHIRAL_ENABLED = 4
-
 
 # =============================================================================
 # QUANTIZATION FUNCTIONS
@@ -97,11 +95,9 @@ def quantize_theta(theta: float) -> int:
     # Scale to 0-65535
     return int((theta / TAU) * 65535) & 0xFFFF
 
-
 def dequantize_theta(theta_q: int) -> float:
     """Dequantize 16-bit θ back to radians."""
     return (theta_q / 65535) * TAU
-
 
 def quantize_e_squared(e_squared: float) -> int:
     """
@@ -118,7 +114,6 @@ def quantize_e_squared(e_squared: float) -> int:
     scaled = (log_val + 4) / 8  # 0 to 1
     return int(scaled * 65535) & 0xFFFF
 
-
 def dequantize_e_squared(e2_q: int) -> float:
     """Dequantize 16-bit e² back to value."""
     import math
@@ -126,7 +121,6 @@ def dequantize_e_squared(e2_q: int) -> float:
     scaled = e2_q / 65535  # 0 to 1
     log_val = scaled * 8 - 4  # -4 to 4
     return 10 ** log_val
-
 
 # =============================================================================
 # SEED STRUCTURE
@@ -232,7 +226,6 @@ class AetherSeed:
             e_squared=self.e_squared
         )
 
-
 # =============================================================================
 # ENCODER/DECODER
 # =============================================================================
@@ -265,7 +258,6 @@ class AetherEncoder:
         
         return seed
 
-
 class AetherDecoder:
     """Decodes seeds to Aether objects."""
     
@@ -290,16 +282,13 @@ class AetherDecoder:
         
         return aether
 
-
 def encode(aether: Aether) -> AetherSeed:
     """Convenience function to encode Aether."""
     return AetherEncoder.encode(aether)
 
-
 def decode(seed: AetherSeed) -> Aether:
     """Convenience function to decode seed."""
     return AetherDecoder.decode(seed)
-
 
 # =============================================================================
 # PRESET SEEDS
@@ -358,7 +347,6 @@ class PresetSeeds:
         seed.symmetry_mode = SymmetryMode.SL2Z_ENABLED
         return seed
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -412,7 +400,6 @@ def validate_seeds() -> bool:
     assert abs(ti.theta - PI) < 0.01
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Seeds Module...")

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S13 | face=S | node=86 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S12→Xi108:W3:A12:S14→Xi108:W2:A12:S13→Xi108:W3:A11:S13 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 13±1, wreath 3/3, archetype 12/12 -->
+
 # NOTE (Final Manual)
 
 A newer, **integrated** manual that includes the Memory Atlas layer and book compiler is available at:

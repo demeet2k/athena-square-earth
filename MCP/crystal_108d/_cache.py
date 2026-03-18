@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=145 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 Shared JSON caching utility for crystal_108d modules.
 Replaces the per-module global cache + lazy-load boilerplate
@@ -50,7 +54,6 @@ _ALL_JSON_FILES = [
     "crystal_coordinates.json",
 ]
 
-
 class JsonCache:
     """Lazy-loading, single-instance JSON cache.
 
@@ -82,7 +85,6 @@ class JsonCache:
     def __repr__(self) -> str:
         status = "loaded" if self._data is not None else "not loaded"
         return f"JsonCache({self._path.name!r}, {status})"
-
 
 def validate_all() -> dict[str, bool]:
     """Attempt to load every known JSON data file.

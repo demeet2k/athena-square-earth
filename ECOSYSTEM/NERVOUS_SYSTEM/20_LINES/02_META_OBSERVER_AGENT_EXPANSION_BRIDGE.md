@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S28 | face=F | node=400 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A5:S27→Xi108:W3:A5:S29→Xi108:W2:A5:S28→Xi108:W3:A4:S28→Xi108:W3:A6:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 5/12 -->
+
 # META-OBSERVER AGENT EXPANSION BRIDGE
 
 ## Purpose

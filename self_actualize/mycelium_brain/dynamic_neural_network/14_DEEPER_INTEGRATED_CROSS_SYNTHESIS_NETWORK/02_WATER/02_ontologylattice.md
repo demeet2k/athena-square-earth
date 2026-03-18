@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S20 | face=R | node=204 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W3:A4:S19→Xi108:W3:A4:S21→Xi108:W2:A4:S20→Xi108:W3:A3:S20→Xi108:W3:A5:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 4/12 -->
+
 # Water x OntologyLattice
 
 Water reads the network as circulation, adaptation, thaw, and field coherence.

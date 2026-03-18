@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=425 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      SHEAF COHOMOLOGY MODULE                                 ║
@@ -24,7 +28,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PRESHEAVES AND SHEAVES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -40,7 +43,6 @@ class OpenSet:
     
     def __eq__(self, other):
         return self.name == other.name and self.index == other.index
-
 
 @dataclass
 class Presheaf:
@@ -61,7 +63,6 @@ class Presheaf:
     def restrict(self, U: OpenSet, V: OpenSet) -> Callable:
         """Get restriction ρ_{V,U}: F(U) → F(V)."""
         return self.restrictions.get((V, U), lambda x: x)
-
 
 @dataclass
 class Sheaf(Presheaf):
@@ -91,7 +92,6 @@ class Sheaf(Presheaf):
         """Structure sheaf of regular functions."""
         return cls({}, {}, name)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ČECH COHOMOLOGY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -113,7 +113,6 @@ class OpenCover:
         names = [self.sets[i].name for i in indices if i < len(self.sets)]
         return " ∩ ".join(names)
 
-
 @dataclass
 class CechCochain:
     """
@@ -127,7 +126,6 @@ class CechCochain:
     
     def __getitem__(self, indices: Tuple[int, ...]) -> Any:
         return self.values.get(indices, 0)
-
 
 @dataclass
 class CechCohomology:
@@ -157,7 +155,6 @@ class CechCohomology:
     def h0_global_sections(self) -> str:
         """Ȟ^0(X, F) = Γ(X, F)."""
         return f"Γ({self.cover.space_name}, {self.sheaf_name})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SHEAF COHOMOLOGY
@@ -189,7 +186,6 @@ class SheafCohomology:
         """Kodaira vanishing, Serre vanishing, etc."""
         return f"H^i({self.space_name}, {self.sheaf_name}) = 0 for i > dim {self.space_name}"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DE RHAM COHOMOLOGY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -213,7 +209,6 @@ class DifferentialForm:
         """Exterior derivative dω."""
         return DifferentialForm(self.degree + 1, self.manifold,
                                f"d({self.expression})")
-
 
 @dataclass
 class DeRhamCohomology:
@@ -245,7 +240,6 @@ class DeRhamCohomology:
         """χ(M) = Σ (-1)^k b_k."""
         return f"χ({self.manifold}) = Σ_k (-1)^k b_k"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EXACT SEQUENCES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -275,7 +269,6 @@ class ShortExactSequence:
             seq.append(f"H^{i}({space}, {self.F_double_prime})")
         return seq
 
-
 @dataclass
 class ExponentialSequence:
     """
@@ -292,7 +285,6 @@ class ExponentialSequence:
     def connecting_map(self) -> str:
         """H^1(O*) → H^2(ℤ) = Pic → H^2."""
         return f"c_1: Pic({self.space}) → H^2({self.space}, ℤ)"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SERRE DUALITY
@@ -322,7 +314,6 @@ class SerreDuality:
     def arithmetic_genus(self, F: str = "O") -> str:
         """p_a = (-1)^n (χ(O_X) - 1)."""
         return f"p_a = Σ (-1)^i h^{0,i}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GROTHENDIECK-RIEMANN-ROCH
@@ -354,7 +345,6 @@ class GRRTheorem:
     def todd_class(X: str) -> str:
         """td(X) = 1 + c_1/2 + (c_1² + c_2)/12 + ..."""
         return f"td({X}) = 1 + c_1/2 + (c_1² + c_2)/12 + ..."
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -398,7 +388,6 @@ class CohomologyPoleBridge:
         """
         return "D-pole ↔ Exact sequences: 0 → F' → F → F'' → 0"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -407,31 +396,25 @@ def sheaf(name: str = "F") -> Sheaf:
     """Create a sheaf."""
     return Sheaf({}, {}, name)
 
-
 def constant_sheaf(value: str) -> Sheaf:
     """Create constant sheaf."""
     return Sheaf.constant(value)
-
 
 def cech_cohomology(cover: OpenCover, sheaf: str) -> CechCohomology:
     """Create Čech cohomology object."""
     return CechCohomology(cover, sheaf)
 
-
 def derham_cohomology(manifold: str, dim: int) -> DeRhamCohomology:
     """Create de Rham cohomology object."""
     return DeRhamCohomology(manifold, dim)
-
 
 def serre_duality(space: str, dim: int) -> SerreDuality:
     """Create Serre duality pairing."""
     return SerreDuality(space, dim)
 
-
 def short_exact_sequence(F1: str, F2: str, F3: str) -> ShortExactSequence:
     """Create short exact sequence 0 → F1 → F2 → F3 → 0."""
     return ShortExactSequence(F1, F2, F3)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

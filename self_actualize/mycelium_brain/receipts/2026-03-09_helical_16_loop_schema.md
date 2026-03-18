@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S20 | face=R | node=194 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S19→Xi108:W3:A8:S21→Xi108:W2:A8:S20→Xi108:W3:A7:S20→Xi108:W3:A9:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 8/12 -->
+
 # Helical 16-Loop Recursion Schema Receipt
 
 - Generated: `2026-03-09T19:22:07.052493+00:00`

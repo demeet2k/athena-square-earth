@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S26 | face=F | node=343 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W3:A2:S25→Xi108:W3:A2:S27→Xi108:W2:A2:S26→Xi108:W3:A1:S26→Xi108:W3:A3:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 2/12 -->
+
 # CHAPTER 3: TRUTH CORRIDORS AND WITNESS DISCIPLINE
 
 ## Truth corridors are the first place where the manuscript refuses to confuse route with right. A corridor becomes lawful only when a route carries admissibility, witness discipline, and deterministic replay strongly enough to survive ambiguity without collapsing into guesswork.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=375 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║           QUADRATURE-CYCLOTOMIC MANIFOLD (QCM) MODULE                        ║
@@ -27,7 +31,6 @@ import numpy as np
 from numpy.typing import NDArray
 import cmath
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-0: PRIMITIVES AND ZERO DISCIPLINE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -39,7 +42,6 @@ class ZeroType(Enum):
     SCALAR = "α-0"      # 0 ∈ ℝ (scalar zero)
     AMPLITUDE = "Θ-0"   # 0 ∈ ℂ (no signal)
     BALANCED = "Θ-Z"    # |+⟩ = (|0⟩+|1⟩)/√2 (state-center)
-
 
 @dataclass
 class QCMZero:
@@ -69,7 +71,6 @@ class QCMZero:
     @classmethod
     def balanced(cls) -> 'QCMZero':
         return cls(ZeroType.BALANCED)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-1: TYPES AND COORDINATE SYSTEMS
@@ -144,7 +145,6 @@ class ThetaScalar:
         """
         return self.magnitude ** 2
 
-
 @dataclass
 class ThetaVector:
     """
@@ -179,7 +179,6 @@ class ThetaVector:
     def measure(self) -> float:
         """Born measurement: total probability."""
         return self.norm ** 2
-
 
 @dataclass
 class LambdaIndex:
@@ -219,7 +218,6 @@ class LambdaIndex:
                 return LambdaIndex(i, self.N)
         return None
 
-
 @dataclass
 class LambdaPattern:
     """
@@ -237,7 +235,6 @@ class LambdaPattern:
     def shift(self, s: int) -> 'LambdaPattern':
         """Cyclic shift by s positions."""
         return LambdaPattern(np.roll(self.values, s))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-2: Θ-CALCULUS (FIRE)
@@ -283,7 +280,6 @@ class RotationOperator:
     def rotate_n(cls, n: int, N: int) -> 'RotationOperator':
         """Rotate by n/N of full circle."""
         return cls(2 * np.pi * n / N)
-
 
 @dataclass
 class InterferenceLaw:
@@ -334,7 +330,6 @@ class InterferenceLaw:
         """Anti-aligned (180°) case: subtraction."""
         return abs(a - b)
 
-
 @dataclass
 class QuadratureAdd:
     """
@@ -364,7 +359,6 @@ class QuadratureAdd:
         for w, theta in zip(weights, delta_thetas):
             total += np.sqrt(w) * cmath.exp(1j * theta)
         return abs(total)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-3: Λ-CALCULUS (AIR)
@@ -405,7 +399,6 @@ class ModularArithmetic:
         from math import gcd
         return gcd(a % self.N, b % self.N)
 
-
 @dataclass
 class CyclotomicPhases:
     """
@@ -436,7 +429,6 @@ class CyclotomicPhases:
     def primitive_roots(self) -> List[int]:
         """All primitive root indices."""
         return [k for k in range(1, self.N) if self.is_primitive_root(k)]
-
 
 @dataclass
 class CyclicGroup:
@@ -469,7 +461,6 @@ class CyclicGroup:
     def is_generator(self, a: int) -> bool:
         """Check if a generates the group."""
         return self.order(a) == self.N
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-4: BRIDGES (Θ ↔ Λ)
@@ -508,7 +499,6 @@ class AmpMeasBridge:
         psi = AmpMeasBridge.lift(p)
         return AmpMeasBridge.born(psi)
 
-
 @dataclass
 class QuantizeBridge:
     """
@@ -535,7 +525,6 @@ class QuantizeBridge:
         r, theta = psi.polar
         k = self.quantize_phase(theta)
         return (r, k)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-5: FOURIER GEARBOX
@@ -601,7 +590,6 @@ class FourierGearbox:
         Y = np.fft.fft(y.values)
         return LambdaPattern(np.fft.ifft(X * Y))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-6: MEANS AS CENTERS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -640,7 +628,6 @@ class MeanCenters:
         if p == 0:
             return MeanCenters.geometric(a, b)
         return ((a**p + b**p) / 2) ** (1/p)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-7: TUNNEL PROTOCOLS (CONTRADICTION SOLVER)
@@ -699,7 +686,6 @@ class ContradictionSolver:
         """
         return ContradictionSolver.solve(P1, P2, np.pi)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-8: INVARIANTS AND CERTIFICATES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -730,7 +716,6 @@ class QCMInvariant:
         energy_freq = np.sum(np.abs(X.values)**2) / len(X.values)
         return abs(energy_time - energy_freq) < 1e-10
 
-
 @dataclass
 class QCMCertificate:
     """
@@ -744,7 +729,6 @@ class QCMCertificate:
     @property
     def is_valid(self) -> bool:
         return all(self.invariant_checks.values())
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM-9: IMPLEMENTATION SCHEMA
@@ -804,7 +788,6 @@ class QCMEngine:
                             delta_theta: float) -> float:
         """Solve competing weights via rotation."""
         return ContradictionSolver.solve(P1, P2, delta_theta)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -886,7 +869,6 @@ class QCMPoleBridge:
         Ψ (Air/Λ): Lattice, gates, modular structure
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -895,41 +877,33 @@ def theta_scalar(r: float, theta: float) -> ThetaScalar:
     """Create Θ-scalar from polar coordinates."""
     return ThetaScalar.from_polar(r, theta)
 
-
 def theta_vector(components: NDArray) -> ThetaVector:
     """Create Θ-vector."""
     return ThetaVector(np.array(components, dtype=complex))
-
 
 def lambda_index(k: int, N: int) -> LambdaIndex:
     """Create Λ-index."""
     return LambdaIndex(k, N)
 
-
 def lambda_pattern(values: NDArray) -> LambdaPattern:
     """Create Λ-pattern."""
     return LambdaPattern(np.array(values, dtype=complex))
-
 
 def rotation(angle: float) -> RotationOperator:
     """Create rotation operator."""
     return RotationOperator(angle)
 
-
 def qcm_engine(N: int = 4) -> QCMEngine:
     """Create QCM engine."""
     return QCMEngine(N=N)
-
 
 def interference(a: float, b: float, delta_theta: float) -> float:
     """Compute interference."""
     return InterferenceLaw.from_components(a, b, delta_theta)
 
-
 def quadrature(a: float, b: float) -> float:
     """Pythagorean/quadrature addition."""
     return QuadratureAdd.add(a, b)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

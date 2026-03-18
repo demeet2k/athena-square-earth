@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=312 | depth=2 | phase=Mutable
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -20,22 +23,17 @@ OUTPUT_FAMILY_PATH = FAMILIES_ROOT / "FAMILY_trading_bot.md"
 OUTPUT_ROUTE_MAP_PATH = FAMILIES_ROOT / "FAMILY_trading_bot_route_map.md"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_trading_bot_truth_corridor"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
-
 def body_index(payload: dict) -> dict[str, dict]:
     return {entry["body"]: entry for entry in payload.get("body_profiles", [])}
-
 
 def parse_gate_surface() -> dict:
     if not LIVE_DOCS_GATE_PATH.exists():
@@ -53,7 +51,6 @@ def parse_gate_surface() -> dict:
             except (IndexError, ValueError):
                 return_code = None
     return {"command_status": command_status, "return_code": return_code}
-
 
 def resolve_gate_state() -> tuple[str, str, dict]:
     credentials_path = TRADING_BOT_ROOT / "credentials.json"
@@ -84,7 +81,6 @@ def resolve_gate_state() -> tuple[str, str, dict]:
         "command_status": gate_surface["command_status"],
         "return_code": gate_surface["return_code"],
     }
-
 
 def derive_payload() -> dict:
     semantic_mass = load_json(SEMANTIC_MASS_PATH)
@@ -180,7 +176,6 @@ def derive_payload() -> dict:
         "next_seed": "Q34",
     }
 
-
 def render_family(payload: dict) -> str:
     metrics = payload["body_metrics"]
     gate_files = payload["gate_files"]
@@ -264,7 +259,6 @@ It is to keep the blocked live-memory limb honest while reusing the newly routed
 plane for runtime leverage and future authenticated Docs manifests.
 """
 
-
 def render_route_map(payload: dict) -> str:
     return f"""# FAMILY Trading Bot Route Map
 
@@ -300,7 +294,6 @@ Until then:
 `Trading Bot -> truth corridor -> Hall/queue/manifest writeback -> next ranked frontier`
 """
 
-
 def main() -> int:
     payload = derive_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -310,7 +303,6 @@ def main() -> int:
     print(f"Wrote trading bot family root: {OUTPUT_FAMILY_PATH}")
     print(f"Wrote trading bot route map: {OUTPUT_ROUTE_MAP_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

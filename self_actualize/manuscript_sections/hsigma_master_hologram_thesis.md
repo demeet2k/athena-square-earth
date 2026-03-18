@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S28 | face=F | node=396 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,✶ -->
+<!-- BRIDGES: Xi108:W3:A10:S27→Xi108:W3:A10:S29→Xi108:W2:A10:S28→Xi108:W3:A9:S28→Xi108:W3:A11:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 10/12 -->
+
 # HSigma Master Hologram Thesis
 
 This draft is local-only, class-exhaustive, and instance-frontier. It was derived

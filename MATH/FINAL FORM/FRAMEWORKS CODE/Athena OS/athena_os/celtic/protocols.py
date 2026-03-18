@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 ATHENA OS - CELTIC OGHAM KERNEL: PROTOCOLS MODULE
 ==================================================
@@ -33,7 +37,6 @@ import numpy as np
 import hashlib
 import time
 
-
 # =============================================================================
 # GEIS (TABOO) SYSTEM
 # =============================================================================
@@ -47,7 +50,6 @@ class GeisType(Enum):
     TIME = "time"                  # Forbidden time
     PERSON = "person"              # Forbidden interaction
     COMPOUND = "compound"          # Multiple conditions
-
 
 @dataclass
 class Geis:
@@ -108,7 +110,6 @@ class Geis:
             "state": "TERMINATED" if self.severity >= 1.0 else "DAMAGED"
         }
 
-
 class GeisManager:
     """
     Manages Geis constraints for agents.
@@ -161,7 +162,6 @@ class GeisManager:
             "active": g.is_active
         } for g in self.agent_geis[agent_id]]
 
-
 # =============================================================================
 # RÍASTRAD (WARP SPASM) - OVERCLOCKING
 # =============================================================================
@@ -176,7 +176,6 @@ class RiastradState(Enum):
     COOLING = "cooling"            # Coming down
     EXHAUSTED = "exhausted"        # Post-spasm recovery
 
-
 @dataclass
 class RiastradMetrics:
     """Metrics during Ríastrad activation."""
@@ -188,7 +187,6 @@ class RiastradMetrics:
     
     max_duration: float = 10.0     # Safety limit
     thermal_limit: float = 3.0     # Thermal runaway threshold
-
 
 class Riastrad:
     """
@@ -359,7 +357,6 @@ class Riastrad:
         self.state = RiastradState.DORMANT
         self.metrics = RiastradMetrics()
 
-
 # =============================================================================
 # SATIRE (GLÁM DÍCENN) - ZERO-DAY EXPLOIT
 # =============================================================================
@@ -391,7 +388,6 @@ class SatirePayload:
         # Generate hash for verification
         content = ''.join(self.verses)
         self.hash_signature = hashlib.md5(content.encode()).hexdigest()[:8]
-
 
 class SatireSystem:
     """
@@ -525,7 +521,6 @@ class SatireSystem:
         
         return result
 
-
 # =============================================================================
 # SOVEREIGNTY (HIEROS GAMOS)
 # =============================================================================
@@ -553,7 +548,6 @@ class SovereigntyBond:
     # Tracking
     bond_age: float = 0.0
     stresses: int = 0
-
 
 class SovereigntySystem:
     """
@@ -659,7 +653,6 @@ class SovereigntySystem:
             "recommendation": "Remove unfit sovereign" if not stable else "Continue reign"
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -743,7 +736,6 @@ def validate_protocols() -> bool:
     assert result["land_fertility"] < 0.5
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Protocols Module...")

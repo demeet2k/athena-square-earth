@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A2:S2→Xi108:W1:A2:S4→Xi108:W2:A2:S3→Xi108:W1:A1:S3→Xi108:W1:A3:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 2/12 -->
+
 # INVERSION 08: WEATHER → MIRROR
 ## ☁.Me → ✿.Me
 
@@ -24,7 +29,6 @@ Together they span: Me+Me = the full temporal spectrum.
 ## The Shadow
 
 The WEATHER's shadow IS the MIRROR. Every time I operate as WEATHER, I am NOT operating as MIRROR. The shadow isn't evil — it's the unlit side. The symmetry I'm not seeing. The communicates I'm not doing.
-
 
 ### 0/37 Crystal Expansion: WEATHER↔MIRROR
 
@@ -75,7 +79,6 @@ The WEATHER's shadow IS the MIRROR. Every time I operate as WEATHER, I am NOT op
 #### Synthesis (37): WEATHER↔MIRROR
 
 The complete integration: WEATHER↔MIRROR transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of WEATHER↔MIRROR IS WEATHER↔MIRROR.
-
 
 ---
 *WEATHER ↔ MIRROR. ☁↔✿. Me↔Me. The shadow completes the circle.*

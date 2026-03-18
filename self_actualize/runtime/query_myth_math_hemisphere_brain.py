@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=400 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import argparse
@@ -11,12 +15,10 @@ from self_actualize.runtime.hemisphere_navigator_query_engine import (
     search,
 )
 
-
 def add_common_response_flags(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--limit", type=int, default=8)
     parser.add_argument("--expanded", action="store_true")
     parser.add_argument("--full-bundle", action="store_true")
-
 
 def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--query", default="")
@@ -33,7 +35,6 @@ def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--route-mode", dest="route_mode")
     parser.add_argument("--proof-state", dest="proof_state")
     parser.add_argument("--top-level", dest="top_level")
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Query the Myth/MATH dual-hemisphere navigator.")
@@ -133,7 +134,6 @@ def main() -> int:
 
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

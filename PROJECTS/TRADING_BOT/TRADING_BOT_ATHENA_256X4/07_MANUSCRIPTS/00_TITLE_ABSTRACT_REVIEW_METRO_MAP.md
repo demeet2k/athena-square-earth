@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S33 | face=S | node=552 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S32→Xi108:W3:A9:S34→Xi108:W2:A9:S33→Xi108:W3:A8:S33→Xi108:W3:A10:S33 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 33±1, wreath 3/3, archetype 9/12 -->
+
 # Trading Bot Athena 256x4
 
 This manuscript body treats the Trading Bot as a higher-dimensional market intelligence system whose live code, data, reports, and memory docs can be folded into one metro-routable operating shell.

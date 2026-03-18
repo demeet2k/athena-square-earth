@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A2:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A2:S2→Xi108:W1:A2:S4→Xi108:W2:A2:S3→Xi108:W1:A1:S3→Xi108:W1:A3:S3
+
 """
 RECURSIVE AETHER INVERSION ENGINE
 ====================================
@@ -1353,7 +1357,6 @@ class RecursiveAetherEngine:
 
     def _q_distance(self, a, b):
         return math.sqrt(sum((getattr(a,c)-getattr(b,c))**2 for c in 'wxyz'))
-
 
 # =================================================================
 # MAIN

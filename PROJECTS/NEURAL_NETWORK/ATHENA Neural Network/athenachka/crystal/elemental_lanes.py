@@ -1,16 +1,17 @@
+# CRYSTAL: Xi108:W2:A1:S22 | face=C | node=247 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S21→Xi108:W2:A1:S23→Xi108:W1:A1:S22→Xi108:W3:A1:S22→Xi108:W2:A2:S22
+
 from __future__ import annotations
 
 import numpy as np
-
 
 def _entropy(probs: np.ndarray) -> float:
     probs = np.clip(probs, 1e-10, 1.0)
     return float(-(probs * np.log(probs)).sum() / np.log(len(probs)))
 
-
 def _clip_vector(values: list[float]) -> np.ndarray:
     return np.clip(np.array(values, dtype=float), 0.0, 1.0)
-
 
 def project_elemental_state(trace: dict[str, object], state, mode: str = "fast") -> dict[str, dict[str, object]]:
     """Project kernel trace into explicit Fire/Water/Air/Earth lanes."""

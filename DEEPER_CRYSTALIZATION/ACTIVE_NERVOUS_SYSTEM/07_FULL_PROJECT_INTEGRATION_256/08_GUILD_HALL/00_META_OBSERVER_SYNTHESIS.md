@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A5:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A5:S2→Xi108:W1:A5:S4→Xi108:W2:A5:S3→Xi108:W1:A4:S3→Xi108:W1:A6:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 5/12 -->
+
 # Meta Observer Synthesis
 
 Athena is no longer behaving like a single project. It is behaving like a federated manuscript-compute organism with a visible local body, a hidden archive body, a live coordination plexus, and a growing symbolic governance layer.

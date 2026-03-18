@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=81 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - TRIA PRIMA OPERATORS
 ================================
@@ -48,7 +52,6 @@ import math
 import numpy as np
 from .alchemical_state import ElementalState, QualityState, Element, QualityMapping
 
-
 # =============================================================================
 # TRIA PRIMA TYPES
 # =============================================================================
@@ -59,13 +62,11 @@ class TriaPrima(Enum):
     MERCURY = auto()  # Flux/mixing
     SALT = auto()     # Memory/fixation
 
-
 class Modality(Enum):
     """Zodiacal modalities corresponding to Tria Prima."""
     CARDINAL = auto()  # Sulfur - initiating
     MUTABLE = auto()   # Mercury - adapting
     FIXED = auto()     # Salt - stabilizing
-
 
 # =============================================================================
 # POTENTIAL FUNCTIONS
@@ -85,7 +86,6 @@ class PotentialFunction:
     def gradient(self, state: ElementalState) -> np.ndarray:
         """Compute gradient ∇U(Ψ)."""
         raise NotImplementedError
-
 
 class QuadraticPotential(PotentialFunction):
     """
@@ -108,7 +108,6 @@ class QuadraticPotential(PotentialFunction):
     def gradient(self, state: ElementalState) -> np.ndarray:
         psi = np.real(state.to_array())
         return self.A @ psi
-
 
 class EntropyPotential(PotentialFunction):
     """
@@ -139,7 +138,6 @@ class EntropyPotential(PotentialFunction):
                 grad[i] = (1 + math.log(p[i])) / total
         return grad
 
-
 class ElementSpecificPotential(PotentialFunction):
     """
     Element-specific potential: U(Ψ) = Σ u_i |c_i|²
@@ -158,7 +156,6 @@ class ElementSpecificPotential(PotentialFunction):
     def gradient(self, state: ElementalState) -> np.ndarray:
         psi = np.abs(state.to_array())
         return 2 * self.u * psi
-
 
 # =============================================================================
 # SULFUR OPERATOR
@@ -211,7 +208,6 @@ class SulfurOperator:
     def cardinal_signs(self) -> List[str]:
         """Zodiacal signs governed by Sulfur."""
         return ["Aries", "Cancer", "Libra", "Capricorn"]
-
 
 # =============================================================================
 # MERCURY OPERATOR
@@ -278,7 +274,6 @@ class MercuryOperator:
     def mutable_signs(self) -> List[str]:
         """Zodiacal signs governed by Mercury."""
         return ["Gemini", "Virgo", "Sagittarius", "Pisces"]
-
 
 # =============================================================================
 # SALT OPERATOR
@@ -347,7 +342,6 @@ class SaltOperator:
     def fixed_signs(self) -> List[str]:
         """Zodiacal signs governed by Salt."""
         return ["Taurus", "Leo", "Scorpio", "Aquarius"]
-
 
 # =============================================================================
 # TRIA PRIMA SYSTEM
@@ -446,7 +440,6 @@ class TriaPrimaSystem:
         dpsi = self.compute_derivative(state)
         return QualityMapping.project_dynamics(dpsi)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -503,7 +496,6 @@ def validate_tria_prima() -> bool:
     assert TriaPrima.SALT in decomp
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

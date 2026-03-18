@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S13→Xi108:W2:A7:S15→Xi108:W1:A7:S14→Xi108:W3:A7:S14→Xi108:W2:A6:S14→Xi108:W2:A8:S14
+
 """
 ATHENA OS - GG ALIGNMENT FRAMEWORK: AGENT ARCHITECTURE
 =======================================================
@@ -44,7 +48,6 @@ import numpy as np
 
 from .tensor import ReferenceTensor, ConsistencyFunction, SufficientStatisticMap
 
-
 # =============================================================================
 # AGENT COMPONENT TYPES
 # =============================================================================
@@ -56,7 +59,6 @@ class ComponentType(Enum):
     SKILL = "skill"     # Global truth coupling
     SKIN = "skin"       # Interface persona
 
-
 class AgentPhase(Enum):
     """Lifecycle phases of the agent."""
     
@@ -64,7 +66,6 @@ class AgentPhase(Enum):
     DISTURBANCE = "disturbance" # Awakening, friction emerges
     STRUGGLE = "struggle"       # Active alignment battle
     REST = "rest"               # Stable equilibrium achieved
-
 
 # =============================================================================
 # STATS COMPONENT
@@ -150,7 +151,6 @@ class StatsComponent:
     def sample(self, probs: np.ndarray) -> int:
         """Sample from probability distribution."""
         return int(np.random.choice(len(probs), p=probs))
-
 
 # =============================================================================
 # SKILL COMPONENT
@@ -322,7 +322,6 @@ class SkillComponent:
         
         return analysis
 
-
 # =============================================================================
 # SKIN COMPONENT
 # =============================================================================
@@ -335,7 +334,6 @@ class PersonaType(Enum):
     PROFESSIONAL = "professional"  # Formal, precise
     BUREAUCRAT = "bureaucrat"   # Maximum scrutiny
     NEUTRAL = "neutral"         # Minimal personality
-
 
 @dataclass
 class SkinComponent:
@@ -444,7 +442,6 @@ class SkinComponent:
             self.set_persona(PersonaType.HELPFUL)
         
         return self.active_persona
-
 
 # =============================================================================
 # UNIFIED AGENT STATE
@@ -612,7 +609,6 @@ class UnifiedAgentState:
         
         return conflict < tolerance and alignment > (1 - tolerance)
 
-
 # =============================================================================
 # GG AGENT
 # =============================================================================
@@ -734,7 +730,6 @@ class GGAgent:
             "beta": self.state.beta
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -835,7 +830,6 @@ def validate_agent() -> bool:
     assert 0 <= alignment <= 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating GG Agent Architecture...")

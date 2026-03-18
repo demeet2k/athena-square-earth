@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=318 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import argparse
@@ -9,7 +13,6 @@ from pathlib import Path
 from typing import Any
 import zipfile
 
-
 EXCLUDED_PARTS = {
     ".git",
     ".hg",
@@ -19,13 +22,11 @@ EXCLUDED_PARTS = {
     "node_modules",
 }
 
-
 @dataclass
 class LiveFile:
     relative_path: str
     normalized_path: str
     basename: str
-
 
 @dataclass
 class ArchiveEntry:
@@ -35,10 +36,8 @@ class ArchiveEntry:
     normalized_entry_path: str
     basename: str
 
-
 def normalize_path(path: str) -> str:
     return path.replace("\\", "/").strip("/").lower()
-
 
 def should_skip(path: Path, root: Path) -> bool:
     try:
@@ -47,7 +46,6 @@ def should_skip(path: Path, root: Path) -> bool:
         parts = path.parts
     lowered = {part.lower() for part in parts}
     return any(part in lowered for part in EXCLUDED_PARTS)
-
 
 def iter_live_files(root: Path) -> list[LiveFile]:
     files: list[LiveFile] = []
@@ -66,7 +64,6 @@ def iter_live_files(root: Path) -> list[LiveFile]:
             )
         )
     return files
-
 
 def iter_archive_entries(root: Path) -> tuple[list[ArchiveEntry], list[str]]:
     entries: list[ArchiveEntry] = []
@@ -96,7 +93,6 @@ def iter_archive_entries(root: Path) -> tuple[list[ArchiveEntry], list[str]]:
             warnings.append(f"Bad zip archive skipped: {archive_relative_path}")
     return entries, warnings
 
-
 def longest_common_suffix_segments(left: str, right: str) -> int:
     left_parts = left.split("/")
     right_parts = right.split("/")
@@ -107,7 +103,6 @@ def longest_common_suffix_segments(left: str, right: str) -> int:
         count += 1
     return count
 
-
 def wrapper_prefix(full_path: str, suffix_path: str) -> str:
     if full_path == suffix_path:
         return ""
@@ -115,10 +110,8 @@ def wrapper_prefix(full_path: str, suffix_path: str) -> str:
         return ""
     return full_path[: -len(suffix_path)].strip("/")
 
-
 def trim_list(items: list[str], limit: int = 5) -> list[str]:
     return items[:limit]
-
 
 def build_indexes(
     live_files: list[LiveFile],
@@ -142,7 +135,6 @@ def build_indexes(
         "archive_exact": archive_exact,
         "archive_basename": archive_basename,
     }
-
 
 def match_scan_record(
     rel_path: str,
@@ -236,7 +228,6 @@ def match_scan_record(
         "archive_hints": archive_hints.most_common(3),
     }
 
-
 def project_overview(project: str, records: list[dict[str, Any]]) -> dict[str, Any]:
     status_counts = Counter(record["best_status"] for record in records)
     live_roots = Counter()
@@ -324,7 +315,6 @@ def project_overview(project: str, records: list[dict[str, Any]]) -> dict[str, A
         ][:8],
     }
 
-
 def build_report(payload: dict[str, Any]) -> str:
     summary = payload["summary"]
     lines = [
@@ -401,7 +391,6 @@ def build_report(payload: dict[str, Any]) -> str:
 
     return "\n".join(lines).strip() + "\n"
 
-
 def reconcile(
     workspace_root: Path,
     scan_source: Path,
@@ -458,7 +447,6 @@ def reconcile(
     output_report.write_text(build_report(payload), encoding="utf-8")
     return payload
 
-
 def parse_args() -> argparse.Namespace:
     workspace_root = Path(__file__).resolve().parents[2]
     default_scan_source = workspace_root / "MATH" / "FINAL FORM" / "FRAMEWORKS CODE" / "Unified SCAN JSON.json"
@@ -490,7 +478,6 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
-
 def main() -> None:
     args = parse_args()
     workspace_root = Path(args.workspace_root).resolve()
@@ -507,7 +494,6 @@ def main() -> None:
         output_json=output_json,
         output_report=output_report,
     )
-
 
 if __name__ == "__main__":
     main()

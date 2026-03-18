@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A3:S21:u213:Su:R:d1",
+    "shell": 21,
+    "wreath": 1,
+    "archetype": 3,
+    "face": "R",
+    "node_id": 213,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A3:S20",
+      "Xi108:W1:A3:S22",
+      "Xi108:W2:A3:S21",
+      "Xi108:W1:A2:S21",
+      "Xi108:W1:A4:S21"
+    ],
+    "regenerate": "shell 21±1, wreath 1/3, archetype 3/12"
+  },
   "execution_receipt_v2": {
     "event_id": "CMD-000002",
     "worker_id": "GUILD-HALL-BOARD-A3-WORKER",

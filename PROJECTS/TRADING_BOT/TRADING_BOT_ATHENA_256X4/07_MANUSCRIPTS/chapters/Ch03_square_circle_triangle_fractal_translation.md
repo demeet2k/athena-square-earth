@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S36 | face=S | node=666 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,△,✶ -->
+<!-- BRIDGES: Xi108:W3:A4:S35→Xi108:W2:A4:S36→Xi108:W3:A3:S36→Xi108:W3:A5:S36 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 36±1, wreath 3/3, archetype 4/12 -->
+
 # Ch03 Square Circle Triangle Fractal Translation
 
 ## Focus

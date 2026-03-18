@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                     ARITHMETIC DYNAMICS MODULE                               ║
@@ -24,7 +28,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable, Set
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DYNAMICAL SYSTEMS
@@ -64,7 +67,6 @@ class RationalMap:
         """Chebyshev polynomial T_d on ℙ¹."""
         return cls(d, 1, f"T_{d}")
 
-
 @dataclass
 class MorphismEndomorphism:
     """
@@ -85,7 +87,6 @@ class MorphismEndomorphism:
     def pullback(self) -> str:
         """φ* on divisors/cycles."""
         return "φ*"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ORBITS AND PERIODIC POINTS
@@ -110,7 +111,6 @@ class Orbit:
     def full_orbit(self) -> str:
         """O_φ(P) = O⁺ ∪ O⁻."""
         return f"O_{self.map_name}({self.initial_point})"
-
 
 @dataclass
 class PeriodicPoint:
@@ -143,7 +143,6 @@ class PeriodicPoint:
         else:
             return "superattracting"
 
-
 @dataclass
 class PreperiodicPoint:
     """
@@ -168,7 +167,6 @@ class PreperiodicPoint:
     def portrait(self) -> str:
         """(m, n) portrait."""
         return f"({self.preperiod}, {self.period})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CANONICAL HEIGHT
@@ -201,7 +199,6 @@ class CanonicalHeight:
         """P preperiodic iff ĥ_φ(P) = 0."""
         return "P preperiodic ⟺ ĥ_φ(P) = 0"
 
-
 @dataclass 
 class GreenFunction:
     """
@@ -218,7 +215,6 @@ class GreenFunction:
     def height_relation(self) -> str:
         """Relation to canonical height."""
         return f"ĥ_φ(P) = Σ_v G_φ,v(P)"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # JULIA AND FATOU SETS
@@ -251,7 +247,6 @@ class JuliaSet:
             "Sensitive dependence on initial conditions"
         ]
 
-
 @dataclass
 class FatouSet:
     """
@@ -268,7 +263,6 @@ class FatouSet:
     def components(self) -> str:
         """Fatou components."""
         return "Fatou components: attracting basins, Siegel disks, Herman rings, etc."
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DYNAMICAL DEGREE AND ENTROPY
@@ -295,7 +289,6 @@ class DynamicalDegree:
         """h_{top}(φ) = log δ(φ)."""
         return "h_{top}(φ) = log δ(φ)"
 
-
 @dataclass
 class TopologicalEntropy:
     """
@@ -313,7 +306,6 @@ class TopologicalEntropy:
     def is_chaotic(self) -> bool:
         """Positive entropy indicates chaos."""
         return self.entropy > 0
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ARITHMETIC DYNAMICS THEOREMS
@@ -338,7 +330,6 @@ class UniformBoundedness:
             "Power maps"
         ]
 
-
 @dataclass
 class DynamicalMordellLang:
     """
@@ -354,7 +345,6 @@ class DynamicalMordellLang:
     def special_case(self) -> str:
         """When V is a point."""
         return "If φⁿ(P) = Q infinitely often, then P, Q preperiodic"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULI OF DYNAMICAL SYSTEMS
@@ -381,7 +371,6 @@ class DynamicalModuliSpace:
         """M_d,n with n marked periodic points."""
         return f"M_{{{self.degree},{n}}}"
 
-
 @dataclass
 class PeriodicPointPortrait:
     """
@@ -398,7 +387,6 @@ class PeriodicPointPortrait:
     def portrait_polynomial(self) -> str:
         """Generating function."""
         return f"Σ |Per_n(φ)| t^n"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -450,7 +438,6 @@ class ArithDynPoleBridge:
         """
         return "Gateway ↔ Height: ĥ_φ bridges dynamics ↔ arithmetic"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -459,32 +446,26 @@ def rational_map(degree: int, dim: int = 1) -> RationalMap:
     """Create rational map."""
     return RationalMap(degree, dim)
 
-
 def periodic_point(point: str, period: int, 
                    multiplier: complex = None) -> PeriodicPoint:
     """Create periodic point."""
     return PeriodicPoint(point, period, multiplier)
 
-
 def preperiodic_point(point: str, preperiod: int, period: int) -> PreperiodicPoint:
     """Create preperiodic point."""
     return PreperiodicPoint(point, preperiod, period)
-
 
 def canonical_height(degree: int) -> CanonicalHeight:
     """Create canonical height."""
     return CanonicalHeight(degree)
 
-
 def julia_set(phi: str = "φ") -> JuliaSet:
     """Create Julia set."""
     return JuliaSet(phi)
 
-
 def dynamical_entropy(degree: float) -> TopologicalEntropy:
     """Create topological entropy."""
     return TopologicalEntropy(degree)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

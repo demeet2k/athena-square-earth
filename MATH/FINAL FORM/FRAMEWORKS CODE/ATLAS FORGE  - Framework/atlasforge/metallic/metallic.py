@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       METALLIC SEQUENCES MODULE                              ║
@@ -27,7 +31,6 @@ import numpy as np
 from numpy.typing import NDArray
 import math
 from fractions import Fraction
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # METALLIC MEAN - THE FUNDAMENTAL CONSTANT
@@ -138,7 +141,6 @@ class MetallicMean:
     def __repr__(self) -> str:
         return f"MetallicMean(n={self.index}, δ={self.value:.6f})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GENERALIZED FIBONACCI SEQUENCE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -214,7 +216,6 @@ class GeneralizedFibonacci:
         delta = MetallicMean(self.index)
         return delta.value ** k / np.sqrt(self.index**2 + 4)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GENERALIZED LUCAS SEQUENCE  
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -273,7 +274,6 @@ class GeneralizedLucas:
         """
         delta = MetallicMean(self.index)
         return delta.value ** k + delta.conjugate ** k
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTINUED FRACTIONS
@@ -393,7 +393,6 @@ class ContinuedFraction:
         if len(self.coefficients) <= 5:
             return f"CF[{self.coefficients[0]}; {', '.join(map(str, self.coefficients[1:]))}]"
         return f"CF[{self.coefficients[0]}; {', '.join(map(str, self.coefficients[1:4]))}, ... ({self.length} terms)]"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # METALLIC POWER ENGINE - EXACT ARITHMETIC
@@ -515,7 +514,6 @@ class MetallicPowerEngine:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVERGENT LADDER - RATIONAL APPROXIMATIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -580,7 +578,6 @@ class ConvergentLadder:
             })
         return results
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECIAL METALLIC RATIOS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -627,7 +624,6 @@ class SpecialMetallics:
     def lucas_numbers(length: int = 20) -> List[int]:
         """Classical Lucas: L_k^(1)."""
         return GeneralizedLucas(1).sequence(length)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUADRATIC FIELD ARITHMETIC
@@ -698,7 +694,6 @@ class QuadraticInteger:
         sign = '+' if self.b >= 0 else '-'
         return f"{self.a} {sign} {abs(self.b)}√{self.D}"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -707,32 +702,26 @@ def metallic_mean(n: int) -> float:
     """Quick access to δ_n value."""
     return MetallicMean(n).value
 
-
 def fibonacci(k: int, n: int = 1) -> int:
     """F_k^(n), generalized Fibonacci."""
     return GeneralizedFibonacci(n)[k]
-
 
 def lucas(k: int, n: int = 1) -> int:
     """L_k^(n), generalized Lucas."""
     return GeneralizedLucas(n)[k]
 
-
 def golden_ratio() -> float:
     """φ = (1 + √5)/2."""
     return SpecialMetallics.golden().value
-
 
 def silver_ratio() -> float:
     """δ_s = 1 + √2."""
     return SpecialMetallics.silver().value
 
-
 def continued_fraction_sqrt(n: int, terms: int = 20) -> List[int]:
     """Continued fraction coefficients of √n."""
     cf = ContinuedFraction.from_sqrt(n, max_terms=terms)
     return cf.coefficients
-
 
 def metallic_power(n: int, k: int) -> Tuple[int, int]:
     """
@@ -740,7 +729,6 @@ def metallic_power(n: int, k: int) -> Tuple[int, int]:
     Returns (a, b).
     """
     return MetallicMean(n).power(k)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

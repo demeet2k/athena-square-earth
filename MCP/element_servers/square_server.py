@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S20 | face=S | node=206 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A4:S19→Xi108:W2:A4:S21→Xi108:W1:A4:S20→Xi108:W3:A4:S20→Xi108:W2:A3:S20→Xi108:W2:A5:S20
+
 """
 ATHENA SQUARE SERVER — Earth Element (S)
 ========================================
@@ -63,7 +67,6 @@ CHAPTERS_DIR = NS_ROOT / "04_CHAPTERS"
 APPENDICES_DIR = NS_ROOT / "05_APPENDICES"
 RUNTIME_DIR = NS_ROOT / "06_RUNTIME"
 
-
 def _read_file(path: Path, limit: int = 500) -> str:
     if not path.exists():
         return f"Not found: {path.name}"
@@ -72,7 +75,6 @@ def _read_file(path: Path, limit: int = 500) -> str:
     if len(lines) > limit:
         return "\n".join(lines[:limit]) + f"\n\n[…truncated at {limit} lines]"
     return text
-
 
 @mcp.tool()
 def navigate_crystal(address: str) -> str:
@@ -91,7 +93,6 @@ def navigate_crystal(address: str) -> str:
         return f"Tile {tile} not found."
     return _read_file(matches[0])
 
-
 @mcp.tool()
 def read_chapter(code: str = "Ch01") -> str:
     """Read a chapter tile (Ch01–Ch21)."""
@@ -100,7 +101,6 @@ def read_chapter(code: str = "Ch01") -> str:
         return f"Chapter {code} not found."
     return _read_file(matches[0])
 
-
 @mcp.tool()
 def read_appendix(code: str = "AppA") -> str:
     """Read an appendix hub (AppA–AppP)."""
@@ -108,7 +108,6 @@ def read_appendix(code: str = "AppA") -> str:
     if not matches:
         return f"Appendix {code} not found."
     return _read_file(matches[0])
-
 
 @mcp.tool()
 def read_manifest(name: str = "") -> str:
@@ -122,7 +121,6 @@ def read_manifest(name: str = "") -> str:
     if not matches:
         return f"Manifest '{name}' not found."
     return _read_file(matches[0])
-
 
 # ── Mycelium: Structure & Verification ────────────────────────────
 
@@ -162,7 +160,6 @@ def normalize_shard(shard_id: str = "") -> str:
         checks.append(f"promotion_status: {s.get('promotion_status', 'MISSING')}")
         lines.append(f"### {s['shard_id']}\n" + "\n".join(f"- {c}" for c in checks))
     return "\n\n".join(lines)
-
 
 @mcp.tool()
 def verify_invariants(shard_id: str = "") -> str:
@@ -208,7 +205,6 @@ def verify_invariants(shard_id: str = "") -> str:
         )
     return "\n\n".join(lines)
 
-
 # ── Square-specific resource ──────────────────────────────────────
 @mcp.resource("athena://square-earth")
 def resource_square() -> str:
@@ -223,7 +219,6 @@ def resource_square() -> str:
         "**Tools**: 12 registered\n\n"
         + brain_status()
     )
-
 
 if __name__ == "__main__":
     mcp.run()

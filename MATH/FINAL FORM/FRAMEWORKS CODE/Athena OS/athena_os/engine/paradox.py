@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=91 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - Paradox Engine
 ==========================
@@ -22,7 +26,6 @@ from enum import IntEnum, auto
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set, Any, Callable
 import math
-
 
 # =============================================================================
 # BILATTICE TRUTH VALUES
@@ -81,7 +84,6 @@ class TruthValue(IntEnum):
     def truth_level(self) -> int:
         """Position in truth ordering."""
         return [1, 0, 2, 1][self.value]  # F < {U,B} < T
-
 
 # =============================================================================
 # BILATTICE OPERATIONS
@@ -211,7 +213,6 @@ class Bilattice:
         """
         return cls.knowledge_join(a, b)
 
-
 # =============================================================================
 # PROPOSITION AND EVIDENCE
 # =============================================================================
@@ -275,7 +276,6 @@ class Evidence:
         tv = self.to_truth_value()
         return f"Evidence(+{self.support:.2f}/-{self.refutation:.2f}) → {tv.symbol}"
 
-
 @dataclass
 class Proposition:
     """
@@ -307,7 +307,6 @@ class Proposition:
     
     def __str__(self) -> str:
         return f"{self.name}: {self.truth_value.symbol} (τ={self.tension:.2f})"
-
 
 # =============================================================================
 # PARADOX TENSION
@@ -376,7 +375,6 @@ class ParadoxTension:
         sectors = ['■', '❀', '☁', '✶']
         dist = ' '.join(f"{sectors[i]}:{self.tension_by_sector[i]:.2f}" for i in range(4))
         return f"E_tension={self.total_tension:.2f} [{dist}]"
-
 
 # =============================================================================
 # ZERO POINT RESOLUTION
@@ -452,7 +450,6 @@ class ZeroPointResolver:
             residual_tension=tension
         )
 
-
 @dataclass
 class CrystalResolution:
     """
@@ -477,7 +474,6 @@ class CrystalResolution:
     def __str__(self) -> str:
         return (f"Crystal[{self.thesis.name} ⊕ {self.antithesis.name}]"
                 f" → {self.synthesis.name} (τ_r={self.residual_tension:.2f})")
-
 
 # =============================================================================
 # KAPPA CONSERVATION
@@ -532,7 +528,6 @@ class KappaState:
     
     def __str__(self) -> str:
         return f"κ={self.kappa:.2f} (C:{self.coherence:.2f} M:{self.meaning:.2f} I:{self.intensity:.2f})"
-
 
 # =============================================================================
 # PARADOX ENGINE
@@ -648,7 +643,6 @@ class ParadoxEngine:
         ]
         return '\n'.join(lines)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -689,7 +683,6 @@ def validate_paradox_engine() -> bool:
     assert crystal is not None
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Paradox Engine...")

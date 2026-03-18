@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S22 | face=R | node=247 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S21→Xi108:W2:A10:S23→Xi108:W1:A10:S22→Xi108:W3:A10:S22→Xi108:W2:A9:S22→Xi108:W2:A11:S22
+
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -17,7 +21,6 @@ from .ledger_writer import (
 )
 from .liminal_coord import load_config
 
-
 def _read_fronts(path: Path) -> list[dict[str, Any]]:
     rows = read_jsonl(path)
     latest: dict[str, dict[str, Any]] = {}
@@ -25,10 +28,8 @@ def _read_fronts(path: Path) -> list[dict[str, Any]]:
         latest[row["front_key"]] = row
     return sorted(latest.values(), key=lambda item: item["promoted_at"], reverse=True)
 
-
 def _read_event_index() -> dict[str, dict[str, Any]]:
     return {row["packet"]["event_id"]: row for row in read_jsonl(event_ledger_path())}
-
 
 def _read_route_index() -> dict[str, dict[str, Any]]:
     latest: dict[str, dict[str, Any]] = {}
@@ -36,13 +37,11 @@ def _read_route_index() -> dict[str, dict[str, Any]]:
         latest[row.get("event_id")] = row
     return latest
 
-
 def _read_claim_index() -> dict[str, dict[str, Any]]:
     latest: dict[str, dict[str, Any]] = {}
     for row in read_jsonl(claim_ledger_path()):
         latest[row.get("event_id")] = row
     return latest
-
 
 def _read_promotion_index() -> dict[str, dict[str, Any]]:
     latest: dict[str, dict[str, Any]] = {}
@@ -50,11 +49,9 @@ def _read_promotion_index() -> dict[str, dict[str, Any]]:
         latest[row.get("source_event_id")] = row
     return latest
 
-
 def _write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
-
 
 def _replace_marker_block(path: Path, marker: str, body: str) -> None:
     start = f"<!-- {marker}:START -->"
@@ -66,7 +63,6 @@ def _replace_marker_block(path: Path, marker: str, body: str) -> None:
     _, suffix = remainder.split(end, 1)
     replacement = f"{start}\n{body.rstrip()}\n{end}"
     path.write_text(prefix + replacement + suffix, encoding="utf-8")
-
 
 def _command_temple_section(fronts: list[dict[str, Any]]) -> str:
     if not fronts:
@@ -97,7 +93,6 @@ def _command_temple_section(fronts: list[dict[str, Any]]) -> str:
     for front in fronts[:5]:
         lines.append(f"- `{front['quest_id']}` `{front['front_id']}` `{front['truth']}` `{front['best_lane']}` -> {front['objective']}")
     return "\n".join(lines)
-
 
 def _command_hall_section(fronts: list[dict[str, Any]], latest_event_id: str | None) -> str:
     if not fronts:
@@ -132,7 +127,6 @@ def _command_hall_section(fronts: list[dict[str, Any]], latest_event_id: str | N
             ],
         ]
     )
-
 
 def sync_command_boards() -> dict[str, Any]:
     config = load_config()

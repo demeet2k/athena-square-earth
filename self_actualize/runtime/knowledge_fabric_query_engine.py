@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=378 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import re
 from typing import Any, Dict, Iterable, List
-
 
 FILTER_ORDER = [
     "authority",
@@ -52,29 +55,23 @@ ZONE_PRIORITY = {
     "ReserveQuarantine": 0.48,
 }
 
-
 def normalize(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", value.lower()).strip()
-
 
 def witness_score(record: Dict[str, Any]) -> float:
     return WITNESS_WEIGHT.get(record.get("witness_class", "physical"), 0.35)
 
-
 def proof_score(record: Dict[str, Any]) -> float:
     return PROOF_WEIGHT.get(record.get("proof_state", "AMBIG"), 0.35)
 
-
 def replay_score(record: Dict[str, Any]) -> float:
     return REPLAY_WEIGHT.get(record.get("replay_class", "witness-only"), 0.35)
-
 
 def freshness_score(record: Dict[str, Any]) -> float:
     freshness = record.get("freshness", {})
     if isinstance(freshness, dict):
         return float(freshness.get("score", 0.35))
     return 0.35
-
 
 def text_match_score(record: Dict[str, Any], query_text: str) -> float:
     if not query_text:
@@ -106,7 +103,6 @@ def text_match_score(record: Dict[str, Any], query_text: str) -> float:
         return 0.0
     return round(0.38 + (0.5 * (len(overlap) / len(query_tokens))), 3)
 
-
 def tag_overlap_score(record: Dict[str, Any], query_tags: Iterable[str]) -> float:
     wanted = {normalize(tag) for tag in query_tags if tag}
     if not wanted:
@@ -116,7 +112,6 @@ def tag_overlap_score(record: Dict[str, Any], query_tags: Iterable[str]) -> floa
     if not overlap:
         return 0.0
     return round(0.4 + (0.6 * (len(overlap) / len(wanted))), 3)
-
 
 def cost_score(record: Dict[str, Any]) -> float:
     zone = record.get("storage_zone", "")
@@ -131,7 +126,6 @@ def cost_score(record: Dict[str, Any]) -> float:
     elif size_bytes > 50_000:
         size_penalty = 0.08
     return max(0.08, round(1.0 - ((0.55 * zone_weight) + (0.35 * freshness) - size_penalty), 3))
-
 
 def apply_filters(
     records: List[Dict[str, Any]],
@@ -189,7 +183,6 @@ def apply_filters(
         ]
     return current
 
-
 def rank_records(
     records: List[Dict[str, Any]],
     ranking_stack: List[str],
@@ -240,7 +233,6 @@ def rank_records(
         key=lambda item: (-item["ranking"]["score"], item.get("relative_path", "")),
     )
 
-
 def run_shortcut(
     plan: Dict[str, Any],
     records: List[Dict[str, Any]],
@@ -278,7 +270,6 @@ def run_shortcut(
         "preferred_zones": plan.get("preferred_zones", []),
         "ranking_stack": plan.get("ranking_stack", []),
     }
-
 
 def summarize_route(matches: List[Dict[str, Any]], result_class: str) -> str:
     if not matches:

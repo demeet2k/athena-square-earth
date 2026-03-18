@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                     NORMAL FORM COMPILER MODULE                              ║
@@ -27,9 +31,7 @@ import numpy as np
 from numpy.typing import NDArray
 import hashlib
 
-
 T = TypeVar('T')
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NORMAL FORM TYPES
@@ -42,14 +44,12 @@ class NFType(Enum):
     CLOUD = "cloud"         # ☁ Bound-qualified
     FRACTAL = "fractal"     # ⟂ Seed/minimal
 
-
 class CanonicalStatus(Enum):
     """Status of canonicalization."""
     CANONICAL = "canonical"         # In normal form
     NON_CANONICAL = "non_canonical" # Needs reduction
     PARTIAL = "partial"             # Partially reduced
     UNKNOWN = "unknown"             # Status not determined
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NORMAL FORM BASE
@@ -82,7 +82,6 @@ class NormalForm:
     
     def __hash__(self) -> int:
         return hash(self.checksum)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SQUARE NORMAL FORM (□)
@@ -206,7 +205,6 @@ class SquareNF(NormalForm):
         
         return cls(NFType.SQUARE, tuple(factors), status=CanonicalStatus.CANONICAL)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FLOWER NORMAL FORM (✿)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -279,7 +277,6 @@ class FlowerNF(NormalForm):
         
         raise ValueError(f"Unknown transform type: {self.ticket}")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CLOUD NORMAL FORM (☁)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -347,7 +344,6 @@ class CloudNF(NormalForm):
         nf.uncertainty = uncertainty
         return nf
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FRACTAL NORMAL FORM (⟂)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -414,7 +410,6 @@ class FractalNF(NormalForm):
         collapsed = collapse(expanded)
         return self.value == collapsed
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NORMAL FORM COMPILER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -470,7 +465,6 @@ class NFCompiler:
         """
         return nf1 == nf2
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CROSS-CHART COMMUTATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -511,7 +505,6 @@ class NFCommutation:
             return compiler.to_cloud(value)
         else:
             return compiler.to_fractal(value)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -557,7 +550,6 @@ class NFPoleBridge:
           ⟂ ↔ □: via idempotent expansion
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -566,31 +558,25 @@ def square_nf(obj: Any) -> SquareNF:
     """Create □ normal form."""
     return NFCompiler().to_square(obj)
 
-
 def flower_nf(obj: Any, hub: str = "fourier") -> FlowerNF:
     """Create ✿ normal form."""
     return NFCompiler().to_flower(obj, hub)
-
 
 def cloud_nf(obj: Any, bounds: Tuple[float, float] = None) -> CloudNF:
     """Create ☁ normal form."""
     return NFCompiler().to_cloud(obj, bounds)
 
-
 def fractal_nf(obj: Any, header: Dict = None) -> FractalNF:
     """Create ⟂ normal form."""
     return NFCompiler().to_fractal(obj, header)
-
 
 def nf_compiler() -> NFCompiler:
     """Create NF compiler."""
     return NFCompiler()
 
-
 def nf_commutation() -> NFCommutation:
     """Create NF commutation checker."""
     return NFCommutation()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

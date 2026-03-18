@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=392 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import argparse
@@ -8,13 +12,11 @@ from typing import Any
 
 from self_actualize.runtime.command_spine_adapter import CommandMembraneService, read_json, utc_now
 
-
 def _source_ids(raw: str | None) -> list[str] | None:
     if not raw:
         return None
     rows = [part.strip() for part in raw.split(",") if part.strip()]
     return rows or None
-
 
 def _print(payload: Any, as_json: bool) -> None:
     if as_json:
@@ -24,7 +26,6 @@ def _print(payload: Any, as_json: bool) -> None:
         print(json.dumps(payload, indent=2, ensure_ascii=True, default=str))
         return
     print(str(payload))
-
 
 def _load_emit_seed(raw_source: str) -> tuple[Path, str]:
     candidate = Path(raw_source)
@@ -36,7 +37,6 @@ def _load_emit_seed(raw_source: str) -> tuple[Path, str]:
         if isinstance(payload, dict) and payload.get("full_path"):
             return Path(str(payload["full_path"])), str(payload.get("change_type") or "updated")
     return candidate, "updated"
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the unified local swarm command membrane.")
@@ -82,7 +82,6 @@ def parse_args() -> argparse.Namespace:
     status.add_argument("--json", action="store_true", dest="as_json")
 
     return parser.parse_args()
-
 
 def main() -> int:
     args = parse_args()
@@ -159,7 +158,6 @@ def main() -> int:
         return 0
 
     raise ValueError(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

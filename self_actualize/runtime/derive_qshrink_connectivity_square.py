@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me,Bw,△
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -31,18 +34,14 @@ DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_connectivi
 ACTIVE_SUBFRONT = "QS64-17 Connectivity-Diagnose-Square"
 RESTART_SEED = "QS64-18 Connectivity-Diagnose-Flower"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
-
 
 def human_bytes(value: int) -> str:
     units = ["B", "KB", "MB", "GB", "TB"]
@@ -54,7 +53,6 @@ def human_bytes(value: int) -> str:
             return f"{size:.2f} {unit}"
         size /= 1024.0
     return f"{value} B"
-
 
 def atlas_metrics(atlas: dict, top_level: str) -> dict:
     summary = atlas.get("summary", {})
@@ -68,7 +66,6 @@ def atlas_metrics(atlas: dict, top_level: str) -> dict:
         "record_count": top_counts.get(top_level, len(records)),
         "size_bytes": sum(int(record.get("size_bytes", 0)) for record in records),
     }
-
 
 def gate_status(trading_corridor: dict) -> dict:
     gate_state = trading_corridor.get("gate_state", "BLOCKED")
@@ -84,7 +81,6 @@ def gate_status(trading_corridor: dict) -> dict:
     if LIVE_DOCS_GATE_PATH.exists():
         status["surface_excerpt"] = "\n".join(read_text(LIVE_DOCS_GATE_PATH).splitlines()[:12])
     return status
-
 
 def build_payload() -> dict:
     network = load_json(QSHRINK_NETWORK_INTEGRATION_PATH)
@@ -315,7 +311,6 @@ def build_payload() -> dict:
         },
     }
 
-
 def render_contract(payload: dict) -> str:
     lines = [
         "# QSHRINK Core Corridor Contract",
@@ -410,7 +405,6 @@ def render_contract(payload: dict) -> str:
     )
     return "\n".join(lines) + "\n"
 
-
 def render_fleet_route_map(payload: dict, flower: dict | None = None) -> str:
     flower_intake = ""
     cadence_law = ""
@@ -470,7 +464,6 @@ Secondary seed line:
 `{next_route}`
 """
 
-
 def render_capsule(payload: dict) -> str:
     lines = [
         "# QSHRINK Core Corridor Contract",
@@ -494,7 +487,6 @@ def render_capsule(payload: dict) -> str:
     lines.extend(["", "## Next Seed", "", f"`{payload['next_seed']}`"])
     return "\n".join(lines) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     flower = load_json(QSHRINK_FLOWER_PATH) if QSHRINK_FLOWER_PATH.exists() else None
@@ -507,7 +499,6 @@ def main() -> int:
     print(f"Wrote Athena FLEET route map: {OUTPUT_FLEET_ROUTE_MAP_PATH}")
     print(f"Wrote qshrink core corridor capsule: {OUTPUT_CAPSULE_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

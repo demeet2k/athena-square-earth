@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S2 | face=F | node=3 | depth=0 | phase=Fixed
+# METRO: Cc,Dl
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 """
 Inverse Crystal Octave — 14-Stage Lift + A+ Crown Transform
 =============================================================
@@ -8,7 +12,6 @@ plus the 6-step A+ crown transform.
 from ._cache import JsonCache
 
 _OCTAVE = JsonCache("inverse_crystal_octave.json")
-
 
 def query_octave_stage(stage: str = "all") -> str:
     """
@@ -36,7 +39,6 @@ def query_octave_stage(stage: str = "all") -> str:
         # Try dimension match
         return _format_by_dimension(data, stage)
 
-
 def query_crown_transform(step: str = "all") -> str:
     """
     Query the A+ crown transform.
@@ -63,7 +65,6 @@ def query_crown_transform(step: str = "all") -> str:
         # Try name match
         return _format_crown_by_name(data, s)
 
-
 def inverse_octave_status() -> str:
     """Return a status summary for the resource endpoint."""
     data = _OCTAVE.load()
@@ -76,7 +77,6 @@ def inverse_octave_status() -> str:
         f"**Live Crystal**: `{data['live_crystal']['formula']}`\n"
         f"**Master Clock**: {data['live_crystal']['master_clock']}\n"
     )
-
 
 # -- Stage formatters ------------------------------------------------------
 
@@ -91,13 +91,11 @@ def _format_stages_all(data: dict) -> str:
         )
     return "\n".join(lines)
 
-
 def _format_one_stage(data: dict, stage_id: str) -> str:
     for stage in data["octave_stages"]:
         if stage["id"].upper() == stage_id:
             return _render_stage(stage)
     return f"Stage '{stage_id}' not found. Use S00-S13."
-
 
 def _format_by_dimension(data: dict, dim: str) -> str:
     dim_upper = dim.strip().upper().replace(" ", "")
@@ -107,7 +105,6 @@ def _format_by_dimension(data: dict, dim: str) -> str:
             return _render_stage(stage)
     ids = [s["id"] for s in data["octave_stages"]]
     return f"Dimension '{dim}' not found. Available stages: {', '.join(ids)}"
-
 
 def _format_weave_stages(data: dict) -> str:
     lines = ["## Weave Stages\n"]
@@ -128,7 +125,6 @@ def _format_weave_stages(data: dict) -> str:
                         lines.append(f"**{key}**: {val}")
     return "\n".join(lines)
 
-
 def _format_control_stages(data: dict) -> str:
     lines = ["## Odd Control Shells\n"]
     for stage in data["octave_stages"]:
@@ -138,7 +134,6 @@ def _format_control_stages(data: dict) -> str:
             lines.append(f"**Control**: {stage['control']}")
             lines.append(f"**Mechanism**: {stage['mechanism']}")
     return "\n".join(lines)
-
 
 def _render_stage(stage: dict) -> str:
     lines = [
@@ -174,7 +169,6 @@ def _render_stage(stage: dict) -> str:
                 lines.append(f"**{key}**: {val}")
     return "\n".join(lines)
 
-
 # -- Crown formatters ------------------------------------------------------
 
 def _format_crown_all(data: dict) -> str:
@@ -192,7 +186,6 @@ def _format_crown_all(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_crown_step(data: dict, num: int) -> str:
     for step in data["crown_transform"]["steps"]:
         if step["step"] == num:
@@ -208,7 +201,6 @@ def _format_crown_step(data: dict, num: int) -> str:
             return "\n".join(lines)
     return f"Step {num} not found. Use 1-6."
 
-
 def _format_crown_by_name(data: dict, name: str) -> str:
     name_lower = name.lower()
     for step in data["crown_transform"]["steps"]:
@@ -216,7 +208,6 @@ def _format_crown_by_name(data: dict, name: str) -> str:
             return _format_crown_step(data, step["step"])
     names = [s["name"] for s in data["crown_transform"]["steps"]]
     return f"Step '{name}' not found. Available: {', '.join(names)}"
-
 
 def _format_live(data: dict) -> str:
     lc = data["live_crystal"]
@@ -233,7 +224,6 @@ def _format_live(data: dict) -> str:
         elems = ", ".join(wheel["elements"])
         lines.append(f"- **{key}** [{elems}]: {wheel['function']}")
     return "\n".join(lines)
-
 
 def _format_traditions(data: dict) -> str:
     tm = data["tradition_map"]

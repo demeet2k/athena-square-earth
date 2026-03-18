@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S20 | face=R | node=202 | depth=2 | phase=Cardinal
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A5:S19→Xi108:W2:A5:S21→Xi108:W1:A5:S20→Xi108:W3:A5:S20→Xi108:W2:A4:S20→Xi108:W2:A6:S20
+
 from __future__ import annotations
 
 import ctypes
@@ -7,7 +11,6 @@ from ctypes import wintypes
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
-
 
 FILE_LIST_DIRECTORY = 0x0001
 FILE_SHARE_READ = 0x00000001
@@ -22,7 +25,6 @@ FILE_NOTIFY_CHANGE_SIZE = 0x00000008
 FILE_NOTIFY_CHANGE_LAST_WRITE = 0x00000010
 FILE_NOTIFY_CHANGE_CREATION = 0x00000040
 
-
 ACTION_MAP = {
     1: "create",
     2: "delete",
@@ -31,17 +33,14 @@ ACTION_MAP = {
     5: "move",
 }
 
-
 @dataclass(slots=True)
 class WatchEvent:
     event_type: str
     source_path: str
     watch_fallback: bool = False
 
-
 def _kernel32():
     return ctypes.windll.kernel32
-
 
 def _open_directory(path: str):
     handle = _kernel32().CreateFileW(
@@ -56,7 +55,6 @@ def _open_directory(path: str):
     if handle == wintypes.HANDLE(-1).value:
         raise OSError(f"could not watch directory: {path}")
     return handle
-
 
 def _read_changes(handle, buffer_size: int = 65536) -> bytes:
     buffer = ctypes.create_string_buffer(buffer_size)
@@ -80,7 +78,6 @@ def _read_changes(handle, buffer_size: int = 65536) -> bytes:
         raise OSError("ReadDirectoryChangesW failed")
     return buffer.raw[: bytes_returned.value]
 
-
 def _parse_notifications(blob: bytes) -> list[tuple[int, str]]:
     notifications: list[tuple[int, str]] = []
     offset = 0
@@ -95,7 +92,6 @@ def _parse_notifications(blob: bytes) -> list[tuple[int, str]]:
         offset += next_offset
     return notifications
 
-
 def _snapshot(root: Path) -> dict[str, tuple[int, float]]:
     result: dict[str, tuple[int, float]] = {}
     for path in root.rglob("*"):
@@ -103,7 +99,6 @@ def _snapshot(root: Path) -> dict[str, tuple[int, float]]:
             stat = path.stat()
             result[str(path)] = (stat.st_size, stat.st_mtime)
     return result
-
 
 def _reconcile(previous: dict[str, tuple[int, float]], current: dict[str, tuple[int, float]]) -> list[WatchEvent]:
     events: list[WatchEvent] = []
@@ -118,17 +113,14 @@ def _reconcile(previous: dict[str, tuple[int, float]], current: dict[str, tuple[
             events.append(WatchEvent("modify", path, True))
     return events
 
-
 def _dedupe_signature(event: WatchEvent) -> str:
     return f"{event.event_type}|{event.source_path}"
-
 
 def _is_probable_directory_event(path: str) -> bool:
     candidate = Path(path)
     if candidate.exists() and candidate.is_dir():
         return True
     return not candidate.suffix
-
 
 def watch_loop(
     *,

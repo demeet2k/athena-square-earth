@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=S | node=363 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 Guild Hall — Social Coordination Query Surface
 ================================================
@@ -43,9 +47,7 @@ _SYNTHESIS_MAP = {
     "mass":         ("09_SEMANTIC_MASS_LEDGER.md",              80),
 }
 
-
 # ── Helpers ────────────────────────────────────────────────────────
-
 
 def _read_guild_file(filename: str, limit: int = 100) -> str:
     """Read a Guild Hall file, truncating at *limit* lines."""
@@ -60,7 +62,6 @@ def _read_guild_file(filename: str, limit: int = 100) -> str:
         return text
     except Exception as exc:
         return f"Error reading `{filename}`: {exc}"
-
 
 def _read_board(board_name: str, limit: int = 100) -> str:
     """Read a board file from BOARDS/ directory."""
@@ -79,7 +80,6 @@ def _read_board(board_name: str, limit: int = 100) -> str:
         return text
     except Exception as exc:
         return f"Error reading board `{filename}`: {exc}"
-
 
 def _count_quests(content: str) -> dict:
     """Parse quest board content to count active/completed/total quests."""
@@ -101,7 +101,6 @@ def _count_quests(content: str) -> dict:
                 active += 1  # default to active if no status tag
     return {"active": active, "completed": completed, "total": total}
 
-
 def _extract_loop_state(content: str) -> str:
     """Extract current loop state from execution board."""
     for line in content.splitlines():
@@ -111,7 +110,6 @@ def _extract_loop_state(content: str) -> str:
         if re.match(r"^#{1,3}\s", line) and "loop" in ll:
             return line.strip()
     return "Loop state: unknown"
-
 
 def _extract_docs_gate(content: str) -> str:
     """Check docs gate status from fronts board content."""
@@ -123,9 +121,7 @@ def _extract_docs_gate(content: str) -> str:
             return line.strip()
     return ""
 
-
 # ── Tool Functions ─────────────────────────────────────────────────
-
 
 def query_quest(quest_id_or_search: str = "all") -> str:
     """
@@ -164,7 +160,6 @@ def query_quest(quest_id_or_search: str = "all") -> str:
         # Try direct quest ID lookup
         return _quest_by_id(q)
 
-
 def query_synthesis(section: str = "all") -> str:
     """
     Query the organism synthesis from the Guild Hall.
@@ -194,7 +189,6 @@ def query_synthesis(section: str = "all") -> str:
     valid = ", ".join(sorted(_SYNTHESIS_MAP.keys()) + ["fronts"])
     return f"Unknown synthesis section '{section}'. Valid: {valid}"
 
-
 def query_promotion_membrane(quest_id: str = "") -> str:
     """
     Query the Guild Hall promotion membrane.
@@ -222,7 +216,6 @@ def query_promotion_membrane(quest_id: str = "") -> str:
         return _promotion_quest_status(qid)
     else:
         return _promotion_quest_status(q)
-
 
 def guild_hall_status() -> str:
     """Compact Guild Hall status for resource endpoint."""
@@ -259,9 +252,7 @@ def guild_hall_status() -> str:
 
     return "\n".join(lines)
 
-
 # ── Quest Formatters ───────────────────────────────────────────────
-
 
 def _quest_overview() -> str:
     """Build quest overview with counts and loop state."""
@@ -287,7 +278,6 @@ def _quest_overview() -> str:
     lines.append(f"\n*Use `board:NAME` to read a specific board.*")
     return "\n".join(lines)
 
-
 def _quest_filtered(status: str) -> str:
     """Return quests filtered by active or completed status."""
     quest_content = _read_board("quest", limit=500)
@@ -312,7 +302,6 @@ def _quest_filtered(status: str) -> str:
     for m in matches:
         lines.append(f"- {m}")
     return "\n".join(lines)
-
 
 def _quest_by_id(quest_id: str) -> str:
     """Find a quest by ID substring across quest board and execution board."""
@@ -343,7 +332,6 @@ def _quest_by_id(quest_id: str) -> str:
         return f"No quest matching '{quest_id}' found."
     return f"## Quest: {quest_id}\n\n" + "\n\n---\n\n".join(results)
 
-
 def _quest_search(term: str) -> str:
     """Search across all board content for a term."""
     tl = term.lower()
@@ -371,9 +359,7 @@ def _quest_search(term: str) -> str:
         lines.append(f"\n... and {len(hits) - 30} more hits")
     return "\n".join(lines)
 
-
 # ── Promotion Formatters ──────────────────────────────────────────
-
 
 def _promotion_overview() -> str:
     """Overview combining promotion protocol and witness hierarchy."""
@@ -388,7 +374,6 @@ def _promotion_overview() -> str:
         witness,
     ]
     return "\n".join(lines)
-
 
 def _promotion_ladder() -> str:
     """Extract the promotion ladder from the protocol file."""
@@ -412,7 +397,6 @@ def _promotion_ladder() -> str:
                 capturing = False
 
     return "\n".join(lines)
-
 
 def _promotion_quest_status(quest_id: str) -> str:
     """Find promotion status of a specific quest."""

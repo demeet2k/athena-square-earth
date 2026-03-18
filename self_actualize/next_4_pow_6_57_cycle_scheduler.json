@@ -1,4 +1,26 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A10:S28:u392:Su:F:d1",
+    "shell": 28,
+    "wreath": 1,
+    "archetype": 10,
+    "face": "F",
+    "node_id": 392,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Wr",
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A10:S27",
+      "Xi108:W1:A10:S29",
+      "Xi108:W2:A10:S28",
+      "Xi108:W1:A9:S28",
+      "Xi108:W1:A11:S28"
+    ],
+    "regenerate": "shell 28±1, wreath 1/3, archetype 10/12"
+  },
   "generated_at": "2026-03-13T17:54:09.595774+00:00",
   "derivation_version": "2026-03-13.next57.lp57omega.canonical.v1",
   "program_id": "NEXT57-LP57OMEGA-canonical-liminal-hive@1.0.0",

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                     SPECTRAL GRAPH THEORY MODULE                             ║
@@ -22,7 +26,6 @@ from typing import Optional, Tuple, List, Dict, Any, Set
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GRAPH REPRESENTATION
@@ -131,7 +134,6 @@ class Graph:
                     A[i,j] = A[j,i] = 1
         return cls(n, A)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECTRUM
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -196,7 +198,6 @@ class GraphSpectrum:
         eigenvalues, eigenvectors = np.linalg.eigh(L)
         return cls(eigenvalues, eigenvectors, laplacian_type)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CHEEGER INEQUALITY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -240,7 +241,6 @@ class CheegerInequality:
         This is the GATEWAY between D-pole and C-pole
         in spectral graph theory.
         """
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECTRAL CLUSTERING
@@ -316,7 +316,6 @@ class SpectralClustering:
         S_bar = np.where(fiedler < 0)[0]
         return S, S_bar
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GRAPH CUTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -368,7 +367,6 @@ class GraphCut:
         """
         return self.cut_size / min(len(self.S), len(self.S_bar))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EXPANDER GRAPHS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -406,7 +404,6 @@ class ExpanderGraph:
         For Ramanujan graphs: λ₂ ≤ 2√(d-1)/d (normalized)
         """
         return 2 * np.sqrt(d - 1) / d
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HEAT KERNEL
@@ -448,7 +445,6 @@ class GraphHeatKernel:
         """
         spectrum = GraphSpectrum.compute(self.graph)
         return float(np.sum(np.exp(-t * spectrum.eigenvalues)))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -492,7 +488,6 @@ class SpectralGraphPoleBridge:
         """
         return "Gateway ↔ Cheeger: λ₂/2 ≤ h(G) ≤ √(2λ₂)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -503,32 +498,26 @@ def graph(n: int, adjacency: NDArray = None) -> Graph:
         adjacency = np.zeros((n, n))
     return Graph(n, adjacency)
 
-
 def graph_spectrum(g: Graph, laplacian_type: str = "unnormalized") -> GraphSpectrum:
     """Compute graph spectrum."""
     return GraphSpectrum.compute(g, laplacian_type)
-
 
 def spectral_clustering(g: Graph, k: int) -> NDArray:
     """Perform spectral clustering."""
     return SpectralClustering(g, k).cluster()
 
-
 def fiedler_bipartition(g: Graph) -> Tuple[NDArray, NDArray]:
     """Bipartition using Fiedler vector."""
     return SpectralClustering(g, 2).fiedler_bipartition()
-
 
 def cheeger_bounds(lambda_2: float) -> Tuple[float, float]:
     """Get Cheeger inequality bounds."""
     cheeger = CheegerInequality(lambda_2)
     return cheeger.lower_bound, cheeger.upper_bound
 
-
 def heat_kernel(g: Graph, t: float) -> NDArray:
     """Compute heat kernel at time t."""
     return GraphHeatKernel(g).kernel(t)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

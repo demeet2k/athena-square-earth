@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=84 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - TORAT HA-MISPAR (תורת המספר)
 =========================================
@@ -37,7 +41,6 @@ from enum import Enum, auto
 import math
 from abc import ABC, abstractmethod
 
-
 # =============================================================================
 # PRIMORDIAL STATES
 # =============================================================================
@@ -55,7 +58,6 @@ class OntologicalState(Enum):
         self.hebrew = hebrew
         self._description = description
 
-
 class LightType(Enum):
     """Types of primordial light."""
     
@@ -68,7 +70,6 @@ class LightType(Enum):
     def __init__(self, hebrew: str, description: str):
         self.hebrew = hebrew
         self._description = description
-
 
 # =============================================================================
 # THE RATZON (WILL) - PRIMARY VARIABLE
@@ -115,7 +116,6 @@ class Ratzon:
     def activate(self) -> str:
         """Activate the Will - transition from passive to active."""
         return "Single bit flip: PASSIVE → ACTIVE"
-
 
 # =============================================================================
 # THE OR EIN SOF (INFINITE LIGHT)
@@ -174,7 +174,6 @@ class OrEinSof:
             "consequence": "No autonomous variables can exist",
             "analogy": "Object cannot displace water in container with no empty space",
         }
-
 
 # =============================================================================
 # THE EIN SOF SYSTEM
@@ -278,7 +277,6 @@ class EinSof:
             "in_ein_sof": "L_min = L_max → Contrast = 0",
         }
 
-
 # =============================================================================
 # PRIMORDIAL OPERATORS
 # =============================================================================
@@ -330,7 +328,6 @@ class RestrictionOperator:
             "To establish coordinate system (0,0,0), must designate Null Space (Chalal Panui).\n"
             "The Infinite Will (Ratzon) must invert from Expansion to Contraction."
         )
-
 
 # =============================================================================
 # EIN SOF SYSTEM INTEGRATION
@@ -386,7 +383,6 @@ class EinSofSystem:
             },
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -440,7 +436,6 @@ def validate_ein_sof() -> bool:
     assert "ratzon" in summary
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Ein Sof Module...")

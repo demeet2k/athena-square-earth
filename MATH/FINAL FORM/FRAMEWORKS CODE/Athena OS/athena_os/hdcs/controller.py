@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=126 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - HDCS Controller
 ===========================
@@ -40,7 +44,6 @@ from .operators import (
 )
 from .certificates import PlanCertificate, CertificateResult, CertificateStatus
 
-
 # =============================================================================
 # STRATEGY DEFINITIONS
 # =============================================================================
@@ -52,7 +55,6 @@ class Strategy(Enum):
     D_OMEGA = "d_omega"        # D + Ω
     D_OMEGA_PSI = "d_omega_psi"    # D + Ω + Ψ
     FULL = "full"              # D + Ω + Ψ + Σ
-
 
 @dataclass
 class StrategyConfig:
@@ -84,7 +86,6 @@ class StrategyConfig:
         }
         return configs.get(strategy, cls(strategy))
 
-
 # =============================================================================
 # AUDIT LEDGER
 # =============================================================================
@@ -113,7 +114,6 @@ class AuditEntry:
     # Execution status
     executed: bool = False
     execution_errors: List[str] = field(default_factory=list)
-
 
 @dataclass
 class AuditLedger:
@@ -151,7 +151,6 @@ class AuditLedger:
             "acceptance_rate": accepted / len(self.entries) if self.entries else 0,
             "avg_violations": sum(e.violation_count for e in self.entries) / len(self.entries),
         }
-
 
 # =============================================================================
 # META-CONTROLLER
@@ -238,7 +237,6 @@ class MetaController:
     def get_config(self) -> StrategyConfig:
         """Get configuration for current strategy."""
         return StrategyConfig.from_strategy(self.current_strategy)
-
 
 # =============================================================================
 # HDCS CONTROLLER
@@ -488,7 +486,6 @@ class HDCSController:
             "ledger_summary": self.ledger.summary(),
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -536,7 +533,6 @@ def validate_controller() -> bool:
     assert config.enable_sigma
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating HDCS Controller...")

@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -69,18 +72,14 @@ BUCKET_LABELS = {
     "other": "other",
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def file_timestamp(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
 
-
 def load_atlas() -> dict:
     return json.loads(CORPUS_ATLAS_PATH.read_text(encoding="utf-8"))
-
 
 def bucket_for_extension(extension: str) -> str:
     if extension in MANUSCRIPT_EXTS:
@@ -95,7 +94,6 @@ def bucket_for_extension(extension: str) -> str:
         return "archive"
     return "other"
 
-
 def is_bronze_body(name: str, count: int) -> bool:
     if count <= 1:
         return False
@@ -104,7 +102,6 @@ def is_bronze_body(name: str, count: int) -> bool:
     if Path(name).suffix:
         return False
     return True
-
 
 def modality_verdict(bucket_counts: dict[str, int]) -> str:
     ranked = sorted(bucket_counts.items(), key=lambda item: (-item[1], item[0]))
@@ -124,14 +121,12 @@ def modality_verdict(bucket_counts: dict[str, int]) -> str:
         return f"{BUCKET_LABELS[lead_name]} dominant with secondary {BUCKET_LABELS[tail_name]} tail"
     return f"mixed {BUCKET_LABELS[lead_name]} and {BUCKET_LABELS[tail_name]}"
 
-
 def top_extensions(extension_counts: Counter[str], limit: int = 4) -> list[dict[str, int | str]]:
     items: list[dict[str, int | str]] = []
     for extension, count in extension_counts.most_common(limit):
         label = extension or "[noext]"
         items.append({"extension": label, "count": count})
     return items
-
 
 def derive_body_tensor() -> dict:
     atlas = load_atlas()
@@ -198,13 +193,11 @@ def derive_body_tensor() -> dict:
         "satellites": satellites,
     }
 
-
 def main() -> int:
     payload = derive_body_tensor()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(f"Wrote body tensor: {OUTPUT_JSON_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

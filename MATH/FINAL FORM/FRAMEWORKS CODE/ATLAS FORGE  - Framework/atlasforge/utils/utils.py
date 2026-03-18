@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Utilities                               ║
@@ -16,7 +20,6 @@ from dataclasses import asdict, is_dataclass
 
 from atlasforge.core.types import Interval
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HASH UTILITIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -26,7 +29,6 @@ def sha256_hash(data: Union[str, bytes]) -> str:
     if isinstance(data, str):
         data = data.encode('utf-8')
     return hashlib.sha256(data).hexdigest()
-
 
 def content_hash(obj: Any) -> str:
     """Compute content hash of an object."""
@@ -47,14 +49,11 @@ def content_hash(obj: Any) -> str:
         return sha256_hash(json.dumps(asdict(obj), sort_keys=True, default=str))
     return sha256_hash(str(obj))
 
-
 def short_hash(obj: Any, length: int = 8) -> str:
     return content_hash(obj)[:length]
 
-
 def combine_hashes(*hashes: str) -> str:
     return sha256_hash('|'.join(hashes))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # INTERVAL HELPERS
@@ -76,7 +75,6 @@ def interval_eval(f: Callable[[float], float], I: Interval, samples: int = 100) 
             pass
     return Interval.closed(min(values), max(values)) if values else Interval.empty()
 
-
 def interval_sign_change(f: Callable[[float], float], I: Interval) -> bool:
     """Check if f has a sign change over I."""
     try:
@@ -84,18 +82,15 @@ def interval_sign_change(f: Callable[[float], float], I: Interval) -> bool:
     except Exception:
         return False
 
-
 def bisect_interval(I: Interval) -> Tuple[Interval, Interval]:
     """Bisect an interval."""
     mid = I.midpoint
     return Interval.closed(I.lo, mid), Interval.closed(mid, I.hi)
 
-
 def subdivide_interval(I: Interval, n: int) -> List[Interval]:
     """Subdivide interval into n parts."""
     step = I.width / n
     return [Interval.closed(I.lo + i*step, I.lo + (i+1)*step) for i in range(n)]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NUMERICAL DIFFERENTIATION
@@ -105,11 +100,9 @@ def derivative(f: Callable[[float], float], x: float, h: float = 1e-8) -> float:
     """Central difference derivative."""
     return (f(x + h) - f(x - h)) / (2 * h)
 
-
 def second_derivative(f: Callable[[float], float], x: float, h: float = 1e-5) -> float:
     """Second derivative."""
     return (f(x + h) - 2 * f(x) + f(x - h)) / (h * h)
-
 
 def gradient(f: Callable[[List[float]], float], x: List[float], h: float = 1e-8) -> List[float]:
     """Numerical gradient."""
@@ -120,7 +113,6 @@ def gradient(f: Callable[[List[float]], float], x: List[float], h: float = 1e-8)
         x_minus[i] -= h
         grad.append((f(x_plus) - f(x_minus)) / (2 * h))
     return grad
-
 
 def jacobian(f: Callable[[List[float]], List[float]], x: List[float], h: float = 1e-8) -> List[List[float]]:
     """Numerical Jacobian matrix."""
@@ -135,7 +127,6 @@ def jacobian(f: Callable[[List[float]], List[float]], x: List[float], h: float =
             J[i][j] = (f_plus[i] - f_minus[i]) / (2 * h)
     return J
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MATHEMATICAL HELPERS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -143,22 +134,17 @@ def jacobian(f: Callable[[List[float]], List[float]], x: List[float], h: float =
 def sign(x: float) -> int:
     return 1 if x > 0 else (-1 if x < 0 else 0)
 
-
 def clamp(x: float, lo: float, hi: float) -> float:
     return max(lo, min(hi, x))
-
 
 def lerp(a: float, b: float, t: float) -> float:
     return a + t * (b - a)
 
-
 def relative_error(computed: float, exact: float) -> float:
     return abs(computed - exact) / abs(exact) if exact != 0 else abs(computed)
 
-
 def nearly_equal(a: float, b: float, rel_tol: float = 1e-9, abs_tol: float = 1e-12) -> bool:
     return abs(a - b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
-
 
 def quadratic_roots(a: float, b: float, c: float) -> List[float]:
     """Solve ax² + bx + c = 0."""
@@ -172,10 +158,8 @@ def quadratic_roots(a: float, b: float, c: float) -> List[float]:
     sqrt_d = math.sqrt(disc)
     return [(-b - sqrt_d) / (2 * a), (-b + sqrt_d) / (2 * a)]
 
-
 def golden_ratio() -> float:
     return (1 + math.sqrt(5)) / 2
-
 
 def fibonacci(n: int) -> int:
     if n <= 1:
@@ -185,13 +169,11 @@ def fibonacci(n: int) -> int:
         a, b = b, a + b
     return b
 
-
 def factorial(n: int) -> int:
     result = 1
     for i in range(2, n + 1):
         result *= i
     return result
-
 
 def binomial(n: int, k: int) -> int:
     if k < 0 or k > n:
@@ -201,7 +183,6 @@ def binomial(n: int, k: int) -> int:
     for i in range(k):
         result = result * (n - i) // (i + 1)
     return result
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SERIALIZATION
@@ -216,10 +197,8 @@ def to_json(obj: Any, indent: int = 2) -> str:
         return str(o)
     return json.dumps(obj, indent=indent, default=default_serializer, sort_keys=True)
 
-
 def from_json(s: str) -> Any:
     return json.loads(s)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DECORATORS
@@ -236,7 +215,6 @@ def memoize(f: Callable) -> Callable:
     wrapper.clear_cache = cache.clear
     return wrapper
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # VALIDATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -245,11 +223,9 @@ def assert_finite(x: float, name: str = "value"):
     if not math.isfinite(x):
         raise ValueError(f"{name} must be finite, got {x}")
 
-
 def assert_positive(x: float, name: str = "value"):
     if x <= 0:
         raise ValueError(f"{name} must be positive, got {x}")
-
 
 def assert_in_range(x: float, lo: float, hi: float, name: str = "value"):
     if not (lo <= x <= hi):

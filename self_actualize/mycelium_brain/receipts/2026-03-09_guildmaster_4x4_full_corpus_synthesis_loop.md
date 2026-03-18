@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S21 | face=R | node=219 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S20→Xi108:W3:A12:S22→Xi108:W2:A12:S21→Xi108:W3:A11:S21 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 21±1, wreath 3/3, archetype 12/12 -->
+
 # Guildmaster 4^4 Full-Corpus Synthesis Loop Receipt
 
 Date: `2026-03-09`

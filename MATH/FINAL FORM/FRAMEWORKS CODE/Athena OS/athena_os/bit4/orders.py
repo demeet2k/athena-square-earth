@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=83 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - BIT4
 ================
@@ -47,7 +51,6 @@ from enum import Enum
 
 from .carrier import B4, TwoRail
 
-
 # =============================================================================
 # ORDER COMPARISONS
 # =============================================================================
@@ -60,11 +63,9 @@ def leq_k(x: B4, y: B4) -> bool:
     """
     return x.support <= y.support
 
-
 def lt_k(x: B4, y: B4) -> bool:
     """Strict knowledge order: x <_k y"""
     return leq_k(x, y) and x != y
-
 
 def leq_t(x: B4, y: B4) -> bool:
     """
@@ -76,21 +77,17 @@ def leq_t(x: B4, y: B4) -> bool:
     ey = TwoRail.encode(y)
     return ex.t <= ey.t and ey.f <= ex.f
 
-
 def lt_t(x: B4, y: B4) -> bool:
     """Strict truth order: x <_t y"""
     return leq_t(x, y) and x != y
-
 
 def comparable_k(x: B4, y: B4) -> bool:
     """Check if x and y are comparable in ≤_k."""
     return leq_k(x, y) or leq_k(y, x)
 
-
 def comparable_t(x: B4, y: B4) -> bool:
     """Check if x and y are comparable in ≤_t."""
     return leq_t(x, y) or leq_t(y, x)
-
 
 # =============================================================================
 # LATTICE OPERATIONS
@@ -104,7 +101,6 @@ def join_k(x: B4, y: B4) -> B4:
     """
     return B4.from_support(x.support | y.support)
 
-
 def meet_k(x: B4, y: B4) -> B4:
     """
     Knowledge meet: x ⊗_k y = x ∩ y
@@ -112,7 +108,6 @@ def meet_k(x: B4, y: B4) -> B4:
     Refine to common information.
     """
     return B4.from_support(x.support & y.support)
-
 
 def join_t(x: B4, y: B4) -> B4:
     """
@@ -128,7 +123,6 @@ def join_t(x: B4, y: B4) -> B4:
     
     return TwoRail(t_result, f_result).decode()
 
-
 def meet_t(x: B4, y: B4) -> B4:
     """
     Truth meet: x ∧_t y = inf_{≤_t}{x, y}
@@ -143,7 +137,6 @@ def meet_t(x: B4, y: B4) -> B4:
     
     return TwoRail(t_result, f_result).decode()
 
-
 # =============================================================================
 # OPERATION ALIASES (Unicode-friendly)
 # =============================================================================
@@ -155,7 +148,6 @@ otimes_k = meet_k  # ⊗_k
 # Truth lattice  
 or_t = join_t      # ∨_t
 and_t = meet_t     # ∧_t
-
 
 # =============================================================================
 # LATTICE PROPERTIES
@@ -175,7 +167,6 @@ def is_lattice_k_bounded() -> bool:
     
     return True
 
-
 def is_lattice_t_bounded() -> bool:
     """Verify (B₄, ≤_t) is a bounded lattice."""
     all_values = [B4.BOT, B4.ZERO, B4.ONE, B4.TOP]
@@ -189,7 +180,6 @@ def is_lattice_t_bounded() -> bool:
         return False
     
     return True
-
 
 def verify_distributivity_k() -> bool:
     """
@@ -208,7 +198,6 @@ def verify_distributivity_k() -> bool:
                     return False
     return True
 
-
 def verify_distributivity_t() -> bool:
     """
     Verify distributivity in truth lattice.
@@ -225,7 +214,6 @@ def verify_distributivity_t() -> bool:
                 if lhs != rhs:
                     return False
     return True
-
 
 # =============================================================================
 # BILATTICE STRUCTURE
@@ -311,7 +299,6 @@ class Bilattice:
             B4.ONE: 2
         }[x]
 
-
 # =============================================================================
 # MONOTONICITY CHECKING
 # =============================================================================
@@ -332,7 +319,6 @@ def is_monotone_k(f, domain: List[B4] = None) -> bool:
                     return False
     return True
 
-
 def is_monotone_t(f, domain: List[B4] = None) -> bool:
     """
     Check if f is ≤_t-monotone.
@@ -348,7 +334,6 @@ def is_monotone_t(f, domain: List[B4] = None) -> bool:
                 if not leq_t(f(x), f(y)):
                     return False
     return True
-
 
 def is_antitone_k(f, domain: List[B4] = None) -> bool:
     """
@@ -366,7 +351,6 @@ def is_antitone_k(f, domain: List[B4] = None) -> bool:
                     return False
     return True
 
-
 def is_antitone_t(f, domain: List[B4] = None) -> bool:
     """
     Check if f is ≤_t-antitone (order-reversing).
@@ -382,7 +366,6 @@ def is_antitone_t(f, domain: List[B4] = None) -> bool:
                 if not leq_t(f(y), f(x)):
                     return False
     return True
-
 
 # =============================================================================
 # OPERATION TABLES
@@ -401,7 +384,6 @@ def print_join_k_table() -> str:
     
     return header + "\n" + sep + "\n" + "\n".join(rows)
 
-
 def print_meet_k_table() -> str:
     """Generate ⊗_k operation table."""
     values = [B4.BOT, B4.ZERO, B4.ONE, B4.TOP]
@@ -414,7 +396,6 @@ def print_meet_k_table() -> str:
         rows.append(row)
     
     return header + "\n" + sep + "\n" + "\n".join(rows)
-
 
 def print_join_t_table() -> str:
     """Generate ∨_t operation table."""
@@ -429,7 +410,6 @@ def print_join_t_table() -> str:
     
     return header + "\n" + sep + "\n" + "\n".join(rows)
 
-
 def print_meet_t_table() -> str:
     """Generate ∧_t operation table."""
     values = [B4.BOT, B4.ZERO, B4.ONE, B4.TOP]
@@ -442,7 +422,6 @@ def print_meet_t_table() -> str:
         rows.append(row)
     
     return header + "\n" + sep + "\n" + "\n".join(rows)
-
 
 # =============================================================================
 # VALIDATION
@@ -499,7 +478,6 @@ def validate_orders() -> bool:
     assert bl.truth_top() == B4.ONE
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating BIT4 Orders...")

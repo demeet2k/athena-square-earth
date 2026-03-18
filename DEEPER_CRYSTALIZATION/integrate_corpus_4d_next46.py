@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 from __future__ import annotations
 
 import argparse
@@ -16,7 +20,6 @@ from corpus_4d_fronts import (
 )
 from audit_corpus_4d_rewrites import run as run_audit
 
-
 DEFAULT_WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 DEFAULT_MANIFEST = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_rewrites_manifest.json")
 DEFAULT_AUDIT = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_rewrites_audit.json")
@@ -28,7 +31,6 @@ DEFAULT_RECEIPT = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_next46_integratio
 DEFAULT_DEEPER_NETWORK_ROOT = Path(
     "self_actualize/mycelium_brain/dynamic_neural_network/14_DEEPER_INTEGRATED_CROSS_SYNTHESIS_NETWORK"
 )
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the ordered NEXT^[4^6] corpus-wide integration lane and write one receipt.")
@@ -42,7 +44,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--receipt", default=str(DEFAULT_RECEIPT))
     parser.add_argument("--deeper-network-root", default=str(DEFAULT_DEEPER_NETWORK_ROOT))
     return parser.parse_args()
-
 
 def run(args: argparse.Namespace) -> dict:
     workspace_root = Path(args.workspace_root).resolve()
@@ -88,7 +89,6 @@ def run(args: argparse.Namespace) -> dict:
         output_path=receipt_path,
     )
 
-
 def main() -> int:
     receipt = run(parse_args())
     print(f"Docs gate: {receipt['docs_gate_status']}")
@@ -96,7 +96,6 @@ def main() -> int:
     print(f"True sibling orphans: {receipt['summary']['orphan_summary']['true_sibling_orphan_count']}")
     print(f"Integration receipt: {receipt['notes_path'].replace('awakening_agent_transition_notes.md', 'corpus_4d_next46_integration_receipt.json')}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

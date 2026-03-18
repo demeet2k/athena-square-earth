@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -56,32 +59,26 @@ DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_void_ch11_precurso
 ATOM_PATTERN = re.compile(r"^\s*- `Ch11<0022>\.[SFCR][1-4]\.[a-d]`")
 EMPTY_ATOM_PATTERN = re.compile(r":\s*$")
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
-
 
 def extract_backtick_value(text: str, label: str) -> str | None:
     pattern = re.compile(re.escape(label) + r"\s*`([^`]+)`")
     match = pattern.search(text)
     return match.group(1) if match else None
 
-
 def extract_bullet_value(text: str, label: str) -> str | None:
     pattern = re.compile(rf"-\s*{re.escape(label)}:\s*`?([^\r\n`]+)`?")
     match = pattern.search(text)
     return match.group(1).strip() if match else None
 
-
 def extract_inline_value(text: str, label: str) -> str | None:
     pattern = re.compile(rf"{re.escape(label)}\s*`([^`]+)`")
     match = pattern.search(text)
     return match.group(1).strip() if match else None
-
 
 def extract_imported_counts(text: str) -> dict[str, int]:
     counts: dict[str, int] = {}
@@ -89,7 +86,6 @@ def extract_imported_counts(text: str) -> dict[str, int]:
     for name, value in pattern.findall(text):
         counts[name] = int(value)
     return counts
-
 
 def chapter_atoms(path: Path) -> dict[str, int | float]:
     lines = read_text(path).splitlines()
@@ -102,7 +98,6 @@ def chapter_atoms(path: Path) -> dict[str, int | float]:
         "filled_count": filled_count,
         "completion_percent": round((filled_count / atom_count) * 100, 1) if atom_count else 0.0,
     }
-
 
 def derive_payload() -> dict:
     canonical_root_text = read_text(CANONICAL_ROOT_PATH)
@@ -247,7 +242,6 @@ def derive_payload() -> dict:
         "next_seed": "Q08",
     }
 
-
 def render_markdown(payload: dict) -> str:
     preserved_rows = "\n".join(
         f"| {row['facet']} | {row['mirror_witness']} | {row['canonical_decision']} | {row['reason']} |"
@@ -351,7 +345,6 @@ This preserves historical witness while tightening search mass around the live t
 `{payload['next_seed']}`
 """
 
-
 def main() -> int:
     payload = derive_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -359,7 +352,6 @@ def main() -> int:
     print(f"Wrote precursor reconciliation json: {OUTPUT_JSON_PATH}")
     print(f"Wrote precursor reconciliation markdown: {OUTPUT_MARKDOWN_PATH}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

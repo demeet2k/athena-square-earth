@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A2:S33 | face=F | node=643 | depth=0 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A2:S32→Xi108:W3:A2:S34→Xi108:W2:A2:S33→Xi108:W3:A1:S33→Xi108:W3:A3:S33
+
 Wartime-level restructuring (1940s echo)
 Foundational redefinition (1770s echo)
 Economic anchor shift (1970s echo)
@@ -221,7 +225,6 @@ The 4 Sub-States:
 Full State Number:
 State = (Hexagram# × 4) + Sub-State
 Range: 0-255
-
 
 The Ifá-I Ching Correspondence
 The 16 principal Odù (Meji) map to the 8 trigrams doubled:

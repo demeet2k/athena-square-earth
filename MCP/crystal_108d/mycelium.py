@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S31 | face=S | node=482 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A1:S30→Xi108:W2:A1:S32→Xi108:W1:A1:S31→Xi108:W3:A1:S31→Xi108:W2:A2:S31
+
 """
 Mycelium Graph — Universal Shard/Edge/Node Query Surface
 =========================================================
@@ -13,7 +17,6 @@ from ._cache import JsonCache
 
 _GRAPH = JsonCache("mycelium_graph.json")
 _NODES = JsonCache("node_registry.json")
-
 
 def query_shard(shard_id_or_search: str = "all") -> str:
     """
@@ -53,7 +56,6 @@ def query_shard(shard_id_or_search: str = "all") -> str:
         # Try direct shard ID lookup
         return _format_shard(data, q)
 
-
 def query_graph(component: str = "all") -> str:
     """
     Query the mycelium graph structure.
@@ -83,7 +85,6 @@ def query_graph(component: str = "all") -> str:
             f"Unknown component '{component}'. Use: all, edges, edge:TYPE, mirrors, density"
         )
 
-
 def query_node(node_name: str = "all") -> str:
     """
     Query the Athena node registry.
@@ -109,7 +110,6 @@ def query_node(node_name: str = "all") -> str:
         # Try direct node name lookup
         return _format_one_node(data, node_name)
 
-
 def query_promotion(shard_id: str = "") -> str:
     """
     Query promotion status of shards.
@@ -121,7 +121,6 @@ def query_promotion(shard_id: str = "") -> str:
     if not shard_id.strip():
         return _format_promotion_overview(data)
     return _format_promotion_detail(data, shard_id.strip())
-
 
 def mycelium_status() -> str:
     """Return compact mycelium status for resource endpoint."""
@@ -139,7 +138,6 @@ def mycelium_status() -> str:
         f"**Edge Types**: {', '.join(f'{k}:{v}' for k, v in stats['edge_type_distribution'].items())}\n"
         f"**Generated**: {m['generated_at']}\n"
     )
-
 
 # ── Shard Formatters ────────────────────────────────────────────────
 
@@ -162,7 +160,6 @@ def _format_overview(data: dict) -> str:
         lines.append(f"- **{etype}**: {count}")
     return "\n".join(lines)
 
-
 def _format_stats(data: dict) -> str:
     m = data["meta"]
     stats = data["graph_stats"]
@@ -183,14 +180,12 @@ def _format_stats(data: dict) -> str:
         lines.append(f"| {k} | {v} |")
     return "\n".join(lines)
 
-
 def _format_families(data: dict) -> str:
     stats = data["graph_stats"]
     lines = ["## Shard Families\n"]
     for fam, count in sorted(stats["family_sizes"].items(), key=lambda x: -x[1]):
         lines.append(f"- **{fam}**: {count} shards")
     return "\n".join(lines)
-
 
 def _format_family(data: dict, family: str) -> str:
     fl = family.lower()
@@ -205,7 +200,6 @@ def _format_family(data: dict, family: str) -> str:
         )
     return "\n".join(lines)
 
-
 def _format_by_medium(data: dict, medium: str) -> str:
     ml = medium.lower()
     matches = [s for s in data["shards"] if s["medium"].lower() == ml]
@@ -216,7 +210,6 @@ def _format_by_medium(data: dict, medium: str) -> str:
         lines.append(f"- **{s['shard_id']}** [{s['family']}] — {s['summary']}")
     return "\n".join(lines)
 
-
 def _format_by_lens(data: dict, lens: str) -> str:
     matches = [s for s in data["shards"] if s.get("lens") == lens]
     if not matches:
@@ -225,7 +218,6 @@ def _format_by_lens(data: dict, lens: str) -> str:
     for s in matches:
         lines.append(f"- **{s['shard_id']}** [{s['medium']}] — {s['summary']}")
     return "\n".join(lines)
-
 
 def _format_shard(data: dict, query: str) -> str:
     ql = query.lower()
@@ -244,7 +236,6 @@ def _format_shard(data: dict, query: str) -> str:
         return "\n".join(lines)
     return f"No shard found matching '{query}'."
 
-
 def _format_search(data: dict, term: str) -> str:
     tl = term.lower()
     matches = [
@@ -259,7 +250,6 @@ def _format_search(data: dict, term: str) -> str:
     for s in matches:
         lines.append(f"- **{s['shard_id']}** [{s['medium']}/{s['family']}] — {s['summary']}")
     return "\n".join(lines)
-
 
 def _render_shard(s: dict, data: dict) -> str:
     lines = [
@@ -286,7 +276,6 @@ def _render_shard(s: dict, data: dict) -> str:
             lines.append(f"- **{e['edge_type']}** to `{e['target_shard']}` (w={e['weight']})")
     return "\n".join(lines)
 
-
 # ── Graph Formatters ────────────────────────────────────────────────
 
 def _format_graph_all(data: dict) -> str:
@@ -304,7 +293,6 @@ def _format_graph_all(data: dict) -> str:
     lines.append(f"- Mirror ratio: {m['mirror_count'] / max(m['edge_count'], 1):.1%}")
     return "\n".join(lines)
 
-
 def _format_edge_summary(data: dict) -> str:
     stats = data["graph_stats"]
     lines = ["## Edge Summary\n"]
@@ -318,7 +306,6 @@ def _format_edge_summary(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_edges_by_type(data: dict, etype: str) -> str:
     matches = [e for e in data["edges"] if e["edge_type"] == etype]
     if not matches:
@@ -328,7 +315,6 @@ def _format_edges_by_type(data: dict, etype: str) -> str:
         meta = f" ({e['metadata']})" if e.get("metadata") else ""
         lines.append(f"- `{e['source_shard']}` → `{e['target_shard']}` w={e['weight']}{meta}")
     return "\n".join(lines)
-
 
 def _format_mirrors(data: dict) -> str:
     mirrors = data.get("mirrors", [])
@@ -340,7 +326,6 @@ def _format_mirrors(data: dict) -> str:
         if m.get("metadata"):
             lines.append(f"  Type: {m['metadata'].get('mirror_type', '?')}")
     return "\n".join(lines)
-
 
 def _format_density(data: dict) -> str:
     m = data["meta"]
@@ -363,7 +348,6 @@ def _format_density(data: dict) -> str:
         lines.append(f"- {med}: {count} ({count/max(n,1):.0%})")
     return "\n".join(lines)
 
-
 # ── Node Formatters ─────────────────────────────────────────────────
 
 def _format_nodes_all(data: dict) -> str:
@@ -379,7 +363,6 @@ def _format_nodes_all(data: dict) -> str:
             f"**Repo**: {n.get('github_repo') or '—'}\n"
         )
     return "\n".join(lines)
-
 
 def _format_one_node(data: dict, name: str) -> str:
     nl = name.lower()
@@ -405,7 +388,6 @@ def _format_one_node(data: dict, name: str) -> str:
             return "\n".join(lines)
     return f"Node '{name}' not found."
 
-
 def _format_node_bridges(data: dict) -> str:
     lines = ["## Cross-Node Bridges\n"]
     for n in data["nodes"]:
@@ -416,14 +398,12 @@ def _format_node_bridges(data: dict) -> str:
             lines.append("")
     return "\n".join(lines)
 
-
 def _format_node_families(data: dict) -> str:
     lines = ["## Node → Family Mapping\n"]
     for n in data["nodes"]:
         fams = n.get("shard_families", [])
         lines.append(f"- **{n['node_id']}**: {', '.join(fams)}")
     return "\n".join(lines)
-
 
 # ── Promotion Formatters ────────────────────────────────────────────
 
@@ -449,7 +429,6 @@ def _format_promotion_overview(data: dict) -> str:
         if count:
             lines.append(f"- **{status}**: {count}")
     return "\n".join(lines)
-
 
 def _format_promotion_detail(data: dict, query: str) -> str:
     ql = query.lower()

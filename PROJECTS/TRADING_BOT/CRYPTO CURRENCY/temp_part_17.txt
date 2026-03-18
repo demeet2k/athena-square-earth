@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A1:S25 | face=R | node=312 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A1:S24→Xi108:W3:A1:S26→Xi108:W2:A1:S25→Xi108:W3:A2:S25
+
  orderings:
 The Fu Xi (binary) sequence
 The Mawangdui sequence
@@ -165,7 +169,6 @@ NOVELTY LEVEL (Relative Scale 0-100)
     TROUGH: 2035-2038
     SECONDARY PEAK: 2040-2043
     STABILIZATION: 2045+
-
 
 Phase Predictions
 2025-2028: RISING NOVELTY (Pre-Climax)

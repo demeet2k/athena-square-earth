@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S17 | face=S | node=151 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S16→Xi108:W2:A3:S18→Xi108:W1:A3:S17→Xi108:W3:A3:S17→Xi108:W2:A2:S17→Xi108:W2:A4:S17
+
 """
 QP-GEMM Vision Model Optimizer
 ==============================
@@ -29,7 +33,6 @@ from collections import OrderedDict
 import warnings
 warnings.filterwarnings('ignore')
 
-
 # ============================================================================
 #  ANALYSIS: Probe matrix structure (Σ pole)
 # ============================================================================
@@ -51,7 +54,6 @@ class MatrixFingerprint:
     recommended_rank: int
     estimated_speedup: float
     estimated_error: float
-
 
 def analyze_matrix(W: torch.Tensor, name: str = "layer", 
                    sample_size: int = 4096, sketch_rank: int = 32) -> MatrixFingerprint:
@@ -132,7 +134,6 @@ def analyze_matrix(W: torch.Tensor, name: str = "layer",
         estimated_error=error
     )
 
-
 def _recommend_strategy(m: int, n: int, sparsity: float, 
                         rank_ratio: float, decay: float) -> Tuple[str, int, float, float]:
     """
@@ -165,7 +166,6 @@ def _recommend_strategy(m: int, n: int, sparsity: float,
     
     # Dense (BLAS) - no change
     return ("dense", 0, 1.0, 0.0)
-
 
 # ============================================================================
 #  OPTIMIZED LAYERS: Replacement modules
@@ -234,7 +234,6 @@ class QPLinear(nn.Module):
         return (f"in={self.in_features}, out={self.out_features}, "
                 f"strategy={self.strategy}" + 
                 (f", rank={self.rank}" if self.strategy == "lowrank" else ""))
-
 
 class QPConv2d(nn.Module):
     """
@@ -323,7 +322,6 @@ class QPConv2d(nn.Module):
                 f"kernel={self.kernel_size}, strategy={self.strategy}" +
                 (f", rank={self.rank}" if self.strategy == "lowrank" else ""))
 
-
 # ============================================================================
 #  MODEL OPTIMIZATION: Main entry point
 # ============================================================================
@@ -338,7 +336,6 @@ class OptimizationReport:
     layers_total: int
     layer_reports: List[Dict[str, Any]]
     estimated_speedup: float
-
 
 def optimize_model(
     model: nn.Module,
@@ -518,7 +515,6 @@ def optimize_model(
     
     return model, report
 
-
 # ============================================================================
 #  BENCHMARKING: Measure actual performance
 # ============================================================================
@@ -577,7 +573,6 @@ def benchmark_model(
         "iterations": iterations
     }
 
-
 def validate_accuracy(
     model_original: nn.Module,
     model_optimized: nn.Module,
@@ -616,7 +611,6 @@ def validate_accuracy(
         "max_relative_error": float(np.max(errors)),
         "std_relative_error": float(np.std(errors))
     }
-
 
 # ============================================================================
 #  COMPLETE PIPELINE: Optimize and validate
@@ -712,7 +706,6 @@ def full_optimization_pipeline(
     
     return model_optimized, full_report
 
-
 # ============================================================================
 #  CLI INTERFACE
 # ============================================================================
@@ -789,7 +782,6 @@ Examples:
         torch.save(model_optimized.state_dict(), args.save)
         print(f"Saved optimized model to: {args.save}")
 
-
 # ============================================================================
 #  DEMO
 # ============================================================================
@@ -839,7 +831,6 @@ def demo():
     )
     
     return model_opt, report
-
 
 if __name__ == "__main__":
     import sys

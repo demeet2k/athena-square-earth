@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A4:S29→Xi108:W2:A4:S31→Xi108:W1:A4:S30→Xi108:W3:A4:S30→Xi108:W2:A3:S30→Xi108:W2:A5:S30
+
 from __future__ import annotations
 
 from self_actualize.runtime.qshrink_refine_common import (
@@ -23,9 +27,7 @@ from self_actualize.runtime.qshrink_refine_common import (
     write_json,
 )
 
-
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_connectivity_refine_square"
-
 
 def build_payload() -> dict:
     cloud = load_json(QSHRINK_CONNECTIVITY_CLOUD_PATH, {"truth": "NEAR"})
@@ -114,7 +116,6 @@ def build_payload() -> dict:
         "integration_refresh_target": str(QSHRINK_NETWORK_INTEGRATION_PATH),
     }
 
-
 def render_witness(payload: dict) -> str:
     distinctions = "\n".join(
         f"- `{item['field']}` = `{item['value']}`: {item['meaning']}" for item in payload["structural_distinctions"]
@@ -159,7 +160,6 @@ def render_witness(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def render_capsule(payload: dict) -> str:
     return "\n".join(
         [
@@ -176,7 +176,6 @@ def render_capsule(payload: dict) -> str:
             "",
         ]
     )
-
 
 def render_receipt(payload: dict) -> str:
     return "\n".join(
@@ -197,7 +196,6 @@ def render_receipt(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     write_json(refinement_output_path("square"), payload)
@@ -209,7 +207,6 @@ def main() -> int:
     print(f"Wrote {capsule_output_path('square')}")
     print(f"Wrote {receipt_output_path('square')}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

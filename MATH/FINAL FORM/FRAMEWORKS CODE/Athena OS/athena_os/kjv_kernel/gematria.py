@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - KJV BIBLE COMPUTATIONAL FRAMEWORK
 ==============================================
@@ -25,7 +29,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum
 import numpy as np
-
 
 # =============================================================================
 # HEBREW ALPHABET VALUES
@@ -67,7 +70,6 @@ HEBREW_GEMATRIA = {
     'ף': ('Final Pe', 800),
     'ץ': ('Final Tsade', 900),
 }
-
 
 # =============================================================================
 # GREEK ALPHABET VALUES (ISOPSEPHY)
@@ -117,7 +119,6 @@ GREEK_LOWER = {
     'υ': 'Υ', 'φ': 'Φ', 'χ': 'Χ', 'ψ': 'Ψ', 'ω': 'Ω',
 }
 
-
 # =============================================================================
 # SIGNIFICANT NUMBERS
 # =============================================================================
@@ -139,7 +140,6 @@ SIGNIFICANT_NUMBERS = {
     666: "Number of the Beast",
     888: "Jesus (Ιησους)",
 }
-
 
 # =============================================================================
 # GEMATRIA CALCULATOR
@@ -181,7 +181,6 @@ class GematriaCalculator:
                 matches.append((word, value))
         return matches
 
-
 @dataclass
 class IsopsephyCalculator:
     """
@@ -214,7 +213,6 @@ class IsopsephyCalculator:
                     "value": value,
                 })
         return result
-
 
 # =============================================================================
 # THE 153 CHECKSUM
@@ -327,7 +325,6 @@ class The153Checksum:
             "sum_1_to_17": self.triangular_sum == 153,
         }
 
-
 # =============================================================================
 # FAMOUS GEMATRIA VALUES
 # =============================================================================
@@ -361,7 +358,6 @@ FAMOUS_GREEK_VALUES = {
     "ΠΙΣΤΙΣ": ("Pistis/Faith", 800),           # 80+10+200+300+10+200
     "ΑΛΗΘΕΙΑ": ("Aletheia/Truth", 64),         # 1+30+8+9+5+10+1
 }
-
 
 # =============================================================================
 # UNIFIED GEMATRIA SYSTEM
@@ -430,7 +426,6 @@ class GematriaSystem:
             n = sum(int(d) for d in str(n))
         return n
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -476,7 +471,6 @@ def validate_gematria() -> bool:
     assert system.get_significance(7) is not None
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Gematria Module...")

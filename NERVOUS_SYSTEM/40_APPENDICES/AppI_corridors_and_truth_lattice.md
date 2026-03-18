@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S9 | face=R | node=45 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W3:A4:S8→Xi108:W3:A4:S10→Xi108:W2:A4:S9→Xi108:W3:A3:S9→Xi108:W3:A5:S9 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 9±1, wreath 3/3, archetype 4/12 -->
+
 # AppI - Corridors and Truth Lattice
 
 Routing role: Truth-typed corridor contracts, admissibility budgets, and abstain-over-guess discipline.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - HELLENIC COMPUTATION FRAMEWORK
 ==========================================
@@ -307,7 +311,6 @@ from .hippocratic import (
     validate_hippocratic,
 )
 
-
 # =============================================================================
 # COMPLETE VALIDATION
 # =============================================================================
@@ -324,14 +327,12 @@ def validate_hellenic() -> bool:
     assert validate_hippocratic()
     return True
 
-
 # =============================================================================
 # INTEGRATED HELLENIC SYSTEM
 # =============================================================================
 
 import numpy as np
 from typing import Dict, List, Any, Optional
-
 
 class HellenicSystem:
     """
@@ -506,7 +507,6 @@ class HellenicSystem:
             "biological": self.biological.get_status(),
         }
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -564,7 +564,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "hellenic"
-
 
 if __name__ == "__main__":
     print("=" * 70)

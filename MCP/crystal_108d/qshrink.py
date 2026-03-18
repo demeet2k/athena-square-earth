@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S36 | face=R | node=540 | depth=0 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S35→Xi108:W2:A4:S36→Xi108:W3:A3:S36→Xi108:W3:A5:S36
+
 """
 QSHRINK ↔ 108D Crystal Bridge — compression in crystal coordinates.
 ====================================================================
@@ -47,7 +51,6 @@ SFCR_LENSES = ("S", "F", "C", "R")
 CRYSTAL_FACES = 4
 LIFT_FACTOR = 8  # 1/8 lift law
 
-
 # ---------------------------------------------------------------------------
 # Public entry point
 # ---------------------------------------------------------------------------
@@ -81,7 +84,6 @@ def query_qshrink(component: str = "all") -> str:
         return f"Unknown component '{component}'. Use: {valid}"
     return fn()
 
-
 # ---------------------------------------------------------------------------
 # Internal formatters
 # ---------------------------------------------------------------------------
@@ -114,7 +116,6 @@ def _bridge_overview() -> str:
         "4. Conservation is the round-trip test (6 invariants).\n"
         "5. Mirror shells (S_k, S_{37-k}) compress as a pair.\n"
     )
-
 
 def _address_mapping() -> str:
     """Show how each QSHRINK cell maps to crystal coordinates."""
@@ -170,7 +171,6 @@ def _address_mapping() -> str:
         lines.append(f"| {start}–{end} | S{s + 1} | {arch} |")
 
     return "\n".join(lines)
-
 
 def _compression_law() -> str:
     """The 1/8 lift law applied to crystal shells."""
@@ -236,7 +236,6 @@ def _compression_law() -> str:
 
     return "\n".join(lines)
 
-
 def _codec_spec() -> str:
     """QSHRINK codec in crystal terms."""
     return (
@@ -273,7 +272,6 @@ def _codec_spec() -> str:
         "Equivalence modulo the 6 conservation invariants:\n"
         "shell, zoom, phase, archetype, face, Mobius.\n"
     )
-
 
 def _bridge_table() -> str:
     """Full depth ↔ crystal hierarchy mapping table."""
@@ -337,7 +335,6 @@ def _bridge_table() -> str:
         lines.append(f"| {a + 1}. {name} | S{su_shell} | S{me_shell} | S{sa_shell} |")
 
     return "\n".join(lines)
-
 
 def _compression_stats() -> str:
     """Compression statistics for the current crystal graph."""

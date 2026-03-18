@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Multigrid & Multiscale Module                ║
@@ -28,13 +32,11 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 class CycleType(Enum):
     """Multigrid cycle types."""
     V_CYCLE = "v"       # Single descent/ascent
     W_CYCLE = "w"       # Double recursion at each level
     F_CYCLE = "f"       # Full multigrid
-
 
 class SmootherType(Enum):
     """Smoother types for relaxation."""
@@ -43,7 +45,6 @@ class SmootherType(Enum):
     SOR = "sor"                     # Successive over-relaxation
     SYMMETRIC_GS = "symmetric_gs"   # Symmetric Gauss-Seidel
     DAMPED_JACOBI = "damped_jacobi"
-
 
 @dataclass
 class MultigridLevel:
@@ -59,7 +60,6 @@ class MultigridLevel:
     def is_coarsest(self) -> bool:
         return self.prolongation is None
 
-
 @dataclass
 class MultigridResult:
     """Result of multigrid solve."""
@@ -69,7 +69,6 @@ class MultigridResult:
     convergence_factor: float
     residual_history: List[float] = field(default_factory=list)
     converged: bool = False
-
 
 class TransferOperator(ABC):
     """Abstract base for grid transfer operators."""
@@ -83,7 +82,6 @@ class TransferOperator(ABC):
     def prolongate(self, coarse: NDArray) -> NDArray:
         """Prolongate from coarse to fine grid."""
         pass
-
 
 class LinearInterpolation(TransferOperator):
     """
@@ -135,7 +133,6 @@ class LinearInterpolation(TransferOperator):
     @property
     def R(self) -> NDArray:
         return self._R
-
 
 class FullWeighting(TransferOperator):
     """
@@ -193,7 +190,6 @@ class FullWeighting(TransferOperator):
     def R(self) -> NDArray:
         return self._R
 
-
 class Smoother(ABC):
     """Abstract base for smoothers."""
     
@@ -207,7 +203,6 @@ class Smoother(ABC):
     ) -> NDArray:
         """Apply smoothing iterations."""
         pass
-
 
 class JacobiSmoother(Smoother):
     """
@@ -235,7 +230,6 @@ class JacobiSmoother(Smoother):
             x = x + self.omega * D_inv * r
         
         return x
-
 
 class GaussSeidelSmoother(Smoother):
     """
@@ -276,7 +270,6 @@ class GaussSeidelSmoother(Smoother):
         
         return x
 
-
 class SORSmoother(Smoother):
     """
     Successive Over-Relaxation.
@@ -308,7 +301,6 @@ class SORSmoother(Smoother):
                 x[i] = (1 - self.omega) * x[i] + self.omega * gs_update
         
         return x
-
 
 class MultigridHierarchy:
     """
@@ -398,7 +390,6 @@ class MultigridHierarchy:
     @property
     def coarsest(self) -> MultigridLevel:
         return self.levels[-1]
-
 
 class MultigridSolver:
     """
@@ -551,7 +542,6 @@ class MultigridSolver:
             return (norms[-1] / norms[0]) ** (1 / len(norms))
         return 1.0
 
-
 class MultigridPreconditioner:
     """
     Use multigrid as a preconditioner for iterative methods.
@@ -579,7 +569,6 @@ class MultigridPreconditioner:
             x = self.solver._cycle(0, x, r)
         return x
 
-
 def create_1d_laplacian(n: int, h: float = 1.0) -> NDArray[np.float64]:
     """Create 1D discrete Laplacian matrix."""
     A = np.zeros((n, n))
@@ -590,7 +579,6 @@ def create_1d_laplacian(n: int, h: float = 1.0) -> NDArray[np.float64]:
         if i < n - 1:
             A[i, i+1] = -1.0 / (h * h)
     return A
-
 
 def create_2d_laplacian(n: int, h: float = 1.0) -> NDArray[np.float64]:
     """Create 2D discrete Laplacian matrix (5-point stencil)."""
@@ -612,7 +600,6 @@ def create_2d_laplacian(n: int, h: float = 1.0) -> NDArray[np.float64]:
                 A[idx, idx + 1] = -1.0 / (h * h)
     
     return A
-
 
 # Convenience function
 def multigrid_solve(

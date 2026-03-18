@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=375 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Core Enumerations                       ║
@@ -10,7 +14,6 @@ and other discrete classifications.
 
 from enum import Enum, IntEnum, Flag, auto
 from typing import Set, Tuple, Optional
-
 
 class Pole(Enum):
     """
@@ -76,7 +79,6 @@ class Pole(Enum):
     def can_tunnel_to(self, other: 'Pole') -> bool:
         """Check if direct tunneling (90° rotation) is allowed."""
         return other in self.adjacent
-
 
 class Element(Enum):
     """
@@ -146,7 +148,6 @@ class Element(Enum):
         }
         return rotation[self]
 
-
 class CertificateLevel(IntEnum):
     """
     Certificate evidence levels (L0-L3).
@@ -176,7 +177,6 @@ class CertificateLevel(IntEnum):
         """Check if this level satisfies the required level."""
         return self >= required
 
-
 class TruthProfile(Enum):
     """
     Verification policy profiles.
@@ -204,7 +204,6 @@ class TruthProfile(Enum):
         """Whether artifacts can be promoted to ok_verified."""
         return self != TruthProfile.EXPLORE
 
-
 class ConstraintType(Enum):
     """
     Types of constraints in the Constraint IR.
@@ -220,7 +219,6 @@ class ConstraintType(Enum):
     EQUIVARIANCE = "equivariance"       # F(φx) = φ^k F(x)
     PERIODICITY = "periodicity"         # F^∘n = Id
 
-
 class NormalFormType(Enum):
     """
     Normal form types after constraint lowering.
@@ -230,7 +228,6 @@ class NormalFormType(Enum):
     GENERATOR_CONSTRAINT = "generator_constraint"
     VECTOR_ROOT = "vector_root"
     SINGULAR_SEED = "singular_seed"
-
 
 class ObligationType(Enum):
     """
@@ -243,7 +240,6 @@ class ObligationType(Enum):
     REPLAY = "replay"                   # Deterministic reproduction
     STABILITY = "stability"             # Numerical stability
     TERMINATION = "termination"         # Algorithm terminates
-
 
 class PlanStatus(Enum):
     """
@@ -258,7 +254,6 @@ class PlanStatus(Enum):
     FAILED = "failed"                   # Failed at some stage
     REJECTED = "rejected"               # Verifier rejected
 
-
 class VerificationResult(Enum):
     """
     Outcome of verification.
@@ -271,7 +266,6 @@ class VerificationResult(Enum):
     POLICY_VIOLATION = "policy_violation" # Truth profile requirements not met
     TIMEOUT = "timeout"                 # Verification timed out
     ERROR = "error"                     # Internal error
-
 
 class SolverType(Enum):
     """
@@ -289,7 +283,6 @@ class SolverType(Enum):
     CONTINUATION = "continuation"
     HOMOTOPY = "homotopy"
 
-
 class IntervalMode(Enum):
     """
     Interval arithmetic modes.
@@ -297,7 +290,6 @@ class IntervalMode(Enum):
     OUTWARD = "outward"     # Conservative (rounded outward)
     INWARD = "inward"       # Anti-conservative (rounded inward)
     NEAREST = "nearest"     # Standard nearest rounding
-
 
 class DyadicEdge(Enum):
     """
@@ -341,7 +333,6 @@ class DyadicEdge(Enum):
         }
         return governance[self]
 
-
 class CrystalLens(Enum):
     """
     The four lenses of Crystal Combat methodology.
@@ -371,7 +362,6 @@ class CrystalLens(Enum):
         }
         return rotation[self]
 
-
 class InvariantSpineComponent(Enum):
     """
     The four components of the universal invariant spine.
@@ -380,7 +370,6 @@ class InvariantSpineComponent(Enum):
     CORRIDOR = "corridor"       # Admissibility constraints
     PROOF = "proof"             # Checks that enable safe commit
     REPLAY = "replay"           # Deterministic re-derivation
-
 
 class QuantumBasis(Enum):
     """
@@ -392,7 +381,6 @@ class QuantumBasis(Enum):
     TIME = "time"               # |t⟩ - temporal
     FREQUENCY = "frequency"     # |ω⟩ - spectral
 
-
 class FlowType(Enum):
     """
     Types of evolution flows.
@@ -402,7 +390,6 @@ class FlowType(Enum):
     DISCRETE = "discrete"               # Discrete time steps
     HYBRID = "hybrid"                   # Mixed continuous/discrete
 
-
 class CacheType(Enum):
     """
     Types of caches in the memory system (Ψ layer).
@@ -411,7 +398,6 @@ class CacheType(Enum):
     FACTOR = "factor"           # Factorizations (SVD, etc.)
     PLAN = "plan"               # Solve plans
     EXPERIENCE = "experience"   # Performance statistics
-
 
 # Flag enums for combining options
 
@@ -425,7 +411,6 @@ class ValidationFlags(Flag):
     CHECK_REPLAY = auto()
     CHECK_OBLIGATIONS = auto()
     STRICT = CHECK_HASH | CHECK_CERTIFICATES | CHECK_REPLAY | CHECK_OBLIGATIONS
-
 
 class SolverFlags(Flag):
     """

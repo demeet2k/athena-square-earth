@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
@@ -6,7 +10,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -34,33 +37,26 @@ DERIVATION_VERSION = "2026-03-13.q42-canonical-bundle-v2"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_q42_canonical_bundle"
 LOCAL_TIMEZONE = ZoneInfo("America/Los_Angeles")
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def local_today() -> str:
     return datetime.now(LOCAL_TIMEZONE).date().isoformat()
-
 
 def load_json(path: Path, default: dict[str, Any] | None = None) -> dict[str, Any]:
     if not path.exists():
         return default or {}
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def load_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def relative_posix(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
-
 
 def parse_docs_gate_status() -> dict[str, Any]:
     text = load_text(DOCS_GATE_PATH)
@@ -75,7 +71,6 @@ def parse_docs_gate_status() -> dict[str, Any]:
         "missing_files": missing_files,
         "source_path": relative_posix(DOCS_GATE_PATH),
     }
-
 
 def build_bundle_payload() -> dict[str, Any]:
     task_matrix = load_json(QSHRINK_TASK_MATRIX_PATH)
@@ -206,12 +201,10 @@ def build_bundle_payload() -> dict[str, Any]:
         ],
     }
 
-
 def main() -> int:
     payload = build_bundle_payload()
     write_json(OUTPUT_JSON_PATH, payload)
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

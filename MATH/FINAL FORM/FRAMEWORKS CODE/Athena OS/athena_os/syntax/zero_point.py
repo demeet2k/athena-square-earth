@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - SYNTAX ZERO POINT
 =============================
@@ -49,7 +53,6 @@ from .core import (
 )
 from .coordinates import CrystalCoord, CrystalIndex
 
-
 # =============================================================================
 # Z-RECORD SEVERITY
 # =============================================================================
@@ -77,7 +80,6 @@ class ZSeverity(Enum):
     def __lt__(self, other: 'ZSeverity') -> bool:
         return self.level < other.level
 
-
 class ZRecoverability(Enum):
     """Recoverability classes for Z-records."""
     
@@ -85,7 +87,6 @@ class ZRecoverability(Enum):
     HANDLER = "handler"        # Recoverable by handler/policy
     RESTART = "restart"        # Recoverable only by restart/repair
     UNRECOVERABLE = "none"     # Not recoverable within model
-
 
 # =============================================================================
 # Z-RECORD
@@ -182,7 +183,6 @@ class ZRecord:
             message=anti.message
         )
 
-
 # =============================================================================
 # COLLAPSE PROJECTIONS (κ)
 # =============================================================================
@@ -261,7 +261,6 @@ class CollapseProjection:
         """Get all projections."""
         return list(self._projections.values())
 
-
 # =============================================================================
 # SEED GENERATION MAPS (σ)
 # =============================================================================
@@ -279,7 +278,6 @@ class SeedConstraints:
     obligations: List[str] = field(default_factory=list)
     type_constraints: Dict[str, str] = field(default_factory=dict)
     resource_budget: Dict[str, float] = field(default_factory=dict)
-
 
 class SeedGenerator:
     """
@@ -355,7 +353,6 @@ class SeedGenerator:
             z_record.repair_seed = result.artifact_id
         
         return result
-
 
 # =============================================================================
 # ZERO POINT CHAMBER
@@ -511,14 +508,12 @@ class ZeroChamber:
             "governance_actions": len(self._governance_log)
         }
 
-
 # =============================================================================
 # GLOBAL ZERO POINT INSTANCE
 # =============================================================================
 
 # Singleton chamber
 _global_chamber: Optional[ZeroChamber] = None
-
 
 def get_zero_chamber() -> ZeroChamber:
     """Get the global Zero Point chamber."""
@@ -527,12 +522,10 @@ def get_zero_chamber() -> ZeroChamber:
         _global_chamber = ZeroChamber()
     return _global_chamber
 
-
 def reset_zero_chamber() -> None:
     """Reset the global chamber (for testing)."""
     global _global_chamber
     _global_chamber = None
-
 
 # =============================================================================
 # VALIDATION
@@ -625,7 +618,6 @@ def validate_zero_point() -> bool:
     reset_zero_chamber()
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating SYNTAX zero point...")

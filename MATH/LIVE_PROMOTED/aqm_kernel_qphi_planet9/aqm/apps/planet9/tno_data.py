@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S14 | face=S | node=103 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S13→Xi108:W2:A11:S15→Xi108:W1:A11:S14→Xi108:W3:A11:S14→Xi108:W2:A10:S14→Xi108:W2:A12:S14
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -12,7 +16,6 @@ import numpy as np
 
 from .orbits import OrbitalElements
 
-
 @dataclass(frozen=True)
 class TNO:
     """
@@ -26,10 +29,8 @@ class TNO:
     name: str
     elements: OrbitalElements
 
-
 def _sha256_hex(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
-
 
 def tno_set_digest(tnos: Sequence[TNO]) -> str:
     payload = [
@@ -47,7 +48,6 @@ def tno_set_digest(tnos: Sequence[TNO]) -> str:
     b = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return _sha256_hex(b)
 
-
 def _find_column(fieldnames: Sequence[str], candidates: Sequence[str]) -> str:
     """
     Find a header column name in `fieldnames` matching any candidate, using
@@ -60,7 +60,6 @@ def _find_column(fieldnames: Sequence[str], candidates: Sequence[str]) -> str:
         if key in norm:
             return norm[key]
     raise ValueError(f"CSV missing any of columns: {candidates}")
-
 
 def load_tno_csv(path: str | Path) -> List[TNO]:
     """
@@ -153,7 +152,6 @@ def load_tno_csv(path: str | Path) -> List[TNO]:
             )
         return out
 
-
 def select_extreme(tnos: Iterable[TNO], a_min_au: float = 250.0, q_min_au: float = 30.0) -> List[TNO]:
     """
     Filter to "extreme" TNOs often used in Planet Nine analyses.
@@ -165,7 +163,6 @@ def select_extreme(tnos: Iterable[TNO], a_min_au: float = 250.0, q_min_au: float
         if t.elements.a_au >= a_min_au and t.elements.perihelion_distance_au() >= q_min_au:
             out.append(t)
     return out
-
 
 def demo_extreme_tnos(seed: int = 9) -> List[TNO]:
     """

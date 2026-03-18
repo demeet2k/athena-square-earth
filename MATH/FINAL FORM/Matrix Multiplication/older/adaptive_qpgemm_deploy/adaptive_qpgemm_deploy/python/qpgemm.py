@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 Adaptive QP-GEMM Optimization Framework (Vision-Tuned)
 
@@ -55,7 +59,6 @@ class QPGEMMConfig:
     min_gain: float = 0.30
     allow_bias: bool = True
     svd_driver: Optional[str] = None
-
 
 # -----------------------------------------------------------------------------
 # Engine (Sigma + Omega + Delta)
@@ -174,7 +177,6 @@ class QPGEMMEngine:
             },
         }
 
-
 # -----------------------------------------------------------------------------
 # Representation + Execution (Psi)
 # -----------------------------------------------------------------------------
@@ -251,7 +253,6 @@ class QPLinear(nn.Module):
             y = y + self.bias
         return y
 
-
 # -----------------------------------------------------------------------------
 # Model Transform (Sigma/Omega/Psi/Delta pipeline)
 # -----------------------------------------------------------------------------
@@ -312,7 +313,6 @@ def optimize_vision_model(
     _recurse(model)
     return model
 
-
 # -----------------------------------------------------------------------------
 # Utilities
 # -----------------------------------------------------------------------------
@@ -320,7 +320,6 @@ def optimize_vision_model(
 def count_parameters(model: nn.Module) -> int:
     """Total number of parameters."""
     return sum(p.numel() for p in model.parameters())
-
 
 def estimate_linear_proxy_cost(model: nn.Module) -> int:
     """
@@ -339,7 +338,6 @@ def estimate_linear_proxy_cost(model: nn.Module) -> int:
             assert r == r2
             cost += int(r) * (int(out_f) + int(in_f))
     return cost
-
 
 @torch.no_grad()
 def layer_report(model: nn.Module) -> Dict[str, Any]:

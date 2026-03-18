@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S3:u6:Su:S:d0",
+    "shell": 3,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "S",
+    "node_id": 6,
+    "depth": 0,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S2",
+      "Xi108:W1:A4:S4",
+      "Xi108:W2:A4:S3",
+      "Xi108:W1:A3:S3",
+      "Xi108:W1:A5:S3"
+    ],
+    "regenerate": "shell 3±1, wreath 1/3, archetype 4/12"
+  },
   "generated_at": "2026-03-14T00:00:00.000000+00:00",
   "manifest_id": 24,
   "manifest_name": "self_play_board_manifest",
@@ -8,7 +29,12 @@
   "description": "Board kernel runtime configuration: element ring, pheromone channels, master agents, queue structure.",
   "layer_root": "28_SELF_PLAY_QUEST_ATLAS",
   "element_ring": {
-    "order": ["Fire", "Air", "Water", "Earth"],
+    "order": [
+      "Fire",
+      "Air",
+      "Water",
+      "Earth"
+    ],
     "symmetry_cells": 15,
     "geometry_classes": {
       "pole": 4,
@@ -18,8 +44,18 @@
     }
   },
   "pheromone_channels": {
-    "positive": ["Fire", "Air", "Water", "Earth"],
-    "shadow": ["shadow_Fire", "shadow_Air", "shadow_Water", "shadow_Earth"],
+    "positive": [
+      "Fire",
+      "Air",
+      "Water",
+      "Earth"
+    ],
+    "shadow": [
+      "shadow_Fire",
+      "shadow_Air",
+      "shadow_Water",
+      "shadow_Earth"
+    ],
     "decay_base": "phi_inv",
     "decay_value": 0.618,
     "coupling_kappa": 1.0
@@ -31,15 +67,33 @@
     "A4": "Pruner"
   },
   "board_structure": {
-    "guild_queues": ["featured", "ladder", "repair", "storm", "recruit", "overflow"],
-    "temple_queues": ["certification", "near_closure", "ambiguities", "compression", "sovereign", "overflow"],
+    "guild_queues": [
+      "featured",
+      "ladder",
+      "repair",
+      "storm",
+      "recruit",
+      "overflow"
+    ],
+    "temple_queues": [
+      "certification",
+      "near_closure",
+      "ambiguities",
+      "compression",
+      "sovereign",
+      "overflow"
+    ],
     "scoring": {
       "guild": "base * truth_weight * difficulty * pressure * community * guild_amp",
       "temple": "base * truth_weight * depth * temple_amp"
     }
   },
   "route_law": {
-    "sigma": ["AppA", "AppI", "AppM"],
+    "sigma": [
+      "AppA",
+      "AppI",
+      "AppM"
+    ],
     "hub_cap": 6,
     "overlay_map": {
       "OK": null,

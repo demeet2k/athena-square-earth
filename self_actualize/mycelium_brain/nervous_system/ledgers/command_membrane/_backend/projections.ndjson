@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S14 | face=R | node=328 | depth=1 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A5:S13→Xi108:W2:A5:S15→Xi108:W1:A5:S14→Xi108:W3:A5:S14→Xi108:W2:A4:S14→Xi108:W2:A6:S14
+
 {"projection_id": "PRJ-EVT-20260313-0001-HALL-1773440760887", "event_id": "EVT-20260313-0001", "surface": "hall", "reason": "worker_success_human_visible", "relative_path": "_command_membrane_probe.txt", "tag": "command.document.change", "created_at": "2026-03-13T22:26:00.887341+00:00"}
 {"projection_id": "PRJ-EVT-20260313-0001-TEMPLE-1773440770685", "event_id": "EVT-20260313-0001", "surface": "temple", "reason": "claim_lease_expired", "relative_path": "_command_membrane_probe.txt", "tag": "command.document.change", "created_at": "2026-03-13T22:26:10.685824+00:00"}
 {"projection_id": "PRJ-EVT-20260313-0005-HALL-1773440935911", "event_id": "EVT-20260313-0005", "surface": "hall", "reason": "worker_success_human_visible", "relative_path": "_command_membrane_probe_2.txt", "tag": "command.document.change", "created_at": "2026-03-13T22:28:55.911637+00:00"}

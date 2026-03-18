@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=304 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    PARTITION FUNCTIONS MODULE                                ║
@@ -29,7 +33,6 @@ from typing import Optional, Tuple, List, Dict, Iterator, Set
 from functools import lru_cache
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PARTITION
@@ -164,7 +167,6 @@ class Partition:
             return False
         return self.parts == other.parts
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PARTITION ENUMERATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -270,7 +272,6 @@ class PartitionEnumerator:
         
         return dp[n]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GENERATING FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -329,7 +330,6 @@ class PartitionGeneratingFunction:
         from math import pi, sqrt, exp
         return exp(pi * sqrt(2 * n / 3)) / (4 * n * sqrt(3))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # RAMANUJAN CONGRUENCES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -385,7 +385,6 @@ class RamanujanCongruences:
             residues[p_k % modulus].append(k)
         
         return residues
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # YOUNG TABLEAUX
@@ -489,7 +488,6 @@ class YoungTableau:
         
         yield from _fill(1, positions)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -498,33 +496,27 @@ def partition(*parts: int) -> Partition:
     """Create partition from parts."""
     return Partition(tuple(parts))
 
-
 def partition_count(n: int) -> int:
     """Count partitions of n."""
     return PartitionEnumerator.count(n)
-
 
 def partitions(n: int) -> List[Partition]:
     """List all partitions of n."""
     return list(PartitionEnumerator.generate(n))
 
-
 def partition_generating_function(q: complex, max_terms: int = 100) -> complex:
     """Evaluate partition generating function."""
     return PartitionGeneratingFunction(max_terms).evaluate(q)
 
-
 def hook_length_formula(shape: Partition) -> int:
     """Number of standard Young tableaux."""
     return shape.num_standard_tableaux()
-
 
 def verify_ramanujan() -> bool:
     """Verify Ramanujan congruences."""
     return (RamanujanCongruences.verify_mod5() and
             RamanujanCongruences.verify_mod7() and
             RamanujanCongruences.verify_mod11())
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

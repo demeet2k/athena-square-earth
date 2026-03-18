@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S24 | face=R | node=288 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A12:S23→Xi108:W2:A12:S25→Xi108:W1:A12:S24→Xi108:W3:A12:S24→Xi108:W2:A11:S24
+
 """
 Athena Distributed Brain Network — 4-Element Algorithmic Intelligence
 =====================================================================
@@ -34,7 +38,6 @@ PHI_INV = PHI - 1                    # 0.618...
 PHI_INV2 = PHI_INV ** 2             # 0.382...
 SQRT_PHI_INV = math.sqrt(PHI_INV)   # 0.786...
 
-
 def _element_by_code(code: str) -> dict | None:
     """Look up an element by its single-letter code (S/F/C/R)."""
     data = _brain.load()
@@ -44,15 +47,12 @@ def _element_by_code(code: str) -> dict | None:
             return elem
     return None
 
-
 _SFCR_ORDER = {"S": 0, "F": 1, "C": 2, "R": 3}
-
 
 def _bridge_key(a: str, b: str) -> str:
     """Canonical bridge key: SFCR order (not alphabetical)."""
     pair = sorted([a.upper(), b.upper()], key=lambda x: _SFCR_ORDER.get(x, 9))
     return "".join(pair)
-
 
 def query_brain_network(component: str = "all") -> str:
     """Query the Athena distributed brain network.
@@ -233,7 +233,6 @@ def query_brain_network(component: str = "all") -> str:
 
     return f"Unknown component: {component}. Use: all, elements, bridges, closures, aether, routing, weights, forks, element:X, bridge:XY"
 
-
 def compute_bridge_weight(
     source: str = "S",
     target: str = "S",
@@ -301,7 +300,6 @@ def compute_bridge_weight(
         f"### Cross-Law\n{bridge['cross_law']}\n\n"
         f"### Transport Route\n{bridge['transport']}\n"
     )
-
 
 def route_brain(
     source: str = "S",
@@ -397,7 +395,6 @@ def route_brain(
     lines.append(f"  All 4 elements active → weight 1.0 → Z* convergence guaranteed")
 
     return "\n".join(lines)
-
 
 def brain_status() -> str:
     """Return compact brain network status for resource display."""

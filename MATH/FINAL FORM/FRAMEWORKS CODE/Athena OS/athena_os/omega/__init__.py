@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ATHENA OS - THE OMEGA PROTOCOL
 ==============================
@@ -180,7 +184,6 @@ from .synthesis import (
     validate_synthesis,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -192,7 +195,6 @@ def validate_omega() -> bool:
     assert validate_processing()
     assert validate_synthesis()
     return True
-
 
 # =============================================================================
 # CONVENIENCE FUNCTIONS
@@ -216,11 +218,9 @@ def create_development_manifold(nodes: int = 10) -> TreeStructure:
     
     return tree
 
-
 def create_production_manifold(nodes: List[Node]) -> CompleteGraph:
     """Create a Production Environment (Complete Graph K_N)."""
     return CompleteGraph(nodes)
-
 
 def execute_frashokereti(tree: TreeStructure) -> CompleteGraph:
     """Execute Frashokereti transformation on tree."""
@@ -228,37 +228,30 @@ def execute_frashokereti(tree: TreeStructure) -> CompleteGraph:
     results = transform.execute_full()
     return results["graph"]
 
-
 def create_omega_point(dimension: int = 64) -> OmegaPoint:
     """Create an Omega Point for synthesis."""
     return OmegaPoint(dimension=dimension)
-
 
 def create_master_merge() -> MasterMerge:
     """Create a Master Merge instance."""
     return MasterMerge()
 
-
 def create_alchemical_loop(target_entropy: float = 0.01) -> AlchemicalLoop:
     """Create an Alchemical Loop for transmutation."""
     return AlchemicalLoop(target_entropy=target_entropy)
-
 
 def create_qecc() -> QECC:
     """Create a Quantum Error Correction Code instance."""
     return QECC()
 
-
 def create_omega_synthesis(dimension: int = 64) -> OmegaSynthesis:
     """Create the complete Omega Synthesis system."""
     return OmegaSynthesis(dimension=dimension)
-
 
 def execute_terminal_synthesis(dimension: int = 64) -> Dict:
     """Execute the complete terminal synthesis."""
     synthesis = OmegaSynthesis(dimension=dimension)
     return synthesis.execute_full_synthesis()
-
 
 # =============================================================================
 # NUMPY IMPORT (for convenience functions)
@@ -266,7 +259,6 @@ def execute_terminal_synthesis(dimension: int = 64) -> Dict:
 
 import numpy as np
 from typing import Dict, List, Optional
-
 
 # =============================================================================
 # EXPORTS
@@ -313,7 +305,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "omega"
-
 
 if __name__ == "__main__":
     print("=" * 70)

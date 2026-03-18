@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S27 | face=F | node=360 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S26→Xi108:W2:A12:S28→Xi108:W1:A12:S27→Xi108:W3:A12:S27→Xi108:W2:A11:S27
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF = ROOT / "self_actualize"
@@ -61,35 +64,28 @@ RESERVE = "Q46"
 BLOCKED = "Q02"
 RUNTIME_SEED = "Q50 -> Wave7/Helix.Runtime.Fire.Diagnose"
 
-
 def now_local() -> datetime:
     return datetime.now(TZ)
-
 
 def load(path: Path, default=None):
     if not path.exists():
         return {} if default is None else default
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
-
 
 def dump(path: Path, payload) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def run(module: str) -> dict:
     r = subprocess.run([sys.executable, "-m", module], cwd=ROOT, capture_output=True, text=True)
     return {"module": module, "ok": r.returncode == 0, "returncode": r.returncode}
-
 
 def rows(snapshot: dict, ref: datetime) -> list[dict]:
     out = []
@@ -111,7 +107,6 @@ def rows(snapshot: dict, ref: datetime) -> list[dict]:
         )
     return out
 
-
 def summary(items: list[dict]) -> dict:
     c = Counter(x["freshness_status"] for x in items)
     state_counts = Counter(x["lane_state"] for x in items)
@@ -125,7 +120,6 @@ def summary(items: list[dict]) -> dict:
         "active_master_count": sum(int(x.get("active_master_role_count", 0)) for x in items),
         "compiled_lanes": [x["system_id"] for x in items if x.get("lane_state") == "COMPILED_SHADOW"],
     }
-
 
 def main() -> int:
     current = now_local()
@@ -265,7 +259,6 @@ def main() -> int:
     print(f"Wrote {ALIAS_RECEIPT}")
     print(f"Wrote {VERIFY_JSON}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

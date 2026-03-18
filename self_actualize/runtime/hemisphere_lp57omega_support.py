@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
@@ -39,7 +43,6 @@ from self_actualize.runtime.hemisphere_dense_65_shell_support import (
     DENSE_65_S_ROWS,
     canonical_hide_pole,
 )
-
 
 ACTIVE_LOOP_ID = 2
 ACTIVE_SEATS_PER_AGENT = 256
@@ -86,7 +89,6 @@ LEGACY_MASTER_AGENTS = [
     },
 ]
 
-
 def base4_digits(value: int, width: int) -> list[int]:
     digits = [0] * width
     for index in range(width - 1, -1, -1):
@@ -94,13 +96,11 @@ def base4_digits(value: int, width: int) -> list[int]:
         value //= 4
     return digits
 
-
 def seat_addr_6d(seat_index: int) -> str:
     labels = ["A", "B", "C", "D", "E", "F"]
     return ".".join(
         f"{label}{digit + 1}" for label, digit in zip(labels, base4_digits(seat_index, 6))
     )
-
 
 MYCELIUM_ROOT = SELF_ACTUALIZE_ROOT / "mycelium_brain"
 GUILD_HALL_ROOT = MYCELIUM_ROOT / "GLOBAL_EMERGENT_GUILD_HALL"
@@ -297,17 +297,14 @@ DENSE_65_SUFFIX_BY_POLE_SET = {
     tuple(row["pole_set"]): row["mu"] for row in DENSE_65_S_ROWS
 }
 
-
 def rel(path: Path) -> str:
     return path.resolve().relative_to(WORKSPACE_ROOT).as_posix()
-
 
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     header = "| " + " | ".join(headers) + " |"
     separator = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([header, separator, *body])
-
 
 def slugify(value: str) -> str:
     cleaned: list[str] = []
@@ -318,10 +315,8 @@ def slugify(value: str) -> str:
             cleaned.append("-")
     return "".join(cleaned).strip("-") or "unknown"
 
-
 def wrap_block(marker: str, body: str) -> str:
     return "\n".join([f"<!-- {marker}:START -->", body.rstrip(), f"<!-- {marker}:END -->"])
-
 
 def apply_marker_block(current: str, marker: str, body: str, *, after_first_heading: bool = False) -> str:
     start_marker = f"<!-- {marker}:START -->"
@@ -336,7 +331,6 @@ def apply_marker_block(current: str, marker: str, body: str, *, after_first_head
         insert_at = first_break if first_break != -1 else len(current)
         return current[:insert_at] + "\n\n" + replacement + current[insert_at:]
     return replacement + ("\n\n" + current if current else "")
-
 
 def legacy_coordinate_stamp(
     seat_index: int,
@@ -361,7 +355,6 @@ def legacy_coordinate_stamp(
         "OMEGAs": agent_id,
     }
 
-
 def promotion_rows_for_loop(loop_number: int, zone: str) -> list[dict[str, str]]:
     next_loop = f"L{((loop_number % LP57OMEGA_LOOP_COUNT) + 1):02d}"
     rows = []
@@ -380,14 +373,11 @@ def promotion_rows_for_loop(loop_number: int, zone: str) -> list[dict[str, str]]
         )
     return rows
 
-
 def hall_promotions_for_loop(loop_number: int) -> list[dict[str, str]]:
     return promotion_rows_for_loop(loop_number, "HALL")
 
-
 def temple_promotions_for_loop(loop_number: int) -> list[dict[str, str]]:
     return promotion_rows_for_loop(loop_number, "TEMPLE")
-
 
 def normalize_coordinate_tuple(payload: dict[str, Any]) -> dict[str, str]:
     if isinstance(payload, str):
@@ -416,10 +406,8 @@ def normalize_coordinate_tuple(payload: dict[str, Any]) -> dict[str, str]:
         "OMEGAs": str(payload.get("OMEGAs", payload.get("Ωs", ""))),
     }
 
-
 def coordinate_stamp_string(coordinate_tuple: dict[str, str]) -> str:
     return "|".join(f"{dimension}={coordinate_tuple[dimension]}" for dimension in COORDINATE_DIMENSIONS)
-
 
 def quartile_label(value: float, prefix: str) -> str:
     if value < 0.25:
@@ -432,7 +420,6 @@ def quartile_label(value: float, prefix: str) -> str:
         band = 4
     return f"{prefix}{band}"
 
-
 def scope_coordinate(scope_flags: str) -> str:
     normalized = scope_flags.strip().lower()
     if normalized == "archive":
@@ -443,12 +430,10 @@ def scope_coordinate(scope_flags: str) -> str:
         return "WITNESS"
     return "LIVE"
 
-
 def hemisphere_coordinate(record: dict[str, Any]) -> str:
     if record.get("bridge_class") == "commissure_bridge":
         return "COMMISSURE"
     return str(record.get("primary_hemisphere") or "GC0")
-
 
 def deep_mode_coordinate(record: dict[str, Any]) -> str:
     appendix_support = record.get("appendix_support", []) or []
@@ -461,7 +446,6 @@ def deep_mode_coordinate(record: dict[str, Any]) -> str:
         return "MATRIX"
     return "BASIS"
 
-
 def topology_band(relative_path: str) -> str:
     depth = len([part for part in normalize_path(relative_path).split("/") if part])
     if depth <= 1:
@@ -471,7 +455,6 @@ def topology_band(relative_path: str) -> str:
     if depth <= 6:
         return "T3"
     return "T4"
-
 
 def compression_band(record: dict[str, Any]) -> str:
     if (record.get("duplicate_count") or 0) > 0:
@@ -483,13 +466,11 @@ def compression_band(record: dict[str, Any]) -> str:
         return "C2"
     return "C1"
 
-
 def manuscript_branch_code(top_level: str) -> str:
     branch = slugify(top_level).replace("-", "_").upper()
     if len(branch) > 18:
         branch = branch[:18]
     return f"M-{branch}"
-
 
 def neural_connectivity_band(record: dict[str, Any]) -> str:
     score = len(record.get("basis_anchor_ids", []) or []) + len(record.get("direct_edge_ids", []) or [])
@@ -501,7 +482,6 @@ def neural_connectivity_band(record: dict[str, Any]) -> str:
         return "N2"
     return "N1"
 
-
 def hierarchy_band(relative_path: str) -> str:
     depth = len([part for part in normalize_path(relative_path).split("/") if part])
     if depth <= 1:
@@ -511,7 +491,6 @@ def hierarchy_band(relative_path: str) -> str:
     if depth <= 6:
         return "H3"
     return "H4"
-
 
 def omega_band(record: dict[str, Any]) -> str:
     symmetry = record.get("symmetry_membership", {}) or {}
@@ -524,12 +503,10 @@ def omega_band(record: dict[str, Any]) -> str:
         return "COMMISSURE"
     return "STABLE"
 
-
 def _normalize_dense_pole(face: Any) -> str | None:
     if not face:
         return None
     return DENSE_65_POLE_FACE_MAP.get(str(face).strip().lower())
-
 
 def dense_kernel_ref_for_record(record: dict[str, Any]) -> dict[str, Any] | None:
     poles: list[str] = []
@@ -557,7 +534,6 @@ def dense_kernel_ref_for_record(record: dict[str, Any]) -> dict[str, Any] | None
         "authority_refs": dict(DENSE_65_AUTHORITY_REFS),
     }
 
-
 def record_coordinate_tuple(record: dict[str, Any]) -> dict[str, str]:
     return {
         "Xs": scope_coordinate(str(record.get("scope_flags", "live"))),
@@ -574,7 +550,6 @@ def record_coordinate_tuple(record: dict[str, Any]) -> dict[str, str]:
         "OMEGAs": omega_band(record),
     }
 
-
 def lookup_address(record: dict[str, Any], coordinate_tuple: dict[str, str]) -> str:
     basis_anchor = (record.get("basis_anchor_ids") or ["UNANCHORED"])[0]
     primary_hemisphere = record.get("primary_hemisphere") or "GC0"
@@ -586,10 +561,8 @@ def lookup_address(record: dict[str, Any], coordinate_tuple: dict[str, str]) -> 
         f"{primary_hemisphere}::{stage_id}::{target_system}::{coordinate_stamp_string(coordinate_tuple)}"
     )
 
-
 def loop_key(loop_number: int) -> str:
     return f"L{loop_number:02d}"
-
 
 def artifact_ids(loop_number: int) -> dict[str, str]:
     prefix = f"LP57-{loop_key(loop_number)}"
@@ -603,12 +576,10 @@ def artifact_ids(loop_number: int) -> dict[str, str]:
         "restart_seed": f"{prefix}-RESTART",
     }
 
-
 def restart_handoff(loop_number: int, loop_rows: list[dict[str, Any]]) -> str:
     next_loop_number = (loop_number % len(loop_rows)) + 1
     next_title = loop_rows[next_loop_number - 1]["title"]
     return f"{loop_key(next_loop_number)} -> {next_title}"
-
 
 def advancement_signature(loop_row: dict[str, Any]) -> str:
     return " :: ".join(
@@ -621,7 +592,6 @@ def advancement_signature(loop_row: dict[str, Any]) -> str:
             str(loop_row.get("expected_mapping_gain", "")),
         ]
     )
-
 
 def rotated_focus_records(records: list[dict[str, Any]], loop_number: int, count: int = 3) -> list[dict[str, Any]]:
     if not records:
@@ -641,7 +611,6 @@ def rotated_focus_records(records: list[dict[str, Any]], loop_number: int, count
             break
     return result
 
-
 def master_agent_number(agent_id: str) -> int:
     agent_id = MASTER_AGENT_ALIASES.get(agent_id, agent_id)
     for row in LEGACY_MASTER_AGENTS:
@@ -658,7 +627,6 @@ def master_agent_number(agent_id: str) -> int:
         return int(agent_id[1:])
     return 0
 
-
 def canonical_master_agent_id(agent_id: str, role_order: int) -> str:
     if agent_id in MASTER_ROLE_TAGS:
         return agent_id
@@ -666,7 +634,6 @@ def canonical_master_agent_id(agent_id: str, role_order: int) -> str:
         return MASTER_AGENT_ALIASES[agent_id]
     fallback = f"A{role_order}"
     return MASTER_AGENT_ALIASES.get(fallback, "MASTER-SYNTHESIZER")
-
 
 def sample_nested_ids(loop_number: int, agent_id: str) -> list[str]:
     agent_number = master_agent_number(agent_id)
@@ -677,13 +644,11 @@ def sample_nested_ids(loop_number: int, agent_id: str) -> list[str]:
         f"{loop_key(loop_number)}.A{agent_number}.D6.B3333.{role_tags[3]}",
     ]
 
-
 def agent_coordinate_tuple(agent_row: dict[str, Any], loop_number: int) -> dict[str, str]:
     seat_start = int(agent_row.get("seat_band", {}).get("start_index", 0))
     return normalize_coordinate_tuple(
         legacy_coordinate_stamp(seat_start, loop_number, agent_row.get("short_name", ""), agent_row.get("agent_id", ""))
     )
-
 
 def loop_rows_from_state(
     master_loop_state: dict[str, Any],
@@ -734,7 +699,6 @@ def loop_rows_from_state(
         )
     return rows, focus_by_loop
 
-
 def build_loop_registry(
     master_loop_state: dict[str, Any],
     docs_gate_status: str,
@@ -770,7 +734,6 @@ def build_loop_registry(
         focus_by_loop,
     )
 
-
 def enrich_master_loop_state(
     master_loop_state: dict[str, Any],
     loop_registry: dict[str, Any],
@@ -803,7 +766,6 @@ def enrich_master_loop_state(
     enriched["current_cycle_summary"] = current_cycle_summary
     enriched["loops"] = loop_registry["rows"]
     return enriched
-
 
 def build_agent_identity_registry(
     master_agent_state: dict[str, Any],
@@ -977,7 +939,6 @@ def build_agent_identity_registry(
         enriched_state,
     )
 
-
 def build_master_loop_shared_lattice(
     master_loop_shared_lattice: dict[str, Any],
     docs_gate_status: str,
@@ -1011,7 +972,6 @@ def build_master_loop_shared_lattice(
         "row_count": len(rows),
         "rows": rows,
     }
-
 
 def build_coordinate_registry(
     authority_records: list[dict[str, Any]],
@@ -1059,7 +1019,6 @@ def build_coordinate_registry(
         },
         "rows": rows,
     }
-
 
 def build_quest_contract_registry(
     loop_registry: dict[str, Any],
@@ -1159,7 +1118,6 @@ def build_quest_contract_registry(
         "rows": rows,
     }
 
-
 def build_master_ledger_registry(
     loop_registry: dict[str, Any],
     agent_identity_registry: dict[str, Any],
@@ -1232,7 +1190,6 @@ def build_master_ledger_registry(
         "rows": rows,
     }
 
-
 def build_manifest(
     loop_registry: dict[str, Any],
     agent_identity_registry: dict[str, Any],
@@ -1286,9 +1243,7 @@ def build_manifest(
         ],
     }
 
-
 LP57OMEGA_PROTOCOL_DISPLAY = "LP-57Omega"
-
 
 def render_index_markdown(manifest: dict[str, Any], master_loop_state: dict[str, Any]) -> str:
     counts = manifest["counts"]
@@ -1322,7 +1277,6 @@ Protocol: `{LP57OMEGA_PROTOCOL_DISPLAY}`
 - restart seed: `{summary.get('next_restart_seed', '')}`
 """
 
-
 def render_framework_markdown(master_agent_state: dict[str, Any], loop_registry: dict[str, Any]) -> str:
     agent_rows = [
         [row["agent_id"], row["name"], row["public_quest_rights"], str(row["seat_budget_active"])]
@@ -1345,7 +1299,6 @@ Current law: `A1 Synthesizer -> A2 Planner -> A3 Worker -> A4 Pruner`
 - liminal packets: `{LP57OMEGA_LIMINAL_PACKET_COUNT}`
 - protocol loop rows: `{loop_registry['loop_count']}`
 """
-
 
 def render_coordinate_markdown(coordinate_registry: dict[str, Any]) -> str:
     sample = coordinate_registry["rows"][0] if coordinate_registry.get("rows") else {}
@@ -1382,7 +1335,6 @@ Dense kernel overlay: `DenseKernelRef65` subordinate to the top-level 12D coordi
 - dense kernel sigma path: `{' -> '.join((sample_dense.get('sigma_path') or coordinate_registry.get('dense_kernel_overlay', {}).get('sigma_path') or []))}`
 """
 
-
 def render_quest_and_ledger_markdown(
     quest_contract_registry: dict[str, Any],
     master_ledger_registry: dict[str, Any],
@@ -1416,7 +1368,6 @@ Ledger rows: `{master_ledger_registry['row_count']}`
 - linked quests: `{', '.join(sample_ledger.get('linked_quests', []))}`
 - dense kernel ref: `{((sample_ledger.get('dense_kernel_ref') or {}).get('symmetry_record_id', 'NONE'))}`
 """
-
 
 def render_liminal_coordinate_standard(
     manifest: dict[str, Any],
@@ -1466,7 +1417,6 @@ def render_liminal_coordinate_standard(
 - The global `8677` coordinate field stays pointer-based and intact.
 """
 
-
 def render_agent_ledger_standard(manifest: dict[str, Any]) -> str:
     rows = [[field, "required"] for field in LEDGER_FIELDS]
     rows.append(["dense_kernel_ref", "optional overlay pointer"])
@@ -1485,7 +1435,6 @@ def render_agent_ledger_standard(manifest: dict[str, Any]) -> str:
 - When a ledger action is routed through a dense-shell focus record, preserve the first lawful `DenseKernelRef65` binding in `dense_kernel_ref`.
 - Receipts and change feeds remain witness history; registries and manifests remain canonical state.
 """
-
 
 def render_seed_inversion_standard(
     manifest: dict[str, Any],
@@ -1514,7 +1463,6 @@ def render_seed_inversion_standard(
 - manifest: `{DENSE_65_MANIFEST_PATH}`
 """
 
-
 def build_seed_inversion_standard_json(
     manifest: dict[str, Any],
     coordinate_registry: dict[str, Any],
@@ -1540,7 +1488,6 @@ def build_seed_inversion_standard_json(
         "overflow_registry_path": str(DENSE_65_RQT_OVERFLOW_REGISTRY_PATH),
         "manifest_path": str(DENSE_65_MANIFEST_PATH),
     }
-
 
 def render_signature_plan_markdown(loop_registry: dict[str, Any]) -> str:
     rows = [
@@ -1570,7 +1517,6 @@ def render_signature_plan_markdown(loop_registry: dict[str, Any]) -> str:
 )}
 """
 
-
 def render_receipt_markdown(manifest: dict[str, Any]) -> str:
     counts = manifest["counts"]
     return f"""# LP-57Omega Receipt
@@ -1586,7 +1532,6 @@ def render_receipt_markdown(manifest: dict[str, Any]) -> str:
 - dense shell registry: `{DENSE_65_SHELL_REGISTRY_PATH.name}`
 - canonical loop state: `{MASTER_LOOP_STATE_PATH}`
 """
-
 
 def resolve_active_loop_row(loop_registry: dict[str, Any]) -> dict[str, Any]:
     loop_rows = list(loop_registry.get("rows", []))
@@ -1605,7 +1550,6 @@ def resolve_active_loop_row(loop_registry: dict[str, Any]) -> dict[str, Any]:
         if row.get("loop_number") == ACTIVE_LOOP_ID or row.get("loop_id") == ACTIVE_LOOP_ID:
             return row
     return loop_rows[min(len(loop_rows) - 1, max(ACTIVE_LOOP_ID - 1, 0))]
-
 
 def resolve_planner_row(
     quest_contract_registry: dict[str, Any],
@@ -1631,7 +1575,6 @@ def resolve_planner_row(
             "restart_seed": "UNAVAILABLE",
         },
     }
-
 
 def render_hall_doc(
     loop_registry: dict[str, Any],
@@ -1663,7 +1606,6 @@ Active loop: `{active_loop.get('loop_key', loop_key(ACTIVE_LOOP_ID))} {active_lo
 {markdown_table(["Quest", "Title", "Seat", "Restart"], promotion_rows)}
 """
 
-
 def render_temple_doc(
     loop_registry: dict[str, Any],
     quest_contract_registry: dict[str, Any],
@@ -1694,7 +1636,6 @@ Active loop: `{active_loop.get('loop_key', loop_key(ACTIVE_LOOP_ID))} {active_lo
 {markdown_table(["Quest", "Title", "Seat", "Restart"], promotion_rows)}
 """
 
-
 def render_deep_control_doc(manifest: dict[str, Any]) -> str:
     return f"""# LP-57Omega Deep Control
 
@@ -1713,7 +1654,6 @@ Docs gate: `{manifest['docs_gate_status']}`
 - seed inversion standard: `{LP57OMEGA_SEED_INVERSION_STANDARD_PATH}`
 """
 
-
 def render_external_receipt(manifest: dict[str, Any]) -> str:
     return f"""# LP-57Omega Protocol Receipt
 
@@ -1726,7 +1666,6 @@ def render_external_receipt(manifest: dict[str, Any]) -> str:
 - dense shell registry: `{DENSE_65_SHELL_REGISTRY_PATH}`
 - dense shell is overlay-only and does not remap LP57 globally
 """
-
 
 def render_hall_board_body(master_loop_state: dict[str, Any], manifest: dict[str, Any]) -> str:
     summary = master_loop_state.get("current_cycle_summary", {})
@@ -1755,7 +1694,6 @@ def render_hall_board_body(master_loop_state: dict[str, Any], manifest: dict[str
         )
     return "\n".join(lines)
 
-
 def render_temple_board_body(master_loop_state: dict[str, Any], manifest: dict[str, Any]) -> str:
     summary = master_loop_state.get("current_cycle_summary", {})
     lines = [
@@ -1781,7 +1719,6 @@ def render_temple_board_body(master_loop_state: dict[str, Any], manifest: dict[s
             f"- `{item['quest_id']}` :: {item['title']} :: seat `{item['seat_addr_6d']}` :: restart `{item['restart_seed']}`"
         )
     return "\n".join(lines)
-
 
 def build_lp57omega_payloads(
     *,

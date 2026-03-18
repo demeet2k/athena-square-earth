@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=89 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - CLINAMEN INTERRUPT CONTROLLER
 ==========================================
@@ -45,7 +49,6 @@ from enum import Enum, auto
 import math
 import random
 
-
 # =============================================================================
 # INTERRUPT CONFIGURATION
 # =============================================================================
@@ -57,14 +60,12 @@ class PerturbationType(Enum):
     POSITIONAL = auto()    # Small position shift
     PHASE = auto()         # Phase shift in oscillation
 
-
 class DirectionalDistribution(Enum):
     """Distribution for directional deviations."""
     UNIFORM = auto()       # Uniform on unit sphere
     GAUSSIAN = auto()      # Gaussian around current direction
     PLANAR = auto()        # Restricted to a plane
     RADIAL = auto()        # Along radial direction
-
 
 @dataclass
 class InterruptParameters:
@@ -87,7 +88,6 @@ class InterruptParameters:
             0 <= self.lambda_rate <= 1.0 and
             0 <= self.probability <= 1.0
         )
-
 
 # =============================================================================
 # GATING PREDICATES
@@ -125,7 +125,6 @@ class GatingPredicate:
         
         return True
 
-
 @dataclass
 class SafetyConstraints:
     """
@@ -152,7 +151,6 @@ class SafetyConstraints:
                 return False
         
         return True
-
 
 # =============================================================================
 # THE SWERVE OPERATOR
@@ -253,7 +251,6 @@ class SwerveOperator:
         """Determine if swerve should activate (probabilistic)."""
         return self._rng.random() < self.params.probability
 
-
 # =============================================================================
 # THE CLINAMEN INTERRUPT CONTROLLER
 # =============================================================================
@@ -275,7 +272,6 @@ class InterruptEvent:
         pre_mag = math.sqrt(sum(v**2 for v in self.pre_velocity))
         post_mag = math.sqrt(sum(v**2 for v in self.post_velocity))
         return abs(pre_mag - post_mag) < 1e-10
-
 
 class ClinanenInterruptController:
     """
@@ -403,7 +399,6 @@ class ClinanenInterruptController:
         """Verify all logged events maintain invariants."""
         return all(e.magnitude_preserved for e in self.interrupt_log)
 
-
 # =============================================================================
 # SYMMETRY BREAKER
 # =============================================================================
@@ -466,7 +461,6 @@ class SymmetryBreaker:
             states[idx] = result
         
         return states
-
 
 # =============================================================================
 # BRANCHING AUTONOMY MANAGER
@@ -537,7 +531,6 @@ class BranchingAutonomyManager:
         
         return total_curvature / max(1, count)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -603,7 +596,6 @@ def validate_clinamen_controller() -> bool:
     # Should have modified at least one state
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

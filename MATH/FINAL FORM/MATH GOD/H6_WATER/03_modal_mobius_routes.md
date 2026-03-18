@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S18 | face=S | node=159 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Mt -->
+<!-- BRIDGES: Xi108:W3:A2:S17→Xi108:W3:A2:S19→Xi108:W2:A2:S18→Xi108:W3:A1:S18→Xi108:W3:A3:S18 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 18±1, wreath 3/3, archetype 2/12 -->
+
 # Modal Mobius Routes
 
 The Water 6D lift uses three Mobius-coded control routes:

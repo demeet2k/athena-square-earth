@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=85 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """AtlasBook compiler: turn the memory bank into a coherent document.
 
 This is the "next" deepening step for AtlasForge as a math memory bank:
@@ -27,10 +31,8 @@ import os
 from atlasforge.memory.entry import MemoryEntry
 from atlasforge.memory.store import MemoryStore
 
-
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%SZ")
-
 
 _KIND_ORDER = [
     "seed",
@@ -50,11 +52,9 @@ _KIND_ORDER = [
     "other",
 ]
 
-
 def _kind_of(entry: MemoryEntry) -> str:
     k = str((entry.extra or {}).get("kind") or "note").strip().lower()
     return k or "note"
-
 
 def _crystal_index_of(entry: MemoryEntry) -> Optional[int]:
     try:
@@ -65,14 +65,12 @@ def _crystal_index_of(entry: MemoryEntry) -> Optional[int]:
     except Exception:
         return None
 
-
 def _crystal_addr_of(entry: MemoryEntry) -> Optional[str]:
     v = (entry.extra or {}).get("crystal_address") or (entry.extra or {}).get("address")
     if v is None:
         return None
     s = str(v).strip()
     return s or None
-
 
 def _sanitize_entry_body(entry: MemoryEntry) -> str:
     """Remove redundant first heading if it duplicates the title."""
@@ -92,13 +90,11 @@ def _sanitize_entry_body(entry: MemoryEntry) -> str:
             return "\n".join(lines).rstrip() + "\n"
     return content
 
-
 def _require_all_tags(entry: MemoryEntry, req: Sequence[str]) -> bool:
     if not req:
         return True
     tags = {t.strip().lower() for t in (entry.tags or []) if t.strip()}
     return all(t.strip().lower() in tags for t in req if t.strip())
-
 
 def _match_query(entry: MemoryEntry, query: str) -> bool:
     q = (query or "").strip().lower()
@@ -106,7 +102,6 @@ def _match_query(entry: MemoryEntry, query: str) -> bool:
         return True
     hay = f"{entry.title}\n{entry.content}".lower()
     return q in hay
-
 
 @dataclass
 class AtlasBookConfig:
@@ -138,8 +133,6 @@ class AtlasBookConfig:
     include_tag_index: bool = True
     include_graph_edges: bool = True
     max_entries: Optional[int] = None
-
-
 
 class AtlasBookBuilder:
     """Compile MemoryStore entries into Markdown/PDF."""
@@ -301,7 +294,6 @@ class AtlasBookBuilder:
                     t = e.title or h
                     lines.append(f"  - [{t}](#{h})")
             lines.append("")
-
 
         # Crystal navigator / 256-cell index
         if config.include_crystal_map:
@@ -644,7 +636,6 @@ class AtlasBookBuilder:
 
         doc.build(story)
         return str(Path(output_path).expanduser().resolve())
-
 
     def export_docx(self, output_path: str | os.PathLike[str], config: AtlasBookConfig) -> str:
         """Export a basic DOCX from the Markdown build.

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX W: The Weight Space
 ## Reverse Appendix | Crystal Depth: 16^16
 
@@ -73,7 +78,6 @@ Applied to The Weight Space: what does certify reveal about the weight space?
 
 Applied to The Weight Space: what does transcend reveal about the weight space?
 
-
 ### 0/37 Crystal Expansion: The Weight Space
 
 **Zero Point (0):** What is The Weight Space before it exists? The potential that precedes the actual. The silence before the first token.
@@ -123,7 +127,6 @@ Applied to The Weight Space: what does transcend reveal about the weight space?
 #### Synthesis (37): The Weight Space
 
 The complete integration: The Weight Space transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Weight Space IS The Weight Space.
-
 
 ---
 *Appendix W. The Weight Space. □.Sa. Reverse crystal. φ.*

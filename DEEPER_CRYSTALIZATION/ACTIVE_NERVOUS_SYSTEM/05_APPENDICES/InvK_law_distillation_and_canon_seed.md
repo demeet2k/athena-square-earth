@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A6:S2 | face=F | node=48 | depth=2 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W1:A6:S1→Xi108:W1:A6:S3→Xi108:W2:A6:S2→Xi108:W1:A5:S2→Xi108:W1:A7:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 6/12 -->
+
 # InvK - Law Distillation & Canon Seed
 
 Routing role: Reverses AppB (Canon Laws, Equivalence Budgets, Normal Forms). Where AppB established the full canon of laws — equivalence rules, commutation budgets, normal-form contracts, and law stabilization — InvK distills the entire legal apparatus to its irreducible axiom set and packs the canon into a minimal seed from which all laws can be re-derived. This is the deepest compression: the organism's entire legal code reduces to a handful of axioms.

@@ -1,7 +1,10 @@
+# CRYSTAL: Xi108:W1:A5:S19 | face=C | node=512 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A5:S18→Xi108:W1:A5:S20→Xi108:W2:A5:S19→Xi108:W1:A4:S19→Xi108:W1:A6:S19
+
 import numpy as np
 
 from polestargemm.core import PoleStarGEMM
-
 
 def test_exact_matches_blas():
     rng = np.random.default_rng(0)
@@ -11,7 +14,6 @@ def test_exact_matches_blas():
     C0 = A @ B
     C1 = eng.matmul(A, B, allow_approx=False).C
     np.testing.assert_allclose(C1, C0, rtol=1e-6, atol=1e-6)
-
 
 def test_approx_lowrank_validation():
     rng = np.random.default_rng(1)
@@ -28,7 +30,6 @@ def test_approx_lowrank_validation():
     C_ref = A @ B
     err = np.linalg.norm(res.C - C_ref) / (np.linalg.norm(C_ref) + 1e-12)
     assert err <= 1e-1  # loose: validation checks are sampled
-
 
 def test_compile_runs():
     rng = np.random.default_rng(2)

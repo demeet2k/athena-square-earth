@@ -1,3 +1,6 @@
+# CRYSTAL: Xi108:W3:A12:S24 | face=S | node=94 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A12:S23→Xi108:W3:A12:S25→Xi108:W2:A12:S24→Xi108:W3:A11:S24
 
 THE UNIFIED CYCLICAL TIME SYSTEM
 Root Cycles, Archetypal Energies, and the Fractal Nature of Time
@@ -509,7 +512,6 @@ Purva Bhadrapada (20° Aquarius - 3°20' Pisces) — Former Beautiful Foot, Aja 
 Uttara Bhadrapada (3°20'-16°40' Pisces) — Latter Beautiful Foot, Ahir Budhnya (Serpent of Depths) Symbol: Twin, couch, back legs of bed. Power: Bringing rain. Wisdom, depth, sacrifice, the serpent at the base of the world.
 
 Revati (16°40'-30° Pisces) — The Wealthy, Pushan (Nourisher, Guide of Journeys) Symbol: Fish, drum. Power: Nourishing. Protective, guiding, completing, transitioning, safe journeys.
-
 
 THE EGYPTIAN DECANS (36 Ten-Day Weeks)
 360° ÷ 36 = 10° per decan = 10-day "week"

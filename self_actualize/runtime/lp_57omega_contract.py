@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
-
 
 DATE = "2026-03-13"
 
@@ -194,10 +197,8 @@ def loop_row(
         "expected_mapping_ledger_gain": mapping_gain,
     }
 
-
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
-
 
 def docs_gate_payload() -> dict[str, Any]:
     missing = [p for p in ["credentials.json", "token.json"] if not (TRADING_BOT_DIR / p).exists()]
@@ -207,17 +208,14 @@ def docs_gate_payload() -> dict[str, Any]:
         "source_of_truth": rel(LIVE_DOCS_GATE_PATH),
     }
 
-
 def make_branch_path(*indices: int | str) -> str:
     if not indices:
         return "BROOT"
     rendered = "".join(str(index) for index in indices)
     return f"B{rendered}"
 
-
 def make_agent_id_tag(loop_id: str, master_agent_id: str, nested_depth: int, branch_path: str, role_tag: str) -> str:
     return f"{loop_id}.{master_agent_id}.D{nested_depth}.{branch_path}.{role_tag}"
-
 
 def make_liminal_coordinate(
     *,
@@ -249,10 +247,8 @@ def make_liminal_coordinate(
         "OmegaS": zero_relation,
     }
 
-
 def make_lookup_addr(*parts: str) -> str:
     return "/".join(["LP-57Omega", *parts])
-
 
 LOOP_PLAN = [
     loop_row("Docs truth freeze", "confirm blocked Docs reality and local-only evidence law", "lock fallback routes for every agent lane", "install gate-check as step zero of every loop", "remove faux live-doc assumptions", "honest base layer", "global blocker stamp"),
@@ -374,7 +370,6 @@ CANONICAL_LOOP_TITLES = [
     "Restart Packet and Canon Freeze",
 ]
 
-
 def build_loop_table() -> list[dict[str, Any]]:
     loops: list[dict[str, Any]] = []
     gate = docs_gate_payload()["status"]
@@ -416,7 +411,6 @@ def build_loop_table() -> list[dict[str, Any]]:
         )
     return loops
 
-
 def liminal_identity_standard() -> dict[str, Any]:
     return {
         "format": "[LoopID].[MasterAgentID].[NestedDepth].[BranchPath].[RoleTag]",
@@ -427,7 +421,6 @@ def liminal_identity_standard() -> dict[str, Any]:
         ],
         "law": "Every master packet, nested packet, frontier, unresolved issue, and compression node must carry an LP-57Omega identity tag.",
     }
-
 
 def coordinate_schema_12d() -> dict[str, Any]:
     return {
@@ -449,7 +442,6 @@ def coordinate_schema_12d() -> dict[str, Any]:
             zero_relation="truth:LOCAL_ONLY",
         ),
     }
-
 
 def ledger_schema() -> dict[str, Any]:
     return {
@@ -488,7 +480,6 @@ def ledger_schema() -> dict[str, Any]:
         },
     }
 
-
 def canonical_machine_truth_family() -> list[str]:
     return [
         rel(LP57_PROTOCOL_MD_PATH),
@@ -500,7 +491,6 @@ def canonical_machine_truth_family() -> list[str]:
         rel(WHOLE_COORDINATION_PATH),
         rel(NEXT_SELF_PROMPT_PATH),
     ]
-
 
 def next57_machine_truth_family() -> list[str]:
     return [
@@ -514,7 +504,6 @@ def next57_machine_truth_family() -> list[str]:
         rel(CANONICAL_PROTOCOL_MD_PATH),
         rel(CANONICAL_PROTOCOL_JSON_PATH),
     ]
-
 
 def protocol_reference() -> dict[str, str]:
     return {

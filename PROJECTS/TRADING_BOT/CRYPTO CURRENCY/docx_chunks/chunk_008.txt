@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A2:S20 | face=R | node=602 | depth=3 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A2:S19→Xi108:W1:A2:S21→Xi108:W2:A2:S20→Xi108:W1:A1:S20→Xi108:W1:A3:S20
+
 , AMBIG/NEAR Discipline, and Publishing Risk Envelopes
 07.C1 — Objects
 07.C1.a — Transport corridor profile
@@ -432,7 +436,6 @@ def compose_outcomes(outs: List[Outcome], budget_cap: Budget) -> Outcome:
         budget_use=Budget(kappa=kappa, beta=beta, delta=delta, chi=chi),
         obligations=tuple(dict.fromkeys(obligations)),
     )
-
 
 08.S4.b — Deterministic edge evaluation skeleton
 from typing import Callable, Dict, Any

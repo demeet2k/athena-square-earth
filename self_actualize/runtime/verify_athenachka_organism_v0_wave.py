@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 from __future__ import annotations
 
 import json
@@ -6,7 +10,6 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -39,7 +42,6 @@ from athenachka.helix import FAST_PHASES, FULL_PHASES  # noqa: E402
 from athenachka.runtime.questing import CURRENT_WAVE_ID, build_macro_quest_bundle  # noqa: E402
 from self_actualize.runtime import swarm_board  # noqa: E402
 from self_actualize.runtime.derive_athenachka_organism_v0_quest_loop import render_hall_doc  # noqa: E402
-
 
 BENCHMARKS = [
     ("GEOMETRIC", aug_geometric),
@@ -135,26 +137,21 @@ WAVE_ARTIFACTS = {
     },
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def build_packet_kernel() -> AthenaNeuralNetwork:
     x_train, y_train = generate_data(PACKET_TRAIN_SIZE, aug_geometric, PACKET_TRAIN_SEED)
@@ -169,7 +166,6 @@ def build_packet_kernel() -> AthenaNeuralNetwork:
     )
     return model
 
-
 def weak_or_contradictory_not_ok(result: Any) -> bool:
     contradictions = bool(result.witness_bundle.get("contradictions"))
     weak_witness = float(result.witness_bundle.get("strength", 0.0)) < 0.65
@@ -177,19 +173,15 @@ def weak_or_contradictory_not_ok(result: Any) -> bool:
         return result.truth_type != "OK"
     return True
 
-
 def active_pair_ids(result: Any) -> list[str]:
     return list(result.symmetry_state.get("active_fusions", {}).keys())
-
 
 def omega_score(result: Any) -> float:
     return float(result.symmetry_state.get("omega", {}).get("score", 0.0))
 
-
 def appendix_codes(result: Any) -> list[str]:
     appendix_bundle = result.witness_bundle.get("appendix_bundle", {})
     return list(appendix_bundle.get("active_codes", []))
-
 
 def phase_trace(organism: Any) -> list[str]:
     return list(
@@ -199,7 +191,6 @@ def phase_trace(organism: Any) -> list[str]:
         )
     )
 
-
 def core_runtime_fingerprint(organism: Any) -> list[str]:
     return list(
         organism.last_state.process.get(
@@ -208,51 +199,40 @@ def core_runtime_fingerprint(organism: Any) -> list[str]:
         )
     )
 
-
 def boundary_state(organism: Any) -> dict[str, Any]:
     return dict(organism.last_state.process.get("boundary_state", {}))
-
 
 def contradiction_state(organism: Any) -> dict[str, Any]:
     return dict(organism.last_state.process.get("contradictions", {}))
 
-
 def self_contract_state(organism: Any) -> dict[str, Any]:
     return dict(organism.last_state.process.get("self_contract", {}))
-
 
 def helix_channel_presence(organism: Any) -> dict[str, bool]:
     state = organism.last_state
     return {channel: isinstance(getattr(state, channel, None), dict) for channel in REQUIRED_HELIX_CHANNELS}
 
-
 def required_appendix_subset_present(codes: list[str]) -> bool:
     return set(REQUIRED_APPENDIX_CODES).issubset(set(codes))
-
 
 def boundary_surface_present(state: dict[str, Any]) -> bool:
     return set(REQUIRED_BOUNDARY_KEYS).issubset(set(state.keys()))
 
-
 def truth_lattice_present(truth_type: str) -> bool:
     return truth_type in TRUTH_LATTICE_FIELDS
-
 
 def core_fingerprint_present(fingerprint: list[str]) -> bool:
     return set(EXPECTED_CORE_RUNTIME_FINGERPRINT).issubset(set(fingerprint))
 
-
 def canonical_wave_title(assignments: list[dict[str, Any]]) -> str:
     first = assignments[0]
     return f"{first['domain']}::{first['workstream']}"
-
 
 def _parity_summary_usable(payload: dict[str, Any]) -> bool:
     if not payload:
         return False
     benchmarks = payload.get("benchmarks", {})
     return all(name in benchmarks for name, _aug in BENCHMARKS)
-
 
 def load_cached_parity_summary() -> dict[str, Any] | None:
     cache = load_json(PARITY_CACHE_PATH)
@@ -275,7 +255,6 @@ def load_cached_parity_summary() -> dict[str, Any] | None:
             return parity_summary
 
     return None
-
 
 def evaluate_parity() -> dict[str, Any]:
     cached = load_cached_parity_summary()
@@ -348,7 +327,6 @@ def evaluate_parity() -> dict[str, Any]:
     write_json(PARITY_CACHE_PATH, summary)
     return summary
 
-
 def build_crystal_summary(
     pair_counter: Counter[str],
     element_pair_counter: dict[str, Counter[str]],
@@ -384,7 +362,6 @@ def build_crystal_summary(
             "born_coordinate_candidate_count": born_coordinate_candidate_count,
         },
     }
-
 
 def build_layer_summary(wave_title: str, packet_results: list[dict[str, Any]], crystal_summary: dict[str, Any]) -> dict[str, Any]:
     non_scale = [item for item in packet_results if item["move"] != "Scale"]
@@ -449,7 +426,6 @@ def build_layer_summary(wave_title: str, packet_results: list[dict[str, Any]], c
         return {"kind": "crystal", **crystal_summary}
 
     return {"kind": "generic", "wave_title": wave_title}
-
 
 def execute_wave_packets(
     assignments: list[dict[str, Any]],
@@ -920,7 +896,6 @@ def execute_wave_packets(
     }
     return packet_results, replay_summary, crystal_summary, layer_summary
 
-
 def validate_owner_overlay(bundle: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
     wave_activation = bundle["wave_activation"]
     owner_summary = wave_activation["owner_summary"]
@@ -973,7 +948,6 @@ def validate_owner_overlay(bundle: dict[str, Any]) -> tuple[dict[str, Any], list
         "failing_gates": failures,
     }, failures
 
-
 def summarize_wave_entry(wave_entry: dict[str, Any], proof_json_path: Path | None = None, receipt_path: Path | None = None) -> dict[str, Any]:
     wave_activation = wave_entry.get("wave_activation", {})
     owner_proof = wave_entry.get("owner_proof", {})
@@ -1012,7 +986,6 @@ def summarize_wave_entry(wave_entry: dict[str, Any], proof_json_path: Path | Non
         "receipt": receipt_path.relative_to(WORKSPACE_ROOT).as_posix() if receipt_path else "",
     }
 
-
 def coerce_current_wave(existing_state: dict[str, Any]) -> dict[str, Any]:
     if not existing_state:
         return {}
@@ -1035,7 +1008,6 @@ def coerce_current_wave(existing_state: dict[str, Any]) -> dict[str, Any]:
             "restart_seed": existing_state.get("restart_seed", ""),
         }
     return {}
-
 
 def render_layer_summary_lines(layer_summary: dict[str, Any]) -> list[str]:
     kind = layer_summary.get("kind")
@@ -1082,7 +1054,6 @@ def render_layer_summary_lines(layer_summary: dict[str, Any]) -> list[str]:
         ]
 
     return []
-
 
 def render_wave_receipt(proof_report: dict[str, Any]) -> str:
     parity_summary = proof_report["parity_summary"]
@@ -1173,7 +1144,6 @@ def render_wave_receipt(proof_report: dict[str, Any]) -> str:
             f"- `{proof_report['restart_seed']}`",
         ]
     )
-
 
 def main() -> int:
     wave_id = sys.argv[1] if len(sys.argv) > 1 else CURRENT_WAVE_ID
@@ -1318,7 +1288,6 @@ def main() -> int:
 
     print(json.dumps(proof_report, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

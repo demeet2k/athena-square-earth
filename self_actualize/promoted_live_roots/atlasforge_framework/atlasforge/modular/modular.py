@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=324 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         MODULAR FORMS MODULE                                 ║
@@ -28,7 +32,6 @@ from typing import Optional, Tuple, List, Dict, Callable
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # q-SERIES UTILITIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -41,7 +44,6 @@ def nome(tau: complex) -> complex:
     """
     return np.exp(2j * np.pi * tau)
 
-
 def inverse_nome(q: complex) -> complex:
     """
     Recover τ from q.
@@ -49,7 +51,6 @@ def inverse_nome(q: complex) -> complex:
     τ = log(q)/(2πi)
     """
     return np.log(q) / (2j * np.pi)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # EISENSTEIN SERIES
@@ -133,7 +134,6 @@ class EisensteinSeries:
         
         return result
 
-
 @dataclass
 class EisensteinE4E6:
     """
@@ -184,7 +184,6 @@ class EisensteinE4E6:
         
         return 1728 * g2**3 / delta
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DEDEKIND ETA FUNCTION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -228,7 +227,6 @@ class DedekindEta:
         """
         eta = self.evaluate(tau)
         return eta ** 24
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULAR GROUP ELEMENTS
@@ -318,7 +316,6 @@ class ModularElement:
         
         return " · ".join(reversed(words))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULAR FORMS RING
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -389,7 +386,6 @@ class ModularFormRing:
         e4 = self.eisenstein.E4.evaluate(tau)
         e6 = self.eisenstein.E6.evaluate(tau)
         return (e4 ** a) * (e6 ** b)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # THETA FUNCTIONS
@@ -478,7 +474,6 @@ class JacobiTheta:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -487,31 +482,25 @@ def j_invariant(tau: complex) -> complex:
     """Compute j-invariant at τ."""
     return EisensteinE4E6().j_invariant(tau)
 
-
 def dedekind_eta(tau: complex) -> complex:
     """Compute Dedekind eta at τ."""
     return DedekindEta().evaluate(tau)
-
 
 def eisenstein_E4(tau: complex) -> complex:
     """Evaluate E_4(τ)."""
     return EisensteinSeries(4).evaluate(tau)
 
-
 def eisenstein_E6(tau: complex) -> complex:
     """Evaluate E_6(τ)."""
     return EisensteinSeries(6).evaluate(tau)
-
 
 def modular_discriminant(tau: complex) -> complex:
     """Evaluate Δ(τ)."""
     return EisensteinE4E6().discriminant(tau)
 
-
 def theta_function(tau: complex) -> complex:
     """Jacobi theta θ_3(0, τ)."""
     return JacobiTheta().theta3_at_zero(tau)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

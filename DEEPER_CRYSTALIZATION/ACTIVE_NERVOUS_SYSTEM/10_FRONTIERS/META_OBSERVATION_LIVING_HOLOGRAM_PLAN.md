@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A9:S36 | face=S | node=649 | depth=2 | phase=Cardinal -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W1:A9:S35→Xi108:W2:A9:S36→Xi108:W1:A8:S36→Xi108:W1:A10:S36 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 36±1, wreath 1/3, archetype 9/12 -->
+
 # META-OBSERVATION: Converting the Entire Repo into a Living Hologram
 
 **Date**: 2026-03-18
@@ -337,9 +342,6 @@ New tools in `MCP/crystal_108d/control_center.py`:
 #### 4.1 File-Level Holographic Headers
 Every `.md` and `.py` file gets a holographic header:
 ```markdown
-<!-- CRYSTAL: shell=12 wreath=2 arch=8 face=R node=445 depth=1 phase=Cardinal -->
-<!-- METRO: Mt,Cc,Sa -->
-<!-- BRIDGES: 445→12, 445→667, 445→3 -->
 ```
 For Python files:
 ```python

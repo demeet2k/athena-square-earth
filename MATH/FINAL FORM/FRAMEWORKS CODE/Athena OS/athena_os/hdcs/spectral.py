@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - HDCS: SPECTRAL PROCESSING
 =====================================
@@ -31,7 +35,6 @@ from enum import Enum, auto
 import numpy as np
 from scipy import fft, signal
 
-
 # =============================================================================
 # DOMAIN STATES
 # =============================================================================
@@ -43,7 +46,6 @@ class DomainState(Enum):
     FREQUENCY = "frequency"     # Momentum/energy basis
     TRANSITIONING = "transitioning"
 
-
 class FilterType(Enum):
     """Types of spectral filters."""
     
@@ -52,7 +54,6 @@ class FilterType(Enum):
     BAND_PASS = "band_pass"
     BAND_STOP = "band_stop"
     NOTCH = "notch"
-
 
 # =============================================================================
 # FOURIER TRANSFORM OPERATOR
@@ -182,7 +183,6 @@ class FourierOperator:
     def domain(self) -> DomainState:
         return self._domain
 
-
 # =============================================================================
 # SPECTRAL FILTER
 # =============================================================================
@@ -303,7 +303,6 @@ class SpectralFilter:
     def transfer_function(self) -> np.ndarray:
         return self._H.copy()
 
-
 # =============================================================================
 # SPECTRAL CLEANING
 # =============================================================================
@@ -423,7 +422,6 @@ class SpectralCleaner:
         
         return float(10 * np.log10(signal_power / noise_power))
 
-
 # =============================================================================
 # SPECTRAL CYCLE
 # =============================================================================
@@ -526,7 +524,6 @@ class SpectralCycle:
     def domain(self) -> DomainState:
         return self._domain
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -590,7 +587,6 @@ def validate_spectral() -> bool:
     assert "transition" in result
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Spectral Processing Module...")

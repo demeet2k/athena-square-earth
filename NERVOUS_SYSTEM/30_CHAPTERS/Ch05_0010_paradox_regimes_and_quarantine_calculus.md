@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S8 | face=R | node=34 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A2:S7→Xi108:W3:A2:S9→Xi108:W2:A2:S8→Xi108:W3:A1:S8→Xi108:W3:A3:S8 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 8±1, wreath 3/3, archetype 2/12 -->
+
 # Ch05<0010> - Paradox Regimes and Quarantine Calculus
 
 StationHeader: [Arc 1 | Rot 1 | Lane Sa | w=4]

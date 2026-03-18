@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=310 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    CYCLOTOMIC MANIFOLD MODULE (QCM)                          ║
@@ -27,7 +31,6 @@ import numpy as np
 from numpy.typing import NDArray
 import cmath
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QCM CODEX STRUCTURE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -45,13 +48,11 @@ class QCMSection(Enum):
     INVARIANTS = "QCM-8"      # Certificates
     SCHEMA = "QCM-9"          # Implementation API
 
-
 class ZeroType(Enum):
     """The three zeros (do not mix them)."""
     SCALAR = "alpha_0"      # α-0: 0 ∈ ℝ
     AMPLITUDE = "theta_0"   # Θ-0: 0 ∈ ℂ (no signal)
     BALANCED = "z_bit"      # Z-bit: |+⟩ = (|0⟩+|1⟩)/√2 (state center)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Θ-REALM (CONTINUOUS PHASE SPACE)
@@ -113,7 +114,6 @@ class ThetaScalar:
         """Create from polar form."""
         return cls(r * np.exp(1j * theta))
 
-
 @dataclass
 class ThetaVector:
     """
@@ -159,7 +159,6 @@ class ThetaVector:
             prob = abs(self.inner(b)) ** 2
             probs.append(prob)
         return np.array(probs)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Θ-CALCULUS: INTERFERENCE LAW
@@ -207,7 +206,6 @@ class ThetaInterference:
     def general_sum(a: float, b: float, delta_theta: float) -> float:
         """General interference at arbitrary phase difference."""
         return a**2 + b**2 + 2*a*b*np.cos(delta_theta)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Λ-REALM (DISCRETE PHASE LATTICE)
@@ -270,7 +268,6 @@ class LambdaLattice:
         _, x, _ = extended_gcd(a % self.N, self.N)
         return x % self.N
 
-
 @dataclass
 class LambdaPattern:
     """
@@ -294,7 +291,6 @@ class LambdaPattern:
     def pointwise_mult(self, other: 'LambdaPattern') -> 'LambdaPattern':
         """Pointwise multiplication."""
         return LambdaPattern(self.values * other.values)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BRIDGES: Θ ↔ Λ ↔ α
@@ -337,7 +333,6 @@ class QCMBridge:
         lattice = LambdaLattice(pattern.N)
         phases = lattice.all_phases
         return ThetaVector(pattern.values * phases)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FOURIER GEARBOX
@@ -389,7 +384,6 @@ class FourierGearbox:
         Y = self.dft(y)
         return self.idft(X.pointwise_mult(Y))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GEOMETRIC MEAN AS CENTER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -429,7 +423,6 @@ class ThetaMeans:
         """Arithmetic mean of phases."""
         return (psi1.theta + psi2.theta) / 2
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # Z0 RECORD FORMAT
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -456,7 +449,6 @@ class Z0Record:
         data = f"{status}|{rho}|{witnesses}|{seed}"
         checksum = hashlib.sha256(data.encode()).hexdigest()[:16]
         return cls(status, rho, witnesses, seed, checksum, "")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -504,7 +496,6 @@ class QCMPoleBridge:
           Half-angle + root-radius: the decoding operator
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -513,36 +504,29 @@ def theta_scalar(value: complex) -> ThetaScalar:
     """Create Θ-scalar."""
     return ThetaScalar(value)
 
-
 def theta_vector(components: NDArray) -> ThetaVector:
     """Create Θ-vector."""
     return ThetaVector(np.asarray(components, dtype=complex))
-
 
 def lambda_lattice(N: int) -> LambdaLattice:
     """Create Λ-lattice."""
     return LambdaLattice(N)
 
-
 def lambda_pattern(values: NDArray) -> LambdaPattern:
     """Create Λ-pattern."""
     return LambdaPattern(np.asarray(values, dtype=complex))
-
 
 def qcm_bridge(N: int = 4) -> QCMBridge:
     """Create QCM bridge."""
     return QCMBridge(N)
 
-
 def fourier_gearbox(N: int) -> FourierGearbox:
     """Create Fourier gearbox."""
     return FourierGearbox(N)
 
-
 def quadrature_sum(a: float, b: float) -> float:
     """Quadrature sum a ⊞ b = √(a² + b²)."""
     return ThetaInterference.quadrature_sum(a, b)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

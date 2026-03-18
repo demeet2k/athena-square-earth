@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S19 | face=R | node=179 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A2:S18→Xi108:W3:A2:S20→Xi108:W2:A2:S19→Xi108:W3:A1:S19→Xi108:W3:A3:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 2/12 -->
+
 # NEXT57 Compatibility Mirror Refresh
 
 - Generated at: `2026-03-13T16:44:23.131237-07:00`

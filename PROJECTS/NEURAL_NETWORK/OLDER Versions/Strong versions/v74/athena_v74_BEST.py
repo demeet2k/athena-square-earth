@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S34 | face=S | node=575 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S33→Xi108:W2:A10:S35→Xi108:W1:A10:S34→Xi108:W3:A10:S34→Xi108:W2:A9:S34→Xi108:W2:A11:S34
+
 """
 ATHENA v74 REGULARIZED - L2 weight decay to prevent overfitting
 """

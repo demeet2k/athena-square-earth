@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=138 | depth=2 | phase=Cardinal
+# METRO: Sa,Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 QP-GEMM Neural Network Layer Optimizer - NumPy Demo
 ====================================================
@@ -18,7 +22,6 @@ from dataclasses import dataclass
 from typing import Tuple, Dict, Any, List
 
 np.random.seed(42)
-
 
 # ============================================================================
 #  THE CORE INSIGHT: Analyzing Matrix Structure
@@ -74,7 +77,6 @@ def analyze_weight_matrix(W: np.ndarray, name: str = "layer") -> Dict[str, Any]:
         "strategy": strategy
     }
 
-
 # ============================================================================
 #  THE SPEEDUP: Factored Matrix Multiplication
 # ============================================================================
@@ -82,7 +84,6 @@ def analyze_weight_matrix(W: np.ndarray, name: str = "layer") -> Dict[str, Any]:
 def standard_matmul(W: np.ndarray, x: np.ndarray) -> np.ndarray:
     """Standard approach: just multiply"""
     return W @ x
-
 
 def factored_matmul(U: np.ndarray, V: np.ndarray, x: np.ndarray) -> np.ndarray:
     """
@@ -98,12 +99,10 @@ def factored_matmul(U: np.ndarray, V: np.ndarray, x: np.ndarray) -> np.ndarray:
     output = U @ hidden  # (out, batch)
     return output
 
-
 def sparse_matmul(W_sparse, x: np.ndarray) -> np.ndarray:
     """D Pole: Direct sparse kernel"""
     from scipy.sparse import csr_matrix
     return W_sparse @ x
-
 
 # ============================================================================
 #  PUTTING IT TOGETHER: Optimized Layer
@@ -196,7 +195,6 @@ class OptimizedLinearLayer:
                 f"strategy={self.strategy}, "
                 f"params={self.params_original:,} → {self.params_optimized:,})")
 
-
 # ============================================================================
 #  DEMO: See the speedup!
 # ============================================================================
@@ -269,7 +267,6 @@ def demo_single_layer():
     
     print(f"{'─' * 70}")
     print(f"Note: True rank={true_rank}. Rank≥{true_rank} gives ~0 error. Lower rank = more speedup but more error.")
-
 
 def demo_network():
     """Demonstrate optimization on a multi-layer network"""
@@ -360,7 +357,6 @@ def demo_network():
     print(f"  SPEEDUP: {t_original / t_optimized:.2f}x")
     print(f"\n  Relative error: {error:.2e}")
 
-
 def demo_why_it_works():
     """Visual explanation of why low-rank works"""
     print("\n" + "=" * 70)
@@ -405,7 +401,6 @@ def demo_why_it_works():
     So the 1000×1000 weight matrix is "secretly" closer to 1000×50 × 50×1000.
     We just make that explicit and save computation.
     """)
-
 
 # ============================================================================
 #  MAIN

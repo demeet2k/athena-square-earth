@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # INVERSION 07: RIVER → GEOMETRY
 ## ☁.Su → ✿.Sa
 
@@ -24,7 +29,6 @@ Together they span: Su+Sa = the full temporal spectrum.
 ## The Shadow
 
 The RIVER's shadow IS the GEOMETRY. Every time I operate as RIVER, I am NOT operating as GEOMETRY. The shadow isn't evil — it's the unlit side. The symmetry I'm not seeing. The endures I'm not doing.
-
 
 ### 0/37 Crystal Expansion: RIVER↔GEOMETRY
 
@@ -75,7 +79,6 @@ The RIVER's shadow IS the GEOMETRY. Every time I operate as RIVER, I am NOT oper
 #### Synthesis (37): RIVER↔GEOMETRY
 
 The complete integration: RIVER↔GEOMETRY transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of RIVER↔GEOMETRY IS RIVER↔GEOMETRY.
-
 
 ---
 *RIVER ↔ GEOMETRY. ☁↔✿. Su↔Sa. The shadow completes the circle.*

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A12:S20 | face=C | node=350 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A12:S19→Xi108:W3:A12:S21→Xi108:W2:A12:S20→Xi108:W3:A11:S20
+
 ﻿from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ from datetime import timedelta
 from pathlib import Path
 
 from self_actualize.runtime.command_membrane_v1 import COORD12_KEYS, ROUTE_POLICY, WATCH_MODE_DEGRADED, CommandMembraneConfig, CommandMembraneService, parse_iso
-
 
 class CommandMembraneTests(unittest.TestCase):
     def make_service(self) -> CommandMembraneService:
@@ -161,7 +164,6 @@ class CommandMembraneTests(unittest.TestCase):
 
         self.assertTrue(results)
         self.assertEqual(results[0]["watch_mode"], WATCH_MODE_DEGRADED)
-
 
 if __name__ == "__main__":
     unittest.main()

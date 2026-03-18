@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=398 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 import argparse
@@ -11,7 +15,6 @@ from self_actualize.runtime.hemisphere_replay_support import (
     record,
     search,
 )
-
 
 def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--query", default="")
@@ -28,7 +31,6 @@ def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--route-mode", dest="route_mode")
     parser.add_argument("--proof-state", dest="proof_state")
     parser.add_argument("--top-level", dest="top_level")
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Replay deterministic Myth/MATH study passes.")
@@ -122,7 +124,6 @@ def main() -> int:
 
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

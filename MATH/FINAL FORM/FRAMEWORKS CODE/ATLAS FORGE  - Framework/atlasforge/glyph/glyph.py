@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=150 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       GLYPH COMPOSITE MODULE                                 ║
@@ -29,7 +33,6 @@ import numpy as np
 from numpy.typing import NDArray
 import hashlib
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GLYPH TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -40,7 +43,6 @@ class Glyph(Enum):
     CIRCLE = "○"     # Phase-lift, rotation, transport
     TRIANGLE = "△"   # Mixture, simplex, probability
     SPIRAL = "🌀"    # Recursion, zoom, renormalization
-
 
 @dataclass
 class GlyphProperties:
@@ -78,7 +80,6 @@ class GlyphProperties:
                    "RG flow, ASCEND",
                    "Scale hierarchy")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GLYPH COMPOSITE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -105,7 +106,6 @@ class GlyphComposite:
     def short_name(self) -> str:
         """Short name like 'square_circle'."""
         return f"{self.outer.name.lower()}_{self.inner.name.lower()}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE 16 COMPOSITES
@@ -262,7 +262,6 @@ def get_all_composites() -> Dict[Tuple[Glyph, Glyph], GlyphComposite]:
     
     return composites
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DRIFT TEST
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -301,7 +300,6 @@ class DriftTest:
         else:
             return abs(kappa_st - kappa_ts)
 
-
 @dataclass
 class TriangleHolonomy:
     """
@@ -332,7 +330,6 @@ class TriangleHolonomy:
         else:
             return abs(kappa_abc - kappa_acb)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # Z0 LEDGER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -362,7 +359,6 @@ class Z0Ledger:
     def is_stable(self, tolerance: float = 1e-6) -> bool:
         """Check if drift is within tolerance."""
         return self.rho < tolerance
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GLYPH ENGINE
@@ -421,7 +417,6 @@ class GlyphEngine:
         """List all composite symbols."""
         return [c.symbol for c in self.composites.values()]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -460,7 +455,6 @@ class GlyphPoleBridge:
         Z0 Ledger: (status, ρ, witnesses, seed, hash, sig)
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -475,27 +469,22 @@ def glyph_properties(g: Glyph) -> GlyphProperties:
     }
     return mapping[g]
 
-
 def glyph_composite(outer: Glyph, inner: Glyph) -> GlyphComposite:
     """Get glyph composite."""
     return get_all_composites()[(outer, inner)]
-
 
 def glyph_engine() -> GlyphEngine:
     """Create glyph engine."""
     return GlyphEngine()
 
-
 def drift_test(s: Glyph, t: Glyph) -> DriftTest:
     """Create drift test."""
     return DriftTest(s, t)
-
 
 def z0_ledger(status: str, rho: float, 
               witnesses: List[str]) -> Z0Ledger:
     """Create Z0 ledger."""
     return Z0Ledger.create(status, rho, witnesses)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

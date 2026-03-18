@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=128 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - Zero-Point Computing
 ================================
@@ -44,7 +48,6 @@ import random
 
 from .void import ZeroPoint, System, MetaphysicalVoid, VoidWorldInterface
 
-
 # =============================================================================
 # ACTION TYPES
 # =============================================================================
@@ -59,7 +62,6 @@ class ActionType(Enum):
     OBSERVE = "observe"          # Gather information
     REST = "rest"                # Maintain current state
 
-
 @dataclass
 class Action:
     """An action the agent can take."""
@@ -72,7 +74,6 @@ class Action:
     def is_zero_aligned(self) -> bool:
         """Check if action moves toward zero."""
         return self.action_type in [ActionType.RETURN, ActionType.INTEGRATE, ActionType.REST]
-
 
 # =============================================================================
 # INTERNAL STATE
@@ -118,7 +119,6 @@ class InternalState:
             prior_center=list(self.prior_center),
             prior_variance=self.prior_variance
         )
-
 
 # =============================================================================
 # POLICY
@@ -190,7 +190,6 @@ class ZeroPointPolicy:
         probs = [(self.action_probability(state, a), a) for a in available_actions]
         return max(probs, key=lambda x: x[0])[1]
 
-
 # =============================================================================
 # UPDATE MAP
 # =============================================================================
@@ -248,7 +247,6 @@ class UpdateMap:
         new_state.symmetry_level = 1.0 / (1.0 + new_state.markedness)
         
         return new_state
-
 
 # =============================================================================
 # ZERO-POINT AGENT
@@ -412,7 +410,6 @@ class ZeroPointAgent:
             "expressive_capacity": self.expressive_capacity()
         }
 
-
 # =============================================================================
 # SON OF THE VOID FACTORY
 # =============================================================================
@@ -434,7 +431,6 @@ def create_son_of_void(dim: int = 3,
         update_map=UpdateMap(),
         zero_point=ZeroPoint(coordinates=[0.0] * dim)
     )
-
 
 # =============================================================================
 # VALIDATION
@@ -480,7 +476,6 @@ def validate_agent() -> bool:
     assert len(agent.state_history) == 10
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zero-Point Agent Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                     REPRESENTATION THEORY MODULE                             ║
@@ -28,7 +32,6 @@ from typing import Optional, Tuple, List, Dict, Callable, Set
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FINITE GROUP
@@ -143,7 +146,6 @@ class FiniteGroup:
         identity = str(tuple(range(n)))
         return cls(elements, mult, identity)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GROUP REPRESENTATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -250,7 +252,6 @@ class Representation:
         
         return cls(group, matrices, n)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CHARACTER TABLE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -336,7 +337,6 @@ class CharacterTable:
         
         return cls(group, irreps)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SCHUR-WEYL DUALITY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -411,7 +411,6 @@ class SchurWeylDecomposition:
                 denom *= self.hook_length(partition, i, j)
         
         return factorial(self.n) // denom
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # OA6 REPRESENTATION
@@ -520,7 +519,6 @@ class OA6Representation:
             "sign_ab": 1
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -529,11 +527,9 @@ def cyclic_group(n: int) -> FiniteGroup:
     """Create cyclic group Z_n."""
     return FiniteGroup.cyclic(n)
 
-
 def klein_four_group() -> FiniteGroup:
     """Create Klein four-group."""
     return FiniteGroup.klein_four()
-
 
 def character_table(group: FiniteGroup) -> NDArray[np.complex128]:
     """Compute character table."""
@@ -543,17 +539,14 @@ def character_table(group: FiniteGroup) -> NDArray[np.complex128]:
         return CharacterTable.for_cyclic_group(group.order).table
     raise NotImplementedError("Only small abelian groups supported")
 
-
 def regular_representation(group: FiniteGroup) -> Representation:
     """Regular representation of group."""
     return Representation.regular(group)
-
 
 def decompose_representation(rep: Representation, 
                             char_table: CharacterTable) -> Dict[int, int]:
     """Decompose representation into irreducibles."""
     return char_table.decompose(rep)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

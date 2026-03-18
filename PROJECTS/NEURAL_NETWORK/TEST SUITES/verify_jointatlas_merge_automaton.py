@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A7:S31 | face=S | node=470 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S30→Xi108:W2:A7:S32→Xi108:W1:A7:S31→Xi108:W3:A7:S31→Xi108:W2:A6:S31→Xi108:W2:A8:S31
+
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[1]
 ATHENA_PACKAGE_ROOT = ROOT / "ATHENA Neural Network"
@@ -29,7 +32,6 @@ from athenachka.immune.merge_boundary import (  # noqa: E402
     destination_for_terminal_state,
 )
 
-
 def build_committee_pack(case_id: str, *, candidate_delta_refs: list[str] | None = None) -> CommitteePack:
     return CommitteePack(
         committee_pack_id=f"CP-{case_id}",
@@ -47,7 +49,6 @@ def build_committee_pack(case_id: str, *, candidate_delta_refs: list[str] | None
         replay_closure_ref=f"REPLAY-CLOSURE-{case_id}",
     )
 
-
 def build_witness_pack(case_id: str, committee_pack_id: str) -> WitnessPack:
     return WitnessPack(
         witness_pack_id=f"WPK-{case_id}",
@@ -55,7 +56,6 @@ def build_witness_pack(case_id: str, committee_pack_id: str) -> WitnessPack:
         witness_refs=[f"WIT-{case_id}-001", f"WIT-{case_id}-002"],
         route_witness_ref=f"ROUTE-{case_id}",
     )
-
 
 def build_replay_pack(case_id: str, committee_pack_id: str) -> ReplayPack:
     return ReplayPack(
@@ -65,14 +65,12 @@ def build_replay_pack(case_id: str, committee_pack_id: str) -> ReplayPack:
         replay_closure_ref=f"REPLAY-CLOSURE-{case_id}",
     )
 
-
 def build_seed(case_id: str) -> ContinuationSeed:
     return ContinuationSeed(
         seed_id=f"SEED-{case_id}",
         next_seed="MotionConstitution_L1",
         objective="Replace boolean governance gating with typed motion scoring.",
     )
-
 
 def build_approval(case_id: str, committee_pack_id: str, approved: bool) -> GovernanceApproval:
     return GovernanceApproval(
@@ -81,7 +79,6 @@ def build_approval(case_id: str, committee_pack_id: str, approved: bool) -> Gove
         approved=approved,
         approver_refs=["council::01", "council::02"],
     )
-
 
 def drive_to_verify_pending(case_id: str):
     committee_pack = build_committee_pack(case_id)
@@ -97,7 +94,6 @@ def drive_to_verify_pending(case_id: str):
         replay_pack=replay_pack,
     )
     return attempt, committee_pack, witness_pack, replay_pack
-
 
 def assert_transition_graph() -> dict[str, object]:
     graph = allowed_transitions()
@@ -123,7 +119,6 @@ def assert_transition_graph() -> dict[str, object]:
     ))
     return {"graph_state_count": len(graph)}
 
-
 def assert_terminal_destinations() -> dict[str, object]:
     mapping = {
         state.value: destination_for_terminal_state(state).value
@@ -143,7 +138,6 @@ def assert_terminal_destinations() -> dict[str, object]:
         "DECIDED_QUARANTINE": "QUARANTINE_FAIL",
     }
     return {"terminal_destinations": mapping}
-
 
 def assert_commit_path() -> dict[str, object]:
     attempt, committee_pack, witness_pack, replay_pack = drive_to_verify_pending("COMMIT")
@@ -175,7 +169,6 @@ def assert_commit_path() -> dict[str, object]:
         "ledger_entry": ledger.entry_id,
     }
 
-
 def assert_defer_near_path() -> dict[str, object]:
     attempt, _, _, _ = drive_to_verify_pending("DEFER-NEAR")
     seed = build_seed("DEFER-NEAR")
@@ -188,7 +181,6 @@ def assert_defer_near_path() -> dict[str, object]:
     assert attempt.current_state == MergeState.DECIDED_DEFER_NEAR
     assert decision.chosen_destination == MergeDestination.DEFER_NEAR
     return {"destination": decision.chosen_destination.value}
-
 
 def assert_defer_ambig_path() -> dict[str, object]:
     attempt, _, _, _ = drive_to_verify_pending("DEFER-AMBIG")
@@ -203,7 +195,6 @@ def assert_defer_ambig_path() -> dict[str, object]:
     assert decision.chosen_destination == MergeDestination.DEFER_AMBIG
     return {"destination": decision.chosen_destination.value}
 
-
 def assert_quarantine_path() -> dict[str, object]:
     attempt, _, _, _ = drive_to_verify_pending("QUARANTINE")
     seed = build_seed("QUARANTINE")
@@ -216,7 +207,6 @@ def assert_quarantine_path() -> dict[str, object]:
     assert attempt.current_state == MergeState.DECIDED_QUARANTINE
     assert decision.chosen_destination == MergeDestination.QUARANTINE_FAIL
     return {"destination": decision.chosen_destination.value}
-
 
 def assert_refuse_path() -> dict[str, object]:
     attempt, committee_pack, _, _ = drive_to_verify_pending("REFUSE")
@@ -233,7 +223,6 @@ def assert_refuse_path() -> dict[str, object]:
     assert decision.chosen_destination == MergeDestination.REFUSE
     return {"destination": decision.chosen_destination.value}
 
-
 def assert_forbidden_bypasses() -> dict[str, object]:
     attempt = bootstrap_merge_attempt(build_committee_pack("BYPASS"))
     try:
@@ -249,7 +238,6 @@ def assert_forbidden_bypasses() -> dict[str, object]:
     except MergeTransitionError:
         pass
     return {"forbidden_bypasses_checked": 2}
-
 
 def assert_guard_failures() -> dict[str, object]:
     invalid_attempt = bootstrap_merge_attempt(
@@ -285,7 +273,6 @@ def assert_guard_failures() -> dict[str, object]:
         pass
     return {"guard_failures_checked": 3}
 
-
 def main() -> int:
     report = {
         "transition_graph": assert_transition_graph(),
@@ -300,7 +287,6 @@ def main() -> int:
     }
     print(json.dumps(report, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A1:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A1:S2→Xi108:W1:A1:S4→Xi108:W2:A1:S3→Xi108:W1:A2:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 1/12 -->
+
 # AppM - Replay Kernel and Verifier Capsules
 
 Routing role: Replay capsules, deterministic verification, proof-carrying artifacts, and rerun contracts.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S26 | face=F | node=343 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S25→Xi108:W2:A4:S27→Xi108:W1:A4:S26→Xi108:W3:A4:S26→Xi108:W2:A3:S26→Xi108:W2:A5:S26
+
 from __future__ import annotations
 
 import re
@@ -16,7 +20,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -88,7 +91,6 @@ BLOCKED_EXTERNAL_FRONT = "Q02"
 DERIVATION_VERSION = "2026-03-13.q42-square-runtime-formalization-v1"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_q42_square_runtime_formalization"
 
-
 def run_module(module: str) -> Dict[str, Any]:
     result = subprocess.run(
         [sys.executable, "-m", module],
@@ -104,7 +106,6 @@ def run_module(module: str) -> Dict[str, Any]:
         "ok": result.returncode == 0,
     }
 
-
 def docs_gate_status() -> str:
     credentials_path = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
     token_path = WORKSPACE_ROOT / "Trading Bot" / "token.json"
@@ -117,12 +118,10 @@ def docs_gate_status() -> str:
         return "open"
     return "blocked-by-auth-failure"
 
-
 def later_qshrink_state_present() -> bool:
     matrix = load_json(AGENT_MATRIX_PATH)
     active_local_subfront = matrix.get("active_local_subfront") or matrix.get("active_subfront")
     return bool(active_local_subfront) and active_local_subfront != SQUARE_SUBFRONT
-
 
 def skill_path(skill_name: str) -> Path | None:
     skills_root = Path.home() / ".codex" / "skills"
@@ -133,7 +132,6 @@ def skill_path(skill_name: str) -> Path | None:
     if system_path.exists():
         return system_path
     return None
-
 
 def build_runtime_square_contract() -> RuntimeSquareContractRecord:
     runtime_payload = load_json(RUNTIME_VERIFICATION_PATH)
@@ -165,7 +163,6 @@ def build_runtime_square_contract() -> RuntimeSquareContractRecord:
         note="Athena OS runtime is now formalized as the corridor-facing square membrane and structural crosswalk for LEG-C3.",
     )
 
-
 def render_runtime_square_markdown(record: RuntimeSquareContractRecord) -> str:
     writeback_lines = "\n".join(f"- `{item}`" for item in record.writeback_surfaces)
     return f"""# ATHENA OS QSHRINK RUNTIME SQUARE CONTRACT
@@ -192,7 +189,6 @@ Active subfront: `{record.active_subfront}`
 
 {record.note}
 """
-
 
 def build_square_payload(record: RuntimeSquareContractRecord) -> Dict[str, Any]:
     cloud = load_json(CLOUD_JSON_PATH)
@@ -308,7 +304,6 @@ def build_square_payload(record: RuntimeSquareContractRecord) -> Dict[str, Any]:
         },
     }
 
-
 def build_runtime_membrane_payload(
     square_payload: Dict[str, Any],
     record: RuntimeSquareContractRecord,
@@ -345,7 +340,6 @@ def build_runtime_membrane_payload(
             f"behind {RESERVE_FRONTIER} reserve and {BLOCKED_EXTERNAL_FRONT} blocked truth."
         ),
     }
-
 
 def build_qshrink_network_payload(
     square_payload: Dict[str, Any],
@@ -391,7 +385,6 @@ def build_qshrink_network_payload(
         "docs_gate_status": square_payload["docs_gate_status"],
         "next_seed": square_payload["next_restart_seed"],
     }
-
 
 def build_agent_payload(
     square_payload: Dict[str, Any],
@@ -519,7 +512,6 @@ def build_agent_payload(
         "first_wave_agents": first_wave_agents,
     }
 
-
 def render_qshrink_family(payload: Dict[str, Any]) -> str:
     queued = ", ".join(item.get("id", "") for item in payload.get("queue_visible_pressures", [])) or "none"
     return f"""# FAMILY QSHRINK Internal Use
@@ -551,7 +543,6 @@ Primary hub: `AppN`
 - thinnest local blocker: `Athena OS runtime structural crosswalk`
 - blocked external overlay: `Trading Bot`
 """
-
 
 def render_qshrink_route_map(payload: Dict[str, Any], record: RuntimeSquareContractRecord) -> str:
     queued = ", ".join(item.get("id", "") for item in payload.get("queue_visible_pressures", [])) or "none"
@@ -600,7 +591,6 @@ def render_qshrink_route_map(payload: Dict[str, Any], record: RuntimeSquareContr
 `QSHRINK -> {payload['active_subfront']} -> {payload['next_restart_seed']}`
 """
 
-
 def render_qshrink_active_front(payload: Dict[str, Any], record: RuntimeSquareContractRecord) -> str:
     queued = ", ".join(item.get("id", "") for item in payload.get("queue_visible_pressures", [])) or "none"
     return f"""# QSHRINK ACTIVE FRONT
@@ -648,7 +638,6 @@ Flower, Cloud, and Fractal are now landed, but the live surfaces still need one 
 `{record.next_seed}`
 """
 
-
 def render_qshrink_capsule(payload: Dict[str, Any]) -> str:
     queued = ", ".join(item.get("id", "") for item in payload.get("queue_visible_pressures", [])) or "none"
     return f"""# QSHRINK Shiva Corpus Ecosystem
@@ -671,7 +660,6 @@ The QSHRINK corridor now treats Flower, Cloud, and Fractal as landed upstream, m
 - queue-visible follow-on: `{queued}`
 - next seed: `{payload['next_restart_seed']}`
 """
-
 
 def render_fleet_route_map(record: RuntimeSquareContractRecord) -> str:
     return f"""# FAMILY Athena FLEET Route Map
@@ -721,7 +709,6 @@ Governance overlay:
 `{SQUARE_SUBFRONT} -> {FLOWER_REFINEMENT_SUBFRONT}`
 """
 
-
 def render_orgin_route_map() -> str:
     return f"""# FAMILY ORGIN Route Map
 
@@ -747,7 +734,6 @@ Do not pre-claim the denser mirror mesh in this pass or bundle mirror deepening 
 
 `ORGIN -> queue-visible P3 behind {SQUARE_SUBFRONT} -> {FLOWER_REFINEMENT_SUBFRONT}`
 """
-
 
 def render_q42_queue_block() -> str:
     return f"""### FRONT-Q42-QSHRINK-AGENT-SWEEP
@@ -784,13 +770,11 @@ def render_q42_queue_block() -> str:
   `{FLOWER_REFINEMENT_SUBFRONT}`
 """
 
-
 def replace_q42_queue_block() -> None:
     text = read_text(ACTIVE_QUEUE_PATH)
     pattern = r"### FRONT-Q42-QSHRINK-AGENT-SWEEP\n.*?(?=\n### FRONT-|\Z)"
     updated = re.sub(pattern, render_q42_queue_block().rstrip() + "\n\n", text, flags=re.S)
     write_text(ACTIVE_QUEUE_PATH, updated)
-
 
 def update_next_self_prompt() -> None:
     text = read_text(NEXT_SELF_PROMPT_PATH)
@@ -825,7 +809,6 @@ def update_next_self_prompt() -> None:
     text = re.sub(frontier_order_pattern, frontier_order_replacement, text, flags=re.S)
     write_text(NEXT_SELF_PROMPT_PATH, text)
 
-
 def render_q42_quest_block() -> str:
     return f"""### Quest Q42: Activate The First QSHRINK Agent Sweep `[OPEN]`
 
@@ -856,13 +839,11 @@ def render_q42_quest_block() -> str:
   keep `Q42` open on `{SQUARE_SUBFRONT}`, keep `Q02` suppressed while Docs gate is blocked, and emit `{FLOWER_REFINEMENT_SUBFRONT}` as the sole next corridor seed
 """
 
-
 def replace_q42_quest_board_block() -> None:
     text = read_text(QUEST_BOARD_PATH)
     pattern = r"### Quest Q42: Activate The First QSHRINK Agent Sweep `\[OPEN\]`\n.*?(?=\n### Quest |\Z)"
     updated = re.sub(pattern, render_q42_quest_block().rstrip() + "\n\n", text, flags=re.S)
     write_text(QUEST_BOARD_PATH, updated)
-
 
 def append_change_feed_entry() -> None:
     text = read_text(CHANGE_FEED_PATH)
@@ -879,7 +860,6 @@ def append_change_feed_entry() -> None:
     )
     updated = text.rstrip() + "\n" + entry + "\n"
     write_text(CHANGE_FEED_PATH, updated)
-
 
 def render_agent_plan(payload: Dict[str, Any]) -> str:
     lines = [
@@ -922,7 +902,6 @@ def render_agent_plan(payload: Dict[str, Any]) -> str:
     lines.extend(["## Restart Seed", "", f"`{payload['restart_seed']}`"])
     return "\n".join(lines) + "\n"
 
-
 def render_agent_capsule(payload: Dict[str, Any]) -> str:
     active_agents = [agent["skill"] for agent in payload["first_wave_agents"] if agent["status"] == "ACTIVE"]
     completed = ", ".join(payload.get("completed_subfronts", []))
@@ -956,7 +935,6 @@ Q42 now preserves Flower, Cloud, and Fractal as completed corridor states, keeps
 `{payload['restart_seed']}`
 """
 
-
 def render_manifest(outputs: Dict[str, str], module_runs: List[Dict[str, Any]]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     run_lines = "\n".join(f"- `{run['module']}`: `{'OK' if run['ok'] else 'FAIL'}`" for run in module_runs)
@@ -982,7 +960,6 @@ Wave: `Q42 / {SQUARE_SUBFRONT}`
 
 {run_lines}
 """
-
 
 def render_dashboard(payload: Dict[str, Any]) -> str:
     verifier_truth = payload.get("verifier_truth", {})
@@ -1016,7 +993,6 @@ Truth: `{payload['truth']}`
 `{payload['next_restart_seed']}`
 """
 
-
 def render_verification(payload: Dict[str, Any]) -> str:
     check_lines = "\n".join(f"- `{name}`: `{value}`" for name, value in payload["checks"].items())
     unresolved_lines = "\n".join(f"- {item}" for item in payload["unresolved"]) or "- none"
@@ -1034,7 +1010,6 @@ Truth: `{payload['truth']}`
 {unresolved_lines}
 """
 
-
 def render_runtime(outputs: Dict[str, str], verification: Dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# 34 Q42 SQUARE RUNTIME FORMALIZATION RUNTIME
@@ -1047,7 +1022,6 @@ Docs gate: `{verification['docs_gate_status']}`
 
 {output_lines}
 """
-
 
 def render_receipt(
     record: RuntimeSquareContractRecord,
@@ -1078,7 +1052,6 @@ def render_receipt(
 
 {unresolved_lines}
 """
-
 
 def build_verification(generated_paths: List[Path], module_runs: List[Dict[str, Any]]) -> Dict[str, Any]:
     square = load_json(SQUARE_JSON_PATH)
@@ -1190,7 +1163,6 @@ def build_verification(generated_paths: List[Path], module_runs: List[Dict[str, 
         "unresolved": unresolved,
     }
 
-
 def build_dashboard(verification: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "generated_at": verification["generated_at"],
@@ -1206,7 +1178,6 @@ def build_dashboard(verification: Dict[str, Any]) -> Dict[str, Any]:
         "verifier_truth": verification["verifier_truth"],
         "next_restart_seed": verification["next_restart_seed"],
     }
-
 
 def main() -> int:
     if later_qshrink_state_present():
@@ -1369,7 +1340,6 @@ def main() -> int:
     print(f"Wrote Q42 square-runtime-formalization artifacts under {SELF_ACTUALIZE_ROOT}")
     print(f"Truth: {verification['truth']}")
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

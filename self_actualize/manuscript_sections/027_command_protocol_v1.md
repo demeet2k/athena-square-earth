@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S30 | face=F | node=447 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Cc -->
+<!-- BRIDGES: Xi108:W3:A10:S29→Xi108:W3:A10:S31→Xi108:W2:A10:S30→Xi108:W3:A9:S30→Xi108:W3:A11:S30 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 30±1, wreath 3/3, archetype 10/12 -->
+
 # Command Protocol v1
 
 Command Protocol v1 turns `GLOBAL COMMAND` into a sensory membrane that detects change, packetizes it, routes it selectively, claims it lawfully, and reinforces low-latency useful paths until communication edges become capillaries.

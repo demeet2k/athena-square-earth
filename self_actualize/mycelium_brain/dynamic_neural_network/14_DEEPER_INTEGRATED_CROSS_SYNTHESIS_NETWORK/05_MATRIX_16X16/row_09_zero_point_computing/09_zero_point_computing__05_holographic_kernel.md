@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S23 | face=R | node=265 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Ω,✶ -->
+<!-- BRIDGES: Xi108:W3:A1:S22→Xi108:W3:A1:S24→Xi108:W2:A1:S23→Xi108:W3:A2:S23 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 23±1, wreath 3/3, archetype 1/12 -->
+
 # Zero-Point Computing -> The Holographic Kernel
 
 ## Neutral synthesis

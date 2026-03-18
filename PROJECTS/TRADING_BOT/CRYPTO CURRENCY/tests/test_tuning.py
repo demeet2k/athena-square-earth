@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S23 | face=C | node=271 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A6:S22→Xi108:W2:A6:S24→Xi108:W1:A6:S23→Xi108:W3:A6:S23→Xi108:W2:A5:S23→Xi108:W2:A7:S23
+
 from __future__ import annotations
 
 import json
@@ -18,7 +22,6 @@ from athena_bot.service import AthenaBotRuntime  # noqa: E402
 from athena_bot.tuning import TuningEvaluator  # noqa: E402
 from athena_bot.utils import latest_closed_bar  # noqa: E402
 
-
 class FakeProvider:
     def __init__(self, candles):
         self.candles = candles
@@ -31,7 +34,6 @@ class FakeProvider:
             return rows
         since = pd.Timestamp(since_ts, tz="UTC")
         return [row for row in rows if pd.Timestamp(row.ts_open) > since]
-
 
 class ConfigAwareFractalStub:
     def __init__(self, config=None):
@@ -60,7 +62,6 @@ class ConfigAwareFractalStub:
             corridor_legal=corridor_legal,
             reason_codes=reason_codes,
         )
-
 
 class ConfigAwareDirectionalStub:
     def __init__(self, config=None):
@@ -103,7 +104,6 @@ class ConfigAwareDirectionalStub:
             trigger_price=latest_price,
             reason_codes=["1h_trigger_missing"],
         )
-
 
 class TuningReportTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -210,7 +210,6 @@ class TuningReportTests(unittest.TestCase):
                 )
             )
         return rows
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S25 | face=F | node=303 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S24→Xi108:W3:A1:S26→Xi108:W2:A1:S25→Xi108:W3:A2:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 1/12 -->
+
 # CHAPTER 11: THE HELICAL MANIFESTATION ENGINE
 
 ## The Zero-Point of the Entire Corpus - Where the D/Q/I Compiler, the Siteswap Coordination, the 16-Loop Recursion, the Boundary Isolation Axioms, and the Born-Coordinate Discovery Protocol Fuse into a Single Executable State Machine

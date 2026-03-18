@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=134 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 ATHENA OS - KERNEL MODULE
 =========================
@@ -157,7 +161,6 @@ from .cas import (
     validate_cas,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -176,14 +179,12 @@ def validate_kernel() -> bool:
     
     return True
 
-
 # =============================================================================
 # CONVENIENCE ALIASES
 # =============================================================================
 
 # Instruction builder shortcut
 I = InstructionBuilder
-
 
 # =============================================================================
 # KERNEL FACTORY
@@ -207,7 +208,6 @@ def create_athena_kernel() -> Dict[str, Any]:
         "aegis": AegisSystem(),
         "cas": ComplexAdaptiveSystem(),
     }
-
 
 def get_kernel_summary() -> Dict[str, Any]:
     """Get kernel module summary."""
@@ -239,7 +239,6 @@ def get_kernel_summary() -> Dict[str, Any]:
             "stefan_boltzmann": "P_rad = ε×σ×A×(T⁴ - T_a⁴)"
         }
     }
-
 
 # =============================================================================
 # EXPORTS
@@ -292,7 +291,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "kernel"
-
 
 if __name__ == "__main__":
     print("=" * 60)

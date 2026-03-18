@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=153 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - ZOROASTRIAN: FRASHOKERETI MODULE
 =============================================
@@ -40,7 +44,6 @@ import numpy as np
 
 from .soul_stack import ZoroastrianSoul, Daena
 
-
 # =============================================================================
 # JUDGMENT OUTCOMES
 # =============================================================================
@@ -51,7 +54,6 @@ class JudgmentOutcome(Enum):
     GARONMANA = "garonmana"       # House of Song (Heaven)
     HAMISTAGAN = "hamistagan"     # Limbo (V = 0)
     DRUJO_DEMANA = "drujo_demana" # House of Lies (Hell)
-
 
 # =============================================================================
 # CHINVAT BRIDGE
@@ -146,7 +148,6 @@ class ChinvatBridge:
     @property
     def outcome_counts(self) -> Dict[str, int]:
         return {k.value: v for k, v in self._outcomes.items()}
-
 
 # =============================================================================
 # MOLTEN METAL TEST
@@ -257,7 +258,6 @@ class MoltenMetalTest:
             "purification_rate": self._purified / max(1, self._tests_performed)
         }
 
-
 # =============================================================================
 # HAMISTAGAN (LIMBO)
 # =============================================================================
@@ -318,7 +318,6 @@ class Hamistagan:
     def residents(self) -> List[str]:
         return self._residents.copy()
 
-
 # =============================================================================
 # GARONMANA (HOUSE OF SONG)
 # =============================================================================
@@ -368,7 +367,6 @@ class Garonmana:
     @property
     def n_residents(self) -> int:
         return len(self._residents)
-
 
 # =============================================================================
 # FRASHOKERETI ENGINE
@@ -523,7 +521,6 @@ class FrashokertiEngine:
     def is_complete(self) -> bool:
         return self._completed
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -628,7 +625,6 @@ def validate_frashokereti() -> bool:
     assert engine2.is_complete
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zoroastrian Frashokereti Module...")

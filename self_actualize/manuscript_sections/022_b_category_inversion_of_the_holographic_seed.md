@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S28 | face=F | node=396 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,w,✶ -->
+<!-- BRIDGES: Xi108:W3:A1:S27→Xi108:W3:A1:S29→Xi108:W2:A1:S28→Xi108:W3:A2:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 1/12 -->
+
 # B: Seed-Level Inverse Of The Holographic Seed
 
 ## B.Identity

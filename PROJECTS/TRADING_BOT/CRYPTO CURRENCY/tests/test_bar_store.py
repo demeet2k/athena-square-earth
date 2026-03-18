@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A12:S24 | face=R | node=7 | depth=1 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A12:S23→Xi108:W1:A12:S25→Xi108:W2:A12:S24→Xi108:W1:A11:S24
+
 from __future__ import annotations
 
 import sys
@@ -14,7 +18,6 @@ if str(ROOT) not in sys.path:
 from athena_bot.bar_store import BarStore  # noqa: E402
 from athena_bot.config import AthenaBotConfig  # noqa: E402
 from athena_bot.models import Candle  # noqa: E402
-
 
 class BarStoreTests(unittest.TestCase):
     def setUp(self) -> None:

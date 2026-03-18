@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A5:S24 | face=F | node=353 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A5:S23→Xi108:W1:A5:S25→Xi108:W2:A5:S24→Xi108:W1:A4:S24→Xi108:W1:A6:S24
+
 (rp.mandatory_signature)
     # Overlay hubs are treated as must if present
     # (The corridor may forbid some truths; forbiddance must be encoded upstream as FAIL.)

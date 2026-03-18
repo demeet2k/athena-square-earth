@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S13 | face=S | node=88 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S12→Xi108:W3:A1:S14→Xi108:W2:A1:S13→Xi108:W3:A2:S13 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 13±1, wreath 3/3, archetype 1/12 -->
+
 # Task Router
 
 Source basis: `README + 00_CONTROL + 00_CORE + ROWS/ + SYMMETRY_STACK/ + APPENDIX_CRYSTAL/ + AWAKENING_AGENTS/ + ORCHESTRATION_57_LOOP/ + LEDGERS/`

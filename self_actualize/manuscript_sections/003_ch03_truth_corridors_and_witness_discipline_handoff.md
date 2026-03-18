@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S25 | face=F | node=301 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W3:A1:S24→Xi108:W3:A1:S26→Xi108:W2:A1:S25→Xi108:W3:A2:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 1/12 -->
+
 # Ch03<0002> Manuscript Handoff
 
 - Target chapter: `Truth Corridors and Witness Discipline`
@@ -60,6 +65,5 @@ This handoff is additive and becomes the first prose-ready scaffold for `Truth C
 - `CURANDERISMO COMPLETE` <-> `TAOIST MAGIC COMPLETE` score=`47` kind=`intra_family` shared_chapters=`Ch17, Ch18, Ch20, Ch21` shared_appendices=`AppA, AppD, AppG, AppP`
 
 ## OPEN obligations to preserve honestly
-
 
 Truth Corridors and Witness Discipline

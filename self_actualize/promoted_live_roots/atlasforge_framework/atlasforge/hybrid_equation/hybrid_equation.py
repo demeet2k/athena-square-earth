@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=366 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    HYBRID EQUATION GENERATOR MODULE                          ║
@@ -27,7 +31,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # OPERATOR POLES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -39,7 +42,6 @@ class OperatorPole(Enum):
     SIGMA = "stochastic" # Fire: random, noise, MCMC
     PSI = "recursive"    # Air: renormalization, multigrid, hierarchical
 
-
 class HybridPattern(Enum):
     """Canonical hybrid shortcut patterns."""
     RELAX_PROJECT = "relax_project"       # Continuous relax → discrete project
@@ -49,7 +51,6 @@ class HybridPattern(Enum):
     DIFFUSION_SAMPLE = "diffusion_sample" # Diffusion → sample
     MULTIGRID = "multigrid"               # Coarse-fine recursion
     HIERARCHICAL_MCMC = "hierarchical_mcmc" # Multi-level MCMC
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BASE OPERATORS
@@ -94,7 +95,6 @@ class DiscreteOperator:
         """Create from Markov transition matrix."""
         return cls(P, "transition")
 
-
 @dataclass
 class ContinuousOperator:
     """
@@ -138,7 +138,6 @@ class ContinuousOperator:
             return grad
         return cls(apply_grad, "gradient", "parabolic")
 
-
 @dataclass
 class StochasticOperator:
     """
@@ -173,7 +172,6 @@ class StochasticOperator:
     def metropolis_proposal(cls, step_size: float) -> 'StochasticOperator':
         """Metropolis random walk proposal."""
         return cls(step_size, "metropolis")
-
 
 @dataclass
 class RecursiveOperator:
@@ -226,7 +224,6 @@ class RecursiveOperator:
             return result
         
         return cls(coarsen, refine, "simple_mg")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID GENERATORS
@@ -318,7 +315,6 @@ class HybridGenerator:
             }
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID SHORTCUT PATTERNS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -348,7 +344,6 @@ class RelaxProjectPattern:
         
         return x
 
-
 @dataclass
 class FlowPrunePattern:
     """
@@ -374,7 +369,6 @@ class FlowPrunePattern:
         
         return x
 
-
 @dataclass
 class PredictCorrectPattern:
     """
@@ -390,7 +384,6 @@ class PredictCorrectPattern:
         x_pred = self.predictor(x)
         x_corr = self.corrector(x, x_pred)
         return x_corr
-
 
 @dataclass
 class SpectralCombinatorialBridge:
@@ -417,7 +410,6 @@ class SpectralCombinatorialBridge:
             V = eigenvectors[:, 1:k+1]
             _, labels = kmeans2(V, k, minit='++')
             return labels
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # OPERATOR SIMPLEX
@@ -481,7 +473,6 @@ class OperatorSimplex:
         poles = list(OperatorPole)
         return {pole: b for pole, b in zip(poles, bary)}
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID EVOLUTION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -520,7 +511,6 @@ class HybridEvolution:
             trajectory.append(u.copy())
         
         return trajectory
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -580,7 +570,6 @@ class HybridEquationPoleBridge:
           spectral-combinatorial, diffusion-sample, multigrid
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -589,21 +578,17 @@ def discrete_operator(matrix: NDArray) -> DiscreteOperator:
     """Create discrete operator."""
     return DiscreteOperator(matrix)
 
-
 def graph_laplacian(adjacency: NDArray) -> DiscreteOperator:
     """Create graph Laplacian."""
     return DiscreteOperator.graph_laplacian(adjacency)
-
 
 def stochastic_operator(noise_scale: float = 1.0) -> StochasticOperator:
     """Create stochastic operator."""
     return StochasticOperator(noise_scale)
 
-
 def recursive_operator() -> RecursiveOperator:
     """Create recursive operator."""
     return RecursiveOperator.simple_restriction()
-
 
 def hybrid_generator(D: DiscreteOperator = None,
                      Omega: ContinuousOperator = None,
@@ -612,11 +597,9 @@ def hybrid_generator(D: DiscreteOperator = None,
     """Create hybrid generator."""
     return HybridGenerator(D, Omega, Sigma, Psi)
 
-
 def operator_simplex() -> OperatorSimplex:
     """Create operator simplex."""
     return OperatorSimplex()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

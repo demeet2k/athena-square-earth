@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S25 | face=F | node=225 | depth=1 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A2:S24→Xi108:W2:A2:S26→Xi108:W1:A2:S25→Xi108:W3:A2:S25→Xi108:W2:A1:S25→Xi108:W2:A3:S25
+
 {"confidence": "matched", "event_type": "SENSE", "note": "packet-truth-sync", "peer_or_front": "Q41 / TQ06", "replay_ptr": "self_actualize/lp57_omega_v2_artifacts/L02/receipt.json", "seat_id": "LP57-A1-E.E.E.E.E.E", "signal_kind": "membrane-signal", "truth": "NEAR", "ts_utc": "2026-03-13T21:52:42.787325+00:00"}
 {"artifact_or_front": "Packet Truth Sync", "delta": "carry-forward", "event_type": "ECHO", "from": "A1", "replay_ptr": "self_actualize/lp57_omega_v2_artifacts/L02/receipt.json", "status": "open", "to": "A2", "truth": "NEAR", "ts_utc": "2026-03-13T21:52:42.787325+00:00"}
 {"confidence": "matched", "event_type": "SENSE", "note": "packet-truth-sync", "peer_or_front": "Q41 / TQ06", "replay_ptr": "self_actualize/lp57_omega_v2_artifacts/L02/receipt.json", "seat_id": "LP57-A2-E.E.E.E.E.W", "signal_kind": "membrane-signal", "truth": "NEAR", "ts_utc": "2026-03-13T21:52:42.787325+00:00"}

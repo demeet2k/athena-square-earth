@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=306 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -12,7 +16,6 @@ from derive_hsigma_mapping_hologram import (
     aggregate_bundle_state,
     ensure_hsigma_artifacts,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -84,31 +87,24 @@ NORSE_WORLDS = [
     "Svartalfheim", "Niflheim", "Muspelheim", "Helheim",
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
 
 def local_now() -> datetime:
     return datetime.now(TIMEZONE)
 
-
 def docs_blocked() -> bool:
     return not CREDENTIALS_PATH.exists() or not TOKEN_PATH.exists()
 
-
 def next_hour_boundary(now: datetime) -> datetime:
     return now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
-
 
 def next_two_hour_boundary(now: datetime) -> datetime:
     base = now.replace(minute=0, second=0, microsecond=0)
     return base + timedelta(hours=(2 - (now.hour % 2)) % 2 or 2)
 
-
 def next_midnight(now: datetime) -> datetime:
     return (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-
 
 def next_watch_boundary(now: datetime) -> datetime:
     if now.hour < 6:
@@ -117,41 +113,32 @@ def next_watch_boundary(now: datetime) -> datetime:
         return now.replace(hour=18, minute=0, second=0, microsecond=0)
     return (now + timedelta(days=1)).replace(hour=6, minute=0, second=0, microsecond=0)
 
-
 def transition_text(dt: datetime) -> str:
     return dt.strftime("%Y-%m-%d %H:%M:%S %Z")
-
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def json_string(value: object) -> str:
     return value if isinstance(value, str) else json.dumps(value, sort_keys=True)
-
 
 def shared12_descriptor(index: int) -> str:
     seat, element, modality = WESTERN_SEATS[index % 12]
     return f"S{index + 1:02d} / {seat} / {element} / {modality}"
 
-
 def variant_indexes(index: int) -> dict[str, int]:
     return {name: (index + offset) % 12 for name, offset in VARIANT_OFFSETS.items()}
-
 
 def variant_bundle(index: int) -> dict[str, str]:
     return {name: shared12_descriptor(value) for name, value in variant_indexes(index).items()}
 
-
 def role_vector(synth: int, planner: int, worker: int, pruner: int) -> dict[str, int]:
     return {"Synthesizer": synth, "Planner": planner, "Worker": worker, "Pruner": pruner}
-
 
 def lane_state_payload(system_id: str) -> dict[str, object]:
     if system_id in ACTIVE_ANCHOR_IDS:
@@ -160,14 +147,11 @@ def lane_state_payload(system_id: str) -> dict[str, object]:
         return {"lane_state": "ACTIVE_ROTATION", "rotation_group": "cultural", "active_master_role_count": 4, "activation_gate": "pre-G4 active cultural lane", "unserved_lane_age": ACTIVE_ROTATION_ORDER.index(system_id)}
     return {"lane_state": "COMPILED_SHADOW", "rotation_group": "cultural", "active_master_role_count": 0, "activation_gate": "compiled shadow until promotion gate", "unserved_lane_age": ACTIVE_ROTATION_ORDER.index(system_id)}
 
-
 def speed_class(system_id: str) -> str:
     return "fast" if system_id in FAST_LANE_IDS else "slow"
 
-
 def liminal_tag(system_id: str, now: datetime, seat_index: int, lane_state: str) -> str:
     return f"LIMINAL::{system_id.upper()}::{lane_state}::S{seat_index + 1:02d}::{now.strftime('%Y%m%dT%H%M%S%z')}"
-
 
 def spawn_envelope_seed(system_id: str, lane_state: str, active_count: int, seat_index: int, native_gate: str) -> dict[str, object]:
     return {
@@ -181,10 +165,8 @@ def spawn_envelope_seed(system_id: str, lane_state: str, active_count: int, seat
         "writeback_targets": ["Hall", "Temple", "Queue", "Manifest", "Restart"],
     }
 
-
 def resolution_band(*layers: str) -> dict[str, object]:
     return {"native_ladder": list(layers), "cross_resolution_ladder": ["hour", "watch", "day", "month", "year", "precession", "GreatYear"]}
-
 
 def long_wave_context(now: datetime) -> dict[str, object]:
     return {
@@ -193,7 +175,6 @@ def long_wave_context(now: datetime) -> dict[str, object]:
         "great_year_turn": ((now.year - 1) % 25920) + 1,
         "truth": "structural surrogate only",
     }
-
 
 def decorate_packet(now: datetime, packet: dict[str, object], seat_index: int, lane_flavor: str, role_weights: dict[str, int], projection_witness: str, resolution: dict[str, object]) -> tuple[dict[str, object], dict[str, int]]:
     system_id = str(packet["system_id"])
@@ -218,7 +199,6 @@ def decorate_packet(now: datetime, packet: dict[str, object], seat_index: int, l
     packet["unserved_lane_age"] = state["unserved_lane_age"]
     return packet, variant_indexes(seat_index)
 
-
 def western_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     seat_index = now.hour % 12
     seat, element, modality = WESTERN_SEATS[seat_index]
@@ -228,7 +208,6 @@ def western_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dic
     item = {"title": "Western Solar12 Packet", "owner": "astro-western-wheel", "path": LEDGER_ROOT / "western_solar12_packet.md", "packet": {"system_id": "western_solar12", "clock_mode": "hourly structural zodiac wheel", "native_cycle": "Solar12 / 4x3 archetype wheel", "current_gate": f"{seat} / {element} / {modality}", "next_transition": transition_text(next_hour_boundary(now)), "action_bias": bias, "cautions": "Structural scheduler only; not live ephemeris. Docs gate remains blocked." if blocked else "Structural scheduler only; not live ephemeris.", "suggested_frontier": frontier, "handoff_target": handoff, "blocker_truth": "BLOCKED" if blocked else "OPEN", "seat": seat, "element": element, "modality": modality, "witness": f"Derived from local hour {now.hour:02d} in America/Los_Angeles using the fixed Solar12 seat order."}}
     item["packet"], variants = decorate_packet(now, item["packet"], seat_index, "Hourly 12-seat executive archetype wheel with modality-weighted spawn emphasis.", weights[modality], f"Native Solar12 seat {seat} projects directly onto {shared12_descriptor(seat_index)}.", resolution_band("hour", "day", "month", "year", "precession", "GreatYear"))
     return item, variants
-
 
 def planetary_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     weekday_ruler = WEEKDAY_RULERS[now.weekday()]
@@ -242,7 +221,6 @@ def planetary_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], d
     item["packet"], variants = decorate_packet(now, item["packet"], seat_index, "Hourly septenary governance lane with a traditional shared-12 rulership adapter.", weights[hour_ruler], f"Hour ruler {hour_ruler} maps through the traditional rulership adapter onto {shared12_descriptor(seat_index)}.", resolution_band("hour", "weekday", "month", "year", "precession", "GreatYear"))
     return item, variants
 
-
 def chinese_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     gate_index = ((now.hour + 1) // 2) % 12
     stem, animal, element = DOUBLE_HOUR_GATES[gate_index]
@@ -253,7 +231,6 @@ def chinese_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dic
     item = {"title": "Chinese Cycle Packet", "owner": "astro-chinese-cycle", "path": LEDGER_ROOT / "chinese_cycle_packet.md", "packet": {"system_id": "chinese_cycle", "clock_mode": "two-hour Chinese double-hour lane", "native_cycle": "Wu Xing + DoubleHour + Chinese60", "current_gate": f"{stem} / {animal} / {element}", "next_transition": transition_text(next_two_hour_boundary(now)), "action_bias": bias, "cautions": "Structural double-hour and sexagenary surrogates only; not a live almanac feed. Docs gate remains blocked." if blocked else "Structural double-hour and sexagenary surrogates only; not a live almanac feed.", "suggested_frontier": frontier, "handoff_target": handoff, "blocker_truth": "BLOCKED" if blocked else "OPEN", "double_hour_gate": f"{stem} / {animal}", "wu_xing_bias": element, "sexagenary_overlay": f"Chinese60 structural index {overlay:02d}", "witness": f"Derived from local time {now.strftime('%H:%M')} using the fixed 12-gate double-hour cycle and day ordinal modulo 60."}}
     item["packet"], variants = decorate_packet(now, item["packet"], gate_index, "Two-hour center/stability/transition lane using branch, element, and sexagenary support.", weights[element], f"Chinese double-hour gate {animal} projects directly onto {shared12_descriptor(gate_index)}.", resolution_band("double-hour", "day", "month", "year", "60-cycle", "GreatYear"))
     return item, variants
-
 
 def vedic_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     gate27 = (now.date().toordinal() % 27) + 1
@@ -271,7 +248,6 @@ def vedic_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[
     item["packet"], variants = decorate_packet(now, item["packet"], seat_index, "Daily law-body and long-wave refinement lane projected from Lunar27/28/18 into the shared 12-seat ring.", weights, f"Lunar27 gate {gate27:02d} projects evenly into {shared12_descriptor(seat_index)}.", resolution_band("day", "lunar month", "season", "year", "precession", "GreatYear"))
     return item, variants
 
-
 def mayan_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     tzolkin = (now.date().toordinal() % 260) + 1
     haab = (now.timetuple().tm_yday % 365) + 1
@@ -284,7 +260,6 @@ def mayan_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[
     item["packet"], variants = decorate_packet(now, item["packet"], seat_index, "Daily growth-sequence and pattern-completion lane combining Tzolkin and Haab into one shared archetype seat.", weights[mode], f"Tzolkin {tzolkin:03d} and Haab {haab:03d} combine into {shared12_descriptor(seat_index)}.", resolution_band("day", "month", "year", "260-count", "365-count", "GreatYear"))
     return item, variants
 
-
 def decan_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     watch_phase = "day watch" if 6 <= now.hour < 18 else "night watch"
     decan = ((now.date().toordinal() * 2) + (0 if watch_phase == "day watch" else 1)) % 36 + 1
@@ -296,7 +271,6 @@ def decan_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[
     item = {"title": "Decan Office Packet", "owner": "astro-decan-office", "path": LEDGER_ROOT / "decan_office_packet.md", "packet": {"system_id": "decan_office", "clock_mode": "12-hour decan office", "native_cycle": "Decan36 / night-watch / MUL.APIN", "current_gate": f"Decan36 gate {decan:02d} / {watch_phase}", "next_transition": transition_text(next_watch_boundary(now)), "action_bias": bias, "cautions": "Structural decan and watch cadence only; not live stellar ephemeris. Docs gate remains blocked." if blocked else "Structural decan and watch cadence only; not live stellar ephemeris.", "suggested_frontier": frontier, "handoff_target": handoff, "blocker_truth": "BLOCKED" if blocked else "OPEN", "watch_phase": watch_phase, "decan_gate": f"{decan:02d}", "mesopotamian_bias": "MUL.APIN structural watch lane", "witness": f"Derived from the local half-day watch at {now.strftime('%H:%M')} using a structural Decan36 counter."}}
     item["packet"], variants = decorate_packet(now, item["packet"], seat_index, "Twelve-hour threshold/watch/guard lane using Decan36 projected into 12 shared houses.", weights, f"Decan36 gate {decan:02d} projects in 3-decan groups onto {shared12_descriptor(seat_index)}.", resolution_band("watch", "day", "month", "year", "precession", "GreatYear"))
     return item, variants
-
 
 def egyptian_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     duat_gate = (now.hour % 12) + 1
@@ -339,7 +313,6 @@ def egyptian_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], di
     item["packet"], variants = decorate_packet(now, item["packet"], duat_gate - 1, "Compiled Duat/becoming/judgment lane with Ma'at filtering and Decan36 support.", weights[phase], f"Duat12 gate {duat_gate:02d} projects directly onto {shared12_descriptor(duat_gate - 1)} while Decan36 stays as support detail.", resolution_band("hour", "watch", "day", "month", "year", "GreatYear"))
     return item, variants
 
-
 def norse_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[str, int]]:
     rune_index = now.date().toordinal() % 24
     house_index = rune_index // 2
@@ -377,7 +350,6 @@ def norse_packet(now: datetime, blocked: bool) -> tuple[dict[str, object], dict[
     item["packet"], variants = decorate_packet(now, item["packet"], house_index, "Compiled fate-route lane pairing Rune24 with House12 and a 9-world Yggdrasil routing overlay.", weights[tier], f"Rune24 gate {rune_index + 1:02d} pairs into House12 gate {house_index + 1:02d}, yielding {shared12_descriptor(house_index)}.", resolution_band("day", "season", "year", "Rune24", "Yggdrasil9", "GreatYear"))
     return item, variants
 
-
 def compute_avatar_triggers(now: datetime, packets: list[dict[str, object]]) -> list[dict[str, object]]:
     seat_map: dict[int, list[dict[str, object]]] = defaultdict(list)
     for item in packets:
@@ -403,7 +375,6 @@ def compute_avatar_triggers(now: datetime, packets: list[dict[str, object]]) -> 
         })
     return triggers
 
-
 def attach_nexus_scores(packets: list[dict[str, object]], triggers: list[dict[str, object]]) -> None:
     seat_counts: Counter[int] = Counter()
     for item in packets:
@@ -416,7 +387,6 @@ def attach_nexus_scores(packets: list[dict[str, object]], triggers: list[dict[st
         if packet["shared12_seat"] in triggered:
             score += 3
         packet["nexus_score"] = score
-
 
 def attach_hsigma_overlay(packets: list[dict[str, object]], hsigma_bundle: dict[str, object]) -> None:
     save_state = hsigma_bundle["save_state"]
@@ -434,7 +404,6 @@ def attach_hsigma_overlay(packets: list[dict[str, object]], hsigma_bundle: dict[
         if not overlay["contradictory"]:
             packet["nexus_score"] = int(packet["nexus_score"]) + round(float(overlay["weight"]) / 20)
 
-
 def render_packet_markdown(title: str, owner: str, packet: dict[str, object], generated_at: str) -> str:
     lines = [f"# {title}", "", "Status: `FRESH STRUCTURAL DERIVATION`", f"Packet owner: `{owner}`", f"Generated at: `{generated_at}`", ""]
     field_order = ["system_id", "clock_mode", "native_cycle", "current_gate", "next_transition", "action_bias", "cautions", "suggested_frontier", "handoff_target", "blocker_truth"]
@@ -447,7 +416,6 @@ def render_packet_markdown(title: str, owner: str, packet: dict[str, object], ge
         if field in packet:
             lines.append(f"- `{field}`: `{json_string(packet[field])}`")
     return "\n".join(lines)
-
 
 def render_receipt(now: datetime, blocked: bool, packets: list[dict[str, object]], receipt_path: Path, triggers: list[dict[str, object]]) -> str:
     counts = Counter(item["packet"]["suggested_frontier"] for item in packets)
@@ -481,7 +449,6 @@ def render_receipt(now: datetime, blocked: bool, packets: list[dict[str, object]
         lines.append("- no current avatar trigger met the `>=3 lanes with fast+slow mix` threshold")
     lines.extend(["", "## Convergence", "", f"- frontier counts: `{', '.join(f'{key} x{value}' for key, value in counts.most_common())}`", f"- hsigma witness: `{HSIGMA_WITNESS_PATH.relative_to(WORKSPACE_ROOT).as_posix()}`", "", "## Artifacts", "", f"- registry read: `{REGISTRY_PATH.relative_to(WORKSPACE_ROOT).as_posix()}`", f"- packet summary: `{JSON_OUTPUT_PATH.relative_to(WORKSPACE_ROOT).as_posix()}`", f"- packet index: `{PACKET_INDEX_PATH.relative_to(WORKSPACE_ROOT).as_posix()}`", f"- receipt: `{receipt_path.relative_to(WORKSPACE_ROOT).as_posix()}`", "", "## Honesty", "", "- This pass used structural calendar rules only.", "- No live astronomical ephemeris or live Google Docs data was queried.", f"- Docs gate witness remained at `{DOCS_GATE_PATH.relative_to(WORKSPACE_ROOT).as_posix()}` and stayed blocked."])
     return "\n".join(lines)
-
 
 def render_registry_markdown(now: datetime, blocked: bool, packets: list[dict[str, object]]) -> str:
     lines = [
@@ -557,7 +524,6 @@ def render_registry_markdown(now: datetime, blocked: bool, packets: list[dict[st
     ])
     return "\n".join(lines)
 
-
 def render_packet_index(now: datetime, receipt_path: Path, packets: list[dict[str, object]]) -> str:
     lines = [
         "# Astrological Scheduler Packet Index",
@@ -587,10 +553,8 @@ def render_packet_index(now: datetime, receipt_path: Path, packets: list[dict[st
     ])
     return "\n".join(lines)
 
-
 def lane_registry_rows(packets: list[dict[str, object]]) -> list[dict[str, object]]:
     return [{"system_id": item["packet"]["system_id"], "owner": item["owner"], "clock_mode": item["packet"]["clock_mode"], "native_cycle": item["packet"]["native_cycle"], "lane_state": item["packet"]["lane_state"], "rotation_group": item["packet"]["rotation_group"], "speed_class": item["packet"]["speed_class"], "active_master_role_count": item["packet"]["active_master_role_count"], "shared12_seat": item["packet"]["shared12_seat"], "next_transition": item["packet"]["next_transition"], "nexus_score": item["packet"]["nexus_score"], "unserved_lane_age": item["packet"]["unserved_lane_age"], "packet_path": str(item["path"])} for item in packets]
-
 
 def g4_rotation_candidates(packets: list[dict[str, object]]) -> list[dict[str, object]]:
     cultural = [item["packet"] for item in packets if item["packet"]["rotation_group"] == "cultural"]
@@ -613,7 +577,6 @@ def g4_rotation_candidates(packets: list[dict[str, object]]) -> list[dict[str, o
         }
         for packet in ordered
     ]
-
 
 def main() -> int:
     now = local_now()
@@ -665,7 +628,6 @@ def main() -> int:
         print(f"Wrote packet: {item['path']}")
     print(f"Wrote receipt: {receipt_path}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

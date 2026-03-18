@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      HOMOLOGICAL ALGEBRA MODULE                              ║
@@ -27,7 +31,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Dict, Callable
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CHAIN COMPLEX
@@ -137,7 +140,6 @@ class ChainComplex:
         
         return cls(dims, boundary_matrices)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EXACT SEQUENCE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -199,7 +201,6 @@ class ExactSequence:
         
         return int(ker_g_dim - im_f_dim)
 
-
 @dataclass
 class ShortExactSequence:
     """
@@ -253,7 +254,6 @@ class ShortExactSequence:
         Find retraction r: B → A with r ∘ f = id_A.
         """
         return np.linalg.pinv(self.f)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SIMPLICIAL HOMOLOGY
@@ -339,7 +339,6 @@ class SimplicialComplex:
         """Compute all homology groups (Betti numbers)."""
         return self.chain_complex().betti_numbers()
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DERIVED FUNCTORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -376,7 +375,6 @@ class ExtFunctor:
                 basis.append(E)
         return basis
 
-
 @dataclass
 class TorFunctor:
     """
@@ -395,7 +393,6 @@ class TorFunctor:
         if n == 0:
             return dim_A * dim_B  # dim(A ⊗ B)
         return 0
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID STATE HOMOLOGY
@@ -461,7 +458,6 @@ class HybridStateComplex:
             3: "3D cavities (tetrahedral holes)"
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -471,26 +467,21 @@ def chain_complex(dims: List[int],
     """Create chain complex."""
     return ChainComplex(dims, differentials)
 
-
 def simplicial_complex(*faces) -> SimplicialComplex:
     """Create simplicial complex from maximal faces."""
     return SimplicialComplex.from_faces(list(faces))
-
 
 def betti_numbers(complex: ChainComplex) -> List[int]:
     """Compute Betti numbers."""
     return complex.betti_numbers()
 
-
 def euler_characteristic(complex: ChainComplex) -> int:
     """Compute Euler characteristic."""
     return complex.euler_characteristic()
 
-
 def is_exact(sequence: ExactSequence) -> bool:
     """Check if sequence is exact."""
     return sequence.is_exact()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

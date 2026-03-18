@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=87 | depth=2 | phase=Cardinal
+# METRO: Ac,Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        ATLAS FORGE - Pole Archetypes                          ║
@@ -26,9 +30,7 @@ import math
 from atlasforge.core.enums import Pole, Element
 from atlasforge.core.base import AtlasObject, register_type
 
-
 T = TypeVar('T')
-
 
 class Archetype(ABC):
     """
@@ -117,7 +119,6 @@ class Archetype(ABC):
         adj1, adj2 = self.adjacent
         return adj1, f"Rotate 90° into {adj1.__name__} archetype"
 
-
 @dataclass
 class Fire(Archetype):
     """
@@ -188,7 +189,6 @@ class Fire(Archetype):
     def pulse(self, state: float, frequency: float = 1.0) -> float:
         """Apply pulsed energy injection."""
         return state + self.intensity * math.sin(frequency * state)
-
 
 @dataclass
 class Air(Archetype):
@@ -267,7 +267,6 @@ class Air(Archetype):
         diff = target - current
         step = diff * self.connectivity * 0.1
         return current + step
-
 
 @dataclass
 class Water(Archetype):
@@ -355,7 +354,6 @@ class Water(Archetype):
         u = (seed % 10000) / 10000.0
         # Box-Muller approximation
         return mean + std * math.sqrt(-2 * math.log(max(u, 1e-10))) * math.cos(2 * math.pi * u)
-
 
 @dataclass
 class Earth(Archetype):
@@ -449,7 +447,6 @@ class Earth(Archetype):
     def renormalize(self, state: float, scale: float) -> float:
         """Apply scale transformation (renormalization)."""
         return state * (scale ** self.compression)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROTATION ENGINE
@@ -551,7 +548,6 @@ class RotationEngine:
             self.rotate_counterclockwise()
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ARCHETYPE REGISTRY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -570,11 +566,9 @@ POLE_TO_ARCHETYPE: Dict[Pole, Type[Archetype]] = {
     Pole.PSI: Earth,
 }
 
-
 def get_archetype(element: Element) -> Archetype:
     """Get an archetype instance by element."""
     return ARCHETYPE_MAP[element]()
-
 
 def get_archetype_for_pole(pole: Pole) -> Archetype:
     """Get an archetype instance by pole."""

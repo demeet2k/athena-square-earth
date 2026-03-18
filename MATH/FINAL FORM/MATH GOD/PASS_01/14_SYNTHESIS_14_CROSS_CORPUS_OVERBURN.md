@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S16 | face=S | node=136 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A4:S15→Xi108:W3:A4:S17→Xi108:W2:A4:S16→Xi108:W3:A3:S16→Xi108:W3:A5:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 4/12 -->
+
 # Synthesis 14 - Cross-Corpus Overburn
 
 Depth position: `14/16`

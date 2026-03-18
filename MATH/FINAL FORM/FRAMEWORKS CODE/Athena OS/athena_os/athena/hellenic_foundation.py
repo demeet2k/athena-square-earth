@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - HELLENIC COMPUTATION FRAMEWORK
 ==========================================
@@ -37,7 +41,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set, Callable, Any
 from enum import Enum, auto
 import math
-
 
 # =============================================================================
 # 2-BIT STATE SPACE V = Z₂ × Z₂
@@ -90,7 +93,6 @@ class BitPair:
         """C operation: flip both bits."""
         return BitPair(self.b1 ^ 1, self.b2 ^ 1)
 
-
 # The four canonical states
 V_00 = BitPair(0, 0)  # Earth, Black Bile, Unlimited, Material
 V_01 = BitPair(0, 1)  # Water, Phlegm, Limit, Formal
@@ -98,7 +100,6 @@ V_10 = BitPair(1, 0)  # Fire, Yellow Bile, Mixture, Efficient
 V_11 = BitPair(1, 1)  # Air, Blood, Cause, Final
 
 STATE_SPACE = {V_00, V_01, V_10, V_11}
-
 
 # =============================================================================
 # KLEIN-4 GROUP K₄
@@ -114,7 +115,6 @@ class K4Operation(Enum):
     R = auto()  # Flip second bit (moisture axis)
     S = auto()  # Flip first bit (thermal axis)
     C = auto()  # Flip both bits (full crisis)
-
 
 @dataclass(frozen=True)
 class Klein4Element:
@@ -182,7 +182,6 @@ class Klein4Element:
             K4Operation.C: "Full inversion (crisis/phase transition)"
         }[self.op]
 
-
 # Canonical K₄ elements
 K4_I = Klein4Element(K4Operation.I)
 K4_R = Klein4Element(K4Operation.R)
@@ -190,7 +189,6 @@ K4_S = Klein4Element(K4Operation.S)
 K4_C = Klein4Element(K4Operation.C)
 
 KLEIN4_GROUP = {K4_I, K4_R, K4_S, K4_C}
-
 
 class Klein4Group:
     """
@@ -241,7 +239,6 @@ class Klein4Group:
         """Compute stabilizer of state."""
         return {g for g in self.elements if g(state) == state}
 
-
 # =============================================================================
 # UNIVERSAL TETRAD ENCODING
 # =============================================================================
@@ -254,7 +251,6 @@ class TetradSystem(Enum):
     CAUSES = auto()
     STOIC_CONTROL = auto()
     K4_OPERATIONS = auto()
-
 
 @dataclass
 class TetradMapping:
@@ -272,7 +268,6 @@ class TetradMapping:
             if v == value:
                 return bp
         raise ValueError(f"Unknown value: {value}")
-
 
 # The canonical encodings from the manuscript
 ELEMENT_ENCODING = TetradMapping(
@@ -311,7 +306,6 @@ ALL_ENCODINGS = [
     CAUSE_ENCODING, STOIC_ENCODING, K4_ENCODING
 ]
 
-
 class UniversalTetradEncoder:
     """
     Universal encoder/decoder for all Greek tetrads.
@@ -347,7 +341,6 @@ class UniversalTetradEncoder:
             "Platonic Kinds": ("b₁: Simple(0)/Composite(1)", "b₂: Passive(0)/Active(1)"),
             "Causes": ("b₁: Internal(0)/External(1)", "b₂: Structural(0)/Telic(1)")
         }
-
 
 # =============================================================================
 # 4×4 DIAGONAL LATIN SQUARE
@@ -443,10 +436,8 @@ class LatinSquare:
             lines.append(" ".join(str(x) for x in row))
         return "\n".join(lines)
 
-
 # The canonical 4×4 kernel from the manuscript
 CANONICAL_LATIN = LatinSquare(1, 1)
-
 
 # =============================================================================
 # LIMITER/UNLIMITED BINARY
@@ -456,7 +447,6 @@ class LimitUnlimitedColumn(Enum):
     """The fundamental binary of Greek philosophy."""
     LIMIT = auto()    # Column A: Finite, Odd, Knowable, Right, Light, Rest
     UNLIMITED = auto()  # Column B: Infinite, Even, Unknowable, Left, Dark, Motion
-
 
 @dataclass
 class LimitUnlimited:
@@ -506,7 +496,6 @@ class LimitUnlimited:
                 "light": "Dark",
                 "motion": "Motion"
             }
-
 
 # =============================================================================
 # INTEGRATION: THE HELLENIC COMPUTATIONAL MODEL
@@ -561,7 +550,6 @@ class HellenicComputationalModel:
         # K₄ provides complete transition coverage
         axioms = self.group.verify_group_axioms()
         return all(axioms.values())
-
 
 # =============================================================================
 # VALIDATION
@@ -633,7 +621,6 @@ def validate_hellenic_foundation() -> bool:
     assert result == "Air"  # (0,0) → (1,1)
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

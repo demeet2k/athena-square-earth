@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         GATEWAY ALGEBRA MODULE                               ║
@@ -25,7 +29,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 import math
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY SCALAR - THE BOUNDED VELOCITY COORDINATE
@@ -133,7 +136,6 @@ class GatewayScalar:
     def __repr__(self) -> str:
         return f"Gateway(T={self.value:.6f}, R={self.scale_ratio:.6f}, α={self.rapidity:.6f})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOOST MATRIX - HYPERBOLIC ROTATION IN SL(2,ℝ)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -226,7 +228,6 @@ class BoostMatrix:
     def __repr__(self) -> str:
         return f"Boost(α={self.gateway.rapidity:.4f}, det={self.determinant:.6f})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PELL EQUATION SOLVER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -288,7 +289,6 @@ class PellSolution:
         
         return PellSolution(u=int(result[0, 0]), v=int(result[0, 1]), discriminant=A)
 
-
 def solve_pell_fundamental(A: int) -> PellSolution:
     """
     Find the fundamental solution of u² - A·v² = 1.
@@ -337,7 +337,6 @@ def solve_pell_fundamental(A: int) -> PellSolution:
         seen[state] = True
     
     raise RuntimeError(f"Failed to find Pell solution for A={A}")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PELL GATEWAY MATRIX - INTEGER NAVIGATION IN SL(2,ℤ)
@@ -449,7 +448,6 @@ class PellGateway:
         u, v, A = self.solution.u, self.solution.v, self.discriminant
         return f"PellGateway(A={A}, u={u}, v={v}, λ_+={self.eigenvalues[0]:.4f})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FOLD NAVIGATION - BANDWIDTH TRANSPORT
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -509,7 +507,6 @@ class FoldLadder:
             (n, self.kappa(n), self.level_bandwidth(n))
             for n in range(n_levels)
         ]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY ALGEBRA - COMPOSITION AND TRANSPORT
@@ -595,7 +592,6 @@ class GatewayAlgebra:
         """Transport fold index through gateway."""
         return self._fold_ladder.transport_kappa(kappa, gateway)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECIAL GATEWAYS - CANONICAL EXAMPLES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -650,7 +646,6 @@ class SpecialGateways:
         """
         return PellGateway.from_discriminant(5)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRIGONOMETRIC GATEWAY IDENTITIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -665,7 +660,6 @@ def gateway_from_angle(theta: float) -> GatewayScalar:
         raise ValueError(f"Angle {theta} gives |T| ≥ 1")
     return GatewayScalar(value=T)
 
-
 def gateway_angle(gateway: GatewayScalar) -> float:
     """
     Extract angle from gateway.
@@ -673,14 +667,12 @@ def gateway_angle(gateway: GatewayScalar) -> float:
     """
     return 2 * np.arctan(gateway.value)
 
-
 def hyperbolic_distance(g1: GatewayScalar, g2: GatewayScalar) -> float:
     """
     Hyperbolic distance between two gateways.
     d = |α_1 - α_2| = |artanh(T_1) - artanh(T_2)|
     """
     return abs(g1.rapidity - g2.rapidity)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
@@ -690,12 +682,10 @@ def create_gateway_algebra() -> GatewayAlgebra:
     """Create a gateway algebra instance."""
     return GatewayAlgebra()
 
-
 def pell_orbit(A: int, n_steps: int = 10) -> List[Tuple[int, int]]:
     """Generate Pell orbit for discriminant A starting from (1, 0)."""
     gateway = PellGateway.from_discriminant(A)
     return gateway.orbit(1, 0, n_steps)
-
 
 def velocity_addition(T1: float, T2: float) -> float:
     """
@@ -704,21 +694,17 @@ def velocity_addition(T1: float, T2: float) -> float:
     """
     return (T1 + T2) / (1 + T1 * T2)
 
-
 def rapidity_from_velocity(T: float) -> float:
     """α = artanh(T)."""
     return np.arctanh(T)
-
 
 def velocity_from_rapidity(alpha: float) -> float:
     """T = tanh(α)."""
     return np.tanh(alpha)
 
-
 def transmission_coefficient(T: float) -> float:
     """𝒯 = 1 - T² = sech²(α)."""
     return 1 - T**2
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

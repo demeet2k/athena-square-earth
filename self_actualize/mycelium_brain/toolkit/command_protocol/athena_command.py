@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S24 | face=R | node=300 | depth=2 | phase=Cardinal
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S23→Xi108:W2:A10:S25→Xi108:W1:A10:S24→Xi108:W3:A10:S24→Xi108:W2:A9:S24→Xi108:W2:A11:S24
+
 from __future__ import annotations
 
 import argparse
@@ -60,20 +64,17 @@ else:
     from .route_engine import route_packet
     from .watch_command_folder import WatchEvent, watch_loop
 
-
 def _load_event_record(event_id: str) -> dict[str, Any]:
     for row in reversed(read_jsonl(event_ledger_path())):
         if row["packet"]["event_id"] == event_id:
             return row
     raise KeyError(f"unknown event_id: {event_id}")
 
-
 def _queue_pressure() -> float:
     claims = read_jsonl(claim_ledger_path())
     routes = read_jsonl(route_receipts_path())
     active_claims = sum(1 for row in claims if row.get("status") == "claimed")
     return min(1.0, (active_claims + len(routes) * 0.1) / 20.0)
-
 
 def _classify_lookup(source_path: str) -> tuple[str, str, str, str, str]:
     lowered = source_path.lower()
@@ -88,7 +89,6 @@ def _classify_lookup(source_path: str) -> tuple[str, str, str, str, str]:
     if "aether" in lowered or "sky" in lowered:
         return "Z4", "Organ-5", "Current-4", "aether-frontier", "AMBIG"
     return "Z2", "Organ-1", "Current-1", "archive-intake", "NEAR"
-
 
 def emit_event_record(
     *,
@@ -140,10 +140,8 @@ def emit_event_record(
     append_jsonl(event_ledger_path(), record)
     return record
 
-
 def route_event_record(event_id: str, topk: int = 5, quorum: int = 1) -> dict[str, Any]:
     return route_packet(_load_event_record(event_id), topk=topk, quorum=quorum)
-
 
 def reinforce_route(
     event_id: str,
@@ -196,7 +194,6 @@ def reinforce_route(
     append_jsonl(route_receipts_path(), latency_receipt)
     return latency_receipt
 
-
 def _status() -> dict[str, Any]:
     config = load_config()
     events = read_jsonl(event_ledger_path())
@@ -217,7 +214,6 @@ def _status() -> dict[str, Any]:
         "latency_targets": read_json(latency_receipt_path(), {}),
         "capillary_edges": len(load_memory()["edges"]),
     }
-
 
 def _write_install_receipts() -> None:
     config = load_config()
@@ -261,7 +257,6 @@ def _write_install_receipts() -> None:
         },
     )
 
-
 def _handle_watch_event(event: WatchEvent) -> None:
     record = emit_event_record(
         ant_id="SCOUT-01",
@@ -272,14 +267,12 @@ def _handle_watch_event(event: WatchEvent) -> None:
     )
     route_event_record(record["packet"]["event_id"])
 
-
 def _auto_promote_if_claimed(claim_receipt: dict[str, Any]) -> dict[str, Any] | None:
     if claim_receipt.get("status") != "claimed":
         return None
     promotion = promote_event(claim_receipt["event_id"])
     sync = sync_command_boards()
     return {"promotion": promotion, "sync": sync}
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="athena_command")
@@ -366,7 +359,6 @@ def main() -> None:
         return
     if args.command == "status":
         print(json.dumps(_status(), indent=2))
-
 
 if __name__ == "__main__":
     main()

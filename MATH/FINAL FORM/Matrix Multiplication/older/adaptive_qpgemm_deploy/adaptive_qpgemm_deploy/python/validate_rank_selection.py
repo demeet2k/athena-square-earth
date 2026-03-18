@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=132 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 Rank-selection validation for Adaptive QP-GEMM.
 
@@ -25,12 +29,10 @@ import torch.nn as nn
 from qpgemm import QPGEMMConfig, QPGEMMEngine
 from export_torchscript import SimVisionStack
 
-
 def frob_rel_error(W: torch.Tensor, W_hat: torch.Tensor, eps=1e-12) -> float:
     num = (W - W_hat).norm().item()
     den = max(W.norm().item(), eps)
     return float(num / den)
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -121,7 +123,6 @@ def main():
         json.dump(report, f, indent=2)
 
     print(f"\n[OK] Wrote: {args.out_json}")
-
 
 if __name__ == "__main__":
     main()

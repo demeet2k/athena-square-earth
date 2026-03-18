@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S28 | face=F | node=388 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A6:S27→Xi108:W2:A6:S29→Xi108:W1:A6:S28→Xi108:W3:A6:S28→Xi108:W2:A5:S28→Xi108:W2:A7:S28
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -18,7 +22,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -100,13 +103,11 @@ DIRECT_EDGE_ORDER = ["CS-001", "CS-002", "CS-003"]
 DEEP_PAIRWISE_BACKLOG_IDS = {f"WV-{index:04d}" for index in range(7, 13)}
 DIRECT_EDGE_IDS = set(DIRECT_EDGE_ORDER)
 
-
 def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
     sep = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
-
 
 def unique(items: Iterable[str]) -> List[str]:
     ordered: List[str] = []
@@ -115,14 +116,11 @@ def unique(items: Iterable[str]) -> List[str]:
             ordered.append(item)
     return ordered
 
-
 def normalize_path(path: str) -> str:
     return path.replace("/", "\\")
 
-
 def path_exists(relative_path: str) -> bool:
     return (WORKSPACE_ROOT / relative_path.replace("\\", "/")).exists()
-
 
 def load_docs_gate() -> Dict[str, Any]:
     if WHOLE_CRYSTAL_DOCS_INGRESS_PATH.exists():
@@ -147,16 +145,13 @@ def load_docs_gate() -> Dict[str, Any]:
         "fallback_mode": "mirrored-live-docs" if status == "open" else "local-first-truth-corridor",
     }
 
-
 def load_runtime_truth(path: Path, key: str = "truth") -> str:
     if not path.exists():
         return "UNKNOWN"
     return load_json(path).get(key, "UNKNOWN")
 
-
 def bridge_slug(bridge_family_id: str) -> str:
     return bridge_family_id.lower().replace("-", "_")
-
 
 def anchor_ref(slice_record: Dict[str, Any], surface_key: str) -> str:
     surface = slice_record.get(surface_key, "")
@@ -166,7 +161,6 @@ def anchor_ref(slice_record: Dict[str, Any], surface_key: str) -> str:
         f"{slice_record.get('appendix_anchor', '')}::"
         f"{surface}"
     )
-
 
 def render_bridge_slice_doc(
     bridge_family: DirectBridgeFamilyContractRecord,
@@ -209,7 +203,6 @@ Edge: `{bridge_family.edge_id}`
 
 {slice_record.note}
 """
-
 
 def render_bridge_route(
     bridge_family: DirectBridgeFamilyContractRecord,
@@ -263,7 +256,6 @@ Truth: `OK`
 {bridge_family.restart_seed}
 """
 
-
 def render_bridge_replay(
     bridge_family: DirectBridgeFamilyContractRecord,
     packets: List[SynapticHandoffPacketRecord],
@@ -294,7 +286,6 @@ Truth: `OK`
 {markdown_table(["Packet", "Phase", "Source", "Target", "Route"], packet_rows)}
 """
 
-
 def render_bridge_verify(
     bridge_family: DirectBridgeFamilyContractRecord,
     checks: Dict[str, bool],
@@ -309,7 +300,6 @@ Truth: `{"OK" if all(checks.values()) else "FAIL"}`
 
 {markdown_table(["Check", "Result"], rows)}
 """
-
 
 def render_bridge_receipt(
     bridge_family: DirectBridgeFamilyContractRecord,
@@ -337,7 +327,6 @@ def render_bridge_receipt(
 `{bridge_family.replay_surface}`
 """
 
-
 def render_manifest(outputs: Dict[str, str], docs_gate: Dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# BRIDGE DENSIFICATION MANIFEST
@@ -357,7 +346,6 @@ Derivation: `{DERIVATION_COMMAND}`
 
 {output_lines}
 """
-
 
 def render_dashboard(dashboard: Dict[str, Any]) -> str:
     bridge_rows = [[name, str(count)] for name, count in sorted(dashboard["bridge_totals"].items())]
@@ -392,7 +380,6 @@ Docs gate: `{dashboard['docs_gate']['status']}`
 `{dashboard['next_restart_seed']}`
 """
 
-
 def render_verification(verification: Dict[str, Any]) -> str:
     rows = [[name, str(value)] for name, value in verification["checks"].items()]
     unresolved = "\n".join(f"- {item}" for item in verification["unresolved"]) or "- none"
@@ -417,7 +404,6 @@ Docs gate: `{verification['docs_gate']['status']}`
 {unresolved}
 """
 
-
 def render_runtime(outputs: Dict[str, str], verification: Dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# bridge_densification_runtime
@@ -431,7 +417,6 @@ def render_runtime(outputs: Dict[str, str], verification: Dict[str, Any]) -> str
 
 {output_lines}
 """
-
 
 def render_receipt(
     families: List[DirectBridgeFamilyContractRecord],
@@ -461,7 +446,6 @@ def render_receipt(
 
 {backlog_lines}
 """
-
 
 def build_direct_bridge_data(
     family_contracts: Dict[str, Dict[str, Any]],
@@ -668,7 +652,6 @@ def build_direct_bridge_data(
 
     return bridge_families, bridge_slices, bridge_packets, generated_paths
 
-
 def build_backlog(
     whole_crystal_edges: List[Dict[str, Any]],
     phase4_candidates: List[Dict[str, Any]],
@@ -731,7 +714,6 @@ def build_backlog(
         )
     return backlog
 
-
 def build_payloads(
     bridge_families: List[DirectBridgeFamilyContractRecord],
     bridge_slices: List[BridgeSliceContractRecord],
@@ -763,7 +745,6 @@ def build_payloads(
         "entries": [record.to_dict() for record in backlog],
     }
     return bridge_family_payload, bridge_slice_payload, bridge_packet_payload, backlog_payload
-
 
 def render_bridge_ledger(
     bridge_families: List[DirectBridgeFamilyContractRecord],
@@ -845,7 +826,6 @@ def render_bridge_ledger(
         ["Weave", "Source", "Target", "Blocker", "Next lawful action", "Route"],
         deep_rows or [["-", "-", "-", "-", "-", "-"]],
     )
-
 
 def build_verification(
     bridge_families: List[DirectBridgeFamilyContractRecord],
@@ -957,7 +937,6 @@ def build_verification(
         "next_restart_seed": "emit -> transit -> receive -> replay -> writeback -> verify",
     }
 
-
 def build_dashboard(
     bridge_families: List[DirectBridgeFamilyContractRecord],
     bridge_slices: List[BridgeSliceContractRecord],
@@ -985,7 +964,6 @@ def build_dashboard(
         "verifier_truth": verification["runtime_lanes"],
         "next_restart_seed": verification["next_restart_seed"],
     }
-
 
 def main() -> int:
     family_contracts = {
@@ -1143,7 +1121,6 @@ def main() -> int:
     print(f"Docs gate: {docs_gate['status']}")
     print(f"Truth: {verification['truth']}")
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

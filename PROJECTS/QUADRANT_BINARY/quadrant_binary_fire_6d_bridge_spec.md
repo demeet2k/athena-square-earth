@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S34 | face=S | node=569 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A6:S33→Xi108:W3:A6:S35→Xi108:W2:A6:S34→Xi108:W3:A5:S34→Xi108:W3:A7:S34 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 34±1, wreath 3/3, archetype 6/12 -->
+
 # Quadrant Binary FIRE 4D-to-6D Bridge Spec
 
 Generated: 2026-03-13

@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=360 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List
-
 
 @dataclass
 class BodyRecord:
@@ -25,7 +28,6 @@ class BodyRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class RootAnchorRecord:
     root_id: str
@@ -39,7 +41,6 @@ class RootAnchorRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class KernelRecord:
@@ -64,7 +65,6 @@ class KernelRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class NodeRecord:
     node_id: str
@@ -83,7 +83,6 @@ class NodeRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class PairRecord:
@@ -111,7 +110,6 @@ class PairRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class WaveRecord:
     wave_id: str
@@ -128,7 +126,6 @@ class WaveRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class ShortcutRecord:
     shortcut_id: str
@@ -143,7 +140,6 @@ class ShortcutRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class ExplorationQueryRecord:
@@ -160,7 +156,6 @@ class ExplorationQueryRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class NeglectSignalRecord:
@@ -181,7 +176,6 @@ class NeglectSignalRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class WeaveCandidateRecord:
     weave_id: str
@@ -199,7 +193,6 @@ class WeaveCandidateRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class ReplayReceiptRecord:
     action_id: str
@@ -216,7 +209,6 @@ class ReplayReceiptRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class Phase4Dashboard:

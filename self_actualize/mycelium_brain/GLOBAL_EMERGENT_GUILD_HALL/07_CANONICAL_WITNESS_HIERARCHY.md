@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S22 | face=R | node=245 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S21→Xi108:W3:A7:S23→Xi108:W2:A7:S22→Xi108:W3:A6:S22→Xi108:W3:A8:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 7/12 -->
+
 # Canonical Witness Hierarchy
 
 Date: `2026-03-13`
@@ -100,7 +105,6 @@ Read witness surfaces in this order:
   `2026-03-09T16:32:05.114081+00:00`
 - provenance:
   parsed from live_atlas_records in bronze state header
-
 
 ## Derivation Law
 

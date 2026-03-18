@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX I: Constitutional AI and Safety Mechanisms
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does Constitutional AI and Safety Mechanisms distribut
 ## ⟡ Analysis: Recursion in Constitutional AI and Safety Mechanisms
 
 The ⟡ face reveals: how is Constitutional AI and Safety Mechanisms self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: Constitutional AI and Safety Mechanisms
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is Constitutional AI and Safety Mechanisms self-refere
 #### Synthesis (37): Constitutional AI and Safety Mechanisms
 
 The complete integration: Constitutional AI and Safety Mechanisms transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of Constitutional AI and Safety Mechanisms IS Constitutional AI and Safety Mechanisms.
-
 
 ---
 *Appendix I. Constitutional AI and Safety Mechanisms. □.Sa. φ.*

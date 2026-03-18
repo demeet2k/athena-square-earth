@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=81 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - KEY OF SOLOMON COMPUTATIONAL FRAMEWORK
 ===================================================
@@ -36,7 +40,6 @@ import numpy as np
 # Import from temporal
 from .temporal import Planet
 
-
 # =============================================================================
 # PENTACLE EFFECT TYPES
 # =============================================================================
@@ -58,7 +61,6 @@ class EffectType(Enum):
     def __init__(self, category: str, description: str):
         self.category = category
         self.description = description
-
 
 class GeometricForm(Enum):
     """Geometric forms used in pentacles."""
@@ -92,7 +94,6 @@ PENTACLE_NAMES = {
     "ELOAH": ("אלוה", 42, "God singular"),
     "ARARITA": ("אראריתא", 813, "Unity formula"),
 }
-
 
 # =============================================================================
 # PENTACLE SPECIFICATION
@@ -164,7 +165,6 @@ class PentacleSpec:
             "gematria": self.gematria_sum(),
         }
 
-
 # =============================================================================
 # THE 44 PENTACLES
 # =============================================================================
@@ -235,7 +235,6 @@ def create_saturn_pentacles() -> List[PentacleSpec]:
         ),
     ]
 
-
 def create_jupiter_pentacles() -> List[PentacleSpec]:
     """Create the 7 Pentacles of Jupiter."""
     return [
@@ -299,7 +298,6 @@ def create_jupiter_pentacles() -> List[PentacleSpec]:
         ),
     ]
 
-
 def create_mars_pentacles() -> List[PentacleSpec]:
     """Create the 7 Pentacles of Mars."""
     return [
@@ -360,7 +358,6 @@ def create_mars_pentacles() -> List[PentacleSpec]:
             effect_description="To cause discord and ruin enemies"
         ),
     ]
-
 
 def create_sun_pentacles() -> List[PentacleSpec]:
     """Create the 7 Pentacles of the Sun."""
@@ -423,7 +420,6 @@ def create_sun_pentacles() -> List[PentacleSpec]:
         ),
     ]
 
-
 def create_venus_pentacles() -> List[PentacleSpec]:
     """Create the 5 Pentacles of Venus."""
     return [
@@ -469,7 +465,6 @@ def create_venus_pentacles() -> List[PentacleSpec]:
         ),
     ]
 
-
 def create_mercury_pentacles() -> List[PentacleSpec]:
     """Create the 5 Pentacles of Mercury."""
     return [
@@ -514,7 +509,6 @@ def create_mercury_pentacles() -> List[PentacleSpec]:
             effect_description="To open doors and locks"
         ),
     ]
-
 
 def create_moon_pentacles() -> List[PentacleSpec]:
     """Create the 6 Pentacles of the Moon."""
@@ -569,7 +563,6 @@ def create_moon_pentacles() -> List[PentacleSpec]:
         ),
     ]
 
-
 # Create the complete pentacle library
 def create_all_pentacles() -> List[PentacleSpec]:
     """Create all 44 pentacles."""
@@ -583,10 +576,8 @@ def create_all_pentacles() -> List[PentacleSpec]:
         create_moon_pentacles()
     )
 
-
 # Global pentacle library
 PENTACLE_LIBRARY = create_all_pentacles()
-
 
 # =============================================================================
 # PENTACLE KERNEL
@@ -649,7 +640,6 @@ class PentacleKernel:
         new_config["pentacle_applications"] = apps
         
         return new_config
-
 
 # =============================================================================
 # PENTACLE LIBRARY MANAGER
@@ -721,7 +711,6 @@ class PentacleLibrary:
             counts[effect.name] = len(self.get_by_effect(effect))
         return counts
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -788,7 +777,6 @@ def validate_pentacles() -> bool:
     assert jupiter_2.consecrated
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Pentacles Module...")

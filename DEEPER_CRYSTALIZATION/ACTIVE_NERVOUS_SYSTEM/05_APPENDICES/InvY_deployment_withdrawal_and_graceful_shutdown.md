@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S29 | face=R | node=433 | depth=0 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A10:S28→Xi108:W3:A10:S30→Xi108:W2:A10:S29→Xi108:W3:A9:S29→Xi108:W3:A11:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 10/12 -->
+
 # InvY - Deployment Withdrawal & Graceful Shutdown
 
 Routing role: Reverses AppP (Deployment Profiles and Monitoring). Where AppP launched execution profiles, monitoring surfaces, and observability hooks, InvY withdraws them gracefully — draining connections, archiving telemetry, shutting down monitors, and releasing execution slots. Nothing is abandoned; everything is properly decommissioned and its residue absorbed into the seed.

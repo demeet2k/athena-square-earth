@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S26 | face=F | node=345 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S25→Xi108:W2:A7:S27→Xi108:W1:A7:S26→Xi108:W3:A7:S26→Xi108:W2:A6:S26→Xi108:W2:A8:S26
+
 """
 Comprehensive Currency Exchange Rate Historical Data Downloader
 ================================================================
@@ -29,7 +33,6 @@ OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(OUTPUT_DIR, "forex_data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -37,7 +40,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 # ── 20 Major Currencies ───────────────────────────────────────────────────────
 
@@ -63,7 +65,6 @@ CURRENCIES = {
     "ZAR": "South African Rand",
     "TRY": "Turkish Lira",
 }
-
 
 # ── ECB Data (EUR-based, 1999-present) ────────────────────────────────────────
 
@@ -131,7 +132,6 @@ def fetch_ecb_rates():
     log(f"  ECB total: {len(merged)} trading days, {len(merged.columns)-1} pairs")
     return merged
 
-
 # ── Convert EUR-based to USD-based ────────────────────────────────────────────
 
 def convert_to_usd_base(ecb_df):
@@ -166,7 +166,6 @@ def convert_to_usd_base(ecb_df):
 
     log(f"  Converted {len(usd_df.columns)-1} USD-based pairs")
     return usd_df
-
 
 # ── Supplement with CryptoCompare Forex (for pre-1999) ────────────────────────
 
@@ -238,7 +237,6 @@ def fetch_cryptocompare_forex(from_sym, to_sym="USD"):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 # ── Analysis Features ─────────────────────────────────────────────────────────
 
 def compute_currency_analysis(df, rate_col):
@@ -274,7 +272,6 @@ def compute_currency_analysis(df, rate_col):
 
     return df
 
-
 # ── Major Crisis Detection ────────────────────────────────────────────────────
 
 def detect_major_moves(df, rate_col, threshold_pct=2.0):
@@ -284,7 +281,6 @@ def detect_major_moves(df, rate_col, threshold_pct=2.0):
     big_moves["move_pct"] = returns[abs(returns) > threshold_pct]
     big_moves["direction"] = big_moves["move_pct"].apply(lambda x: "SURGE" if x > 0 else "CRASH")
     return big_moves[["date", rate_col, "move_pct", "direction"]]
-
 
 # ── Main Pipeline ─────────────────────────────────────────────────────────────
 
@@ -489,7 +485,6 @@ def main():
         log(f"All files saved to: {DATA_DIR}")
 
     log("\nDONE!")
-
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import copy
@@ -11,7 +15,6 @@ from typing import Any
 from self_actualize.runtime.derive_crystal_remaster import build_atlas_record, summarize_corpus_atlas
 from self_actualize.runtime.dimensional_backplane import apply_dimensional_backplane
 from self_actualize.runtime.knowledge_fabric_query_engine import run_shortcut, summarize_route
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -178,28 +181,22 @@ FAMILY_CONFIGS = [
     },
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def normalize_relative(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
@@ -207,14 +204,12 @@ def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
 
-
 def parse_docs_gate() -> str:
     text = DOCS_GATE_PATH.read_text(encoding="utf-8")
     for line in text.splitlines():
         if "Command status:" in line:
             return line.split("`")[1]
     return "UNKNOWN"
-
 
 def snapshot_counts() -> dict[str, Any]:
     atlas = load_json(CORPUS_ATLAS_PATH)
@@ -237,7 +232,6 @@ def snapshot_counts() -> dict[str, Any]:
         "fabric_top_entries": fabric.get("top_entry_records", []),
     }
 
-
 def collect_phase5_promotable_paths(include_phase5_outputs: bool) -> list[Path]:
     paths: set[Path] = set()
     for path in NERVOUS_SYSTEM_ROOT.rglob("*"):
@@ -248,7 +242,6 @@ def collect_phase5_promotable_paths(include_phase5_outputs: bool) -> list[Path]:
             if path.exists() and path.suffix.lower() in PROMOTABLE_EXTENSIONS:
                 paths.add(path)
     return sorted(paths)
-
 
 def refresh_corpus_atlas(paths: list[Path]) -> dict[str, Any]:
     atlas = load_json(CORPUS_ATLAS_PATH)
@@ -286,7 +279,6 @@ def refresh_corpus_atlas(paths: list[Path]) -> dict[str, Any]:
         "updated_paths": updated_paths,
     }
 
-
 def run_module(module_name: str) -> dict[str, Any]:
     completed = subprocess.run(
         [sys.executable, "-m", module_name],
@@ -303,7 +295,6 @@ def run_module(module_name: str) -> dict[str, Any]:
         "ok": completed.returncode == 0,
     }
 
-
 def run_verification_chain() -> list[dict[str, Any]]:
     modules = [
         "self_actualize.runtime.verify_runtime_waist",
@@ -312,7 +303,6 @@ def run_verification_chain() -> list[dict[str, Any]]:
     ]
     return [run_module(module_name) for module_name in modules]
 
-
 def run_derivation_chain() -> list[dict[str, Any]]:
     modules = [
         "self_actualize.runtime.derive_semantic_mass_ledger",
@@ -320,7 +310,6 @@ def run_derivation_chain() -> list[dict[str, Any]]:
         "self_actualize.runtime.derive_knowledge_fabric",
     ]
     return [run_module(module_name) for module_name in modules]
-
 
 def ensure_all_ok(results: list[dict[str, Any]], stage: str) -> None:
     failed = [result for result in results if not result["ok"]]
@@ -331,12 +320,10 @@ def ensure_all_ok(results: list[dict[str, Any]], stage: str) -> None:
             lines.append(f"- {item['module']}: {detail}")
         raise RuntimeError("\n".join(lines))
 
-
 def safe_restore(path: Path, backup: str | None) -> None:
     if backup is None:
         return
     path.write_text(backup, encoding="utf-8")
-
 
 def refresh_with_guard(paths: list[Path]) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     atlas_backup = CORPUS_ATLAS_PATH.read_text(encoding="utf-8")
@@ -357,7 +344,6 @@ def refresh_with_guard(paths: list[Path]) -> tuple[dict[str, Any], list[dict[str
         raise
     return refresh_payload, verifications, derivations
 
-
 def load_family_runtime_support(config: dict[str, Any]) -> list[str]:
     return [
         path
@@ -365,23 +351,19 @@ def load_family_runtime_support(config: dict[str, Any]) -> list[str]:
         if (WORKSPACE_ROOT / Path(path.replace("\\", "/"))).exists()
     ]
 
-
 def resolve_anchor(root: Path, prefix: str) -> str:
     matches = sorted(root.glob(f"{prefix}*"))
     if matches:
         return normalize_relative(matches[0])
     return prefix
 
-
 def load_shortcuts() -> dict[str, dict[str, Any]]:
     payload = load_json(KNOWLEDGE_FABRIC_SHORTCUTS_PATH)
     return {item["shortcut_id"]: item for item in payload.get("shortcuts", [])}
 
-
 def load_fabric_records() -> list[dict[str, Any]]:
     payload = load_json(KNOWLEDGE_FABRIC_RECORDS_PATH)
     return payload.get("records", [])
-
 
 def build_family_plan(shortcut: dict[str, Any], root_name: str) -> dict[str, Any]:
     plan = copy.deepcopy(shortcut)
@@ -393,7 +375,6 @@ def build_family_plan(shortcut: dict[str, Any], root_name: str) -> dict[str, Any
     entry_filters["text_required"] = True
     plan["preferred_zones"] = ["CapsuleLayer", "Cortex", "DeepRoot"]
     return plan
-
 
 def dedupe_matches(match_groups: list[list[dict[str, Any]]], limit: int = 8) -> list[dict[str, Any]]:
     seen: set[str] = set()
@@ -408,7 +389,6 @@ def dedupe_matches(match_groups: list[list[dict[str, Any]]], limit: int = 8) -> 
             if len(combined) >= limit:
                 return combined
     return combined
-
 
 def derive_family_bundle(
     config: dict[str, Any],
@@ -464,7 +444,6 @@ def derive_family_bundle(
         "graph": config["graph"],
     }
 
-
 def render_family_law(bundle: dict[str, Any]) -> str:
     source_lines = "\n".join(f"- `{item}`" for item in bundle["source_roots"])
     witness_lines = "\n".join(
@@ -496,7 +475,6 @@ Family: `{bundle['slug']}`
 - `synthesize`: {bundle['route_summaries']['synthesize']}
 """
 
-
 def render_entry_record_set(bundle: dict[str, Any]) -> str:
     rows = [
         [
@@ -516,7 +494,6 @@ Bundle purpose: `atlas-backed capsule entry shell`
 
 {markdown_table(['Title', 'Path', 'Witness', 'Semantic Role', 'Zone'], rows)}
 """
-
 
 def render_support_map(bundle: dict[str, Any]) -> str:
     chapter_lines = "\n".join(f"- `{item}`" for item in bundle["chapter_paths"])
@@ -545,7 +522,6 @@ Scope: `chapter appendix metro runtime support`
 - top entry count: `{len(bundle['entry_records'])}`
 - selector law: `Knowledge Fabric shortcuts choose entry records before capsule writeback`
 """
-
 
 def render_graph_bridge(bundle: dict[str, Any]) -> str:
     graph = bundle["graph"]
@@ -578,7 +554,6 @@ Truth class: `OK`
 This family now has explicit graph-bearing return paths into the atlas, cortex, and capsule layer instead of remaining only a seed summary.
 """
 
-
 def write_family_bundle(bundle: dict[str, Any]) -> list[str]:
     family_root = CAPSULE_ROOT / bundle["slug"]
     files = {
@@ -592,7 +567,6 @@ def write_family_bundle(bundle: dict[str, Any]) -> list[str]:
         write_text(path, text)
         written.append(normalize_relative(path))
     return written
-
 
 def render_phase5_overview() -> str:
     return """# Phase 5 Atlas Truth And Capsule Metabolism
@@ -623,7 +597,6 @@ Phase 5 does two things together:
 - graph growth is partial and follows capsule interfaces rather than full saturation
 """
 
-
 def render_phase5_runtime() -> str:
     return """# Phase 5 Atlas Truth And Capsule Metabolism Runtime
 
@@ -643,7 +616,6 @@ python -m self_actualize.runtime.derive_phase5_atlas_truth_and_capsule_metabolis
 ```
 """
 
-
 def render_phase5_receipt_stub() -> str:
     return """# Phase 5 Atlas Truth And Capsule Metabolism Receipt
 
@@ -657,12 +629,10 @@ The machine-readable deltas live in:
 - `self_actualize/phase5_capsule_metabolism.json`
 """
 
-
 def write_phase5_stub_docs() -> None:
     write_text(PHASE5_OVERVIEW_MD_PATH, render_phase5_overview())
     write_text(PHASE5_RUNTIME_MD_PATH, render_phase5_runtime())
     write_text(PHASE5_RECEIPT_MD_PATH, render_phase5_receipt_stub())
-
 
 def render_corpus_atlas_summary(
     atlas: dict[str, Any],
@@ -709,7 +679,6 @@ Phase 5 has converted additional canonical cortex and capsule surfaces into atla
 The live atlas is therefore less dependent on generated shell for its own control-plane entry surfaces, while the first thin capsule families can now point back to atlas-backed source bundles instead of only seed notes.
 """
 
-
 def count_remaining_missing_cortex() -> int:
     atlas_relatives = {
         record["relative_path"]
@@ -721,7 +690,6 @@ def count_remaining_missing_cortex() -> int:
             if normalize_relative(path) not in atlas_relatives:
                 missing += 1
     return missing
-
 
 def render_phase5_ledgers(
     atlas_delta: dict[str, Any],
@@ -781,7 +749,6 @@ Docs gate: `{atlas_delta['docs_gate']}`
 {markdown_table(['Family', 'Entry Records', 'Synthesize Route', 'Written Files'], family_rows)}
 """
     return atlas_markdown, capsule_markdown
-
 
 def main() -> int:
     docs_gate = parse_docs_gate()
@@ -899,7 +866,6 @@ def main() -> int:
     print(f"Wrote {PHASE5_OVERVIEW_MD_PATH}")
     print(f"Wrote {PHASE5_RUNTIME_MD_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

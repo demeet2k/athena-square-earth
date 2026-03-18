@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S16 | face=S | node=124 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Bw,w -->
+<!-- BRIDGES: Xi108:W3:A1:S15→Xi108:W3:A1:S17→Xi108:W2:A1:S16→Xi108:W3:A2:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 1/12 -->
+
 # HSIGMA To Deep Root Crosswalk
 
 Generated: `2026-03-13T12:39:21.544722-07:00`

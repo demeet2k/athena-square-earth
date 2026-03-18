@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Algorithmic Shortcut Analysis                ║
@@ -33,14 +37,12 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 class ShortcutType(Enum):
     """Types of algorithmic shortcuts."""
     STATE_SPACE = "state"       # Traverse state space more efficiently
     SCALE_SPACE = "scale"       # Move between resolutions
     SPECTRAL = "spectral"       # Improve spectral properties
     MIXING = "mixing"           # Faster mixing to equilibrium
-
 
 class FailureMode(Enum):
     """Common failure modes that shortcuts can address."""
@@ -50,7 +52,6 @@ class FailureMode(Enum):
     SCALE_SEPARATION = "scale_separation"       # Slow modes dominate
     ILL_CONDITIONING = "ill_conditioning"       # Numerical instability
     HIGH_VARIANCE = "high_variance"             # Noisy estimates
-
 
 @dataclass
 class BaselineMethod:
@@ -64,7 +65,6 @@ class BaselineMethod:
     
     def describe(self) -> str:
         return f"{self.name} ({self.dominant_pole}): {self.convergence_rate}"
-
 
 @dataclass
 class HybridMethod:
@@ -80,7 +80,6 @@ class HybridMethod:
     def describe(self) -> str:
         pole_str = "+".join(self.poles)
         return f"{self.name} ({pole_str}): {self.convergence_rate}"
-
 
 @dataclass
 class ShortcutAnalysis:
@@ -123,7 +122,6 @@ class ShortcutAnalysis:
         
         lines.append("=" * 60)
         return "\n".join(lines)
-
 
 # Pre-defined baseline methods (single pole)
 BASELINE_METHODS = {
@@ -219,7 +217,6 @@ HYBRID_METHODS = {
         typical_factor=0.5,
     ),
 }
-
 
 class ShortcutDesigner:
     """
@@ -323,7 +320,6 @@ class ShortcutDesigner:
         
         return '+'.join(sorted(poles)), weights
 
-
 def analyze_shortcut(
     baseline: str,
     hybrid: str,
@@ -391,7 +387,6 @@ def analyze_shortcut(
         counter_conditions=counter_conditions,
     )
 
-
 # Common shortcut patterns
 SHORTCUT_PATTERNS = {
     'relax_project': {
@@ -430,7 +425,6 @@ SHORTCUT_PATTERNS = {
         'examples': ['HMC', 'NUTS'],
     },
 }
-
 
 def list_shortcut_patterns() -> str:
     """List all known shortcut patterns."""

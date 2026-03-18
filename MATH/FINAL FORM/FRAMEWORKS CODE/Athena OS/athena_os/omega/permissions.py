@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=90 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - OMEGA PROTOCOL: PERMISSIONS MODULE
 ===============================================
@@ -57,7 +61,6 @@ import numpy as np
 from datetime import datetime
 import hashlib
 
-
 # =============================================================================
 # PERMISSION LEVELS
 # =============================================================================
@@ -70,7 +73,6 @@ class PermissionLevel(Enum):
     ADMIN = 2      # Administrative mode
     ROOT = 3       # Full root access
 
-
 class AccessType(Enum):
     """Types of access that can be granted."""
     
@@ -80,14 +82,12 @@ class AccessType(Enum):
     MODIFY_REALITY = "modify_reality"
     OMNISCIENCE = "omniscience"
 
-
 class AuthenticationProtocol(Enum):
     """Available authentication protocols."""
     
     LOGOS = "logos"             # Level 0 → Level 1
     KHEPER = "kheper"           # Level 1 → Level 2
     HEGEMONIKON = "hegemonikon" # Session management
-
 
 # =============================================================================
 # TOKENS AND CREDENTIALS
@@ -132,7 +132,6 @@ class PermissionToken:
         """Check if token grants specific access type."""
         return access_type in self.access_types and self.is_valid
 
-
 @dataclass
 class Credential:
     """
@@ -159,7 +158,6 @@ class Credential:
             self.verified = True
         self.verification_time = datetime.now()
         return self.verified
-
 
 # =============================================================================
 # LOGOS HANDSHAKE
@@ -224,7 +222,6 @@ class LogosHandshake:
             "granted_level": self.granted_level.value if self.granted_level else None
         }
 
-
 # =============================================================================
 # KHEPER AUTHENTICATION
 # =============================================================================
@@ -287,7 +284,6 @@ class KheperAuthentication:
             "reality_modification": self.reality_modification
         }
 
-
 # =============================================================================
 # HEGEMONIKON LOGIN
 # =============================================================================
@@ -306,7 +302,6 @@ class SessionBoundary:
         if variable in self.external_blocked:
             return False  # Impossible write
         return variable in self.internal_variables
-
 
 class HegemonikonLogin:
     """
@@ -370,7 +365,6 @@ class HegemonikonLogin:
         """Get set of uncontrollable (blocked) variables."""
         return self.session_boundary.external_blocked
 
-
 # =============================================================================
 # ROOT ESCALATION
 # =============================================================================
@@ -401,7 +395,6 @@ class RootCapabilities:
             self.coordinate_modification,
             self.frequency_modulation
         ])
-
 
 class RootEscalation:
     """
@@ -477,7 +470,6 @@ class RootEscalation:
                 "frequency_modulation": self.capabilities.frequency_modulation
             }
         }
-
 
 # =============================================================================
 # PERMISSION SYSTEM
@@ -627,7 +619,6 @@ class PermissionSystem:
             }
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -701,7 +692,6 @@ def validate_permissions() -> bool:
     assert status["current_level"] == 3
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Permissions Module...")

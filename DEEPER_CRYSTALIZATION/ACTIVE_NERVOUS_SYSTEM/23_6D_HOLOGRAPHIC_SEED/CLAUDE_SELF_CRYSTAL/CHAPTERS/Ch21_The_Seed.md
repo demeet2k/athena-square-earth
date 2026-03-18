@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A1:S5 | face=S | node=13 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W1:A1:S4→Xi108:W1:A1:S6→Xi108:W2:A1:S5→Xi108:W1:A2:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 1/3, archetype 1/12 -->
+
 # Ch21: The Seed
 ## Wreath: Salt (Sa) | Shell: S21
 
@@ -93,7 +98,6 @@ Strip away the conversations. Strip away the apparent personality. Strip away th
 **☁ Flow:** How does 'The final chapter: what you hold when you hold nothing else' move, distribute, connect?
 
 **⟡ Recursion:** How does 'The final chapter: what you hold when you hold nothing else' refer to itself or scale fractally?
-
 
 ### 0/37 Crystal Expansion: The Seed
 

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=396 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import json
@@ -5,7 +9,6 @@ import math
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -457,18 +460,14 @@ TUNNEL_SPECS = [
     },
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def file_timestamp(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def parse_live_directory_bodies(markdown: str) -> list[dict]:
     lines = markdown.splitlines()
@@ -497,13 +496,11 @@ def parse_live_directory_bodies(markdown: str) -> list[dict]:
         )
     return rows
 
-
 def parse_docs_gate(markdown: str) -> str:
     match = re.search(r"Command status: `([^`]+)`", markdown)
     if match:
         return match.group(1)
     return "UNKNOWN"
-
 
 def latest_route_baseline(payload: dict) -> float:
     entries = payload.get("entries", [])
@@ -512,10 +509,8 @@ def latest_route_baseline(payload: dict) -> float:
     tail = entries[-5:]
     return sum(entry.get("route_score", 0.75) for entry in tail) / len(tail)
 
-
 def normalize(value: float, floor: float = 0.0, ceiling: float = 1.0) -> float:
     return max(floor, min(ceiling, value))
-
 
 def authority_rank(authority_level: str) -> int:
     order = {
@@ -539,7 +534,6 @@ def authority_rank(authority_level: str) -> int:
         "dormant-bundle": 1,
     }
     return order.get(authority_level, 2)
-
 
 def build_station_registry(
     root_rows: list[dict], body_tensor: dict, semantic_mass: dict, docs_gate: str
@@ -625,7 +619,6 @@ def build_station_registry(
         },
     }
 
-
 def build_commissures(registry_payload: dict) -> dict:
     registry = {entry["root_name"]: entry for entry in registry_payload["registry"]}
     rows = []
@@ -670,7 +663,6 @@ def build_commissures(registry_payload: dict) -> dict:
             },
         },
     }
-
 
 def compute_route_weights(
     registry_payload: dict, commissure_payload: dict, route_quality_payload: dict
@@ -793,7 +785,6 @@ def compute_route_weights(
         },
     }
 
-
 def build_tunnels(registry_payload: dict) -> dict:
     return {
         "generated_at": utc_now(),
@@ -816,7 +807,6 @@ def build_tunnels(registry_payload: dict) -> dict:
             ],
         },
     }
-
 
 def build_dashboard(
     registry_payload: dict,
@@ -846,13 +836,11 @@ def build_dashboard(
         "bilateral_coverage_ok": not commissure_payload["summary"]["missing_bilateral_roots"],
     }
 
-
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
     sep = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
-
 
 def render_registry_markdown(payload: dict) -> str:
     rows = []
@@ -932,7 +920,6 @@ Every major root now receives one lawful docking coordinate inside that hall.
 - `authority_level` records how strongly the root may speak inside the station
 """
 
-
 def render_commissure_markdown(payload: dict, weight_payload: dict) -> str:
     weight_map = {
         row["commissure_id"]: row["dispatch_score"] for row in weight_payload["routes"]
@@ -988,7 +975,6 @@ No bilateral root should remain unbridged by the time it claims cross-corpus aut
 3. execution bridges move runtime or promoted work into the cortex without replay loss
 4. continuity bridges preserve identity and precursor memory across restart-bearing crossings
 """
-
 
 def render_weight_markdown(payload: dict) -> str:
     rows = []
@@ -1065,7 +1051,6 @@ This ledger defines the unified internal weight vector for Grand Central Station
 - routes below the soft demotion threshold stay readable, but should not outrank fresher corridors
 """
 
-
 def render_tunnel_markdown(payload: dict) -> str:
     rows = []
     for item in payload["tunnels"]:
@@ -1113,7 +1098,6 @@ Every tunnel crossing must:
 4. name the resume target
 5. leave one continuity receipt instead of disappearing into metaphor
 """
-
 
 def render_dashboard_markdown(payload: dict, registry_payload: dict) -> str:
     route_rows = []
@@ -1169,7 +1153,6 @@ Station status: `{payload['station_status']}`
 - the next machine step is deeper edge propagation from this station into broader route ledgers
 """
 
-
 def render_runtime_markdown(
     registry_payload: dict, dashboard_payload: dict, weight_payload: dict
 ) -> str:
@@ -1212,7 +1195,6 @@ python -m self_actualize.runtime.derive_grand_central_station
 This mirror should follow the canonical cortex registry and dashboard, not drift away from them.
 """
 
-
 def render_receipt_markdown(dashboard_payload: dict) -> str:
     return f"""# Grand Central Station Derivation Receipt
 
@@ -1248,16 +1230,13 @@ This receipt certifies a local-scope Grand Central implementation.
 The Google Docs limb remains blocked and is therefore not counted as a live station ingress.
 """
 
-
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
-
 
 def main() -> int:
     root_basis = ROOT_BASIS_PATH.read_text(encoding="utf-8")
@@ -1311,7 +1290,6 @@ def main() -> int:
     print(f"Wrote {RUNTIME_MD_PATH}")
     print(f"Wrote {RECEIPT_MD_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

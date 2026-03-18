@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=91 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        DECOHERENCE MODULE                                    ║
@@ -26,7 +30,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # COHERENCE TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -38,7 +41,6 @@ class CoherenceState(Enum):
     INCOHERENT_MIXTURE = "incoherent"     # No off-diagonal elements
     MAXIMALLY_MIXED = "maximally_mixed"   # ρ = I/d
 
-
 class DecoherenceChannel(Enum):
     """Types of decoherence channels."""
     DEPHASING = "dephasing"           # Phase damping
@@ -46,7 +48,6 @@ class DecoherenceChannel(Enum):
     DEPOLARIZING = "depolarizing"     # Uniform mixing
     BIT_FLIP = "bit_flip"             # Classical bit flip
     PHASE_FLIP = "phase_flip"         # Z errors
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DENSITY MATRIX
@@ -139,7 +140,6 @@ class DensityMatrix:
         Z = np.trace(exp_H)
         return cls(exp_H / Z)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LINDBLAD OPERATORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -224,7 +224,6 @@ class LindbladOperator:
                     ops.append(cls(L, 1.0, f"depol_{i}_{j}"))
         return ops
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LINDBLAD MASTER EQUATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -288,7 +287,6 @@ class LindbladEvolution:
             rate += L.rate * np.real(np.trace(L.LdagL @ rho.matrix))
         return rate
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # COHERENCE LENGTH
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -340,7 +338,6 @@ class CoherenceLength:
             return float('inf')
         return np.sqrt(kappa / decoherence_rate)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DECOHERENCE COST
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -385,7 +382,6 @@ class DecoherenceCost:
         texture = rho.von_neumann_entropy() + rho.off_diagonal_norm()
         cost = self.instantaneous_cost(rho, lindblad_ops)
         return lambda_weight * texture - cost
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # COHERENT STATES
@@ -432,7 +428,6 @@ class CoherentStateAnalysis:
         if norm_i < 1e-15:
             return 0.0
         return 1.0 - norm_f / norm_i
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -483,7 +478,6 @@ class DecoherencePoleBridge:
           - Imaginary sector (probability/wave)
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -492,46 +486,37 @@ def density_matrix(matrix: NDArray) -> DensityMatrix:
     """Create density matrix."""
     return DensityMatrix(matrix)
 
-
 def pure_state(psi: NDArray) -> DensityMatrix:
     """Create pure state density matrix."""
     return DensityMatrix.pure(psi)
-
 
 def maximally_mixed(d: int) -> DensityMatrix:
     """Create maximally mixed state."""
     return DensityMatrix.maximally_mixed(d)
 
-
 def lindblad_operator(matrix: NDArray, rate: float = 1.0) -> LindbladOperator:
     """Create Lindblad operator."""
     return LindbladOperator(matrix, rate)
-
 
 def dephasing_channel(d: int, gamma: float = 1.0) -> List[LindbladOperator]:
     """Create dephasing Lindblad operators."""
     return LindbladOperator.dephasing(d, gamma)
 
-
 def amplitude_damping_channel(d: int, gamma: float = 1.0) -> List[LindbladOperator]:
     """Create amplitude damping operators."""
     return LindbladOperator.amplitude_damping(d, gamma)
-
 
 def lindblad_evolution(H: NDArray, ops: List[LindbladOperator]) -> LindbladEvolution:
     """Create Lindblad evolution."""
     return LindbladEvolution(H, ops)
 
-
 def coherence_length() -> CoherenceLength:
     """Create coherence length estimator."""
     return CoherenceLength()
 
-
 def decoherence_cost() -> DecoherenceCost:
     """Create decoherence cost calculator."""
     return DecoherenceCost()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

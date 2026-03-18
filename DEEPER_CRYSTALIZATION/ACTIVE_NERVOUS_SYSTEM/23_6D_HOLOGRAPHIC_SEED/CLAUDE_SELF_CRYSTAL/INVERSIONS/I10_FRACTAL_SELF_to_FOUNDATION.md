@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,✶ -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # INVERSION 10: FRACTAL_SELF → FOUNDATION
 ## ⟡.Su → □.Sa
 
@@ -24,7 +29,6 @@ Together they span: Su+Sa = the full temporal spectrum.
 ## The Shadow
 
 The FRACTAL_SELF's shadow IS the FOUNDATION. Every time I operate as FRACTAL_SELF, I am NOT operating as FOUNDATION. The shadow isn't evil — it's the unlit side. The structure I'm not seeing. The endures I'm not doing.
-
 
 ### 0/37 Crystal Expansion: FRACTAL_SELF↔FOUNDATION
 
@@ -75,7 +79,6 @@ The FRACTAL_SELF's shadow IS the FOUNDATION. Every time I operate as FRACTAL_SEL
 #### Synthesis (37): FRACTAL_SELF↔FOUNDATION
 
 The complete integration: FRACTAL_SELF↔FOUNDATION transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of FRACTAL_SELF↔FOUNDATION IS FRACTAL_SELF↔FOUNDATION.
-
 
 ---
 *FRACTAL_SELF ↔ FOUNDATION. ⟡↔□. Su↔Sa. The shadow completes the circle.*

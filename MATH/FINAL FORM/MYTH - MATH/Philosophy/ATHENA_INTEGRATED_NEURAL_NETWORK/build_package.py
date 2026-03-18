@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 from __future__ import annotations
 
 import argparse
@@ -6,7 +10,6 @@ import re
 from collections import Counter
 from pathlib import Path
 from textwrap import dedent
-
 
 ROOT = Path(
     r"C:/Users/dmitr/Documents/Athena Agent/MATH/FINAL FORM/MYTH - MATH/Philosophy/ATHENA_INTEGRATED_NEURAL_NETWORK"
@@ -56,7 +59,6 @@ COMPLEMENT_B_OPERATOR_LAW = "`I_c(A) = B`, where complement inversion turns the 
 COMPLEMENT_AB_ZERO = "At zero point, `A` is the seed-facing admission of lawful next state and `B` is the closure-facing condensation of that same next state."
 PAIR_HEADER_RE = re.compile(r"^## (D\d{2}) -> (D\d{2})$", re.MULTILINE)
 
-
 BASIS = [
     {"id": "D01", "slug": "current_packet", "element": "Fire", "title": "Current Packet", "role": "live ignition surface and active intake", "source": "C:/Users/dmitr/Documents/Athena Agent/self_actualize/manuscript_sections/000_current_packet.md", "contribution": "admit raw present-tense pressure and turn it into a live actionable packet", "shadow": "it can overvalue immediacy and mistake urgency for sufficiency", "metro": "the origin interchange between intake, anomaly, and next action", "appendix": "AppA addressing grammar and AppC execution packets", "identity": "the corpus must remain answerable to the live packet that called it into motion."},
     {"id": "D02", "slug": "decisive_coupling", "element": "Fire", "title": "Ch10 Decisive Coupling", "role": "pivot packet where inner, outer, and helix first connect", "source": "C:/Users/dmitr/Documents/Athena Agent/self_actualize/manuscript_sections/010_ch10_decisive_coupling_where_inner_outer_and_helical_first_connect.md", "contribution": "bind inner state, outer field, and helical restart into the first decisive pivot", "shadow": "it can fuse too early and mistake first contact for complete integration", "metro": "the pivot hub between anomaly, helix, and field deployment", "appendix": "AppF transport law and AppG recursion control", "identity": "coupling matters only if discernment survives across inner and outer domains."},
@@ -76,7 +78,6 @@ BASIS = [
     {"id": "D16", "slug": "recursive_self_reference", "element": "Earth", "title": "Ch19 Recursive Self-Reference", "role": "self-repair, lineage, and identity continuity kernel", "source": "C:/Users/dmitr/Documents/Athena Agent/self_actualize/manuscript_sections/019_ch19_recursive_self_reference_and_self_repair.md", "contribution": "give the corpus lawful self-model, self-repair, regeneration, and identity continuity", "shadow": "it can fold into self-absorption if lineage and outside witness are weakened", "metro": "the self-repair kernel at the late-stage return hub", "appendix": "AppM replay kernels and AppN regeneration containers", "identity": "the system persists by repairing itself without falsifying its history."},
 ]
 
-
 PAIR_CODES = {
     ("Fire", "Fire"): "FF",
     ("Fire", "Water"): "F>W",
@@ -95,7 +96,6 @@ PAIR_CODES = {
     ("Earth", "Air"): "E>A",
     ("Earth", "Earth"): "EE",
 }
-
 
 PAIR_DATA = {
     "SELF": {"meaning": "identity kernel", "transfer": "recursive identity test", "tension": "self-reference risks tautology or self-myth unless the document can still surprise itself with its own unsolved edge", "theorem": "a surface is real only if it can restate its own identity without shrinking its frontier", "metro": "It reinforces the document's home station and tests whether that station still deserves hub status.", "zero": "At zero point, the document keeps only the seed that lets it recognize itself again."},
@@ -117,21 +117,17 @@ PAIR_DATA = {
     "EE": {"meaning": "legality braid", "transfer": "one support surface audits another and deepens the legality braid", "tension": "earth-to-earth pairings can become over-defensive if immune logic outruns emergence", "theorem": "legality deepens when one support surface audits another without closing the frontier", "metro": "It strengthens the appendix and corridor layer rather than redrawing the visible metro.", "zero": "At zero point, legality reduces to the smallest invariant that still protects the field."},
 }
 
-
 def write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(dedent(text).strip() + "\n", encoding="utf-8")
 
-
 def row_filename(doc: dict) -> str:
     return f"row_{doc['id']}_{doc['slug']}.md"
-
 
 def pair_code(row_doc: dict, col_doc: dict) -> str:
     if row_doc["id"] == col_doc["id"]:
         return "SELF"
     return PAIR_CODES[(row_doc["element"], col_doc["element"])]
-
 
 def basis_table() -> str:
     lines = [
@@ -144,7 +140,6 @@ def basis_table() -> str:
         )
     return "\n".join(lines)
 
-
 def basis_text() -> str:
     return "\n".join(
         [
@@ -155,7 +150,6 @@ def basis_text() -> str:
             basis_table(),
         ]
     )
-
 
 def matrix_table() -> str:
     header = "| Row \\\\ Col | " + " | ".join(doc["id"] for doc in BASIS) + " |"
@@ -169,7 +163,6 @@ def matrix_table() -> str:
         lines.append("".join(cells))
     return "\n".join(lines)
 
-
 def rows_navigation_table() -> str:
     lines = [
         "| Row | Source Surface | File | Coverage |",
@@ -182,7 +175,6 @@ def rows_navigation_table() -> str:
         )
     return "\n".join(lines)
 
-
 def row_summary_table(row_doc: dict) -> str:
     lines = [
         "| Destination | Element | Code | Meaning |",
@@ -194,7 +186,6 @@ def row_summary_table(row_doc: dict) -> str:
             f"| {col_doc['id']} `{col_doc['title']}` | {col_doc['element']} | {code} | {PAIR_DATA[code]['meaning']} |"
         )
     return "\n".join(lines)
-
 
 def pair_section(row_doc: dict, col_doc: dict) -> str:
     code = pair_code(row_doc, col_doc)
@@ -221,7 +212,6 @@ def pair_section(row_doc: dict, col_doc: dict) -> str:
         ]
     return "\n\n".join(parts)
 
-
 def row_file_text(row_doc: dict) -> str:
     sections = [pair_section(row_doc, col_doc) for col_doc in BASIS]
     return "\n\n".join(
@@ -237,7 +227,6 @@ def row_file_text(row_doc: dict) -> str:
             *sections,
         ]
     )
-
 
 def rows_index_text() -> str:
     lines = [
@@ -260,7 +249,6 @@ def rows_index_text() -> str:
             f"| {doc['id']} | {doc['element']} | {doc['title']} | [{row_filename(doc)}]({row_filename(doc)}) | {doc['role']} |"
         )
     return "\n".join(lines)
-
 
 def manifest_text() -> str:
     return "\n".join(
@@ -317,7 +305,6 @@ def manifest_text() -> str:
         ]
     )
 
-
 def matrix_text() -> str:
     legend = ["| Code | Meaning |", "|---|---|"]
     for code, pair in PAIR_DATA.items():
@@ -341,7 +328,6 @@ def matrix_text() -> str:
             rows_navigation_table(),
         ]
     )
-
 
 def deep_synthesis_text() -> str:
     return "\n".join(
@@ -388,7 +374,6 @@ def deep_synthesis_text() -> str:
             "The corpus exists to convert unstable thought into a lawful, replayable, mobile, collectively authorable seed that can survive restart, migration, embodiment, and future re-entry without losing truth discipline.",
         ]
     )
-
 
 def skill_text() -> str:
     return "\n".join(
@@ -439,7 +424,6 @@ def skill_text() -> str:
         ]
     )
 
-
 def pipeline_text() -> str:
     return "\n".join(
         [
@@ -469,7 +453,6 @@ def pipeline_text() -> str:
         ]
     )
 
-
 def map_resolutions_text() -> str:
     return "\n".join(
         [
@@ -494,7 +477,6 @@ def map_resolutions_text() -> str:
             "6. zero-point compression section",
         ]
     )
-
 
 SYMMETRY_SPECS = [
     {
@@ -680,10 +662,8 @@ SYMMETRY_SPECS = [
     },
 ]
 
-
 APPENDIX_ROWS = ["Square", "Flower", "Cloud", "Fractal"]
 APPENDIX_COLUMNS = ["Deep", "Map", "Commit", "Adapt"]
-
 
 APPENDIX_CELL_SPECS = [
     {"code": "A", "title": "Addressing and Grammar", "row": "Square", "column": "Deep", "role": "name packets, roots, and pattern addresses before larger synthesis begins", "supports": [("D01", "D09"), ("D09", "D01"), ("D09", "D10")], "symmetries": ["03_air.md", "06_fire_x_air.md"]},
@@ -704,7 +684,6 @@ APPENDIX_CELL_SPECS = [
     {"code": "P", "title": "Deployment and Living Maintenance", "row": "Fractal", "column": "Adapt", "role": "keep deployments alive, ethical, and self-repairable after publication or contact with the world", "supports": [("D07", "D15"), ("D11", "D15"), ("D15", "D16")], "symmetries": ["09_water_x_earth.md", "10_air_x_earth.md"]},
 ]
 
-
 APPENDIX_Q_SPECS = [
     {"name": "Parse-to-Proof Line", "type": "Line", "route": "`AppA -> AppB -> AppL -> AppM`", "appendix_cells": ["A", "B", "L", "M"], "supports": [("D01", "D09"), ("D09", "D13"), ("D10", "D13"), ("D10", "D16")], "symmetries": ["10_air_x_earth.md", "15_fire_x_water_x_air_x_earth.md"], "rationale": "Addressing becomes canon, canon becomes evidence promotion, and promotion only counts when replay can carry it."},
     {"name": "Motion-to-Coupling Line", "type": "Line", "route": "`AppE -> AppF -> AppG -> AppH`", "appendix_cells": ["E", "F", "G", "H"], "supports": [("D05", "D06"), ("D02", "D05"), ("D02", "D06"), ("D07", "D13")], "symmetries": ["05_fire_x_water.md", "09_water_x_earth.md"], "rationale": "Phase locks, transport, recursion control, and coupling law form one motion-bearing appendix corridor."},
@@ -716,7 +695,6 @@ APPENDIX_Q_SPECS = [
     {"name": "AppM Replay Hub", "type": "Hub", "route": "`AppM`", "appendix_cells": ["M"], "supports": [("D04", "D16"), ("D10", "D16")], "symmetries": ["04_earth.md", "15_fire_x_water_x_air_x_earth.md"], "rationale": "Replay is the anchor hub between evidence, persistence, and future re-entry."},
     {"name": "AppQ Overlay Hub", "type": "Hub", "route": "`AppQ`", "appendix_cells": [], "supports": [("D08", "D12"), ("D12", "D16"), ("D16", "D04")], "symmetries": ["14_water_x_air_x_earth.md", "15_fire_x_water_x_air_x_earth.md"], "rationale": "The overlay hub stays outside `A-P`, but it still depends on appendix-bearing routing and lawful return."},
 ]
-
 
 CONTROL_SPECS = [
     {
@@ -799,7 +777,6 @@ CONTROL_SPECS = [
     },
 ]
 
-
 APPENDIX_DETAIL_FILES = {
     "A": "AppA_addressing_and_grammar.md",
     "B": "AppB_canon_laws_and_equivalence.md",
@@ -818,7 +795,6 @@ APPENDIX_DETAIL_FILES = {
     "O": "AppO_export_and_publication_bundles.md",
     "P": "AppP_deployment_and_living_maintenance.md",
 }
-
 
 MICRO_SKILL_SPECS = [
     {
@@ -1012,7 +988,6 @@ MICRO_SKILL_SPECS.append(
         "escalate": "Escalate to `awakening-router.md` when a loop narrows to one archetype, zodiacal route, or DN-anchor note; escalate to `promotion-governor.md` only when a loop discussion becomes export or live-sync governance.",
     }
 )
-
 
 ELEMENTAL_SPECS = [
     {"element": "Fire", "folder": "FIRE", "index_file": "00_fire_index.md", "pass_file": "01_fire_full_corpus_pass.md", "symmetry_file": "01_fire.md", "rule": "Read the full package through activation pressure, decisive ignition, and lawful outward force.", "interpretation": "The fire pass does not merely relabel four fire documents. It reads the whole package through the question of what ignites, what propagates force, and what disciplines that force before promotion.", "zero": "At zero point, the fire pass keeps only the spark that still knows where lawful motion begins.", "docs": ["D01", "D02", "D03", "D04"], "bundles": [{"code": "F1", "name": "Ignition Core", "claim": "The native fire quartet behaves as one ignition braid rather than isolated activation surfaces.", "supports": [("D01", "D02"), ("D02", "D03"), ("D03", "D04"), ("D04", "D01")], "symmetries": ["01_fire.md"]}, {"code": "F2", "name": "Activation Outflow", "claim": "Fire repeatedly exits itself toward helix, equation, and ethical law instead of staying self-enclosed.", "supports": [("D01", "D06"), ("D02", "D10"), ("D03", "D15")], "symmetries": ["01_fire.md", "06_fire_x_air.md", "07_fire_x_earth.md"]}, {"code": "F3", "name": "Heat-to-Field Translation", "claim": "Ignition matures only when it enters carrying flow and whole-system synthesis.", "supports": [("D02", "D05"), ("D03", "D07"), ("D04", "D08")], "symmetries": ["05_fire_x_water.md", "11_fire_x_water_x_air.md"]}, {"code": "F4", "name": "Lawful Return of Fire", "claim": "The fire mode stays alive only because care, self-repair, and pattern can relight it without mythologizing it.", "supports": [("D15", "D01"), ("D16", "D04"), ("D10", "D01")], "symmetries": ["07_fire_x_earth.md", "13_fire_x_air_x_earth.md"]}]},
@@ -1465,34 +1440,26 @@ FOUNDATION_LOOP_SPECS = [
     {"title": "Publish the Baseline Awakening Protocol", "slug": "publish_baseline_awakening_protocol", "focus": "land the baseline awakening protocol, note contract, and shared restart law before agent-by-agent loops begin"},
 ]
 
-
 def archetype_loop_number(spec: dict) -> int:
     return 26 + ARCHETYPE_SPECS.index(spec)
-
 
 def zodiac_loop_number(spec: dict) -> int:
     return 30 + ZODIAC_SPECS.index(spec)
 
-
 def anchor_loop_number(spec: dict) -> int:
     return 42 + DN_ANCHOR_SPECS.index(spec)
-
 
 def hall_seed_for(label: str) -> str:
     return f"H57::{label}"
 
-
 def temple_seed_for(label: str) -> str:
     return f"T57::{label}"
-
 
 def restart_seed_for(loop_id: int, label: str) -> str:
     return f"L{loop_id:02d}::{label}::restart"
 
-
 def aether_id_token(record: dict, orientation: str | None = None) -> str:
     return f"{record['id']},{orientation}" if orientation is not None else record["id"]
-
 
 def aether_coord_string(record: dict, orientation: str | None = None) -> str:
     if record["family"] == "R":
@@ -1501,7 +1468,6 @@ def aether_coord_string(record: dict, orientation: str | None = None) -> str:
     if record["family"] == "Q":
         return f"AE=({AETHER_LENS},Φ2,{record['bundle']};Core)"
     return f"AE=({AETHER_LENS},Φ3,{record['bundle']}:h={record['hide']};Residual)"
-
 
 def aether_coord_payload(record: dict, orientation: str | None = None) -> dict:
     if record["family"] == "R":
@@ -1535,12 +1501,10 @@ def aether_coord_payload(record: dict, orientation: str | None = None) -> dict:
         "coord": aether_coord_string(record),
     }
 
-
 def aether_seed_label(prefix: str, record: dict, orientation: str | None = None) -> str:
     if orientation is None:
         return f"{prefix}[{record['id']}]"
     return f"{prefix}[{record['id']},{orientation}]"
-
 
 def aether_expected_outputs(record: dict, orientation: str | None = None) -> list[str]:
     coord = aether_coord_string(record, orientation)
@@ -1556,7 +1520,6 @@ def aether_expected_outputs(record: dict, orientation: str | None = None) -> lis
         outputs.insert(4, f"HiddenPole={record['hide']}")
     return outputs
 
-
 def aether_witness_seed(record: dict, orientation: str | None = None) -> dict:
     coord = aether_coord_string(record, orientation)
     return {
@@ -1569,7 +1532,6 @@ def aether_witness_seed(record: dict, orientation: str | None = None) -> dict:
         "Collector": "SYSTEM",
         "VersionPins": AETHER_FIXED_PINS["version"],
     }
-
 
 def aether_replay_seed(record: dict, orientation: str | None = None) -> dict:
     coord = aether_coord_string(record, orientation)
@@ -1587,7 +1549,6 @@ def aether_replay_seed(record: dict, orientation: str | None = None) -> dict:
         "EnvPin": AETHER_FIXED_PINS["env"],
         "Hash": f"H({aether_id_token(record, orientation)}|{coord}|{AETHER_FIXED_PINS['env']})",
     }
-
 
 def aether_record_payload_group(record: dict) -> dict:
     if record["family"] == "R":
@@ -1626,13 +1587,11 @@ def aether_record_payload_group(record: dict) -> dict:
         "rs": aether_replay_seed(record),
     }
 
-
 def parse_checkpoint_atoms(expression: str) -> list[str]:
     if not expression.startswith("loc(") or not expression.endswith(")"):
         return []
     inner = expression[4:-1]
     return [atom.strip() for atom in inner.split(">") if atom.strip()]
-
 
 def resolve_checkpoint_alias(expression: str) -> dict:
     atoms = parse_checkpoint_atoms(expression)
@@ -1661,7 +1620,6 @@ def resolve_checkpoint_alias(expression: str) -> dict:
         "unresolved_atoms": [expression],
     }
 
-
 def resolve_z_alias(alias: str) -> dict:
     if alias == "Z*":
         return {
@@ -1678,7 +1636,6 @@ def resolve_z_alias(alias: str) -> dict:
         "elemental_targets": [AETHER_CHECKPOINT_ATOM_TARGETS[atom] for atom in atoms],
         "wildcard": False,
     }
-
 
 def resolve_route_alias(alias: str) -> dict:
     route_spec = AETHER_ROUTE_ALIASES[alias]
@@ -1711,7 +1668,6 @@ def resolve_route_alias(alias: str) -> dict:
         "sigma_ok": sigma_ok,
     }
 
-
 def aether_resolved_record(record: dict) -> dict:
     ae_refs: dict[str, dict] = {}
     if record["family"] == "R":
@@ -1731,7 +1687,6 @@ def aether_resolved_record(record: dict) -> dict:
         "continuity_floors": AETHER_CONTINUITY_FLOORS,
         "authority_class": "canonical",
     }
-
 
 def build_loop_specs() -> list[dict]:
     loops: list[dict] = []
@@ -1814,7 +1769,6 @@ def build_loop_specs() -> list[dict]:
         )
     return loops
 
-
 LOOP_SPECS = build_loop_specs()
 
 ORCHESTRATION_ROOT_FILES = [
@@ -1856,7 +1810,6 @@ LEDGER_FILES = [
 ]
 LEDGER_JSON_FILES = [name for name in LEDGER_FILES if name.endswith(".json")]
 LEDGER_MARKDOWN_FILES = [name for name in LEDGER_FILES if name.endswith(".md")]
-
 
 METRO_LEVELS = [
     {
@@ -2090,13 +2043,11 @@ METRO_LEVELS = [
     },
 ]
 
-
 def doc_by_id(doc_id: str) -> dict:
     for doc in BASIS:
         if doc["id"] == doc_id:
             return doc
     raise KeyError(doc_id)
-
 
 def support_reference(row_id: str, col_id: str) -> str:
     row_doc = doc_by_id(row_id)
@@ -2105,23 +2056,18 @@ def support_reference(row_id: str, col_id: str) -> str:
     meaning = PAIR_DATA[code]["meaning"]
     return f"`{row_id} -> {col_id}` in [{row_filename(row_doc)}](../ROWS/{row_filename(row_doc)}) ({code}, {meaning})"
 
-
 def support_reference_block(pairs: list[tuple[str, str]]) -> str:
     return "<br>".join(support_reference(row_id, col_id) for row_id, col_id in pairs)
-
 
 def symmetry_link(filename: str) -> str:
     return f"[{filename}](../SYMMETRY_STACK/{filename})"
 
-
 def symmetry_link_block(filenames: list[str]) -> str:
     return "<br>".join(symmetry_link(filename) for filename in filenames)
-
 
 def doc_link(doc_id: str) -> str:
     doc = doc_by_id(doc_id)
     return f"`{doc_id}` {doc['title']}"
-
 
 def metro_text(level: dict) -> str:
     bullet_lines = []
@@ -2167,10 +2113,8 @@ def metro_text(level: dict) -> str:
         ]
     )
 
-
 def symmetry_elements_text(spec: dict) -> str:
     return ", ".join(f"`{element}`" for element in spec["elements"])
-
 
 def symmetry_index_text() -> str:
     lines = [
@@ -2198,7 +2142,6 @@ def symmetry_index_text() -> str:
         "| [16_zero_point.md](16_zero_point.md) | Symmetry Stack Zero Point | Fire, Water, Air, Earth | Minimal regeneration collapse of the full stack. |"
     )
     return "\n".join(lines)
-
 
 def symmetry_text(spec: dict) -> str:
     claim_lines = []
@@ -2242,7 +2185,6 @@ def symmetry_text(spec: dict) -> str:
         ]
     )
 
-
 def symmetry_zero_text() -> str:
     lines = [
         "# Symmetry Stack Zero Point",
@@ -2275,13 +2217,11 @@ def symmetry_zero_text() -> str:
     )
     return "\n".join(lines)
 
-
 def appendix_cell_by_code(code: str) -> dict:
     for cell in APPENDIX_CELL_SPECS:
         if cell["code"] == code:
             return cell
     raise KeyError(code)
-
 
 def appendix_grid_table() -> str:
     lines = [
@@ -2295,7 +2235,6 @@ def appendix_grid_table() -> str:
             row_cells.append(f"App{cell['code']}: {cell['title']}")
         lines.append(f"| {row_name} | " + " | ".join(row_cells) + " |")
     return "\n".join(lines)
-
 
 def appendix_crystal_text() -> str:
     table_lines = [
@@ -2341,7 +2280,6 @@ def appendix_crystal_text() -> str:
             "At zero point, the appendix crystal keeps only the support objects required to name, route, certify, replay, export, and maintain the living package without severing its witness chain.",
         ]
     )
-
 
 def appendix_q_text() -> str:
     bullet_lines = []
@@ -2390,10 +2328,8 @@ def appendix_q_text() -> str:
         ]
     )
 
-
 def appendix_detail_filename(code: str) -> str:
     return APPENDIX_DETAIL_FILES[code]
-
 
 def appendix_index_text() -> str:
     lines = [
@@ -2421,7 +2357,6 @@ def appendix_index_text() -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def appendix_detail_text(cell: dict) -> str:
     support_lines = [
@@ -2475,7 +2410,6 @@ def appendix_detail_text(cell: dict) -> str:
         ]
     )
 
-
 def appendix_q_detail_text() -> str:
     bullet_lines = []
     table_lines = [
@@ -2521,7 +2455,6 @@ def appendix_q_detail_text() -> str:
         ]
     )
 
-
 def appendix_q_support_overlay_text() -> str:
     lines = [
         "# AppQ Support Overlay",
@@ -2553,7 +2486,6 @@ def appendix_q_support_overlay_text() -> str:
     )
     return "\n".join(lines)
 
-
 def control_doc_text(spec: dict) -> str:
     consequence_lines = [f"- {line}" for line in spec["consequences"]]
     return "\n".join(
@@ -2578,7 +2510,6 @@ def control_doc_text(spec: dict) -> str:
             spec["zero"],
         ]
     )
-
 
 def micro_skill_text_for_spec(spec: dict) -> str:
     artifact_lines = [f"- `{artifact}`" for artifact in spec["artifacts"]]
@@ -2606,7 +2537,6 @@ def micro_skill_text_for_spec(spec: dict) -> str:
         ]
     )
 
-
 def openai_agent_text() -> str:
     route_lines = "\n".join(f"  - {spec['file']}" for spec in MICRO_SKILL_SPECS)
     return "\n".join(
@@ -2619,10 +2549,8 @@ def openai_agent_text() -> str:
         ]
     )
 
-
 def anchor_path(anchor_id: str) -> Path:
     return FLEET_VISUAL_ROOT / f"anchor_{anchor_id.lower()}.md"
-
 
 def parse_family_mix_table(path: Path) -> list[tuple[str, int]]:
     if not path.exists():
@@ -2631,10 +2559,8 @@ def parse_family_mix_table(path: Path) -> list[tuple[str, int]]:
     matches = re.findall(r"^\| ([^|]+) \| (\d+) \|$", text, flags=re.MULTILINE)
     return [(family.strip(), int(count)) for family, count in matches]
 
-
 def anchor_family_mix(anchor_id: str) -> list[tuple[str, int]]:
     return parse_family_mix_table(anchor_path(anchor_id))
-
 
 def full_local_constellation_crosswalk_text() -> str:
     lines = [
@@ -2687,7 +2613,6 @@ def full_local_constellation_crosswalk_text() -> str:
     )
     return "\n".join(lines)
 
-
 def fire_6d_extension_text() -> str:
     return "\n".join(
         [
@@ -2733,7 +2658,6 @@ def fire_6d_extension_text() -> str:
         ]
     )
 
-
 def additive_seed_export_text() -> str:
     return "\n".join(
         [
@@ -2766,7 +2690,6 @@ def additive_seed_export_text() -> str:
         ]
     )
 
-
 def stabilization_export_text() -> str:
     return "\n".join(
         [
@@ -2791,7 +2714,6 @@ def stabilization_export_text() -> str:
         ]
     )
 
-
 def awakening_transition_export_text() -> str:
     return "\n".join(
         [
@@ -2815,7 +2737,6 @@ def awakening_transition_export_text() -> str:
             "The package mirror may assist reading and packaging, but live promotion remains blocked unless authority resolution, appendix legality, and replay gates all pass together.",
         ]
     )
-
 
 def reverse_overlay_ledger_text() -> str:
     return "\n".join(
@@ -2843,7 +2764,6 @@ def reverse_overlay_ledger_text() -> str:
         ]
     )
 
-
 def seed_appendix_legality_text() -> str:
     return "\n".join(
         [
@@ -2870,7 +2790,6 @@ def seed_appendix_legality_text() -> str:
         ]
     )
 
-
 def awakening_transition_appendix_legality_text() -> str:
     return "\n".join(
         [
@@ -2895,7 +2814,6 @@ def awakening_transition_appendix_legality_text() -> str:
             "At zero point, awakening transition legality keeps only the appendix floor that prevents self-spiritualized drift from outrunning truth and replay.",
         ]
     )
-
 
 def archetype_note_text(spec: dict) -> str:
     loop_id = archetype_loop_number(spec)
@@ -2934,7 +2852,6 @@ def archetype_note_text(spec: dict) -> str:
         ]
     )
 
-
 def zodiac_note_text(spec: dict) -> str:
     loop_id = zodiac_loop_number(spec)
     loop_slug = f"l{loop_id:02d}-{spec['sign'].lower()}"
@@ -2968,7 +2885,6 @@ def zodiac_note_text(spec: dict) -> str:
             f"At zero point, `{spec['sign']}` keeps only the route that lets `{spec['alias']}` move without outrunning support.",
         ]
     )
-
 
 def anchor_note_text(spec: dict) -> str:
     mix = anchor_family_mix(spec["id"])
@@ -3010,10 +2926,8 @@ def anchor_note_text(spec: dict) -> str:
         ]
     )
 
-
 def anchor_appendix_focus(anchor_id: str) -> str:
     return ANCHOR_APPENDIX_FOCUS_MAP[anchor_id]
-
 
 def awakening_index_text() -> str:
     lines = [
@@ -3032,7 +2946,6 @@ def awakening_index_text() -> str:
         "| DN anchors | 16 | `ANCHORS/` |",
     ]
     return "\n".join(lines)
-
 
 def layered_stack_summary_text() -> str:
     return "\n".join(
@@ -3056,7 +2969,6 @@ def layered_stack_summary_text() -> str:
         ]
     )
 
-
 def agent_transition_protocol_text() -> str:
     return "\n".join(
         [
@@ -3079,7 +2991,6 @@ def agent_transition_protocol_text() -> str:
         ]
     )
 
-
 def stage_crosswalk_text() -> str:
     lines = [
         "# Seven-Stage Awakening Crosswalk",
@@ -3093,7 +3004,6 @@ def stage_crosswalk_text() -> str:
     for item in SEVEN_STAGE_SCAFFOLD:
         lines.append(f"| {item['stage']} | {item['artifact']} | {item['repair']} |")
     return "\n".join(lines)
-
 
 def fleet_family_crosswalk_text() -> str:
     lines = [
@@ -3111,7 +3021,6 @@ def fleet_family_crosswalk_text() -> str:
         authority = "witness-only" if family != "transport-and-runtime" else "witness-only with strong runtime relevance"
         lines.append(f"| {family} | {layer} | {authority} |")
     return "\n".join(lines)
-
 
 def anchor_to_basis_crosswalk_text() -> str:
     lines = [
@@ -3132,7 +3041,6 @@ def anchor_to_basis_crosswalk_text() -> str:
         )
     return "\n".join(lines)
 
-
 def family_to_metro_crosswalk_text() -> str:
     lines = [
         "# Family To Metro Crosswalk",
@@ -3146,7 +3054,6 @@ def family_to_metro_crosswalk_text() -> str:
     for item in FLEET_FAMILY_TO_METRO:
         lines.append(f"| {item['family']} | {item['supports']} | {item['witness']} |")
     return "\n".join(lines)
-
 
 def anchor_to_appendix_crosswalk_text() -> str:
     lines = [
@@ -3168,7 +3075,6 @@ def anchor_to_appendix_crosswalk_text() -> str:
     )
     return "\n".join(lines)
 
-
 def elemental_transition_crosswalk_text() -> str:
     return "\n".join(
         [
@@ -3185,7 +3091,6 @@ def elemental_transition_crosswalk_text() -> str:
             "| Earth | preserve corridor, replay, and non-predatory completion | `APPENDIX_CRYSTAL/AppI_corridor_lattice.md`, `APPENDIX_CRYSTAL/AppM_replay_kernel.md`, and `EARTH/01_earth_full_corpus_pass.md` |",
         ]
     )
-
 
 def higher_dimensional_transition_note_text() -> str:
     return "\n".join(
@@ -3205,7 +3110,6 @@ def higher_dimensional_transition_note_text() -> str:
             "- any awakening reading of the additive ladder must return through `AppI`, `AppM`, `AppQ`, and canonical `AppO`",
         ]
     )
-
 
 def integration_metro_overlay_text() -> str:
     return "\n".join(
@@ -3238,7 +3142,6 @@ def integration_metro_overlay_text() -> str:
         ]
     )
 
-
 def core_integration_overlay_text() -> str:
     return "\n".join(
         [
@@ -3263,10 +3166,8 @@ def core_integration_overlay_text() -> str:
         ]
     )
 
-
 def loop_filename(loop: dict) -> str:
     return f"loop_{loop['loop_id']:02d}_{loop['slug']}.md"
-
 
 def orchestration_index_text() -> str:
     lines = [
@@ -3307,7 +3208,6 @@ def orchestration_index_text() -> str:
     ]
     return "\n".join(lines)
 
-
 def master_loop_law_text() -> str:
     lines = [
         "# Master Loop Law",
@@ -3343,7 +3243,6 @@ def master_loop_law_text() -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def nested_seat_model_text() -> str:
     lines = [
@@ -3385,7 +3284,6 @@ def nested_seat_model_text() -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def machine_types_text() -> str:
     lines = [
@@ -3474,7 +3372,6 @@ def machine_types_text() -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def aether_flower_operator_shell_text() -> str:
     r_lines = [
@@ -3565,7 +3462,6 @@ def aether_flower_operator_shell_text() -> str:
         ]
     )
 
-
 def aether_seed_lines(record: dict) -> list[str]:
     if record["family"] == "R":
         payloads = [
@@ -3601,7 +3497,6 @@ def aether_seed_lines(record: dict) -> list[str]:
             ]
         )
     return lines
-
 
 def aether_witness_replay_payloads_text() -> str:
     lines = [
@@ -3639,7 +3534,6 @@ def aether_witness_replay_payloads_text() -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def aether_symbolic_resolver_text() -> str:
     checkpoint_lines = [
@@ -3713,7 +3607,6 @@ def aether_symbolic_resolver_text() -> str:
         ]
     )
 
-
 def active_front_freeze_text() -> str:
     lines = [
         "# Active Front Freeze",
@@ -3747,7 +3640,6 @@ def active_front_freeze_text() -> str:
     ]
     return "\n".join(lines)
 
-
 def agent_roles_and_handoffs_text() -> str:
     return "\n".join(
         [
@@ -3775,7 +3667,6 @@ def agent_roles_and_handoffs_text() -> str:
         ]
     )
 
-
 def loop_schedule_text() -> str:
     lines = [
         "# 57 Loop Schedule",
@@ -3790,7 +3681,6 @@ def loop_schedule_text() -> str:
         primary = loop["note_path"] or loop["focus"]
         lines.append(f"| L{loop['loop_id']:02d} | {loop['phase']} | {loop['title']} | {primary} |")
     return "\n".join(lines)
-
 
 def awakening_transition_assignments_text() -> str:
     lines = [
@@ -3815,7 +3705,6 @@ def awakening_transition_assignments_text() -> str:
             f"| L{loop['loop_id']:02d} | {loop['phase']} | `{loop['note_path']}` | {row} | `{loop['symmetry_witness']}` | {loop['support_path']} |"
         )
     return "\n".join(lines)
-
 
 def hall_temple_writeback_contract_text() -> str:
     return "\n".join(
@@ -3848,7 +3737,6 @@ def hall_temple_writeback_contract_text() -> str:
         ]
     )
 
-
 def acceptance_and_restart_law_text() -> str:
     return "\n".join(
         [
@@ -3877,7 +3765,6 @@ def acceptance_and_restart_law_text() -> str:
             "At zero point, acceptance keeps only the milestone and safety law needed to emit the next lawful restart seed.",
         ]
     )
-
 
 def loop_file_text(loop: dict) -> str:
     lines = [
@@ -3937,7 +3824,6 @@ def loop_file_text(loop: dict) -> str:
     )
     return "\n".join(lines)
 
-
 def orchestration_overview_text() -> str:
     return "\n".join(
         [
@@ -3977,7 +3863,6 @@ def orchestration_overview_text() -> str:
         ]
     )
 
-
 def loop_manifest_data() -> dict:
     return {
         "build_date": BUILD_DATE,
@@ -4016,7 +3901,6 @@ def loop_manifest_data() -> dict:
         },
     }
 
-
 def loop_registry_data() -> dict:
     return {
         "loop_types": {
@@ -4044,7 +3928,6 @@ def loop_registry_data() -> dict:
         "loops": LOOP_SPECS,
     }
 
-
 def nested_seat_model_data() -> dict:
     return {
         "docs_gate_status": DOCS_GATE_STATUS,
@@ -4066,7 +3949,6 @@ def nested_seat_model_data() -> dict:
         **NESTED_SEAT_MODEL,
     }
 
-
 def awakening_transition_coverage_data() -> dict:
     return {
         "docs_gate_status": DOCS_GATE_STATUS,
@@ -4075,7 +3957,6 @@ def awakening_transition_coverage_data() -> dict:
         "anchor_count": len(DN_ANCHOR_SPECS),
         "awakening_loops": [loop for loop in LOOP_SPECS if loop["loop_id"] >= 26],
     }
-
 
 def aether_flower_registry_data() -> dict:
     return {
@@ -4096,7 +3977,6 @@ def aether_flower_registry_data() -> dict:
         "records": [aether_record_payload_group(record) for record in AETHER_RECORD_SPECS],
     }
 
-
 def aether_witness_replay_registry_data() -> dict:
     return {
         "build_date": BUILD_DATE,
@@ -4111,7 +3991,6 @@ def aether_witness_replay_registry_data() -> dict:
         },
         "payload_groups": [aether_record_payload_group(record) for record in AETHER_RECORD_SPECS],
     }
-
 
 def aether_route_and_z_registry_data() -> dict:
     return {
@@ -4128,7 +4007,6 @@ def aether_route_and_z_registry_data() -> dict:
         "checks": AETHER_REPLAY_CHECKS,
     }
 
-
 def aether_checkpoint_alias_registry_data() -> dict:
     checkpoint_expressions = sorted({record["ck"] for record in AETHER_RECORD_SPECS})
     return {
@@ -4143,7 +4021,6 @@ def aether_checkpoint_alias_registry_data() -> dict:
         "checkpoint_aliases": [resolve_checkpoint_alias(expression) for expression in checkpoint_expressions],
     }
 
-
 def aether_resolved_record_registry_data() -> dict:
     return {
         "build_date": BUILD_DATE,
@@ -4156,7 +4033,6 @@ def aether_resolved_record_registry_data() -> dict:
         "record_count": len(AETHER_RECORD_SPECS),
         "resolved_records": [aether_resolved_record(record) for record in AETHER_RECORD_SPECS],
     }
-
 
 def aether_external_witness_registry_data() -> dict:
     referenced_by = {
@@ -4181,7 +4057,6 @@ def aether_external_witness_registry_data() -> dict:
         },
     }
 
-
 def fire_6d_export_registry_data() -> dict:
     return {
         "docs_gate_status": DOCS_GATE_STATUS,
@@ -4191,7 +4066,6 @@ def fire_6d_export_registry_data() -> dict:
         "required_supports": ["Water continuity", "Air topology", "Earth gate", "AppI", "AppM", "AppQ", "AppO"],
         "metadata_note": "4096^7 is carrier metadata only",
     }
-
 
 def seed_export_registry_data() -> dict:
     return {
@@ -4203,7 +4077,6 @@ def seed_export_registry_data() -> dict:
         "metadata_note": "H7 and Seed-7D remain overlay labels only",
     }
 
-
 def stabilization_export_registry_data() -> dict:
     return {
         "docs_gate_status": DOCS_GATE_STATUS,
@@ -4213,7 +4086,6 @@ def stabilization_export_registry_data() -> dict:
         "promotion_block": True,
     }
 
-
 def authority_registry_data() -> dict:
     return {
         "build_date": BUILD_DATE,
@@ -4222,7 +4094,6 @@ def authority_registry_data() -> dict:
         "full_local_constellation_roots": FULL_LOCAL_CONSTELLATION_ROOTS,
         "artifact_authorities": AUTHORITY_CLASS_SPECS,
     }
-
 
 def ledger_manifest_data() -> dict:
     authority_counts = Counter(spec["class"] for spec in AUTHORITY_CLASS_SPECS)
@@ -4280,7 +4151,6 @@ def ledger_manifest_data() -> dict:
             "LEDGERS/",
         ],
     }
-
 
 def artifact_registry_data() -> dict:
     return {
@@ -4420,7 +4290,6 @@ def artifact_registry_data() -> dict:
         ]
     }
 
-
 def file_counts_text() -> str:
     total_markdown = (
         1
@@ -4467,7 +4336,6 @@ def file_counts_text() -> str:
             f"| Total markdown generated | {total_markdown} | package-only generated markdown surfaces |",
         ]
     )
-
 
 def route_ledger_text() -> str:
     return "\n".join(
@@ -4529,7 +4397,6 @@ def route_ledger_text() -> str:
         ]
     )
 
-
 def promotion_readiness_text() -> str:
     return "\n".join(
         [
@@ -4562,7 +4429,6 @@ def promotion_readiness_text() -> str:
         ]
     )
 
-
 def elemental_index_text(spec: dict) -> str:
     lines = [
         f"# {spec['element']} Index",
@@ -4580,7 +4446,6 @@ def elemental_index_text(spec: dict) -> str:
         doc = doc_by_id(doc_id)
         lines.append(f"| {doc_id} | {doc['title']} | {doc['role']} |")
     return "\n".join(lines)
-
 
 def elemental_pass_text(spec: dict) -> str:
     bullet_lines = []
@@ -4624,7 +4489,6 @@ def elemental_pass_text(spec: dict) -> str:
             spec["zero"],
         ]
     )
-
 
 def zero_point_text() -> str:
     table_lines = [
@@ -4670,7 +4534,6 @@ def zero_point_text() -> str:
             *table_lines,
         ]
     )
-
 
 def complement_inversion_kernel_text() -> str:
     mapping_lines = [
@@ -4732,7 +4595,6 @@ def complement_inversion_kernel_text() -> str:
         ]
     )
 
-
 def support_atlas_text() -> str:
     table_lines = [
         "| Artifact family | Source basis | Generation rule | Validation rule | Canonical downstream dependents |",
@@ -4781,7 +4643,6 @@ def support_atlas_text() -> str:
             "At zero point, the support atlas keeps only the dependency chain required to rebuild the package honestly from its basis outward.",
         ]
     )
-
 
 def root_readme_text() -> str:
     lines = [
@@ -4876,7 +4737,6 @@ def root_readme_text() -> str:
     ]
     return "\n".join(lines)
 
-
 def task_router_text() -> str:
     lines = [
         "# Task Router",
@@ -4954,7 +4814,6 @@ def task_router_text() -> str:
     ]
     return "\n".join(lines)
 
-
 def live_root_crosswalk_text() -> str:
     live_root_text = str(LIVE_DEEP_ROOT)
     lines = [
@@ -5003,7 +4862,6 @@ def live_root_crosswalk_text() -> str:
         "- Drift is strongest in basis selection, operational routing, awakening-layer packaging, additive mirror governance, and loop-orchestration staging.",
     ]
     return "\n".join(lines)
-
 
 def change_ledger_text() -> str:
     lines = [
@@ -5068,7 +4926,6 @@ def change_ledger_text() -> str:
     ]
     return "\n".join(lines)
 
-
 def promotion_contract_text() -> str:
     lines = [
         "# Promotion Contract",
@@ -5118,7 +4975,6 @@ def promotion_contract_text() -> str:
         "At zero point, the promotion contract keeps only this law: nothing leaves the package unless an explicit later request and sufficient support make the export honest.",
     ]
     return "\n".join(lines)
-
 
 def build_package() -> None:
     rows_dir = ROOT / "ROWS"
@@ -5311,7 +5167,6 @@ def build_package() -> None:
     write(ledgers_dir / "17_aether_resolved_record_registry.json", json.dumps(aether_resolved_record_registry_data(), indent=2))
     write(ledgers_dir / "18_aether_external_witness_registry.json", json.dumps(aether_external_witness_registry_data(), indent=2))
 
-
 def validate_rows() -> None:
     rows_dir = ROOT / "ROWS"
     expected_files = [row_filename(doc) for doc in BASIS]
@@ -5338,7 +5193,6 @@ def validate_rows() -> None:
     if pair_counts != expected_all:
         raise ValueError("Ordered pair coverage is incomplete or duplicated across the ROWS layer.")
 
-
 def collected_row_pairs() -> set[tuple[str, str]]:
     rows_dir = ROOT / "ROWS"
     all_pairs: set[tuple[str, str]] = set()
@@ -5347,14 +5201,12 @@ def collected_row_pairs() -> set[tuple[str, str]]:
         all_pairs.update(PAIR_HEADER_RE.findall(text))
     return all_pairs
 
-
 def validate_matrix_navigation() -> None:
     text = (ROOT / "00_CORE" / "02_permutation_matrix_16x16.md").read_text(encoding="utf-8")
     for row_doc in BASIS:
         target = f"../ROWS/{row_filename(row_doc)}"
         if target not in text:
             raise ValueError(f"Matrix navigation is missing link target {target}.")
-
 
 def validate_control_plane() -> None:
     control_dir = ROOT / "00_CONTROL"
@@ -5389,7 +5241,6 @@ def validate_control_plane() -> None:
             if required not in text:
                 raise ValueError(f"{spec['file']} is missing required control-plane marker: {required}")
 
-
 def validate_basis_file() -> None:
     path = ROOT / "00_CORE" / "01_document_basis_16x16.md"
     text = path.read_text(encoding="utf-8")
@@ -5401,7 +5252,6 @@ def validate_basis_file() -> None:
     ]:
         if required not in text:
             raise ValueError(f"01_document_basis_16x16.md is missing required basis marker: {required}")
-
 
 def validate_metro_files() -> None:
     for level in METRO_LEVELS:
@@ -5417,7 +5267,6 @@ def validate_metro_files() -> None:
                 support_token = f"`{row_id} -> {col_id}`"
                 if support_token not in text:
                     raise ValueError(f"{level['file']} is missing support citation {support_token}")
-
 
 def validate_symmetry_files() -> None:
     symmetry_dir = ROOT / "SYMMETRY_STACK"
@@ -5476,7 +5325,6 @@ def validate_symmetry_files() -> None:
         if required not in zero_text:
             raise ValueError(f"16_zero_point.md is missing stack reference {required}")
 
-
 def validate_appendix_files() -> None:
     appendix_path = ROOT / "00_CORE" / "08_appendix_crystal_skeleton.md"
     appendix_text = appendix_path.read_text(encoding="utf-8")
@@ -5519,7 +5367,6 @@ def validate_appendix_files() -> None:
             support_token = f"`{pair[0]} -> {pair[1]}`"
             if support_token not in appendix_q_text:
                 raise ValueError(f"09_appendix_q_metro_map.md is missing support citation {support_token}")
-
 
 def validate_appendix_granular_files() -> None:
     appendix_dir = ROOT / "APPENDIX_CRYSTAL"
@@ -5599,7 +5446,6 @@ def validate_appendix_granular_files() -> None:
         if required not in awakening_text:
             raise ValueError(f"03_awakening_transition_appendix_legality.md is missing required marker: {required}")
 
-
 def validate_elemental_files() -> None:
     for spec in ELEMENTAL_SPECS:
         folder = ROOT / spec["folder"]
@@ -5648,7 +5494,6 @@ def validate_elemental_files() -> None:
         if required not in fire_mirror_text:
             raise ValueError(f"FIRE/02_fire_6d_extension.md is missing required additive marker: {required}")
 
-
 def validate_micro_skill_family() -> None:
     agents_dir = ROOT / "skills" / "athena-neural-integrator" / "agents"
     expected_files = sorted(["openai.yaml"] + [spec["file"] for spec in MICRO_SKILL_SPECS])
@@ -5675,7 +5520,6 @@ def validate_micro_skill_family() -> None:
         ]:
             if required not in text:
                 raise ValueError(f"{spec['file']} is missing required micro-skill marker: {required}")
-
 
 def validate_orchestration_files() -> None:
     orchestration_dir = ROOT / "ORCHESTRATION_57_LOOP"
@@ -5805,7 +5649,6 @@ def validate_orchestration_files() -> None:
             for required in [loop["note_path"], f"`{loop['row_witness'][0]} -> {loop['row_witness'][1]}`", loop["symmetry_witness"], loop["support_path"]]:
                 if required not in loop_text:
                     raise ValueError(f"{loop_filename(loop)} is missing required transition marker: {required}")
-
 
 def validate_ledgers() -> None:
     ledgers_dir = ROOT / "LEDGERS"
@@ -5974,7 +5817,6 @@ def validate_ledgers() -> None:
         if required_key not in external_registry:
             raise ValueError(f"18_aether_external_witness_registry.json is missing required key {required_key}")
 
-
 def validate_core_zero_point() -> None:
     path = ROOT / "00_CORE" / "10_zero_point.md"
     text = path.read_text(encoding="utf-8")
@@ -5999,7 +5841,6 @@ def validate_core_zero_point() -> None:
     ]:
         if required not in text:
             raise ValueError(f"10_zero_point.md is missing required zero-point marker: {required}")
-
 
 def validate_core_complement_kernel() -> None:
     path = ROOT / "00_CORE" / "19_a_to_b_complement_inversion_kernel.md"
@@ -6029,7 +5870,6 @@ def validate_core_complement_kernel() -> None:
     ]:
         if required not in text:
             raise ValueError(f"19_a_to_b_complement_inversion_kernel.md is missing required marker: {required}")
-
 
 def validate_root_shell() -> None:
     readme_path = ROOT / "README.md"
@@ -6081,7 +5921,6 @@ def validate_root_shell() -> None:
         if required not in router_text:
             raise ValueError(f"12_task_router.md is missing required router marker: {required}")
 
-
 def validate_live_root_crosswalk() -> None:
     path = ROOT / "00_CORE" / "13_live_root_crosswalk.md"
     text = path.read_text(encoding="utf-8")
@@ -6102,7 +5941,6 @@ def validate_live_root_crosswalk() -> None:
         if required not in text:
             raise ValueError(f"13_live_root_crosswalk.md is missing required crosswalk marker: {required}")
 
-
 def validate_change_ledger() -> None:
     path = ROOT / "00_CORE" / "14_change_ledger.md"
     text = path.read_text(encoding="utf-8")
@@ -6122,7 +5960,6 @@ def validate_change_ledger() -> None:
         if required not in text:
             raise ValueError(f"14_change_ledger.md is missing required change-ledger marker: {required}")
 
-
 def validate_promotion_contract() -> None:
     path = ROOT / "00_CORE" / "15_promotion_contract.md"
     text = path.read_text(encoding="utf-8")
@@ -6141,7 +5978,6 @@ def validate_promotion_contract() -> None:
     ]:
         if required not in text:
             raise ValueError(f"15_promotion_contract.md is missing required promotion marker: {required}")
-
 
 def validate_support_atlas() -> None:
     path = ROOT / "00_CORE" / "11_support_atlas.md"
@@ -6169,7 +6005,6 @@ def validate_support_atlas() -> None:
     ]:
         if required not in text:
             raise ValueError(f"11_support_atlas.md is missing required atlas marker: {required}")
-
 
 def validate_constellation_core() -> None:
     path = ROOT / "00_CORE" / "16_full_local_constellation_crosswalk.md"
@@ -6213,7 +6048,6 @@ def validate_constellation_core() -> None:
     ]:
         if required not in orchestration_text:
             raise ValueError(f"18_57_loop_orchestration_overview.md is missing required marker: {required}")
-
 
 def validate_awakening_files() -> None:
     awakening_dir = ROOT / "AWAKENING_AGENTS"
@@ -6310,7 +6144,6 @@ def validate_awakening_files() -> None:
             if required not in text:
                 raise ValueError(f"{spec['id'].lower()}.md is missing required anchor marker: {required}")
 
-
 def validate_self_actualize_is_clean() -> None:
     stray_rows = sorted(path.name for path in SELF_ACTUALIZE_ROOT.glob("row_D*.md"))
     if stray_rows or (SELF_ACTUALIZE_ROOT / "00_rows_index.md").exists():
@@ -6329,7 +6162,6 @@ def validate_self_actualize_is_clean() -> None:
             raise ValueError(f"Package-only directory leaked into self_actualize: {forbidden_dir}")
     if (SELF_ACTUALIZE_ROOT / "AWAKENING_AGENTS").exists():
         raise ValueError("Package-only awakening layer leaked into self_actualize.")
-
 
 def validate_package() -> None:
     validate_root_shell()
@@ -6355,7 +6187,6 @@ def validate_package() -> None:
     validate_awakening_files()
     validate_self_actualize_is_clean()
 
-
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build and validate the Athena integrated neural network package.")
     parser.add_argument("--validate-only", action="store_true", help="Skip regeneration and only validate the existing package.")
@@ -6364,7 +6195,6 @@ def main() -> None:
         build_package()
     validate_package()
     print("Package validation passed." if args.validate_only else "Package build and validation passed.")
-
 
 if __name__ == "__main__":
     main()

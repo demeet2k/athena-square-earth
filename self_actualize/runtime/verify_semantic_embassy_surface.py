@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=345 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 import json
@@ -17,29 +21,23 @@ from .derive_semantic_embassy_surface import (
     build_payloads,
 )
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_semantic_embassy_surface"
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def normalize_json(payload: Any) -> str:
     return json.dumps(payload, indent=2, sort_keys=True)
-
 
 def verify_outputs_exist() -> dict[str, Any]:
     for path in [SURFACE_REGISTRY_PATH, VALIDATOR_REGISTRY_PATH, RENDER_POLICY_PATH, DASHBOARD_PATH]:
         ensure(path.exists(), f"missing registry output: {path}")
     return {"outputs": 4}
-
 
 def verify_docs_gate_honesty() -> dict[str, Any]:
     docs_gate = swarm_board.docs_gate_status()
@@ -51,7 +49,6 @@ def verify_docs_gate_honesty() -> dict[str, Any]:
     ensure(dashboard["docs_gate_status"] == docs_gate["status"], "dashboard docs gate drifted")
     ensure(docs_gate["status"] == "BLOCKED", "docs gate must remain BLOCKED in v1")
     return {"docs_gate_status": docs_gate["status"]}
-
 
 def verify_manuscript_and_appo_alignment() -> dict[str, Any]:
     manuscript = MANUSCRIPT_PATH.read_text(encoding="utf-8", errors="ignore")
@@ -85,7 +82,6 @@ def verify_manuscript_and_appo_alignment() -> dict[str, Any]:
     ensure(not missing_appo, f"AppO mirror is missing embassy terms: {missing_appo}")
     return {"object_family_count": len(object_family), "policy_line_count": len(policy_lines)}
 
-
 def verify_replay_example() -> dict[str, Any]:
     dashboard = load_json(DASHBOARD_PATH)
     replay = dashboard["replay_example"]
@@ -93,7 +89,6 @@ def verify_replay_example() -> dict[str, Any]:
     ensure(replay["audience_emit"] is True, "replay example did not produce an emitted audience bundle")
     ensure("RecertificationPack/ReleaseTrustPack" in replay["input_flow"], "replay flow is incomplete")
     return {"validator_status": replay["validator_status"]}
-
 
 def verify_failure_cases() -> dict[str, Any]:
     validator = load_json(VALIDATOR_REGISTRY_PATH)
@@ -114,13 +109,11 @@ def verify_failure_cases() -> dict[str, Any]:
         ensure(needle.lower() in joined, f"failure case {label} missing expected reason: {needle}")
     return {"failure_cases": len(expected)}
 
-
 def verify_render_policy_determinism() -> dict[str, Any]:
     existing = load_json(RENDER_POLICY_PATH)
     rebuilt = build_payloads()["policy"]
     ensure(normalize_json(existing) == normalize_json(rebuilt), "render policy serialization drifted")
     return {"policy_hash": existing["policy_hash"]}
-
 
 def verify_frontier_registration() -> dict[str, Any]:
     current_packet = CURRENT_PACKET_PATH.read_text(encoding="utf-8", errors="ignore")
@@ -133,13 +126,11 @@ def verify_frontier_registration() -> dict[str, Any]:
     ensure("TF-010" in frontier and "Semantic Embassy post-attestation audience reception surface" in frontier, "frontier ledger is missing TF-010")
     return {"frontier_row": "TF-010"}
 
-
 def verify_surface_hash_determinism() -> dict[str, Any]:
     existing = load_json(SURFACE_REGISTRY_PATH)
     rebuilt = build_payloads()["surface"]
     ensure(existing["surface_hash"] == rebuilt["surface_hash"], "surface hash drifted across rebuild")
     return {"surface_hash": existing["surface_hash"]}
-
 
 def main() -> None:
     checks = {
@@ -163,7 +154,6 @@ def main() -> None:
             sort_keys=True,
         )
     )
-
 
 if __name__ == "__main__":
     main()

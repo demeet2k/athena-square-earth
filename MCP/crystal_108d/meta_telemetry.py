@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S36 | face=F | node=141 | depth=1 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A6:S35→Xi108:W1:A6:S36→Xi108:W3:A6:S36→Xi108:W2:A5:S36→Xi108:W2:A7:S36
+
 """
 Meta-Telemetry — Universal Tool Instrumentation Standard
 =========================================================
@@ -45,7 +49,6 @@ from typing import Any, Optional, Callable
 from functools import wraps
 from contextlib import contextmanager
 
-
 # ──────────────────────────────────────────────────────────────
 #  Telemetry Event Model
 # ──────────────────────────────────────────────────────────────
@@ -64,7 +67,6 @@ class ToolEvent:
     caller_context: str = "" # what called this tool (if known)
     session_id: str = ""     # group related calls
     sequence_position: int = 0  # position in call sequence
-
 
 @dataclass
 class ToolHealth:
@@ -85,7 +87,6 @@ class ToolHealth:
     # Parameter patterns
     most_common_params: str = "[]"  # JSON
 
-
 @dataclass
 class ToolCoupling:
     """Detected coupling between two tools."""
@@ -95,7 +96,6 @@ class ToolCoupling:
     sequence_count: int = 0      # how often A precedes B
     avg_gap_ms: float = 0.0      # average time between A and B
     correlation: float = 0.0     # statistical correlation
-
 
 # ──────────────────────────────────────────────────────────────
 #  Resonance Monitor (from agency_gateway.json spec)
@@ -226,7 +226,6 @@ class ResonanceMonitor:
         # Positive change = converging
         return min(1.0, max(0.0, 0.5 + (late_rate - early_rate)))
 
-
 # ──────────────────────────────────────────────────────────────
 #  Self-Healing Engine (from agency_gateway.json spec)
 # ──────────────────────────────────────────────────────────────
@@ -310,7 +309,6 @@ class SelfHealingEngine:
             self.healing_log.append(a)
 
         return actions
-
 
 # ──────────────────────────────────────────────────────────────
 #  Core Telemetry Engine (Singleton)
@@ -771,7 +769,6 @@ class Telemetry:
             if result[0] != "ok":
                 raise RuntimeError(f"DB integrity check failed: {result[0]}")
 
-
 class _ObservationContext:
     """Internal context for observe() context manager."""
 
@@ -815,7 +812,6 @@ class _ObservationContext:
             session_id=self.session_id,
             sequence_position=self.sequence_position,
         )
-
 
 # ──────────────────────────────────────────────────────────────
 #  Decorator for Automatic Instrumentation
@@ -883,7 +879,6 @@ def instrument(tool_name: str = None):
         return wrapper
     return decorator
 
-
 # ──────────────────────────────────────────────────────────────
 #  MCP Tool Interface — query_telemetry
 # ──────────────────────────────────────────────────────────────
@@ -931,7 +926,6 @@ def query_telemetry(component: str = "report") -> str:
             "couplings, healing, insights, events"
         )
 
-
 def _format_report(report: dict) -> str:
     lines = [
         "## Meta-Telemetry Full Report\n",
@@ -972,7 +966,6 @@ def _format_report(report: dict) -> str:
 
     return "\n".join(lines)
 
-
 def _format_health(health: dict) -> str:
     if not health:
         return "No tool health data yet. Tools need to be instrumented and called."
@@ -984,7 +977,6 @@ def _format_health(health: dict) -> str:
             f"{h.get('avg_duration_ms', 0):.0f}ms avg"
         )
     return "\n".join(lines)
-
 
 def _format_resonance(res: dict) -> str:
     lines = ["## 8D Resonance Vector\n"]
@@ -999,7 +991,6 @@ def _format_resonance(res: dict) -> str:
             lines.append(f"  - ⚠ {a['risk']}: {a['action']}")
     return "\n".join(lines)
 
-
 def _format_couplings(couplings: list) -> str:
     if not couplings:
         return "No tool couplings detected yet. Need more tool usage data."
@@ -1012,7 +1003,6 @@ def _format_couplings(couplings: list) -> str:
         )
     return "\n".join(lines)
 
-
 def _format_healing(actions: list) -> str:
     if not actions:
         return "## Self-Healing: All Clear ✓\nNo healing actions required."
@@ -1020,7 +1010,6 @@ def _format_healing(actions: list) -> str:
     for a in actions:
         lines.append(f"- [{a['severity'].upper()}] **{a['law']}**: {a['action']}")
     return "\n".join(lines)
-
 
 def _format_insights(insights: list) -> str:
     if not insights:
@@ -1032,7 +1021,6 @@ def _format_insights(insights: list) -> str:
             lines.append(f"**Tool**: {ins['tool']}")
         lines.append(f"{ins['description']}\n")
     return "\n".join(lines)
-
 
 def _format_events(events: list) -> str:
     if not events:

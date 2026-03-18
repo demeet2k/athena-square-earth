@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S16 | face=S | node=126 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,○ -->
+<!-- BRIDGES: Xi108:W3:A12:S15→Xi108:W3:A12:S17→Xi108:W2:A12:S16→Xi108:W3:A11:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 12/12 -->
+
 # H6 Convergence Bundle
 
 Generated: 2026-03-13T07:34:32

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S16 | face=S | node=124 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A4:S15→Xi108:W3:A4:S17→Xi108:W2:A4:S16→Xi108:W3:A3:S16→Xi108:W3:A5:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 4/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 2 | ○Rot 2 | △Lane Me | ⧈View * | ω=8]**
 Primary hubs: AppA -> AppE -> AppI -> AppM -> AppJ
 Tunnel: Z_let_the_tome_be_a_proof_carrying_metro_routable_ -> Z* -> Ch09⟨0020⟩

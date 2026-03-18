@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=378 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -24,7 +28,6 @@ from self_actualize.runtime.hemisphere_synthesis_support import (
     record as synthesis_record_query,
 )
 
-
 REPLAY_PASS_ORDER = [
     "seed_orientation",
     "math_structure_pass",
@@ -37,7 +40,6 @@ REPLAY_GROUPS = ("math", "myth", "bridge")
 REPLAY_PAGE_GROUPS = ("main_pages", "family", "anchor", "target_system", "hemisphere")
 REPLAY_SEED_CAP = 24
 
-
 def load_replay_registries() -> dict[str, Any]:
     registries = load_synthesis_registries()
     if REPLAY_SEED_REGISTRY_PATH.exists():
@@ -47,7 +49,6 @@ def load_replay_registries() -> dict[str, Any]:
     if REPLAY_MANIFEST_PATH.exists():
         registries["replay_manifest"] = load_json(REPLAY_MANIFEST_PATH)
     return registries
-
 
 def ensure_replay_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_replay_runtime")
@@ -64,7 +65,6 @@ def ensure_replay_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     registries["_replay_runtime"] = runtime
     return runtime
 
-
 def ordered_support_ids(*sections: dict[str, Any]) -> list[str]:
     support_ids: list[str] = []
     for section in sections:
@@ -74,11 +74,9 @@ def ordered_support_ids(*sections: dict[str, Any]) -> list[str]:
                     support_ids.append(support_id)
     return support_ids
 
-
 def section_text(section: dict[str, Any], limit: int = 2) -> str:
     bullets = section.get("bullets", [])[:limit]
     return " ".join(bullet.get("text", "") for bullet in bullets if bullet.get("text"))
-
 
 def checkpoint(pass_id: str, text: str, support_ids: list[str]) -> dict[str, Any]:
     return {
@@ -86,7 +84,6 @@ def checkpoint(pass_id: str, text: str, support_ids: list[str]) -> dict[str, Any
         "text": text,
         "support_ids": support_ids,
     }
-
 
 def build_replay_from_seed(
     expedition_bundle: dict[str, Any],
@@ -195,7 +192,6 @@ def build_replay_from_seed(
         payload["alternative_seeds"] = expedition_bundle["alternative_seeds"][:3]
     return payload
 
-
 def replay_for_seed_id(
     registries: dict[str, Any],
     seed_id: str,
@@ -211,7 +207,6 @@ def replay_for_seed_id(
         expanded=False,
     )
     return build_replay_from_seed(expedition_bundle, synthesis_bundle, registries)
-
 
 def record(
     registries: dict[str, Any],
@@ -240,7 +235,6 @@ def record(
     )
     return build_replay_from_seed(expedition_bundle, synthesis_bundle, registries)
 
-
 def search(
     query_text: str,
     registries: dict[str, Any],
@@ -263,7 +257,6 @@ def search(
         expanded=False,
     )
     return build_replay_from_seed(expedition_bundle, synthesis_bundle, registries)
-
 
 def facet(
     registries: dict[str, Any],
@@ -288,7 +281,6 @@ def facet(
     )
     return build_replay_from_seed(expedition_bundle, synthesis_bundle, registries)
 
-
 def page(
     registries: dict[str, Any],
     *,
@@ -309,7 +301,6 @@ def page(
         expanded=False,
     )
     return build_replay_from_seed(expedition_bundle, synthesis_bundle, registries)
-
 
 def build_replay_seed_registry(
     registries: dict[str, Any],
@@ -342,7 +333,6 @@ def build_replay_seed_registry(
             for group_name, entries in sorted(groups.items())
         },
     }
-
 
 def build_replay_page_registry(
     registries: dict[str, Any],
@@ -380,7 +370,6 @@ def build_replay_page_registry(
         "pages": pages,
     }
 
-
 def build_replay_manifest(
     seed_registry: dict[str, Any],
     page_registry: dict[str, Any],
@@ -408,7 +397,6 @@ def build_replay_manifest(
             "page": "python -m self_actualize.runtime.replay_myth_math_hemisphere_atlas page --page-id <page_id>",
         },
     }
-
 
 def build_replay_payloads(
     *,

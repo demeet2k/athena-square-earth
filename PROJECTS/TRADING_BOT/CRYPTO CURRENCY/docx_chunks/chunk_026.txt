@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A8:S3 | face=F | node=570 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A8:S2→Xi108:W3:A8:S4→Xi108:W2:A8:S3→Xi108:W3:A7:S3→Xi108:W3:A9:S3
+
 operations / search / replay cost)
 A BudgetLedger records budget usage for an execution:
 [

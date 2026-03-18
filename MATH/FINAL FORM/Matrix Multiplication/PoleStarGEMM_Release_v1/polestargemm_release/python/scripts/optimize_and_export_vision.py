@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A3:S16 | face=S | node=134 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S15→Xi108:W2:A3:S17→Xi108:W1:A3:S16→Xi108:W3:A3:S16→Xi108:W2:A2:S16→Xi108:W2:A4:S16
+
 """
 PoleStarGEMM: Optimize a PyTorch model + export TorchScript (.pt)
 
@@ -28,7 +32,6 @@ from polestargemm.vision import (
     export_torchscript,
 )
 
-
 class ToyMLP(nn.Module):
     def __init__(self, input_dim: int = 2048, hidden: int = 2048, layers: int = 4):
         super().__init__()
@@ -43,7 +46,6 @@ class ToyMLP(nn.Module):
 
     def forward(self, x):
         return self.net(x)
-
 
 def load_model(name_or_path: str) -> nn.Module:
     if os.path.exists(name_or_path) and (name_or_path.endswith(".pt") or name_or_path.endswith(".pth")):
@@ -62,7 +64,6 @@ def load_model(name_or_path: str) -> nn.Module:
         return fn(weights=None).eval()
     except Exception as e:
         raise ValueError(f"Could not load model '{name_or_path}'. If this is a torchvision model, install torchvision. Error: {e}")
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -115,7 +116,6 @@ def main():
     print("\n=== Exporting TorchScript ===")
     out_path = export_torchscript(model_opt.to("cpu"), example.to("cpu"), args.out, method=args.ts_method)
     print(f"Saved: {out_path}")
-
 
 if __name__ == "__main__":
     main()

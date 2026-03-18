@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - STATE TRANSITIONS MODULE
 ====================================
@@ -34,7 +38,6 @@ from enum import Enum, auto
 from abc import ABC, abstractmethod
 import time
 
-
 # =============================================================================
 # ACTUALITY-POTENTIALITY
 # =============================================================================
@@ -46,7 +49,6 @@ class ActualityState(Enum):
     FIRST_ACTUALITY = 2     # ἐνέργεια (energeia) - has form
     SECOND_ACTUALITY = 3    # Actively exercising capacity
     PURE_ACTUALITY = 4      # ἐντελέχεια (entelechia) - fully realized
-
 
 @dataclass
 class Capacity:
@@ -64,7 +66,6 @@ class Capacity:
     def de_actualize(self) -> None:
         """Return to potential state."""
         self.actualized = False
-
 
 @dataclass
 class EntityState:
@@ -130,7 +131,6 @@ class EntityState:
         total_count = len(self.capacities)
         self.actuality_level = actualized_count / total_count
 
-
 # =============================================================================
 # CHANGE TYPES
 # =============================================================================
@@ -139,7 +139,6 @@ class ChangeCategory(Enum):
     """Categories of change (kinesis/metabole)."""
     ESSENTIAL = auto()    # Changes to substance itself
     ACCIDENTAL = auto()   # Changes to accidents
-
 
 class ChangeType(Enum):
     """Types of change in Aristotelian physics."""
@@ -153,7 +152,6 @@ class ChangeType(Enum):
     DIMINUTION = auto()   # Quantity decrease (φθίσις)
     LOCOMOTION = auto()   # Place change (φορά)
 
-
 @dataclass(frozen=True)
 class ChangeSpec:
     """Specification of a change type."""
@@ -165,7 +163,6 @@ class ChangeSpec:
     from_category: Optional[str]  # Category of from-state
     to_category: Optional[str]    # Category of to-state
     description: str
-
 
 CHANGE_GENERATION = ChangeSpec(
     ChangeType.GENERATION, "Generation", "γένεσις",
@@ -212,7 +209,6 @@ ALL_CHANGES: Dict[ChangeType, ChangeSpec] = {
     ChangeType.LOCOMOTION: CHANGE_LOCOMOTION,
 }
 
-
 # =============================================================================
 # CHANGE EVENTS
 # =============================================================================
@@ -255,7 +251,6 @@ class ChangeEvent:
         self.end_time = time.time()
         self.completed = True
 
-
 # =============================================================================
 # MOTION TYPES
 # =============================================================================
@@ -264,7 +259,6 @@ class MotionType(Enum):
     """Types of motion relative to natural state."""
     NATURAL = auto()   # Toward natural state (κατὰ φύσιν)
     VIOLENT = auto()   # Away from natural state (βίᾳ)
-
 
 @dataclass
 class Motion:
@@ -288,7 +282,6 @@ class Motion:
     def is_complete(self) -> bool:
         return self.progress >= 1.0
 
-
 # =============================================================================
 # CHANGE INVARIANTS
 # =============================================================================
@@ -299,7 +292,6 @@ class ChangeInvariant(Enum):
     TERMINUS_SPECIFICATION = auto() # From and to states defined
     CONTINUITY = auto()             # No instantaneous jumps
 
-
 @dataclass
 class InvariantCheck:
     """Check of a change invariant."""
@@ -307,7 +299,6 @@ class InvariantCheck:
     invariant: ChangeInvariant
     satisfied: bool
     message: str
-
 
 def check_invariants(event: ChangeEvent, 
                     entity_state: Optional[EntityState] = None) -> List[InvariantCheck]:
@@ -343,7 +334,6 @@ def check_invariants(event: ChangeEvent,
     
     return checks
 
-
 # =============================================================================
 # STATE TRANSITION ENGINE
 # =============================================================================
@@ -355,7 +345,6 @@ class TransitionResult(Enum):
     IMPOSSIBLE = auto()
     BLOCKED = auto()
 
-
 @dataclass
 class TransitionOutcome:
     """Outcome of a state transition attempt."""
@@ -365,7 +354,6 @@ class TransitionOutcome:
     change_event: Optional[ChangeEvent]
     invariant_checks: List[InvariantCheck]
     message: str
-
 
 class StateTransitionEngine:
     """Engine for managing state transitions."""
@@ -569,7 +557,6 @@ class StateTransitionEngine:
         
         return None
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -660,7 +647,6 @@ def validate_transitions() -> bool:
     assert motion.progress == 0.5
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

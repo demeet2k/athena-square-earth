@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import argparse
@@ -9,7 +13,6 @@ from typing import Any
 from .command_spine_adapter import CommandMembraneConfig, CommandMembraneService
 from .engine import SelfActualizeEngine
 
-
 KNOWN_SUBCOMMANDS = {
     "watch",
     "watch-command-folder",
@@ -20,7 +23,6 @@ KNOWN_SUBCOMMANDS = {
     "reinforce",
     "metrics",
 }
-
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Athena runtime CLI.")
@@ -90,18 +92,15 @@ def build_parser() -> argparse.ArgumentParser:
     metrics.add_argument("--json", action="store_true", help="Print JSON output.")
     return parser
 
-
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = build_parser()
     return parser.parse_args(argv)
-
 
 def service_from_args(path_override: str = "") -> CommandMembraneService:
     if path_override:
         config = CommandMembraneConfig(command_surface_root=Path(path_override))
         return CommandMembraneService(config)
     return CommandMembraneService()
-
 
 def emit_output(payload: Any, as_json: bool) -> None:
     if as_json:
@@ -111,7 +110,6 @@ def emit_output(payload: Any, as_json: bool) -> None:
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return
     print(payload)
-
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(argv or [])
@@ -204,7 +202,6 @@ def main(argv: list[str] | None = None) -> int:
         emit_output(service.metrics(surface=args.surface), args.json)
         return 0
     raise ValueError(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     import sys

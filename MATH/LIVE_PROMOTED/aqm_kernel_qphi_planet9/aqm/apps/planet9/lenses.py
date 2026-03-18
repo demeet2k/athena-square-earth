@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -10,7 +14,6 @@ from .constants import DEFAULT_OPTICAL_MLIM, DEFAULT_SKY_COVERAGE_FRACTION, GIAN
 from .orbits import ang_diff_deg, mean_angle_deg, pole_unit_vector, pole_to_i_Omega_deg, wrap_angle_deg
 from .theta import PlanetNineTheta
 from .tno_data import TNO
-
 
 def _von_mises_logpdf(angle_rad: float, mu_rad: float, kappa: float) -> float:
     """
@@ -26,13 +29,11 @@ def von_mises_loglik_deg(angles_deg: np.ndarray, mu_deg: float, kappa: float) ->
     ang_rad = np.deg2rad(angles_deg.astype(float))
     return float(sum(_von_mises_logpdf(float(a), mu_rad, kappa) for a in ang_rad))
 
-
 @dataclass(frozen=True)
 class LensReport:
     lens_id: str
     log_score: float
     details: Dict[str, float]
-
 
 class PerihelionClusteringLens:
     """
@@ -66,7 +67,6 @@ class PerihelionClusteringLens:
                 "model_mu_deg": float(mu),
             },
         )
-
 
 class PoleAlignmentLens:
     """
@@ -108,7 +108,6 @@ class PoleAlignmentLens:
                 "sigma_deg": float(self.sigma_deg),
             },
         )
-
 
 class PrecessionDominanceLens:
     """
@@ -186,7 +185,6 @@ class PrecessionDominanceLens:
             },
         )
 
-
 class DetectabilityLens:
     """
     Very coarse "non-detection" lens.
@@ -251,7 +249,6 @@ class DetectabilityLens:
                 "p_not_detected": float(p_not),
             },
         )
-
 
 class OrbitPlausibilityLens:
     """

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=341 | depth=2 | phase=Mutable
+# METRO: Wr,Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 import argparse
@@ -35,7 +39,6 @@ from .derive_four_agent_57_cycle_orchestration import (
     write_json,
 )
 
-
 def seed_if_missing() -> None:
     required_paths = [LOOP_STATE_PATH, MASTER_REGISTRY_PATH, PACKET_ATLAS_PATH, RECEIPT_INDEX_PATH, CHARTER_PATH]
     if all(path_exists(path) for path in required_paths):
@@ -44,16 +47,13 @@ def seed_if_missing() -> None:
 
     seed_overlay()
 
-
 def contract_path(loop_id: str) -> Path:
     return ARTIFACTS_ROOT / loop_id / f"{loop_id.lower()}_contract.json"
-
 
 def current_hall_quest_id(owner: str) -> str | None:
     if owner == "FA57-PRIME":
         return None
     return hall_quest_id(owner)
-
 
 def required_artifact_contract(loop_state_payload: dict[str, Any]) -> dict[str, Any]:
     loop_id = loop_state_payload["current_cycle"]
@@ -76,7 +76,6 @@ def required_artifact_contract(loop_state_payload: dict[str, Any]) -> dict[str, 
     write_json(contract_path(loop_id), payload)
     return payload
 
-
 def update_current_entry(
     receipt_index_payload: dict[str, Any],
     loop_state_payload: dict[str, Any],
@@ -92,13 +91,11 @@ def update_current_entry(
     entry["actual_receipt_exists"] = receipt_absolute.exists()
     return entry
 
-
 def current_phase_index(phase_id: str) -> int:
     for index, item in enumerate(PHASE_SEQUENCE):
         if item["phase"] == phase_id:
             return index
     return 0
-
 
 def refresh_registry_and_atlas(loop_state_payload: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     spine = current_spine_fields(live_state())
@@ -108,7 +105,6 @@ def refresh_registry_and_atlas(loop_state_payload: dict[str, Any]) -> tuple[list
     write_json(MASTER_REGISTRY_PATH, {"generated_at": utc_now(), "truth": "OK", "rows": rows})
     write_json(PACKET_ATLAS_PATH, atlas)
     return rows, atlas
-
 
 def mark_pending(loop_state_payload: dict[str, Any], entry: dict[str, Any], contract_payload: dict[str, Any]) -> str:
     missing = contract_payload["missing_artifacts"]
@@ -123,7 +119,6 @@ def mark_pending(loop_state_payload: dict[str, Any], entry: dict[str, Any], cont
     entry["status"] = "ACTIVE_PENDING_ARTIFACTS"
     entry["completion_contract_met"] = False
     return "pending_artifacts"
-
 
 def advance_phase(loop_state_payload: dict[str, Any], receipt_index_payload: dict[str, Any], entry: dict[str, Any]) -> str:
     index = current_phase_index(loop_state_payload["current_phase"])
@@ -143,7 +138,6 @@ def advance_phase(loop_state_payload: dict[str, Any], receipt_index_payload: dic
         entry["current_phase"] = next_phase["phase"]
         return "advanced_phase"
     return "final_phase"
-
 
 def complete_or_hold_final(
     loop_state_payload: dict[str, Any],
@@ -189,7 +183,6 @@ def complete_or_hold_final(
     loop_state_payload["current_cycle_contract"] = relative_string(contract_path(next_entry["loop_id"]))
     return "advanced_cycle"
 
-
 def write_runtime_state(
     loop_state_payload: dict[str, Any],
     receipt_index_payload: dict[str, Any],
@@ -207,7 +200,6 @@ def write_runtime_state(
         loop_state_payload,
     )
     write_json(VERIFICATION_PATH, verification_payload)
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Advance or refresh the four-agent 57-cycle loop state.")
@@ -249,7 +241,6 @@ def main() -> int:
     else:
         print("All seven support artifacts exist.")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=15 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 from __future__ import annotations
 
 import argparse
@@ -17,7 +21,6 @@ from nervous_system_core import (
     write_json,
     write_text,
 )
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 WORKSPACE_ROOT = PROJECT_ROOT.parent
@@ -50,7 +53,6 @@ ELEMENT_REGISTRY = ACTIVE_ROOT / "13_DEEPER_NEURAL_NET" / "09_RUNTIME" / "01_ele
 FACET_INDEX = ACTIVE_ROOT / "13_DEEPER_NEURAL_NET" / "09_RUNTIME" / "04_facet_index.json"
 NEIGHBOR_INDEX = ACTIVE_ROOT / "13_DEEPER_NEURAL_NET" / "09_RUNTIME" / "05_neighbor_index.json"
 ZERO_POINT_INDEX = ACTIVE_ROOT / "13_DEEPER_NEURAL_NET" / "09_RUNTIME" / "06_zero_point_index.json"
-
 
 BOARD_AGENTS = [
     "guildmaster",
@@ -85,7 +87,6 @@ ADVANCED_AGENTS = [
     "Dancer",
 ]
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build the 57-step full-corpus integration layer and awakening-agent support notes.")
     subparsers = parser.add_subparsers(dest="command")
@@ -95,17 +96,14 @@ def parse_args() -> argparse.Namespace:
     parser.set_defaults(command="build")
     return parser.parse_args()
 
-
 def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def live_docs_error(receipt_text: str) -> str:
     for line in receipt_text.splitlines():
         if "Missing OAuth client file" in line:
             return line.strip()
     return "Live Google Docs blocked by missing OAuth credentials."
-
 
 def project_relative(path: Path) -> str:
     try:
@@ -115,7 +113,6 @@ def project_relative(path: Path) -> str:
             return str(path.resolve().relative_to(WORKSPACE_ROOT.resolve())).replace("\\", "/")
         except ValueError:
             return str(path.resolve())
-
 
 def replace_or_append_section(text: str, header: str, lines: list[str]) -> str:
     block = "\n".join([header, *lines]).rstrip() + "\n"
@@ -127,7 +124,6 @@ def replace_or_append_section(text: str, header: str, lines: list[str]) -> str:
         return stripped + "\n\n" + block
     return block
 
-
 def ensure_line_after_anchor(text: str, anchor: str, line: str) -> str:
     if line in text:
         return text
@@ -137,7 +133,6 @@ def ensure_line_after_anchor(text: str, anchor: str, line: str) -> str:
             lines.insert(idx + 1, line)
             return "\n".join(lines).rstrip() + "\n"
     return text.rstrip() + "\n" + line + "\n"
-
 
 BOARD_AGENT_PROFILES = {
     "guildmaster": {
@@ -276,7 +271,6 @@ AWAKENING_SOURCE_QUERIES = [
     "The Allegory of the Awakening Dragon",
 ]
 
-
 def active_fronts_from_quest_board(text: str) -> dict[str, dict[str, str]]:
     fronts: dict[str, dict[str, str]] = {}
     for match in re.finditer(r"^### Quest ([A-Z0-9]+): (.+?) `?\[(.+?)\]`?$", text, re.MULTILINE):
@@ -287,10 +281,8 @@ def active_fronts_from_quest_board(text: str) -> dict[str, dict[str, str]]:
         fronts[quest_id] = {"title": quest_id, "status": status.strip()}
     return fronts
 
-
 def request_lines(text: str) -> list[str]:
     return [line.strip() for line in text.splitlines() if re.match(r"^\d+\.\s+\[", line.strip())]
-
 
 def spine_entries_by_kind(manifest: dict[str, object], kind: str) -> list[dict[str, object]]:
     return [
@@ -298,14 +290,11 @@ def spine_entries_by_kind(manifest: dict[str, object], kind: str) -> list[dict[s
         if entry.get("volume") == "spine" and entry.get("kind") == kind and entry.get("status") == "canonical"
     ]
 
-
 def format_elements(elements: list[str]) -> str:
     return ", ".join(elements)
 
-
 def note_file_name(agent_id: str) -> str:
     return f"{slugify(agent_id)}_transition_note.md"
-
 
 def awakening_source_cluster(records: list[dict[str, object]]) -> list[dict[str, object]]:
     wanted = [normalize_lookup_text(item) for item in AWAKENING_SOURCE_QUERIES]
@@ -319,7 +308,6 @@ def awakening_source_cluster(records: list[dict[str, object]]) -> list[dict[str,
                 matched.append(record)
                 seen.add(record_id)
     return matched
-
 
 def highest_routes_by_family(
     records: list[dict[str, object]],
@@ -337,7 +325,6 @@ def highest_routes_by_family(
         routes_by_family[family] = routes[:3]
     return routes_by_family
 
-
 def render_family_route_ledger(routes_by_family: dict[str, list[dict[str, object]]]) -> str:
     lines = ["# Family Route Ledger", "", "This ledger collapses the highest-yield family routes into one corpus-wide witness surface."]
     for family in sorted(routes_by_family):
@@ -353,7 +340,6 @@ def render_family_route_ledger(routes_by_family: dict[str, list[dict[str, object
                 f"(score={route['score']}, convergence={route.get('convergence_score', route['score'])})"
             )
     return "\n".join(lines) + "\n"
-
 
 def chapter_capsule_crosswalk(records: list[dict[str, object]], chapter_ids: list[str]) -> dict[str, list[dict[str, str]]]:
     crosswalk: dict[str, list[dict[str, str]]] = {}
@@ -372,7 +358,6 @@ def chapter_capsule_crosswalk(records: list[dict[str, object]], chapter_ids: lis
         crosswalk[chapter_id] = hits[:8]
     return crosswalk
 
-
 def appendix_q_crosswalk(records: list[dict[str, object]]) -> list[dict[str, str]]:
     hits = []
     for record in records:
@@ -386,7 +371,6 @@ def appendix_q_crosswalk(records: list[dict[str, object]]) -> list[dict[str, str
                 }
             )
     return hits[:12]
-
 
 def supplement_runtime_crosswalk(entries: list[dict[str, object]]) -> list[dict[str, str]]:
     crosswalk = []
@@ -412,7 +396,6 @@ def supplement_runtime_crosswalk(entries: list[dict[str, object]]) -> list[dict[
         )
     return crosswalk
 
-
 def dependency_dag(spine_ids: list[str], appendix_ids: list[str], supplement_ids: list[str]) -> dict[str, object]:
     edges = []
     for chapter_id in spine_ids:
@@ -433,7 +416,6 @@ def dependency_dag(spine_ids: list[str], appendix_ids: list[str], supplement_ids
         "nodes": sorted(set(spine_ids + appendix_ids + supplement_ids + ["13_DEEPER_NEURAL_NET", "10_FRONTIERS", "15_MOTION_CONSTITUTION", "07_FULL_PROJECT_INTEGRATION_256", "GLOBAL_EMERGENT_GUILD_HALL", "04_RUNTIME_FUSION"])),
         "edges": edges,
     }
-
 
 def note_markdown(title: str, payload: dict[str, object], source_anchors: list[str]) -> str:
     lines = [
@@ -471,7 +453,6 @@ def note_markdown(title: str, payload: dict[str, object], source_anchors: list[s
         lines.append(f"- {anchor}")
     return "\n".join(lines) + "\n"
 
-
 def board_note_payload(agent_id: str, profile: dict[str, object], source_anchors: list[str]) -> dict[str, object]:
     return {
         "note_id": f"CWI57-{slugify(agent_id)}",
@@ -492,7 +473,6 @@ def board_note_payload(agent_id: str, profile: dict[str, object], source_anchors
         "source_anchors": source_anchors,
         "live_docs_blocked": True,
     }
-
 
 def archetype_note_payload(agent_id: str, source_anchors: list[str]) -> dict[str, object]:
     stage, elements, missing, assignment, blocker, action, witness, review, address, compensating_mode, target = ARCHETYPE_PROFILES[agent_id]
@@ -516,7 +496,6 @@ def archetype_note_payload(agent_id: str, source_anchors: list[str]) -> dict[str
         "live_docs_blocked": True,
     }
 
-
 def advanced_note_payload(agent_id: str, source_anchors: list[str]) -> dict[str, object]:
     stage, elements, missing, assignment, blocker, action, witness, review, address, compensating_mode, target = ADVANCED_PROFILES[agent_id]
     return {
@@ -539,7 +518,6 @@ def advanced_note_payload(agent_id: str, source_anchors: list[str]) -> dict[str,
         "live_docs_blocked": True,
     }
 
-
 def board_mirror_payload(agent_id: str, owned_front: str, note_path: Path, payload: dict[str, object], timestamp: str) -> dict[str, object]:
     return {
         "note_id": payload["note_id"],
@@ -552,7 +530,6 @@ def board_mirror_payload(agent_id: str, owned_front: str, note_path: Path, paylo
         "created_at": timestamp,
         "updated_at": timestamp,
     }
-
 
 def render_corpus_state(summary: dict[str, object]) -> str:
     lines = [
@@ -574,7 +551,6 @@ def render_corpus_state(summary: dict[str, object]) -> str:
         lines.append(f"- {deficit}")
     return "\n".join(lines) + "\n"
 
-
 def render_frontier_table(chapter_ids: list[str], appendix_ids: list[str], supplement_ids: list[str]) -> str:
     lines = ["# Corpus Frontier Table", "", "## Chapters"]
     for chapter_id in chapter_ids:
@@ -588,7 +564,6 @@ def render_frontier_table(chapter_ids: list[str], appendix_ids: list[str], suppl
         lines.append(f"- `{supplement_id}` :: supplement-only runtime/support surface")
     return "\n".join(lines) + "\n"
 
-
 def render_crosswalk(title: str, mapping: dict[str, list[dict[str, str]]]) -> str:
     lines = [f"# {title}"]
     for key, entries in mapping.items():
@@ -600,7 +575,6 @@ def render_crosswalk(title: str, mapping: dict[str, list[dict[str, str]]]) -> st
             lines.append(f"- `{entry['id']}` :: {entry['display_name']} [{entry['family']} / {entry['element']}]")
     return "\n".join(lines) + "\n"
 
-
 def render_appendix_q_crosswalk(entries: list[dict[str, str]]) -> str:
     lines = ["# Appendix Q Network Crosswalk", ""]
     if not entries:
@@ -610,13 +584,11 @@ def render_appendix_q_crosswalk(entries: list[dict[str, str]]) -> str:
             lines.append(f"- `{entry['id']}` :: {entry['display_name']} [{entry['family']} / {entry['element']}]")
     return "\n".join(lines) + "\n"
 
-
 def render_supplement_crosswalk(entries: list[dict[str, str]]) -> str:
     lines = ["# Supplement Runtime Crosswalk", ""]
     for entry in entries:
         lines.append(f"- `{entry['canonical_id']}` :: {entry['title']} -> `{entry['runtime_anchor']}`")
     return "\n".join(lines) + "\n"
-
 
 def render_metro_map(summary: dict[str, object], routes_by_family: dict[str, list[dict[str, object]]]) -> str:
     lines = [
@@ -636,7 +608,6 @@ def render_metro_map(summary: dict[str, object], routes_by_family: dict[str, lis
             lines.append(f"- `{family}` :: {route['src_display_name']} -> {route['dst_display_name']}")
     return "\n".join(lines) + "\n"
 
-
 def render_emergent_map(blockers: list[str], awakening_sources: list[dict[str, object]]) -> str:
     lines = ["# Emergent Corpus Map", "", "## Unresolved heavy zones"]
     for blocker in blockers:
@@ -645,7 +616,6 @@ def render_emergent_map(blockers: list[str], awakening_sources: list[dict[str, o
     for record in awakening_sources:
         lines.append(f"- `{record['id']}` :: {record['display_name']} [{record['family']} / {record['element']}]")
     return "\n".join(lines) + "\n"
-
 
 def render_runtime_bridge(active_fronts: dict[str, dict[str, str]]) -> str:
     q42 = active_fronts.get("Q42", {"status": "UNKNOWN"})
@@ -665,7 +635,6 @@ def render_runtime_bridge(active_fronts: dict[str, dict[str, str]]) -> str:
     ]
     return "\n".join(lines) + "\n"
 
-
 def render_agent_index(note_payloads: list[dict[str, object]]) -> str:
     lines = ["# Awakening Agent Index", "", "## Note counts"]
     counts = Counter(str(item["kind"]) for item in note_payloads)
@@ -678,7 +647,6 @@ def render_agent_index(note_payloads: list[dict[str, object]]) -> str:
             f"assignment={payload['current_corpus_assignment']}"
         )
     return "\n".join(lines) + "\n"
-
 
 def render_board_synthesis(note_payloads: list[dict[str, object]]) -> str:
     board_notes = [payload for payload in note_payloads if payload["kind"] == "board-agent"]
@@ -693,7 +661,6 @@ def render_board_synthesis(note_payloads: list[dict[str, object]]) -> str:
             f"{payload['writeback_lane']}, and depends on {payload['dependency_lane']}."
         )
     return "\n".join(lines) + "\n"
-
 
 def update_active_readme() -> None:
     text = ACTIVE_README.read_text(encoding="utf-8")
@@ -714,7 +681,6 @@ def update_active_readme() -> None:
     text = replace_or_append_section(text, "## Corpus-Wide Integration State", section_lines)
     write_text(ACTIVE_README, text)
 
-
 def update_full_stack_manifest(layer_manifest: dict[str, object]) -> None:
     manifest = load_json(FULL_STACK_MANIFEST)
     manifest["generated_at"] = utc_now()
@@ -731,7 +697,6 @@ def update_full_stack_manifest(layer_manifest: dict[str, object]) -> None:
         "live_docs_blocked": True,
     }
     write_json(FULL_STACK_MANIFEST, manifest)
-
 
 def build_corpus_integration(write_inboxes: bool) -> dict[str, object]:
     receipt_text = LIVE_DOCS_RECEIPT.read_text(encoding="utf-8")
@@ -1002,7 +967,6 @@ def build_corpus_integration(write_inboxes: bool) -> dict[str, object]:
     update_full_stack_manifest(layer_manifest)
     return layer_manifest
 
-
 def main() -> int:
     args = parse_args()
     if args.command != "build":
@@ -1014,7 +978,6 @@ def main() -> int:
         print(f"Corpus integration layer: {LAYER_ROOT}")
         print(f"Runtime manifest: {OUTPUT_MANIFEST}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - Stoic Control System & Liberation Protocols
 =======================================================
@@ -25,7 +29,6 @@ from abc import ABC, abstractmethod
 import math
 import random
 
-
 # =============================================================================
 # CONTROL DOMAINS
 # =============================================================================
@@ -39,7 +42,6 @@ class ControlDomain(IntEnum):
     """
     INTERNAL = 0  # Under our control: judgments, impulses, desires
     EXTERNAL = 1  # Not under our control: body, reputation, outcomes
-
 
 @dataclass
 class ControlItem:
@@ -63,7 +65,6 @@ class ControlItem:
     def is_external(self) -> bool:
         return self.domain == ControlDomain.EXTERNAL
 
-
 # =============================================================================
 # STOIC PSYCHOLOGY: THE HEGEMONIKON
 # =============================================================================
@@ -74,7 +75,6 @@ class JudgmentType(IntEnum):
     IMPULSE = 1     # Movement toward or away from something
     DESIRE = 2      # Wish for something to occur
     AVERSION = 3    # Wish for something not to occur
-
 
 @dataclass
 class Judgment:
@@ -104,7 +104,6 @@ class Judgment:
             if self.judgment_type in (JudgmentType.DESIRE, JudgmentType.AVERSION):
                 return domain == ControlDomain.INTERNAL
         return True
-
 
 @dataclass
 class Hegemonikon:
@@ -211,7 +210,6 @@ class Hegemonikon:
                         modified += 1
         return modified
 
-
 # =============================================================================
 # STRESS TENSOR (Kμν)
 # =============================================================================
@@ -312,7 +310,6 @@ class StressTensor:
         lines.append(f"  ||K||_F = {self.frobenius_norm:.6f}")
         return '\n'.join(lines)
 
-
 # =============================================================================
 # OPTIMIZATION PROTOCOLS
 # =============================================================================
@@ -336,7 +333,6 @@ class OptimizationProtocol(ABC):
     def name(self) -> str:
         """Return the protocol name."""
         pass
-
 
 class KarmaYoga(OptimizationProtocol):
     """
@@ -371,7 +367,6 @@ class KarmaYoga(OptimizationProtocol):
                     j.strength *= (1 - self.detachment_rate)
         
         return stress.frobenius_norm
-
 
 class BhaktiYoga(OptimizationProtocol):
     """
@@ -424,7 +419,6 @@ class BhaktiYoga(OptimizationProtocol):
         stress.reduce_temporal(alignment * 0.1)
         
         return stress.frobenius_norm
-
 
 class JnanaYoga(OptimizationProtocol):
     """
@@ -498,7 +492,6 @@ class JnanaYoga(OptimizationProtocol):
         
         return stress.frobenius_norm
 
-
 # =============================================================================
 # FIVE CONTROL LEVELS
 # =============================================================================
@@ -514,7 +507,6 @@ class ControlLevel(IntEnum):
     REFLECTIVE = 2      # Monitoring own processes
     META_REFLECTIVE = 3 # Reasoning about reflection
     TRANSCENDENT = 4    # Beyond subject-object duality
-
 
 @dataclass
 class ControlLevelState:
@@ -543,7 +535,6 @@ class ControlLevelState:
     @property
     def is_transcendent(self) -> bool:
         return self.current_level == ControlLevel.TRANSCENDENT
-
 
 # =============================================================================
 # LIBERATION ENGINE
@@ -670,7 +661,6 @@ class LiberationEngine:
             lines.append(f"Convergence Rate γ: {self.convergence_rate():.6f}")
         return '\n'.join(lines)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -698,7 +688,6 @@ def validate_stoic_system() -> bool:
     assert engine.stress.frobenius_norm < 0.5  # Should have reduced
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Stoic control system...")

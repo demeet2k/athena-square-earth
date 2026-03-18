@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=150 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       LATIN KERNEL SYSTEMS MODULE                            ║
@@ -30,7 +34,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 import itertools
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # KLEIN-4 GROUP - THE FUNDAMENTAL SYMMETRY
@@ -79,7 +82,6 @@ class Klein4Element(Enum):
     
     def __mul__(self, other: 'Klein4Element') -> 'Klein4Element':
         return self.compose(other)
-
 
 class Klein4Group:
     """
@@ -134,7 +136,6 @@ class Klein4Group:
             [1, -1,  1, -1],   # sign on R and C
             [1, -1, -1,  1],   # sign on R and S
         ], dtype=np.int64)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DIAGONAL LATIN SQUARE - THE FUNDAMENTAL OBJECT
@@ -246,7 +247,6 @@ class DiagonalLatinSquare:
     def __repr__(self) -> str:
         return f"DLS(order={self.order}, holography={self.holography_fraction():.2%})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CANONICAL 4×4 SEED - THE HOLOGRAPHIC KERNEL
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -328,7 +328,6 @@ class HolographicSeed4x4:
                 return (i, j, window)
         return None
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # RADIX-4 TOWER - RECURSIVE CONSTRUCTION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -404,7 +403,6 @@ class Radix4Tower:
             dls = DiagonalLatinSquare(matrix=matrix)
             results[r] = dls.holography_fraction()
         return results
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PRIME DIAGONAL LATIN SQUARES - AFFINE FAMILY
@@ -525,7 +523,6 @@ class AffineDLS:
                 return False
         return True
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # REED-SOLOMON CODE CONNECTION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -583,7 +580,6 @@ class DLSCodeView:
             for j in range(i + 1, self.p):
                 distances.add(self.hamming_distance(i, j))
         return len(distances) == 1
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SYMMETRY ANALYSIS
@@ -660,7 +656,6 @@ class DLSSymmetry:
         
         return tuple(sorted(cycles, reverse=True))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LATTICE MODEL INTERPRETATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -715,7 +710,6 @@ class LatinLatticeModel:
                     defects.append((i, j))
         return defects
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -723,7 +717,6 @@ class LatinLatticeModel:
 def get_canonical_4x4_seed() -> NDArray[np.int64]:
     """Get the canonical 4×4 holographic seed."""
     return HolographicSeed4x4.SEED.copy()
-
 
 def generate_dls(order: int, method: str = 'auto') -> DiagonalLatinSquare:
     """
@@ -761,11 +754,9 @@ def generate_dls(order: int, method: str = 'auto') -> DiagonalLatinSquare:
     else:
         raise ValueError(f"Unknown method: {method}")
 
-
 def klein4_orbit(x: int) -> Set[int]:
     """Orbit of x under Klein-4 action."""
     return Klein4Group.orbit(x)
-
 
 def holography_analysis(dls: DiagonalLatinSquare) -> Dict[str, Any]:
     """Complete holography analysis of a DLS."""
@@ -794,7 +785,6 @@ def holography_analysis(dls: DiagonalLatinSquare) -> Dict[str, Any]:
         'holographic_positions': holo_windows,
         'non_holographic_positions': non_holo_windows
     }
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

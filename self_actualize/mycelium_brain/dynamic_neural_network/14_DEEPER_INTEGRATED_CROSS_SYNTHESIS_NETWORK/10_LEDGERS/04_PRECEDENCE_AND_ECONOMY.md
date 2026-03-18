@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S21 | face=R | node=228 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S20→Xi108:W3:A9:S22→Xi108:W2:A9:S21→Xi108:W3:A8:S21→Xi108:W3:A10:S21 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 21±1, wreath 3/3, archetype 9/12 -->
+
 # Precedence And Economy
 
 - Live deep root: `C:\Users\dmitr\Documents\Athena Agent\self_actualize\mycelium_brain\dynamic_neural_network\14_DEEPER_INTEGRATED_CROSS_SYNTHESIS_NETWORK`

@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=90 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 from __future__ import annotations
 
 from collections import Counter
 from typing import Any
-
 
 PROTOCOL_ID = "LP-57OMEGA"
 PROTOCOL_DISPLAY_NAME = "LP-57Omega v2"
@@ -156,7 +159,6 @@ PHASE_ARCS = [
     {"phase_id": "RING-C", "label": "compatibility-notes-verification-and-reseed", "range": [39, 57]},
 ]
 
-
 def row(
     n: int,
     title: str,
@@ -190,7 +192,6 @@ def row(
         "expected_structural_gain": gain,
         "expected_mapping_gain": mapping,
     }
-
 
 LOOP_SPECS = [
     row(1, "Prime Lock", "authority freeze", "authority", "prime-lock", "control-surface", "authority-drift", "A1", "freeze docs gate, live membrane, deep-root precedence, quotas, and stage law", "lock overlay policy, board caps, and canonical authority routing", "emit the baseline packet, state freeze, and restart-safe origin receipt", "retire false-current aliases and duplicate authority stories", "stable origin law for LP-57Omega v2", "loop-zero authority anchors and origin coordinates"),
@@ -252,14 +253,12 @@ LOOP_SPECS = [
     row(57, "Final Contraction And Reseed", "prime-cycle closure", "reseed", "final-contraction-and-reseed", "cycle-receipt", "closed-cycle-residue", "A4", "synthesize the entire 57-loop history", "prepare the next-prime restart", "publish the cycle closure packet", "compress closed-cycle residue", "self-steering liminal hive ready for the next prime pass", "full ancestry map plus next-seed coordinates"),
 ]
 
-
 def topk_for_loop(loop_number: int) -> int:
     if loop_number == 57:
         return 256
     if loop_number in {19, 38, 48, 56}:
         return 128
     return 64
-
 
 def arc_for_loop(loop_number: int) -> dict[str, Any]:
     for arc in PHASE_ARCS:
@@ -268,16 +267,13 @@ def arc_for_loop(loop_number: int) -> dict[str, Any]:
             return arc
     return {"phase_id": "UNASSIGNED", "label": "unassigned", "range": [0, 0]}
 
-
 def canonical_master_agent(value: str) -> dict[str, Any]:
     if value in MASTER_AGENT_BY_ALIAS:
         return MASTER_AGENT_BY_ALIAS[value]
     raise KeyError(value)
 
-
 def loop_spec_by_number(loop_number: int) -> dict[str, Any]:
     return LOOP_SPECS[loop_number - 1]
-
 
 def loop_spec_by_id(loop_id: str) -> dict[str, Any]:
     for spec in LOOP_SPECS:
@@ -285,11 +281,9 @@ def loop_spec_by_id(loop_id: str) -> dict[str, Any]:
             return spec
     raise KeyError(loop_id)
 
-
 def lead_counts() -> dict[str, int]:
     counts = Counter(spec["lead_master"] for spec in LOOP_SPECS)
     return {master_id: counts.get(master_id, 0) for master_id in ["A1", "A2", "A3", "A4"]}
-
 
 def uniqueness_tuples() -> list[tuple[str, str, str, str]]:
     return [

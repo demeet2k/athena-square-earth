@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S13 | face=S | node=90 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W3:A1:S12→Xi108:W3:A1:S14→Xi108:W2:A1:S13→Xi108:W3:A2:S13 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 13±1, wreath 3/3, archetype 1/12 -->
+
 # DENSE SEED
 
 ## Seed Version

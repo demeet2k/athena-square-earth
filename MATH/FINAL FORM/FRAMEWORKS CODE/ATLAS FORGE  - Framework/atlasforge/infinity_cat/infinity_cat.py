@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      ∞-CATEGORIES MODULE                                     ║
@@ -24,7 +28,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODEL CATEGORIES
@@ -71,7 +74,6 @@ class ModelStructure:
         """Ho(C) = C[W^{-1}]."""
         return f"Ho({self.category_name}) = {self.category_name}[{self.weak_equivalences}^{{-1}}]"
 
-
 @dataclass
 class ModelCategory:
     """
@@ -107,7 +109,6 @@ class ModelCategory:
         """Projective model structure on Ch(R)."""
         return cls("Ch(R)", ModelStructure("Ch(R)", "quasi-iso", "surjective", "degreewise mono"))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUILLEN ADJUNCTIONS AND EQUIVALENCES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -133,7 +134,6 @@ class QuillenAdjunction:
         """𝕃F ⊣ ℝG on homotopy categories."""
         return f"𝕃{self.left_functor} ⊣ ℝ{self.right_functor}: Ho({self.source.name}) ⇌ Ho({self.target.name})"
 
-
 @dataclass
 class QuillenEquivalence:
     """
@@ -152,7 +152,6 @@ class QuillenEquivalence:
     def criterion(self) -> str:
         """Criterion for Quillen equivalence."""
         return "F reflects weak eq between cofibrant, G reflects weak eq between fibrant"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SIMPLICIAL AND TOPOLOGICAL HOMOTOPY THEORY
@@ -193,7 +192,6 @@ class SimplicialSet:
         """Nerve of category C."""
         return cls(f"N({C})")
 
-
 @dataclass
 class KanComplex:
     """
@@ -215,7 +213,6 @@ class KanComplex:
     def singular_complex(cls, X: str) -> 'KanComplex':
         """Sing(X) - singular simplicial set."""
         return cls(SimplicialSet(f"Sing({X})"))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUASICATEGORIES (∞-CATEGORIES)
@@ -254,7 +251,6 @@ class Quasicategory:
         """N(C) is a quasicategory (actually strict)."""
         return cls(f"N({C})")
 
-
 @dataclass
 class InfinityCategory:
     """
@@ -290,7 +286,6 @@ class InfinityCategory:
     def spectra(cls) -> 'InfinityCategory':
         """Sp - ∞-category of spectra."""
         return cls("Sp", "stable")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STABLE ∞-CATEGORIES
@@ -332,7 +327,6 @@ class StableInfinityCategory:
         """D(A) as stable ∞-category."""
         return cls(f"D({A})")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # (∞,n)-CATEGORIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -362,7 +356,6 @@ class InfinityNCategory:
         """Hom is (∞,n-1)-category."""
         return f"Hom_{{{self.name}}} is (∞,{self.n-1})-category"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LOCALIZATION AND PRESENTABILITY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -385,7 +378,6 @@ class BousfieldLocalization:
         """W-local objects."""
         return f"{{X : f^* → X bijection for f ∈ {self.localizing_class}}}"
 
-
 @dataclass
 class PresentableCategory:
     """
@@ -407,7 +399,6 @@ class PresentableCategory:
     def adjoint_functor_theorem(self) -> str:
         """Presentable AFT."""
         return "F: C → D has right adjoint ⟺ F preserves colimits"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -459,7 +450,6 @@ class InfinityCategoryPoleBridge:
         """
         return "Σ ↔ Homotopy: f ~ g homotopic"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -468,37 +458,30 @@ def model_category(name: str) -> ModelCategory:
     """Create model category."""
     return ModelCategory(name, ModelStructure(name))
 
-
 def quillen_adjunction(L: str, R: str, 
                        C: ModelCategory, D: ModelCategory) -> QuillenAdjunction:
     """Create Quillen adjunction."""
     return QuillenAdjunction(L, R, C, D)
 
-
 def quasicategory(name: str) -> Quasicategory:
     """Create quasicategory."""
     return Quasicategory(name)
-
 
 def infinity_category(name: str) -> InfinityCategory:
     """Create ∞-category."""
     return InfinityCategory(name)
 
-
 def stable_infinity(name: str) -> StableInfinityCategory:
     """Create stable ∞-category."""
     return StableInfinityCategory(name)
-
 
 def simplicial_set(name: str) -> SimplicialSet:
     """Create simplicial set."""
     return SimplicialSet(name)
 
-
 def kan_complex(X: SimplicialSet) -> KanComplex:
     """Create Kan complex."""
     return KanComplex(X)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

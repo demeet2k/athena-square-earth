@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S13→Xi108:W2:A1:S15→Xi108:W1:A1:S14→Xi108:W3:A1:S14→Xi108:W2:A2:S14
+
 """
 ATHENA OS - ATHENA KERNEL
 ==========================
@@ -200,7 +204,6 @@ from .v3_kernel import (
     validate_v3_kernel,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -213,7 +216,6 @@ def validate_athena_kernel() -> bool:
     assert validate_operators()
     assert validate_v3_kernel()
     return True
-
 
 # =============================================================================
 # ATHENA KERNEL SYSTEM
@@ -334,7 +336,6 @@ class AthenaKernelSystem:
             "core_identity": self.get_core_identity()
         }
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -376,11 +377,9 @@ __all__ = [
 __version__ = "1.0.0"
 __module_name__ = "athena_kernel"
 
-
 # Type hints
 from typing import Dict, List, Optional, Callable
 import numpy as np
-
 
 if __name__ == "__main__":
     print("=" * 70)

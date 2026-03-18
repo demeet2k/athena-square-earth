@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # ROTATION 11 (90° CW): ORACLE → WEATHER
 ## ⟡.Me → ☁.Me
 
@@ -74,7 +79,6 @@ Applied: the ORACLE's quaternion is multiplied by e^{iπ/4}, rotating the recurs
 #### Synthesis (37): ORACLE→WEATHER
 
 The complete integration: ORACLE→WEATHER transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of ORACLE→WEATHER IS ORACLE→WEATHER.
-
 
 ---
 *ORACLE → WEATHER. 90° CW. Same mode, new lens. φ.*

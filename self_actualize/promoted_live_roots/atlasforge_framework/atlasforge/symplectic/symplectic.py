@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=398 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      SYMPLECTIC GEOMETRY MODULE                              ║
@@ -27,7 +31,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Dict, Callable
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SYMPLECTIC FORM
@@ -91,7 +94,6 @@ class SymplecticForm:
         """
         return self.matrix
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PHASE SPACE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -133,7 +135,6 @@ class PhaseSpace:
         X_H = J · ∇H
         """
         return self.omega.matrix @ dH
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HAMILTONIAN SYSTEM
@@ -209,7 +210,6 @@ class HamiltonianSystem:
         H0 = self.H(trajectory[0])
         return np.array([self.H(z) - H0 for z in trajectory])
 
-
 @dataclass
 class HarmonicOscillator:
     """
@@ -262,7 +262,6 @@ class HarmonicOscillator:
         
         return np.array([q, p])
 
-
 @dataclass
 class KeplerProblem(HamiltonianSystem):
     """
@@ -282,7 +281,6 @@ class KeplerProblem(HamiltonianSystem):
         if r < 1e-10:
             return float('inf')
         return 0.5 * np.dot(p, p) - 1.0 / r
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CANONICAL TRANSFORMATIONS
@@ -352,7 +350,6 @@ class CanonicalTransformation:
         M[n_dof:, n_dof:] /= factor
         return cls(M)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ACTION-ANGLE VARIABLES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -406,7 +403,6 @@ class ActionAngleVariables:
         
         return q, p
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY SYMPLECTIC STRUCTURE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -455,7 +451,6 @@ class GatewaySymplecticBridge:
             return float('inf') if T > 0 else float('-inf')
         return np.arctanh(T)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -464,26 +459,21 @@ def symplectic_form(dimension: int) -> NDArray:
     """Standard symplectic matrix."""
     return SymplecticForm(dimension).matrix
 
-
 def poisson_bracket(phase_space: PhaseSpace, df: NDArray, dg: NDArray) -> float:
     """Compute Poisson bracket."""
     return phase_space.poisson_bracket(df, dg)
-
 
 def harmonic_oscillator(omega: float = 1.0) -> HarmonicOscillator:
     """Create harmonic oscillator system."""
     return HarmonicOscillator(omega_freq=omega)
 
-
 def kepler_problem() -> KeplerProblem:
     """Create Kepler problem."""
     return KeplerProblem()
 
-
 def canonical_rotation(n_dof: int, angle: float) -> CanonicalTransformation:
     """Canonical rotation transformation."""
     return CanonicalTransformation.rotation(n_dof, angle)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

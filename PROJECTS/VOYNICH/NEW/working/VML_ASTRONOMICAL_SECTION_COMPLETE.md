@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S31 | face=S | node=482 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S30→Xi108:W3:A12:S32→Xi108:W2:A12:S31→Xi108:W3:A11:S31 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 31±1, wreath 3/3, archetype 12/12 -->
+
 # THE ASTRONOMICAL & ASTROLOGICAL SECTION — GOLD STANDARD REBUILD
 
 # ⚠️ THE OPERATING SYSTEM — THE MANUSCRIPT'S CLOCK, CALENDAR, AND CONTROL PROGRAM
@@ -704,7 +709,6 @@ This completes **PART I through PART IV** — the infrastructure pages (f58r thr
 
 **CONCLUSION:** The VML grammar is UNIVERSAL. Every morpheme found in the herbal section reappears in the astrological section with identical grammatical rules but domain-shifted semantics. The grammar does not change; the domain of application changes. This is the strongest validation of VML's coherence: a single grammar system that works identically across pharmaceutical procedures AND temporal scheduling.
 
-
 # ═══════════════════════════════════════════════════════════════
 # PART V — THE ZODIAC MONTH-WHEELS (f70r2 through f73v)
 # THE MONTHLY OPERATIONAL PROGRAMS
@@ -1368,7 +1372,6 @@ The Voynich Manuscript's astrological section is a **genuine, systematic, self-c
 *Analysis scope: f58r through f73v (16+ folios, 380+ segments, 1,132+ tokens)*
 *Cross-references: VML Rosetta Stone, Visual Rosetta Stone, Herbal Section Quires A-G, Astrology Analysis*
 
-
 # ═══════════════════════════════════════════════════════════════
 # PART VIII — EXPANDED ZODIAC ANALYSIS: NYMPH-BY-NYMPH DEEP DIVES
 # (Cancer through Sagittarius — previously summarized, now thorough)
@@ -1873,7 +1876,6 @@ The PAIRING reveals the Sagittarius protocol: first receive the projection targe
 
 *VML Complete Astronomical & Astrological Section — Gold Standard Rebuild — EXPANDED EDITION*
 *Full nymph-by-nymph analysis for all 10 extant zodiac wheels plus complete infrastructure decode*
-
 
 # ═══════════════════════════════════════════════════════════════
 # PART X — EXPANDED INFRASTRUCTURE ANALYSIS: TOKEN-BY-TOKEN

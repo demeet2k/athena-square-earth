@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=433 | depth=2 | phase=Mutable
+# METRO: Me,w
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        ATLAS FORGE - Generators                               ║
@@ -33,11 +37,9 @@ from atlasforge.core.enums import Pole, FlowType
 from atlasforge.core.types import Interval, Domain
 from atlasforge.core.base import AtlasObject, register_type
 
-
 # Type aliases
 State = Union[float, NDArray[np.float64]]
 Operator = Callable[[State], State]
-
 
 class Generator(ABC):
     """
@@ -121,7 +123,6 @@ class Generator(ABC):
         """
         return self.apply(other.apply(u)) - other.apply(self.apply(u))
 
-
 @dataclass
 class ScaledGenerator(Generator):
     """A generator scaled by a coefficient: α·G."""
@@ -145,7 +146,6 @@ class ScaledGenerator(Generator):
     
     def exp(self, t: float, u: State) -> State:
         return self.base.exp(t * self.coefficient, u)
-
 
 @dataclass
 class DissipativeGenerator(Generator):
@@ -257,7 +257,6 @@ class DissipativeGenerator(Generator):
         else:
             return 0.5 * np.sum(u ** 2)
 
-
 @dataclass
 class OscillatoryGenerator(Generator):
     """
@@ -361,7 +360,6 @@ class OscillatoryGenerator(Generator):
             return 0.5 * u ** 2
         else:
             return 0.5 * np.sum(u ** 2)
-
 
 @dataclass
 class StochasticGenerator(Generator):
@@ -477,7 +475,6 @@ class StochasticGenerator(Generator):
             return du ** 2 / (2 * self.temperature)
         else:
             return np.sum(du ** 2) / (2 * self.temperature)
-
 
 @dataclass
 class RecursiveGenerator(Generator):
@@ -597,7 +594,6 @@ class RecursiveGenerator(Generator):
         for _ in range(n_steps):
             result = self.apply(result)
         return result
-
 
 @dataclass
 class HybridGenerator(Generator):

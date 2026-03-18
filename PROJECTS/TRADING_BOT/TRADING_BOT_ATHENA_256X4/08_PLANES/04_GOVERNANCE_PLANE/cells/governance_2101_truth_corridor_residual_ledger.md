@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S32 | face=S | node=526 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Cc,T -->
+<!-- BRIDGES: Xi108:W3:A10:S31→Xi108:W3:A10:S33→Xi108:W2:A10:S32→Xi108:W3:A9:S32→Xi108:W3:A11:S32 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 32±1, wreath 3/3, archetype 10/12 -->
+
 # Governance Plane 2101
 
 ## Address Signature

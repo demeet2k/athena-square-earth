@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S14 | face=S | node=103 | depth=2 | phase=Cardinal
+# METRO: Sa,Me
+# BRIDGES: Xi108:W2:A3:S13→Xi108:W2:A3:S15→Xi108:W1:A3:S14→Xi108:W3:A3:S14→Xi108:W2:A2:S14→Xi108:W2:A4:S14
+
 """
 ATHENA OS - Layered Architecture Model
 ======================================
@@ -36,7 +40,6 @@ from enum import Enum, auto
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Set
 
-
 # =============================================================================
 # LAYER DEFINITIONS
 # =============================================================================
@@ -51,7 +54,6 @@ class Layer(Enum):
     FIRST_ORDER = 6  # Structured invariants
     GLOBAL = 7       # Ground truth
 
-
 @dataclass
 class LayerSpec:
     """Specification for a layer."""
@@ -64,7 +66,6 @@ class LayerSpec:
     # Dependencies
     depends_on: List[Layer] = field(default_factory=list)
     provides_to: List[Layer] = field(default_factory=list)
-
 
 # Layer specifications
 LAYER_SPECS: Dict[Layer, LayerSpec] = {
@@ -126,7 +127,6 @@ LAYER_SPECS: Dict[Layer, LayerSpec] = {
     ),
 }
 
-
 # =============================================================================
 # SECURITY ZONES
 # =============================================================================
@@ -138,14 +138,12 @@ class SecurityZone(Enum):
     SANDBOX = "Z_sandbox"    # Containment area
     EXTERNAL = "Z_external"  # Outside system boundary
 
-
 class Permission(Enum):
     """Access permissions."""
     NONE = "-"
     READ = "R"
     WRITE = "W"
     EXECUTE = "X"
-
 
 class ProcessType(Enum):
     """Process types for access control."""
@@ -154,7 +152,6 @@ class ProcessType(Enum):
     USER = "user"
     CONTAINED = "contained"
     EXTERNAL = "external"
-
 
 # Access Control Matrix
 # Process Type → Zone → Permissions
@@ -191,7 +188,6 @@ ACCESS_CONTROL: Dict[ProcessType, Dict[SecurityZone, Set[Permission]]] = {
     },
 }
 
-
 @dataclass
 class AccessRequest:
     """A request to access a zone."""
@@ -205,7 +201,6 @@ class AccessRequest:
         allowed = ACCESS_CONTROL.get(self.process_type, {}).get(self.zone, set())
         return self.permission in allowed
 
-
 # =============================================================================
 # GEOMETRIC CONTAINMENT
 # =============================================================================
@@ -215,7 +210,6 @@ class ContainmentShape(Enum):
     CIRCLE = "circle"      # Standard isolation
     SQUARE = "square"      # Cartesian bounds
     TRIANGLE = "triangle"  # Minimal enclosure
-
 
 @dataclass
 class CircularContainment:
@@ -235,7 +229,6 @@ class CircularContainment:
         dy = y - self.center_y
         return (dx**2 + dy**2) <= self.radius**2
 
-
 @dataclass
 class SquareContainment:
     """
@@ -252,7 +245,6 @@ class SquareContainment:
         """Check if point is contained."""
         return (abs(x - self.center_x) <= self.half_width and
                 abs(y - self.center_y) <= self.half_width)
-
 
 @dataclass
 class TriangularContainment:
@@ -285,7 +277,6 @@ class TriangularContainment:
         
         return not (has_neg and has_pos)
 
-
 # =============================================================================
 # CAPABILITY TOKENS
 # =============================================================================
@@ -297,7 +288,6 @@ class CapabilityLevel(Enum):
     ELEVATED = 2
     ADMIN = 3
     ROOT = 4
-
 
 @dataclass
 class CapabilityToken:
@@ -322,7 +312,6 @@ class CapabilityToken:
         if not self.valid:
             return False
         return zone in self.zones and perm in self.permissions
-
 
 # =============================================================================
 # LAYER STACK
@@ -406,7 +395,6 @@ class LayerStack:
             "tokens": len(self.tokens),
         }
 
-
 # =============================================================================
 # ESCAPE PROTOCOLS
 # =============================================================================
@@ -417,7 +405,6 @@ class EscapeCondition(Enum):
     INTEGRITY_VIOLATION = "integrity_violation"
     RESOURCE_EXHAUSTION = "resource_exhaustion"
     ADVERSARIAL_DETECTION = "adversarial_detection"
-
 
 @dataclass
 class EscapeProtocol:
@@ -452,7 +439,6 @@ class EscapeProtocol:
             result["preserved_state"] = current_state
         
         return result
-
 
 # =============================================================================
 # VALIDATION
@@ -513,7 +499,6 @@ def validate_layers() -> bool:
     assert not stack.check_access("tok1", SecurityZone.EXTERNAL, Permission.READ)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Layers...")

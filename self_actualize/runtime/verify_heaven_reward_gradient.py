@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=441 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
@@ -25,10 +29,8 @@ from .derive_heaven_reward_gradient import (
     reward_layer,
 )
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def verify_heaven_reward_gradient() -> dict[str, Any]:
     state = read_json(STATE_PATH)
@@ -140,12 +142,10 @@ def verify_heaven_reward_gradient() -> dict[str, Any]:
     VERIFY_PATH.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     return result
 
-
 def main() -> int:
     result = verify_heaven_reward_gradient()
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

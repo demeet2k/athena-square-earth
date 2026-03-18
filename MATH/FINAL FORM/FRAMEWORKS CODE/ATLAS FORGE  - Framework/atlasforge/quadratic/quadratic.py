@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=90 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      QUADRATIC FIELDS MODULE                                 ║
@@ -29,7 +33,6 @@ from typing import Optional, Tuple, List, Dict
 from fractions import Fraction
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUADRATIC INTEGER
@@ -182,7 +185,6 @@ class QuadraticInteger:
                 return f"{self.a} {sign} {self.omega}"
             return f"{self.a} {sign} {abs_b}·{self.omega}"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUADRATIC FIELD
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -315,7 +317,6 @@ class QuadraticField:
         eps = self.find_fundamental_unit()
         return np.log(eps.to_real())
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # IDEAL CLASS GROUP
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -349,7 +350,6 @@ class QuadraticIdeal:
                     return alpha
         
         return None
-
 
 @dataclass
 class ClassGroup:
@@ -419,7 +419,6 @@ class ClassGroup:
         
         return known.get(self.D, -1)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY CONNECTION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -482,7 +481,6 @@ class GatewayFieldBridge:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -491,26 +489,21 @@ def quadratic_integer(a: int, b: int, D: int) -> QuadraticInteger:
     """Create quadratic integer a + b√D."""
     return QuadraticInteger(a, b, D)
 
-
 def fundamental_unit(D: int) -> QuadraticInteger:
     """Find fundamental unit of ℚ(√D)."""
     return QuadraticField(D).find_fundamental_unit()
-
 
 def class_number(D: int) -> int:
     """Compute class number of ℚ(√D)."""
     return ClassGroup(D).compute_class_number()
 
-
 def field_discriminant(D: int) -> int:
     """Field discriminant of ℚ(√D)."""
     return QuadraticField(D).discriminant
 
-
 def regulator(D: int) -> float:
     """Regulator of ℚ(√D)."""
     return QuadraticField(D).regulator()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

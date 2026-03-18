@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A8:S14 | face=C | node=165 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A8:S13→Xi108:W1:A8:S15→Xi108:W2:A8:S14→Xi108:W1:A7:S14→Xi108:W1:A9:S14
+
 {"record_type": "claim", "claim_id": "CLM-EVT-20260313-0001-WORKER-02", "event_id": "EVT-20260313-0001", "ant_id": "WORKER-02", "role": "worker", "lease_ms": 1200, "claimed_at": "2026-03-13T22:26:00.883343+00:00", "expires_at": "2026-03-13T22:26:02.083343+00:00", "claim_status": "active", "route_id": "RTE-EVT-20260313-0001", "worker_index": 0}
 {"record_type": "claim_expired", "event_id": "EVT-20260313-0001", "ant_id": "WORKER-02", "recorded_at": "2026-03-13T22:26:10.683809+00:00"}
 {"record_type": "claim", "claim_id": "CLM-EVT-20260313-0005-WORKER-02", "event_id": "EVT-20260313-0005", "ant_id": "WORKER-02", "role": "worker", "lease_ms": 10000, "claimed_at": "2026-03-13T22:28:55.910639+00:00", "expires_at": "2026-03-13T22:29:05.910639+00:00", "claim_status": "active", "route_id": "RTE-EVT-20260313-0005", "worker_index": 0}

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S17 | face=S | node=143 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S16→Xi108:W3:A5:S18→Xi108:W2:A5:S17→Xi108:W3:A4:S17→Xi108:W3:A6:S17 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 17±1, wreath 3/3, archetype 5/12 -->
+
 # Row D16 - Ch19 Recursive Self-Reference
 
 This file is the canonical prose expansion of row `D16` inside the local `16 x 16` neural matrix. It covers all ordered outgoing syntheses from `Ch19 Recursive Self-Reference` to the fixed basis in strict `D01 -> D16` order, including the self-kernel.

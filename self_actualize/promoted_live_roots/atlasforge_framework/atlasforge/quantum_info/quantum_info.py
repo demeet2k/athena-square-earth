@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=382 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    QUANTUM INFORMATION MODULE                                ║
@@ -27,7 +31,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Callable
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DENSITY MATRIX
@@ -164,7 +167,6 @@ class DensityMatrix:
         rho = vecs @ np.diag(np.exp(-beta * eigs) / Z) @ vecs.conj().T
         return cls(rho)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUANTUM CHANNEL
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -289,7 +291,6 @@ class QuantumChannel:
         K1 = np.array([[0, 0], [0, np.sqrt(gamma)]], dtype=np.complex128)
         return cls([K0, K1])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ENTANGLEMENT MEASURES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -384,7 +385,6 @@ class EntanglementMeasures:
         
         return max(0, eigenvalues[0] - np.sum(eigenvalues[1:]))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PAULI OPERATORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -410,7 +410,6 @@ class PauliOperators:
             coeffs.append(np.trace(P @ M) / 2)
         return coeffs
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -419,31 +418,25 @@ def density_matrix(matrix: NDArray) -> DensityMatrix:
     """Create density matrix."""
     return DensityMatrix(matrix)
 
-
 def pure_state(state: NDArray) -> DensityMatrix:
     """Create pure state density matrix."""
     return DensityMatrix.pure(state)
-
 
 def von_neumann_entropy(rho: DensityMatrix) -> float:
     """Compute von Neumann entropy."""
     return rho.von_neumann_entropy()
 
-
 def fidelity(rho: DensityMatrix, sigma: DensityMatrix) -> float:
     """Compute fidelity between states."""
     return rho.fidelity(sigma)
-
 
 def negativity(rho: DensityMatrix, dims: Tuple[int, int]) -> float:
     """Compute negativity."""
     return EntanglementMeasures(rho, dims).negativity()
 
-
 def depolarizing_channel(d: int, p: float) -> QuantumChannel:
     """Create depolarizing channel."""
     return QuantumChannel.depolarizing(d, p)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

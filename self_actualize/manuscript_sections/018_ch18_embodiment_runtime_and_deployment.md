@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S27 | face=F | node=366 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S26→Xi108:W3:A9:S28→Xi108:W2:A9:S27→Xi108:W3:A8:S27→Xi108:W3:A10:S27 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 27±1, wreath 3/3, archetype 9/12 -->
+
 # CHAPTER 18: EMBODIMENT, RUNTIME, AND DEPLOYMENT
 
 Status: canonical local chapter instantiation from the runtime branch
@@ -573,14 +578,12 @@ Algorithm 18.1 - Environment Compatibility Check
 ```python
 from dataclasses import dataclass
 
-
 @dataclass
 class EnvironmentProfile:
     io_channels: float
     trust_model: float
     constraint_fit: float
     timing_fit: float
-
 
 def environment_mismatch(
     io_diff: float,

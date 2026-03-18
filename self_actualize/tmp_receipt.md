@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S30 | face=F | node=441 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S29→Xi108:W3:A12:S31→Xi108:W2:A12:S30→Xi108:W3:A11:S30 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 30±1, wreath 3/3, archetype 12/12 -->
+
 # 2026-03-13 Athenachka Organism v0 Q46-wave3 Proof
 
 ## Outcome

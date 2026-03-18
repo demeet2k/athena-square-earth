@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S14→Xi108:W2:A1:S16→Xi108:W1:A1:S15→Xi108:W3:A1:S15→Xi108:W2:A2:S15
+
 """
 ATHENA OS - HELLENIC: ARISTOTELIAN LOGIC KERNEL
 ================================================
@@ -36,7 +40,6 @@ from enum import Enum, auto
 from abc import ABC, abstractmethod
 import numpy as np
 
-
 # =============================================================================
 # THE TEN CATEGORIES
 # =============================================================================
@@ -71,7 +74,6 @@ class Category(Enum):
     def role(self) -> str:
         return self.value[3]
 
-
 @dataclass
 class CategoryValue:
     """A value belonging to a specific category."""
@@ -85,7 +87,6 @@ class CategoryValue:
     def is_accident(self) -> bool:
         """Non-substance categories are accidents."""
         return self.category != Category.SUBSTANCE
-
 
 @dataclass
 class Substance:
@@ -136,7 +137,6 @@ class Substance:
         }
         return mapping.get(category)
 
-
 class CategoryChecker:
     """
     Type safety checker for categories.
@@ -181,7 +181,6 @@ class CategoryChecker:
         
         return False
 
-
 # =============================================================================
 # THE SYLLOGISM
 # =============================================================================
@@ -193,7 +192,6 @@ class SyllogisticFigure(Enum):
     SECOND = 2  # P-M, S-M ⊢ S-P
     THIRD = 3   # M-P, M-S ⊢ S-P
     FOURTH = 4  # P-M, M-S ⊢ S-P
-
 
 class PropositionType(Enum):
     """Types of categorical propositions."""
@@ -219,7 +217,6 @@ class PropositionType(Enum):
     def is_affirmative(self) -> bool:
         return self.value[3]
 
-
 @dataclass
 class Proposition:
     """
@@ -243,7 +240,6 @@ class Proposition:
     @property
     def is_affirmative(self) -> bool:
         return self.prop_type.is_affirmative
-
 
 @dataclass
 class Syllogism:
@@ -352,7 +348,6 @@ class Syllogism:
                 (self.derive_conclusion().prop_type.code 
                  if self.derive_conclusion() else "?"))
 
-
 class SyllogisticEngine:
     """
     The syllogistic inference engine.
@@ -392,7 +387,6 @@ class SyllogisticEngine:
         
         return results
 
-
 # =============================================================================
 # THE FOUR CAUSES
 # =============================================================================
@@ -422,7 +416,6 @@ class CauseType(Enum):
     def axis2(self) -> str:
         """Structural/Telic axis."""
         return self.value[3]
-
 
 @dataclass
 class CausalVector:
@@ -464,7 +457,6 @@ class CausalVector:
             "efficient": self.efficient,
             "final": self.final,
         }
-
 
 class CausalAnalyzer:
     """
@@ -527,7 +519,6 @@ class CausalAnalyzer:
             vector.final is not None,
         ])
         return count / 4.0
-
 
 # =============================================================================
 # VALIDATION
@@ -608,7 +599,6 @@ def validate_aristotelian() -> bool:
     assert CausalAnalyzer.completeness_score(vector) == 1.0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Aristotelian Logic Kernel...")

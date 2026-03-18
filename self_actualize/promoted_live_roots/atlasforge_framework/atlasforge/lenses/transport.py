@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=378 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Transport System                        ║
@@ -19,7 +23,6 @@ from atlasforge.lenses.chart import Chart
 T = TypeVar('T')
 S = TypeVar('S')
 
-
 class Transport(ABC, Generic[T, S]):
     """Abstract base class for transport mechanisms."""
     
@@ -40,7 +43,6 @@ class Transport(ABC, Generic[T, S]):
     @abstractmethod
     def transport_backward(self, obj: S) -> T:
         pass
-
 
 @dataclass
 class FieldTransport(Transport[Callable, Callable]):
@@ -69,7 +71,6 @@ class FieldTransport(Transport[Callable, Callable]):
             y = self.chart.forward(x)
             return f_T(y)
         return original
-
 
 @dataclass
 class OperatorTransport(Transport[Callable, Callable]):
@@ -109,7 +110,6 @@ class OperatorTransport(Transport[Callable, Callable]):
             return result
         return original_op
 
-
 @dataclass
 class ConstraintTransport(Transport[Any, Any]):
     """Transport of constraints: H(x)=0 becomes H_T(y)=H(T⁻¹(y))=0"""
@@ -141,7 +141,6 @@ class ConstraintTransport(Transport[Any, Any]):
     
     def transport_root_back(self, y_star: float) -> float:
         return self.chart.inverse(y_star)
-
 
 @dataclass
 class FlowTransport(Transport[Callable, Callable]):
@@ -177,7 +176,6 @@ class FlowTransport(Transport[Callable, Callable]):
             x = self.chart.inverse(y)
             return self.chart.jacobian(x) * V(x)
         return V_T
-
 
 @dataclass
 class TransportChain:

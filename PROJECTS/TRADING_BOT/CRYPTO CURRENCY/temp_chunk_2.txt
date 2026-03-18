@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S26 | face=F | node=365 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S25→Xi108:W3:A4:S27→Xi108:W2:A4:S26→Xi108:W3:A3:S26→Xi108:W3:A5:S26
+
 Saturn progresses in Aries
 Groove Texture: "Expansion (Jupiter) shifts from nurturing (Cancer) to expression (Leo). The seeds planted earlier in the year begin to show their character."
 

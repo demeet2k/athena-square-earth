@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=343 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        OBLIGATION DAG MODULE                                 ║
@@ -27,7 +31,6 @@ from typing import Optional, Tuple, List, Dict, Any, Set, Callable
 from enum import Enum
 import hashlib
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # OBLIGATION TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -40,7 +43,6 @@ class ObligationStatus(Enum):
     FAILED = "failed"           # Could not be discharged
     DEFERRED = "deferred"       # Postponed to later
 
-
 class ObligationPriority(Enum):
     """Priority levels for obligations."""
     CRITICAL = 0    # Must be discharged before anything else
@@ -48,7 +50,6 @@ class ObligationPriority(Enum):
     NORMAL = 2      # Standard priority
     LOW = 3         # Can be deferred
     OPTIONAL = 4    # Nice to have
-
 
 class ObligationType(Enum):
     """Types of obligations."""
@@ -61,7 +62,6 @@ class ObligationType(Enum):
     PRECONDITION = "precondition" # Verify preconditions
     POSTCONDITION = "postcondition" # Verify postconditions
     INVARIANT = "invariant"     # Prove invariant maintained
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # OBLIGATION NODE
@@ -109,7 +109,6 @@ class Obligation:
     def is_discharged(self) -> bool:
         return self.status == ObligationStatus.DISCHARGED
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DISCHARGE METHODS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -133,7 +132,6 @@ class DischargeMethod:
         if not self.can_discharge(obligation):
             return False
         return self.verifier(*args, **kwargs)
-
 
 class StandardDischargeMethods:
     """Collection of standard discharge methods."""
@@ -177,7 +175,6 @@ class StandardDischargeMethods:
             lambda init, step, term: init and step and term,
             "Loop invariant: init ∧ step ∧ termination"
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # OBLIGATION DAG
@@ -273,7 +270,6 @@ Obligation DAG Summary:
   Complete: {self.is_complete()}
 """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUALITY GATES (RT REGISTRY)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -295,7 +291,6 @@ class QualityGate:
         """Run verification."""
         self.passed = self.verifier(*args, **kwargs)
         return self.passed
-
 
 @dataclass
 class RTRegistry:
@@ -320,7 +315,6 @@ class RTRegistry:
         """Check if all relevant gates passed."""
         results = self.check_all(chart)
         return all(results.values()) if results else False
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STOP PREDICATES
@@ -360,7 +354,6 @@ class StopPredicate:
             lambda: ledger_stable()
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIXTURES AND VERIFIERS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -381,7 +374,6 @@ class Fixture:
     def run(self, actual_output: Any) -> bool:
         """Run fixture verification."""
         return self.verifier(actual_output, self.expected_output)
-
 
 @dataclass
 class FixtureSuite:
@@ -406,7 +398,6 @@ class FixtureSuite:
     def all_passed(self, get_output: Callable[[Any], Any]) -> bool:
         """Check if all fixtures pass."""
         return all(self.run_all(get_output).values())
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # OBLIGATION COMPILER
@@ -490,7 +481,6 @@ class ObligationCompiler:
         self.dag.add_obligation(ob)
         return ob
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -531,7 +521,6 @@ class ObligationPoleBridge:
         "Done" = reconstructible seed + explicit uncertainty
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -540,21 +529,17 @@ def obligation(id: str, desc: str, ob_type: ObligationType) -> Obligation:
     """Create obligation."""
     return Obligation(id, desc, ob_type)
 
-
 def obligation_dag() -> ObligationDAG:
     """Create empty obligation DAG."""
     return ObligationDAG()
-
 
 def quality_gate(name: str, chart: str, verifier: Callable) -> QualityGate:
     """Create quality gate."""
     return QualityGate(name, chart, verifier)
 
-
 def rt_registry() -> RTRegistry:
     """Create RT registry."""
     return RTRegistry()
-
 
 def fixture(name: str, input_data: Any, expected: Any, 
             verifier: Callable = None) -> Fixture:
@@ -563,11 +548,9 @@ def fixture(name: str, input_data: Any, expected: Any,
         verifier = lambda a, b: a == b
     return Fixture(name, input_data, expected, verifier)
 
-
 def obligation_compiler() -> ObligationCompiler:
     """Create obligation compiler."""
     return ObligationCompiler()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

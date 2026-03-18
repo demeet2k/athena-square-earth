@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - HELLENIC COMPUTATION FRAMEWORK
 ==========================================
@@ -36,7 +40,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Set
 import numpy as np
-
 
 # =============================================================================
 # HAMMING CODE PARAMETERS
@@ -96,10 +99,8 @@ class HammingParameters:
         # For t=1: 1 + n = 2^r
         return 1 + self.n == 2 ** self.r
 
-
 # Standard Euclidean parameters
 EUCLID_PARAMS = HammingParameters(r=5)  # Hamming(31, 26)
-
 
 # =============================================================================
 # PARITY CHECK MATRIX
@@ -174,7 +175,6 @@ class ParityMatrix:
             lines.append(' '.join(str(b) for b in row))
         return '\n'.join(lines)
 
-
 # =============================================================================
 # GENERATOR MATRIX
 # =============================================================================
@@ -232,7 +232,6 @@ class GeneratorMatrix:
     @property
     def shape(self) -> Tuple[int, int]:
         return (self.k, self.n)
-
 
 # =============================================================================
 # HAMMING ENCODER/DECODER
@@ -345,7 +344,6 @@ class HammingCode:
         """Calculate Hamming distance between two words."""
         return np.sum(word1 != word2)
 
-
 # =============================================================================
 # EUCLIDEAN PROPOSITIONS
 # =============================================================================
@@ -373,7 +371,6 @@ class Proposition:
     def is_parity(self) -> bool:
         """Check if this is a parity position."""
         return self.number in [1, 2, 4, 8, 16]
-
 
 class EuclideanRegister:
     """
@@ -426,7 +423,6 @@ class EuclideanRegister:
     def get_proposition(self, number: int) -> Proposition:
         """Get proposition by number (1-indexed)."""
         return self.propositions[number - 1]
-
 
 # =============================================================================
 # VALIDATION
@@ -482,7 +478,6 @@ def validate_euclid() -> bool:
     assert len(register.propositions) == 31
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Euclidean Error Correction Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=345 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 """Memory entries for AtlasForge.
 
 A :class:`~atlasforge.memory.entry.MemoryEntry` is a small, content-addressed
@@ -20,10 +24,8 @@ import json
 
 from atlasforge.core.base import ContentAddressed
 
-
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 @dataclass
 class MemoryEntry(ContentAddressed):

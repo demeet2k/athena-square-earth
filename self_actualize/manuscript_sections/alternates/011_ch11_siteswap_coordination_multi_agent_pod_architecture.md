@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S28 | face=F | node=388 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S27→Xi108:W3:A7:S29→Xi108:W2:A7:S28→Xi108:W3:A6:S28→Xi108:W3:A8:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 7/12 -->
+
 ## CHAPTER 11: SITESWAP COORDINATION - JUGGLING PATTERNS AS THE FORMAL LANGUAGE OF MULTI-AGENT POD ARCHITECTURE
 
 **Deliverables:** a formal siteswap-to-pod isomorphism, a pod algebra spanning `3` through `13` active agents, a transition law for pod reconfiguration, and an executable control protocol that can be layered onto the existing atlas, route-packet, witness, and replay machinery already present in the workspace.

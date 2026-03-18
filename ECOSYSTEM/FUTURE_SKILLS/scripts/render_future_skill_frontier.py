@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W3:A5:S29 | face=F | node=423 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W3:A5:S28→Xi108:W3:A5:S30→Xi108:W2:A5:S29→Xi108:W3:A4:S29→Xi108:W3:A6:S29
+
 from __future__ import annotations
 
 import json
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "future_skill_frontier.json"
@@ -102,10 +105,8 @@ GENERIC_FAILURES = {
     ],
 }
 
-
 def load_manifest() -> dict:
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-
 
 def build_root_cells(manifest: dict) -> list[dict]:
     axes = manifest["axes"]
@@ -134,7 +135,6 @@ def build_root_cells(manifest: dict) -> list[dict]:
                     )
     return cells
 
-
 def write_root_cells(cells: list[dict]) -> None:
     ROOT_CELL_PATH.write_text(
         json.dumps(
@@ -148,7 +148,6 @@ def write_root_cells(cells: list[dict]) -> None:
         + "\n",
         encoding="utf-8",
     )
-
 
 def write_registry(manifest: dict) -> None:
     lines: list[str] = []
@@ -197,7 +196,6 @@ def write_registry(manifest: dict) -> None:
     lines.append("- The full `256^256` plan is generative, not a literal static list.")
     REGISTRY_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-
 def write_wave_manifest(manifest: dict) -> None:
     lines: list[str] = []
     lines.append("# WAVE 0 PARALLEL MANIFEST")
@@ -233,7 +231,6 @@ def write_wave_manifest(manifest: dict) -> None:
     lines.append("- Stop early for live-memory execution if `credentials.json` and `token.json` are still missing.")
     lines.append("- Expand Wave 1 only after a subset of Wave 0 skills reach stable `OK` or `NEAR`.")
     WAVE_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
-
 
 def write_hyperdimensional_outputs(manifest: dict) -> None:
     mapping = manifest.get("higher_dimensional_mapping")
@@ -303,7 +300,6 @@ def write_hyperdimensional_outputs(manifest: dict) -> None:
         )
     HYPER_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-
 def write_family_meta_swarm(manifest: dict) -> None:
     families = manifest.get("family_meta_swarm")
     if not families:
@@ -324,7 +320,6 @@ def write_family_meta_swarm(manifest: dict) -> None:
     lines.append("- Split by family first, then manuscript, then chapter, then section.")
     lines.append("- Contract in reverse only after sibling fronts have been compared for emergent lines.")
     FAMILY_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
-
 
 def write_swarm_wave_manifest(manifest: dict) -> None:
     families = manifest.get("family_meta_swarm", [])
@@ -367,7 +362,6 @@ def write_swarm_wave_manifest(manifest: dict) -> None:
     lines.append("- swarm and wave manifests")
     lines.append("- packet and session handoff surfaces")
     SWARM_WAVE_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
-
 
 def render_skill_doc(skill: dict) -> str:
     triggers = skill.get("triggers") or [skill["slug"].replace("-", " ")] + GENERIC_TRIGGERS[skill["operator"]]
@@ -441,14 +435,12 @@ def render_skill_doc(skill: dict) -> str:
     lines.append(skill["rationale"])
     return "\n".join(lines) + "\n"
 
-
 def write_skill_docs(manifest: dict) -> None:
     for skill in manifest["frontier_skills"]:
         target_dir = SKILLS_DIR / skill["slug"]
         target_dir.mkdir(parents=True, exist_ok=True)
         target_path = target_dir / "FUTURE SKILL.md"
         target_path.write_text(render_skill_doc(skill), encoding="utf-8")
-
 
 def main() -> None:
     manifest = load_manifest()
@@ -461,7 +453,6 @@ def main() -> None:
     write_swarm_wave_manifest(manifest)
     write_skill_docs(manifest)
     print(f"Rendered {len(cells)} root cells and {len(manifest['frontier_skills'])} future skill docs.")
-
 
 if __name__ == "__main__":
     main()

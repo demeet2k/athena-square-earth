@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # 4D Cell Content -- 256 Seed Cells, 4 Registers (B/R/T/W)
 
 The 4D tesseract contains 256 seed-cells, all populated across four registers. Register B (Body) holds 48 traditions + 18 Greek + 16 tech + 14 Voynich + 96 slices. Register R (Route) holds the metro map with 6 chapter lines + 5 appendix spines + 5 cross-level routes. Register T (Time) holds Z_420 master clock + Z_1260 supercycle + 4 local closures (12/20/28/36). Register W (Witness) holds the 3x3 triune matrix SEALED + truth lattice at every node + Sigma = {A, I, M}.

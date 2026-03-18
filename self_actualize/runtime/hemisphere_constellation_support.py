@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=380 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -28,7 +32,6 @@ from self_actualize.runtime.hemisphere_guided_tour_support import (
     starter_page_ids,
 )
 
-
 CONSTELLATION_RECORD_CAP = 16
 CONSTELLATION_GROUPS = ("main_pages", "family", "anchor", "target_system", "hemisphere")
 CONSTELLATION_BUCKET_ORDER = (
@@ -38,7 +41,6 @@ CONSTELLATION_BUCKET_ORDER = (
     ("same_secondary_target", "same_secondary_target"),
     ("commissure_peers", "commissure_peers"),
 )
-
 
 def load_constellation_registries() -> dict[str, Any]:
     registries = load_expedition_registries()
@@ -51,7 +53,6 @@ def load_constellation_registries() -> dict[str, Any]:
     if CONSTELLATION_MANIFEST_PATH.exists():
         registries["constellation_manifest"] = load_json(CONSTELLATION_MANIFEST_PATH)
     return registries
-
 
 def ensure_constellation_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_constellation_runtime")
@@ -71,7 +72,6 @@ def ensure_constellation_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     registries["_constellation_runtime"] = runtime
     return runtime
 
-
 def slice_type(bundle: dict[str, Any], runtime: dict[str, Any]) -> str:
     mode = bundle.get("mode", "")
     if mode == "page":
@@ -79,7 +79,6 @@ def slice_type(bundle: dict[str, Any], runtime: dict[str, Any]) -> str:
         page_id = source_page.get("page_id", "")
         return runtime["page_map"].get(page_id, {}).get("page_type", "page")
     return mode or "record"
-
 
 def constellation_record_ids(seed_record: dict[str, Any], runtime: dict[str, Any]) -> list[tuple[str, str]]:
     seed_id = seed_record["record_id"]
@@ -98,7 +97,6 @@ def constellation_record_ids(seed_record: dict[str, Any], runtime: dict[str, Any
             if len(selected) >= CONSTELLATION_RECORD_CAP:
                 return selected
     return selected
-
 
 def record_node(
     record: dict[str, Any],
@@ -120,14 +118,12 @@ def record_node(
         "atlas_page_ids": locator_entry.get("atlas_page_ids", []),
     }
 
-
 def hub_node(hub_id: str) -> dict[str, Any]:
     return {
         "node_id": f"CONST-{hub_id}",
         "kind": "hub",
         "hub_id": hub_id,
     }
-
 
 def relation_edge(
     source_id: str,
@@ -141,7 +137,6 @@ def relation_edge(
         "target": f"CONST-REC-{target_id}",
     }
 
-
 def direct_hub_edge(record: dict[str, Any], edge: dict[str, Any]) -> dict[str, Any]:
     return {
         "edge_id": f"CONST-{edge.get('edge_id', '')}",
@@ -152,7 +147,6 @@ def direct_hub_edge(record: dict[str, Any], edge: dict[str, Any]) -> dict[str, A
         "weight": edge.get("weight", 0.0),
         "route_mode": edge.get("route_mode", ""),
     }
-
 
 def build_constellation_from_expedition(
     expedition_bundle: dict[str, Any],
@@ -268,7 +262,6 @@ def build_constellation_from_expedition(
         payload["alternative_seeds"] = expedition_bundle["alternative_seeds"][:3]
     return payload
 
-
 def record(
     registries: dict[str, Any],
     *,
@@ -288,7 +281,6 @@ def record(
     )
     return build_constellation_from_expedition(expedition_bundle, registries)
 
-
 def search(
     query_text: str,
     registries: dict[str, Any],
@@ -303,7 +295,6 @@ def search(
         expanded=expanded,
     )
     return build_constellation_from_expedition(expedition_bundle, registries)
-
 
 def facet(
     registries: dict[str, Any],
@@ -320,7 +311,6 @@ def facet(
     )
     return build_constellation_from_expedition(expedition_bundle, registries)
 
-
 def page(
     registries: dict[str, Any],
     *,
@@ -333,7 +323,6 @@ def page(
         expanded=expanded,
     )
     return build_constellation_from_expedition(expedition_bundle, registries)
-
 
 def build_constellation_page_registry(
     registries: dict[str, Any],
@@ -433,7 +422,6 @@ def build_constellation_page_registry(
         },
     }
     return node_registry, edge_registry, page_registry, manifest
-
 
 def build_constellation_payloads(
     *,

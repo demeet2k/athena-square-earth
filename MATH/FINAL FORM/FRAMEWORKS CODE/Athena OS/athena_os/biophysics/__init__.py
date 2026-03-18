@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S17→Xi108:W2:A4:S19→Xi108:W1:A4:S18→Xi108:W3:A4:S18→Xi108:W2:A3:S18→Xi108:W2:A5:S18
+
 """
 ATHENA OS - Biophysics Module (Biology-Physics Crystal Extension)
 =================================================================
@@ -158,7 +162,6 @@ from .corridors import (
     validate_corridors,
 )
 
-
 def validate_biophysics() -> bool:
     """Validate complete biophysics module."""
     assert validate_aether()
@@ -166,7 +169,6 @@ def validate_biophysics() -> bool:
     assert validate_metro()
     assert validate_corridors()
     return True
-
 
 __all__ = [
     # Pillars

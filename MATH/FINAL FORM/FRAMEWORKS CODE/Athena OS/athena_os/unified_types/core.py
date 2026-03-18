@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S17→Xi108:W2:A1:S19→Xi108:W1:A1:S18→Xi108:W3:A1:S18→Xi108:W2:A2:S18
+
 """
 ATHENA OS — UNIFIED CORE TYPES
 ==============================
@@ -33,7 +37,6 @@ import hashlib
 import math
 from datetime import datetime
 
-
 # =============================================================================
 # TYPE VARIABLES FOR GENERICS
 # =============================================================================
@@ -41,7 +44,6 @@ from datetime import datetime
 T = TypeVar('T')
 S = TypeVar('S')
 R = TypeVar('R')
-
 
 # =============================================================================
 # SECTION 1: BIT4 — THE FOUR-VALUED FOUNDATION
@@ -118,7 +120,6 @@ class B4(Enum):
             return False
         return None
 
-
 # B4 lookup tables
 _B4_SUPPORTS = {
     B4.BOT: frozenset(),
@@ -140,7 +141,6 @@ _B4_TWO_RAIL = {
     B4.ONE: (1, 0),
     B4.TOP: (1, 1),
 }
-
 
 # =============================================================================
 # SECTION 2: KLEIN-4 GROUP — THE SYMMETRY FOUNDATION
@@ -178,7 +178,6 @@ class Klein4Op(Enum):
         """Apply operation to B4 value."""
         return _KLEIN4_ACTION[self][b4]
 
-
 # Klein-4 action on B4
 _KLEIN4_ACTION = {
     Klein4Op.I: {B4.BOT: B4.BOT, B4.ZERO: B4.ZERO, B4.ONE: B4.ONE, B4.TOP: B4.TOP},
@@ -186,7 +185,6 @@ _KLEIN4_ACTION = {
     Klein4Op.S: {B4.BOT: B4.TOP, B4.ZERO: B4.ZERO, B4.ONE: B4.ONE, B4.TOP: B4.BOT},
     Klein4Op.C: {B4.BOT: B4.TOP, B4.ZERO: B4.ONE, B4.ONE: B4.ZERO, B4.TOP: B4.BOT},
 }
-
 
 # =============================================================================
 # SECTION 3: ELEMENT — THE UNIVERSAL ELEMENTAL TYPE
@@ -243,7 +241,6 @@ class Element(Enum):
         else:
             return cls.EARTH
 
-
 _ELEMENT_QUALITIES = {
     Element.FIRE: ("hot", "dry"),
     Element.AIR: ("hot", "wet"),
@@ -265,7 +262,6 @@ _ELEMENT_OPPOSITES = {
     Element.EARTH: Element.AIR,
     Element.AETHER: Element.AETHER,
 }
-
 
 # =============================================================================
 # SECTION 4: LENS — THE FOUR PERSPECTIVES
@@ -307,7 +303,6 @@ class Lens(Enum):
         """Associated element."""
         return _LENS_ELEMENTS[self]
 
-
 _LENS_DOMAINS = {
     Lens.SQUARE: "Discrete/Algebraic (Z, groups)",
     Lens.FLOWER: "Continuous/Analytic (R, C)",
@@ -321,7 +316,6 @@ _LENS_ELEMENTS = {
     Lens.CLOUD: Element.AIR,
     Lens.FRACTAL: Element.FIRE,
 }
-
 
 # =============================================================================
 # SECTION 5: FACET — THE FOUR OBJECT TYPES
@@ -345,7 +339,6 @@ class Facet(IntEnum):
     CONSTRUCTIONS = 3  # Processes: algorithms, procedures
     CERTIFICATES = 4   # Evidence: proofs, witnesses
 
-
 # =============================================================================
 # SECTION 6: ATOM — THE FOUR SCALE LEVELS
 # =============================================================================
@@ -367,7 +360,6 @@ class Atom(Enum):
     B = "b"  # Meso
     C = "c"  # Macro
     D = "d"  # Cosmic
-
 
 # =============================================================================
 # SECTION 7: CRYSTAL ADDRESS — THE 4⁴ = 256 CELL SYSTEM
@@ -436,7 +428,6 @@ class CrystalAddress:
         col = Atom(code[3])
         return cls(lens, facet, row, col)
 
-
 # =============================================================================
 # SECTION 8: QHC REGIME — THE 4⁵ = 1024 REGIME SYSTEM
 # =============================================================================
@@ -448,14 +439,12 @@ class QHCConstant(Enum):
     I = "i"
     PHI = "φ"
 
-
 class QHCShape(Enum):
     """QHC Shapes (second axis of 4⁵)."""
     SQUARE = "Sq"
     FLOWER = "Fl"
     CLOUD = "Cl"
     FRACTAL = "Fr"
-
 
 class QHCElement(Enum):
     """QHC Elements (third axis of 4⁵)."""
@@ -464,7 +453,6 @@ class QHCElement(Enum):
     AIR = "Ai"
     FIRE = "Fi"
 
-
 class QHCLevel(Enum):
     """QHC Levels (fourth axis of 4⁵)."""
     L0 = 0  # Planck
@@ -472,14 +460,12 @@ class QHCLevel(Enum):
     L2 = 2  # Classical
     L3 = 3  # Cosmic
 
-
 class QHCPole(Enum):
     """QHC Aether Poles (fifth axis of 4⁵)."""
     AETHER = "Ae"   # Quintessence
     ANIMA = "An"    # Soul/life force
     INNER = "In"    # Internal
     OUTER = "Ou"    # External
-
 
 @dataclass(frozen=True)
 class QHCRegime:
@@ -516,7 +502,6 @@ class QHCRegime:
     def code(self) -> str:
         """Short code representation."""
         return f"{self.constant.value}{self.shape.value}{self.element.value}L{self.level.value}{self.pole.value}"
-
 
 # =============================================================================
 # SECTION 9: HOLOGRAPHIC ADDRESS — THE FULL 262,144-CELL SYSTEM
@@ -558,7 +543,6 @@ class HolographicAddress:
             regime=_qhc_from_index(regime_idx)
         )
 
-
 def _qhc_from_index(idx: int) -> QHCRegime:
     """Create QHCRegime from index."""
     p = idx % 4
@@ -573,7 +557,6 @@ def _qhc_from_index(idx: int) -> QHCRegime:
         level=QHCLevel(l),
         pole=list(QHCPole)[p]
     )
-
 
 # =============================================================================
 # SECTION 10: TYPED TRUTH — THE FOUR-VALUED OUTCOME
@@ -613,7 +596,6 @@ class TypedTruth(Enum):
                 return tt
         raise ValueError(f"No TypedTruth for {b4}")
 
-
 _TYPED_TRUTH_B4 = {
     TypedTruth.OK: B4.ONE,
     TypedTruth.NEAR: B4.ZERO,
@@ -628,7 +610,6 @@ _TYPED_TRUTH_ACTIONS = {
     TypedTruth.FAIL: "reject",
 }
 
-
 # =============================================================================
 # SECTION 11: CERTIFICATE — PROOF-CARRYING COMPUTATION
 # =============================================================================
@@ -640,7 +621,6 @@ class CertificateLevel(IntEnum):
     WITNESS = 2   # Constructive witness
     FORMAL = 3    # Machine-checked proof
 
-
 class CertificateType(Enum):
     """Types of certificates."""
     PRIMALITY = "prime"      # Number is prime
@@ -650,7 +630,6 @@ class CertificateType(Enum):
     INVARIANT = "invariant"  # Property preserved
     STABILITY = "stable"     # System stable
     INTEGRITY = "integrity"  # Data integrity
-
 
 @dataclass
 class Certificate:
@@ -684,7 +663,6 @@ class Certificate:
         else:
             return TypedTruth.OK
 
-
 # =============================================================================
 # SECTION 12: CORRIDOR — ADMISSIBILITY GATES
 # =============================================================================
@@ -706,7 +684,6 @@ class Corridor(Protocol):
         """Apply corridor transformation."""
         ...
 
-
 @dataclass
 class StandardCorridor:
     """Standard corridor implementation."""
@@ -727,7 +704,6 @@ class StandardCorridor:
     def transform(self, value: T, context: Dict[str, Any]) -> T:
         """Identity transform for standard corridor."""
         return value
-
 
 # =============================================================================
 # SECTION 13: OPERATOR PROTOCOL — UNIVERSAL OPERATOR INTERFACE
@@ -765,7 +741,6 @@ class Operator(Protocol[T, R]):
         """Compose with another operator."""
         ...
 
-
 @dataclass
 class LambdaOperator(Generic[T, R]):
     """Simple operator from a function."""
@@ -786,7 +761,6 @@ class LambdaOperator(Generic[T, R]):
             codomain=other.codomain
         )
 
-
 # =============================================================================
 # SECTION 14: LEDGER — DETERMINISTIC REPLAY
 # =============================================================================
@@ -806,7 +780,6 @@ class LedgerEntry:
         """Hash of this entry."""
         content = f"{self.operation}:{self.input_hash}:{self.output_hash}"
         return hashlib.sha256(content.encode()).hexdigest()[:16]
-
 
 @dataclass
 class Ledger:
@@ -850,7 +823,6 @@ class Ledger:
                 return TypedTruth.FAIL
         
         return TypedTruth.OK
-
 
 # =============================================================================
 # SECTION 15: Z-ADJOINING — TOTALITY WRAPPER
@@ -917,7 +889,6 @@ class ZResult(Generic[T]):
             return f(self._value)
         return ZResult.zero(self._zero)
 
-
 # =============================================================================
 # SECTION 16: HUMOR — THE FOUR BIOLOGICAL STATES
 # =============================================================================
@@ -950,7 +921,6 @@ class Humor(Enum):
     def qualities(self) -> Tuple[str, str]:
         return self.element.qualities
 
-
 _HUMOR_ELEMENTS = {
     Humor.BLOOD: Element.AIR,
     Humor.YELLOW_BILE: Element.FIRE,
@@ -964,7 +934,6 @@ _HUMOR_TEMPERAMENTS = {
     Humor.BLACK_BILE: "melancholic",
     Humor.PHLEGM: "phlegmatic",
 }
-
 
 # =============================================================================
 # SECTION 17: CAUSE — ARISTOTELIAN CAUSATION
@@ -994,7 +963,6 @@ class Cause(Enum):
     def question(self) -> str:
         return _CAUSE_QUESTIONS[self]
 
-
 _CAUSE_GREEK = {
     Cause.MATERIAL: "ὕλη",
     Cause.FORMAL: "εἶδος",
@@ -1008,7 +976,6 @@ _CAUSE_QUESTIONS = {
     Cause.EFFICIENT: "What produced it?",
     Cause.FINAL: "What is its purpose?",
 }
-
 
 # =============================================================================
 # SECTION 18: CATEGORY — ARISTOTELIAN ONTOLOGY
@@ -1031,7 +998,6 @@ class Category(Enum):
     STATE = auto()       # Having (ἔχειν)
     ACTION = auto()      # Doing (ποιεῖν)
     PASSION = auto()     # Being affected (πάσχειν)
-
 
 # =============================================================================
 # SECTION 19: CONSTANTS — SYSTEM NUMERICAL CONSTANTS
@@ -1099,7 +1065,6 @@ class Constants:
         assert cls.HOLOGRAPHIC == cls.CRYSTAL_4_4 * cls.QHC_4_5
         return True
 
-
 # =============================================================================
 # SECTION 20: EXPORTS
 # =============================================================================
@@ -1136,7 +1101,6 @@ __all__ = [
     # Type variables
     'T', 'S', 'R',
 ]
-
 
 # =============================================================================
 # VERIFICATION

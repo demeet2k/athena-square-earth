@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S33 | face=S | node=552 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W3:A1:S32→Xi108:W3:A1:S34→Xi108:W2:A1:S33→Xi108:W3:A2:S33 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 33±1, wreath 3/3, archetype 1/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppM -> AppJ -> AppI
 Tunnel: Z_the_manuscript_seed_self_referential_crystalline -> Z* -> Ch21⟨0110⟩

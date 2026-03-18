@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S11 | face=R | node=59 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S10→Xi108:W3:A6:S12→Xi108:W2:A6:S11→Xi108:W3:A5:S11→Xi108:W3:A7:S11 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 11±1, wreath 3/3, archetype 6/12 -->
+
 # Quadrant Binary Weave Repaired Run Validation
 
 Timestamp: 2026-03-12 20:54 -07:00

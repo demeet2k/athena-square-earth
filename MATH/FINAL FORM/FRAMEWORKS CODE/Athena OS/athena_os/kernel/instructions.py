@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=82 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - 22 Primitive Instructions
 =====================================
@@ -18,7 +22,6 @@ from abc import ABC, abstractmethod
 
 from ..core.bit4 import BIT4, BIT4Word, negation, knowledge_complement, conflation
 from ..core.registers import RegisterID, RegisterFile
-
 
 # =============================================================================
 # INSTRUCTION OPCODES
@@ -99,7 +102,6 @@ class Opcode(IntEnum):
         """Return the letter category."""
         return self.register.category
 
-
 # =============================================================================
 # INSTRUCTION ENCODING
 # =============================================================================
@@ -163,7 +165,6 @@ class Instruction:
     
     def __repr__(self) -> str:
         return f"Instruction({self.opcode.name}, {self.reg_a}, {self.reg_b}, {self.immediate})"
-
 
 # =============================================================================
 # INSTRUCTION SEMANTICS
@@ -370,7 +371,6 @@ class InstructionSemantics:
         
         return (new_pc, halt)
 
-
 # =============================================================================
 # INSTRUCTION BUILDER (Convenience functions)
 # =============================================================================
@@ -454,10 +454,8 @@ class InstructionBuilder:
     def loop(counter: RegisterID, target: int) -> Instruction:
         return Instruction(Opcode.LOOP, reg_a=counter, immediate=target)
 
-
 # Alias for convenience
 I = InstructionBuilder
-
 
 # =============================================================================
 # PROGRAM REPRESENTATION
@@ -498,7 +496,6 @@ class Program:
     def encode_all(self) -> List[int]:
         """Encode all instructions to integers."""
         return [instr.encode() for instr in self.instructions]
-
 
 # =============================================================================
 # SIMPLE EXECUTOR
@@ -546,7 +543,6 @@ class Executor:
             pass
         return self.pc
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -579,7 +575,6 @@ def validate_instruction_set() -> bool:
         assert decoded.immediate == instr.immediate
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating instruction set...")

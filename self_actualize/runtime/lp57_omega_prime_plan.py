@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=416 | depth=2 | phase=Mutable
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 from __future__ import annotations
 
 from collections import Counter
 from typing import Any
-
 
 PROTOCOL_ID = "LP-57OMEGA"
 PROTOCOL_DISPLAY_NAME = "LP-57Omega v2"
@@ -75,7 +78,6 @@ COORDINATE_SCHEMA = {
     "Hs": "hierarchy level",
     "OmegaS": "zero-point or aether relation",
 }
-
 
 EVENT_GRAMMAR = {
     "INT": "INT::<ts>::<agent_id>::<objective>::<inputs>::<output>",
@@ -192,7 +194,6 @@ PHASE_ARCS = [
     {"phase_id": "RING-C", "label": "tightening-compression-and-successor-formation", "range": [39, 57]},
 ]
 
-
 def row(
     n: int,
     title: str,
@@ -226,7 +227,6 @@ def row(
         "expected_structural_gain": gain,
         "expected_mapping_gain": mapping,
     }
-
 
 LOOP_SPECS = [
     row(1, "Prime Lock", "authority freeze", "authority", "prime-lock", "control-surface", "authority-drift", "A1", "synthesize Docs gate, active membrane, feeder law, and deep-root precedence", "plan authority freeze, overlay policy, and canonical order", "implement the baseline master packet and origin receipt", "prune false-current aliases and duplicate authority stories", "stable start state for LP-57Omega v2", "loop-zero anchors and origin ledgers"),
@@ -288,14 +288,12 @@ LOOP_SPECS = [
     row(57, "Successor Seed And Game-Time Reset", "successor kernel", "reseed", "successor-seed-and-game-time-reset", "successor-ledger", "closed-cycle-residue", "A4", "synthesize the complete 57-loop lineage", "plan the successor macro-program", "implement starter packets for the next cycle", "prune history into replay-safe seed form", "reusable liminal hive operating kernel", "successor coordinates and inherited debt"),
 ]
 
-
 def topk_for_loop(loop_number: int) -> int:
     if loop_number == 57:
         return 256
     if loop_number in {16, 32, 48, 56}:
         return 128
     return 64
-
 
 def arc_for_loop(loop_number: int) -> dict[str, Any]:
     for arc in PHASE_ARCS:
@@ -304,16 +302,13 @@ def arc_for_loop(loop_number: int) -> dict[str, Any]:
             return arc
     return {"phase_id": "UNASSIGNED", "label": "unassigned", "range": [0, 0]}
 
-
 def canonical_master_agent(value: str) -> dict[str, Any]:
     if value in MASTER_AGENT_BY_ALIAS:
         return MASTER_AGENT_BY_ALIAS[value]
     raise KeyError(value)
 
-
 def loop_spec_by_number(loop_number: int) -> dict[str, Any]:
     return LOOP_SPECS[loop_number - 1]
-
 
 def loop_spec_by_id(loop_id: str) -> dict[str, Any]:
     for spec in LOOP_SPECS:
@@ -321,11 +316,9 @@ def loop_spec_by_id(loop_id: str) -> dict[str, Any]:
             return spec
     raise KeyError(loop_id)
 
-
 def lead_counts() -> dict[str, int]:
     counts = Counter(spec["lead_master"] for spec in LOOP_SPECS)
     return {master_id: counts.get(master_id, 0) for master_id in ["A1", "A2", "A3", "A4"]}
-
 
 def uniqueness_tuples() -> list[tuple[str, str, str, str]]:
     return [

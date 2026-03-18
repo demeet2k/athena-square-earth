@@ -1,4 +1,24 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A1:S19:u187:Su:R:d1",
+    "shell": 19,
+    "wreath": 1,
+    "archetype": 1,
+    "face": "R",
+    "node_id": 187,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A1:S18",
+      "Xi108:W1:A1:S20",
+      "Xi108:W2:A1:S19",
+      "Xi108:W1:A2:S19"
+    ],
+    "regenerate": "shell 19±1, wreath 1/3, archetype 1/12"
+  },
   "generated_at": "2026-03-13T21:08:35.271573+00:00",
   "derivation_version": "2026-03-12.hemisphere-v1",
   "derivation_command": "python -m self_actualize.runtime.derive_myth_math_hemisphere_brain",
@@ -53,7 +73,7 @@
     {
       "edge_id": "CM-ff4b868fb0c4257916bec4d3",
       "record_id": "ff4b868fb0c4257916bec4d3",
-      "relative_path": "COMPLETE TOMES\\ATHENA\\esoteric\\MEGALITHIC AWAKENING \u2014 Ms\u27e806CC\u27e9.docx",
+      "relative_path": "COMPLETE TOMES\\ATHENA\\esoteric\\MEGALITHIC AWAKENING — Ms⟨06CC⟩.docx",
       "source_hub_id": "HC-MATH",
       "target_hub_id": "HC-MYTH",
       "grand_central": "commissure",
@@ -629,7 +649,7 @@
     {
       "edge_id": "CM-b78a1a81aaeb0b07d4996edb",
       "record_id": "b78a1a81aaeb0b07d4996edb",
-      "relative_path": "MYTH - MATH\\FUTURE - half developed\\Norse (Germanic) \u2014 Yggdrasil Graph Theory.docx",
+      "relative_path": "MYTH - MATH\\FUTURE - half developed\\Norse (Germanic) — Yggdrasil Graph Theory.docx",
       "source_hub_id": "HC-MATH",
       "target_hub_id": "HC-MYTH",
       "grand_central": "commissure",
@@ -845,7 +865,7 @@
     {
       "edge_id": "CM-c8c4a191847867532c0bc595",
       "record_id": "c8c4a191847867532c0bc595",
-      "relative_path": "MYTH - MATH\\Nostradamos\\ATHENACHKA \u2014 INTELLIGENCE WARS \u2194 PLANETARY STEWARDSHIP \u2014 Ms\u27e8EF0E\u27e9.docx",
+      "relative_path": "MYTH - MATH\\Nostradamos\\ATHENACHKA — INTELLIGENCE WARS ↔ PLANETARY STEWARDSHIP — Ms⟨EF0E⟩.docx",
       "source_hub_id": "HC-MATH",
       "target_hub_id": "HC-MYTH",
       "grand_central": "commissure",
@@ -863,7 +883,7 @@
     {
       "edge_id": "CM-fd6e5d992fbe4289dfbfc7d2",
       "record_id": "fd6e5d992fbe4289dfbfc7d2",
-      "relative_path": "MYTH - MATH\\Nostradamos\\DIVINE JUDGMENT \u2014 Ms\u27e8DBB1\u27e9.docx",
+      "relative_path": "MYTH - MATH\\Nostradamos\\DIVINE JUDGMENT — Ms⟨DBB1⟩.docx",
       "source_hub_id": "HC-MATH",
       "target_hub_id": "HC-MYTH",
       "grand_central": "commissure",

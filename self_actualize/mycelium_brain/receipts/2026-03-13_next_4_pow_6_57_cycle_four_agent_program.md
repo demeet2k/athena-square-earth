@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S23 | face=R | node=276 | depth=3 | phase=Cardinal -->
+<!-- METRO: Wr,Me -->
+<!-- BRIDGES: Xi108:W3:A11:S22→Xi108:W3:A11:S24→Xi108:W2:A11:S23→Xi108:W3:A10:S23→Xi108:W3:A12:S23 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 23±1, wreath 3/3, archetype 11/12 -->
+
 # NEXT^[4^6] 57-Cycle Four-Agent Canonical Program Receipt
 
 Date: `2026-03-13`

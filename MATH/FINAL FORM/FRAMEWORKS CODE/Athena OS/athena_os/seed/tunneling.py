@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S17 | face=S | node=139 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S16→Xi108:W2:A4:S18→Xi108:W1:A4:S17→Xi108:W3:A4:S17→Xi108:W2:A3:S17→Xi108:W2:A5:S17
+
 """
 ATHENA OS - Crystal Tunneling Mechanics
 =======================================
@@ -29,7 +33,6 @@ from .lattice import (
     CrystalAddress, CrystalExpression, CrystalLattice
 )
 
-
 # =============================================================================
 # TUNNELING DIRECTIONS
 # =============================================================================
@@ -40,7 +43,6 @@ class TunnelDirection(IntEnum):
     VERTICAL = 1       # Inner ↔ Outer Shadow
     CLOCKWISE = 2      # A → Ā → Out → In → A
     COUNTER_CLOCKWISE = 3  # A → In → Out → Ā → A
-
 
 @dataclass
 class TunnelPath:
@@ -59,7 +61,6 @@ class TunnelPath:
     @property
     def is_vertical(self) -> bool:
         return self.direction == TunnelDirection.VERTICAL
-
 
 # =============================================================================
 # SHADOW POLE ENCODINGS
@@ -87,7 +88,6 @@ class ShadowEncoding:
     outer_description: str
     outer_formula: str  # The saturation condition
     horizon: float      # The boundary value
-
 
 # Inner Shadow encodings for π-constant
 PI_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
@@ -165,7 +165,6 @@ PI_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
     ),
 }
 
-
 # Inner Shadow encodings for e-constant  
 E_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
     (Sector.SQUARE, Element.EARTH, Level.L0): ShadowEncoding(
@@ -205,7 +204,6 @@ E_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
         horizon=20
     ),
 }
-
 
 # Inner Shadow encodings for i-constant
 I_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
@@ -247,7 +245,6 @@ I_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
     ),
 }
 
-
 # Inner Shadow encodings for φ-constant
 PHI_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
     (Sector.SQUARE, Element.EARTH, Level.L0): ShadowEncoding(
@@ -287,7 +284,6 @@ PHI_INNER_SHADOWS: Dict[Tuple[Sector, Element, Level], ShadowEncoding] = {
         horizon=1e15
     ),
 }
-
 
 # =============================================================================
 # TUNNELING ENGINE
@@ -468,7 +464,6 @@ class TunnelingEngine:
             return (inner, outer)
         return (None, None)
 
-
 # =============================================================================
 # CIRCULATION PATHS
 # =============================================================================
@@ -511,7 +506,6 @@ class CirculationPath:
     def __iter__(self):
         return iter(self.path)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -550,7 +544,6 @@ def validate_tunneling() -> bool:
     assert best.target.meta_pole == MetaPole.OUTER_SHADOW
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Tunneling Mechanics...")

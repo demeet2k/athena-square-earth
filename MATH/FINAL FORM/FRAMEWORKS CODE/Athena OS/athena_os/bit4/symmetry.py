@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=84 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - BIT4
 ================
@@ -39,7 +43,6 @@ from enum import Enum
 
 from .carrier import B4, TwoRail
 
-
 # =============================================================================
 # INVOLUTIONS
 # =============================================================================
@@ -52,7 +55,6 @@ def neg(x: B4) -> B4:
     """
     flipped = frozenset(1 - b for b in x.support)
     return B4.from_support(flipped)
-
 
 def kappa(x: B4) -> B4:
     """
@@ -69,7 +71,6 @@ def kappa(x: B4) -> B4:
     else:
         return x
 
-
 def complement(x: B4) -> B4:
     """
     Set complement: ~x := {0,1} \ x
@@ -79,18 +80,15 @@ def complement(x: B4) -> B4:
     full = frozenset({0, 1})
     return B4.from_support(full - x.support)
 
-
 def identity(x: B4) -> B4:
     """Identity function: id(x) = x"""
     return x
-
 
 # Aliases
 NOT = neg            # ¬
 SWAP = kappa         # κ
 COMP = complement    # ~
 ID = identity        # id
-
 
 # =============================================================================
 # KLEIN FOUR GROUP
@@ -103,7 +101,6 @@ class KleinElement(Enum):
     NEG = "neg"    # Truth-negation ¬
     KAPPA = "kappa"  # Conflation κ
     COMP = "comp"  # Set complement ~
-
 
 # Group operation table for V₄
 # Composition: a ∘ b means apply b first, then a
@@ -133,11 +130,9 @@ KLEIN_TABLE: Dict[Tuple[KleinElement, KleinElement], KleinElement] = {
     (KleinElement.COMP, KleinElement.COMP): KleinElement.ID,
 }
 
-
 def klein_compose(a: KleinElement, b: KleinElement) -> KleinElement:
     """Compose two Klein group elements: a ∘ b (apply b first)."""
     return KLEIN_TABLE[(a, b)]
-
 
 def klein_inverse(a: KleinElement) -> KleinElement:
     """
@@ -146,7 +141,6 @@ def klein_inverse(a: KleinElement) -> KleinElement:
     Every element is its own inverse (all involutions).
     """
     return a
-
 
 def klein_apply(elem: KleinElement, x: B4) -> B4:
     """Apply Klein group element as B4 transformation."""
@@ -157,7 +151,6 @@ def klein_apply(elem: KleinElement, x: B4) -> B4:
         KleinElement.COMP: complement
     }
     return funcs[elem](x)
-
 
 # =============================================================================
 # DIHEDRAL GROUP D₄ (Extended symmetries)
@@ -187,7 +180,6 @@ class DihedralElement:
         
         return cycle[rotated_idx]
 
-
 # =============================================================================
 # AUTOMORPHISM CLASSIFICATION
 # =============================================================================
@@ -215,7 +207,6 @@ def is_k_automorphism(f: Callable[[B4], B4]) -> bool:
     
     return True
 
-
 def is_k_anti_automorphism(f: Callable[[B4], B4]) -> bool:
     """
     Check if f is a ≤_k anti-automorphism.
@@ -239,7 +230,6 @@ def is_k_anti_automorphism(f: Callable[[B4], B4]) -> bool:
     
     return True
 
-
 def is_t_automorphism(f: Callable[[B4], B4]) -> bool:
     """Check if f is a ≤_t automorphism."""
     from .orders import leq_t
@@ -256,7 +246,6 @@ def is_t_automorphism(f: Callable[[B4], B4]) -> bool:
                 return False
     
     return True
-
 
 def is_t_anti_automorphism(f: Callable[[B4], B4]) -> bool:
     """Check if f is a ≤_t anti-automorphism."""
@@ -275,7 +264,6 @@ def is_t_anti_automorphism(f: Callable[[B4], B4]) -> bool:
     
     return True
 
-
 def classify_symmetry(f: Callable[[B4], B4]) -> Dict[str, bool]:
     """
     Classify a permutation of B₄ by its order behavior.
@@ -286,7 +274,6 @@ def classify_symmetry(f: Callable[[B4], B4]) -> Dict[str, bool]:
         "t_auto": is_t_automorphism(f),
         "t_anti": is_t_anti_automorphism(f)
     }
-
 
 # =============================================================================
 # ORBIT COMPUTATION
@@ -300,7 +287,6 @@ def orbit_under_klein(x: B4) -> Set[B4]:
         kappa(x),
         complement(x)
     }
-
 
 def orbits_klein() -> List[Set[B4]]:
     """
@@ -318,7 +304,6 @@ def orbits_klein() -> List[Set[B4]]:
             seen.update(orb)
     
     return orbits
-
 
 # =============================================================================
 # INVOLUTION TABLES
@@ -350,7 +335,6 @@ def print_involution_table() -> str:
     
     return "\n".join(lines)
 
-
 def print_klein_table() -> str:
     """Generate Klein group composition table."""
     elements = [KleinElement.ID, KleinElement.NEG, KleinElement.KAPPA, KleinElement.COMP]
@@ -366,7 +350,6 @@ def print_klein_table() -> str:
         rows.append(row)
     
     return header + "\n" + sep + "\n" + "\n".join(rows)
-
 
 # =============================================================================
 # VALIDATION
@@ -426,7 +409,6 @@ def validate_symmetry() -> bool:
     assert len(orbits) == 2
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating BIT4 Symmetry...")

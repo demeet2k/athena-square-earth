@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=402 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List
-
 
 @dataclass
 class CrystalBodyRecord:
@@ -24,7 +27,6 @@ class CrystalBodyRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class CrystalFamilyContractRecord:
     contract_id: str
@@ -44,7 +46,6 @@ class CrystalFamilyContractRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class DirectSynapseRecord:
     edge_id: str
@@ -61,7 +62,6 @@ class DirectSynapseRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class SynapticHandoffPacketRecord:
@@ -89,7 +89,6 @@ class SynapticHandoffPacketRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class RhythmStepRecord:
     step_id: str
@@ -102,7 +101,6 @@ class RhythmStepRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class CapsuleSliceContractRecord:
@@ -123,7 +121,6 @@ class CapsuleSliceContractRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class BridgeEdgeWitnessRecord:
     edge_id: str
@@ -142,7 +139,6 @@ class BridgeEdgeWitnessRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class DocsIngressPacketRecord:
     packet_id: str
@@ -160,7 +156,6 @@ class DocsIngressPacketRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class WaveCheckpointRecord:
     checkpoint_id: str
@@ -173,7 +168,6 @@ class WaveCheckpointRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class RuntimeCorridorMembraneRecord:
@@ -189,7 +183,6 @@ class RuntimeCorridorMembraneRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class SeedPacketWitnessRecord:
     packet_witness_id: str
@@ -203,7 +196,6 @@ class SeedPacketWitnessRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class RuntimeCarrierContractRecord:
@@ -222,7 +214,6 @@ class RuntimeCarrierContractRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class RuntimeSquareContractRecord:
     square_contract_id: str
@@ -239,7 +230,6 @@ class RuntimeSquareContractRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class DirectBridgeFamilyContractRecord:
@@ -265,7 +255,6 @@ class DirectBridgeFamilyContractRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class BridgeSliceContractRecord:
     bridge_family_id: str
@@ -286,7 +275,6 @@ class BridgeSliceContractRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class BridgeBacklogEntryRecord:
     weave_id: str
@@ -305,7 +293,6 @@ class BridgeBacklogEntryRecord:
         payload = asdict(self)
         payload["class"] = payload.pop("entry_class")
         return payload
-
 
 @dataclass
 class DeepPairwiseFamilyContractRecord:
@@ -331,7 +318,6 @@ class DeepPairwiseFamilyContractRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class DeepPairwiseSliceContractRecord:

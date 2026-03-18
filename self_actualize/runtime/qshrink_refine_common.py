@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -109,28 +112,22 @@ PASS_RECEIPT_FILES = {
 }
 AUTHORITATIVE_SQUARE_RECEIPT_FILE = PASS_RECEIPT_FILES["square"]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
-
 
 def load_json(path: Path, default: dict[str, Any] | None = None) -> dict[str, Any]:
     if not path.exists():
         return default or {}
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def docs_gate_payload() -> dict[str, Any]:
     text = read_text(LIVE_DOCS_GATE_PATH)
@@ -149,7 +146,6 @@ def docs_gate_payload() -> dict[str, Any]:
         "missing_files": missing_files,
         "surface_excerpt": "\n".join(text.splitlines()[:12]),
     }
-
 
 def default_next4_state() -> dict[str, Any]:
     docs_gate = docs_gate_payload()
@@ -195,7 +191,6 @@ def default_next4_state() -> dict[str, Any]:
         },
     }
 
-
 def load_next4_state() -> dict[str, Any]:
     payload = load_json(QSHRINK_NEXT4_STATE_PATH, default_next4_state())
     default_payload = default_next4_state()
@@ -230,7 +225,6 @@ def load_next4_state() -> dict[str, Any]:
     pressure_order.setdefault("blocked_external", default_pressure_order["blocked_external"])
     return payload
 
-
 def atlas_metrics() -> dict[str, Any]:
     atlas = load_json(
         ATLAS_PATH,
@@ -238,18 +232,14 @@ def atlas_metrics() -> dict[str, Any]:
     )
     return atlas.get("summary", {})
 
-
 def ecosystem_output_path(pass_name: str) -> Path:
     return QSHRINK_ECOSYSTEM_ROOT / PASS_ECOSYSTEM_FILES[pass_name]
-
 
 def capsule_output_path(pass_name: str) -> Path:
     return CAPSULE_ROOT / PASS_CAPSULE_FILES[pass_name]
 
-
 def receipt_output_path(pass_name: str) -> Path:
     return RECEIPTS_ROOT / PASS_RECEIPT_FILES[pass_name]
-
 
 def refinement_output_path(pass_name: str) -> Path:
     mapping = {
@@ -259,7 +249,6 @@ def refinement_output_path(pass_name: str) -> Path:
         "fractal": QSHRINK_REFINEMENT_FRACTAL_PATH,
     }
     return mapping[pass_name]
-
 
 def route_targets() -> list[dict[str, str]]:
     return [
@@ -272,7 +261,6 @@ def route_targets() -> list[dict[str, str]]:
         {"body": "Next self prompt", "target": relative_string(NEXT_SELF_PROMPT_PATH)},
         {"body": "Temple state", "target": relative_string(TEMPLE_STATE_PATH)},
     ]
-
 
 def render_qshrink_ecosystem_readme() -> str:
     metrics = atlas_metrics()

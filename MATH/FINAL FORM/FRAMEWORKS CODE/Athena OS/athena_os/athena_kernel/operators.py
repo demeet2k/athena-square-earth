@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S17 | face=S | node=152 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S16→Xi108:W2:A1:S18→Xi108:W1:A1:S17→Xi108:W3:A1:S17→Xi108:W2:A2:S17
+
 """
 ATHENA OS - ATHENA KERNEL: OPERATORS
 =====================================
@@ -25,7 +29,6 @@ from typing import Dict, List, Set, Optional, Tuple, Callable, Any, Union
 from enum import Enum, auto
 import numpy as np
 
-
 # =============================================================================
 # OPERATOR TYPES
 # =============================================================================
@@ -39,7 +42,6 @@ class OperatorType(Enum):
     BOOLEAN_SCALAR = "boolean_scalar" # Kratos
     DERIVATIVE = "derivative"         # Athena
     STATE = "state"                   # Zeus
-
 
 # =============================================================================
 # METIS (M̂) - THE OPTIMIZER
@@ -162,7 +164,6 @@ class MetisOperator:
             return float('inf')
         return output / internal_input
 
-
 # =============================================================================
 # NOUS (N̂) - THE PROCESSOR
 # =============================================================================
@@ -255,7 +256,6 @@ class NousOperator:
             return data[self._pointer]
         return None
 
-
 # =============================================================================
 # BIA (B̂) - THE ACTUATOR
 # =============================================================================
@@ -327,7 +327,6 @@ class BiaOperator:
     @property
     def force(self) -> np.ndarray:
         return self._force.copy()
-
 
 # =============================================================================
 # KRATOS (K̂) - THE AUTHORITY
@@ -407,7 +406,6 @@ class KratosOperator:
     def authority(self) -> float:
         return self._authority
 
-
 # =============================================================================
 # ZEUS (Ẑ) - THE EXECUTIVE
 # =============================================================================
@@ -472,7 +470,6 @@ class ZeusOperator:
     def set_state(self, state: np.ndarray) -> None:
         """Set state."""
         self._state = state.copy()
-
 
 # =============================================================================
 # ATHENA (Â) - THE DERIVATIVE
@@ -584,7 +581,6 @@ class AthenaOperator:
         decreasing = sum(1 for i in range(len(norms)-1) if norms[i+1] < norms[i])
         return decreasing / (len(norms) - 1)
 
-
 # =============================================================================
 # OPERATOR ALGEBRA
 # =============================================================================
@@ -650,7 +646,6 @@ class OperatorAlgebra:
         if self.zeus.is_v3():
             return "v3.0"
         return "v2.0" if self.zeus.metis else "v1.0"
-
 
 # =============================================================================
 # VALIDATION
@@ -737,7 +732,6 @@ def validate_operators() -> bool:
     assert trinity_result["authorized"]
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Operators Module...")

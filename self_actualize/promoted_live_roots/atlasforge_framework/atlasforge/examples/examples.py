@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=425 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       ATLAS FORGE - Examples & Tutorials                      ║
@@ -8,7 +12,6 @@ Comprehensive examples demonstrating the AtlasForge framework capabilities.
 
 import math
 from typing import Callable, List, Tuple
-
 
 def example_1_basic_root_finding():
     """
@@ -48,7 +51,6 @@ def example_1_basic_root_finding():
     
     return recipe
 
-
 def example_2_multiple_solvers():
     """
     Example 2: Comparing Multiple Solvers
@@ -86,7 +88,6 @@ def example_2_multiple_solvers():
     
     print()
     return
-
 
 def example_3_lens_transformations():
     """
@@ -131,7 +132,6 @@ def example_3_lens_transformations():
     print()
     
     return
-
 
 def example_4_certificate_levels():
     """
@@ -182,7 +182,6 @@ def example_4_certificate_levels():
     print()
     
     return bundle
-
 
 def example_5_crystal_combat():
     """
@@ -242,7 +241,6 @@ def example_5_crystal_combat():
     
     return result
 
-
 def example_6_hybrid_system():
     """
     Example 6: Hybrid Dynamical System
@@ -300,7 +298,6 @@ def example_6_hybrid_system():
     print()
     return
 
-
 def example_7_four_poles():
     """
     Example 7: Four-Pole Architecture
@@ -354,7 +351,6 @@ def example_7_four_poles():
     print()
     
     return
-
 
 def example_8_full_pipeline():
     """
@@ -417,7 +413,6 @@ def example_8_full_pipeline():
     
     return recipe
 
-
 def run_all_examples():
     """Run all examples."""
     print()
@@ -438,7 +433,6 @@ def run_all_examples():
     print("=" * 60)
     print("All examples completed successfully!")
     print("=" * 60)
-
 
 if __name__ == "__main__":
     run_all_examples()

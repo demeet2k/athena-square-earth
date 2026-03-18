@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 """
 SeatElection.v1 — Host/Steward Seat Election
 
@@ -10,7 +14,6 @@ from typing import Dict, List, Optional, Tuple
 
 from .constants import PHI, PHI_INV, PHI_INV2, PHI_INV3
 from .types import AgentProfile, Candidate, BoardEntry, QueueName
-
 
 # ═══════════════════════════════════════════════════════════════
 # ELECTION
@@ -37,7 +40,6 @@ def elect_host(
     scored.sort(key=lambda x: x[0], reverse=True)
     return scored[0][1]
 
-
 def elect_steward(
     entry: BoardEntry,
     agents: List[AgentProfile],
@@ -61,7 +63,6 @@ def elect_steward(
 
     scored.sort(key=lambda x: x[0], reverse=True)
     return scored[0][1]
-
 
 # ═══════════════════════════════════════════════════════════════
 # SCORING
@@ -90,7 +91,6 @@ def _host_score(agent: AgentProfile, entry: BoardEntry) -> float:
 
     return score
 
-
 def _steward_score(agent: AgentProfile, entry: BoardEntry) -> float:
     """
     Score per SeatElectionPolicy.json:
@@ -102,7 +102,6 @@ def _steward_score(agent: AgentProfile, entry: BoardEntry) -> float:
         + agent.dispute_resolution * 1.0        # 1.0
         + agent.policy_contributions * PHI_INV  # 0.618
     )
-
 
 # ═══════════════════════════════════════════════════════════════
 # BATCH ELECTION

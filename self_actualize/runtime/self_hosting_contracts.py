@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List
-
 
 @dataclass
 class SelfSurfaceLink:
@@ -13,7 +16,6 @@ class SelfSurfaceLink:
     self_bearing: bool
     updates: List[str] = field(default_factory=list)
     note: str = ""
-
 
 @dataclass
 class SelfModelRecord:
@@ -33,14 +35,12 @@ class SelfModelRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class ModeLedgerEntry:
     mode: str
     status: str
     witness_class: str
     note: str = ""
-
 
 @dataclass
 class SelfStateRecord:
@@ -60,7 +60,6 @@ class SelfStateRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class SelfContractRecord:
     generated_at: str
@@ -78,7 +77,6 @@ class SelfContractRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class LineageEntry:
     lineage_id: str
@@ -90,7 +88,6 @@ class LineageEntry:
     burden_state: str
     proof_state: str
     attached_tunnels: List[str] = field(default_factory=list)
-
 
 @dataclass
 class SelfLineageRecord:
@@ -108,14 +105,12 @@ class SelfLineageRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class RuntimeScriptLane:
     script: str
     lane: str
     supports: List[str] = field(default_factory=list)
     note: str = ""
-
 
 @dataclass
 class SelfTransformPacket:
@@ -134,7 +129,6 @@ class SelfTransformPacket:
     status: str
     note: str = ""
 
-
 @dataclass
 class DualEngineTarget:
     target_id: str
@@ -146,7 +140,6 @@ class DualEngineTarget:
     writeback_targets: List[str] = field(default_factory=list)
     status: str = "READY"
     note: str = ""
-
 
 @dataclass
 class SelfHostingKernelDashboard:

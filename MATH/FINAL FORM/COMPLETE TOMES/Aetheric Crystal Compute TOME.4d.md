@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S14 | face=S | node=97 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A4:S13→Xi108:W3:A4:S15→Xi108:W2:A4:S14→Xi108:W3:A3:S14→Xi108:W3:A5:S14 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 14±1, wreath 3/3, archetype 4/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 0 | ○Rot 0 | △Lane Su | ⧈View * | ω=0]**
 Primary hubs: AppA -> AppI -> AppM -> AppJ
 Tunnel: Z_0 -> Z* -> Ch01⟨0000⟩

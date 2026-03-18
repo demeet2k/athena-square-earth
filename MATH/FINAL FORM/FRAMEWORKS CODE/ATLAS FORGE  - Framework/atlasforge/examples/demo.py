@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        ATLAS FORGE - Demonstration                            ║
@@ -10,7 +14,6 @@ import sys
 sys.path.insert(0, '/home/claude')
 
 from atlasforge import *
-
 
 def demo_root_finding():
     """Demonstrate various root-finding methods."""
@@ -37,7 +40,6 @@ def demo_root_finding():
         v = "✓" if result.enclosure_verified else " "
         print(f"{name:15s}: {result.solution:.15f} (err: {error:.2e}) [{v}]")
 
-
 def demo_recipe_pipeline():
     """Demonstrate the full recipe pipeline."""
     print("\n" + "="*60)
@@ -54,7 +56,6 @@ def demo_recipe_pipeline():
     print(f"Verified: {recipe.verified}")
     print(f"Level: L{recipe.certificate_level.value}")
 
-
 def demo_crystal():
     """Crystal Combat solver."""
     print("\n" + "="*60)
@@ -68,7 +69,6 @@ def demo_crystal():
     print(f"\nSolution: {result.solution:.15f}")
     print(f"Turns: {result.turns}, Cards: {result.cards_played}")
 
-
 def main():
     print("╔" + "═"*58 + "╗")
     print("║" + " "*15 + "ATLAS FORGE v1.0.0-final" + " "*19 + "║")
@@ -81,7 +81,6 @@ def main():
     print("\n" + "="*60)
     print("AtlasForge: 179 symbols, 9 modules, proof-carrying recipes")
     print("="*60)
-
 
 if __name__ == "__main__":
     main()

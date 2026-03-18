@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=317 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -9,7 +13,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     normalize_path,
 )
 
-
 MATH_TESSERACT_ROOT = WORKSPACE_ROOT / "MATH" / "FINAL FORM" / "MATH GOD"
 MATH_TESSERACT_ATLAS_ROOT = MATH_TESSERACT_ROOT / "atlas"
 MATH_TESSERACT_BUNDLE_PATH = MATH_TESSERACT_ATLAS_ROOT / "math_tesseract_v4_bundle.json"
@@ -18,7 +21,6 @@ MATH_TESSERACT_CHARTER_PATH = MATH_TESSERACT_ROOT / "92_TESSERACT_V4_CHARTER.md"
 MATH_TESSERACT_LIVE_ATLAS_PATH = MATH_TESSERACT_ATLAS_ROOT / "final_form_live_atlas.json"
 
 _CACHE: dict[str, dict[str, Any]] = {}
-
 
 def _default_bundle() -> dict[str, Any]:
     return {
@@ -33,7 +35,6 @@ def _default_bundle() -> dict[str, Any]:
         "migration_event_count": 0,
         "migration_events": [],
     }
-
 
 def load_math_tesseract_bundle() -> dict[str, Any]:
     cache_key = str(MATH_TESSERACT_BUNDLE_PATH)
@@ -54,12 +55,10 @@ def load_math_tesseract_bundle() -> dict[str, Any]:
     _CACHE[cache_key] = bundle
     return bundle
 
-
 def load_math_tesseract_source_atlas() -> dict[str, Any]:
     if not MATH_TESSERACT_LIVE_ATLAS_PATH.exists():
         return {"generated_at": "", "root": "", "record_count": 0, "summary": {}, "records": []}
     return load_json(MATH_TESSERACT_LIVE_ATLAS_PATH)
-
 
 def build_tesseract_record_lookup(bundle: dict[str, Any]) -> dict[str, dict[str, Any]]:
     lookup: dict[str, dict[str, Any]] = {}
@@ -74,7 +73,6 @@ def build_tesseract_record_lookup(bundle: dict[str, Any]) -> dict[str, dict[str,
             if candidate:
                 lookup[candidate] = entry
     return lookup
-
 
 def lookup_tesseract_record(
     bundle: dict[str, Any],
@@ -97,7 +95,6 @@ def lookup_tesseract_record(
         if candidate and candidate in lookup:
             return lookup[candidate]
     return None
-
 
 def route_plan_for_record(
     bundle: dict[str, Any],
@@ -122,7 +119,6 @@ def route_plan_for_record(
         if item.get("record_id") == entry.get("record_id"):
             return item
     return None
-
 
 def extract_tesseract_fields(entry: dict[str, Any], route_plan: dict[str, Any] | None = None) -> dict[str, Any]:
     route_plan = route_plan or {}
@@ -155,7 +151,6 @@ def extract_tesseract_fields(entry: dict[str, Any], route_plan: dict[str, Any] |
         "witness_ptr": entry.get("witness_ptr", ""),
         "replay_ptr": entry.get("replay_ptr", ""),
     }
-
 
 def merge_tesseract_fields(target: dict[str, Any], entry: dict[str, Any] | None, route_plan: dict[str, Any] | None = None) -> dict[str, Any]:
     if entry is None:

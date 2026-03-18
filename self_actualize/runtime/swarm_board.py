@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S25 | face=F | node=318 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S24→Xi108:W2:A5:S26→Xi108:W1:A5:S25→Xi108:W3:A5:S25→Xi108:W2:A4:S25→Xi108:W2:A6:S25
+
 ﻿from __future__ import annotations
 
 import argparse
@@ -23,7 +27,6 @@ from .contracts import (
     LatencySampleV1,
     OMEGA_KEY,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 FULL_INTEGRATION_ROOT = (
@@ -595,10 +598,8 @@ CONCEPTUAL_TO_LIVE_FAMILIES = {
     "void-and-collapse": ["Trading Bot", "DEEPER_CRYSTALIZATION", "MATH"],
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def slugify(value: str) -> str:
     lowered = value.lower().strip()
@@ -612,7 +613,6 @@ def slugify(value: str) -> str:
     while "__" in slug:
         slug = slug.replace("__", "_")
     return slug.strip("_") or "untitled"
-
 
 def normalized_basename(path_text: str) -> str:
     name = Path(path_text).name.lower()
@@ -634,28 +634,23 @@ def normalized_basename(path_text: str) -> str:
             break
     return f"{stem}{Path(name).suffix}"
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=False), encoding="utf-8")
-
 
 def append_ndjson(path: Path, row: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(row, sort_keys=False) + "\n")
 
-
 def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def read_ndjson(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
@@ -671,7 +666,6 @@ def read_ndjson(path: Path) -> list[dict[str, Any]]:
             continue
     return rows
 
-
 def parse_utc(value: str | None) -> datetime | None:
     if not value:
         return None
@@ -680,7 +674,6 @@ def parse_utc(value: str | None) -> datetime | None:
         return datetime.fromisoformat(normalized)
     except ValueError:
         return None
-
 
 def load_command_membrane_state() -> dict[str, Any]:
     return read_json(
@@ -699,7 +692,6 @@ def load_command_membrane_state() -> dict[str, Any]:
         },
     )
 
-
 def append_limited_json_list(path: Path, row: dict[str, Any], *, limit: int = 200) -> list[dict[str, Any]]:
     rows = read_json(path, [])
     rows.append(row)
@@ -707,17 +699,14 @@ def append_limited_json_list(path: Path, row: dict[str, Any], *, limit: int = 20
     write_json(path, rows)
     return rows
 
-
 def stable_unit_scalar(label: str) -> float:
     digest = hashlib.sha1(label.encode("utf-8")).hexdigest()[:12]
     return round(int(digest, 16) / float(16**12 - 1), 6)
-
 
 def local_day_phase(now_utc: datetime) -> float:
     local_now = now_utc.astimezone()
     seconds = local_now.hour * 3600 + local_now.minute * 60 + local_now.second + local_now.microsecond / 1_000_000
     return round(seconds / 86400.0, 6)
-
 
 def orbital_phase(now_utc: datetime) -> float:
     year_start = datetime(now_utc.year, 1, 1, tzinfo=timezone.utc)
@@ -726,13 +715,11 @@ def orbital_phase(now_utc: datetime) -> float:
     elapsed = (now_utc - year_start).total_seconds()
     return round(max(0.0, min(1.0, elapsed / span if span else 0.0)), 6)
 
-
 def lunar_phase(now_utc: datetime) -> float:
     reference = datetime(2001, 1, 1, tzinfo=timezone.utc)
     lunation = 29.530588853
     elapsed_days = (now_utc - reference).total_seconds() / 86400.0
     return round((0.20439731 + elapsed_days / lunation) % 1.0, 6)
-
 
 def sidereal_phase(now_utc: datetime) -> float:
     reference = datetime(2000, 1, 1, 12, tzinfo=timezone.utc)
@@ -740,14 +727,12 @@ def sidereal_phase(now_utc: datetime) -> float:
     gmst_hours = 18.697374558 + 24.06570982441908 * elapsed_days
     return round((gmst_hours % 24.0) / 24.0, 6)
 
-
 def queue_pressure_scalar() -> float:
     queue = parse_queue()
     open_claims = [claim for claim in load_board_claims() if claim.get("status") in OPEN_STATUSES]
     queue_load = sum(len(queue.get(bucket, [])) for bucket in ("P0", "P1", "P2"))
     score = min(1.0, (queue_load / 40.0) + (len(open_claims) / 50.0))
     return round(score, 6)
-
 
 def command_active_protocol_version() -> str:
     if COMMAND_PROTOCOL_REGISTRY_V1_PATH.exists() and COMMAND_PROTOCOL_V1_PATH.exists():
@@ -759,7 +744,6 @@ def command_active_protocol_version() -> str:
         if registry.get("protocol_id") == "COMMAND_MEMBRANE_V2":
             return "V2"
     return "V1"
-
 
 def command_active_protocol_paths() -> dict[str, Any]:
     if command_active_protocol_version() == "V2":
@@ -779,7 +763,6 @@ def command_active_protocol_paths() -> dict[str, Any]:
         "capillary_law": COMMAND_CAPILLARY_LAW_V1_PATH,
         "latency": COMMAND_LATENCY_V1_PATH,
     }
-
 
 def command_protocol_defaults() -> dict[str, Any]:
     active_paths = command_active_protocol_paths()
@@ -838,7 +821,6 @@ def command_protocol_defaults() -> dict[str, Any]:
         "latency_benchmarks": latency_benchmarks,
         "compatibility_mirrors": canonical.get("compatibility_mirrors", {}),
     }
-
 
 def command_capillary_defaults() -> dict[str, Any]:
     active_paths = command_active_protocol_paths()
@@ -901,7 +883,6 @@ def command_capillary_defaults() -> dict[str, Any]:
         "edge_classes": canonical.get("edge_classes", fallback["edge_classes"]),
     }
 
-
 def command_packet_schema_defaults() -> dict[str, Any]:
     active_paths = command_active_protocol_paths()
     version = active_paths["version"]
@@ -924,7 +905,6 @@ def command_packet_schema_defaults() -> dict[str, Any]:
         "commit_fields": [],
         "capillary_fields": [],
     }
-
 
 def command_reward_defaults() -> dict[str, Any]:
     protocol = command_protocol_defaults()
@@ -1058,25 +1038,20 @@ def command_reward_defaults() -> dict[str, Any]:
         },
     }
 
-
 def clamp_unit(value: float) -> float:
     return max(0.0, min(1.0, float(value)))
-
 
 def command_heaven_score(a_value: float, phi_value: float) -> float:
     return round(clamp_unit((a_value / math.pi) * ((1.0 + math.cos(phi_value)) / 2.0)), 6)
 
-
 def command_verified_heaven_score(heaven_score: float, verification_witness: float) -> float:
     return round(clamp_unit(heaven_score * verification_witness), 6)
-
 
 def command_reward_multiplier(verified_heaven_score: float, reward_defaults: dict[str, Any]) -> float:
     coeffs = reward_defaults.get("coefficient_defaults", {})
     eps = float(coeffs.get("eps", 1e-6))
     m_max = float(coeffs.get("m_max", 144.0))
     return round(min(m_max, 1.0 / max(eps, 1.0 - verified_heaven_score + eps)), 6)
-
 
 def command_reward_breakdown(
     *,
@@ -1128,7 +1103,6 @@ def command_reward_breakdown(
         "route_mode": route_mode,
         "crown": crown,
     }
-
 
 def command_apply_joy_reward(
     *,
@@ -1220,7 +1194,6 @@ def command_apply_joy_reward(
     append_limited_json_list(COMMAND_REWARD_RECEIPT_PATH, receipt)
     return reward_rows, receipt
 
-
 def command_latency_defaults() -> dict[str, Any]:
     active_paths = command_active_protocol_paths()
     protocol = command_protocol_defaults()
@@ -1240,7 +1213,6 @@ def command_latency_defaults() -> dict[str, Any]:
         "target_t_sugar_ms": float(compatibility.get("target_t_sugar_ms", fallback["target_t_sugar_ms"])),
     }
 
-
 def command_base4_addr(relative_path: str) -> str:
     digest = hashlib.sha1(relative_path.encode("utf-8")).hexdigest()
     ordinal = int(digest[:6], 16) % 256
@@ -1249,7 +1221,6 @@ def command_base4_addr(relative_path: str) -> str:
         digits.append(str(ordinal % 4))
         ordinal //= 4
     return "".join(reversed(digits))
-
 
 def command_witness_ptr(event_id: str, relative_path: str, change_kind: str, earth_ts_utc: str) -> dict[str, Any]:
     source_root = COMMAND_FOLDER_ROOT.relative_to(WORKSPACE_ROOT).as_posix()
@@ -1275,7 +1246,6 @@ def command_witness_ptr(event_id: str, relative_path: str, change_kind: str, ear
             "sigma_route_min": command_protocol_defaults().get("sigma_route_min", []),
         },
     }
-
 
 def command_replay_ptr(event_id: str) -> dict[str, Any]:
     env_pin = {
@@ -1304,18 +1274,14 @@ def command_replay_ptr(event_id: str) -> dict[str, Any]:
         "Hash": f"H:{hashlib.sha256(hash_seed.encode('utf-8')).hexdigest()[:16].upper()}",
     }
 
-
 def command_packet_logs(limit: int = 20) -> list[dict[str, Any]]:
     return read_json(COMMAND_PACKET_LOG_PATH, [])[-limit:]
-
 
 def command_latency_logs(limit: int = 20) -> list[dict[str, Any]]:
     return read_json(COMMAND_LATENCY_LOG_PATH, [])[-limit:]
 
-
 def command_runtime_state() -> dict[str, Any]:
     return read_json(COMMAND_RUNTIME_STATE_PATH, {})
-
 
 def release_expired_command_claims(now_utc: datetime | None = None) -> list[str]:
     now_utc = now_utc or datetime.now(timezone.utc)
@@ -1342,7 +1308,6 @@ def release_expired_command_claims(now_utc: datetime | None = None) -> list[str]
         released.append(claim.get("claim_id", ""))
     return [item for item in released if item]
 
-
 def command_active_leases(now_utc: datetime | None = None) -> list[dict[str, Any]]:
     now_utc = now_utc or datetime.now(timezone.utc)
     leases: list[dict[str, Any]] = []
@@ -1367,7 +1332,6 @@ def command_active_leases(now_utc: datetime | None = None) -> list[dict[str, Any
     leases.sort(key=lambda item: item.get("lease_expires_at") or "", reverse=True)
     return leases
 
-
 def command_capillary_summary(limit: int = 8) -> list[dict[str, Any]]:
     store = command_load_capillary_store()
     edges = list(store.get("edges", {}).values())
@@ -1379,7 +1343,6 @@ def command_capillary_summary(limit: int = 8) -> list[dict[str, Any]]:
         )
     )
     return edges[:limit]
-
 
 def command_duplicate_suppression_rate(packet_rows: list[dict[str, Any]]) -> float:
     if not packet_rows:
@@ -1394,13 +1357,11 @@ def command_duplicate_suppression_rate(packet_rows: list[dict[str, Any]]) -> flo
         seen.add(key)
     return round(duplicates / max(1, len(packet_rows)), 6)
 
-
 def command_route_win_rate(commit_rows: list[dict[str, Any]]) -> float:
     if not commit_rows:
         return 0.0
     successes = sum(1 for row in commit_rows if row.get("result") == "success")
     return round(successes / max(1, len(commit_rows)), 6)
-
 
 def write_command_membrane_public_state(
     *,
@@ -1473,16 +1434,13 @@ def write_command_membrane_public_state(
     write_json(COMMAND_MEMBRANE_STATE_PATH, state)
     return state
 
-
 def make_command_event_id() -> str:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     digest = hashlib.sha1(f"EVT|{time.time_ns()}".encode("utf-8")).hexdigest()[:6].upper()
     return f"EVT-{stamp}-{digest}"
 
-
 def make_liminal_ts() -> str:
     return f"LT-{time.time_ns() % 1_000_000_000:09d}"
-
 
 def scan_command_folder() -> dict[str, Any]:
     files: list[dict[str, Any]] = []
@@ -1536,7 +1494,6 @@ def scan_command_folder() -> dict[str, Any]:
         "fingerprint": hashlib.sha1(fingerprint_src).hexdigest(),
     }
 
-
 def command_goal_and_tag(changes: list[dict[str, Any]]) -> tuple[str, str, list[str]]:
     artifacts = [change["relative_path"] for change in changes[:5]]
     lowered = " ".join(path.lower() for path in artifacts)
@@ -1546,7 +1503,6 @@ def command_goal_and_tag(changes: list[dict[str, Any]]) -> tuple[str, str, list[
         quest_refs.append(command_protocol_defaults()["quest_dock"]["temple"]["quest_id"])
         return ("route-govern-governance", "command.governance.drop", quest_refs)
     return ("detect-classify-assign", "command.sugar.drop", quest_refs)
-
 
 def build_command_coord12(*, now_utc: datetime, priority: float, novelty: float) -> tuple[list[float], dict[str, Any]]:
     utc_epoch = round(now_utc.timestamp(), 6)
@@ -1591,13 +1547,11 @@ def build_command_coord12(*, now_utc: datetime, priority: float, novelty: float)
     }
     return coord12, named
 
-
 def command_detection_priority(diff: dict[str, Any], detection_mode: str) -> tuple[float, float]:
     changed = max(1, diff.get("added", 0) + diff.get("modified", 0) + diff.get("removed", 0))
     novelty = min(1.0, changed / 8.0)
     priority = min(1.0, novelty + (0.15 if detection_mode == "event-driven" else 0.05))
     return round(priority, 6), round(novelty, 6)
-
 
 def command_edge_class(strength: float, success_count: int) -> str:
     thresholds = command_capillary_defaults().get("thresholds", {})
@@ -1609,7 +1563,6 @@ def command_edge_class(strength: float, success_count: int) -> str:
         return "capillary"
     return "ephemeral"
 
-
 def command_liminal_delta(current_vector: list[float], previous_vector: list[float] | None) -> float:
     if not previous_vector or len(previous_vector) != len(current_vector):
         return 0.0
@@ -1619,7 +1572,6 @@ def command_liminal_delta(current_vector: list[float], previous_vector: list[flo
         total += weight * ((float(current) - float(previous)) ** 2)
     return round(math.sqrt(total), 6)
 
-
 def command_liminal_velocity(liminal_delta: float, current_earth_ts: str, previous_earth_ts: str | None) -> float:
     previous_dt = parse_utc(previous_earth_ts)
     current_dt = parse_utc(current_earth_ts)
@@ -1628,11 +1580,9 @@ def command_liminal_velocity(liminal_delta: float, current_earth_ts: str, previo
     delta_seconds = max(0.001, (current_dt - previous_dt).total_seconds())
     return round(liminal_delta / delta_seconds, 6)
 
-
 def command_previous_packet_record() -> dict[str, Any] | None:
     packets = command_packet_logs(limit=1)
     return packets[-1] if packets else None
-
 
 def command_coord_vector(record: dict[str, Any] | None) -> list[float] | None:
     if not record:
@@ -1650,7 +1600,6 @@ def command_coord_vector(record: dict[str, Any] | None) -> list[float] | None:
     if ordered and all(value is not None for value in ordered):
         return [float(value) for value in ordered]
     return None
-
 
 def command_coordinate_stamp(packet: CommandEventPacketV1 | dict[str, Any], relative_path: str, detection_mode: str) -> dict[str, Any]:
     top_level = Path(relative_path).parts[0] if relative_path else "GLOBAL COMMAND"
@@ -1677,7 +1626,6 @@ def command_coordinate_stamp(packet: CommandEventPacketV1 | dict[str, Any], rela
         OMEGA_KEY: "command-membrane",
     }
 
-
 def command_load_capillary_store() -> dict[str, Any]:
     payload = read_json(COMMAND_CAPILLARY_LOG_PATH, {})
     if "edges" in payload:
@@ -1697,7 +1645,6 @@ def command_load_capillary_store() -> dict[str, Any]:
         "edges": {key: command_normalize_capillary_edge(key, value) for key, value in edges.items()},
         "history": [],
     }
-
 
 def command_normalize_capillary_edge(route_path: str, record: dict[str, Any]) -> dict[str, Any]:
     bridge_weight = float(command_reward_defaults().get("coefficient_defaults", {}).get("bridge_weight", 0.35))
@@ -1792,7 +1739,6 @@ def command_normalize_capillary_edge(route_path: str, record: dict[str, Any]) ->
     normalized.setdefault("last_reinforced_at_utc", normalized["last_updated"])
     return normalized
 
-
 def command_load_agent_joy_state() -> dict[str, Any]:
     payload = read_json(
         COMMAND_AGENT_JOY_STATE_PATH,
@@ -1808,18 +1754,15 @@ def command_load_agent_joy_state() -> dict[str, Any]:
     payload.setdefault("protocol_version", command_active_protocol_version())
     return payload
 
-
 def command_save_agent_joy_state(payload: dict[str, Any]) -> None:
     payload["generated_at"] = utc_now()
     write_json(COMMAND_AGENT_JOY_STATE_PATH, payload)
-
 
 def command_agent_role(ant_id: str) -> str:
     for candidate in COMMAND_AGENT_REGISTRY:
         if candidate["ant_id"] == ant_id:
             return candidate["class"]
     return "Worker"
-
 
 def command_route_mode(result: str, novelty: float, prior_edge: dict[str, Any]) -> str:
     lowered = str(result or "").lower()
@@ -1831,7 +1774,6 @@ def command_route_mode(result: str, novelty: float, prior_edge: dict[str, Any]) 
         return "repair_or_replay"
     return "blocked_or_quarantined_or_duplicate_or_noise"
 
-
 def command_verification_class(result: str) -> str:
     lowered = str(result or "").lower()
     if lowered == "success":
@@ -1839,7 +1781,6 @@ def command_verification_class(result: str) -> str:
     if lowered in {"blocked", "quarantined"}:
         return "truthful_blocked_or_quarantined"
     return "synthetic_noise"
-
 
 def command_stage_latency_ms(latency_record: dict[str, Any], role_class: str) -> float:
     detection = float(latency_record.get("detection_latency_ms", 0.0))
@@ -1853,7 +1794,6 @@ def command_stage_latency_ms(latency_record: dict[str, Any], role_class: str) ->
     if role_class == "Worker":
         return detection + awareness + claim
     return detection + awareness + claim + commit
-
 
 def command_reward_bundle(
     packet: dict[str, Any],
@@ -2028,11 +1968,9 @@ def command_reward_bundle(
     }
     return reward_rows, event_receipt, packet_enrichment
 
-
 def command_append_ap7d_compatibility(delta_row: dict[str, Any], handoff_row: dict[str, Any]) -> None:
     append_ndjson(AP7D_DELTA_FEED_PATH, delta_row)
     append_ndjson(AP7D_HANDOFF_FEED_PATH, handoff_row)
-
 
 def command_append_runtime_feeds(
     packet: dict[str, Any],
@@ -2171,7 +2109,6 @@ def command_append_runtime_feeds(
         },
     )
 
-
 def load_legacy_manifests() -> dict[str, Any]:
     return {
         "tensor": read_json(LEGACY_TENSOR_MANIFEST_PATH, LEGACY_MANIFEST_DEFAULTS["tensor"]),
@@ -2183,12 +2120,10 @@ def load_legacy_manifests() -> dict[str, Any]:
         "frontiers": read_json(LEGACY_FRONTIER_MANIFEST_PATH, LEGACY_MANIFEST_DEFAULTS["frontiers"]),
     }
 
-
 def format_ts(epoch_ns: int | None) -> str:
     if epoch_ns is None:
         return "unknown"
     return datetime.fromtimestamp(epoch_ns / 1_000_000_000, tz=timezone.utc).isoformat()
-
 
 def should_skip_parts(parts: tuple[str, ...]) -> bool:
     board_parts = BOARD_ROOT.relative_to(WORKSPACE_ROOT).parts
@@ -2198,12 +2133,10 @@ def should_skip_parts(parts: tuple[str, ...]) -> bool:
         return True
     return any(part in IGNORE_DIRS for part in parts)
 
-
 def top_level_sort_key(name: str) -> tuple[int, str]:
     if name in REGION_ORDER:
         return (REGION_ORDER.index(name), name.lower())
     return (len(REGION_ORDER), name.lower())
-
 
 def lineage_to_elements(lineage: str) -> list[str]:
     elements: list[str] = []
@@ -2215,7 +2148,6 @@ def lineage_to_elements(lineage: str) -> list[str]:
             elements.append(element)
     return elements
 
-
 def archetype_for_lineage(lineage: str) -> tuple[str, str]:
     elements = lineage_to_elements(lineage)
     if not elements:
@@ -2224,10 +2156,8 @@ def archetype_for_lineage(lineage: str) -> tuple[str, str]:
         return (elements[0], elements[0])
     return (elements[0], elements[1])
 
-
 def archetype_role(primary: str, secondary: str) -> str:
     return CRYSTAL_CELL_ROLES.get((primary, secondary), "Unclassified crystal cell")
-
 
 def micro_mode_for_thread(thread: dict[str, Any]) -> str:
     packet = thread.get("packet", "")
@@ -2240,22 +2170,17 @@ def micro_mode_for_thread(thread: dict[str, Any]) -> str:
         return "Water"
     return "Air"
 
-
 def cluster_id(primary: str, secondary: str, micro_mode: str) -> str:
     return f"CLUSTER-{slugify(primary)}-{slugify(secondary)}-{slugify(micro_mode)}"
-
 
 def neuron_leaf_id(primary: str, secondary: str, micro_mode: str, truth: str) -> str:
     return f"LEAF-{slugify(primary)}-{slugify(secondary)}-{slugify(micro_mode)}-{slugify(truth)}"
 
-
 def live_family_bridges(conceptual_family: str) -> list[str]:
     return CONCEPTUAL_TO_LIVE_FAMILIES.get(conceptual_family, [])
 
-
 def canonical_family_owner(name: str) -> str:
     return ROOT_FAMILY_ABSORPTION.get(name, name)
-
 
 def file_record(rel_path: str, size: int, mtime_ns: int) -> dict[str, Any]:
     path_obj = Path(rel_path)
@@ -2268,7 +2193,6 @@ def file_record(rel_path: str, size: int, mtime_ns: int) -> dict[str, Any]:
         "mtime_ns": mtime_ns,
         "mtime_iso": format_ts(mtime_ns),
     }
-
 
 def scan_workspace() -> dict[str, Any]:
     files: list[dict[str, Any]] = []
@@ -2362,7 +2286,6 @@ def scan_workspace() -> dict[str, Any]:
         "duplicate_families": duplicate_families[:20],
     }
 
-
 def compute_diff(previous: dict[str, Any] | None, current: dict[str, Any]) -> dict[str, Any]:
     previous_files = {}
     if previous:
@@ -2425,7 +2348,6 @@ def compute_diff(previous: dict[str, Any] | None, current: dict[str, Any]) -> di
         "changes": changes[:160],
     }
 
-
 def docs_gate_status() -> dict[str, Any]:
     credentials = TRADING_BOT_ROOT / "credentials.json"
     token = TRADING_BOT_ROOT / "token.json"
@@ -2454,7 +2376,6 @@ def docs_gate_status() -> dict[str, Any]:
         "receipt_excerpt": receipt_excerpt,
     }
 
-
 def read_atlas_metrics() -> dict[str, Any]:
     live = read_json(LIVE_ATLAS_PATH, {})
     archive = read_json(ARCHIVE_ATLAS_PATH, {})
@@ -2466,7 +2387,6 @@ def read_atlas_metrics() -> dict[str, Any]:
         "live_summary": live.get("summary", {}),
         "archive_summary": archive.get("summary", {}),
     }
-
 
 def parse_queue() -> dict[str, list[str]]:
     queue: dict[str, list[str]] = defaultdict(list)
@@ -2554,7 +2474,6 @@ def parse_queue() -> dict[str, list[str]]:
     flush_front()
     return dict(queue)
 
-
 def parse_legacy_claims() -> list[dict[str, Any]]:
     if not LEGACY_CLAIMS_PATH.exists():
         return []
@@ -2596,7 +2515,6 @@ def parse_legacy_claims() -> list[dict[str, Any]]:
         )
     return claims
 
-
 def note_card_markdown(note: dict[str, Any]) -> str:
     path_lines = "\n".join(f"- `{path}`" for path in note.get("paths", [])) or "- none"
     return (
@@ -2611,7 +2529,6 @@ def note_card_markdown(note: dict[str, Any]) -> str:
         "## Message\n"
         f"{note['message']}\n"
     )
-
 
 def claim_card_markdown(claim: dict[str, Any]) -> str:
     path_lines = "\n".join(f"- `{path}`" for path in claim.get("paths", [])) or "- none"
@@ -2647,7 +2564,6 @@ def claim_card_markdown(claim: dict[str, Any]) -> str:
         f"{claim['note']}\n"
     )
 
-
 def load_notes() -> list[dict[str, Any]]:
     notes: list[dict[str, Any]] = []
     if not AGENT_ROOT.exists():
@@ -2664,7 +2580,6 @@ def load_notes() -> list[dict[str, Any]]:
     notes.sort(key=lambda item: item.get("updated_at", ""), reverse=True)
     return notes
 
-
 def load_board_claims() -> list[dict[str, Any]]:
     claims: list[dict[str, Any]] = []
     if not CLAIM_ROOT.exists():
@@ -2679,7 +2594,6 @@ def load_board_claims() -> list[dict[str, Any]]:
     claims.sort(key=lambda item: item.get("updated_at", ""), reverse=True)
     return claims
 
-
 def build_claim_index(board_claims: list[dict[str, Any]], legacy_claims: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     merged: dict[str, dict[str, Any]] = {}
     for claim in legacy_claims:
@@ -2688,12 +2602,10 @@ def build_claim_index(board_claims: list[dict[str, Any]], legacy_claims: list[di
         merged[claim["claim_id"]] = claim
     return merged
 
-
 def make_object_id(prefix: str, owner: str, front: str) -> str:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     digest = hashlib.sha1(f"{prefix}|{owner}|{front}|{time.time_ns()}".encode("utf-8")).hexdigest()[:6]
     return f"{prefix}-{stamp}-{digest}"
-
 
 def create_note(agent: str, front: str, status: str, message: str, paths: list[str]) -> dict[str, Any]:
     note_id = make_object_id("NOTE", agent, front)
@@ -2717,7 +2629,6 @@ def create_note(agent: str, front: str, status: str, message: str, paths: list[s
     payload["md_path"] = md_path
     return payload
 
-
 def save_claim(payload: dict[str, Any]) -> dict[str, Any]:
     CLAIM_ROOT.mkdir(parents=True, exist_ok=True)
     json_path = CLAIM_ROOT / f"{payload['claim_id']}.json"
@@ -2730,7 +2641,6 @@ def save_claim(payload: dict[str, Any]) -> dict[str, Any]:
     payload.clear()
     payload.update(serializable)
     return payload
-
 
 def create_or_update_claim(
     agent: str,
@@ -2778,7 +2688,6 @@ def create_or_update_claim(
     existing["note"] = message.strip() or existing.get("note", "")
     existing["updated_at"] = utc_now()
     return save_claim(existing)
-
 
 def infer_family(front: str, paths: list[str]) -> str:
     counter: Counter[str] = Counter()
@@ -2829,7 +2738,6 @@ def infer_family(front: str, paths: list[str]) -> str:
             return family
     return "self_actualize"
 
-
 def truth_for_status(status: str) -> str:
     mapping = {
         "done": "OK",
@@ -2842,14 +2750,12 @@ def truth_for_status(status: str) -> str:
     }
     return mapping.get(status, "AMBIG")
 
-
 def regime_for_status(default_regime: str, status: str, docs_gate: dict[str, Any]) -> str:
     if status in {"blocked", "queued", "open"}:
         return "restart-token"
     if docs_gate["status"] != "READY" and status in {"active", "hot"}:
         return "stratified" if default_regime == "classical" else default_regime
     return default_regime
-
 
 def packet_for_thread(thread: dict[str, Any]) -> str:
     if thread["kind"] == "region":
@@ -2860,10 +2766,8 @@ def packet_for_thread(thread: dict[str, Any]) -> str:
         return "note"
     return "thread"
 
-
 def orbit_for_index(index: int) -> str:
     return f"O{index + 1:02d}"
-
 
 def arc_for_thread(front: str, family: str, status: str) -> str:
     lowered = front.lower()
@@ -2877,14 +2781,12 @@ def arc_for_thread(front: str, family: str, status: str) -> str:
         return "Arc3"
     return "Arc1"
 
-
 def preferred_face(profile: dict[str, str], status: str) -> str:
     if status == "blocked":
         return "Void"
     if status == "done":
         return "Aether"
     return profile["primary_face"]
-
 
 def build_family_tensor(snapshot: dict[str, Any], docs_gate: dict[str, Any]) -> list[dict[str, Any]]:
     grouped: dict[str, dict[str, Any]] = {}
@@ -2992,7 +2894,6 @@ def annotate_threads(
         )
     return threads
 
-
 def build_pods(threads: list[dict[str, Any]]) -> list[dict[str, Any]]:
     pods: list[dict[str, Any]] = []
     for idx, thread in enumerate(threads):
@@ -3021,7 +2922,6 @@ def build_pods(threads: list[dict[str, Any]]) -> list[dict[str, Any]]:
             }
         )
     return pods
-
 
 def build_neurons(pods: list[dict[str, Any]], family_tensor: list[dict[str, Any]]) -> list[dict[str, Any]]:
     tensor_map = {item["family"]: item for item in family_tensor}
@@ -3057,7 +2957,6 @@ def build_neurons(pods: list[dict[str, Any]], family_tensor: list[dict[str, Any]
         )
     return neurons
 
-
 def build_waves(pods: list[dict[str, Any]], docs_gate: dict[str, Any], diff: dict[str, Any]) -> list[dict[str, Any]]:
     active_pods = [pod for pod in pods if pod["status"] in {"active", "queued", "open", "blocked"}]
     if not active_pods:
@@ -3080,7 +2979,6 @@ def build_waves(pods: list[dict[str, Any]], docs_gate: dict[str, Any], diff: dic
         "gate_status": docs_gate["status"],
     }
     return [wave]
-
 
 def build_kernel_state(
     threads: list[dict[str, Any]],
@@ -3110,7 +3008,6 @@ def build_kernel_state(
         "pod_count": len(pods),
         "wave_ids": [wave["wave_id"] for wave in waves],
     }
-
 
 def build_elemental_field(
     threads: list[dict[str, Any]],
@@ -3151,7 +3048,6 @@ def build_elemental_field(
         result.append(record)
     return result
 
-
 def build_archetype_lattice(threads: list[dict[str, Any]], pods: list[dict[str, Any]]) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     record_map: dict[str, dict[str, Any]] = {}
@@ -3186,12 +3082,10 @@ def build_archetype_lattice(threads: list[dict[str, Any]], pods: list[dict[str, 
     records.sort(key=lambda item: (-item["thread_count"], -item["pod_count"], item["cell"]))
     return records
 
-
 def build_pantheon_overlay(archetypes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     pantheon = [item for item in archetypes if item["primary"] != item["secondary"]]
     pantheon.sort(key=lambda item: (-item["thread_count"], -item["pod_count"], item["cell"]))
     return pantheon
-
 
 def build_cluster_field(
     threads: list[dict[str, Any]],
@@ -3234,7 +3128,6 @@ def build_cluster_field(
     records.sort(key=lambda item: (-item["occupancy"], item["cluster_id"]))
     return records
 
-
 def build_neuron_lattice(threads: list[dict[str, Any]], bridge_neurons: list[dict[str, Any]]) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     record_map: dict[str, dict[str, Any]] = {}
@@ -3266,7 +3159,6 @@ def build_neuron_lattice(threads: list[dict[str, Any]], bridge_neurons: list[dic
 
     records.sort(key=lambda item: (-item["occupancy"], item["leaf_id"]))
     return records
-
 
 def build_council_mesh(legacy: dict[str, Any], threads: list[dict[str, Any]]) -> list[dict[str, Any]]:
     chapter_map = {item["code"]: item for item in legacy["swarm"].get("chapter_agents", [])}
@@ -3321,7 +3213,6 @@ def build_council_mesh(legacy: dict[str, Any], threads: list[dict[str, Any]]) ->
     councils.sort(key=lambda item: (item["scope"] != "rail", -len(item["live_threads"]), item["id"]))
     return councils
 
-
 def build_hypergraph_projection(
     legacy: dict[str, Any],
     threads: list[dict[str, Any]],
@@ -3345,7 +3236,6 @@ def build_hypergraph_projection(
         "council_count": len(councils),
         "frontiers": legacy["frontiers"].get("frontiers", []),
     }
-
 
 def build_active_run_manifest(
     threads: list[dict[str, Any]],
@@ -3402,7 +3292,6 @@ def build_active_run_manifest(
         },
     }
 
-
 def build_next_seed(active_run: dict[str, Any], docs_gate: dict[str, Any]) -> str:
     front = active_run["chosen_front"]
     family = active_run["chosen_family"]
@@ -3422,7 +3311,6 @@ def build_next_seed(active_run: dict[str, Any], docs_gate: dict[str, Any]) -> st
         "5. Verify truth class, contraction target, and ownership.\n"
         "6. Emit the next restart seed instead of stopping.\n"
     )
-
 
 def render_board_readme() -> str:
     return (
@@ -3448,7 +3336,6 @@ def render_board_readme() -> str:
         "The current representational center lives at "
         "`self_actualize/mycelium_brain/MASTER_MYCELIUM_MAP_ATHENA/00_MASTER_MYCELIUM_MAP_ATHENA.md`.\n"
     )
-
 
 def render_protocol_doc() -> str:
     return (
@@ -3481,7 +3368,6 @@ def render_protocol_doc() -> str:
         "## COMMAND Law\n\n"
         "The canonical routing policy is `goal+salience+pheromone+coord`, claim mode is `first-lease`, `Sigma` remains `AppA/AppI/AppM`, and the hub budget remains `<= 6`.\n"
     )
-
 
 def render_status_doc(
     snapshot: dict[str, Any],
@@ -3589,7 +3475,6 @@ def render_status_doc(
         + "\n"
     )
 
-
 def render_change_feed(diff: dict[str, Any], events: list[dict[str, Any]], command_state: dict[str, Any]) -> str:
     change_lines = []
     for change in diff.get("changes", [])[:60]:
@@ -3636,7 +3521,6 @@ def render_change_feed(diff: dict[str, Any], events: list[dict[str, Any]], comma
         + "\n"
     )
 
-
 def render_claim_summary(all_claims: dict[str, dict[str, Any]]) -> str:
     claims = sorted(
         all_claims.values(),
@@ -3669,7 +3553,6 @@ def render_claim_summary(all_claims: dict[str, dict[str, Any]]) -> str:
         )
     return "# Active Claims\n\n" + "\n".join(rows) + "\n"
 
-
 def render_agent_index(notes: list[dict[str, Any]], all_claims: dict[str, dict[str, Any]]) -> str:
     agent_counts: Counter[str] = Counter(note["agent"] for note in notes)
     claim_counts: Counter[str] = Counter(
@@ -3687,7 +3570,6 @@ def render_agent_index(notes: list[dict[str, Any]], all_claims: dict[str, dict[s
         lines.append("- no agent notes or claims yet")
     lines.append("")
     return "\n".join(lines)
-
 
 def render_agent_inbox(agent: str, notes: list[dict[str, Any]], claims: list[dict[str, Any]]) -> str:
     note_lines = [
@@ -3712,7 +3594,6 @@ def render_agent_inbox(agent: str, notes: list[dict[str, Any]], claims: list[dic
         + "\n"
     )
 
-
 def render_thread_index(threads: list[dict[str, Any]]) -> str:
     lines = ["# Active Threads", ""]
     for thread in threads:
@@ -3724,7 +3605,6 @@ def render_thread_index(threads: list[dict[str, Any]]) -> str:
         lines.append("- no active threads yet")
     lines.append("")
     return "\n".join(lines)
-
 
 def render_thread_doc(thread: dict[str, Any]) -> str:
     claim_lines = [
@@ -3795,7 +3675,6 @@ def render_thread_doc(thread: dict[str, Any]) -> str:
         + "\n"
     )
 
-
 def render_global_synthesis(
     snapshot: dict[str, Any],
     atlas_metrics: dict[str, Any],
@@ -3852,7 +3731,6 @@ def render_global_synthesis(
         + "\n"
     )
 
-
 def render_region_matrix(snapshot: dict[str, Any]) -> str:
     lines = ["# Cross-Region Matrix", ""]
     for name in sorted(snapshot["by_top_level"], key=top_level_sort_key):
@@ -3873,7 +3751,6 @@ def render_region_matrix(snapshot: dict[str, Any]) -> str:
         lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def render_tensor_overview() -> str:
     return (
         "# Higher-Dimensional Tensor Overview\n\n"
@@ -3885,7 +3762,6 @@ def render_tensor_overview() -> str:
         "## Canonical Rule\n\n"
         "No serious front is fully located until it has a family owner, rail, hub, regime, packet class, truth class, and contraction target.\n"
     )
-
 
 def render_swarm_tensor_stack(
     kernel_state: dict[str, Any],
@@ -3908,7 +3784,6 @@ def render_swarm_tensor_stack(
         f"- Councils: `{len(councils)}` family and rail councils\n"
         f"- Legacy hypergraph edges preserved: `{kernel_state['hypergraph_edges']}`\n"
     )
-
 
 def render_family_tensor_doc(family_tensor: list[dict[str, Any]]) -> str:
     rows = [
@@ -3962,7 +3837,6 @@ def render_thread_coordinates_doc(threads: list[dict[str, Any]]) -> str:
         lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def render_transfer_hubs_doc(neurons: list[dict[str, Any]]) -> str:
     lines = ["# Transfer Hubs", ""]
     for neuron in neurons:
@@ -3977,7 +3851,6 @@ def render_transfer_hubs_doc(neurons: list[dict[str, Any]]) -> str:
             lines.append("- WitnessSet: none")
         lines.append("")
     return "\n".join(lines).strip() + "\n"
-
 
 def render_kernel_doc(kernel_state: dict[str, Any]) -> str:
     lines = [
@@ -4008,7 +3881,6 @@ def render_kernel_doc(kernel_state: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines)
 
-
 def render_elemental_index(elemental_field: list[dict[str, Any]]) -> str:
     lines = [
         "# Elemental Field",
@@ -4021,7 +3893,6 @@ def render_elemental_index(elemental_field: list[dict[str, Any]]) -> str:
             f"| `{item['element']}` | {item['role']} | `{item['thread_count']}` | `{item['pod_count']}` | `{item['neuron_count']}` |"
         )
     return "\n".join(lines) + "\n"
-
 
 def render_elemental_doc(item: dict[str, Any]) -> str:
     lines = [
@@ -4048,7 +3919,6 @@ def render_elemental_doc(item: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines)
 
-
 def render_archetype_grid_doc(archetypes: list[dict[str, Any]]) -> str:
     lines = [
         "# Archetype Grid",
@@ -4065,7 +3935,6 @@ def render_archetype_grid_doc(archetypes: list[dict[str, Any]]) -> str:
             f"| `{item['cell']}` | {item['role']} | `{item['thread_count']}` | `{item['pod_count']}` | `{micro_modes}` | `{truths}` |"
         )
     return "\n".join(lines) + "\n"
-
 
 def render_archetype_doc(item: dict[str, Any]) -> str:
     micro_modes = ", ".join(f"{mode}:{count}" for mode, count in sorted(item["micro_modes"].items())) or "none"
@@ -4091,7 +3960,6 @@ def render_archetype_doc(item: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines)
 
-
 def render_pantheon_doc(pantheon: list[dict[str, Any]]) -> str:
     lines = [
         "# Pantheon Overlay",
@@ -4106,7 +3974,6 @@ def render_pantheon_doc(pantheon: list[dict[str, Any]]) -> str:
         lines.append(f"- Pods: `{item['pod_count']}`")
         lines.append("")
     return "\n".join(lines).strip() + "\n"
-
 
 def render_cluster_field_doc(clusters: list[dict[str, Any]]) -> str:
     lines = [
@@ -4130,7 +3997,6 @@ def render_cluster_field_doc(clusters: list[dict[str, Any]]) -> str:
     lines.append("")
     return "\n".join(lines)
 
-
 def render_neuron_lattice_doc(neuron_lattice: list[dict[str, Any]]) -> str:
     lines = [
         "# Neuron Lattice",
@@ -4153,7 +4019,6 @@ def render_neuron_lattice_doc(neuron_lattice: list[dict[str, Any]]) -> str:
     lines.append("")
     return "\n".join(lines)
 
-
 def render_council_index(councils: list[dict[str, Any]]) -> str:
     lines = ["# Council Mesh", ""]
     for council in councils:
@@ -4165,7 +4030,6 @@ def render_council_index(councils: list[dict[str, Any]]) -> str:
         lines.append("- none")
     lines.append("")
     return "\n".join(lines)
-
 
 def render_council_doc(council: dict[str, Any]) -> str:
     sign_labels = ", ".join(council["sign_labels"]) or "none"
@@ -4192,7 +4056,6 @@ def render_council_doc(council: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines)
 
-
 def render_hypergraph_overview(hypergraph: dict[str, Any]) -> str:
     lines = [
         "# Hypergraph Overview",
@@ -4218,7 +4081,6 @@ def render_hypergraph_overview(hypergraph: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines)
 
-
 def render_edge_kind_breakdown(hypergraph: dict[str, Any]) -> str:
     lines = ["# Hypergraph Edge Breakdown", ""]
     for kind, count in sorted(hypergraph["edge_kinds"].items()):
@@ -4232,7 +4094,6 @@ def render_edge_kind_breakdown(hypergraph: dict[str, Any]) -> str:
         lines.append("- none")
     lines.append("")
     return "\n".join(lines)
-
 
 def render_frontier_gaps_doc(frontiers: list[dict[str, Any]]) -> str:
     lines = [
@@ -4254,7 +4115,6 @@ def render_frontier_gaps_doc(frontiers: list[dict[str, Any]]) -> str:
         lines.append("- none")
     return "\n".join(lines).strip() + "\n"
 
-
 def render_swarm_runtime_overview(
     pods: list[dict[str, Any]],
     neurons: list[dict[str, Any]],
@@ -4272,7 +4132,6 @@ def render_swarm_runtime_overview(
         f"- Hypergraph edges in legacy runtime: `{hypergraph['edge_count']}`\n\n"
         "Every promoted front should leave a pod, a truth class, a contraction target, and a restart seed.\n"
     )
-
 
 def render_ganglion_doc(item: dict[str, Any], threads: list[dict[str, Any]]) -> str:
     family_threads = [thread for thread in threads if thread["family"] == item["family"]]
@@ -4299,7 +4158,6 @@ def render_ganglion_doc(item: dict[str, Any], threads: list[dict[str, Any]]) -> 
     lines.append("")
     return "\n".join(lines)
 
-
 def render_rail_doc(rail_code: str, family_tensor: list[dict[str, Any]], threads: list[dict[str, Any]]) -> str:
     meta = RAIL_DESCRIPTIONS[rail_code]
     families = [item for item in family_tensor if item["primary_rail"] == rail_code]
@@ -4322,7 +4180,6 @@ def render_rail_doc(rail_code: str, family_tensor: list[dict[str, Any]], threads
     lines.append("")
     return "\n".join(lines)
 
-
 def render_pod_doc(pod: dict[str, Any]) -> str:
     agents = ", ".join(f"`{agent}`" for agent in pod["agents"] if agent) or "none"
     return (
@@ -4344,7 +4201,6 @@ def render_pod_doc(pod: dict[str, Any]) -> str:
         f"- NSCoord: `{pod['nscoord']}`\n"
     )
 
-
 def render_neuron_doc(neuron: dict[str, Any]) -> str:
     witnesses = ", ".join(f"`{item}`" for item in neuron["witness_set"]) or "none"
     return (
@@ -4363,7 +4219,6 @@ def render_neuron_doc(neuron: dict[str, Any]) -> str:
         f"- WitnessSet: {witnesses}\n"
     )
 
-
 def render_wave_doc(wave: dict[str, Any]) -> str:
     pods = ", ".join(f"`{item}`" for item in wave["active_pods"]) or "none"
     writebacks = "\n".join(f"- `{item}`" for item in wave["writeback_set"])
@@ -4378,7 +4233,6 @@ def render_wave_doc(wave: dict[str, Any]) -> str:
         "## Writeback Set\n"
         f"{writebacks}\n"
     )
-
 
 def render_active_run_doc(active_run: dict[str, Any]) -> str:
     frontier_lines = "\n".join(f"- {item}" for item in active_run["frontier_update"]) or "- none"
@@ -4405,10 +4259,8 @@ def render_active_run_doc(active_run: dict[str, Any]) -> str:
         f"- TopCapillary: `{command_membrane.get('top_capillary', 'none')}`\n"
     )
 
-
 def render_next_prompt_doc(next_seed: str) -> str:
     return "# Next Self Prompt\n\n## Prompt\n\n```text\n" + next_seed.rstrip() + "\n```\n"
-
 
 def render_cortex_doc(threads: list[dict[str, Any]], pods: list[dict[str, Any]]) -> str:
     lines = [
@@ -4429,7 +4281,6 @@ def render_cortex_doc(threads: list[dict[str, Any]], pods: list[dict[str, Any]])
         lines.append("- none")
     lines.append("")
     return "\n".join(lines)
-
 
 def build_threads(
     notes: list[dict[str, Any]],
@@ -4522,10 +4373,8 @@ def build_threads(
     )
     return threads[:40]
 
-
 def load_event_log() -> list[dict[str, Any]]:
     return read_json(STATE_ROOT / "event_log.json", [])
-
 
 def update_event_log(snapshot: dict[str, Any], diff: dict[str, Any]) -> list[dict[str, Any]]:
     events = load_event_log()
@@ -4544,7 +4393,6 @@ def update_event_log(snapshot: dict[str, Any], diff: dict[str, Any]) -> list[dic
     events = events[-200:]
     write_json(STATE_ROOT / "event_log.json", events)
     return events
-
 
 def refresh_board(snapshot: dict[str, Any] | None = None) -> dict[str, Any]:
     if snapshot is None:
@@ -4723,7 +4571,6 @@ def refresh_board(snapshot: dict[str, Any] | None = None) -> dict[str, Any]:
         "command_event_count": len(command_state.get("recent_events", [])),
     }
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Realtime swarm board for the Athena workspace.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -4780,7 +4627,6 @@ def parse_args() -> argparse.Namespace:
 
     return parser.parse_args()
 
-
 def command_build() -> int:
     from . import derive_command_membrane_protocol_v2 as command_protocol_derive
     from . import verify_command_membrane_protocol_v2 as command_protocol_verify
@@ -4804,7 +4650,6 @@ def command_build() -> int:
         f"docs={manifest.get('docs_gate', {}).get('state', 'UNKNOWN')})."
     )
     return 0
-
 
 def command_claim_payload(packet: dict[str, Any], route_decision: dict[str, Any], claim_lease: dict[str, Any]) -> dict[str, Any]:
     structural = COMMAND_TEMPLE_QUEST_ID in packet["quest_refs"]
@@ -4837,7 +4682,6 @@ def command_claim_payload(packet: dict[str, Any], route_decision: dict[str, Any]
     payload["route_policy"] = route_decision["policy"]
     save_claim(payload)
     return payload
-
 
 def update_command_capillary(
     route_path: str,
@@ -5079,7 +4923,6 @@ def update_command_capillary(
     write_json(COMMAND_CAPILLARY_LEDGER_PATH, store)
     return updated
 
-
 def update_command_capillary_v2(
     route_path: str,
     latency_score: float,
@@ -5299,7 +5142,6 @@ def update_command_capillary_v2(
     write_json(COMMAND_CAPILLARY_LEDGER_PATH, store)
     return updated
 
-
 def route_command_packet(packet: dict[str, Any]) -> dict[str, Any]:
     protocol = command_protocol_defaults()
     topk = int(protocol.get("routing_policy", {}).get("topk", 5))
@@ -5426,7 +5268,6 @@ def route_command_packet(packet: dict[str, Any]) -> dict[str, Any]:
     payload = asdict(route_record)
     payload["policy"] = payload["policy_id"]
     return payload
-
 
 def build_command_packet(
     diff: dict[str, Any],
@@ -5619,7 +5460,6 @@ def build_command_packet(
     packet["polarity_state"] = "A"
     packet["coordinate_stamp"] = command_coordinate_stamp(packet, primary_path, detection_mode)
     return packet
-
 
 def process_command_change(
     current_snapshot: dict[str, Any],
@@ -5958,7 +5798,6 @@ def process_command_change(
         "diff": diff,
     }
 
-
 def windows_directory_watch(root: Path, timeout_ms: int = 1000):
     import ctypes
     from ctypes import wintypes
@@ -6004,7 +5843,6 @@ def windows_directory_watch(root: Path, timeout_ms: int = 1000):
                 raise OSError(f"WaitForSingleObject failed: {status}")
     finally:
         kernel32.FindCloseChangeNotification(handle)
-
 
 def command_watch_command_folder(interval: float, max_cycles: int, mode: str) -> int:
     COMMAND_STATE_ROOT.mkdir(parents=True, exist_ok=True)
@@ -6073,7 +5911,6 @@ def command_watch_command_folder(interval: float, max_cycles: int, mode: str) ->
         time.sleep(interval)
     return 0
 
-
 def command_watch(interval: float, max_cycles: int, scope: str, mode: str) -> int:
     if scope == "command":
         from . import command_membrane
@@ -6108,13 +5945,11 @@ def command_watch(interval: float, max_cycles: int, scope: str, mode: str) -> in
         time.sleep(interval)
     return 0
 
-
 def command_note(agent: str, front: str, status: str, message: str, paths: list[str]) -> int:
     note = create_note(agent=agent, front=front, status=status, message=message, paths=paths)
     refresh_board()
     print(f"Created note {note['note_id']} at {note['md_path']}")
     return 0
-
 
 def command_claim(
     claim_id: str | None,
@@ -6141,7 +5976,6 @@ def command_claim(
     refresh_board()
     print(f"Wrote claim {claim['claim_id']} at {claim['md_path']}")
     return 0
-
 
 def main() -> int:
     args = parse_args()
@@ -6222,8 +6056,6 @@ def main() -> int:
         return 0
     raise ValueError(f"Unsupported command: {args.command}")
 
-
 if __name__ == "__main__":
     raise SystemExit(main())
-
 

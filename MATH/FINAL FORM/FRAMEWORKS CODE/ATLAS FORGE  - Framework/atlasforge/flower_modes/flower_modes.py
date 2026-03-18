@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=89 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        FLOWER MODES MODULE                                   ║
@@ -26,7 +30,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROSE CURVE DEFINITIONS
@@ -100,7 +103,6 @@ class RoseCurve:
         """Create rose curve of order k."""
         return cls(amplitude=a, order=k)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECIAL FLOWER ORDERS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -115,7 +117,6 @@ class FlowerOrder(Enum):
     OCTOFOLIUM = 8    # 8 petals
     DECAFOLIUM = 10   # 10 petals
     DODECAFOLIUM = 12 # 12 petals
-
 
 @dataclass
 class FlowerProperties:
@@ -158,7 +159,6 @@ class FlowerProperties:
             has_reflection=True,
             special_notes=notes.get(k, f"Order-{k} flower")
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SYMMETRY GROUPS
@@ -218,7 +218,6 @@ class DihedralGroup:
             orbit_points.append((reflected[0], reflected[1]))
         return orbit_points
 
-
 @dataclass
 class DualityAlgebra:
     """
@@ -256,7 +255,6 @@ class DualityAlgebra:
         dims = {2: 3, 3: 0, 4: 7, 5: 0, 6: 3}
         m = dims.get(k, 0)
         return cls(k, m)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HAMMING CODE CONNECTION (ORDER 4)
@@ -342,7 +340,6 @@ class HammingFlowerCode:
         """Check if duality state is an admissible codeword."""
         return self.is_codeword(duality_state)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # INTERFERENCE AND STANDING WAVES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -389,7 +386,6 @@ class FlowerInterference:
         """
         return amplitude * np.cos(k * theta)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HELMHOLTZ MODES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -429,7 +425,6 @@ class HelmholtzMode:
         # cos(kθ) = 0 at θ = (2j+1)π/(2k)
         return np.array([(2*j + 1) * np.pi / (2 * k) 
                          for j in range(2 * k)])
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FLOWER MODE SPACE
@@ -495,7 +490,6 @@ class FlowerModeSpace:
         
         return coeffs_cos, coeffs_sin
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -538,7 +532,6 @@ class FlowerPoleBridge:
           Fano plane ↔ parity checks
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -547,41 +540,33 @@ def rose_curve(order: int, amplitude: float = 1.0) -> RoseCurve:
     """Create rose curve of given order."""
     return RoseCurve(amplitude=amplitude, order=order)
 
-
 def flower_properties(order: int) -> FlowerProperties:
     """Get properties for flower of given order."""
     return FlowerProperties.for_order(order)
-
 
 def dihedral_group(order: int) -> DihedralGroup:
     """Create dihedral group D_k."""
     return DihedralGroup(order)
 
-
 def duality_algebra(order: int) -> DualityAlgebra:
     """Create duality algebra for flower order."""
     return DualityAlgebra.for_order(order)
-
 
 def hamming_flower() -> HammingFlowerCode:
     """Create Hamming (7,4) flower code."""
     return HammingFlowerCode()
 
-
 def flower_interference() -> FlowerInterference:
     """Create flower interference calculator."""
     return FlowerInterference()
-
 
 def helmholtz_mode(k: int, omega: float = 1.0) -> HelmholtzMode:
     """Create Helmholtz mode."""
     return HelmholtzMode(k, omega)
 
-
 def flower_mode_space(max_order: int = 12) -> FlowerModeSpace:
     """Create flower mode space."""
     return FlowerModeSpace(max_order)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

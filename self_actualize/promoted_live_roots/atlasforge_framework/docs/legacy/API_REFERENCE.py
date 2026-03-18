@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=375 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                                                      ║
@@ -24,7 +28,6 @@ from atlasforge.crystal_merge import crystal_merge
 from atlasforge.proof_engine import proof_engine
 from atlasforge.aether_lattice import aether_lattice
 
-
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                      SECTION 1: QCM MODULE
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -49,7 +52,6 @@ print(f"Sum: {t_sum.amplitude} at phase {t_sum.phase}")
 # Rotate by angle
 t_rotated = t1.rotate(math.pi / 4)  # Rotate by 45°
 
-
 §1.2 THETA VECTORS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -72,7 +74,6 @@ v2 = ThetaVector([ThetaScalar(1.0, 0.0), ThetaScalar(0.0, 0.0), ThetaScalar(0.0,
 ip = v.inner_product(v2)
 print(f"Inner product: {ip}")
 
-
 §1.3 LAMBDA INDICES
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -90,7 +91,6 @@ l_prod = l1.mult(l2)    # (7 * 5) mod 12 = 11
 l3 = LambdaIndex(value=5, modulus=12)
 l_inv = l3.inverse()    # 5^(-1) mod 12 = 5 (since 5*5 = 25 ≡ 1 mod 12)
 
-
 §1.4 LAMBDA PATTERNS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -106,7 +106,6 @@ p_and = p1.and_op(p2)   # 0010
 
 # Hamming weight (count of 1s)
 hw = p1.hamming_weight()  # 3
-
 
 §1.5 INTERFERENCE LAW
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -128,7 +127,6 @@ print(f"Orthogonal: {result}")  # 25.0 = 3² + 4²
 result = InterferenceLaw.quadrature(3.0, 4.0)
 print(f"3 ⊞ 4 = {result}")  # 5.0
 
-
 §1.6 CRYSTALLIZER
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -142,7 +140,6 @@ import cmath
 z = 0.5 * cmath.exp(1j * 0.3)  # amplitude 0.5, phase 0.3
 lattice_idx = cryst.crystallize(z)
 print(f"Lattice index: {lattice_idx}")
-
 
 §1.7 FOURIER GEARBOX
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -161,7 +158,6 @@ print(f"DFT: {X}")
 x_recovered = fg.idft(X)
 print(f"Recovered: {x_recovered}")
 
-
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                     SECTION 2: LM TOWER MODULE
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -179,7 +175,6 @@ state = KernelState(density=rho, dimension=dim)
 
 print(f"Dimension: {state.dimension}")
 print(f"Purity: {state.purity()}")  # 0.25 for maximally mixed
-
 
 §2.2 CLOSURE METRICS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -203,7 +198,6 @@ print(f"Viability: {metrics.omega}")
 print(f"Integration: {metrics.iota}")
 print(f"Coherence: {metrics.chi}")
 print(f"Function: {metrics.phi}")
-
 
 §2.3 LIMINAL STATE
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -232,7 +226,6 @@ state = LiminalState(
 
 print(f"Closure potential: {state.metrics.closure_potential}")
 
-
 §2.4 LIFT OPERATOR
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -249,7 +242,6 @@ lift = LiftOperator(
 
 print(f"Lift type: {lift.lift_type.name}")
 
-
 §2.5 LOOKAHEAD OPERATOR (DESIRE)
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -264,7 +256,6 @@ lookahead = LookaheadOperator(
 
 # The lookahead operator biases trajectories toward high-value futures
 # This is Bellman control + Doob conditioning
-
 
 §2.6 FEASIBILITY LANDSCAPE
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -283,7 +274,6 @@ config_value = 0.5
 is_feasible = landscape.is_feasible(config_value)
 print(f"Is feasible: {is_feasible}")
 
-
 §2.7 STEERED CLOSURE ENGINE
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -300,7 +290,6 @@ engine = SteeredClosureEngine(
 metrics = ClosureMetrics(0.8, 0.7, 0.5, 0.9)
 loss = engine.compute_loss(metrics)
 print(f"Loss: {loss}")
-
 
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                   SECTION 3: CRYSTAL MERGE MODULE
@@ -326,7 +315,6 @@ for p in processes:
 #   → Compresses geometric structures into compact form
 # ...
 
-
 §3.2 MASTER TENSOR
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -340,7 +328,6 @@ print(f"Tensor dimension: {tensor.total_dimension}")  # 256
 
 # Access a cell by 4 indices
 cell = tensor.get_cell(content=0, operation=1, shadow=2, scale=3)
-
 
 §3.3 CRYSTAL MERGE PROTOCOL
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -367,7 +354,6 @@ print(f"CM4 (Dualities): {len(result['CM4']['dualities'])} dualities found")
 print(f"CM5 (Package): {result['CM5']['package_name']}")
 print(f"CM6 (Gate): passed={result['CM6']['passed']}")
 
-
 §3.4 HOLOGRAPHIC FIXED POINT
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -384,7 +370,6 @@ print(f"Is idempotent: {is_idempotent}")
 # Get regenerative capacity
 capacity = hfp.regenerative_capacity()
 print(f"Can regenerate: {capacity}")
-
 
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                    SECTION 4: PROOF ENGINE MODULE
@@ -409,7 +394,6 @@ seed = Seed(
 content_hash = seed.content_hash()
 print(f"Seed hash: {content_hash[:16]}...")
 
-
 §4.2 CERTIFICATES
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -428,7 +412,6 @@ cert = Certificate(
 
 print(f"Certificate type: {cert.cert_type.name}")
 print(f"Obligation: {cert.obligation.name}")
-
 
 §4.3 VERIFIER KERNEL
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -453,7 +436,6 @@ elif result == VerifierResult.REJECT:
 elif result == VerifierResult.REFUSE_BUDGET:
     print("Exceeded resource budget")
 
-
 §4.4 REPLAY ENGINE
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -476,7 +458,6 @@ print(f"Transcript: {transcript}")
 # Replay computation
 result = replay.replay("compute_phi")
 
-
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                   SECTION 5: AETHER LATTICE MODULE
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -492,7 +473,6 @@ for book in books:
     print(f"Book {book.number}: {book.name} ({book.book_type.name})")
     print(f"  Address: {book.pole}·{book.lens}")
     print(f"  Description: {book.description[:50]}...")
-
 
 §5.2 CRYSTAL ADDRESS
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -511,7 +491,6 @@ print(f"Address: {addr}")  # D·□·Objects·0
 
 # Parse from string
 addr2 = CrystalAddress.from_string("Ω·✿·Operators·2")
-
 
 §5.3 ATLAS INDEX
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -534,7 +513,6 @@ print(f"Found at: {entry.address}")
 
 # Look up by address
 entries = atlas.at_address(CrystalAddress(Pole.DISCRETE, Lens.SQUARE, Layer.OBJECTS, Depth.SURFACE))
-
 
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                    SECTION 6: COMPLETE EXAMPLES
@@ -570,7 +548,6 @@ print("\\nInterference family a ⊞_θ b:")
 for theta in [0, math.pi/6, math.pi/4, math.pi/3, math.pi/2, 2*math.pi/3, math.pi]:
     result = math.sqrt(InterferenceLaw.interfere(a, b, theta))
     print(f"  θ={theta:.4f}: {a} ⊞_θ {b} = {result:.4f}")
-
 
 §6.2 EXAMPLE: FULL CRYSTAL MERGE PIPELINE
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -624,7 +601,6 @@ print("\\nCM6: PUBLICATION GATE")
 print(f"  Gate passed: {result['CM6']['passed']}")
 print(f"  Publication hash: {result['CM6']['hash'][:32]}...")
 
-
 §6.3 EXAMPLE: EMERGENCE TRACKING
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -664,7 +640,6 @@ for t, E in trajectory:
         crossed_at = t
         print(f"Crossed threshold {threshold} at t={t}")
         break
-
 
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                         APPENDIX: QUICK REFERENCE

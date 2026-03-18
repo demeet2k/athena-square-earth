@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S16 | face=S | node=134 | depth=2 | phase=Cardinal
+# METRO: Ac,Me
+# BRIDGES: Xi108:W2:A7:S15→Xi108:W2:A7:S17→Xi108:W1:A7:S16→Xi108:W3:A7:S16→Xi108:W2:A6:S16→Xi108:W2:A8:S16
+
 """
 ATHENA OS - Biological Clans (16 Parent Archetypes)
 ===================================================
@@ -39,7 +43,6 @@ from typing import Dict, List, Optional, Tuple, Any
 import numpy as np
 
 from .aether import BioPillar, BioState
-
 
 # =============================================================================
 # BIOLOGICAL ARCHETYPE ADDRESS
@@ -96,7 +99,6 @@ class BioAddress:
         refinement = BioPillar(remainder % 4)
         return cls(primary, influence, flavor, refinement)
 
-
 # =============================================================================
 # 16 PARENT ARCHETYPES
 # =============================================================================
@@ -131,7 +133,6 @@ class BioArchetype:
         )
         new_state.append_ledger(f"ARCHETYPE:{self.name}")
         return new_state
-
 
 # =============================================================================
 # FIRE CLAN (Energy-dominant)
@@ -173,7 +174,6 @@ FIRE_EARTH = BioArchetype(
     law_template="d[storage]/dt = Φ_in - Φ_out - Φ_maint"
 )
 
-
 # =============================================================================
 # WATER CLAN (Replication-dominant)
 # =============================================================================
@@ -213,7 +213,6 @@ WATER_EARTH = BioArchetype(
     dominant_hub="BH5",
     law_template="I(R_{t+1}; R_t) > 0 (information preservation)"
 )
-
 
 # =============================================================================
 # AIR CLAN (Information-dominant)
@@ -255,7 +254,6 @@ AIR_EARTH = BioArchetype(
     law_template="store(pattern) → retrieve(pattern)"
 )
 
-
 # =============================================================================
 # EARTH CLAN (Constraint-dominant)
 # =============================================================================
@@ -296,7 +294,6 @@ EARTH_EARTH = BioArchetype(
     law_template="form = ∫ constraints dt"
 )
 
-
 # =============================================================================
 # ARCHETYPE CATALOG
 # =============================================================================
@@ -325,11 +322,9 @@ ARCHETYPES: Dict[Tuple[BioPillar, BioPillar], BioArchetype] = {
     (BioPillar.EARTH, BioPillar.EARTH): EARTH_EARTH,
 }
 
-
 def get_archetype(primary: BioPillar, influence: BioPillar) -> BioArchetype:
     """Get archetype by primary and influence."""
     return ARCHETYPES[(primary, influence)]
-
 
 def get_archetype_by_index(index: int) -> BioArchetype:
     """Get archetype by 0-15 index."""
@@ -337,11 +332,9 @@ def get_archetype_by_index(index: int) -> BioArchetype:
     influence = BioPillar(index % 4)
     return ARCHETYPES[(primary, influence)]
 
-
 def get_clan(pillar: BioPillar) -> List[BioArchetype]:
     """Get all archetypes in a clan."""
     return [arch for (p, i), arch in ARCHETYPES.items() if p == pillar]
-
 
 # =============================================================================
 # 64 EXPANSION (Parent + Flavor)
@@ -362,7 +355,6 @@ def expand_to_64(archetype: BioArchetype, flavor: BioPillar) -> BioAddress:
         influence=archetype.address.influence,
         flavor=flavor
     )
-
 
 # =============================================================================
 # 256 EXPANSION (Parent + Flavor + Refinement)
@@ -385,7 +377,6 @@ def expand_to_256(archetype: BioArchetype, flavor: BioPillar,
         flavor=flavor,
         refinement=refinement
     )
-
 
 # =============================================================================
 # VALIDATION
@@ -430,7 +421,6 @@ def validate_clans() -> bool:
     assert addr256.refinement == BioPillar.EARTH
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Biological Clans...")

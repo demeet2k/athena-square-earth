@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S19 | face=R | node=179 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W3:A1:S18→Xi108:W3:A1:S20→Xi108:W2:A1:S19→Xi108:W3:A2:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 1/12 -->
+
 # H6 Center And Seed-6D
 
 `H6` is the shared convergence state.

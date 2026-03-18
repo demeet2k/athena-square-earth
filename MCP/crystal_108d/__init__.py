@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A10:S30 | face=S | node=40 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A10:S29→Xi108:W3:A10:S31→Xi108:W2:A10:S30→Xi108:W3:A9:S30→Xi108:W3:A11:S30
+
 """
 ATHENA 108D A+ CRYSTAL HOLOGRAM — MCP Extension Package
 ========================================================
@@ -34,7 +38,6 @@ Extends the Athena Nervous System MCP server with the full 108D organism:
 """
 
 from ._cache import JsonCache
-
 
 def status_summary() -> str:
     """Return a compact 108D system status string."""
@@ -91,7 +94,6 @@ def status_summary() -> str:
         f"- **Holographic Embedder**: Self-aware file headers (crystal address, metro, bridges)\n"
         f"- **Agent Watcher**: Collective intelligence — 12D observation of live agent outputs, improvement notes\n"
     )
-
 
 def register_108d_tools(mcp) -> None:
     """Register all 108D crystal tools onto the MCP server."""
@@ -201,7 +203,6 @@ def register_108d_tools(mcp) -> None:
     mcp.tool()(control_steer)
     mcp.tool()(holographic_embed)
     mcp.tool()(query_agent_watcher)
-
 
 def register_108d_resources(mcp) -> None:
     """Register all 108D crystal resources onto the MCP server."""

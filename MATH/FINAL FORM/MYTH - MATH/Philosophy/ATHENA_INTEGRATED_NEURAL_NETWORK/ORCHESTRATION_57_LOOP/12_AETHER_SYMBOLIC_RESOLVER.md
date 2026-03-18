@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S15 | face=S | node=114 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S14→Xi108:W3:A9:S16→Xi108:W2:A9:S15→Xi108:W3:A8:S15→Xi108:W3:A10:S15 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 15±1, wreath 3/3, archetype 9/12 -->
+
 # AETHER Symbolic Resolver
 
 Source basis: `00_CONTROL/14_AETHER_RESOLVER_LAW.md + ORCHESTRATION_57_LOOP/10_AETHER_FLOWER_OPERATOR_SHELL.md + ORCHESTRATION_57_LOOP/11_AETHER_WITNESS_REPLAY_PAYLOADS.md`

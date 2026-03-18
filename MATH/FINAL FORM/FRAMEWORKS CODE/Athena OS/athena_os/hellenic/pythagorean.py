@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=87 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - HELLENIC: PYTHAGOREAN COMPUTATION ENGINE
 =====================================================
@@ -34,7 +38,6 @@ from enum import Enum, auto
 import numpy as np
 from fractions import Fraction
 
-
 # =============================================================================
 # THE TETRACTYS
 # =============================================================================
@@ -46,7 +49,6 @@ class DimensionalState(Enum):
     DYAD = 2    # 1D - Line
     TRIAD = 3   # 2D - Surface
     TETRAD = 4  # 3D - Volume
-
 
 @dataclass
 class TetractysRow:
@@ -62,7 +64,6 @@ class TetractysRow:
         assert 1 <= self.level <= 4
         assert self.dimension == self.level - 1
         assert self.count == self.level
-
 
 class Tetractys:
     """
@@ -156,7 +157,6 @@ class Tetractys:
             lines.append(spaces + points)
         return "\n".join(lines)
 
-
 # =============================================================================
 # HARMONIC RATIOS
 # =============================================================================
@@ -171,7 +171,6 @@ class HarmonicInterval(Enum):
     TWELFTH = (3, 1)         # 3:1 - Octave + Fifth
     DOUBLE_OCTAVE = (4, 1)   # 4:1 - Two octaves
     TONE = (9, 8)            # 9:8 - Major second (derived)
-
 
 @dataclass
 class HarmonicRatio:
@@ -225,7 +224,6 @@ class HarmonicRatio:
     def inverse(self) -> 'HarmonicRatio':
         """Invert the ratio."""
         return HarmonicRatio(self.denominator, self.numerator)
-
 
 class HarmonicSystem:
     """
@@ -336,7 +334,6 @@ class HarmonicSystem:
         
         return sorted(ranked, key=lambda x: -x[2])
 
-
 # =============================================================================
 # THE PYTHAGOREAN COMMA
 # =============================================================================
@@ -415,7 +412,6 @@ class PythagoreanComma:
         syntonic = Fraction(81, 80)
         return self.comma / syntonic
 
-
 # =============================================================================
 # LIMITER/UNLIMITED BINARY
 # =============================================================================
@@ -472,7 +468,6 @@ class LimiterUnlimited:
         """
         raw = unlimited.sample(n_samples)
         return np.array([limiter.apply(x) for x in raw])
-
 
 # =============================================================================
 # VALIDATION
@@ -539,7 +534,6 @@ def validate_pythagorean() -> bool:
     assert len(harmony) == 100
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Pythagorean Engine...")

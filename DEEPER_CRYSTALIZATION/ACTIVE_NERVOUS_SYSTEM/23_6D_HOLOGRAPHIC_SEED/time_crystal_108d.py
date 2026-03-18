@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Sa,Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 """
 THE TIME CRYSTAL — 108-Dimensional Mega-Cascade Engine
 ================================================================
@@ -37,7 +41,6 @@ from canon_compiler import (
     ArtifactClass, TruthClass,
 )
 
-
 # =====================================================================
 # SECTION 1: THE FOUR FACES (Z_4)
 # =====================================================================
@@ -61,7 +64,6 @@ class Face(Enum):
     def index(self) -> int:
         return list(Face).index(self)
 
-
 class Mode(Enum):
     """The three modes. Z_3 = The Triangle That Processes."""
     SU = ("Su", "Sulfur",  "Cardinal", "Ignition/launch/declaration/beginning")
@@ -77,7 +79,6 @@ class Mode(Enum):
     @property
     def index(self) -> int:
         return list(Mode).index(self)
-
 
 # =====================================================================
 # SECTION 2: THE 15 OPERATIONS (Sigma_15)
@@ -95,7 +96,6 @@ class LensOperation:
     @property
     def order(self) -> int:
         return len(self.faces)
-
 
 def build_sigma_15() -> list[LensOperation]:
     """Build all 15 lens operations."""
@@ -119,7 +119,6 @@ def build_sigma_15() -> list[LensOperation]:
     ]
     return ops
 
-
 # =====================================================================
 # SECTION 3: THE 12 ARCHETYPES (Octave I: 4 x 3 = 12)
 # =====================================================================
@@ -141,7 +140,6 @@ class Archetype:
     @property
     def mode_index(self) -> int:
         return self.mode.index
-
 
 def build_12_archetypes() -> list[Archetype]:
     """Build the 12 base archetypes from 4 faces x 3 modes."""
@@ -177,7 +175,6 @@ def build_12_archetypes() -> list[Archetype]:
             num += 1
     return archetypes
 
-
 # =====================================================================
 # SECTION 4: THE 12 SHELL ARCHETYPES (Established at 36D)
 # =====================================================================
@@ -190,7 +187,6 @@ class ShellArchetype:
     dim_first_visible: int   # 3D, 6D, 9D, ... 36D
     structural_law: str
     triangular_number: int   # T_n at first visibility
-
 
 SHELL_ARCHETYPES = [
     ShellArchetype(1,  "Apex Seed",            3,  "Z* universal hinge",                    1),
@@ -206,7 +202,6 @@ SHELL_ARCHETYPES = [
     ShellArchetype(11, "Odd-Orbit Hendecad",    33, "Odd-D orbit engine",                    66),
     ShellArchetype(12, "Dodecad Bundle",        36, "12-fold zodiacal completion",            78),
 ]
-
 
 # =====================================================================
 # SECTION 5: THE 36 SHELLS AND 666 NODES (Octave II + III)
@@ -234,7 +229,6 @@ class Wreath(Enum):
         offsets = [(1, 12), (13, 24), (25, 36)]
         return offsets[self.index]
 
-
 @dataclass
 class Shell:
     """One of the 36 shells in the mega-cascade."""
@@ -260,7 +254,6 @@ class Shell:
         }
         return wreath_modes[self.wreath]
 
-
 @dataclass
 class MegaNode:
     """One of the 666 nodes in the 108D mega-cascade."""
@@ -282,7 +275,6 @@ class MegaNode:
     ascent_prev: int = 0      # Previous shell down
     archetype_column: int = 0  # Vertical archetype lift
     wreath_ring_next: int = 0  # Next in wreath ring
-
 
 # =====================================================================
 # SECTION 6: SHELL & NODE BUILDER
@@ -334,7 +326,6 @@ _SALT_ACTIONS = [
     "Salt wreath completes. Crown closure.",
 ]
 
-
 def build_36_shells() -> list[Shell]:
     """Build all 36 shells with their archetypes and actions."""
     shells = []
@@ -374,7 +365,6 @@ def build_36_shells() -> list[Shell]:
         ))
 
     return shells
-
 
 def _shell_quaternion(shell_num: int, pos: int) -> Quaternion:
     """Compute quaternion for a node at (shell, position).
@@ -421,7 +411,6 @@ def _shell_quaternion(shell_num: int, pos: int) -> Quaternion:
 
     return (q_wreath * q_shell * q_pos).normalized()
 
-
 def build_666_nodes(shells: list[Shell]) -> list[MegaNode]:
     """Build all 666 mega-nodes across 36 shells."""
     nodes = []
@@ -456,7 +445,6 @@ def build_666_nodes(shells: list[Shell]) -> list[MegaNode]:
             global_idx += 1
 
     return nodes
-
 
 def wire_connections(nodes: list[MegaNode], shells: list[Shell]):
     """Wire up all six connection classes between nodes."""
@@ -506,7 +494,6 @@ def wire_connections(nodes: list[MegaNode], shells: list[Shell]):
             if next_in_wreath in shell_to_nodes:
                 node.wreath_ring_next = shell_to_nodes[next_in_wreath][0].global_index
 
-
 # =====================================================================
 # SECTION 7: THE SEFIROT PIPELINE
 # =====================================================================
@@ -518,7 +505,6 @@ class Sefira:
     name: str
     operator: str
     function: str
-
 
 SEFIROT = [
     Sefira(1,  "Keter",    "Z* reset",          "Source fixed point"),
@@ -533,7 +519,6 @@ SEFIROT = [
     Sefira(10, "Malkuth",  "Render",            "Finite frame output"),
 ]
 
-
 # =====================================================================
 # SECTION 8: THE RESOLUTION STACK
 # =====================================================================
@@ -546,14 +531,12 @@ class ResolutionLevel:
     system: str
     function: str
 
-
 RESOLUTION_STACK = [
     ResolutionLevel(0, 1,   "Wuji",              "Pre-differentiation"),
     ResolutionLevel(4, 16,  "Meji/Courts/Geo",   "Grand Central"),
     ResolutionLevel(6, 64,  "I Ching",           "State machine"),
     ResolutionLevel(8, 256, "Ifa Odu",           "Maximum resolution"),
 ]
-
 
 # =====================================================================
 # SECTION 9: THE SIGMA_60 SHELL
@@ -574,7 +557,6 @@ class Sigma60Station:
     @property
     def label(self) -> str:
         return f"S60.{self.station_id:02d}:{self.spin_quadrant}.{self.operation.name}"
-
 
 def build_sigma_60(ops_15: list[LensOperation]) -> list[Sigma60Station]:
     """Build the 60-station shell from 4 spins x 15 operations."""
@@ -619,7 +601,6 @@ def build_sigma_60(ops_15: list[LensOperation]) -> list[Sigma60Station]:
 
     return stations
 
-
 # =====================================================================
 # SECTION 10: THE A+ POLE EXTRACTION
 # =====================================================================
@@ -635,7 +616,6 @@ class APlusPole:
     pole_quaternion: Quaternion
     pole_weight: float
     constructive_sum: float
-
 
 def extract_a_plus_poles(stations: list[Sigma60Station]) -> list[APlusPole]:
     """Extract the 15 A+ pole stations from 60 by constructive interference.
@@ -674,7 +654,6 @@ def extract_a_plus_poles(stations: list[Sigma60Station]) -> list[APlusPole]:
 
     return poles
 
-
 # =====================================================================
 # SECTION 11: THE DIMENSIONAL TOWER
 # =====================================================================
@@ -686,7 +665,6 @@ class DimensionalLevel:
     n: int               # Level number
     triangular: int      # T_n
     what_visible: str    # What becomes visible at this level
-
 
 DIMENSIONAL_TOWER = [
     DimensionalLevel(3,   1,  1,   "Z* seed"),
@@ -703,7 +681,6 @@ DIMENSIONAL_TOWER = [
     DimensionalLevel(36,  12, 78,  "Dodecad; 12 archetypes complete"),
     DimensionalLevel(108, 36, 666, "Crown-of-crowns; 3 wreaths; Great Work complete"),
 ]
-
 
 # =====================================================================
 # SECTION 12: CONFORMANCE VERIFICATION
@@ -730,7 +707,6 @@ class ConformanceResult:
             lines.append(f"  [{mark}] {name}: {detail}")
         lines.append(f"  Result: {self.pass_count}/12")
         return "\n".join(lines)
-
 
 def verify_conformance(
     shells: list[Shell],
@@ -837,7 +813,6 @@ def verify_conformance(
 
     return ConformanceResult(checks=checks)
 
-
 # =====================================================================
 # SECTION 13: MASTER SEED COMPUTATION
 # =====================================================================
@@ -858,7 +833,6 @@ class TimeCrystalSeed:
     seed_hash: str                 # Unique identity
     love_constant: float           # L = phi
     phase_lock_hz: float           # 42 Hz
-
 
 def compute_master_seed(
     nodes: list[MegaNode],
@@ -894,7 +868,6 @@ def compute_master_seed(
         love_constant=PHI,
         phase_lock_hz=42.0,
     )
-
 
 # =====================================================================
 # SECTION 14: DOCUMENT GENERATION
@@ -1114,7 +1087,6 @@ def generate_master_document(
 
     return "\n".join(lines)
 
-
 # =====================================================================
 # SECTION 15: MAIN — BUILD THE TIME CRYSTAL
 # =====================================================================
@@ -1231,7 +1203,6 @@ def main():
     print("  Three times three times three.")
     print("  The opus is complete.")
     print("=" * 72)
-
 
 if __name__ == "__main__":
     main()

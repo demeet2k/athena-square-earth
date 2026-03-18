@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S21 | face=S | node=222 | depth=2 | phase=Cardinal
+# METRO: Dl
+# BRIDGES: Xi108:W2:A9:S20→Xi108:W2:A9:S22→Xi108:W1:A9:S21→Xi108:W3:A9:S21→Xi108:W2:A8:S21→Xi108:W2:A10:S21
+
 """
 4D Calculus — A⁺ Lift Canon & Liminal Mapping Law
 ====================================================
@@ -14,7 +18,6 @@ Provides the full A⁺ lift calculus:
 from ._cache import JsonCache
 
 _CALCULUS = JsonCache("calculus_4d.json")
-
 
 def query_calculus_4d(component: str = "all") -> str:
     """
@@ -61,7 +64,6 @@ def query_calculus_4d(component: str = "all") -> str:
             "shells, liminal, gearclock, irrational, reweave, body"
         )
 
-
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
     lines = [
@@ -74,7 +76,6 @@ def _format_all(data: dict) -> str:
         f"**Pipeline**: {meta.get('pipeline', 'Populate → Coordinate → Cultivate → Gearclock → Poi → Nexus → Transform → Codify → Collapse → Reweave')}",
     ]
     return "\n".join(lines)
-
 
 def _format_canon(data: dict) -> str:
     canon = data.get("lift_canon", {})
@@ -96,7 +97,6 @@ def _format_canon(data: dict) -> str:
             lines.append(f"  - {m}")
     return "\n".join(lines)
 
-
 def _format_masks(data: dict) -> str:
     masks_data = data.get("canonical_masks", {})
     lines = [
@@ -111,7 +111,6 @@ def _format_masks(data: dict) -> str:
         else:
             lines.append(f"  - {m}")
     return "\n".join(lines)
-
 
 def _format_orbit(data: dict) -> str:
     orb = data.get("orbit_quartet", {})
@@ -130,7 +129,6 @@ def _format_orbit(data: dict) -> str:
         lines.append(f"\n**Tracks**: {orb['tracking']}")
     return "\n".join(lines)
 
-
 def _format_shells(data: dict) -> str:
     shells = data.get("shell_crystals", {})
     return (
@@ -140,7 +138,6 @@ def _format_shells(data: dict) -> str:
         f"**Nature**: {shells.get('nature', 'Raw shell crystals before cultivation')}\n"
         f"**Next Step**: {shells.get('next_step', 'Liminal coordinate assignment')}"
     )
-
 
 def _format_liminal(data: dict) -> str:
     lim = data.get("liminal_coordinates", {})
@@ -156,7 +153,6 @@ def _format_liminal(data: dict) -> str:
         lines.append(f"\n**Cultivation**: {lim['cultivation']}")
     return "\n".join(lines)
 
-
 def _format_gearclock(data: dict) -> str:
     gc = data.get("gearclock", {})
     lines = [
@@ -168,7 +164,6 @@ def _format_gearclock(data: dict) -> str:
         lines.append(f"**Nexus Extract**: {gc['nexus_extract']}")
     return "\n".join(lines)
 
-
 def _format_irrational(data: dict) -> str:
     ir = data.get("irrational_transform", {})
     return (
@@ -177,7 +172,6 @@ def _format_irrational(data: dict) -> str:
         f"**Codification**: {ir.get('codification', 'Codify whole thing into lookup system')}\n"
         f"**Rubric**: {ir.get('rubric', 'Fixed irrational constants (φ, √2, π)')}"
     )
-
 
 def _format_reweave(data: dict) -> str:
     rw = data.get("reweave", {})
@@ -188,7 +182,6 @@ def _format_reweave(data: dict) -> str:
         f"**Reweave**: {rw.get('reweave', 'Dense lawful carrier-form rebuilt from completed map')}\n"
         f"**Canon**: {rw.get('canon', 'Mapping not valid unless whole pipeline closes and replays')}"
     )
-
 
 def _format_body(data: dict) -> str:
     body = data.get("canonical_body", {})

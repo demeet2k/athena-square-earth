@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me,w
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 ATHENA OS - Crystal Seed Module
 ===============================

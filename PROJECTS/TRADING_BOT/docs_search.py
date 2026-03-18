@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A7:S33 | face=S | node=549 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S32→Xi108:W2:A7:S34→Xi108:W1:A7:S33→Xi108:W3:A7:S33→Xi108:W2:A6:S33→Xi108:W2:A8:S33
+
 """Search Google Docs by keyword(s) using the Google Drive API."""
 
 from __future__ import annotations
@@ -17,11 +21,9 @@ from googleapiclient.discovery import build
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 DOCS_MIME_TYPE = "application/vnd.google-apps.document"
 
-
 def _escape_query_term(term: str) -> str:
     """Escape a term so it is safe inside a single-quoted Drive query."""
     return term.replace("\\", "\\\\").replace("'", "\\'")
-
 
 def build_query(terms: Iterable[str], match_all_terms: bool) -> str:
     term_clauses = [f"fullText contains '{_escape_query_term(term)}'" for term in terms]
@@ -33,7 +35,6 @@ def build_query(terms: Iterable[str], match_all_terms: bool) -> str:
     return (
         f"mimeType = '{DOCS_MIME_TYPE}' and trashed = false and {text_clause}"
     )
-
 
 def load_credentials(credentials_path: Path, token_path: Path) -> Credentials:
     creds: Credentials | None = None
@@ -59,7 +60,6 @@ def load_credentials(credentials_path: Path, token_path: Path) -> Credentials:
         token_path.write_text(creds.to_json(), encoding="utf-8")
 
     return creds
-
 
 def search_docs(service, query: str, max_results: int) -> list[dict]:
     files: list[dict] = []
@@ -87,7 +87,6 @@ def search_docs(service, query: str, max_results: int) -> list[dict]:
 
     return files
 
-
 def print_results(files: list[dict]) -> None:
     if not files:
         print("No matching Google Docs found.")
@@ -105,7 +104,6 @@ def print_results(files: list[dict]) -> None:
         print(f"   Owner:    {owner or 'unknown'}")
         print(f"   Link:     {link}")
         print()
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -144,7 +142,6 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
-
 def main() -> int:
     args = parse_args()
 
@@ -167,7 +164,6 @@ def main() -> int:
         print_results(files)
 
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

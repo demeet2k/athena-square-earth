@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A8:S26 | face=S | node=509 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A8:S25→Xi108:W1:A8:S27→Xi108:W2:A8:S26→Xi108:W1:A7:S26→Xi108:W1:A9:S26
+
 y binding decision (including selection among multiple admissible edges) MUST be justified by pins and recorded in BridgePinWitness. If two distinct bindings satisfy constraints and no pins discriminate them, the operation is AMBIG unless the conflict resolution policy is itself fully pinned.
 17.2.5 Code Stage ((\mathsf{C}))
 Purpose. Encode/serialize the bridged structure into containers and exportable artifacts.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S17→Xi108:W2:A1:S19→Xi108:W1:A1:S18→Xi108:W3:A1:S18→Xi108:W2:A2:S18
+
 """
 ATHENA OS - CUT KERNEL
 ======================
@@ -52,7 +56,6 @@ import math
 import hashlib
 from .crystal_structure import TypedTruth, OutcomeBundle
 
-
 # =============================================================================
 # MODE REGISTER
 # =============================================================================
@@ -94,7 +97,6 @@ class ModeRegister:
         """Create from binary string."""
         return cls(int(binary, 2))
 
-
 # =============================================================================
 # KAPPA CONTENT
 # =============================================================================
@@ -129,7 +131,6 @@ class KappaContent:
     def scale(self, factor: float) -> 'KappaContent':
         """Scale κ by factor."""
         return KappaContent(self.value * factor, self.carrier_id, False)
-
 
 # =============================================================================
 # HYBRID STATE
@@ -173,7 +174,6 @@ class HybridState:
             new_theta, self.time
         )
 
-
 # =============================================================================
 # UNIVERSAL QUADRATIC KERNEL
 # =============================================================================
@@ -215,7 +215,6 @@ class UniversalKernel:
     def kappa_from_faces(p: float, q: float) -> float:
         """Compute κ_sc from face values (p,q)."""
         return (p - 2) * (q - 2)
-
 
 # =============================================================================
 # κ-LADDER (UNIVERSAL DISCRETE RULER)
@@ -315,7 +314,6 @@ class KappaLadder:
         
         return (delta_n, residual)
 
-
 # =============================================================================
 # DISCRETE EVENT PRIMES
 # =============================================================================
@@ -326,12 +324,10 @@ class PrimeKind(Enum):
     EVENT = auto()     # Toggle-once event
     CORRIDOR = auto()  # Corridor constraint
 
-
 class PrimeRepeatability(Enum):
     """Repeatability of a prime."""
     ONCE = auto()      # Toggle once only
     REPEATABLE = auto()  # Can repeat (microcounter)
-
 
 @dataclass
 class DiscreteEventPrime:
@@ -371,7 +367,6 @@ class DiscreteEventPrime:
             if exponent not in range(self.bounds[0], self.bounds[1] + 1):
                 raise ValueError(f"Exponent {exponent} out of bounds for toggle-once prime")
         return ladder.apply_prime(self.prime_id, exponent)
-
 
 # =============================================================================
 # β-FLOW
@@ -423,7 +418,6 @@ class BetaFlow:
         """Reset flow at segment boundary."""
         return BetaFlow(self.max_drift, 0.0, 0.0)
 
-
 # =============================================================================
 # CORRIDOR
 # =============================================================================
@@ -461,7 +455,6 @@ class Corridor:
             return (TypedTruth.AMBIG, margin)
         else:
             return (TypedTruth.FAIL, margin)
-
 
 # =============================================================================
 # CUT LEDGER
@@ -510,7 +503,6 @@ class CUTLedger:
     def is_valid(self) -> bool:
         """Check if ledger represents valid claim."""
         return self.corridor_outcome.is_success and self.primary_metric is not None
-
 
 # =============================================================================
 # PACK SPEC
@@ -567,7 +559,6 @@ class PackSpec:
         )
         
         return (ledger, TypedTruth.OK)
-
 
 # =============================================================================
 # VALIDATION
@@ -629,7 +620,6 @@ def validate_cut_kernel() -> bool:
     assert ledger.is_valid
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=89 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - BIT4
 ================
@@ -206,7 +210,6 @@ from .collapse import (
     validate_collapse,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -221,7 +224,6 @@ def validate_bit4() -> bool:
     assert validate_collapse()
     return True
 
-
 # =============================================================================
 # CONVENIENCE FUNCTIONS
 # =============================================================================
@@ -230,26 +232,21 @@ def merge(x: B4, y: B4) -> B4:
     """Merge information from two sources (⊕_k)."""
     return join_k(x, y)
 
-
 def refine(x: B4, y: B4) -> B4:
     """Refine to common information (⊗_k)."""
     return meet_k(x, y)
-
 
 def flip(x: B4) -> B4:
     """Truth-negation (¬)."""
     return neg(x)
 
-
 def shadow_swap(x: B4) -> B4:
     """Conflation (κ): swap ⊥ ↔ ⊤."""
     return kappa(x)
 
-
 def from_bool(b: bool) -> B4:
     """Embed boolean into B₄."""
     return B4.from_bool(b)
-
 
 def to_bool(x: B4, policy: CollapsePolicy = CollapsePolicy.CONSERVATIVE) -> bool:
     """Collapse B₄ to boolean using policy."""
@@ -257,7 +254,6 @@ def to_bool(x: B4, policy: CollapsePolicy = CollapsePolicy.CONSERVATIVE) -> bool
     if outcome.is_error:
         raise ValueError(f"Cannot collapse {x.glyph} to boolean with {policy.value} policy")
     return outcome.to_bool()
-
 
 # =============================================================================
 # EXPORTS
@@ -301,7 +297,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "bit4"
-
 
 if __name__ == "__main__":
     print("=" * 60)

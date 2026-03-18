@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=103 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 from __future__ import annotations
 
 import argparse
@@ -12,7 +16,6 @@ import re
 from typing import Any
 
 from ap7d_swarm_support import build_ap7d_bundle, build_ap7d_markdown
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
 
@@ -115,7 +118,6 @@ PASS_DEFINITIONS: list[dict[str, Any]] = [
     },
 ]
 
-
 LINE_DEFINITIONS: list[dict[str, Any]] = [
     {
         "id": "L01",
@@ -191,14 +193,12 @@ LINE_DEFINITIONS: list[dict[str, Any]] = [
     },
 ]
 
-
 LENSES: list[dict[str, str]] = [
     {"code": "SQ", "title": "Square", "description": "discrete structure, crystal addresses, static legality"},
     {"code": "FL", "title": "Flower", "description": "phase, rotation, resonance, and transport"},
     {"code": "CL", "title": "Cloud", "description": "ambiguity management, corridor truth, and query logic"},
     {"code": "FR", "title": "Fractal", "description": "recursion, replay, compression, and multi-scale regeneration"},
 ]
-
 
 FACETS: list[dict[str, str]] = [
     {"code": "OBJ", "title": "Objects", "description": "what entities the station manipulates"},
@@ -207,14 +207,12 @@ FACETS: list[dict[str, str]] = [
     {"code": "CER", "title": "Certificates", "description": "what proofs, witnesses, and audits close it"},
 ]
 
-
 STRATA: list[dict[str, str]] = [
     {"code": "MAN", "title": "Manuscript", "description": "live document, markdown, and pdf witnesses"},
     {"code": "RUN", "title": "Runtime", "description": "live code, data, and executable surfaces"},
     {"code": "ARC", "title": "Archive", "description": "zip-backed code and manuscript mirrors"},
     {"code": "SYN", "title": "Synthesis", "description": "atlas, ledger, map, and global bridge surfaces"},
 ]
-
 
 LENS_KEYWORDS: dict[str, list[str]] = {
     "Square": ["square", "crystal", "address", "tile", "lattice", "bit4", "binary", "registry"],
@@ -223,14 +221,12 @@ LENS_KEYWORDS: dict[str, list[str]] = {
     "Fractal": ["fractal", "recursive", "replay", "compression", "q-shrink", "seed", "omega", "regeneration"],
 }
 
-
 FACET_KEYWORDS: dict[str, list[str]] = {
     "Objects": ["object", "state", "number", "carrier", "field", "space", "entity"],
     "Laws": ["law", "theorem", "axiom", "operator", "equation", "grammar", "algebra"],
     "Constructions": ["framework", "engine", "protocol", "build", "compile", "algorithm", "route"],
     "Certificates": ["proof", "certificate", "witness", "ledger", "verify", "audit", "invariant"],
 }
-
 
 STOPWORDS = {
     "about",
@@ -313,7 +309,6 @@ STOPWORDS = {
     "readable",
 }
 
-
 EXCLUDED_WITNESS_SUBSTRINGS = (
     "math god\\atlas\\final_form_",
     "math god\\atlas\\unified_mycelium_",
@@ -326,7 +321,6 @@ EXCLUDED_WITNESS_SUBSTRINGS = (
     "math god\\atlas\\math_7d_synthesis_seed_",
     "math god\\atlas\\math_ap7d_self_improvement_swarm_",
 )
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build an integrated mycelium metro synthesis from live and archive atlases.")
@@ -361,23 +355,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-ap7d-md", help="Optional markdown path for the AP7D self-improvement swarm atlas.")
     return parser.parse_args()
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_optional_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def normalize_text(text: str) -> str:
     text = text.lower().replace("\\", " ").replace("/", " ")
     text = re.sub(r"\\[a-z]+", " ", text)
     text = re.sub(r"[^a-z0-9\\s\\-]+", " ", text)
     return re.sub(r"\\s+", " ", text).strip()
-
 
 def docs_gate_info(path: Path | None) -> dict[str, str]:
     if not path or not path.exists():
@@ -397,20 +387,16 @@ def docs_gate_info(path: Path | None) -> dict[str, str]:
         "note": note,
     }
 
-
 def utc_now_string() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
-
 
 def write_json_file(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text_file(path: Path, body: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(body, encoding="utf-8")
-
 
 def write_ndjson_file(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -419,10 +405,8 @@ def write_ndjson_file(path: Path, rows: list[dict[str, Any]]) -> None:
         body += "\n"
     path.write_text(body, encoding="utf-8")
 
-
 def ap7d_lineages(depth: int) -> list[str]:
     return ["".join(chars) for chars in product(AP7D_LINEAGE_ALPHABET, repeat=depth)]
-
 
 def ap7d_ordinal(lineage: str) -> int:
     value_map = {"E": 0, "W": 1, "F": 2, "A": 3}
@@ -430,7 +414,6 @@ def ap7d_ordinal(lineage: str) -> int:
     for char in lineage:
         ordinal = ordinal * 4 + value_map[char]
     return ordinal
-
 
 def ap7d_dominant_element(lineage: str) -> str:
     counts = Counter(lineage)
@@ -440,7 +423,6 @@ def ap7d_dominant_element(lineage: str) -> str:
             return AP7D_LINEAGE_TO_ELEMENT[char]
     return "EARTH"
 
-
 def ap7d_transition_note_refs() -> dict[str, str]:
     return {
         "FIRE": str(NEXT46_FIRE_NOTE_PATH),
@@ -449,10 +431,8 @@ def ap7d_transition_note_refs() -> dict[str, str]:
         "EARTH": str(NEXT46_EARTH_NOTE_PATH),
     }
 
-
 def ap7d_macro_target_lookup() -> dict[str, dict[str, str]]:
     return {item["lineage"]: item for item in AP7D_MACRO_TARGETS}
-
 
 def ap7d_event_human_line(
     event_type: str,
@@ -464,7 +444,6 @@ def ap7d_event_human_line(
     field_d: str,
 ) -> str:
     return f"{event_type}::{ts_utc}::{actor_id}::{field_a}::{field_b}::{field_c}::{field_d}"
-
 
 def water_route_record(
     route_id: str,
@@ -489,7 +468,6 @@ def water_route_record(
         "truth_state": truth_state,
         "replay_source": replay_source,
     }
-
 
 def air_route_record(
     route_id: str,
@@ -530,7 +508,6 @@ def air_route_record(
     )
     return record
 
-
 def convergence_route_record(
     route_id: str,
     title: str,
@@ -559,7 +536,6 @@ def convergence_route_record(
         "replay_source": replay_source,
     }
 
-
 def infer_stratum(record: dict[str, Any]) -> str:
     relative = record["relative_path"].lower()
     if record["source_layer"] == "archive":
@@ -569,7 +545,6 @@ def infer_stratum(record: dict[str, Any]) -> str:
     if record["kind"] in {"code", "data"}:
         return "Runtime"
     return "Manuscript"
-
 
 def build_records(records: list[dict[str, Any]], source_layer: str) -> list[dict[str, Any]]:
     built: list[dict[str, Any]] = []
@@ -590,7 +565,6 @@ def build_records(records: list[dict[str, Any]], source_layer: str) -> list[dict
         built.append(built_record)
     return built
 
-
 def score_keywords(text: str, keywords: list[str]) -> tuple[int, list[str]]:
     score = 0
     hits: list[str] = []
@@ -601,11 +575,9 @@ def score_keywords(text: str, keywords: list[str]) -> tuple[int, list[str]]:
             hits.append(keyword)
     return score, hits
 
-
 def prefer_witness(record: dict[str, Any]) -> bool:
     relative = record["relative_path"].lower()
     return not any(fragment in relative for fragment in EXCLUDED_WITNESS_SUBSTRINGS)
-
 
 def summarize_matches(
     records: list[dict[str, Any]],
@@ -666,7 +638,6 @@ def summarize_matches(
         "match_index": matches,
     }
 
-
 def compute_signal_lexicon(records: list[dict[str, Any]], limit: int = 16) -> list[list[Any]]:
     counter: Counter[str] = Counter()
     for record in records:
@@ -677,7 +648,6 @@ def compute_signal_lexicon(records: list[dict[str, Any]], limit: int = 16) -> li
                 continue
             counter[token] += 1
     return [[word, count] for word, count in counter.most_common(limit)]
-
 
 def compute_transfer_hubs(line_summaries: list[dict[str, Any]]) -> list[dict[str, Any]]:
     hub_index: dict[str, dict[str, Any]] = {}
@@ -703,14 +673,12 @@ def compute_transfer_hubs(line_summaries: list[dict[str, Any]]) -> list[dict[str
     hubs.sort(key=lambda item: (-len(item["line_ids"]), -item["score"], item["relative_path"].lower()))
     return hubs[:12]
 
-
 def strip_internal_indexes(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     cleaned: list[dict[str, Any]] = []
     for item in items:
         public = {key: value for key, value in item.items() if key != "match_index"}
         cleaned.append(public)
     return cleaned
-
 
 def build_station_basis(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     stations: list[dict[str, Any]] = []
@@ -738,7 +706,6 @@ def build_station_basis(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     stations.sort(key=lambda item: item["station_id"])
     return stations
 
-
 def build_code_scan_summary(path: Path | None) -> dict[str, Any]:
     if not path or not path.exists():
         return {"available": False}
@@ -753,7 +720,6 @@ def build_code_scan_summary(path: Path | None) -> dict[str, Any]:
         "function_count": sum(len(item.get("functions", [])) for item in payload),
         "import_count": sum(len(item.get("imports", [])) for item in payload),
     }
-
 
 def route_example(stations: list[dict[str, Any]], title_filters: list[str]) -> list[dict[str, Any]]:
     chosen: list[dict[str, Any]] = []
@@ -771,7 +737,6 @@ def route_example(stations: list[dict[str, Any]], title_filters: list[str]) -> l
                 seen.add(station["station_id"])
                 break
     return chosen[:4]
-
 
 TRIAD = ["Su", "Me", "Sa"]
 LENS_TITLE_TO_CODE = {"Square": "S", "Flower": "F", "Cloud": "C", "Fractal": "R"}
@@ -1970,13 +1935,11 @@ ANNOTATION_SYSTEMS = {
     "prime_projection": ["prime", "irrational", "cyclical", "holographic", "neural network", "projection"],
 }
 
-
 def stable_index(text: str, modulo: int) -> int:
     if modulo <= 0:
         return 0
     digest = hashlib.md5(text.encode("utf-8")).hexdigest()
     return int(digest[:8], 16) % modulo
-
 
 def base4(value: int, width: int) -> str:
     digits = "0123"
@@ -1991,7 +1954,6 @@ def base4(value: int, width: int) -> str:
         result.append(digits[remainder])
     return "".join(reversed(result)).rjust(width, "0")
 
-
 def raw_record_text(record: dict[str, Any]) -> str:
     parts = [
         record.get("relative_path", ""),
@@ -2000,7 +1962,6 @@ def raw_record_text(record: dict[str, Any]) -> str:
         " ".join(record.get("role_tags", [])),
     ]
     return normalize_text(" ".join(part for part in parts if part))
-
 
 def appendix_registry() -> dict[str, dict[str, Any]]:
     registry: dict[str, dict[str, Any]] = {}
@@ -2016,7 +1977,6 @@ def appendix_registry() -> dict[str, dict[str, Any]]:
             "auxiliary_surface": app_id == "AppQ",
         }
     return registry
-
 
 def chapter_definitions() -> list[dict[str, Any]]:
     definitions: list[dict[str, Any]] = []
@@ -2042,7 +2002,6 @@ def chapter_definitions() -> list[dict[str, Any]]:
         )
     return definitions
 
-
 def choose_chapter_definition(record: dict[str, Any], definitions: list[dict[str, Any]]) -> dict[str, Any]:
     text = raw_record_text(record)
     scored: list[tuple[int, int, dict[str, Any]]] = []
@@ -2055,7 +2014,6 @@ def choose_chapter_definition(record: dict[str, Any], definitions: list[dict[str
         return definitions[stable_index(record.get("record_id", record.get("path", "")), len(definitions))]
     top = [item[2] for item in scored if item[0] == top_score]
     return top[stable_index(record.get("record_id", record.get("path", "")), len(top))]
-
 
 def chapter_overlay(chapter_index: int) -> dict[str, Any]:
     omega = chapter_index - 1
@@ -2072,11 +2030,9 @@ def chapter_overlay(chapter_index: int) -> dict[str, Any]:
         "chapter_station": f"Ch{chapter_index:02d}⟨{base4(omega, 4)}⟩",
     }
 
-
 def chapter_station_label(chapter_index: int) -> str:
     overlay = chapter_overlay(chapter_index)
     return f"Ch{chapter_index:02d}⟨{overlay['station_code']}⟩"
-
 
 def lens_code_for_record(record: dict[str, Any]) -> str:
     text = raw_record_text(record)
@@ -2092,7 +2048,6 @@ def lens_code_for_record(record: dict[str, Any]) -> str:
         return "C"
     return "R" if "replay" in text or "omega" in text else "S"
 
-
 def facet_number_for_record(record: dict[str, Any]) -> int:
     text = raw_record_text(record)
     ranked: list[tuple[int, int]] = []
@@ -2105,10 +2060,8 @@ def facet_number_for_record(record: dict[str, Any]) -> int:
         return 3
     return 4 if "proof" in text or "certificate" in text else 1
 
-
 def atom_code_for_record(record: dict[str, Any]) -> str:
     return ["a", "b", "c", "d"][stable_index(record.get("record_id", record.get("path", "")), 4)]
-
 
 def truth_state_for_record(record: dict[str, Any]) -> str:
     relative = normalize_text(record.get("relative_path", ""))
@@ -2124,7 +2077,6 @@ def truth_state_for_record(record: dict[str, Any]) -> str:
     if len(record.get("heading_candidates", [])) < 2:
         return "NEAR"
     return "OK"
-
 
 def overlay_annotations_for_record(record: dict[str, Any]) -> dict[str, Any]:
     text = raw_record_text(record)
@@ -2146,7 +2098,6 @@ def overlay_annotations_for_record(record: dict[str, Any]) -> dict[str, Any]:
         ),
     }
 
-
 def dedupe_preserving_order(items: list[str]) -> list[str]:
     ordered: list[str] = []
     seen: set[str] = set()
@@ -2156,7 +2107,6 @@ def dedupe_preserving_order(items: list[str]) -> list[str]:
         ordered.append(item)
         seen.add(item)
     return ordered
-
 
 def build_hub_sequence(lens_code: str, facet_number: int, arc: int, truth_state: str) -> tuple[list[str], list[dict[str, Any]]]:
     desired = dedupe_preserving_order(
@@ -2186,7 +2136,6 @@ def build_hub_sequence(lens_code: str, facet_number: int, arc: int, truth_state:
     ordered = [hub for hub in desired if hub in keep]
     return ordered, drop_log
 
-
 def tunnel_plan_for_record(
     chapter_station: str,
     lens_code: str,
@@ -2213,7 +2162,6 @@ def tunnel_plan_for_record(
         ],
         "path": [local_zero, "Z*", local_zero] if required else [local_zero],
     }
-
 
 def hcrl_pass_for_record(
     record: dict[str, Any],
@@ -2247,21 +2195,17 @@ def hcrl_pass_for_record(
         ),
     }
 
-
 def chapter_header(overlay: dict[str, Any], lens_code: str) -> str:
     return (
         f"**[⊙Z_i↔Z* | ○Arc {overlay['arc']} | ○Rot {overlay['rotation']} | "
         f"△Lane {overlay['lane']} | ⧈View {lens_code} | ω={overlay['omega']}]**"
     )
 
-
 def witness_ptr_for_record(record: dict[str, Any]) -> str:
     return record.get("path", "")
 
-
 def replay_ptr_for_record(record: dict[str, Any]) -> str:
     return f"sha256={record.get('sha256', '')};path={record.get('path', '')}"
-
 
 def build_navigation_edges() -> list[dict[str, Any]]:
     edges: list[dict[str, Any]] = []
@@ -2321,7 +2265,6 @@ def build_navigation_edges() -> list[dict[str, Any]]:
                 }
             )
     return edges
-
 
 def build_record_tesseract_payload(
     record: dict[str, Any],
@@ -2507,7 +2450,6 @@ def build_record_tesseract_payload(
     }
     return record_entry, route_plan, edges, migration_event
 
-
 def build_tesseract_bundle(live_records: list[dict[str, Any]], docs_gate: dict[str, str]) -> dict[str, Any]:
     chapter_defs = chapter_definitions()
     appendix_meta = appendix_registry()
@@ -2575,7 +2517,6 @@ def build_tesseract_bundle(live_records: list[dict[str, Any]], docs_gate: dict[s
         "migration_events": migration_events,
     }
 
-
 def build_tesseract_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append("# MATH Tesseract v4 Bundle")
@@ -2627,7 +2568,6 @@ def build_tesseract_markdown(bundle: dict[str, Any]) -> str:
         lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def markdown_summary(path: Path) -> str:
     if not path.exists():
         return "Surface missing."
@@ -2648,7 +2588,6 @@ def markdown_summary(path: Path) -> str:
             break
     return " ".join(summary_lines) if summary_lines else "No prose summary extracted."
 
-
 def appendix_contract_class(app_id: str) -> str:
     if app_id in EARTH_CORE_APPENDICES:
         return "mandatory core"
@@ -2656,10 +2595,8 @@ def appendix_contract_class(app_id: str) -> str:
         return "earth stability overlay"
     return "conditional lift/transport support"
 
-
 def dominant_value(counter: Counter[str], default: str) -> str:
     return counter.most_common(1)[0][0] if counter else default
-
 
 def build_authority_surfaces(deep_root: Path) -> list[dict[str, Any]]:
     surfaces: list[dict[str, Any]] = []
@@ -2695,7 +2632,6 @@ def build_authority_surfaces(deep_root: Path) -> list[dict[str, Any]]:
         }
     )
     return surfaces
-
 
 def build_chapter_contracts(tesseract_bundle: dict[str, Any]) -> list[dict[str, Any]]:
     records_by_station: dict[str, list[dict[str, Any]]] = {}
@@ -2752,7 +2688,6 @@ def build_chapter_contracts(tesseract_bundle: dict[str, Any]) -> list[dict[str, 
         )
     return contracts
 
-
 def build_appendix_contracts(tesseract_bundle: dict[str, Any]) -> list[dict[str, Any]]:
     appendix_meta = tesseract_bundle["appendix_registry"]
     records = tesseract_bundle["records"]
@@ -2790,7 +2725,6 @@ def build_appendix_contracts(tesseract_bundle: dict[str, Any]) -> list[dict[str,
             }
         )
     return contracts
-
 
 def build_dimension_lift_chain(
     tesseract_bundle: dict[str, Any],
@@ -2836,7 +2770,6 @@ def build_dimension_lift_chain(
         },
     ]
 
-
 def build_handoff_contracts(chapter_contracts: list[dict[str, Any]]) -> list[dict[str, Any]]:
     grouped: dict[str, list[dict[str, Any]]] = {"Fire": [], "Water": [], "Air": []}
     for contract in chapter_contracts:
@@ -2879,7 +2812,6 @@ def build_handoff_contracts(chapter_contracts: list[dict[str, Any]]) -> list[dic
             ],
         },
     ]
-
 
 def build_cohesion_ledger(deep_root: Path) -> dict[str, Any]:
     surface_classes: list[dict[str, Any]] = []
@@ -2929,7 +2861,6 @@ def build_cohesion_ledger(deep_root: Path) -> dict[str, Any]:
         "surface_classes": surface_classes,
     }
 
-
 def build_sample_route_receipts(
     tesseract_bundle: dict[str, Any],
     chapter_contracts: list[dict[str, Any]],
@@ -2971,7 +2902,6 @@ def build_sample_route_receipts(
             break
     return receipts
 
-
 def build_regeneration_seed() -> dict[str, str]:
     return {
         "title": "Earth H6 Regeneration Seed",
@@ -2983,7 +2913,6 @@ def build_regeneration_seed() -> dict[str, str]:
         "dimensional_nesting_law": "The 6D Earth layer contains the 5D families, which contain the 4D route calculus, which stabilizes the 3D chambers.",
         "docs_gate_condition": "Google Docs remain blocked; local witness surfaces are the only admissible evidence in this seed.",
     }
-
 
 def build_earth_bundle(
     tesseract_bundle: dict[str, Any],
@@ -3025,7 +2954,6 @@ def build_earth_bundle(
         "sample_route_receipts": sample_route_receipts,
         "regeneration_seed": build_regeneration_seed(),
     }
-
 
 def build_earth_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
@@ -3131,7 +3059,6 @@ def build_earth_markdown(bundle: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def seed7_route_record(
     route_id: str,
     title: str,
@@ -3163,7 +3090,6 @@ def seed7_route_record(
         "next_seed_routes": next_seed_routes,
         "handoff_requirements": list(SEED7_AGENT_OVERLAY_STACK),
     }
-
 
 def build_seed7_authority_surfaces() -> list[dict[str, Any]]:
     authority_paths = [
@@ -3376,7 +3302,6 @@ def build_seed7_authority_surfaces() -> list[dict[str, Any]]:
         )
     return surfaces
 
-
 def build_ab_dual_kernel_bundle(seed7_bundle: dict[str, Any], docs_gate: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
@@ -3464,7 +3389,6 @@ def build_ab_dual_kernel_bundle(seed7_bundle: dict[str, Any], docs_gate: dict[st
         },
     }
 
-
 def build_ab_dual_kernel_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append("# A/B Dual-Kernel Dock Bundle")
@@ -3542,7 +3466,6 @@ def build_ab_dual_kernel_markdown(bundle: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def build_seed7_next46_support() -> dict[str, Any]:
     witness_ledger = load_optional_json(NEXT46_FAMILY_LEDGER_PATH)
     crosswalk_ledger = load_optional_json(NEXT46_CROSSWALK_LEDGER_PATH)
@@ -3577,7 +3500,6 @@ def build_seed7_next46_support() -> dict[str, Any]:
         },
         "stabilization_ledger": stabilization_ledger,
     }
-
 
 def build_seed7_bundle(
     tesseract_bundle: dict[str, Any],
@@ -3876,7 +3798,6 @@ def build_seed7_bundle(
         },
     }
 
-
 def build_seed7_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append("# 7D Synthesis Seed Bundle")
@@ -4004,7 +3925,6 @@ def build_seed7_markdown(bundle: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def build_h6_authority_surfaces() -> list[dict[str, Any]]:
     authority_paths = [
         {
@@ -4075,7 +3995,6 @@ def build_h6_authority_surfaces() -> list[dict[str, Any]]:
             }
         )
     return surfaces
-
 
 def build_h6_convergence_bundle(
     tesseract_bundle: dict[str, Any],
@@ -4377,7 +4296,6 @@ def build_h6_convergence_bundle(
         },
     }
 
-
 def build_h6_convergence_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append("# H6 Convergence Bundle")
@@ -4463,7 +4381,6 @@ def build_h6_convergence_markdown(bundle: dict[str, Any]) -> str:
         lines.append(f"  - `{item['surface_id']}` [{item['classification']}; {item['state']}] `{item['path']}`")
     lines.append("")
     return "\n".join(lines).strip() + "\n"
-
 
 def build_water_bundle(docs_gate: dict[str, str]) -> dict[str, Any]:
     appendix_meta = appendix_registry()
@@ -4677,7 +4594,6 @@ def build_water_bundle(docs_gate: dict[str, str]) -> dict[str, Any]:
         "generated_at": datetime.now().isoformat(timespec="seconds"),
     }
 
-
 def build_water_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append("# Water 6D Control Bundle")
@@ -4757,7 +4673,6 @@ def build_water_markdown(bundle: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def build_air_symmetry_lattice() -> list[dict[str, str]]:
     nodes = [
         ("Sigma01", "F", "Fire singleton"),
@@ -4777,7 +4692,6 @@ def build_air_symmetry_lattice() -> list[dict[str, str]]:
         ("Sigma15", "FWEA", "Four-way total symmetry"),
     ]
     return [{"sigma_node": code, "composition": composition, "title": title} for code, composition, title in nodes]
-
 
 def build_air_bundle(docs_gate: dict[str, str]) -> dict[str, Any]:
     appendix_meta = appendix_registry()
@@ -4986,7 +4900,6 @@ def build_air_bundle(docs_gate: dict[str, str]) -> dict[str, Any]:
         "generated_at": datetime.now().isoformat(timespec="seconds"),
     }
 
-
 def build_air_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append("# AIR 6D Overlay Bundle")
@@ -5081,7 +4994,6 @@ def build_air_markdown(bundle: dict[str, Any]) -> str:
     lines.append("")
     return "\n".join(lines).strip() + "\n"
 
-
 def build_fire_basis_entry(
     driver: dict[str, Any],
     tesseract_bundle: dict[str, Any],
@@ -5121,7 +5033,6 @@ def build_fire_basis_entry(
         "handoff_requirements": list(FIRE_CROSS_AGENT_HANDOFFS),
         "truth_state": "NEAR",
     }
-
 
 def build_fire_authority_surfaces() -> list[dict[str, Any]]:
     authority_paths = [
@@ -5179,7 +5090,6 @@ def build_fire_authority_surfaces() -> list[dict[str, Any]]:
         )
     return surfaces
 
-
 def build_fire_reverse_overlay_registry() -> list[dict[str, Any]]:
     appendix_meta = appendix_registry()
     registry: list[dict[str, Any]] = []
@@ -5199,7 +5109,6 @@ def build_fire_reverse_overlay_registry() -> list[dict[str, Any]]:
             }
         )
     return registry
-
 
 def build_fire_bundle(
     tesseract_bundle: dict[str, Any],
@@ -5333,7 +5242,6 @@ def build_fire_bundle(
         },
     }
 
-
 def build_fire_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append("# FIRE 6D Organism Bundle")
@@ -5412,7 +5320,6 @@ def build_fire_markdown(bundle: dict[str, Any]) -> str:
         lines.append(f"- `{key}`: {value}")
     lines.append("")
     return "\n".join(lines).strip() + "\n"
-
 
 def build_markdown(bundle: dict[str, Any]) -> str:
     lines: list[str] = []
@@ -5656,7 +5563,6 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     )
     lines.append("")
     return "\n".join(lines).strip() + "\n"
-
 
 def main() -> int:
     args = parse_args()
@@ -6031,7 +5937,6 @@ def main() -> int:
     print(f"Wrote AP7D JSON: {output_ap7d_json}")
     print(f"Wrote AP7D markdown: {output_ap7d_md}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

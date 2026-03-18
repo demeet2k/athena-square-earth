@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S17→Xi108:W2:A1:S19→Xi108:W1:A1:S18→Xi108:W3:A1:S18→Xi108:W2:A2:S18
+
 """
 ATHENA OS - IFÁ KERNEL: ORISHA MODULE
 =====================================
@@ -50,7 +54,6 @@ import numpy as np
 
 from .hypercube import Q8Hypercube, Odu, OduSuperposition
 
-
 # =============================================================================
 # ORISHA CLASSIFICATION
 # =============================================================================
@@ -61,7 +64,6 @@ class OrishaTier(Enum):
     PRIMORDIAL = "primordial"     # Tier 1: Creation operators
     DYNAMICAL = "dynamical"       # Tier 2: Process operators
     SPECIALIZED = "specialized"   # Tier 3: Domain-specific operators
-
 
 class OrishaType(Enum):
     """Types of Orisha by function."""
@@ -83,7 +85,6 @@ class OrishaType(Enum):
     SOPONNA = "soponna"       # Smallpox/Purification
     OSANYIN = "osanyin"       # Herbs/Healing
     BABALUAIYE = "babaluaiye" # Earth/Disease
-
 
 # =============================================================================
 # ORISHA OPERATOR
@@ -159,7 +160,6 @@ class Orisha:
     def norm(self) -> float:
         """Calculate Frobenius norm."""
         return float(np.linalg.norm(self.matrix))
-
 
 # =============================================================================
 # OPERATOR GENERATORS
@@ -266,7 +266,6 @@ class OrishaGenerator:
             if col_sum > 0:
                 matrix[:, j] /= col_sum
         return matrix
-
 
 # =============================================================================
 # ORISHA FACTORY
@@ -483,7 +482,6 @@ class OrishaFactory:
             OrishaType.OYA: self.create_oya(),
         }
 
-
 # =============================================================================
 # ORISHA ALGEBRA
 # =============================================================================
@@ -577,7 +575,6 @@ class OrishaAlgebra:
             }
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -630,7 +627,6 @@ def validate_orisha() -> bool:
     assert stats["orisha_count"] == 8
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Orisha Module...")

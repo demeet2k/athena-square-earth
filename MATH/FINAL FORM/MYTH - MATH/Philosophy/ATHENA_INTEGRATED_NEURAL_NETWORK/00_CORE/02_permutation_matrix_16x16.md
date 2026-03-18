@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S16 | face=S | node=134 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A10:S15→Xi108:W3:A10:S17→Xi108:W2:A10:S16→Xi108:W3:A9:S16→Xi108:W3:A11:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 10/12 -->
+
 # Ordered Permutation Matrix - 16 x 16
 
 This matrix explicitly covers every ordered pairing across the 16-document basis. Each cell stays compressed as a directional synthesis code, while the `ROWS/` layer acts as the canonical prose expansion beneath it.

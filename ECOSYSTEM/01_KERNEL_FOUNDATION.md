@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S27 | face=F | node=369 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S26→Xi108:W3:A1:S28→Xi108:W2:A1:S27→Xi108:W3:A2:S27 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 27±1, wreath 3/3, archetype 1/12 -->
+
 # KERNEL FOUNDATION - SELF-OPTIMIZATION ARCHITECTURE
 
 ## 1. Definitions

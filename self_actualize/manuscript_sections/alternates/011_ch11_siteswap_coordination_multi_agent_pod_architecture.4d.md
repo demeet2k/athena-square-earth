@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S27 | face=F | node=378 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S26→Xi108:W3:A7:S28→Xi108:W2:A7:S27→Xi108:W3:A6:S27→Xi108:W3:A8:S27 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 27±1, wreath 3/3, archetype 7/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppM -> AppB -> AppJ -> AppI
 Tunnel: Z_chapter_11_siteswap_coordination_juggling_patter -> Z* -> Ch21⟨0110⟩

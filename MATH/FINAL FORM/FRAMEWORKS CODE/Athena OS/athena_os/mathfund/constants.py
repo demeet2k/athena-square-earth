@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S14→Xi108:W2:A4:S16→Xi108:W1:A4:S15→Xi108:W3:A4:S15→Xi108:W2:A3:S15→Xi108:W2:A5:S15
+
 """
 ATHENA OS - Mathematical Constants Crystal
 ==========================================
@@ -35,7 +39,6 @@ from typing import Dict, List, Optional, Tuple, Any, Union
 import math
 import cmath
 
-
 # =============================================================================
 # MATHEMATICAL CONSTANTS
 # =============================================================================
@@ -58,7 +61,6 @@ PLASTIC_RATIO = 1.3247179572447460259609088544780973407344  # ρ
 FEIGENBAUM_DELTA = 4.66920160910299  # δ_F (universal period-doubling)
 FEIGENBAUM_ALPHA = 2.502907875095892  # α_F (spatial scaling)
 
-
 # =============================================================================
 # CONTAINER TYPES
 # =============================================================================
@@ -80,7 +82,6 @@ class Container(Enum):
         }
         return symbols[self]
 
-
 # =============================================================================
 # CONSTANT FACES
 # =============================================================================
@@ -96,7 +97,6 @@ class SquareFace:
     sign: int = 1  # -1, 0, or 1
     is_algebraic: bool = False
     notes: str = ""
-
 
 @dataclass
 class FractalFace:
@@ -122,7 +122,6 @@ class FractalFace:
         
         return cls(ln_abs=ln_abs, log_phi_abs=log_phi_abs, theta_phi=theta_phi)
 
-
 @dataclass
 class FlowerFace:
     """
@@ -138,7 +137,6 @@ class FlowerFace:
         if value == 0:
             return cls(arg=0.0)  # Undefined, use 0
         return cls(arg=cmath.phase(value))
-
 
 @dataclass
 class CloudFace:
@@ -166,7 +164,6 @@ class CloudFace:
         
         g = cmath.log(value)  # Principal branch
         return cls(g_real=g.real, g_imag=g.imag, branch=branch)
-
 
 # =============================================================================
 # CONSTANT PASSPORT
@@ -287,7 +284,6 @@ class ConstantPassport:
             "definition_key": self.definition_key,
         }
 
-
 # =============================================================================
 # CONSTANT CATALOG
 # =============================================================================
@@ -322,7 +318,6 @@ def create_square_constants() -> List[ConstantPassport]:
         ),
     ]
 
-
 def create_flower_constants() -> List[ConstantPassport]:
     """Create Flower container constants: {e, i, π, φ}."""
     return [
@@ -354,7 +349,6 @@ def create_flower_constants() -> List[ConstantPassport]:
         ),
     ]
 
-
 def create_cloud_constants() -> List[ConstantPassport]:
     """Create Cloud container constants: {γ, √2π, G, ζ(3)}."""
     return [
@@ -383,7 +377,6 @@ def create_cloud_constants() -> List[ConstantPassport]:
             notes="Irrational (proven)"
         ),
     ]
-
 
 def create_fractal_constants() -> List[ConstantPassport]:
     """Create Fractal container constants: {δ_s, ρ, δ_F, α_F}."""
@@ -416,7 +409,6 @@ def create_fractal_constants() -> List[ConstantPassport]:
         ),
     ]
 
-
 def create_all_constants() -> Dict[str, ConstantPassport]:
     """Create complete catalog of all 16 constants."""
     catalog = {}
@@ -435,10 +427,8 @@ def create_all_constants() -> Dict[str, ConstantPassport]:
     
     return catalog
 
-
 # Global catalog
 CONSTANT_CATALOG = create_all_constants()
-
 
 # =============================================================================
 # LENS MAPS
@@ -538,7 +528,6 @@ class LensMap:
             raise ValueError("Requires positive real")
         return (PI / 2) * math.log(c) / LN_PHI
 
-
 # =============================================================================
 # CONSTANT CRYSTAL
 # =============================================================================
@@ -600,7 +589,6 @@ class ConstantCrystal:
             "transcendental": len(self.catalog) - algebraic_count,
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -648,7 +636,6 @@ def validate_constants() -> bool:
     assert abs(m1_passport.flower_face.arg - PI) < 1e-10
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Constants Module...")

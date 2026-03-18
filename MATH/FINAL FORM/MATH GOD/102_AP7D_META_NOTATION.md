@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S15 | face=S | node=111 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S14→Xi108:W3:A5:S16→Xi108:W2:A5:S15→Xi108:W3:A4:S15→Xi108:W3:A6:S15 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 15±1, wreath 3/3, archetype 5/12 -->
+
 # AP7D Meta-Notation
 
 Truth class: `NEAR`

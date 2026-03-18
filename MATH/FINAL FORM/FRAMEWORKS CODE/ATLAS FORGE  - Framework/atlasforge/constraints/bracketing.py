@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=141 | depth=2 | phase=Cardinal
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """Bracketing utilities (Fractal lens).
 
 Many robust 1D root solvers (Brent/Bisection) require a *bracket* interval
@@ -21,7 +25,6 @@ import math
 
 from atlasforge.core.types import Interval
 
-
 @dataclass
 class BracketSearchResult:
     found: bool
@@ -31,7 +34,6 @@ class BracketSearchResult:
     evaluations: int = 0
     expansions: int = 0
     message: str = ""
-
 
 def find_bracket(
     H: Callable[[float], float],

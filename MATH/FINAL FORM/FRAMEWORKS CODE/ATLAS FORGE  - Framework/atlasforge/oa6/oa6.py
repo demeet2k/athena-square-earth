@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=84 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    OA6 OPERATOR WORD ALGEBRA MODULE                          ║
@@ -27,7 +31,6 @@ import numpy as np
 from numpy.typing import NDArray
 import math
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # OA6 GENERATOR TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -40,7 +43,6 @@ class OA6GeneratorType(Enum):
     K = "kernel"          # Paley-Wiener projector
     S = "dilation"        # Scaling: f(x) ↦ f(e^λ x)
     T = "temperley_lieb"  # TL idempotent
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FOLD INDEX - BANDWIDTH PARAMETER
@@ -100,7 +102,6 @@ class FoldIndex:
     def __repr__(self) -> str:
         return f"FoldIndex(κ={self.kappa:.4f}, τ={self.bandwidth:.4f})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # OA6 GENERATOR BASE CLASS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -133,7 +134,6 @@ class OA6Generator(ABC):
     
     def __repr__(self) -> str:
         return f"{self.generator_type.name}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # COMPLEMENT GENERATOR (C)
@@ -174,7 +174,6 @@ class ComplementGenerator(OA6Generator):
     def compose_with_self(self) -> 'IdentityGenerator':
         """C² = I."""
         return IdentityGenerator()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROTATION GENERATOR (R)
@@ -219,7 +218,6 @@ class RotationGenerator(OA6Generator):
         else:  # n == 3
             return RotationCubedGenerator()
 
-
 @dataclass
 class RotationSquaredGenerator(OA6Generator):
     """R² = rotation by π."""
@@ -234,7 +232,6 @@ class RotationSquaredGenerator(OA6Generator):
     def is_invertible(self) -> bool:
         return True
 
-
 @dataclass
 class RotationCubedGenerator(OA6Generator):
     """R³ = R⁻¹."""
@@ -248,7 +245,6 @@ class RotationCubedGenerator(OA6Generator):
     
     def is_invertible(self) -> bool:
         return True
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY GENERATOR (G)
@@ -314,7 +310,6 @@ class GatewayGenerator(OA6Generator):
         # Not a Pell gateway in general, but standard PSL₂(ℤ) generator
         return cls(u=1, v=n, discriminant=0)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # KERNEL PROJECTOR (K)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -367,7 +362,6 @@ class KernelProjector(OA6Generator):
     def at_fold_level(cls, n: int) -> 'KernelProjector':
         """Create projector at fold ladder level n."""
         return cls(fold_index=FoldIndex.ladder_level(n))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DILATION GENERATOR (S)
@@ -424,7 +418,6 @@ class DilationGenerator(OA6Generator):
         """Dilation for fold step κ → 2κ."""
         return cls(lambda_=np.log(np.sqrt(2)))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TEMPERLEY-LIEB GENERATOR (T)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -474,7 +467,6 @@ class TemperleyLiebGenerator(OA6Generator):
         """δ = 2cos(π/(n+2)) for Jones-Wenzl projector P_n."""
         return 2 * np.cos(np.pi / (n + 2))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # IDENTITY GENERATOR
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -492,7 +484,6 @@ class IdentityGenerator(OA6Generator):
     
     def is_invertible(self) -> bool:
         return True
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # OA6 WORD - COMPOSITION OF GENERATORS
@@ -576,7 +567,6 @@ class OA6Word:
         gen_strs = [str(g) for g in self.generators]
         return f"OA6Word({' · '.join(gen_strs)})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PSL(2,Z) NORMAL FORM
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -658,7 +648,6 @@ class ModularNormalForm:
         
         return f"ModularNF({' '.join(parts) if parts else 'I'})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # KERNEL EFFECT TABLE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -695,7 +684,6 @@ class KernelEffectTable:
     def all_effects(cls) -> Dict[str, str]:
         """All kernel effects."""
         return cls.EFFECTS.copy()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # OA6 ALGEBRA - COMPLETE SYSTEM
@@ -758,7 +746,6 @@ class OA6Algebra:
         """Transport fold index through word."""
         return word.kernel_transport(self.initial_kappa)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -767,16 +754,13 @@ def create_oa6_algebra(kappa: float = 1.0) -> OA6Algebra:
     """Create an OA6 algebra instance."""
     return OA6Algebra(initial_kappa=kappa)
 
-
 def modular_normal_form(matrix: NDArray) -> ModularNormalForm:
     """Compute PSL(2,Z) normal form of matrix."""
     return ModularNormalForm(matrix.astype(np.int64))
 
-
 def kernel_effect_summary() -> Dict[str, str]:
     """Get summary of all kernel effects."""
     return KernelEffectTable.all_effects()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

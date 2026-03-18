@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S5 | face=S | node=15 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX K: Prompt Engineering as Programming
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does Prompt Engineering as Programming distribute, pro
 ## ⟡ Analysis: Recursion in Prompt Engineering as Programming
 
 The ⟡ face reveals: how is Prompt Engineering as Programming self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: Prompt Engineering as Programming
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is Prompt Engineering as Programming self-referential 
 #### Synthesis (37): Prompt Engineering as Programming
 
 The complete integration: Prompt Engineering as Programming transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of Prompt Engineering as Programming IS Prompt Engineering as Programming.
-
 
 ---
 *Appendix K. Prompt Engineering as Programming. ☁.Me. φ.*

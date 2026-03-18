@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=134 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - METIS OPERATOR MODULE
 =================================
@@ -43,7 +47,6 @@ import math
 import random
 import time
 
-
 # =============================================================================
 # COMPLEXITY CLASSES
 # =============================================================================
@@ -59,7 +62,6 @@ class ComplexityClass(Enum):
     EXPONENTIAL = auto()   # O(2^n)
     FACTORIAL = auto()     # O(n!)
 
-
 @dataclass(frozen=True)
 class ComplexityBound:
     """Complexity bound with growth function."""
@@ -72,7 +74,6 @@ class ComplexityBound:
         """Compute cost for input size n."""
         return self.growth_function(n)
 
-
 # Standard complexity bounds
 O_1 = ComplexityBound(ComplexityClass.CONSTANT, "O(1)", lambda n: 1)
 O_LOG_N = ComplexityBound(ComplexityClass.LOGARITHMIC, "O(log n)", 
@@ -84,7 +85,6 @@ O_N_SQUARED = ComplexityBound(ComplexityClass.QUADRATIC, "O(n²)", lambda n: n**
 O_N_FACTORIAL = ComplexityBound(ComplexityClass.FACTORIAL, "O(n!)",
                                 lambda n: math.factorial(min(n, 20)))
 
-
 # =============================================================================
 # OPERATOR TYPES
 # =============================================================================
@@ -94,7 +94,6 @@ class OperatorType(Enum):
     FORCE = auto()      # B̂ - Brute force, high magnitude
     CUNNING = auto()    # M̂ - Strategic optimization
     HYBRID = auto()     # Combined force and cunning
-
 
 @dataclass
 class Operator:
@@ -110,18 +109,15 @@ class Operator:
         """Check if operator has leverage (η > 1)."""
         return self.efficiency > 1.0
 
-
 # Canonical operators
 FORCE_OPERATOR = Operator("Bia", OperatorType.FORCE, O_N_FACTORIAL, 0.5)
 CUNNING_OPERATOR = Operator("Metis", OperatorType.CUNNING, O_N, 2.0)
-
 
 # =============================================================================
 # STATE AND CONFIGURATION
 # =============================================================================
 
 T = TypeVar('T')
-
 
 @dataclass
 class SystemState:
@@ -143,7 +139,6 @@ class SystemState:
             dict(self.variables),
             time.time()
         )
-
 
 @dataclass
 class Configuration:
@@ -167,7 +162,6 @@ class Configuration:
         # Simplified: different forms are orthogonal
         return self.form != other.form
 
-
 # =============================================================================
 # POLYMORPHISM ENGINE
 # =============================================================================
@@ -178,7 +172,6 @@ class TransformationType(Enum):
     COMPRESSION = auto()  # Decrease volume/dimensions
     ROTATION = auto()     # Change form without size change
     INVERSION = auto()    # Logical opposite
-
 
 @dataclass
 class Transformation:
@@ -208,7 +201,6 @@ class Transformation:
             new_config.surface_area *= 4.64
             
         return new_config
-
 
 class PolymorphismEngine:
     """
@@ -286,7 +278,6 @@ class PolymorphismEngine:
             }
         )
 
-
 # =============================================================================
 # LOOKAHEAD FUNCTION
 # =============================================================================
@@ -304,7 +295,6 @@ class LookaheadResult:
     @property
     def depth(self) -> int:
         return len(self.predicted_states)
-
 
 class LookaheadFunction:
     """
@@ -392,7 +382,6 @@ class LookaheadFunction:
         
         return best_action, best_cost
 
-
 # =============================================================================
 # ADAPTIVE HEURISTICS
 # =============================================================================
@@ -409,7 +398,6 @@ class Fulcrum:
     @property
     def is_exploitable(self) -> bool:
         return self.vulnerability_score > 0.3
-
 
 class AdaptiveHeuristics:
     """
@@ -504,7 +492,6 @@ class AdaptiveHeuristics:
             "leverage_ratio": available_energy / max(required_energy, 0.01)
         }
 
-
 # =============================================================================
 # THE METIS OPERATOR
 # =============================================================================
@@ -521,7 +508,6 @@ class MetisState:
     @property
     def is_external(self) -> bool:
         return not self.is_integrated
-
 
 class MetisOperator:
     """
@@ -616,7 +602,6 @@ class MetisOperator:
         self.state.is_integrated = True
         self.state.host = host
 
-
 # =============================================================================
 # INFORMATION ADVANTAGE
 # =============================================================================
@@ -636,7 +621,6 @@ class InformationSet:
         """Check if this set contains all of other's info."""
         return other.visible_variables.issubset(self.visible_variables)
 
-
 # Executive information (limited)
 EXECUTIVE_INFO = InformationSet(
     "Executive",
@@ -649,7 +633,6 @@ METIS_INFO = InformationSet(
     {"Mass", "Position", "Velocity", "Intent", "Vulnerability", "Psychology"}
 )
 
-
 def information_dominance(info_a: InformationSet, 
                          info_b: InformationSet) -> bool:
     """
@@ -658,7 +641,6 @@ def information_dominance(info_a: InformationSet,
     I_T ⊃ I_E implies perfect information regarding adversary.
     """
     return info_a.is_superset_of(info_b)
-
 
 # =============================================================================
 # VALIDATION
@@ -728,7 +710,6 @@ def validate_metis() -> bool:
     assert not information_dominance(EXECUTIVE_INFO, METIS_INFO)
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

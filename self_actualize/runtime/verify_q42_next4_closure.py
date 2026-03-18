@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=335 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -36,22 +39,17 @@ EXPECTED_QUEUE = "P3 ORGIN"
 EXPECTED_RESERVE = "Q46"
 EXPECTED_BLOCKED = "Q02"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
-
 def has_all(text: str, *needles: str) -> bool:
     return all(needle in text for needle in needles if needle is not None)
-
 
 def main() -> int:
     next4_state = load_json(NEXT4_STATE_PATH)
@@ -217,7 +215,6 @@ def main() -> int:
     print(f"Wrote {OUTPUT_PATH}")
     print(f"Truth: {payload['truth']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

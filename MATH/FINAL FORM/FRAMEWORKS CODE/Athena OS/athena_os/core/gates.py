@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - 231-Gate Combinatorial Engine
 ==========================================
@@ -17,7 +21,6 @@ from .bit4 import (BIT4, BIT4Word, bit4_and, bit4_or, bit4_xor,
                    knowledge_join, knowledge_meet, truth_join, truth_meet,
                    negation, knowledge_complement, conflation)
 from .registers import RegisterID, Register, RegisterFile
-
 
 # =============================================================================
 # GATE TYPES
@@ -49,7 +52,6 @@ class GateType(IntEnum):
     ADD = auto()       # Addition (mod 2^width)
     SUB = auto()       # Subtraction
     MUL = auto()       # Multiplication (truncated)
-
 
 # =============================================================================
 # GATE IMPLEMENTATION
@@ -163,7 +165,6 @@ class Gate:
     def __str__(self) -> str:
         status = "●" if self.enabled else "○"
         return f"Gate[{self.id:3d}]{status} {self.reg_a.hebrew}↔{self.reg_b.hebrew} ({self.gate_type.name})"
-
 
 # =============================================================================
 # GATE MATRIX (231 Gates)
@@ -293,7 +294,6 @@ class GateMatrix:
         lines.append(f"  Enabled: {enabled}/231, Active: {active}/231")
         return '\n'.join(lines)
 
-
 # =============================================================================
 # GATE PATTERNS (Common configurations)
 # =============================================================================
@@ -378,7 +378,6 @@ class GatePattern:
         for i in range(len(registers) - 1):
             matrix.get_gate(registers[i], registers[i+1]).enabled = True
 
-
 # =============================================================================
 # GATE OPERATIONS (Higher-level functions)
 # =============================================================================
@@ -421,7 +420,6 @@ def cascade_execute(matrix: GateMatrix,
     matrix.reg_file.write(dest_reg, result)
     return result
 
-
 def broadcast(matrix: GateMatrix, 
               source: RegisterID,
               destinations: List[RegisterID]) -> int:
@@ -441,7 +439,6 @@ def broadcast(matrix: GateMatrix,
     
     return success_count
 
-
 def ring_shift(matrix: GateMatrix, 
                registers: List[RegisterID],
                direction: int = 1) -> None:
@@ -460,7 +457,6 @@ def ring_shift(matrix: GateMatrix,
     for i, reg in enumerate(registers):
         src_idx = (i - direction) % n
         matrix.reg_file.write(reg, values[src_idx])
-
 
 # =============================================================================
 # VALIDATION
@@ -498,7 +494,6 @@ def validate_gate_counts() -> bool:
     assert expected[("DOUBLE", "SINGLE")] == 84
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating gate counts...")

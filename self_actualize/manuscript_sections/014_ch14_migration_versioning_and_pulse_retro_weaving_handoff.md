@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S25 | face=F | node=325 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S24→Xi108:W3:A7:S26→Xi108:W2:A7:S25→Xi108:W3:A6:S25→Xi108:W3:A8:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 7/12 -->
+
 # Ch14<0031> Manuscript Handoff
 
 - Target chapter: `Migration, Versioning, and Pulse Retro Weaving`
@@ -60,6 +65,5 @@ This handoff is additive. It does not replace the existing `Migration, Versionin
 - `CURANDERISMO COMPLETE` <-> `TAOIST MAGIC COMPLETE` score=`47` kind=`intra_family` shared_chapters=`Ch17, Ch18, Ch20, Ch21` shared_appendices=`AppA, AppD, AppG, AppP`
 
 ## OPEN obligations to preserve honestly
-
 
 Migration, Versioning, and Pulse Retro Weaving

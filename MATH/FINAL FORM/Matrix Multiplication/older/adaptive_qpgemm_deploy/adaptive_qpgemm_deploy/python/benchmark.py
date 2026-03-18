@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 Benchmark & validation suite for Adaptive QP-GEMM (Python).
 
@@ -32,11 +36,9 @@ from qpgemm import QPGEMMConfig, optimize_vision_model, count_parameters, estima
 
 from export_torchscript import SimVisionStack
 
-
 def percentile(xs, p):
     xs = np.asarray(xs, dtype=np.float64)
     return float(np.percentile(xs, p))
-
 
 @torch.inference_mode()
 def run_timing(model, x, warmup: int, iters: int):
@@ -57,12 +59,10 @@ def run_timing(model, x, warmup: int, iters: int):
         "max_ms": float(np.max(lat)),
     }
 
-
 def rel_l2(a: torch.Tensor, b: torch.Tensor, eps=1e-12) -> float:
     num = (a - b).norm().item()
     den = max(b.norm().item(), eps)
     return num / den
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -126,7 +126,6 @@ def main():
 
     print("\n[Perf] Optimized")
     print(run_timing(opt, x, args.warmup, args.iters))
-
 
 if __name__ == "__main__":
     main()

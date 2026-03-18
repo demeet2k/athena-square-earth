@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=309 | depth=2 | phase=Mutable
+# METRO: Me,w,✶
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      HOLOGRAPHIC SEED MODULE                                 ║
@@ -29,7 +33,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # KLEIN-4 GROUP
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -44,7 +47,6 @@ class K4Element(Enum):
     COMPLEMENT = "c"     # Complement: x → 5-x (bit flip both)
     REVERSAL = "r"       # Reversal: swap pairs (bit flip first)
     SWAP = "s"           # Swap: exchange middle elements (bit flip second)
-
 
 @dataclass
 class Klein4Group:
@@ -116,7 +118,6 @@ class Klein4Group:
     def multiply(a: K4Element, b: K4Element) -> K4Element:
         """Multiply two K₄ elements."""
         return Klein4Group.multiplication_table()[(a, b)]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 4×4 DIAGONAL LATIN SQUARE
@@ -236,7 +237,6 @@ class DiagonalLatinSquare:
         
         return elements
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GREEK TETRADIC MAPPING
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -248,14 +248,12 @@ class GreekElement(Enum):
     WATER = "Water"  # Cold + Moist
     EARTH = "Earth"  # Cold + Dry
 
-
 class GreekHumor(Enum):
     """The four Hippocratic humors."""
     BLOOD = "Blood"           # Hot + Moist
     YELLOW_BILE = "YellowBile" # Hot + Dry
     PHLEGM = "Phlegm"         # Cold + Moist
     BLACK_BILE = "BlackBile"   # Cold + Dry
-
 
 @dataclass
 class TetradicMapping:
@@ -322,7 +320,6 @@ class TetradicMapping:
             K4Element.SWAP: "Humidity flip (dry↔moist)",
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # RADIX-4 EXTENSION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -384,7 +381,6 @@ class Radix4Projector:
         """
         return self.digit(int(x[d]), t) == 3
 
-
 @dataclass
 class RadixBlock:
     """
@@ -414,7 +410,6 @@ class RadixBlock:
     def is_holographic(self) -> bool:
         """Check if block contains all 4 symbols."""
         return self.get_labels() == {0, 1, 2, 3}
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HOLOGRAPHIC ANALYSIS
@@ -454,7 +449,6 @@ class HolographicAnalysis:
                 on_hyperplane += 1
         
         return on_hyperplane / n_samples
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -498,7 +492,6 @@ class HolographicSeedPoleBridge:
           - Radix-4 scales to n dimensions
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -507,31 +500,25 @@ def klein4_group() -> Klein4Group:
     """Create Klein-4 group."""
     return Klein4Group()
 
-
 def latin_square_type_a() -> DiagonalLatinSquare:
     """Create Type A diagonal Latin square."""
     return DiagonalLatinSquare.type_a()
-
 
 def latin_square_type_b() -> DiagonalLatinSquare:
     """Create Type B diagonal Latin square."""
     return DiagonalLatinSquare.type_b()
 
-
 def tetradic_mapping() -> TetradicMapping:
     """Create tetradic mapping."""
     return TetradicMapping()
-
 
 def radix4_projector(n: int, m: int = None) -> Radix4Projector:
     """Create radix-4 projector."""
     return Radix4Projector.default(n, m)
 
-
 def holographic_analysis(projector: Radix4Projector) -> HolographicAnalysis:
     """Create holographic analysis."""
     return HolographicAnalysis(projector)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

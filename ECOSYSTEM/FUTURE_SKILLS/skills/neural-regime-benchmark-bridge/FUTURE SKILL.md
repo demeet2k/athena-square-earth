@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S27 | face=F | node=369 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S26→Xi108:W3:A9:S28→Xi108:W2:A9:S27→Xi108:W3:A8:S27→Xi108:W3:A10:S27 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 27±1, wreath 3/3, archetype 9/12 -->
+
 # neural-regime-benchmark-bridge
 
 ## address

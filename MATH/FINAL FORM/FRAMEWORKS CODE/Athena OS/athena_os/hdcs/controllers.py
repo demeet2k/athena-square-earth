@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=153 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - HDCS: CONTROLLER OPERATORS
 ======================================
@@ -34,7 +38,6 @@ from enum import Enum, auto
 import numpy as np
 from scipy import linalg
 
-
 # =============================================================================
 # CONTROLLER TYPES
 # =============================================================================
@@ -50,7 +53,6 @@ class ControllerType(Enum):
     LQG = "lqg"
     MPC = "model_predictive"
 
-
 class StabilityStatus(Enum):
     """System stability status."""
     
@@ -58,7 +60,6 @@ class StabilityStatus(Enum):
     MARGINALLY_STABLE = "marginal"  # Poles on imaginary axis
     UNSTABLE = "unstable"           # Poles in RHP
     BIFURCATION = "bifurcation"     # At stability boundary
-
 
 # =============================================================================
 # REFERENCE TRAJECTORY
@@ -140,7 +141,6 @@ class ReferenceTrajectory:
         if phase is not None:
             self._phase = np.atleast_1d(phase)
 
-
 # =============================================================================
 # ERROR VECTOR
 # =============================================================================
@@ -215,7 +215,6 @@ class ErrorVector:
     @property
     def norm(self) -> float:
         return float(np.linalg.norm(self._current))
-
 
 # =============================================================================
 # PID CONTROLLER
@@ -318,7 +317,6 @@ class PIDController:
             "error_norm": self.error.norm,
             "integral_norm": float(np.linalg.norm(self.error.integral))
         }
-
 
 # =============================================================================
 # LQR CONTROLLER
@@ -435,7 +433,6 @@ class LQRController:
     def riccati_solution(self) -> np.ndarray:
         return self._S.copy()
 
-
 # =============================================================================
 # LQG CONTROLLER
 # =============================================================================
@@ -513,7 +510,6 @@ class LQGController:
     @property
     def control_gain(self) -> np.ndarray:
         return self.lqr.gain
-
 
 # =============================================================================
 # TRANSFER FUNCTION
@@ -619,7 +615,6 @@ class TransferFunction:
         else:
             return StabilityStatus.MARGINALLY_STABLE
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -679,7 +674,6 @@ def validate_controllers() -> bool:
     assert bw > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Controllers Module...")

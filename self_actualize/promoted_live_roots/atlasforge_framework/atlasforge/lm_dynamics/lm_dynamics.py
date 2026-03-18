@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=424 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      LM DYNAMICS MODULE                                      ║
@@ -26,7 +30,6 @@ import numpy as np
 from numpy.typing import NDArray
 import hashlib
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DYNAMICAL STATE OBJECTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -36,7 +39,6 @@ class TimeModel(Enum):
     DISCRETE = "discrete"       # Tick index n ∈ ℕ
     CONTINUOUS = "continuous"   # t ∈ ℝ₊
     HYBRID = "hybrid"           # Flow + jump events
-
 
 @dataclass
 class EnvelopeLedger:
@@ -55,7 +57,6 @@ class EnvelopeLedger:
         """Reset ledger."""
         self.entries = []
         self.total_error = 0.0
-
 
 @dataclass
 class DynamicState:
@@ -93,7 +94,6 @@ class DynamicState:
             time_value=self.time_value + dt
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOUNDARY TYPE TAXONOMY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -112,7 +112,6 @@ class BoundarySpecies(Enum):
     DISSOLVE = "dissolve"       # Dissipating
     AMBIG = "ambig"             # Ambiguous, needs escalation
     FAIL = "fail"               # Certified failure
-
 
 @dataclass
 class BoundaryDistribution:
@@ -142,7 +141,6 @@ class BoundaryDistribution:
         if total > 0:
             return BoundaryDistribution({k: v/total for k, v in self.masses.items()})
         return self
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID DYNAMICS OPERATORS
@@ -182,7 +180,6 @@ class CPTPChannel:
         error = np.linalg.norm(total - np.eye(dim))
         return error < 1e-10, error
 
-
 @dataclass
 class InstrumentBranch:
     """
@@ -191,7 +188,6 @@ class InstrumentBranch:
     name: str
     channel: CPTPChannel
     boundary_type: BoundarySpecies = BoundarySpecies.PROTO
-
 
 @dataclass 
 class TypedInstrument:
@@ -231,7 +227,6 @@ class TypedInstrument:
             total_error += error
         return total_error < 1e-10 * len(self.branches), total_error
 
-
 @dataclass
 class HybridEvolution:
     """
@@ -265,7 +260,6 @@ class HybridEvolution:
             return new_state, distribution
         
         return new_state, None
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ORGANIZATIONAL COORDINATES (Ω, I, C, F)
@@ -325,7 +319,6 @@ class OrganizationalCoordinates:
         """Check if state is identifiable."""
         return self.iota >= threshold
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ORGANIZATIONAL JET LADDER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -360,7 +353,6 @@ class OrganizationalJet:
         margin = abs(value - threshold)
         return margin > self.remainder_bound + slack
 
-
 @dataclass
 class EscalationPlan:
     """
@@ -382,7 +374,6 @@ class EscalationPlan:
             remainder_bound=jet.remainder_bound / 2  # Assume tighter bound
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LIMINAL RESIDENTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -392,7 +383,6 @@ class StabilityType(Enum):
     LYAPUNOV = "lyapunov"       # Lyapunov function decrease
     SPECTRAL_GAP = "spectral"   # Spectral gap
     CONTRACTION = "contraction" # Contraction mapping
-
 
 @dataclass
 class StabilityWitness:
@@ -406,7 +396,6 @@ class StabilityWitness:
     def is_certified(self, slack: float = 0.01) -> bool:
         """Check if stability is certified with slack."""
         return self.margin >= slack
-
 
 @dataclass
 class LiminalResident:
@@ -446,7 +435,6 @@ class LiminalResident:
         """Check if resident is metastable."""
         return self.dwell_time_mean >= min_dwell
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOUNDARY ECOLOGY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -471,7 +459,6 @@ class SpeciesPopulation:
             return 0.0
         return self.mass_history[-1] / self.mass_history[-2] if self.mass_history[-2] > 0 else 0.0
 
-
 @dataclass
 class ContainmentLaw:
     """
@@ -488,7 +475,6 @@ class ContainmentLaw:
     def apply_suppression(self, mass: float) -> float:
         """Apply suppression to reduce mass."""
         return mass * (1 - self.suppression_rate)
-
 
 @dataclass
 class LiminalEcology:
@@ -531,7 +517,6 @@ class LiminalEcology:
             "fragmentation": self.populations[BoundarySpecies.FRAGMENT].current_mass > 0.2,
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRAJECTORY AND LOGS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -543,7 +528,6 @@ class TrajectoryPoint:
     state: NDArray
     coordinates: OrganizationalCoordinates
     boundary_dist: Optional[BoundaryDistribution] = None
-
 
 @dataclass
 class Trajectory:
@@ -588,7 +572,6 @@ class Trajectory:
         if len(self.points) < 2:
             return 0.0
         return self.points[-1].time - self.points[0].time
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -682,7 +665,6 @@ class LMDynamicsPoleBridge:
         Ψ: Organizational jets, resident lineages
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -695,36 +677,29 @@ def dynamic_state(regime: str, state: NDArray) -> DynamicState:
         envelope_ledger=EnvelopeLedger()
     )
 
-
 def cptp_channel(name: str, kraus: List[NDArray] = None) -> CPTPChannel:
     """Create CPTP channel."""
     return CPTPChannel(name, kraus or [])
-
 
 def typed_instrument(name: str, branches: List[InstrumentBranch] = None) -> TypedInstrument:
     """Create typed instrument."""
     return TypedInstrument(name, branches or [])
 
-
 def organizational_coordinates(state: NDArray) -> OrganizationalCoordinates:
     """Compute organizational coordinates."""
     return OrganizationalCoordinates.compute(state)
-
 
 def liminal_resident(name: str, fixed_point: NDArray, edge: str) -> LiminalResident:
     """Create liminal resident."""
     return LiminalResident(name, fixed_point, edge)
 
-
 def liminal_ecology() -> LiminalEcology:
     """Create liminal ecology."""
     return LiminalEcology()
 
-
 def trajectory() -> Trajectory:
     """Create trajectory."""
     return Trajectory()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

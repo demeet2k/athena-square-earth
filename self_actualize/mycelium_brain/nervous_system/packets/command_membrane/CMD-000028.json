@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A7:S19:u176:Su:R:d1",
+    "shell": 19,
+    "wreath": 1,
+    "archetype": 7,
+    "face": "R",
+    "node_id": 176,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A7:S18",
+      "Xi108:W1:A7:S20",
+      "Xi108:W2:A7:S19",
+      "Xi108:W1:A6:S19",
+      "Xi108:W1:A8:S19"
+    ],
+    "regenerate": "shell 19±1, wreath 1/3, archetype 7/12"
+  },
   "event_id": "CMD-000028",
   "source_ant_id": "ACTIVE-RUN-A1-SCOUT",
   "source_path": "NERVOUS_SYSTEM/95_MANIFESTS/ACTIVE_RUN.md",

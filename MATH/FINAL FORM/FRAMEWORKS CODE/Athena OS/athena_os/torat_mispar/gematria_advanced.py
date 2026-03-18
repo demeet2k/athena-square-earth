@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - TORAT HA-MISPAR (תורת המספר)
 =========================================
@@ -39,7 +43,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
-
 # =============================================================================
 # GEMATRIA METHOD TYPES
 # =============================================================================
@@ -59,7 +62,6 @@ class GematriaMethod(Enum):
     def __init__(self, hebrew_name: str, description: str):
         self.hebrew_name = hebrew_name
         self._description = description
-
 
 # =============================================================================
 # LETTER VALUES
@@ -104,7 +106,6 @@ LETTER_SPELLINGS: Dict[str, str] = {
     'ע': 'עין', 'פ': 'פא', 'צ': 'צדי', 'ק': 'קוף', 'ר': 'ריש',
     'ש': 'שין', 'ת': 'תו',
 }
-
 
 # =============================================================================
 # GEMATRIA CALCULATOR
@@ -179,7 +180,6 @@ class GematriaCalculator:
         """Find words with equivalent gematria."""
         return [(w, self.calculate_standard(w)) for w in words 
                 if self.calculate_standard(w) == value]
-
 
 # =============================================================================
 # KEY GEMATRIA CONSTANTS
@@ -317,7 +317,6 @@ class GematriaConstants:
             },
         }
 
-
 # =============================================================================
 # GEMATRIA SYSTEM
 # =============================================================================
@@ -383,7 +382,6 @@ class GematriaSystem:
             "milui_variants": len(self.constants.milui_yhvh),
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -440,7 +438,6 @@ def validate_gematria_advanced() -> bool:
     assert summary["methods"] == len(GematriaMethod)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Gematria Advanced Module...")

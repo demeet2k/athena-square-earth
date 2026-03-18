@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A7:S31 | face=S | node=494 | depth=2 | phase=Mutable
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A7:S30→Xi108:W2:A7:S32→Xi108:W1:A7:S31→Xi108:W3:A7:S31→Xi108:W2:A6:S31→Xi108:W2:A8:S31
+
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 if str(WORKSPACE_ROOT) not in sys.path:
@@ -34,15 +37,12 @@ from self_actualize.runtime.lp57omega_reward_economy_support import (  # noqa: E
     zero_metrics,
 )
 
-
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def main() -> int:
     canonical = verify_canonical_four_agent_57_loop()
@@ -254,7 +254,6 @@ def main() -> int:
     }
     print(json.dumps(report, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

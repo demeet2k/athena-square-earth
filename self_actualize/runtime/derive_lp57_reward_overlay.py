@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=307 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -14,7 +18,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -45,7 +48,6 @@ from athenachka.runtime.reward_overlay import (  # noqa: E402
     evaluate_reward_run,
     update_progress_profile,
 )
-
 
 DATE = "2026-03-13"
 PROTOCOL_ID = "LP-57OMEGA"
@@ -109,16 +111,13 @@ ASSIST_BY_MASTER = {
     "A4": ["AP6D-EARTH", "floating-agent-08"],
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path, default: Any | None = None) -> Any:
     if not path.exists():
         return {} if default is None else default
     return json.loads(read_text(path))
-
 
 def docs_gate_status() -> str:
     if not DOCS_CREDENTIALS_PATH.exists():
@@ -127,12 +126,10 @@ def docs_gate_status() -> str:
         return "blocked-by-missing-token"
     return "open"
 
-
 def coord_to_string(coord: dict[str, Any] | str) -> str:
     if isinstance(coord, str):
         return coord
     return "|".join(f"{key}={coord[key]}" for key in sorted(coord))
-
 
 def reward_vector_from_legacy(row: dict[str, Any], docs_gate: str) -> RewardVector:
     deltas = row.get("metric_deltas", {})
@@ -156,7 +153,6 @@ def reward_vector_from_legacy(row: dict[str, Any], docs_gate: str) -> RewardVect
         docs_dishonesty_loss=0.0,
     )
 
-
 def reward_transform_for_row(row: dict[str, Any]) -> RewardTransform:
     operator = row.get("reward_operator_id", "identity")
     if operator == "phi":
@@ -167,7 +163,6 @@ def reward_transform_for_row(row: dict[str, Any]) -> RewardTransform:
         return RewardTransform.SQUARED
     return RewardTransform.BASE
 
-
 def seed_profile(agent_id: str, parent_agent_id: str, master_agent_id: str, loop_origin: str, coordinate_stamp: str) -> AgentProgressProfile:
     return AgentProgressProfile(
         agent_id=agent_id,
@@ -176,7 +171,6 @@ def seed_profile(agent_id: str, parent_agent_id: str, master_agent_id: str, loop
         loop_origin=loop_origin,
         coordinate_stamp=coordinate_stamp,
     )
-
 
 def ensure_profile(
     profiles: dict[str, AgentProgressProfile],
@@ -190,7 +184,6 @@ def ensure_profile(
     if agent_id in profiles:
         return
     profiles[agent_id] = seed_profile(agent_id, parent_agent_id, master_agent_id, loop_origin, coordinate_stamp)
-
 
 def build_profile_registry() -> dict[str, AgentProgressProfile]:
     lattice = load_json(LATTICE_JSON_PATH)
@@ -241,7 +234,6 @@ def build_profile_registry() -> dict[str, AgentProgressProfile]:
             )
     return profiles
 
-
 def build_loop_bonus_evaluation(loop_id: str) -> RewardRunEvaluation:
     vector = RewardVector(
         integration_gain=0.22,
@@ -266,7 +258,6 @@ def build_loop_bonus_evaluation(loop_id: str) -> RewardRunEvaluation:
         truth=TRUTH,
     )
 
-
 def build_frontier_bonus_evaluation() -> RewardRunEvaluation:
     vector = RewardVector(
         integration_gain=0.28,
@@ -290,7 +281,6 @@ def build_frontier_bonus_evaluation() -> RewardRunEvaluation:
         residuals=[],
         truth=TRUTH,
     )
-
 
 def build_snapshots(evaluation: Any, primary_agent_id: str, coordinate_stamp: str) -> list[PhiEfficiencySnapshot]:
     baseline = PhiEfficiencySnapshot(
@@ -319,7 +309,6 @@ def build_snapshots(evaluation: Any, primary_agent_id: str, coordinate_stamp: st
     )
     return [baseline, post]
 
-
 def apply_credit(
     profiles: dict[str, AgentProgressProfile],
     credit: QuestOutcomeCredit,
@@ -341,7 +330,6 @@ def apply_credit(
             linked_agents=credit.assist_agent_ids + credit.parent_chain_ids,
             quest_increment=1 if credit.outcome == RunOutcome.POSITIVE else 0,
         )
-
 
 def distribute_direct_bonus(
     profiles: dict[str, AgentProgressProfile],
@@ -373,7 +361,6 @@ def distribute_direct_bonus(
         applied[agent_id] = split
     return applied
 
-
 def top_agents_from_profiles(profiles: dict[str, AgentProgressProfile], limit: int = 8) -> list[dict[str, Any]]:
     ranked = sorted(
         profiles.values(),
@@ -391,13 +378,11 @@ def top_agents_from_profiles(profiles: dict[str, AgentProgressProfile], limit: i
         for profile in ranked[:limit]
     ]
 
-
 def class_distribution(profiles: dict[str, AgentProgressProfile]) -> dict[str, int]:
     distribution = {name: 0 for name in ["F", "E", "D", "C", "B", "A", "S"]}
     for profile in profiles.values():
         distribution[profile.adventure_class.value] += 1
     return distribution
-
 
 def patch_block(text_in: str, marker: str, body: str) -> str:
     start = f"<!-- {marker}:START -->"
@@ -408,7 +393,6 @@ def patch_block(text_in: str, marker: str, body: str) -> str:
         _, _, after = tail.partition(end)
         return before.rstrip() + "\n\n" + block + "\n" + after.lstrip()
     return text_in.rstrip() + "\n\n" + block + "\n"
-
 
 def render_reward_summary(summary: dict[str, Any]) -> str:
     top_lines = "\n".join(
@@ -426,7 +410,6 @@ def render_reward_summary(summary: dict[str, Any]) -> str:
         f"{top_lines}"
     )
 
-
 def run_command(command: list[str]) -> dict[str, Any]:
     result = subprocess.run(command, cwd=WORKSPACE_ROOT, capture_output=True, text=True)
     return {
@@ -436,7 +419,6 @@ def run_command(command: list[str]) -> dict[str, Any]:
         "stderr": result.stderr.strip(),
         "ok": result.returncode == 0,
     }
-
 
 def main() -> int:
     docs_gate = docs_gate_status()
@@ -719,7 +701,6 @@ def main() -> int:
     )
     print(json.dumps({"truth": TRUTH, "profiles": len(profiles), "positive_delta": recent_positive_delta, "negative_delta": recent_negative_delta}, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S26 | face=F | node=347 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S25→Xi108:W2:A10:S27→Xi108:W1:A10:S26→Xi108:W3:A10:S26→Xi108:W2:A9:S26→Xi108:W2:A11:S26
+
 from __future__ import annotations
 
 import json
@@ -26,14 +30,11 @@ from .derive_command_membrane_protocol_v2 import (
     derive_command_membrane_protocol_v2,
 )
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def verify_command_membrane_protocol_runtime_v2() -> dict[str, Any]:
     derive_command_membrane_protocol_v2()
@@ -199,11 +200,9 @@ def verify_command_membrane_protocol_runtime_v2() -> dict[str, Any]:
     VERIFICATION_V2_PATH.write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result
 
-
 def main() -> int:
     print(json.dumps(verify_command_membrane_protocol_runtime_v2(), indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

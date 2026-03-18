@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me,□
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -21,14 +24,11 @@ OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "bruno_address_c_leaf_promotion.json"
 OUTPUT_MARKDOWN_PATH = FAMILIES_ROOT / "BRUNO_ADDRESS_C_LEAF_PROMOTION.md"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_bruno_address_c_leaf_promotion"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
-
 
 def derive_payload() -> dict:
     b12_payload = json.loads(B12_JSON_PATH.read_text(encoding="utf-8"))
@@ -77,7 +77,6 @@ def derive_payload() -> dict:
         "next_seed": "Q35",
     }
 
-
 def render_markdown(payload: dict) -> str:
     conditions = "\n".join(
         f"- `{key}`: `{('PASS' if value else 'FAIL')}`" for key, value in payload["conditions"].items()
@@ -118,7 +117,6 @@ PromotionID: `{payload['promotion_id']}`
 `Q35 Mirror ORGIN Into A Routed Seed Corpus`
 """
 
-
 def main() -> int:
     payload = derive_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -126,7 +124,6 @@ def main() -> int:
     print(f"Wrote {OUTPUT_JSON_PATH}")
     print(f"Wrote {OUTPUT_MARKDOWN_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=142 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      AQM INTEGRATION MODULE                                  ║
@@ -26,7 +30,6 @@ import numpy as np
 from numpy.typing import NDArray
 import hashlib
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # AQM COMPUTATION PIPELINE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -40,7 +43,6 @@ class PipelineStage(Enum):
     MEASUREMENT = "measurement" # Extract classical shadow
     CERTIFICATION = "certification"  # Generate certificates
     OUTPUT = "output"           # Final output
-
 
 @dataclass
 class PipelineState:
@@ -60,7 +62,6 @@ class PipelineState:
             errors=self.errors.copy(),
             certificates=self.certificates.copy()
         )
-
 
 @dataclass
 class AQMPipeline:
@@ -340,7 +341,6 @@ class AQMPipeline:
         
         return self.output(state)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CROSS-TOME TYPE CONVERSIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -415,7 +415,6 @@ class TypeConverter:
         # Inverse relationship
         return np.sqrt(error_bound)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # END-TO-END CERTIFIED COMPUTATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -474,7 +473,6 @@ class CertifiedComputation:
         Valid: {'✓' if self.is_valid() else '✗'}
         """
 
-
 @dataclass
 class ComputationEngine:
     """
@@ -523,7 +521,6 @@ class ComputationEngine:
             ).hexdigest()[:16]
         
         return computation
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FRAMEWORK INTEGRATION BRIDGES
@@ -609,7 +606,6 @@ class AQMFrameworkBridge:
         }
         return [channel_map.get(p, "generic_channel") for p in pole_orbit]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIFIED AQM SYSTEM
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -652,7 +648,6 @@ class UnifiedAQMSystem:
             "ledger_entries": len(self.pipeline.ledger_entries),
             "tomes_active": ["I", "II", "III", "IV", "V"]
         }
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -735,7 +730,6 @@ class AQMIntegrationPoleBridge:
         z ↦ (az+b)/(cz+d) preserves Q-number structure
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -744,32 +738,26 @@ def aqm_pipeline() -> AQMPipeline:
     """Create AQM pipeline."""
     return AQMPipeline()
 
-
 def computation_engine() -> ComputationEngine:
     """Create computation engine."""
     return ComputationEngine()
-
 
 def type_converter() -> TypeConverter:
     """Create type converter."""
     return TypeConverter()
 
-
 def framework_bridge() -> AQMFrameworkBridge:
     """Create framework bridge."""
     return AQMFrameworkBridge()
-
 
 def unified_aqm_system() -> UnifiedAQMSystem:
     """Create unified AQM system."""
     return UnifiedAQMSystem()
 
-
 def certified_computation(input_spec: Dict) -> CertifiedComputation:
     """Run certified computation."""
     engine = ComputationEngine()
     return engine.run(input_spec)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

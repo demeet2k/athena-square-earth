@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=126 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - AETHERIC OPERATORS
 ==============================
@@ -40,7 +44,6 @@ from .core import (
     OperationCoord, OperationCrystal, AethericCoupling,
     HybridState, TextureFunctional
 )
-
 
 # =============================================================================
 # BASE SECTOR OPERATOR
@@ -89,7 +92,6 @@ class SectorOperator(ABC):
         eigs = np.abs(self.eigenvalues())
         eigs = eigs[eigs > 1e-10]  # Remove zeros
         return np.min(eigs) if len(eigs) > 0 else 0.0
-
 
 # =============================================================================
 # DISCRETE OPERATOR (D) - SQUARE
@@ -157,7 +159,6 @@ class DiscreteOperator(SectorOperator):
         
         return A
 
-
 # =============================================================================
 # CONTINUOUS OPERATOR (Ω) - FLOWER
 # =============================================================================
@@ -211,7 +212,6 @@ class ContinuousOperator(SectorOperator):
         Compute resolvent (zI - Ω)^(-1).
         """
         return np.linalg.inv(z * np.eye(self.dimension) - self.matrix)
-
 
 # =============================================================================
 # STOCHASTIC OPERATOR (Σ) - CLOUD
@@ -279,7 +279,6 @@ class StochasticOperator(SectorOperator):
             return (1.0 / gap) * np.log(1.0 / epsilon)
         return float('inf')
 
-
 # =============================================================================
 # RECURSIVE OPERATOR (R) - FRACTAL
 # =============================================================================
@@ -345,7 +344,6 @@ class RecursiveOperator(SectorOperator):
             return -np.log(np.min(np.abs(nonzero_eigs))) / np.log(self.scaling_factor)
         return 0.0
 
-
 # =============================================================================
 # AETHERIC SECTOR DECOMPOSITION
 # =============================================================================
@@ -409,7 +407,6 @@ class AethericSectorOperator:
             result += alpha * self._components[pole]
         
         return result
-
 
 # =============================================================================
 # META-HYBRID OPERATOR (ℋ_c)
@@ -569,7 +566,6 @@ class MetaHybridOperator:
             ratios = sorted_evals[1:] / (sorted_evals[:-1] + 1e-10)
             return np.mean(ratios)
 
-
 # =============================================================================
 # FULL COUPLED SYSTEM (ℍ_full)
 # =============================================================================
@@ -703,7 +699,6 @@ class FullHybridSystem:
         
         return mixing
 
-
 # =============================================================================
 # DIMENSIONAL LIFT (256 → 1024)
 # =============================================================================
@@ -767,7 +762,6 @@ class DimensionalLift:
         
         return base_state
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -830,7 +824,6 @@ def validate_operators() -> bool:
     assert len(base_state) == 256
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Aetheric operators...")

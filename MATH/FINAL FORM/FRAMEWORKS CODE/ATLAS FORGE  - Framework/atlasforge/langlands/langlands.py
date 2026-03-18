@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       LANGLANDS PROGRAM MODULE                               ║
@@ -23,7 +27,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # REDUCTIVE GROUPS AND DUAL GROUPS
@@ -77,7 +80,6 @@ class ReductiveGroup:
         """Sp_{2n}."""
         return cls(f"Sp_{2*n}", n, base_field=F)
 
-
 @dataclass
 class LGroup:
     """
@@ -90,7 +92,6 @@ class LGroup:
     
     def __repr__(self) -> str:
         return f"^L {self.dual_group.name}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # AUTOMORPHIC REPRESENTATIONS
@@ -125,7 +126,6 @@ class AutomorphicRepresentation:
         """Conductor of π."""
         return f"N({self.name})"
 
-
 @dataclass
 class CuspidalForm:
     """
@@ -147,7 +147,6 @@ class CuspidalForm:
     def hecke_eigenform(self) -> str:
         """Hecke eigenform condition."""
         return "T_p φ = λ_p φ for Hecke operators T_p"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GALOIS REPRESENTATIONS
@@ -187,7 +186,6 @@ class GaloisRepresentation:
         """ρ_f,ℓ from modular form (Deligne)."""
         return cls(2, f"ℚ_{ell}", f"ρ_{{{f},{ell}}}")
 
-
 @dataclass
 class WeilDeligneRepresentation:
     """
@@ -202,7 +200,6 @@ class WeilDeligneRepresentation:
     def local_l_factor(self, s: complex) -> str:
         """Local L-factor L(s, ρ, N)."""
         return f"L(s, ρ) = det(1 - Frob · q^{{-s}} | V^{{I,N=0}})^{{-1}}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # L-FUNCTIONS
@@ -234,7 +231,6 @@ class AutomorphicLFunction:
         """Critical values and periods."""
         return "L(k, π) / Ω_π ∈ algebraic (Deligne's conjecture)"
 
-
 @dataclass
 class RankinSelbergLFunction:
     """
@@ -250,7 +246,6 @@ class RankinSelbergLFunction:
     def integral_representation(self) -> str:
         """Rankin-Selberg integral."""
         return "L(s, π × π') = ∫ φ(g) φ'(g) E(g, s) dg"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LANGLANDS CORRESPONDENCE
@@ -282,7 +277,6 @@ class LocalLanglandsCorrespondence:
         """ε(s, π_v, ψ) = ε(s, ρ_v, ψ)."""
         return "ε(s, π_v, ψ) = ε(s, ρ_v, N_v, ψ)"
 
-
 @dataclass
 class GlobalLanglandsConjecture:
     """
@@ -311,7 +305,6 @@ class GlobalLanglandsConjecture:
             "Symplectic/Orthogonal (Arthur)"
         ]
 
-
 @dataclass
 class Functoriality:
     """
@@ -337,7 +330,6 @@ class Functoriality:
         """L(s, π_G, std) = L(s, π_H, r)."""
         return "L(s, lift(π_H), std) = L(s, π_H, r)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECIAL CASES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -359,7 +351,6 @@ class ClassFieldTheory:
         """χ ↔ σ_χ."""
         return "Hecke characters ↔ 1-dim Galois representations"
 
-
 @dataclass
 class ModularityTheorem:
     """
@@ -380,7 +371,6 @@ class ModularityTheorem:
     def serre_conjecture(self) -> str:
         """Serre's modularity conjecture (proven)."""
         return "Odd irreducible ρ̄: Gal(ℚ̄/ℚ) → GL_2(𝔽_p) is modular"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -432,7 +422,6 @@ class LanglandsPoleBridge:
         """
         return "Σ ↔ Periods: L(k,π)/Ω ∈ algebraic"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -441,32 +430,26 @@ def reductive_group(name: str, rank: int) -> ReductiveGroup:
     """Create reductive group."""
     return ReductiveGroup(name, rank)
 
-
 def automorphic_rep(G: ReductiveGroup, name: str, 
                     cuspidal: bool = True) -> AutomorphicRepresentation:
     """Create automorphic representation."""
     return AutomorphicRepresentation(G, name, cuspidal)
 
-
 def galois_rep(dim: int, coeffs: str = "ℚ_ℓ") -> GaloisRepresentation:
     """Create Galois representation."""
     return GaloisRepresentation(dim, coeffs)
-
 
 def local_langlands(G: ReductiveGroup) -> LocalLanglandsCorrespondence:
     """Create local Langlands correspondence."""
     return LocalLanglandsCorrespondence(G)
 
-
 def global_langlands(G: ReductiveGroup) -> GlobalLanglandsConjecture:
     """Create global Langlands conjecture."""
     return GlobalLanglandsConjecture(G)
 
-
 def functoriality(H: ReductiveGroup, G: ReductiveGroup) -> Functoriality:
     """Create functoriality statement."""
     return Functoriality(H, G)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

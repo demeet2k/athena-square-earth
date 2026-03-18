@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=325 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import argparse
@@ -10,7 +14,6 @@ from self_actualize.runtime.hemisphere_synthesis_support import (
     record,
     search,
 )
-
 
 def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--query", default="")
@@ -27,7 +30,6 @@ def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--route-mode", dest="route_mode")
     parser.add_argument("--proof-state", dest="proof_state")
     parser.add_argument("--top-level", dest="top_level")
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Synthesize bilateral Myth/MATH route explanations.")
@@ -111,7 +113,6 @@ def main() -> int:
 
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

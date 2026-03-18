@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=126 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - EPICS: STATE EXTRACTION
 ====================================
@@ -28,7 +32,6 @@ import numpy as np
 
 from .epic_registry import EpicEntry, SystemDomain
 
-
 # =============================================================================
 # STATE DIMENSIONS
 # =============================================================================
@@ -44,7 +47,6 @@ class StateDimension(Enum):
     ENVIRONMENTAL = "environmental"  # War, peace, omens
     COSMIC = "cosmic"             # Divine favor, fate, karma
 
-
 class StateScale(Enum):
     """Scale levels for state variables."""
     
@@ -54,7 +56,6 @@ class StateScale(Enum):
     HIGH = 3
     CRITICAL = 4
     OVERFLOW = 5
-
 
 # =============================================================================
 # STATE VARIABLE
@@ -112,7 +113,6 @@ class StateVariable:
     def is_at_threshold(self, threshold: float = 0.9) -> bool:
         """Check if variable is at critical threshold."""
         return self.value >= threshold
-
 
 # =============================================================================
 # COMMON STATE VARIABLES
@@ -240,9 +240,7 @@ def create_common_state_variables() -> Dict[str, StateVariable]:
         ),
     }
 
-
 COMMON_VARIABLES = create_common_state_variables()
-
 
 # =============================================================================
 # STATE VECTOR
@@ -328,7 +326,6 @@ class StateVector:
     @property
     def variables(self) -> Dict[str, StateVariable]:
         return self._variables
-
 
 # =============================================================================
 # STATE SPACE
@@ -426,7 +423,6 @@ class StateSpace:
     def time(self) -> int:
         return self._time
 
-
 # =============================================================================
 # STATE EXTRACTOR
 # =============================================================================
@@ -479,7 +475,6 @@ class StateExtractor:
             "dimension_epic1": space1.state.dimension,
             "dimension_epic2": space2.state.dimension
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -551,7 +546,6 @@ def validate_state_extraction() -> bool:
     assert "shared_variables" in comparison
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating State Extraction Module...")

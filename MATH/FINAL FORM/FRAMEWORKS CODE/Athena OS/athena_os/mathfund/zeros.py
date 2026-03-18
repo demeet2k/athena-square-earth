@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A7:S17→Xi108:W2:A7:S19→Xi108:W1:A7:S18→Xi108:W3:A7:S18→Xi108:W2:A6:S18→Xi108:W2:A8:S18
+
 """
 ATHENA OS - Zero Hierarchy and Hardening
 ========================================
@@ -30,7 +34,6 @@ from .lenses import (
     PHI, E, PI, TAU, LN_PHI
 )
 
-
 # =============================================================================
 # ZERO TYPES
 # =============================================================================
@@ -44,7 +47,6 @@ class ZeroType(Enum):
     SINGULAR = auto()        # Intersection + det J = 0
     CANCELLATION = auto()    # Sum of terms cancels: Σ w_i F_i = 0
     CYCLE = auto()           # f^n(x*) = x* (periodic point)
-
 
 # =============================================================================
 # ZERO POINT
@@ -114,7 +116,6 @@ class ZeroPoint:
             x = x - fx / fpx
         
         return None
-
 
 # =============================================================================
 # ZERO HIERARCHY
@@ -204,7 +205,6 @@ class ZeroHierarchy:
         
         return None
 
-
 # =============================================================================
 # INTERSECTION ZEROS
 # =============================================================================
@@ -274,7 +274,6 @@ class IntersectionZero:
     def verify(self, tol: float = 1e-8) -> bool:
         """Verify all constraints are satisfied."""
         return all(abs(h(self.value)) < tol for h in self.constraints)
-
 
 # =============================================================================
 # ZERO SETS
@@ -373,7 +372,6 @@ class ZeroSet:
         
         return transported_set
 
-
 # =============================================================================
 # LATTICE ZEROS
 # =============================================================================
@@ -448,7 +446,6 @@ class LatticeZero:
             lattice_type="phi_lattice"
         )
 
-
 # =============================================================================
 # CROSS-SYMMETRY ZEROS
 # =============================================================================
@@ -485,7 +482,6 @@ class CrossSymmetryZero:
         self.zeros = zero_set.zeros
         return found
 
-
 # =============================================================================
 # CANCELLATION ZEROS
 # =============================================================================
@@ -514,7 +510,6 @@ class CancellationZero:
         zero_set = ZeroSet(self.weighted_sum, "cancellation")
         zero_set.find_zeros_in_interval(a, b)
         return zero_set.zeros
-
 
 # =============================================================================
 # VALIDATION
@@ -560,7 +555,6 @@ def validate_zeros() -> bool:
     # Solutions should be near π/4 and 5π/4
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zeros Module...")

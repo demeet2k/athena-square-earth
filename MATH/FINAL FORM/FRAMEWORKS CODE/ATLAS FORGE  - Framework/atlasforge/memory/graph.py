@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=130 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """A tiny knowledge graph for the AtlasForge memory bank.
 
 AtlasForge entries are most powerful when they are *linked*:
@@ -20,10 +24,8 @@ import hashlib
 import json
 import os
 
-
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def _edge_hash(src: str, dst: str, relation: str, note: str, meta: Dict[str, Any]) -> str:
     payload = {
@@ -35,7 +37,6 @@ def _edge_hash(src: str, dst: str, relation: str, note: str, meta: Dict[str, Any
     }
     b = json.dumps(payload, sort_keys=True, ensure_ascii=False).encode("utf-8")
     return hashlib.sha256(b).hexdigest()
-
 
 @dataclass
 class GraphEdge:
@@ -72,7 +73,6 @@ class GraphEdge:
             meta=dict(d.get("meta", {}) or {}),
             created_at=d.get("created_at", _utc_now_iso()),
         )
-
 
 class GraphStore:
     """File-backed store for graph edges."""
@@ -162,7 +162,6 @@ class GraphStore:
     def neighbors(self, node: str, relation: Optional[str] = None, limit: int = 200) -> List[str]:
         """Return dst nodes reachable from node."""
         return [e.dst for e in self.edges(src=node, relation=relation, limit=limit)]
-
 
     def closure(
         self,

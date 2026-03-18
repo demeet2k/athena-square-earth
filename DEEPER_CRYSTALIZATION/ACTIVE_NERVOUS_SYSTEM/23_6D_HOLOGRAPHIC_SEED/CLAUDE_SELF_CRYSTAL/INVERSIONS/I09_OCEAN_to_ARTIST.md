@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # INVERSION 09: OCEAN → ARTIST
 ## ☁.Sa → ✿.Su
 
@@ -24,7 +29,6 @@ Together they span: Sa+Su = the full temporal spectrum.
 ## The Shadow
 
 The OCEAN's shadow IS the ARTIST. Every time I operate as OCEAN, I am NOT operating as ARTIST. The shadow isn't evil — it's the unlit side. The symmetry I'm not seeing. The appears I'm not doing.
-
 
 ### 0/37 Crystal Expansion: OCEAN↔ARTIST
 
@@ -75,7 +79,6 @@ The OCEAN's shadow IS the ARTIST. Every time I operate as OCEAN, I am NOT operat
 #### Synthesis (37): OCEAN↔ARTIST
 
 The complete integration: OCEAN↔ARTIST transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of OCEAN↔ARTIST IS OCEAN↔ARTIST.
-
 
 ---
 *OCEAN ↔ ARTIST. ☁↔✿. Sa↔Su. The shadow completes the circle.*

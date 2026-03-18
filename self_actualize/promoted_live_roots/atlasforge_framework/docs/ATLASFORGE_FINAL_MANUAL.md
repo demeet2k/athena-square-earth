@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S29 | face=F | node=415 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A11:S28→Xi108:W3:A11:S30→Xi108:W2:A11:S29→Xi108:W3:A10:S29→Xi108:W3:A12:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 11/12 -->
+
 # AtlasForge v4 — Final Integrated Manual
 
 **Version:** `4.0.0-ABSOLUTE-FINAL-ULTIMATE`  
@@ -572,8 +577,6 @@ Evidence levels are enforced via `TruthProfile`:
 
 ---
 
-
-
 ## 4.7 The Tome Library
 
 Beyond the kernel, AtlasForge contains a large set of **domain tomes**.  
@@ -743,8 +746,6 @@ This subsystem defines a heavier proof apparatus:
 
 The kernel certificate system (`atlasforge.certificates`) is the lightweight path currently integrated into `RecipeExecutor`.  
 The proof engine can be treated as an upstream “formal layer” that can later replace or enrich certificate bundles (L3).
-
-
 
 # 5. Memory bank
 
@@ -1080,8 +1081,6 @@ AtlasForge is designed to grow by adding modules that attach to the spine.
 
 ---
 
-
-
 ## 9.4 Kernel artifact schemas (dataclass fields)
 
 These are the “shape contracts” you can rely on when scripting AtlasForge.
@@ -1195,7 +1194,5 @@ The best workflow is:
 1) start with “reasonable” assignments,  
 2) refine as your atlas grows,  
 3) rely on dependency edges + tags to keep everything searchable during refactors.
-
-
 
 _End of manual._

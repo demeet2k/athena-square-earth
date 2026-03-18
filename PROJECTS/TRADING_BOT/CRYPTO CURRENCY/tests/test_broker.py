@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S18 | face=R | node=171 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A7:S17→Xi108:W2:A7:S19→Xi108:W1:A7:S18→Xi108:W3:A7:S18→Xi108:W2:A6:S18→Xi108:W2:A8:S18
+
 from __future__ import annotations
 
 import sys
@@ -11,7 +15,6 @@ if str(ROOT) not in sys.path:
 from athena_bot.broker import PaperBroker  # noqa: E402
 from athena_bot.config import AthenaBotConfig  # noqa: E402
 from athena_bot.models import PortfolioState, SignalSnapshot  # noqa: E402
-
 
 class BrokerTests(unittest.TestCase):
     def setUp(self) -> None:

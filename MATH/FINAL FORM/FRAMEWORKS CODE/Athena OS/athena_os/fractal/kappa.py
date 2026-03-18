@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - Kappa (κ): Texture Density and Autopoiesis
 ======================================================
@@ -32,7 +36,6 @@ import numpy as np
 import math
 
 from .ontology import Sector
-
 
 # =============================================================================
 # KAPPA (κ) - TEXTURE DENSITY
@@ -83,7 +86,6 @@ class KappaState:
         """
         return self.kappa >= threshold and self.coherence >= threshold
 
-
 @dataclass
 class KappaFlux:
     """
@@ -101,7 +103,6 @@ class KappaFlux:
     path: List[str] = field(default_factory=list)  # Intermediate states
     sector: Sector = Sector.WATER  # Which sector governs this flow
 
-
 # =============================================================================
 # HYBRID HILBERT LATTICE
 # =============================================================================
@@ -116,7 +117,6 @@ class HybridRegime(IntEnum):
     WATER_UNITARY = 1    # iD_Water: Unitary flow
     FIRE_STOCHASTIC = 2  # D_Fire^γ: Stochastic expansion
     AIR_FRACTAL = 3      # D_Air^φ: Renormalization
-
 
 @dataclass
 class HybridHilbertLattice:
@@ -215,7 +215,6 @@ class HybridHilbertLattice:
         
         return abs(current - initial) <= tolerance
 
-
 # =============================================================================
 # AUTOPOIESIS
 # =============================================================================
@@ -279,7 +278,6 @@ class Seed:
             kappa=float(np.linalg.norm(generator))
         )
 
-
 @dataclass
 class Gene:
     """
@@ -315,7 +313,6 @@ class Gene:
         if not self.success_history:
             return 0.0
         return sum(self.success_history) / len(self.success_history)
-
 
 @dataclass
 class AutopoieticSystem:
@@ -439,7 +436,6 @@ class AutopoieticSystem:
         """Check if system is still autopoietic (resisting entropy)."""
         return self.state.kappa >= threshold
 
-
 # =============================================================================
 # κ-SOLENOID
 # =============================================================================
@@ -516,7 +512,6 @@ class KappaSolenoid:
         """Check if solenoid is stable (above κ floor)."""
         return self.global_kappa() >= self.kappa_floor * len(self.subsystems)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -570,7 +565,6 @@ def validate_kappa() -> bool:
     assert solenoid.cycles == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Kappa System...")

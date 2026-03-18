@@ -1,3 +1,6 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
 
 """
 QP-GEMM: Quad-Polar Matrix Multiplication Framework (v3)
@@ -37,7 +40,6 @@ try:
     import scipy.sparse as sp
 except Exception:  # pragma: no cover
     sp = None
-
 
 # ----------------------------
 # Fingerprints + Experience DB
@@ -101,7 +103,6 @@ class GEMMFingerprint:
     def hash(self) -> str:
         return hashlib.md5(str(self._bucket()).encode("utf-8")).hexdigest()[:12]
 
-
 @dataclass
 class GEMMRecord:
     fingerprint: GEMMFingerprint
@@ -120,7 +121,6 @@ class GEMMRecord:
         if self.approx_error is not None:
             epen = error_weight * self.approx_error
         return self.time_sec + self.overhead_sec + epen
-
 
 class GEMMExperienceDB:
     """
@@ -178,7 +178,6 @@ class GEMMExperienceDB:
                 d += 0.0 if x == y else 1.0
         return d
 
-
 # ----------------------------
 # Σ probes (cheap diagnostics)
 # ----------------------------
@@ -191,7 +190,6 @@ def _sparsity(A: np.ndarray, sample: int = 8192) -> float:
         return float(np.mean(np.abs(x) < 1e-12))
     idx = np.random.randint(0, x.size, size=sample)
     return float(np.mean(np.abs(x[idx]) < 1e-12))
-
 
 def estimate_rank_ratio(A: np.ndarray, rank_probe: int = 16, oversample: int = 6, seed: int = 0) -> float:
     """
@@ -223,7 +221,6 @@ def estimate_rank_ratio(A: np.ndarray, rank_probe: int = 16, oversample: int = 6
     # map energy concentration -> "rank ratio" (lower is more compressible)
     return float(max(0.0, min(1.0, 1.0 - frac)))
 
-
 def randomized_svd(A: np.ndarray, rank: int, n_iter: int = 1, seed: int = 0) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Randomized SVD, returns U,S,Vt with S descending.
@@ -245,7 +242,6 @@ def randomized_svd(A: np.ndarray, rank: int, n_iter: int = 1, seed: int = 0) -> 
     Vt = Vt[:r, :]
     return U, S, Vt
 
-
 def validate_approx(A: np.ndarray, B: np.ndarray, C: np.ndarray, checks: int = 3, seed: int = 0) -> float:
     """
     Cheap validation for A@B ≈ C without forming full reference:
@@ -263,7 +259,6 @@ def validate_approx(A: np.ndarray, B: np.ndarray, C: np.ndarray, checks: int = 3
         err = float(np.linalg.norm(y_hat - y_ref) / denom)
         worst = max(worst, err)
     return worst
-
 
 # ----------------------------
 # Strassen (Ψ recursion)
@@ -299,7 +294,6 @@ def _strassen(A: np.ndarray, B: np.ndarray, leaf: int) -> np.ndarray:
     C[mid:, mid:] = C22
     return C
 
-
 # ----------------------------
 # Plan result
 # ----------------------------
@@ -312,8 +306,6 @@ class PlanResult:
     approx_error: Optional[float] = None
     overhead_sec: float = 0.0
     details: Dict[str, Any] = field(default_factory=dict)
-
-
 
 @dataclass
 class CompiledGEMMPlan:
@@ -378,7 +370,6 @@ class CompiledGEMMPlan:
                 )
 
         return self.engine._run_plan(self.plan, A, B, self.fp, validate=self.allow_approx)
-
 
 # ----------------------------
 # QP-GEMM engine
@@ -568,7 +559,6 @@ class QPGEMM:
             reuse_b=bool(reuse_b),
         )
 
-
     def compile(
         self,
         A: np.ndarray,
@@ -686,7 +676,6 @@ class QPGEMM:
         if plan in ("lowrank_A", "lowrank_B"):
             _ = self._run_plan(plan, A, B, fp, validate=allow_approx)
 
-
     def _candidate_plans(self, fp: GEMMFingerprint) -> List[str]:
         plans: List[str] = ["blas"]
 
@@ -799,7 +788,6 @@ class QPGEMM:
 
     # ---- internal: plan execution ----
 
-
     def _run_plan(self, plan: str, A: np.ndarray, B: np.ndarray, fp: GEMMFingerprint, *, validate: bool) -> PlanResult:
         if plan == "blas":
             return self._plan_blas(A, B)
@@ -860,7 +848,6 @@ class QPGEMM:
     def _contig_key(self, X: np.ndarray, tag: str) -> str:
         # Back-compat alias
         return self._matrix_key(X, tag)
-
 
     def _get_contig(self, X: np.ndarray, tag: str) -> Tuple[np.ndarray, float]:
         key = self._contig_key(X, tag)
@@ -1020,7 +1007,6 @@ class QPGEMM:
             first_key = next(iter(dct))
             dct.pop(first_key, None)
 
-
 # ----------------------------
 # Ablation helper (standalone)
 # ----------------------------
@@ -1038,7 +1024,6 @@ def make_ablation_configs(verbose: bool = False) -> List[Tuple[str, QPGEMM]]:
         ("NO_Ω(Ψ+Σ)", QPGEMM(verbose=verbose, experience_db=shared_db, enable_psi=True, enable_sigma=True, enable_omega=False)),
         ("D_ONLY", QPGEMM(verbose=verbose, experience_db=shared_db, enable_psi=False, enable_sigma=False, enable_omega=False)),
     ]
-
 
 def summarize_ablation(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
     times = [r["time_sec"] for r in rows]

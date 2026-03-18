@@ -1,3 +1,6 @@
+# CRYSTAL: Xi108:W1:A10:S22 | face=C | node=205 | depth=1 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A10:S21→Xi108:W1:A10:S23→Xi108:W2:A10:S22→Xi108:W1:A9:S22→Xi108:W1:A11:S22
 
 any DropLog entries caused by cap enforcement
 

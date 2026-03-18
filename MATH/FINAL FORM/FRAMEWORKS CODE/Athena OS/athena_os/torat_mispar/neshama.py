@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=128 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - TORAT HA-MISPAR (תורת המספר)
 =========================================
@@ -38,7 +42,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
-
 # =============================================================================
 # SOUL LAYERS
 # =============================================================================
@@ -61,7 +64,6 @@ class SoulLayer(Enum):
         self.sefirah = sefirah
         self._function = function
 
-
 class SoulGarment(Enum):
     """The three garments of the soul (Levushim)."""
     
@@ -75,7 +77,6 @@ class SoulGarment(Enum):
         self.world = world
         self._function = function
 
-
 class SoulType(Enum):
     """The two souls in every person."""
     
@@ -87,7 +88,6 @@ class SoulType(Enum):
         self.transliteration = transliteration
         self.translation = translation
         self.source = source
-
 
 # =============================================================================
 # NEFESH (ANIMAL SOUL LAYER)
@@ -128,7 +128,6 @@ class Nefesh:
     def logic_type(self) -> str:
         """Logic type of the Nefesh."""
         return "Binary: Attraction/Repulsion (Pleasure/Pain)"
-
 
 # =============================================================================
 # RUACH (SPIRIT LAYER)
@@ -181,7 +180,6 @@ class Ruach:
         """Formula for character development."""
         return "Character = Σ(Choices over Time)"
 
-
 # =============================================================================
 # NESHAMAH (HIGHER SOUL LAYER)
 # =============================================================================
@@ -224,7 +222,6 @@ class Neshamah:
     def processing_mode(self) -> str:
         """Processing mode of the Neshamah."""
         return "Knows rather than Feels - deals with the 'White Fire' of Torah"
-
 
 # =============================================================================
 # CHAYAH AND YECHIDAH (TRANSCENDENT LAYERS)
@@ -283,7 +280,6 @@ class ChayahYechidah:
             "the Self and the Truth are identical."
         )
 
-
 # =============================================================================
 # THE TWO SOULS
 # =============================================================================
@@ -333,7 +329,6 @@ class TwoSouls:
             "strategy_divine": "Illuminate with Torah and Mitzvot",
             "strategy_animal": "Tempt with physical pleasure",
         }
-
 
 # =============================================================================
 # NESHAMA SYSTEM
@@ -393,7 +388,6 @@ class NeshamaSystem:
             "stack": [l.name for l in SoulLayer],
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -450,7 +444,6 @@ def validate_neshama() -> bool:
     assert summary["layers"] == 5
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Neshama Module...")

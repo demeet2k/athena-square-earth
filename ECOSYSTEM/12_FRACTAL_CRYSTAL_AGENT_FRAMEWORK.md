@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S26 | face=F | node=329 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,✶ -->
+<!-- BRIDGES: Xi108:W3:A4:S25→Xi108:W3:A4:S27→Xi108:W2:A4:S26→Xi108:W3:A3:S26→Xi108:W3:A5:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 4/12 -->
+
 # FRACTAL CRYSTAL AGENT FRAMEWORK
 
 ## Purpose

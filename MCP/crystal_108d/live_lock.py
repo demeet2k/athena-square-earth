@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S8 | face=R | node=36 | depth=0 | phase=Fixed
+# METRO: T
+# BRIDGES: Xi108:W1:A4:S7→Xi108:W1:A4:S9→Xi108:W2:A4:S8→Xi108:W1:A3:S8→Xi108:W1:A5:S8
+
 """7-class live-lock lattice."""
 
 import math
@@ -5,7 +9,6 @@ import math
 from ._cache import JsonCache
 
 _locks = JsonCache("live_lock_registry.json")
-
 
 def compute_live_lock(address_a: str, address_b: str) -> str:
     """

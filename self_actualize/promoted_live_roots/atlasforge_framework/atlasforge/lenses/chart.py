@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Charts & Lenses                         ║
@@ -19,16 +23,13 @@ T = TypeVar('T')
 S = TypeVar('S')
 Numeric = Union[int, float, complex]
 
-
 class ChartError(Exception):
     """Exception raised for chart-related errors."""
     pass
 
-
 class CorridorViolation(ChartError):
     """Exception raised when a corridor condition is violated."""
     pass
-
 
 @dataclass(frozen=True)
 class CorridorCondition:
@@ -58,7 +59,6 @@ class CorridorCondition:
             if context:
                 msg = f"{context}: {msg}"
             raise CorridorViolation(msg)
-
 
 class Chart(ABC, Generic[T, S]):
     """Abstract base class for charts (coordinate transformations)."""
@@ -121,7 +121,6 @@ class Chart(ABC, Generic[T, S]):
             return self.forward(g(x))
         return pushed_forward
 
-
 @dataclass
 class ComposedChart(Chart[T, Any]):
     """Composition of two charts."""
@@ -145,7 +144,6 @@ class ComposedChart(Chart[T, Any]):
     
     def inverse(self, z: Any) -> T:
         return self.inner.inverse(self.outer.inverse(z))
-
 
 class Lens(Chart[T, S]):
     """A Lens is a named, reusable chart with metadata."""
@@ -184,7 +182,6 @@ class Lens(Chart[T, S]):
             return self._jacobian_fn(x)
         return super().jacobian(x)
 
-
 @dataclass
 class ChartCertificate:
     """Certificate attesting to properties of a chart."""
@@ -196,7 +193,6 @@ class ChartCertificate:
     jacobian_upper_bound: Optional[float] = None
     corridor_valid: Optional[bool] = None
     level: CertificateLevel = CertificateLevel.L0_CLAIM
-
 
 class ChartFactory:
     """Factory for creating common charts."""

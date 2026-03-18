@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=130 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - THE MATH OF ALCHEMY
 ================================
@@ -47,7 +51,6 @@ from enum import Enum, auto
 
 from .elements import ElementalState, ElementalSystem, Element
 
-
 # =============================================================================
 # TRIA PRIMA TYPES
 # =============================================================================
@@ -67,7 +70,6 @@ class PrincipleType(Enum):
         self.operator_type = operator_type
         self._function = function
 
-
 class Modality(Enum):
     """The Three Modalities."""
     
@@ -79,7 +81,6 @@ class Modality(Enum):
         self._name = name
         self._function = function
         self.zodiac_indices = zodiac_indices
-
 
 # =============================================================================
 # SULFUR OPERATOR - GRADIENT/CARDINAL
@@ -145,7 +146,6 @@ class SulfurOperator:
             "zodiac": self.cardinal_zodiac,
         }
 
-
 # =============================================================================
 # MERCURY OPERATOR - FLUX/MUTABLE
 # =============================================================================
@@ -204,7 +204,6 @@ class MercuryOperator:
             "function": "Circulation, mixing, volatility",
             "zodiac": self.mutable_zodiac,
         }
-
 
 # =============================================================================
 # SALT OPERATOR - INTEGRAL/FIXED
@@ -281,7 +280,6 @@ class SaltOperator:
             "function": "Stabilization, memory, fixation",
             "zodiac": self.fixed_zodiac,
         }
-
 
 # =============================================================================
 # COMBINED TRIA PRIMA SYSTEM
@@ -403,7 +401,6 @@ class TriaPrimaSystem:
             "equation": "dΨ/dt = F(Ψ) + M(Ψ) + S(Ψ)",
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -461,7 +458,6 @@ def validate_tria_prima() -> bool:
     assert "salt" in summary
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Tria Prima Module...")

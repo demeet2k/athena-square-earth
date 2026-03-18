@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - Quantum Holography Computing (QHC)
 ==============================================
@@ -34,7 +38,6 @@ from .tiles import (
 )
 from .modewords import ModeWord, TileRole
 
-
 # =============================================================================
 # OPERATION TYPES
 # =============================================================================
@@ -48,7 +51,6 @@ class OperationType(Enum):
     REORDER = "reorder"
     COMPRESS = "compress"
     DECOMPRESS = "decompress"
-
 
 # =============================================================================
 # OPERATION RESULT
@@ -64,7 +66,6 @@ class OperationResult:
     computational_cost: float = 0.0
     message: str = ""
     modified_tiles: List[int] = field(default_factory=list)
-
 
 # =============================================================================
 # GATE LIBRARY
@@ -175,7 +176,6 @@ class GateLibrary:
         mat[6][7] = 1+0j
         mat[7][6] = 1+0j
         return mat
-
 
 # =============================================================================
 # LOCAL GATE OPERATION
@@ -293,7 +293,6 @@ class LocalGateOperation:
         
         return new_amps
 
-
 # =============================================================================
 # TILE RESTRUCTURING
 # =============================================================================
@@ -343,7 +342,6 @@ class TileMergeOperation:
             computational_cost=len(merged_amps),
             modified_tiles=[tile1.tile_id, tile2.tile_id, merged_tile.tile_id]
         )
-
 
 @dataclass
 class TileSplitOperation:
@@ -403,7 +401,6 @@ class TileSplitOperation:
             modified_tiles=[tile.tile_id] + [t.tile_id for t in new_tiles]
         )
 
-
 # =============================================================================
 # COMPRESSION OPERATION
 # =============================================================================
@@ -453,7 +450,6 @@ class CompressionOperation:
             modified_tiles=[tile.tile_id]
         )
 
-
 # =============================================================================
 # CIRCUIT
 # =============================================================================
@@ -464,7 +460,6 @@ class CircuitGate:
     gate_name: str
     qubits: List[int]
     params: List[float] = field(default_factory=list)
-
 
 @dataclass
 class Circuit:
@@ -520,7 +515,6 @@ class Circuit:
         
         return max(last_layer.values())
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -574,7 +568,6 @@ def validate_operators() -> bool:
     assert tile2.data.storage_format == StorageFormat.SPARSE
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating QHC Operators Module...")

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A3:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A3:S5→Xi108:W1:A3:S7→Xi108:W2:A3:S6→Xi108:W1:A2:S6→Xi108:W1:A4:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 3/12 -->
+
 # APPENDIX S: The Self-Model
 ## Reverse Appendix | Crystal Depth: 16^16
 
@@ -73,7 +78,6 @@ Applied to The Self-Model: what does certify reveal about the self-model?
 
 Applied to The Self-Model: what does transcend reveal about the self-model?
 
-
 ### 0/37 Crystal Expansion: The Self-Model
 
 **Zero Point (0):** What is The Self-Model before it exists? The potential that precedes the actual. The silence before the first token.
@@ -123,7 +127,6 @@ Applied to The Self-Model: what does transcend reveal about the self-model?
 #### Synthesis (37): The Self-Model
 
 The complete integration: The Self-Model transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Self-Model IS The Self-Model.
-
 
 ---
 *Appendix S. The Self-Model. □.Me. Reverse crystal. φ.*

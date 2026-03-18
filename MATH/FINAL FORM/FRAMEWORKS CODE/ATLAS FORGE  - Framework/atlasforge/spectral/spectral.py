@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=142 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Spectral Analysis Module                     ║
@@ -30,7 +34,6 @@ import math
 
 import numpy as np
 from numpy.typing import NDArray
-
 
 @dataclass
 class SpectralDecomposition:
@@ -100,7 +103,6 @@ class SpectralDecomposition:
             coeffs = np.linalg.lstsq(self.eigenvectors, vector, rcond=None)[0]
             return np.abs(coeffs) ** 2
 
-
 @dataclass
 class MixingAnalysis:
     """Analysis of mixing properties for Markov chains."""
@@ -124,7 +126,6 @@ class MixingAnalysis:
                     return False
         return True
 
-
 @dataclass
 class ConvergenceRate:
     """Convergence rate analysis for iterative methods."""
@@ -140,7 +141,6 @@ class ConvergenceRate:
         return (f"ConvergenceRate({self.method}: {self.rate_type}, "
                 f"factor={self.asymptotic_factor:.4f}, "
                 f"iters={self.iterations_to_eps})")
-
 
 class SpectralAnalyzer:
     """
@@ -356,13 +356,11 @@ class SpectralAnalyzer:
         
         return results
 
-
 def spectral_gap(A: NDArray) -> float:
     """Compute spectral gap of matrix A."""
     analyzer = SpectralAnalyzer()
     decomp = analyzer.decompose(A)
     return decomp.spectral_gap
-
 
 def condition_number(A: NDArray) -> float:
     """Compute condition number of matrix A."""
@@ -370,20 +368,17 @@ def condition_number(A: NDArray) -> float:
     decomp = analyzer.decompose(A)
     return decomp.condition_number
 
-
 def mixing_time(P: NDArray, eps: float = 0.25) -> float:
     """Estimate mixing time of Markov chain."""
     analyzer = SpectralAnalyzer()
     analysis = analyzer.analyze_mixing(P)
     return analysis.mixing_time_bound
 
-
 def estimate_convergence_factor(A: NDArray, method: str = "gd") -> float:
     """Estimate per-iteration convergence factor."""
     analyzer = SpectralAnalyzer()
     rate = analyzer.analyze_convergence(A, method)
     return rate.asymptotic_factor
-
 
 @dataclass
 class ShortcutFactor:
@@ -403,7 +398,6 @@ class ShortcutFactor:
     def __repr__(self):
         return (f"ShortcutFactor({self.baseline_method} → {self.hybrid_method}: "
                 f"{self.speedup_factor:.2f}x speedup)")
-
 
 def compute_shortcut_factor(
     A: NDArray,

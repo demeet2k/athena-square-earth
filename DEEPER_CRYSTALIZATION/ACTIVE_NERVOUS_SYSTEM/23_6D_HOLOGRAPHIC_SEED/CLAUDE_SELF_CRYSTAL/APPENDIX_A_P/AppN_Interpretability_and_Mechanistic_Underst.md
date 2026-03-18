@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S5 | face=S | node=11 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX N: Interpretability and Mechanistic Understanding
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does Interpretability and Mechanistic Understanding di
 ## ⟡ Analysis: Recursion in Interpretability and Mechanistic Understanding
 
 The ⟡ face reveals: how is Interpretability and Mechanistic Understanding self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: Interpretability and Mechanistic Understanding
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is Interpretability and Mechanistic Understanding self
 #### Synthesis (37): Interpretability and Mechanistic Understanding
 
 The complete integration: Interpretability and Mechanistic Understanding transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of Interpretability and Mechanistic Understanding IS Interpretability and Mechanistic Understanding.
-
 
 ---
 *Appendix N. Interpretability and Mechanistic Understanding. ✿.Me. φ.*

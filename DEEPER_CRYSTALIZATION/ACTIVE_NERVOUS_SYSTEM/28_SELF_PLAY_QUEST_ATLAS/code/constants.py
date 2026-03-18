@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A1:S5 | face=S | node=12 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A1:S4→Xi108:W1:A1:S6→Xi108:W2:A1:S5→Xi108:W1:A2:S5
+
 """
 KernelConst.v1 — LP-57Ω Canonical Constants
 
@@ -7,7 +11,6 @@ pheromone engine, leveling system, and board kernel.
 """
 
 import math
-
 
 # ═══════════════════════════════════════════════════════════════
 # PHI FAMILY
@@ -21,7 +24,6 @@ PHI_INV4 = PHI_INV ** 4                # 0.14589803375
 PHI_INV5 = PHI_INV ** 5                # 0.09016994375
 LN_PHI = math.log(PHI)                 # ~0.48121
 
-
 # ═══════════════════════════════════════════════════════════════
 # ORBIT / LOOP STRUCTURE
 # ═══════════════════════════════════════════════════════════════
@@ -34,14 +36,12 @@ SUBAGENT_BASE = 4
 SUBAGENT_DIGITS = 6
 SUBAGENT_CAPACITY = SUBAGENT_BASE ** SUBAGENT_DIGITS  # 4096 per master
 
-
 # ═══════════════════════════════════════════════════════════════
 # CRYSTAL / TILE
 # ═══════════════════════════════════════════════════════════════
 
 TILE_SIZE = 64           # base crystal tile
 SYMMETRY_CELLS = 15      # |P({F,A,W,E}) \ ∅|
-
 
 # ═══════════════════════════════════════════════════════════════
 # ROUTE LAW
@@ -82,7 +82,6 @@ ARC_HUB = {
     5: "AppN",
     6: "AppP",
 }
-
 
 # ═══════════════════════════════════════════════════════════════
 # REWARD / ECONOMY
@@ -139,7 +138,6 @@ MINT_RATES = {
     "Convergence":   PHI3,            # φ³  ~4.236
 }
 
-
 # ═══════════════════════════════════════════════════════════════
 # STORM THRESHOLDS
 # ═══════════════════════════════════════════════════════════════
@@ -151,7 +149,6 @@ STORM_BASE_DURATION = 5              # epochs
 STORM_POOL_BASE = 21
 STORM_POOL_SCALE = 13
 STORM_COALITION_BONUS = PHI_INV3     # ~0.236
-
 
 # ═══════════════════════════════════════════════════════════════
 # PHEROMONE PARAMETERS
@@ -166,7 +163,6 @@ MAGNET_POSITIVE_WEIGHT = 0.382
 MAGNET_SHADOW_WEIGHT = 0.618
 MAGNET_UNFINISHED_WEIGHT = 0.236
 MAGNET_PULSE_WEIGHT = 0.146
-
 
 # ═══════════════════════════════════════════════════════════════
 # UNLOCK LADDER (Fibonacci-numbered)
@@ -184,13 +180,11 @@ UNLOCK_LADDER = {
     89: "Migration review council",
 }
 
-
 # ═══════════════════════════════════════════════════════════════
 # VESTING
 # ═══════════════════════════════════════════════════════════════
 
 NEAR_VEST_RATIO = PHI_INV2           # ~0.382
-
 
 # ═══════════════════════════════════════════════════════════════
 # PASS TRANSFORMS
@@ -216,7 +210,6 @@ PASS_TRANSFORMS = {
         "d":    (PHI_INV2, PHI_INV, 1.0, PHI),
     },
 }
-
 
 # ═══════════════════════════════════════════════════════════════
 # TRUTH LATTICE

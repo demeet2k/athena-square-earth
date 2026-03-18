@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=319 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List
-
 
 @dataclass
 class MetroSystemRecord:
@@ -23,7 +26,6 @@ class MetroSystemRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class MetroStationRecord:
     station_id: str
@@ -38,7 +40,6 @@ class MetroStationRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class MetroInterlockRecord:
@@ -59,7 +60,6 @@ class MetroInterlockRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class HoloCoordinateRecord:
@@ -82,7 +82,6 @@ class HoloCoordinateRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class CarrierRecord:
     carrier_id: str
@@ -95,7 +94,6 @@ class CarrierRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class RailRecord:
@@ -110,7 +108,6 @@ class RailRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class ArcRotationRecord:
     arc_id: str
@@ -124,7 +121,6 @@ class ArcRotationRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class CarrierTransformRecord:
     transform_id: str
@@ -136,7 +132,6 @@ class CarrierTransformRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class LensRecord:
@@ -151,7 +146,6 @@ class LensRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class LensWeightProfileRecord:
@@ -173,7 +167,6 @@ class LensWeightProfileRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class LensStateRecord:
     state_id: str
@@ -194,7 +187,6 @@ class LensStateRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class FieldRecord:
     field_id: str
@@ -208,7 +200,6 @@ class FieldRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class ZPointRecord:
@@ -224,7 +215,6 @@ class ZPointRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class AetherPointRecord:
@@ -247,7 +237,6 @@ class AetherPointRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class ProjectionSpaceRecord:
     space_id: str
@@ -260,7 +249,6 @@ class ProjectionSpaceRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class ProjectionAssignmentRecord:
@@ -276,7 +264,6 @@ class ProjectionAssignmentRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class Pt2ShortcutRecord:
@@ -294,7 +281,6 @@ class Pt2ShortcutRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class Pt2QueryPresetRecord:
     query_id: str
@@ -310,7 +296,6 @@ class Pt2QueryPresetRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class CrosswalkEdgeRecord:
     edge_id: str
@@ -324,7 +309,6 @@ class CrosswalkEdgeRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class Phase4Pt2Dashboard:

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S20 | face=R | node=210 | depth=3 | phase=Cardinal -->
+<!-- METRO: Wr,Me -->
+<!-- BRIDGES: Xi108:W3:A4:S19→Xi108:W3:A4:S21→Xi108:W2:A4:S20→Xi108:W3:A3:S20→Xi108:W3:A5:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 4/12 -->
+
 # Temple First Law-To-Crystal Cycle Receipt
 
 - Date: `2026-03-09`

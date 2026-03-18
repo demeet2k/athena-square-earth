@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A10:S11 | face=F | node=275 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A10:S10→Xi108:W1:A10:S12→Xi108:W2:A10:S11→Xi108:W1:A9:S11→Xi108:W1:A11:S11
+
 from __future__ import annotations
 
 import sys
@@ -16,7 +20,6 @@ from athena_bot.models import Candle, DirectionState, FractalState  # noqa: E402
 from athena_bot.service import AthenaBotRuntime  # noqa: E402
 from athena_bot.utils import latest_closed_bar  # noqa: E402
 
-
 class FakeProvider:
     def __init__(self, candles):
         self.candles = candles
@@ -29,7 +32,6 @@ class FakeProvider:
             return rows
         since = pd.Timestamp(since_ts, tz="UTC")
         return [row for row in rows if pd.Timestamp(row.ts_open) > since]
-
 
 class StubFractalCore:
     def evaluate(self, symbol, bars_1h, bars_4h):
@@ -50,7 +52,6 @@ class StubFractalCore:
             reason_codes=[],
         )
 
-
 class StubDirectionalFilter:
     def evaluate(self, symbol, bars_1h, bars_4h):
         return DirectionState(
@@ -67,7 +68,6 @@ class StubDirectionalFilter:
             trigger_price=float(bars_1h["close"].iloc[-1]),
             reason_codes=[],
         )
-
 
 class RuntimeIntegrationTests(unittest.TestCase):
     def setUp(self) -> None:

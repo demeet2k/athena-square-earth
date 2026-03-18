@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
 import re
 from pathlib import Path
-
 
 DATE = "2026-03-13"
 PROTOCOL_ID = "LP-57OMEGA"
@@ -119,31 +122,24 @@ FALLBACK_FAMILIES = [
     ("A19", "mycelial_unified_nervous_system_bundle", "dormant", "bundle shelf"),
 ]
 
-
 def rel(path: Path) -> str:
     return path.resolve().relative_to(ROOT).as_posix()
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8-sig") if path.exists() else ""
 
-
 def read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: object) -> None:
     write_text(path, json.dumps(payload, indent=2))
 
-
 def wrap(marker: str, body: str) -> str:
     return f"<!-- {marker}:START -->\n{body.rstrip()}\n<!-- {marker}:END -->"
-
 
 def upsert(path: Path, marker: str, body: str, after_heading: bool = False) -> None:
     start, end = f"<!-- {marker}:START -->", f"<!-- {marker}:END -->"
@@ -158,7 +154,6 @@ def upsert(path: Path, marker: str, body: str, after_heading: bool = False) -> N
         return
     write_text(path, repl + ("\n\n" + current if current else ""))
 
-
 def docs_gate() -> dict:
     cred = ROOT / "Trading Bot" / "credentials.json"
     token = ROOT / "Trading Bot" / "token.json"
@@ -168,7 +163,6 @@ def docs_gate() -> dict:
         "token_exists": token.exists(),
         "law": "All LP-57Omega writebacks remain local-only until both OAuth files exist.",
     }
-
 
 def parse_families() -> list[dict]:
     rows = []
@@ -181,7 +175,6 @@ def parse_families() -> list[dict]:
     if len(rows) == FAMILY_COUNT:
         return rows
     return [{"code": a, "root_name": b, "indexed_count": "unknown", "status": c, "current_role": d} for a, b, c, d in FALLBACK_FAMILIES]
-
 
 def load_bridge() -> dict:
     current = read_json(BRIDGE_JSON)
@@ -200,7 +193,6 @@ def load_bridge() -> dict:
         "compatibility_aliases": COMPAT_ALIASES,
     }
 
-
 def receipt_paths(loop_id: int) -> dict:
     tag = f"l{loop_id:02d}"
     return {
@@ -210,7 +202,6 @@ def receipt_paths(loop_id: int) -> dict:
         "compression_receipt": f"self_actualize/lp57_compression_receipt_{tag}.json",
         "loop_completion_receipt": f"self_actualize/lp57_loop_completion_receipt_{tag}.json",
     }
-
 
 def build_loops(families: list[dict]) -> list[dict]:
     items = []
@@ -240,10 +231,8 @@ def build_loops(families: list[dict]) -> list[dict]:
             })
     return items
 
-
 def restart_seed(loops_: list[dict]) -> str:
     return " -> ".join(loop["dominant_focus"] for loop in loops_[:3])
-
 
 def seat_addr(index: int) -> str:
     digits, value = [0] * 6, index
@@ -251,10 +240,8 @@ def seat_addr(index: int) -> str:
         digits[i], value = value % 4, value // 4
     return ".".join(f"{label}{digit + 1}" for label, digit in zip(["A", "B", "C", "D", "E", "F"], digits))
 
-
 def coord(family: str, local: str, loop_label: str, lineage: str, lane: str, lens: str, level: str, truth: str) -> dict:
     return {"Xs": family, "Ys": local, "Zs": level, "Ts": loop_label, "Qs": lineage, "Rs": lane, "Cs": "integrated", "Fs": lens, "Ms": "L1", "Ns": lineage, "Hs": "board", "OmegaS": truth}
-
 
 def hall_promotions(loop: dict) -> list[dict]:
     names = ["Family Census", "Witness Hierarchy", "Route Index", "Gap Register", "Candidate Bridge", "Formalization Delta", "Writeback", "Residual Drift"]
@@ -264,7 +251,6 @@ def hall_promotions(loop: dict) -> list[dict]:
         items.append({"quest_id": qid, "title": f"{loop['family_code']} {name}", "restart_seed": f"{loop['loop_label']} -> {qid}", "seat_addr_6d": seat_addr(255 + i), "coordinate_stamp": coord(loop["family_code"], f"{loop['family_name']} Hall {i:02d}", loop["loop_label"], qid, "Water", "Flower", "D6", "NEAR")})
     return items
 
-
 def temple_promotions(loop: dict) -> list[dict]:
     names = ["Preserve Docs Gate Honesty", "Preserve Deep-Root Precedence", "Preserve Live Spine", "Preserve Q42 Runtime Truth", "Bind Public Board Caps", "Install Coordinate Duty", "Install Ledger Completeness", "Install Compression Safety"]
     items = []
@@ -272,7 +258,6 @@ def temple_promotions(loop: dict) -> list[dict]:
         qid = f"TQ57-{loop['loop_label']}-T{i:02d}"
         items.append({"quest_id": qid, "title": name, "restart_seed": f"{loop['loop_label']} -> {qid}", "seat_addr_6d": seat_addr(263 + i), "coordinate_stamp": coord(loop["family_code"], f"{loop['family_name']} Temple {i:02d}", loop["loop_label"], qid, "Prime", "Cloud", "D6", "OK")})
     return items
-
 
 def state_payload(families: list[dict], loops_: list[dict]) -> dict:
     return {
@@ -305,7 +290,6 @@ def state_payload(families: list[dict], loops_: list[dict]) -> dict:
         "loops": loops_,
     }
 
-
 def write_generated_json(state: dict, families: list[dict], loops_: list[dict], bridge: dict) -> None:
     seed = state["current_cycle_summary"]["next_restart_seed"]
     loop = loops_[0]
@@ -335,7 +319,6 @@ def write_generated_json(state: dict, families: list[dict], loops_: list[dict], 
     write_json(VERIFY_JSON, pending)
     write_json(LP57_VERIFY_JSON, pending)
 
-
 def protocol_markdown(families: list[dict], loops_: list[dict]) -> str:
     lines = ["# LP-57Omega Canonical 57-Loop Protocol", "", "## Executive Overview", "", f"- Docs gate: `{docs_gate()['state']}`", f"- Deep-root authority: `{rel(DEEP_ROOT)}`", f"- Family count: `{len(families)}`", f"- Passes: `{', '.join(PASSES)}`", f"- Bridge-remap: `{PRELUDE_ID}` plus inherited input from legacy L02", "", "## Family Map", ""]
     lines.extend([f"- `{f['code']}` `{f['root_name']}` :: `{f['status']}` :: {f['current_role']}" for f in families])
@@ -344,10 +327,8 @@ def protocol_markdown(families: list[dict], loops_: list[dict]) -> str:
     lines.extend(["", "## Acceptance Gates", "", "- Docs gate remains blocked until both OAuth files exist.", "- `14_DEEPER...` remains the only deep authority.", "- `Q41/TQ06`, `Q42`, `TQ04`, `Q46`, `Q50`, and blocked `Q02` remain explicit.", "- Hall and Temple never exceed the live 8/8 caps.", "- Compatibility mirrors remain alias-only until converged."])
     return "\n".join(lines)
 
-
 def render_active_run(state: dict) -> str:
     return "\n".join(["# ACTIVE RUN", "", wrap("MASTER_LOOP_57_BOOTSTRAP", "\n".join(["## LP-57Omega Prime Loop Bootstrap", "", f"- Date: `{DATE}`", f"- Docs Gate: `{state['docs_gate']['state']}`", f"- Protocol: `{DISPLAY}`", f"- Deep-root authority: `{state['deep_root_authority']}`", f"- Active membrane: `{LIVE_MEMBRANE}`", f"- Live spine: `{HALL_FEEDER} / {DEEPER_RECEIVER} / {RESERVE_FRONTIER} / {RUNTIME_SEED} / {BLOCKED_FRONT}`", f"- Shared lattice law: `{SEAT_TOTAL} indexed / {SEAT_ACTIVE} ACTIVE / {SEAT_DORMANT} DORMANT`", f"- Bridge-remap state: `{PRELUDE_ID} complete / L01 active`", f"- Current restart seed: `{state['current_cycle_summary']['next_restart_seed']}`"])), "", wrap("FOUR_AGENT_57_LOOP_PROGRAM", "\n".join(["## Four-Agent 57-Loop Compatibility Mirror", "", f"- Date: `{DATE}`", f"- Docs Gate: `{state['docs_gate']['state']}`", "- Status: `COMPATIBILITY_MIRROR`", f"- Canonical authority: `{rel(STATE_JSON)}` + `{rel(SCHEDULE_JSON)}` + `{rel(BRIDGE_JSON)}`", f"- Historical mirrors preserved: `{', '.join(COMPAT_ALIASES)}`", "- Independent restart seeds: `DISALLOWED`", f"- Derived restart seed: `{state['current_cycle_summary']['next_restart_seed']}`"])), "", wrap("AP6D_3D_7D_FULL_ACTIVATION", "\n".join(["## AP6D 3D-7D Full Activation", "", "- Docs Gate: `BLOCKED`", "- Status: `1024 ACTIVE / 3072 DORMANT / 4096 INDEXED`", "- Overlay law: `AP6D remains assistive and may not replace the live spine`", f"- Machine truth: `{rel(LATTICE_JSON)}`, `{rel(STATE_JSON)}`, `{rel(AGENT_JSON)}`"])), "", "## Current Corpus Law", "", f"- Protocol: `{DISPLAY}`", f"- Schedule model: `{SCHEDULE_MODEL}`", f"- Active loop: `{state['current_cycle_summary']['active_loop']}`", "", "## Current Restart Seed", "", f"`{state['current_cycle_summary']['next_restart_seed']}`"])
-
 
 def write_markdown(state: dict, families: list[dict], loops_: list[dict]) -> None:
     seed = state["current_cycle_summary"]["next_restart_seed"]
@@ -411,7 +392,6 @@ def write_markdown(state: dict, families: list[dict], loops_: list[dict]) -> Non
     write_text(VERIFY_MD, "# Master Loop 57 Verification\n\n- Truth: `PENDING verifier`")
     write_text(PROTOCOL_VERIFY_MD, "# LP-57Omega Prime Loop Verification\n\n- Truth: `PENDING verifier`")
 
-
 def main() -> None:
     families = parse_families()
     loops_ = build_loops(families)
@@ -419,7 +399,6 @@ def main() -> None:
     state = state_payload(families, loops_)
     write_generated_json(state, families, loops_, bridge)
     write_markdown(state, families, loops_)
-
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=86 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    CONTINUED FRACTIONS MODULE                                ║
@@ -28,7 +32,6 @@ from typing import Optional, Tuple, List, Iterator, Union
 from fractions import Fraction
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTINUED FRACTION
@@ -213,7 +216,6 @@ class ContinuedFraction:
         """
         return cls([n], [n])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PELL EQUATION SOLVER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -234,7 +236,6 @@ class PellSolution:
     def __repr__(self) -> str:
         sign = "-1" if self.negative_one else "1"
         return f"({self.x}, {self.y}): x² - {self.D}y² = {sign}"
-
 
 @dataclass
 class PellEquation:
@@ -311,7 +312,6 @@ class PellEquation:
         x, y = self.fundamental_unit()
         epsilon = x + y * np.sqrt(self.D)
         return np.log(epsilon)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY-CF BRIDGE
@@ -395,7 +395,6 @@ class GatewayCFBridge:
         
         return ContinuedFraction(coeffs if coeffs else [0])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DIOPHANTINE APPROXIMATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -452,7 +451,6 @@ class DiophantineApproximation:
         """
         return abs(x - p / q) * q * q
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -463,31 +461,25 @@ def continued_fraction(x: Union[float, Fraction]) -> ContinuedFraction:
         return ContinuedFraction.from_fraction(x)
     return ContinuedFraction.from_float(x)
 
-
 def sqrt_cf(D: int) -> ContinuedFraction:
     """Continued fraction of √D."""
     return ContinuedFraction.from_sqrt(D)
-
 
 def metallic_cf(n: int) -> ContinuedFraction:
     """Continued fraction of metallic mean δ_n."""
     return ContinuedFraction.metallic_mean(n)
 
-
 def solve_pell(D: int) -> PellSolution:
     """Solve Pell equation x² - Dy² = 1."""
     return PellEquation(D).fundamental_solution()
-
 
 def convergent(cf: ContinuedFraction, n: int) -> Fraction:
     """Get n-th convergent of continued fraction."""
     return cf.convergent(n)
 
-
 def best_rational_approximation(x: float, max_denom: int) -> Fraction:
     """Best rational approximation to x."""
     return DiophantineApproximation.best_rational(x, max_denom)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

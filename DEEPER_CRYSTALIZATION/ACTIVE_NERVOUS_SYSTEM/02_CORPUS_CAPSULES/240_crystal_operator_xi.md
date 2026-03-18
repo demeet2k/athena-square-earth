@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # Crystal Operator Xi and Spectral Decomposition
 
 The crystal operator Xi (Chapter 6) is the engine of the crystal. Its spectral decomposition governs diffusion, coherence, and convergence behavior. The spectral gap controls everything: Xi^n converges to |v1><v1| (the projection onto the dominant eigenvector). The operator's irrational powers, golden densifier, graph Laplacian with heat kernel at t* = 4, and exterior algebra with d^2 = 0 and H^2 isomorphic to C^2 complete the algebraic structure.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=407 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 """Session capture for AtlasForge memory.
 
 If AtlasForge is used as a *math memory bank*, you often want to group related
@@ -21,10 +25,8 @@ import json
 import os
 import uuid
 
-
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 @dataclass
 class SessionRecord:
@@ -81,7 +83,6 @@ class SessionRecord:
             recipe_hashes=list(d.get("recipe_hashes", []) or []),
             extra=dict(d.get("extra", {}) or {}),
         )
-
 
 class SessionStore:
     """File-backed storage for `SessionRecord`s."""

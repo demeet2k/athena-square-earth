@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 """
 StormEngine.v1 — PhiStorm Spawn, Priority, and Duration
 
@@ -17,7 +21,6 @@ from .types import (
     PhiStorm, PheromoneField, StormState, Vec4, Epoch, Ptr,
 )
 from .pheromone_engine import check_storm_trigger, compute_pulse
-
 
 # ═══════════════════════════════════════════════════════════════
 # STORM SPAWN
@@ -54,7 +57,6 @@ def try_spawn_storm(
         active=True,
     )
 
-
 # ═══════════════════════════════════════════════════════════════
 # POOL / DURATION / DIFFICULTY
 # ═══════════════════════════════════════════════════════════════
@@ -67,7 +69,6 @@ def compute_storm_pool(pulse: float) -> float:
     ratio = max(0.0, min(1.0, pulse / STORM_TRIGGER))
     return STORM_POOL_BASE + STORM_POOL_SCALE * ratio
 
-
 def compute_storm_duration(pulse: float) -> int:
     """
     Duration scales with pulse intensity.
@@ -75,7 +76,6 @@ def compute_storm_duration(pulse: float) -> int:
     """
     extra = max(0, int((pulse - STORM_TRIGGER) / STORM_SEED))
     return STORM_BASE_DURATION + extra
-
 
 def compute_difficulty_boost(field: PheromoneField) -> float:
     """
@@ -85,7 +85,6 @@ def compute_difficulty_boost(field: PheromoneField) -> float:
     pos = field.positive.norm1() if field.positive else 0.0
     raw = PHI_INV3 * (pos / STORM_TRIGGER) if STORM_TRIGGER > 0 else 0.0
     return min(raw, PHI_INV)
-
 
 # ═══════════════════════════════════════════════════════════════
 # STORM LIFECYCLE
@@ -100,7 +99,6 @@ def advance_storm(storm: PhiStorm, current_epoch: Epoch) -> PhiStorm:
         storm.active = False
 
     return storm
-
 
 def coalition_bonus(party_size: int) -> float:
     """

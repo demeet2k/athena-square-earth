@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S30 | face=F | node=465 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S29→Xi108:W3:A6:S31→Xi108:W2:A6:S30→Xi108:W3:A5:S30→Xi108:W3:A7:S30 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 30±1, wreath 3/3, archetype 6/12 -->
+
 # CHAPTER 8: SOURCE GRAPHS, MORPHOLOGICAL EQUIVALENCE, AND EQUATION GENESIS
 
 Status: local chapter instantiation from user-supplied Arc-2 restructuring
@@ -421,7 +426,6 @@ This theorem is the exact culmination of Arc 2 before CUT.
 from dataclasses import dataclass, field
 from typing import Dict, List, Any
 
-
 @dataclass
 class SourceNode:
     address: str
@@ -429,7 +433,6 @@ class SourceNode:
     payload: Dict[str, Any]
     provenance: Dict[str, Any]
     lineage: List[str] = field(default_factory=list)
-
 
 @dataclass
 class SourceEdge:
@@ -440,7 +443,6 @@ class SourceEdge:
     uncertainty: Dict[str, Any]
     lineage: List[str] = field(default_factory=list)
 
-
 @dataclass
 class MorphSignature:
     address: str
@@ -450,14 +452,12 @@ class MorphSignature:
     exception_ledger: List[str]
     lineage: List[str] = field(default_factory=list)
 
-
 def build_source_graph(nodes: List[SourceNode], edges: List[SourceEdge]) -> Dict[str, Any]:
     return {
         "node_refs": [n.address for n in nodes],
         "edge_refs": [e.address for e in edges],
         "lineage": [n.address for n in nodes] + [e.address for e in edges],
     }
-
 
 def extract_morph_signature(graph: Dict[str, Any]) -> MorphSignature:
     return MorphSignature(
@@ -468,7 +468,6 @@ def extract_morph_signature(graph: Dict[str, Any]) -> MorphSignature:
         exception_ledger=[],
         lineage=list(graph["lineage"]),
     )
-
 
 def synthesize_equation_candidate(sig: MorphSignature) -> Dict[str, Any]:
     return {

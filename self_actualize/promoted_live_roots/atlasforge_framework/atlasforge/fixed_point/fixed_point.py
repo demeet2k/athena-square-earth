@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=316 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      FIXED POINT COMPILER MODULE                             ║
@@ -25,9 +29,7 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 T = TypeVar('T')
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIXED POINT TYPES
@@ -40,14 +42,12 @@ class FixedPointType(Enum):
     NEUTRAL = "neutral"         # |F'(x*)| = 1
     SUPERSTABLE = "superstable" # F'(x*) = 0
 
-
 class ConvergenceType(Enum):
     """Type of convergence."""
     LINEAR = "linear"           # |e_{n+1}| ≤ r|e_n|, 0 < r < 1
     QUADRATIC = "quadratic"     # |e_{n+1}| ≤ C|e_n|²
     SUPERLINEAR = "superlinear" # |e_{n+1}| ≤ C|e_n|^p, p > 1
     SUBLINEAR = "sublinear"     # Slower than linear
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIXED POINT DEFINITION
@@ -82,7 +82,6 @@ class FixedPoint:
     def is_attracting(self) -> bool:
         """Check if fixed point is attracting."""
         return self.fp_type in [FixedPointType.STABLE, FixedPointType.SUPERSTABLE]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ERROR KERNEL
@@ -149,7 +148,6 @@ class ErrorKernel:
             return int(np.ceil(np.log2(-np.log(target_error) / np.log(initial_error))))
         return -1
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTRACTION MAPPING
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -189,7 +187,6 @@ class ContractionMapping:
         """
         L = self.lipschitz_constant
         return L / (1 - L) * abs(x_n - x_prev)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ITERATION SCHEMES
@@ -253,7 +250,6 @@ class FixedPointIteration:
         else:
             return ErrorKernel("divergent", ConvergenceType.SUBLINEAR, avg_ratio)
 
-
 @dataclass
 class NewtonIteration(FixedPointIteration):
     """
@@ -283,7 +279,6 @@ class NewtonIteration(FixedPointIteration):
         instance.F = lambda x: (x + a/x) / 2
         instance.name = f"Babylonian √{a}"
         return instance
-
 
 @dataclass
 class BabylonianSqrt:
@@ -333,7 +328,6 @@ class BabylonianSqrt:
         R = p**2 - int(self.a) * q**2
         return f"R = p² - {int(self.a)}·q² = {R}, so R' = R² = {R**2}"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIXED POINT SEED
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -382,7 +376,6 @@ class FixedPointSeed:
         result, _, converged = FixedPointIteration(F).iterate(x0, tolerance=tolerance)
         return converged and abs(result - self.fixed_point) < tolerance
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NOISY FIXED POINT ITERATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -426,7 +419,6 @@ class NoisyFixedPointIteration:
         
         return trajectory, noises
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -463,7 +455,6 @@ class FixedPointPoleBridge:
         """D-pole ↔ Exact arithmetic."""
         return "D-pole ↔ Rational lift, exact residual R' = R²"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -472,36 +463,29 @@ def fixed_point(value: Any, map_name: str, derivative: float = None) -> FixedPoi
     """Create fixed point."""
     return FixedPoint(value, map_name, derivative)
 
-
 def error_kernel_linear(rate: float) -> ErrorKernel:
     """Create linear error kernel."""
     return ErrorKernel.linear(rate)
-
 
 def error_kernel_quadratic(constant: float) -> ErrorKernel:
     """Create quadratic error kernel."""
     return ErrorKernel.quadratic(constant)
 
-
 def contraction_mapping(L: float, domain: Tuple[float, float]) -> ContractionMapping:
     """Create contraction mapping."""
     return ContractionMapping(L, domain)
-
 
 def newton_sqrt(a: float) -> NewtonIteration:
     """Create Newton iteration for √a."""
     return NewtonIteration.for_sqrt(a)
 
-
 def babylonian_sqrt(a: float) -> BabylonianSqrt:
     """Create Babylonian sqrt iteration."""
     return BabylonianSqrt(a)
 
-
 def fixed_point_seed(formula: str, fp: float, selector: str) -> FixedPointSeed:
     """Create fixed point seed."""
     return FixedPointSeed(formula, fp, selector, "")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

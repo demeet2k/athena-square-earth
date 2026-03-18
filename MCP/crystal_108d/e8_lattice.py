@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S21 | face=S | node=231 | depth=2 | phase=Cardinal
+# METRO: T
+# BRIDGES: Xi108:W2:A4:S20→Xi108:W2:A4:S22→Xi108:W1:A4:S21→Xi108:W3:A4:S21→Xi108:W2:A3:S21→Xi108:W2:A5:S21
+
 """
 E₈ Lattice & Crystalline Hybrid Mathematics
 =============================================
@@ -13,7 +17,6 @@ Provides the complete E₈ lattice manuscript structure:
 from ._cache import JsonCache
 
 _E8 = JsonCache("e8_lattice.json")
-
 
 def query_e8_lattice(component: str = "all") -> str:
     """
@@ -60,7 +63,6 @@ def query_e8_lattice(component: str = "all") -> str:
             "body_b, appendices, metro, bridge, theorems, conjectures, scale"
         )
 
-
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
     lines = [
@@ -75,7 +77,6 @@ def _format_all(data: dict) -> str:
     ]
     return "\n".join(lines)
 
-
 def _format_seed(data: dict) -> str:
     seed = data.get("seed", {})
     lines = [
@@ -89,7 +90,6 @@ def _format_seed(data: dict) -> str:
         for k, v in seed["key_constants"].items():
             lines.append(f"  - {k}: {v}")
     return "\n".join(lines)
-
 
 def _format_body_a(data: dict) -> str:
     body = data.get("body_a", {})
@@ -110,7 +110,6 @@ def _format_body_a(data: dict) -> str:
                 lines.append(f"  - {p.get('name', '')}: Ch{p.get('start', '')}–Ch{p.get('end', '')}")
     return "\n".join(lines)
 
-
 def _format_body_b(data: dict) -> str:
     body = data.get("body_b", {})
     lines = ["## Body B — Emergent 9-Chapter Self-Navigation\n"]
@@ -124,7 +123,6 @@ def _format_body_b(data: dict) -> str:
         else:
             lines.append(f"- {ch}")
     return "\n".join(lines)
-
 
 def _format_appendices(data: dict) -> str:
     lines = ["## Appendix Fields\n"]
@@ -150,7 +148,6 @@ def _format_appendices(data: dict) -> str:
                 lines.append(f"- {app}")
     return "\n".join(lines)
 
-
 def _format_metro(data: dict) -> str:
     metro = data.get("metro_map", {})
     lines = ["## Metro Map Topology\n"]
@@ -163,7 +160,6 @@ def _format_metro(data: dict) -> str:
                 lines.append(f"  - {h.get('name', '')}: {h.get('description', '')}")
     return "\n".join(lines)
 
-
 def _format_bridge(data: dict) -> str:
     bridge = data.get("mobius_bridge", {})
     return (
@@ -172,7 +168,6 @@ def _format_bridge(data: dict) -> str:
         f"**Hinge 2**: {bridge.get('hinge_2', 'AppO — Dark Energy Prediction')}\n"
         f"**Gluing**: {bridge.get('gluing', 'Body A ←→ Body B via orientation-reversing fold')}"
     )
-
 
 def _format_theorems(data: dict) -> str:
     theorems = data.get("key_theorems", [])
@@ -186,7 +181,6 @@ def _format_theorems(data: dict) -> str:
             lines.append(f"- {t}")
     return "\n".join(lines)
 
-
 def _format_conjectures(data: dict) -> str:
     conj = data.get("open_conjectures", [])
     lines = ["## 13 Open Conjectures (Frontier)\n"]
@@ -196,7 +190,6 @@ def _format_conjectures(data: dict) -> str:
         else:
             lines.append(f"{i}. {c}")
     return "\n".join(lines)
-
 
 def _format_scale(data: dict) -> str:
     scale = data.get("renormalization", {})

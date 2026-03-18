@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=308 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        NEXUS NAVIGATION MODULE                               ║
@@ -27,7 +31,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIGURATE NUMBER TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -42,7 +45,6 @@ class FigurateType(Enum):
     OCTAGONAL = "octagonal"        # O_n = n(3n-2)
     PRONIC = "pronic"              # Pr_n = n(n+1) (oblong)
     CENTERED_SQUARE = "centered_square"  # CS_n = n² + (n-1)²
-
 
 @dataclass
 class FigurateNumber:
@@ -93,7 +95,6 @@ class FigurateNumber:
     def pentagonal(cls, n: int) -> 'FigurateNumber':
         return cls(FigurateType.PENTAGONAL, n)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NEXUS POINT
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -122,7 +123,6 @@ class NexusPoint:
         return (f"NexusPoint({self.value}: "
                 f"{self.type1.value}[{self.index1}] = "
                 f"{self.type2.value}[{self.index2}])")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRIANGULAR-SQUARE NEXUS
@@ -224,7 +224,6 @@ class TriangularSquareNexus:
         sqrt_N = int(np.sqrt(N))
         return sqrt_N * sqrt_N == N
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GENERAL PELL NEXUS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -297,7 +296,6 @@ class PellNexus:
     def solutions(self, count: int) -> List[Tuple[int, int]]:
         """Generate first `count` solutions."""
         return [self.nth_solution(n) for n in range(1, count + 1)]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NEXUS NAVIGATOR
@@ -372,7 +370,6 @@ class NexusNavigator:
             [u, D * v],
             [v, u]
         ], dtype=np.float64)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIGURATE LATTICE
@@ -463,7 +460,6 @@ class FigurateLattice:
             FigurateType.HEXAGONAL: N in self.hexagonal
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NEXUS-BASED SCALING
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -510,7 +506,6 @@ class NexusScaling:
         ratio = self.asymptotic_ratio()
         return [base_kappa * (ratio ** k) for k in range(n_levels)]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -518,7 +513,6 @@ class NexusScaling:
 def triangular(n: int) -> int:
     """n-th triangular number."""
     return n * (n + 1) // 2
-
 
 def is_triangular(N: int) -> bool:
     """Check if N is triangular."""
@@ -531,7 +525,6 @@ def is_triangular(N: int) -> bool:
         return False
     return (sqrt_disc - 1) % 2 == 0
 
-
 def is_square(N: int) -> bool:
     """Check if N is a perfect square."""
     if N < 0:
@@ -539,29 +532,24 @@ def is_square(N: int) -> bool:
     sqrt_N = int(np.sqrt(N))
     return sqrt_N * sqrt_N == N
 
-
 def is_triangular_square(N: int) -> bool:
     """Check if N is both triangular and square."""
     return is_triangular(N) and is_square(N)
-
 
 def triangular_square_sequence(count: int) -> List[int]:
     """Generate first `count` triangular-square numbers."""
     ts = TriangularSquareNexus()
     return [ts.nth_triangular_square(n) for n in range(count)]
 
-
 def solve_pell(D: int, count: int = 5) -> List[Tuple[int, int]]:
     """Solve Pell equation x² - Dy² = 1."""
     pell = PellNexus(D)
     return pell.solutions(count)
 
-
 def figurate_intersections(max_value: int = 10000) -> Dict[str, List[int]]:
     """Find all figurate number intersections up to max_value."""
     lattice = FigurateLattice(max_value)
     return lattice.all_nexus_points()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

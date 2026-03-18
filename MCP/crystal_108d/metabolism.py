@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S36 | face=R | node=642 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A5:S35→Xi108:W1:A5:S36→Xi108:W3:A5:S36→Xi108:W2:A4:S36→Xi108:W2:A6:S36
+
 """
 Metabolism Objects — Python dataclasses for the Athena shard/edge/cert system.
 =============================================================================
@@ -16,7 +20,6 @@ import json
 from datetime import datetime, timezone
 from typing import Any
 
-
 # ── Constants ───────────────────────────────────────────────────────
 
 VALID_MEDIUMS = {"code", "json", "doc", "markdown", "git", "mcp"}
@@ -28,7 +31,6 @@ VALID_EDGE_TYPES = {
 }
 VALID_CERT_TYPES = {"STRUCTURAL", "CONSERVATION", "REPLAY", "PROMOTION"}
 VALID_ROLES = {"unified", "lobe", "docs", "git", "incubator", "governance"}
-
 
 # ── Dataclasses ─────────────────────────────────────────────────────
 
@@ -54,7 +56,6 @@ class Shard:
     created_at: str
     updated_at: str
 
-
 @dataclasses.dataclass
 class Edge:
     """Typed directed edge between two shards."""
@@ -65,7 +66,6 @@ class Edge:
     weight: float
     medium_cross: bool
     metadata: dict
-
 
 @dataclasses.dataclass
 class Cert:
@@ -78,7 +78,6 @@ class Cert:
     trace_hash: str | None
     issued_at: str
 
-
 @dataclasses.dataclass
 class Promotion:
     """Promotion state for a shard."""
@@ -86,14 +85,12 @@ class Promotion:
     current_status: str
     history: list[dict]
 
-
 @dataclasses.dataclass
 class ReplayBundle:
     """A cert + shard + edges for deterministic replay."""
     cert: Cert
     shard: Shard
     edges: list[Edge]
-
 
 # ── Validation ──────────────────────────────────────────────────────
 
@@ -116,7 +113,6 @@ def validate_shard(s: Shard) -> list[str]:
         errors.append("family is empty")
     return errors
 
-
 def validate_edge(e: Edge) -> list[str]:
     """Return list of validation errors (empty = valid)."""
     errors = []
@@ -130,7 +126,6 @@ def validate_edge(e: Edge) -> list[str]:
         errors.append("target_shard is empty")
     return errors
 
-
 def validate_cert(c: Cert) -> list[str]:
     """Return list of validation errors (empty = valid)."""
     errors = []
@@ -142,33 +137,27 @@ def validate_cert(c: Cert) -> list[str]:
         errors.append("issued_by is empty")
     return errors
 
-
 # ── Serialization ───────────────────────────────────────────────────
 
 def to_dict(obj: Any) -> dict:
     """Convert a dataclass to a plain dict."""
     return dataclasses.asdict(obj)
 
-
 def to_jsonl_line(obj: Any) -> str:
     """Serialize a dataclass to a single JSON line."""
     return json.dumps(dataclasses.asdict(obj), default=str)
-
 
 def shard_from_dict(d: dict) -> Shard:
     """Reconstruct a Shard from a dict."""
     return Shard(**{k: d[k] for k in Shard.__dataclass_fields__})
 
-
 def edge_from_dict(d: dict) -> Edge:
     """Reconstruct an Edge from a dict."""
     return Edge(**{k: d[k] for k in Edge.__dataclass_fields__})
 
-
 def cert_from_dict(d: dict) -> Cert:
     """Reconstruct a Cert from a dict."""
     return Cert(**{k: d[k] for k in Cert.__dataclass_fields__})
-
 
 # ── ID Generation ───────────────────────────────────────────────────
 
@@ -178,18 +167,15 @@ def make_shard_id(medium: str, payload_ref: str) -> str:
     short = payload_ref.rsplit("/", 1)[-1].rsplit(".", 1)[0][:30]
     return f"{h}:{medium}:{short}"
 
-
 def make_edge_id(source: str, target: str, edge_type: str) -> str:
     """Generate a deterministic edge ID."""
     h = hashlib.sha256(f"{source}->{target}:{edge_type}".encode()).hexdigest()[:8]
     return f"e-{h}"
 
-
 def make_cert_id(shard_id: str, cert_type: str, issued_by: str) -> str:
     """Generate a deterministic cert ID."""
     h = hashlib.sha256(f"{shard_id}:{cert_type}:{issued_by}".encode()).hexdigest()[:8]
     return f"c-{h}"
-
 
 def now_iso() -> str:
     """Current UTC timestamp in ISO 8601."""

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=414 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ENTROPY AND INFORMATION GEOMETRY                          ║
@@ -27,7 +31,6 @@ from typing import Optional, Tuple, List, Dict, Callable, Any
 from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BASIC ENTROPY FUNCTIONALS
@@ -139,7 +142,6 @@ class EntropyFunctional:
         
         return (1 - np.sum(p ** q)) / (q - 1)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FISHER INFORMATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -203,7 +205,6 @@ class FisherInformation:
         
         return I
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # INFORMATION GEOMETRY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -249,7 +250,6 @@ class ProbabilitySimplex:
         x = np.maximum(x, 0)
         total = np.sum(x)
         return x / total if total > 0 else self.uniform()
-
 
 @dataclass
 class FisherRaoMetric:
@@ -329,7 +329,6 @@ class FisherRaoMetric:
         
         # Back to simplex
         return result ** 2
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SIGMA-POLE CONNECTOR
@@ -430,7 +429,6 @@ class SigmaPoleConnector:
         
         return H_X + H_Y - H_XY
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -439,36 +437,29 @@ def shannon_entropy(p: NDArray, base: float = np.e) -> float:
     """Shannon entropy H[p] = -Σ p_i log p_i."""
     return EntropyFunctional(base=base).shannon_entropy(p)
 
-
 def kl_divergence(p: NDArray, q: NDArray) -> float:
     """KL divergence D(p||q)."""
     return EntropyFunctional().kl_divergence(p, q)
-
 
 def js_divergence(p: NDArray, q: NDArray) -> float:
     """Jensen-Shannon divergence."""
     return EntropyFunctional().js_divergence(p, q)
 
-
 def fisher_rao_distance(p: NDArray, q: NDArray) -> float:
     """Fisher-Rao geodesic distance."""
     return FisherRaoMetric().geodesic_distance(p, q)
-
 
 def hellinger_distance(p: NDArray, q: NDArray) -> float:
     """Hellinger distance."""
     return FisherRaoMetric().hellinger_distance(p, q)
 
-
 def mutual_information(joint: NDArray) -> float:
     """Mutual information from joint distribution."""
     return SigmaPoleConnector().mutual_information(joint)
 
-
 def maximum_entropy(constraints: Dict[str, float], support_size: int) -> NDArray:
     """Maximum entropy distribution."""
     return SigmaPoleConnector().maximum_entropy_distribution(constraints, support_size)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

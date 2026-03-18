@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=394 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -18,7 +22,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -131,17 +134,14 @@ SLICE_PHASES: List[Tuple[str, str, str]] = [
     ("restart", "Restart writeback", "Close the loop through return surfaces and the next seed."),
 ]
 
-
 def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
     sep = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
 
-
 def path_exists(relative_path: str) -> bool:
     return (WORKSPACE_ROOT / relative_path.replace("\\", "/")).exists()
-
 
 def unique(values: Iterable[str]) -> List[str]:
     ordered: List[str] = []
@@ -150,12 +150,10 @@ def unique(values: Iterable[str]) -> List[str]:
             ordered.append(value)
     return ordered
 
-
 def file_index(path: Path) -> int:
     stem = path.stem
     prefix = stem.split("_", 1)[0]
     return int(prefix) if prefix.isdigit() else 9999
-
 
 def live_docs_gate_detail() -> Dict[str, Any]:
     credentials_path = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
@@ -193,12 +191,10 @@ def live_docs_gate_detail() -> Dict[str, Any]:
         "fallback_mode": "mirrored-live-docs" if status == "open" else "local-first-truth-corridor",
     }
 
-
 def load_runtime_truth(path: Path, key: str = "truth") -> str:
     if not path.exists():
         return "UNKNOWN"
     return load_json(path).get(key, "UNKNOWN")
-
 
 def anchors_for(contract: Dict[str, Any], body_id: str, count: int = 3) -> Tuple[List[str], List[str]]:
     defaults = DEFAULT_ANCHORS.get(body_id, {"chapters": ["Ch11"], "appendices": ["AppQ"]})
@@ -210,7 +206,6 @@ def anchors_for(contract: Dict[str, Any], body_id: str, count: int = 3) -> Tuple
         appendices = unique(appendices + defaults["appendices"])
     return chapters[:count], appendices[:count]
 
-
 def candidate_capsule_directory(body: Dict[str, Any], body_id: str) -> Path:
     current_capsule = body.get("capsule_surface") or ""
     if current_capsule:
@@ -218,7 +213,6 @@ def candidate_capsule_directory(body: Dict[str, Any], body_id: str) -> Path:
         if current_path.exists():
             return current_path.parent
     return CAPSULE_ROOT / CAPSULE_DIR_MAP[body_id]
-
 
 def existing_capsule_docs(directory: Path) -> List[Path]:
     if not directory.exists():
@@ -230,7 +224,6 @@ def existing_capsule_docs(directory: Path) -> List[Path]:
     ]
     return sorted(docs, key=file_index)
 
-
 def placeholder_verification() -> Dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -240,7 +233,6 @@ def placeholder_verification() -> Dict[str, Any]:
         "checks": {},
         "unresolved": ["whole-crystal atlas refresh pending"],
     }
-
 
 def render_slice_doc(
     body: Dict[str, Any],
@@ -292,7 +284,6 @@ Role: `{body['crystal_role']}`
 `{body['return_surface']}`
 """
 
-
 def render_route_map(
     body: Dict[str, Any],
     contract: Dict[str, Any],
@@ -337,7 +328,6 @@ def render_route_map(
 
 {contract['restart_seed']}
 """
-
 
 def build_slice_contracts(
     live_bodies: List[Dict[str, Any]],
@@ -420,7 +410,6 @@ def build_slice_contracts(
                 )
             )
     return slice_contracts, generated_paths, route_paths
-
 
 def build_bridge_witnesses(
     bodies_by_id: Dict[str, Dict[str, Any]],
@@ -512,7 +501,6 @@ def build_bridge_witnesses(
         )
     return records
 
-
 def build_docs_ingress_payload(docs_gate: Dict[str, Any]) -> Tuple[DocsIngressPacketRecord, Dict[str, Any]]:
     packet = DocsIngressPacketRecord(
         packet_id="DIG-01",
@@ -556,7 +544,6 @@ def build_docs_ingress_payload(docs_gate: Dict[str, Any]) -> Tuple[DocsIngressPa
     }
     return packet, payload
 
-
 def build_agent_contract() -> Dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -590,7 +577,6 @@ def build_agent_contract() -> Dict[str, Any]:
             },
         ],
     }
-
 
 def build_dashboard(
     bodies: List[Dict[str, Any]],
@@ -635,7 +621,6 @@ def build_dashboard(
         "truth": verification["truth"],
         "next_restart_seed": verification["next_restart_seed"],
     }
-
 
 def build_wave_checkpoints(
     verification: Dict[str, Any],
@@ -691,7 +676,6 @@ def build_wave_checkpoints(
             note="Wave closes only when verifiers are green and Docs is open or lawfully isolated.",
         ),
     ]
-
 
 def build_verification(
     remaster_verification: Dict[str, Any],
@@ -782,7 +766,6 @@ def build_verification(
         "next_restart_seed": "admit -> classify -> interlock -> compile -> writeback -> restart",
     }
 
-
 def render_manifest(outputs: Dict[str, str]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# WHOLE CRYSTAL COMPLETION MANIFEST
@@ -803,7 +786,6 @@ Derivation: `{DERIVATION_COMMAND}`
 {output_lines}
 """
 
-
 def render_agent_coordination(agent_contract: Dict[str, Any]) -> str:
     rows = [
         [agent["agent_id"], agent["label"], agent["body_id"], agent["responsibility"]]
@@ -820,7 +802,6 @@ def render_agent_coordination(agent_contract: Dict[str, Any]) -> str:
 
 {lifecycle}
 """
-
 
 def render_docs_gate_verifier(docs_payload: Dict[str, Any]) -> str:
     packet = docs_payload["packets"][0]
@@ -850,7 +831,6 @@ Fallback mode: `{docs_payload['fallback_mode']}`
 {open_flow}
 """
 
-
 def render_bridge_ledger(records: List[BridgeEdgeWitnessRecord]) -> str:
     sections: List[str] = []
     for edge_class, title in [
@@ -874,7 +854,6 @@ def render_bridge_ledger(records: List[BridgeEdgeWitnessRecord]) -> str:
             + markdown_table(["Edge", "Source", "Target", "Authority", "Route"], rows or [["-", "-", "-", "-", "-"]])
         )
     return "# WHOLE CRYSTAL BRIDGE LEDGER\n\n" + "\n\n".join(sections)
-
 
 def render_dashboard(dashboard: Dict[str, Any]) -> str:
     body_rows = [[state, str(count)] for state, count in sorted(dashboard["body_state_totals"].items())]
@@ -914,7 +893,6 @@ Truth: `{dashboard['truth']}`
 `{dashboard['next_restart_seed']}`
 """
 
-
 def render_verification(verification: Dict[str, Any]) -> str:
     rows = [[name, str(value)] for name, value in verification["checks"].items()]
     unresolved = "\n".join(f"- {item}" for item in verification["unresolved"]) or "- none"
@@ -939,7 +917,6 @@ Docs gate resolution: `{verification['docs_gate_resolution']}`
 {unresolved}
 """
 
-
 def render_runtime(outputs: Dict[str, str], verification: Dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# whole_crystal_completion_runtime
@@ -953,7 +930,6 @@ def render_runtime(outputs: Dict[str, str], verification: Dict[str, Any]) -> str
 
 {output_lines}
 """
-
 
 def render_receipt(
     dashboard: Dict[str, Any],
@@ -987,7 +963,6 @@ def render_receipt(
 {unresolved}
 """
 
-
 def render_live_docs_mirror_readme(docs_payload: Dict[str, Any]) -> str:
     return f"""# LIVE DOCS MIRROR
 
@@ -1001,7 +976,6 @@ This directory is the lawful mirror target for future Google Docs markdown surfa
   before it can influence dashboards or runtime claims.
 """
 
-
 def write_placeholder_surfaces(outputs: Dict[str, str]) -> None:
     write_json(DASHBOARD_JSON_PATH, {"generated_at": utc_now(), "truth": "NEAR", "outputs": outputs})
     write_json(VERIFICATION_JSON_PATH, placeholder_verification())
@@ -1011,7 +985,6 @@ def write_placeholder_surfaces(outputs: Dict[str, str]) -> None:
     write_text(VERIFICATION_MD_PATH, "# WHOLE CRYSTAL COMPLETION VERIFICATION\n\nPending atlas refresh.\n")
     write_text(RUNTIME_MD_PATH, "# whole_crystal_completion_runtime\n\nPending atlas refresh.\n")
     write_text(RECEIPT_MD_PATH, "# 2026-03-12 whole crystal completion\n\nPending atlas refresh.\n")
-
 
 def main() -> int:
     body_payload = load_json(CRYSTAL_BODY_REGISTRY_PATH)
@@ -1162,7 +1135,6 @@ def main() -> int:
     print(f"Docs gate status: {docs_packet.status}")
     print(f"Truth: {verification['truth']}")
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

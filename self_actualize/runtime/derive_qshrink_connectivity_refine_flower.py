@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=369 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 from self_actualize.runtime.qshrink_refine_common import (
@@ -17,9 +21,7 @@ from self_actualize.runtime.qshrink_refine_common import (
     write_json,
 )
 
-
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_connectivity_refine_flower"
-
 
 def build_payload() -> dict:
     square = load_json(refinement_output_path("square"), {"truth": "NEAR"})
@@ -74,7 +76,6 @@ def build_payload() -> dict:
         "writeback_targets": route_targets(),
     }
 
-
 def render_witness(payload: dict) -> str:
     rails = "\n".join(
         f"- `{item['id']} {item['name']}`: `{item['route']}` / `{item['cadence_class']}` / {item['meaning']}"
@@ -108,7 +109,6 @@ def render_witness(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def render_capsule(payload: dict) -> str:
     return "\n".join(
         [
@@ -122,7 +122,6 @@ def render_capsule(payload: dict) -> str:
             "",
         ]
     )
-
 
 def render_receipt(payload: dict) -> str:
     rails = ", ".join(item["id"] for item in payload["cadence_rails"])
@@ -142,7 +141,6 @@ def render_receipt(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     write_json(refinement_output_path("flower"), payload)
@@ -154,7 +152,6 @@ def main() -> int:
     print(f"Wrote {capsule_output_path('flower')}")
     print(f"Wrote {receipt_output_path('flower')}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=97 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - HDCS: SENSOR OPERATORS
 ==================================
@@ -33,7 +37,6 @@ from enum import Enum, auto
 import numpy as np
 from scipy import linalg
 
-
 # =============================================================================
 # MEASUREMENT TYPES
 # =============================================================================
@@ -47,7 +50,6 @@ class MeasurementType(Enum):
     HOMODYNE = "homodyne"          # Phase-sensitive
     HETERODYNE = "heterodyne"      # Simultaneous quadratures
 
-
 class ObservableType(Enum):
     """Types of observables."""
     
@@ -56,7 +58,6 @@ class ObservableType(Enum):
     PHASE = "phase"
     NUMBER = "number"
     ENERGY = "energy"
-
 
 # =============================================================================
 # EFFECT OPERATORS (POVM)
@@ -116,7 +117,6 @@ class EffectOperator:
     @property
     def matrix(self) -> np.ndarray:
         return self._matrix.copy()
-
 
 class POVM:
     """
@@ -184,7 +184,6 @@ class POVM:
         total = sum(e._matrix for e in self._effects)
         identity = np.eye(self.dimension)
         return float(np.linalg.norm(total - identity))
-
 
 # =============================================================================
 # SENSOR OPERATOR
@@ -313,7 +312,6 @@ class SensorOperator:
     @property
     def observable(self) -> np.ndarray:
         return self._observable.copy()
-
 
 # =============================================================================
 # KALMAN FILTER
@@ -451,7 +449,6 @@ class KalmanFilter:
         """Compute estimation error ||x - x̂||."""
         return float(np.linalg.norm(true_state - self._x_hat))
 
-
 # =============================================================================
 # EXTENDED KALMAN FILTER
 # =============================================================================
@@ -547,7 +544,6 @@ class ExtendedKalmanFilter(KalmanFilter):
         
         return self._x_hat.copy()
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -619,7 +615,6 @@ def validate_sensors() -> bool:
     assert len(estimate) == 2
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Sensors Module...")

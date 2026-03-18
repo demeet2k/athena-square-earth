@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A6:S24 | face=S | node=294 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A6:S23→Xi108:W2:A6:S25→Xi108:W1:A6:S24→Xi108:W3:A6:S24→Xi108:W2:A5:S24→Xi108:W2:A7:S24 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 24±1, wreath 2/3, archetype 6/12 -->
+
 # Framework Specification
 
 QSHRINK2.0 is the internal Athena compression-and-routing manuscript engine.

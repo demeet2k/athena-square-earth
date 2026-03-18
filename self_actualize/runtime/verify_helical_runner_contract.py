@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -57,22 +60,17 @@ CONTROL_SURFACES = {
     "loop_progress": MYCELIUM_ROOT / "ATHENA TEMPLE" / "MANIFESTS" / "16_LOOP_PROGRESS.md",
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
 
-
 def load_contract() -> dict:
     return json.loads(CONTRACT_JSON_PATH.read_text(encoding="utf-8"))
-
 
 def build_checks(contract: dict) -> dict[str, bool]:
     metric_names = [item.get("metric") for item in contract.get("metric_tensor_audit", [])]
@@ -142,7 +140,6 @@ def build_checks(contract: dict) -> dict[str, bool]:
         and "`7/16` Active Contract Binding `[COMPLETE]`" in control_text["loop_progress"],
     }
 
-
 def build_payload() -> dict:
     contract = load_contract()
     checks = build_checks(contract)
@@ -159,14 +156,12 @@ def build_payload() -> dict:
         "next_seed": contract.get("restart_seed", "Q42 -> QS64-21 Connectivity-Refine-Square"),
     }
 
-
 def main() -> int:
     payload = build_payload()
     VERIFICATION_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(f"Wrote {VERIFICATION_JSON_PATH}")
     print(f"Truth: {payload['truth']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

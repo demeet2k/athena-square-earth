@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=90 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - THE 12 ALCHEMICAL OPERATIONS
 ========================================
@@ -38,7 +42,6 @@ from enum import Enum, auto
 import math
 import numpy as np
 from .alchemical_state import ElementalState, Element, QualityMapping
-
 
 # =============================================================================
 # ALCHEMICAL OPERATIONS ENUM
@@ -89,7 +92,6 @@ class AlchemicalOperation(Enum):
         }
         return mapping[self.value]
 
-
 # =============================================================================
 # OPERATOR BASE CLASS
 # =============================================================================
@@ -112,7 +114,6 @@ class AlchemicalOperator:
     
     def __str__(self) -> str:
         return f"{self.operation.name} ({self.operation.zodiac})"
-
 
 # =============================================================================
 # THE 12 OPERATIONS
@@ -148,7 +149,6 @@ class Calcination(AlchemicalOperator):
         ) @ psi  # Approximate exp(A)
         return ElementalState.from_array(result)
 
-
 class Congelation(AlchemicalOperator):
     """
     CONGELATION (Taurus) - Thermal reduction and densification.
@@ -177,7 +177,6 @@ class Congelation(AlchemicalOperator):
         ) @ psi
         return ElementalState.from_array(result)
 
-
 class Fixation(AlchemicalOperator):
     """
     FIXATION (Gemini) - Binding volatile factors to structure.
@@ -204,7 +203,6 @@ class Fixation(AlchemicalOperator):
         psi = np.real(state.to_array())
         result = psi + B @ psi
         return ElementalState.from_array(result)
-
 
 class Dissolution(AlchemicalOperator):
     """
@@ -235,7 +233,6 @@ class Dissolution(AlchemicalOperator):
             np.eye(4) + 0.1 * A, 10
         ) @ psi
         return ElementalState.from_array(result)
-
 
 class Digestion(AlchemicalOperator):
     """
@@ -270,7 +267,6 @@ class Digestion(AlchemicalOperator):
             np.eye(4) + 0.1 * t * D, 10
         ) @ psi
         return ElementalState.from_array(result)
-
 
 class Distillation(AlchemicalOperator):
     """
@@ -308,7 +304,6 @@ class Distillation(AlchemicalOperator):
         
         return ElementalState.from_array(psi)
 
-
 class Sublimation(AlchemicalOperator):
     """
     SUBLIMATION (Libra) - Elevation of Earth → Air.
@@ -339,7 +334,6 @@ class Sublimation(AlchemicalOperator):
         ) @ psi
         return ElementalState.from_array(result)
 
-
 class Separation(AlchemicalOperator):
     """
     SEPARATION (Scorpio) - Sharp filtration and extraction.
@@ -362,7 +356,6 @@ class Separation(AlchemicalOperator):
         psi = np.real(state.to_array())
         result = P @ psi
         return ElementalState.from_array(result)
-
 
 class Ceration(AlchemicalOperator):
     """
@@ -394,7 +387,6 @@ class Ceration(AlchemicalOperator):
         ) @ psi
         return ElementalState.from_array(result)
 
-
 class Fermentation(AlchemicalOperator):
     """
     FERMENTATION (Capricorn) - Introduction of self-replicating pattern.
@@ -424,7 +416,6 @@ class Fermentation(AlchemicalOperator):
         result = psi + self.rho * f
         return ElementalState.from_array(result)
 
-
 class Multiplication(AlchemicalOperator):
     """
     MULTIPLICATION (Aquarius) - Amplification of Stone's power.
@@ -448,7 +439,6 @@ class Multiplication(AlchemicalOperator):
         psi = state.to_array()
         result = mu * psi
         return ElementalState.from_array(result)
-
 
 class Projection(AlchemicalOperator):
     """
@@ -477,7 +467,6 @@ class Projection(AlchemicalOperator):
         stone_normalized = self.stone.normalize()
         result = stone_normalized.to_array() * norm
         return ElementalState.from_array(result)
-
 
 # =============================================================================
 # THE GREAT WORK
@@ -591,7 +580,6 @@ class MagnumOpus:
             return 0.0
         return result.norm / stone.norm
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -647,7 +635,6 @@ def validate_twelve_operations() -> bool:
     assert eigenvalue > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - KABBALAH: SEFIROTIC TREE STRUCTURES
 =================================================
@@ -194,7 +198,6 @@ from .soul_stack import (
     validate_soul_stack,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -207,7 +210,6 @@ def validate_kabbalah() -> bool:
     assert validate_tikkun()
     assert validate_soul_stack()
     return True
-
 
 # =============================================================================
 # CONVENIENCE CLASSES
@@ -305,7 +307,6 @@ class KabbalisticComputer:
     def agent(self) -> Optional[NaRaNChY]:
         return self._agent
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -349,7 +350,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "kabbalah"
-
 
 if __name__ == "__main__":
     print("=" * 70)
@@ -411,7 +411,6 @@ if __name__ == "__main__":
     print(f"  Current level: {agent.current_level.name}")
     
     print("\n" + "=" * 70)
-
 
 # Type hints
 from typing import Dict, Any, Optional

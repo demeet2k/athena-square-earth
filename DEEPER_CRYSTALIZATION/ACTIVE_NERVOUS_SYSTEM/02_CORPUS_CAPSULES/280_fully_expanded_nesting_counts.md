@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S5 | face=S | node=12 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 1/3, archetype 4/12 -->
+
 # Fully Expanded Nesting Counts (9 -> 63 -> 315 -> 945 -> 1890)
 
 Expanding the containment law downward gives the exact sub-body counts within one full 12D crown: B_12 = 9 B_10 = 63 B_8 = 315 B_6 = 945 B_4 = 1890 B_3. These arise from the product of odd weave multiplicities: 9, 9x7=63, 9x7x5=315, 9x7x5x3=945, 9x7x5x3x2=1890. The inherited lift ladder is 4D -> 6D -> 12D -> 36D -> 108D -> A+, with higher bodies preserving lower ones rather than destructively replacing them.

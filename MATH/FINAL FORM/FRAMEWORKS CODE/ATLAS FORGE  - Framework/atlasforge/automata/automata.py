@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=84 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         AUTOMATA MODULE                                      ║
@@ -28,7 +32,6 @@ from typing import Optional, Tuple, List, Dict, Set, FrozenSet, Iterator
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DETERMINISTIC FINITE AUTOMATON
@@ -172,7 +175,6 @@ class DFA:
         
         return cls(states, alphabet, transitions, "q0", {f"q{len(pattern)}"})
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NONDETERMINISTIC FINITE AUTOMATON
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -271,7 +273,6 @@ class NFA:
         return DFA(dfa_states, self.alphabet, dfa_transitions,
                   get_name(initial_closure), dfa_accepting)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # REGULAR EXPRESSIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -284,7 +285,6 @@ class RegexOp(Enum):
     CONCAT = "·"      # Concatenation
     UNION = "|"       # Union
     STAR = "*"        # Kleene star
-
 
 @dataclass
 class Regex:
@@ -481,7 +481,6 @@ class Regex:
         """Kleene star."""
         return cls(RegexOp.STAR, child=child)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LANGUAGE OPERATIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -514,7 +513,6 @@ def dfa_intersection(dfa1: DFA, dfa2: DFA) -> DFA:
     return DFA(new_states, dfa1.alphabet, new_transitions, 
               new_initial, new_accepting)
 
-
 def dfa_union(dfa1: DFA, dfa2: DFA) -> DFA:
     """Union of two DFAs via product construction."""
     if dfa1.alphabet != dfa2.alphabet:
@@ -543,7 +541,6 @@ def dfa_union(dfa1: DFA, dfa2: DFA) -> DFA:
     return DFA(new_states, dfa1.alphabet, new_transitions,
               new_initial, new_accepting)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -554,17 +551,14 @@ def create_dfa(states: Set[str], alphabet: Set[str],
     """Create DFA."""
     return DFA(states, alphabet, transitions, initial, accepting)
 
-
 def regex_to_dfa(regex: Regex) -> DFA:
     """Convert regex to DFA."""
     nfa = regex.to_nfa()
     return nfa.to_dfa()
 
-
 def accepts_word(dfa: DFA, word: str) -> bool:
     """Check if DFA accepts word."""
     return dfa.accepts(word)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

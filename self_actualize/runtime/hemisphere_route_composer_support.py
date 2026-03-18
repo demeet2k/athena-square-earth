@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=382 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -32,7 +36,6 @@ from self_actualize.runtime.hemisphere_navigator_query_engine import (
     summarize_record,
 )
 
-
 ROUTE_STAGE_ORDER = [
     "seed",
     "anchor_lift",
@@ -44,10 +47,8 @@ ROUTE_STAGE_ORDER = [
 STARTER_CAP = 24
 STARTER_FACETS = ("anchor", "family", "target_system", "hemisphere")
 
-
 def opposite_hemisphere(hemisphere: str) -> str:
     return "MYTH" if hemisphere == "MATH" else "MATH"
-
 
 def route_header(route_packet: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -77,7 +78,6 @@ def route_header(route_packet: dict[str, Any]) -> dict[str, Any]:
         "basis_anchor_ids": route_packet.get("basis_anchor_ids", []),
     }
 
-
 def load_route_composer_registries() -> dict[str, Any]:
     registries = load_navigator_registries()
     registries["commissure_registry"] = load_json(COMMISSURE_REGISTRY_PATH)
@@ -88,7 +88,6 @@ def load_route_composer_registries() -> dict[str, Any]:
     if COMPOSER_MANIFEST_PATH.exists():
         registries["composer_manifest"] = load_json(COMPOSER_MANIFEST_PATH)
     return registries
-
 
 def ensure_composer_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_composer_runtime")
@@ -107,7 +106,6 @@ def ensure_composer_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     }
     registries["_composer_runtime"] = runtime
     return runtime
-
 
 def record_stop(
     runtime: dict[str, Any],
@@ -131,7 +129,6 @@ def record_stop(
         "direct_edges": nav["edge_lookup"][record_id],
     }
 
-
 def empty_stage(stage: str, hemisphere: str, reason: str) -> dict[str, Any]:
     return {
         "stage": stage,
@@ -139,7 +136,6 @@ def empty_stage(stage: str, hemisphere: str, reason: str) -> dict[str, Any]:
         "hemisphere": hemisphere,
         "reason": reason,
     }
-
 
 def hub_stage(runtime: dict[str, Any], record_id: str, hemisphere: str) -> dict[str, Any]:
     edge = runtime["navigator"]["edge_lookup"][record_id][hemisphere]
@@ -153,7 +149,6 @@ def hub_stage(runtime: dict[str, Any], record_id: str, hemisphere: str) -> dict[
         "proof_state": edge.get("proof_state", ""),
         "edge": edge,
     }
-
 
 def exit_stage(seed_record: dict[str, Any], route_packet: dict[str, Any], hemisphere: str) -> dict[str, Any]:
     return {
@@ -170,19 +165,16 @@ def exit_stage(seed_record: dict[str, Any], route_packet: dict[str, Any], hemisp
         "docs_gate_status": route_packet.get("docs_gate_status", ""),
     }
 
-
 def first_unused_record_id(bundle: dict[str, Any], used_ids: set[str]) -> str | None:
     for record_id in bundle.get("record_ids", []):
         if record_id not in used_ids:
             return record_id
     return None
 
-
 def itinerary_bundle_key(seed_record: dict[str, Any], hemisphere: str) -> str:
     if hemisphere == seed_record.get("primary_hemisphere"):
         return "same_primary_target"
     return "same_secondary_target"
-
 
 def compose_itinerary(
     runtime: dict[str, Any],
@@ -229,7 +221,6 @@ def compose_itinerary(
         "stages": stages,
     }
 
-
 def compose_shared_spine(runtime: dict[str, Any], seed_record: dict[str, Any]) -> dict[str, Any]:
     source_hemisphere = seed_record.get("primary_hemisphere", "MATH")
     source_hub = MATH_HUB_ID if source_hemisphere == "MATH" else MYTH_HUB_ID
@@ -258,7 +249,6 @@ def compose_shared_spine(runtime: dict[str, Any], seed_record: dict[str, Any]) -
         ],
     }
 
-
 def compose_bridge_profile(runtime: dict[str, Any], seed_record: dict[str, Any]) -> dict[str, Any]:
     record_id = seed_record["record_id"]
     direct_edges = runtime["navigator"]["edge_lookup"][record_id]
@@ -281,7 +271,6 @@ def compose_bridge_profile(runtime: dict[str, Any], seed_record: dict[str, Any])
         ],
     }
 
-
 def compose_facet_context(
     seed_record: dict[str, Any],
     navigator_response: dict[str, Any],
@@ -297,7 +286,6 @@ def compose_facet_context(
         "origin_systems": facet_summary.get("origin_systems", {}),
         "route_modes": facet_summary.get("route_modes", {}),
     }
-
 
 def compose_proof_summary(runtime: dict[str, Any], seed_record: dict[str, Any]) -> dict[str, Any]:
     routes = runtime["navigator"]["route_lookup"][seed_record["record_id"]]
@@ -317,7 +305,6 @@ def compose_proof_summary(runtime: dict[str, Any], seed_record: dict[str, Any]) 
         "docs_gate_status": runtime["docs_gate_status"],
     }
 
-
 def alternative_seed_payload(runtime: dict[str, Any], record_id: str) -> dict[str, Any]:
     nav = runtime["navigator"]
     record = nav["record_map"][record_id]
@@ -329,7 +316,6 @@ def alternative_seed_payload(runtime: dict[str, Any], record_id: str) -> dict[st
             "MYTH": route_header(routes["MYTH"]),
         },
     }
-
 
 def compose_seed_record(
     registries: dict[str, Any],
@@ -363,7 +349,6 @@ def compose_seed_record(
         ]
     return payload
 
-
 def extract_alternative_record_ids(navigator_response: dict[str, Any], seed_record_id: str) -> list[str]:
     alternatives: list[str] = []
     for candidate in navigator_response.get("candidates", []):
@@ -371,7 +356,6 @@ def extract_alternative_record_ids(navigator_response: dict[str, Any], seed_reco
         if record_id and record_id != seed_record_id and record_id not in alternatives:
             alternatives.append(record_id)
     return alternatives
-
 
 def compose_from_navigator_response(
     navigator_response: dict[str, Any],
@@ -412,7 +396,6 @@ def compose_from_navigator_response(
         alternative_record_ids=alternative_record_ids,
     )
 
-
 def record(
     registries: dict[str, Any],
     *,
@@ -445,7 +428,6 @@ def record(
         expanded=expanded,
     )
 
-
 def search(
     query_text: str,
     registries: dict[str, Any],
@@ -473,7 +455,6 @@ def search(
         expanded=expanded,
     )
 
-
 def facet(
     registries: dict[str, Any],
     *,
@@ -500,7 +481,6 @@ def facet(
         expanded=expanded,
     )
 
-
 def starter_sort_key(record: dict[str, Any], group: str) -> tuple[Any, ...]:
     if group == "math":
         score = float(record.get("salience", 0.0))
@@ -513,7 +493,6 @@ def starter_sort_key(record: dict[str, Any], group: str) -> tuple[Any, ...]:
         -float(record.get("confidence", 0.0)),
         record.get("relative_path", "").lower(),
     )
-
 
 def build_seed_registry(
     registries: dict[str, Any],
@@ -577,10 +556,8 @@ def build_seed_registry(
         },
     }
 
-
 def facet_records_for_name(facet_index: dict[str, Any], facet_name: str) -> list[str]:
     return sorted(facet_index.get("facets", {}).get(facet_name, {}))
-
 
 def build_facet_registry(
     registries: dict[str, Any],
@@ -610,7 +587,6 @@ def build_facet_registry(
         },
     }
 
-
 def build_composer_manifest(
     seed_registry: dict[str, Any],
     facet_registry: dict[str, Any],
@@ -635,7 +611,6 @@ def build_composer_manifest(
             "python -m self_actualize.runtime.compose_myth_math_hemisphere_routes facet --family <family>",
         ],
     }
-
 
 def build_route_composer_payloads(
     *,

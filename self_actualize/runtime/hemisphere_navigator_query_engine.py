@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=459 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
@@ -19,7 +23,6 @@ from self_actualize.runtime.hemisphere_full_corpus_integration_support import (
     FULL_CORPUS_AWAKENING_STAGE_REGISTRY_PATH,
 )
 from self_actualize.runtime.hemisphere_navigator_support import normalize, route_ref
-
 
 PROOF_WEIGHT = {
     "OK": 1.0,
@@ -44,10 +47,8 @@ SEARCH_FILTER_TO_FACET = {
 }
 HIGH_BRIDGE_TOKENS = {"bridge", "commissure", "bilateral", "dual", "both hemispheres"}
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_navigator_registries() -> dict[str, Any]:
     payload = {
@@ -69,7 +70,6 @@ def load_navigator_registries() -> dict[str, Any]:
             FULL_CORPUS_AWAKENING_AGENT_TRANSITION_REGISTRY_PATH
         )
     return payload
-
 
 def build_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     records = registries["record_registry"].get("records", [])
@@ -182,7 +182,6 @@ def build_runtime(registries: dict[str, Any]) -> dict[str, Any]:
         "awakening_stage_family_note_map": stage_family_note_map,
     }
 
-
 def awakening_summary(runtime: dict[str, Any], record: dict[str, Any]) -> dict[str, Any]:
     assignment = runtime["awakening_by_record_id"].get(record["record_id"], {})
     stage_id = assignment.get("stage_id", "")
@@ -211,7 +210,6 @@ def awakening_summary(runtime: dict[str, Any], record: dict[str, Any]) -> dict[s
         "abstention_reason": assignment.get("abstention_reason", ""),
     }
 
-
 def ensure_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_runtime")
     if runtime is None:
@@ -219,10 +217,8 @@ def ensure_runtime(registries: dict[str, Any]) -> dict[str, Any]:
         registries["_runtime"] = runtime
     return runtime
 
-
 def proof_score(value: str) -> float:
     return PROOF_WEIGHT.get(value, 0.35)
-
 
 def exact_alias_hits(
     runtime: dict[str, Any],
@@ -233,7 +229,6 @@ def exact_alias_hits(
     if allowed_kinds is None:
         return hits
     return [hit for hit in hits if hit["alias_kind"] in allowed_kinds]
-
 
 def text_match_details(
     record: dict[str, Any],
@@ -269,7 +264,6 @@ def text_match_details(
         return 0, 0.0, []
     return 1, round(0.38 + (0.5 * (len(overlap) / len(query_tokens))), 3), []
 
-
 def canonical_facet_value(
     runtime: dict[str, Any],
     facet_name: str,
@@ -278,7 +272,6 @@ def canonical_facet_value(
     if not requested_value:
         return None
     return runtime["facet_aliases"].get(facet_name, {}).get(normalize(requested_value))
-
 
 def filter_route_refs(
     runtime: dict[str, Any],
@@ -308,13 +301,11 @@ def filter_route_refs(
         current = set(runtime["route_ref_lookup"])
     return current, matched_filters
 
-
 def query_needs_bridge(query_text: str, filters: dict[str, str]) -> bool:
     query_norm = normalize(query_text)
     if any(token in query_norm for token in HIGH_BRIDGE_TOKENS):
         return True
     return filters.get("route_mode", "") == "commissure_direct"
-
 
 def summarize_record(record: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -336,7 +327,6 @@ def summarize_record(record: dict[str, Any]) -> dict[str, Any]:
         "salience": record.get("salience"),
     }
 
-
 def neighborhood_response(
     runtime: dict[str, Any],
     bundle: dict[str, Any],
@@ -352,7 +342,6 @@ def neighborhood_response(
         "total": bundle.get("total", 0),
         "records": records,
     }
-
 
 def build_record_response(
     runtime: dict[str, Any],
@@ -453,7 +442,6 @@ def build_record_response(
         response["neighbor_manifest"] = neighbor_entry
     return response
 
-
 def candidate_records(
     runtime: dict[str, Any],
     query_text: str,
@@ -503,14 +491,12 @@ def candidate_records(
     ranked.sort(key=lambda item: item["sort_key"])
     return ranked
 
-
 def response_mode(expanded: bool, full_bundle: bool) -> str:
     if full_bundle:
         return "full_bundle"
     if expanded:
         return "expanded"
     return "focused"
-
 
 def search(
     query_text: str,
@@ -555,7 +541,6 @@ def search(
         )
     )
     return result
-
 
 def record(
     registries: dict[str, Any],
@@ -623,7 +608,6 @@ def record(
     )
     result["mode"] = "record"
     return result
-
 
 def facet(
     registries: dict[str, Any],

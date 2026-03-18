@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=103 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      DYNAMICAL SYSTEMS MODULE                                ║
@@ -29,7 +33,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIXED POINT ANALYSIS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -43,7 +46,6 @@ class StabilityType(Enum):
     UNSTABLE_FOCUS = "unstable_focus"     # Complex, Re > 0
     CENTER = "center"                     # Pure imaginary
     NONHYPERBOLIC = "nonhyperbolic"       # Zero eigenvalue
-
 
 @dataclass
 class FixedPointInfo:
@@ -121,7 +123,6 @@ class FixedPointInfo:
         """Check if asymptotically stable."""
         return self.stability in [StabilityType.STABLE_NODE, StabilityType.STABLE_FOCUS]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DISCRETE DYNAMICAL SYSTEM
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -192,7 +193,6 @@ class DiscreteMap:
         
         return orbit
 
-
 @dataclass
 class LogisticMap:
     """
@@ -256,7 +256,6 @@ class LogisticMap:
                 x_all.append(float(x[0]))
         
         return {'r': np.array(r_all), 'x': np.array(x_all)}
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTINUOUS DYNAMICAL SYSTEM
@@ -328,7 +327,6 @@ class ContinuousFlow:
         
         return None
 
-
 @dataclass
 class LorenzSystem:
     """
@@ -391,7 +389,6 @@ class LorenzSystem:
         eq_minus = np.array([-c, -c, self.rho - 1])
         
         return [origin, eq_plus, eq_minus]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LYAPUNOV EXPONENTS
@@ -490,7 +487,6 @@ class LyapunovAnalyzer:
         
         return lyapunov_sums / t_total
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BIFURCATION ANALYSIS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -503,7 +499,6 @@ class BifurcationType(Enum):
     HOPF = "hopf"                     # Limit cycle appears
     PERIOD_DOUBLING = "period_doubling"  # Period doubles
     FLIP = "flip"                     # Period doubling for maps
-
 
 @dataclass
 class BifurcationDetector:
@@ -541,7 +536,6 @@ class BifurcationDetector:
             prev_eigenvalues = eigenvalues
         
         return crossings
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BASIN OF ATTRACTION
@@ -592,7 +586,6 @@ class BasinAnalyzer:
         
         return basin
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -600,7 +593,6 @@ class BasinAnalyzer:
 def analyze_fixed_point(f: Callable, x_star: NDArray) -> FixedPointInfo:
     """Analyze stability of fixed point."""
     return FixedPointInfo.analyze(f, x_star)
-
 
 def lyapunov_exponent(system, x0: NDArray, n_steps: int = 10000) -> float:
     """Compute maximal Lyapunov exponent."""
@@ -635,13 +627,11 @@ def lyapunov_exponent(system, x0: NDArray, n_steps: int = 10000) -> float:
     # DiscreteMap
     return LyapunovAnalyzer.maximal_lyapunov_discrete(system, x0, n_steps)
 
-
 def logistic_bifurcation(r_range: Tuple[float, float] = (2.5, 4.0)
                         ) -> Dict[str, NDArray]:
     """Compute logistic map bifurcation diagram."""
     lmap = LogisticMap()
     return lmap.bifurcation_diagram(r_range)
-
 
 def integrate_lorenz(x0: NDArray = None, t_span: Tuple[float, float] = (0, 50),
                     n_steps: int = 5000) -> Tuple[NDArray, NDArray]:
@@ -650,7 +640,6 @@ def integrate_lorenz(x0: NDArray = None, t_span: Tuple[float, float] = (0, 50),
         x0 = np.array([1.0, 1.0, 1.0])
     lorenz = LorenzSystem()
     return lorenz.integrate_rk4(x0, t_span, n_steps)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S20 | face=R | node=206 | depth=2 | phase=Cardinal
+# METRO: ✶
+# BRIDGES: Xi108:W2:A4:S19→Xi108:W2:A4:S21→Xi108:W1:A4:S20→Xi108:W3:A4:S20→Xi108:W2:A3:S20→Xi108:W2:A5:S20
+
 """
 Program Language Holographic Crystal — Master Rosetta
 ======================================================
@@ -13,7 +17,6 @@ orthogonal projections of one indivisible holographic crystal:
 from ._cache import JsonCache
 
 _ROSETTA = JsonCache("program_rosetta.json")
-
 
 def query_program_rosetta(component: str = "all") -> str:
     """
@@ -54,7 +57,6 @@ def query_program_rosetta(component: str = "all") -> str:
             "time, cultural, philosophical, unified"
         )
 
-
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
     lines = [
@@ -67,7 +69,6 @@ def _format_all(data: dict) -> str:
         f"**Projections**: {meta.get('total_projections', 9)}",
     ]
     return "\n".join(lines)
-
 
 def _format_seed(data: dict) -> str:
     seed = data.get("seed", {})
@@ -84,7 +85,6 @@ def _format_seed(data: dict) -> str:
     ]
     return "\n".join(lines)
 
-
 def _format_projections(data: dict) -> str:
     projs = data.get("projections", [])
     lines = ["## Nine Projection Families\n"]
@@ -97,7 +97,6 @@ def _format_projections(data: dict) -> str:
         else:
             lines.append(f"{i}. {p}")
     return "\n".join(lines)
-
 
 def _format_single_projection(data: dict, proj_name: str) -> str:
     projs = data.get("projections", [])
@@ -117,7 +116,6 @@ def _format_single_projection(data: dict, proj_name: str) -> str:
                 lines.append(f"\n**Key Formula**: `{p['key_formula']}`")
             return "\n".join(lines)
     return f"Projection '{proj_name}' not found in data."
-
 
 def _format_unified(data: dict) -> str:
     unif = data.get("unified_statement", {})

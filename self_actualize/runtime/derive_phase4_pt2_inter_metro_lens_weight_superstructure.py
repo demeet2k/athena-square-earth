@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=337 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 import hashlib
@@ -119,14 +123,11 @@ SINGLETON_SHORTCUTS = {"S": ["SCPT2-01", "SCPT2-03", "SCPT2-13"], "F": ["SCPT2-0
 BODY_SYSTEM_OVERRIDES = {"A01": "CoreMetro", "A02": "GrandCentral", "A03": "EmergentSupermap", "A04": "CrossCorpusMycelial", "A05": "HDSCTMetro", "A06": "Mycelial4D", "A07": "CrossCorpusMycelial", "A08": "EmergentSupermap", "A09": "AppendixOnlyMetro", "A10": "L3Neural", "A11": "BrainStem64", "A12": "AppendixOnlyMetro", "A13": "L4Transcendent", "A14": "BrainStem64", "A15": "HDSCTMetro", "A16": "AthenaFleetMetro", "A17": "CrossCorpusMycelial", "A18": "AppendixOnlyMetro", "A19": "Mycelial4D"}
 DIRECT_BRIDGE_WEIGHTS = {"CS-001": 0.96, "CS-002": 0.93, "CS-003": 0.91}
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_direct_bridge_edges() -> List[Dict[str, Any]]:
     candidate_payloads: List[Tuple[Path, str]] = [
@@ -146,25 +147,20 @@ def load_direct_bridge_edges() -> List[Dict[str, Any]]:
             return direct
     return []
 
-
 def write_json(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
-
 def parse_docs_gate(markdown: str) -> str:
     match = re.search(r"Command status: `([^`]+)`", markdown)
     return match.group(1) if match else "UNKNOWN"
 
-
 def normalize(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
-
 
 def unique(items: Iterable[str]) -> List[str]:
     out: List[str] = []
@@ -176,17 +172,14 @@ def unique(items: Iterable[str]) -> List[str]:
         out.append(item)
     return out
 
-
 def markdown_table(headers: Sequence[str], rows: Sequence[Sequence[Any]]) -> str:
     head = "| " + " | ".join(headers) + " |"
     sep = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(str(cell) for cell in row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
 
-
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
-
 
 def base4(value: int, digits: int = 4) -> str:
     if value <= 0:
@@ -198,10 +191,8 @@ def base4(value: int, digits: int = 4) -> str:
         current //= 4
     return "".join(reversed(out)).rjust(digits, "0")
 
-
 def stable_index(text: str, modulo: int) -> int:
     return int(hashlib.md5(text.encode("utf-8")).hexdigest()[:8], 16) % modulo
-
 
 def surface_from_path(path: str) -> str:
     lowered = path.replace("/", "\\").lower()
@@ -215,15 +206,12 @@ def surface_from_path(path: str) -> str:
         return "DeepRoot"
     return "RuntimeHub"
 
-
 def lens_label(lens_id: str) -> str:
     mapping = {"S": "Square", "F": "Flower", "C": "Cloud", "R": "Fractal"}
     return " + ".join(mapping[ch] for ch in lens_id)
 
-
 def lens_role(lens_id: str) -> str:
     return SINGLETON_ROLES.get(lens_id) or HYBRID_ROLES.get(lens_id, "hybrid-lens bridge")
-
 
 def combine_channels(members: Sequence[str]) -> Dict[str, float]:
     vector = {key: 0.0 for key in BASE_CHANNEL_VECTOR}
@@ -233,14 +221,12 @@ def combine_channels(members: Sequence[str]) -> Dict[str, float]:
     total = sum(vector.values()) or 1.0
     return {key: round(value / total, 3) for key, value in vector.items()}
 
-
 def truth_from_body(body: Dict[str, Any]) -> str:
     if body.get("status") == "live" and body.get("authority") in {"canonical", "runtime"}:
         return "OK"
     if body.get("status") == "live":
         return "NEAR"
     return "AMBIG"
-
 
 def truth_from_pair(pair: Dict[str, Any]) -> str:
     witness = float(pair.get("witness_floor", 0.0))
@@ -250,14 +236,12 @@ def truth_from_pair(pair: Dict[str, Any]) -> str:
         return "NEAR"
     return "AMBIG"
 
-
 def truth_from_wave(wave: Dict[str, Any]) -> str:
     if wave.get("stop_condition") == "PROMOTE":
         return "OK"
     if wave.get("status") == "ACTIVE":
         return "NEAR"
     return "AMBIG"
-
 
 def build_systems() -> List[Dict[str, Any]]:
     specs = [
@@ -278,7 +262,6 @@ def build_systems() -> List[Dict[str, Any]]:
         ("HDSCTMetro", "HD-SCT Metro", "field", "carrier projection docks", "replay-partial", "live-witness", "chamber", HD_SCT_PATH),
     ]
     return [{"system_id": sid, "label": label, "authority_surface": str(LEDGER_INTERLOCK_MD_PATH), "category": category, "station_family": family, "replay_class": replay, "drift_status": drift, "primary_zone": zone, "entry_station_ids": [], "exit_station_ids": [], "default_return_path": [], "source_paths": [str(path)], "note": "Phase 4 Pt 2 metro system."} for sid, label, category, family, replay, drift, zone, path in specs]
-
 
 def build_stations() -> List[Dict[str, Any]]:
     specs = [
@@ -305,7 +288,6 @@ def build_stations() -> List[Dict[str, Any]]:
     ]
     return [{"station_id": sid, "label": label, "system_ids": systems, "station_type": station_type, "authority_surface": str(LEDGER_INTERLOCK_MD_PATH), "lane_membership": lanes, "coordinate_hint": hint, "source_paths": [str(LEDGER_INTERLOCK_MD_PATH)], "note": "Station, hub, or dock used by Pt 2 interlocks."} for sid, label, systems, station_type, lanes, hint in specs]
 
-
 def dispatch_score(transform_kind: str, route_via: Sequence[str], proof_state: str, note: str) -> float:
     base = {"same_station": 7.35, "hub_transfer": 7.75, "rail_lift": 7.48, "appendix_dock": 7.18, "tunnel_crossing": 7.82, "pair_projection": 7.28, "body_projection": 7.36, "field_projection": 7.21, "promotion_departure": 6.96}[transform_kind]
     if "ST-GCW" in route_via:
@@ -319,7 +301,6 @@ def dispatch_score(transform_kind: str, route_via: Sequence[str], proof_state: s
     if any(token in normalize(note) for token in ["historical", "trading bot"]):
         base -= 0.22
     return round(clamp(base, 5.7, 8.2), 3)
-
 
 def build_interlocks() -> List[Dict[str, Any]]:
     basis = [str(GRAND_CENTRAL_OVERVIEW_PATH), str(ADDRESSING_PATH), str(HIGHER_DIMENSIONAL_PATH), str(HD_SCT_PATH), str(HYBRID_LENS_PATH)]
@@ -351,7 +332,6 @@ def build_interlocks() -> List[Dict[str, Any]]:
     ]
     return [{"interlock_id": iid, "source_system": src_sys, "source_station": src_station, "target_system": dst_sys, "target_station": dst_station, "transform_kind": kind, "witness_basis": basis, "dispatch_rule": rule, "dispatch_score": dispatch_score(kind, route_via, proof, note), "return_path": ret, "route_via": route_via, "proof_state": proof, "status": "LIVE", "note": note} for iid, src_sys, src_station, dst_sys, dst_station, kind, rule, route_via, ret, proof, note in specs]
 
-
 def apply_system_defaults(systems: List[Dict[str, Any]], stations: List[Dict[str, Any]], interlocks: List[Dict[str, Any]]) -> None:
     station_by_system: Dict[str, List[str]] = {}
     for station in stations:
@@ -375,7 +355,6 @@ def apply_system_defaults(systems: List[Dict[str, Any]], stations: List[Dict[str
             system["default_return_path"] = ["ST-AppM", "ST-AppQ", "ST-GCZ", "ST-T10"]
         else:
             system["default_return_path"] = ["ST-T10", "ST-GCP"]
-
 
 def build_simple_registry_specs() -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
     carriers = [{"carrier_id": cid, "label": cid, "role": role, "authority_surface": str(SCHEMA_PRIMARY_MD_PATH), "transform_neighbors": neighbors, "dominant_zone": zone, "note": "Carrier promoted into the Pt 2 machine layer."} for cid, role, zone, neighbors in [("Square", "addressable structure and indexing", "address", ["Triangle", "Flower", "Nervous"]), ("Circle", "phase and timing carrier", "phase", ["Flower", "Fractal", "Neural"]), ("Triangle", "legality and carry governor", "governance", ["Square", "Fractal", "Nervous"]), ("Flower", "resonance and orbit carrier", "resonance", ["Circle", "Cloud", "Neural"]), ("Cloud", "field and Aether carrier", "field", ["Flower", "Aether", "Mycelium"]), ("Fractal", "replay and regeneration carrier", "replay", ["Cloud", "Triangle", "Mycelium"]), ("Zero", "exact re-entry and recommitment", "zero", ["Aether", "Fractal"]), ("Aether", "integrated transport and high-coherence loading", "field", ["Cloud", "Zero", "Neural"]), ("Nervous", "cortical routing tissue", "organism", ["Square", "Triangle", "Mycelium"]), ("Mycelium", "cross-body membrane transport", "organism", ["Cloud", "Fractal", "Nervous"]), ("Neural", "wave and packet carrier", "runtime", ["Flower", "Circle", "Aether"])]]
@@ -406,7 +385,6 @@ def build_simple_registry_specs() -> Tuple[List[Dict[str, Any]], List[Dict[str, 
     shortcuts = [{"shortcut_id": sid, "label": label, "trigger": trig, "preferred_zones": zones, "preferred_surface_classes": classes, "ranking_stack": rank, "stop_condition": stop, "required_inputs": inputs, "authority_surface": str(SCHEMA_QUERY_MD_PATH), "note": "Phase 4 Pt 2 deterministic shortcut."} for sid, label, trig, zones, classes, rank, stop, inputs in [("SCPT2-01", "SquareAnchor", "address-first grounding", ["cortex", "appendix"], ["body_station", "body", "node"], ["authority", "witness", "system", "coordinate", "lens"], "REPAIR", ["seed surface", "body or node id"]), ("SCPT2-02", "CirclePhaseSync", "phase alignment", ["cortex", "deep-root"], ["pair", "wave"], ["authority", "witness", "system", "lens", "field"], "REPAIR", ["objective", "phase-bearing surface"]), ("SCPT2-03", "TriangleLegalityCheck", "carry legality", ["cortex", "field"], ["body", "pair", "route"], ["authority", "witness", "rail", "coordinate"], "ABSTAIN", ["candidate route", "rail context"]), ("SCPT2-04", "FlowerResonanceSweep", "resonance scan", ["runtime", "field"], ["wave", "pair"], ["authority", "witness", "lens", "field"], "REPAIR", ["objective"]), ("SCPT2-05", "CloudFieldProbe", "field-density scan", ["field", "deep-root"], ["wave", "projection"], ["authority", "witness", "field", "coordinate", "lens"], "ABSTAIN", ["field seed"]), ("SCPT2-06", "FractalReplayFold", "replay-first regeneration", ["runtime", "cortex"], ["wave", "body", "node"], ["authority", "witness", "field", "writeback"], "REPAIR", ["record id"]), ("SCPT2-07", "HybridFaceJump", "jump to nearest useful hybrid lens family", ["field", "deep-root"], ["pair", "wave", "projection"], ["authority", "witness", "system", "lens", "field"], "PROMOTE", ["objective", "dominant lens"]), ("SCPT2-08", "LensBalance", "rebalance over-fit lens stacks", ["cortex", "runtime"], ["body", "node", "wave"], ["authority", "witness", "lens", "field"], "REPAIR", ["record id"]), ("SCPT2-09", "MetroInterlockJump", "use explicit interlock instead of inferred hop", ["cortex", "runtime", "deep-root"], ["route", "interlock"], ["authority", "witness", "system", "interlock"], "PROMOTE", ["source", "target"]), ("SCPT2-10", "ZPointDive", "restart or tunnel dive through GCZ", ["deep-root", "field"], ["route", "wave"], ["authority", "witness", "field", "interlock"], "QUARANTINE", ["restart seed"]), ("SCPT2-11", "AetherBridge", "cross through Aether density rather than flat similarity", ["field", "runtime"], ["projection", "wave", "pair"], ["authority", "witness", "field", "lens"], "PROMOTE", ["field seed", "objective"]), ("SCPT2-12", "MycelialBackfill", "repair neglected membrane routes before outward lift", ["field", "cortex"], ["body", "pair", "projection"], ["authority", "witness", "field", "writeback"], "REPAIR", ["neglect signal"]), ("SCPT2-13", "HDSCTLift", "project through higher-dimensional carriers", ["field", "deep-root"], ["projection", "pair", "route"], ["authority", "witness", "system", "coordinate", "lens", "field"], "PROMOTE", ["projection seed"])]] 
     queries = [{"query_id": qid, "mode": mode, "scope": scope, "active_shortcuts": shortcuts_used, "stop_rule": stop, "default_exploration_order": QUERY_ORDER, "writeback_targets": targets, "authority_surface": str(QUERY_PRESETS_MD_PATH), "note": "Phase 4 Pt 2 query preset."} for qid, mode, scope, shortcuts_used, stop, targets in [("QPT2-01", "locate", "all active registries", ["SCPT2-01", "SCPT2-08", "SCPT2-13"], "ABSTAIN", [str(DASHBOARD_MD_PATH)]), ("QPT2-02", "route", "system and interlock graph", ["SCPT2-03", "SCPT2-09", "SCPT2-10"], "REPAIR", [str(LEDGER_INTERLOCK_MD_PATH), str(DASHBOARD_MD_PATH)]), ("QPT2-03", "fire", "lens states and field weights", ["SCPT2-04", "SCPT2-07", "SCPT2-11"], "PROMOTE", [str(LEDGER_LENS_MD_PATH), str(LEDGER_FIELD_MD_PATH)]), ("QPT2-04", "promote", "lawful promotion candidates", ["SCPT2-03", "SCPT2-09", "SCPT2-12"], "PROMOTE", [str(LEDGER_MAIN_MD_PATH), str(EDGE_MD_PATH)]), ("QPT2-05", "interlock", "metro interlock registry", ["SCPT2-09", "SCPT2-13"], "PROMOTE", [str(LEDGER_INTERLOCK_MD_PATH)]), ("QPT2-06", "lens", "lens profiles and lens states", ["SCPT2-07", "SCPT2-08"], "REPAIR", [str(LEDGER_LENS_MD_PATH)]), ("QPT2-07", "field", "field, z-point, and aether surfaces", ["SCPT2-05", "SCPT2-10", "SCPT2-11"], "ABSTAIN", [str(LEDGER_FIELD_MD_PATH)]), ("QPT2-08", "project", "projection spaces and assignments", ["SCPT2-07", "SCPT2-13"], "REPAIR", [str(LEDGER_PROJECTION_MD_PATH)])]]
     return carriers, rails, arcs, transforms, singletons, hybrids, profiles, fields, zpoints, spaces, shortcuts, queries
-
 
 def build_state_registries(phase4_body: Dict[str, Any], phase4_node: Dict[str, Any], phase4_pair: Dict[str, Any], phase4_wave: Dict[str, Any], profiles: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
     profile_map = {profile["lens_id"]: profile for profile in profiles}
@@ -524,13 +502,11 @@ def build_state_registries(phase4_body: Dict[str, Any], phase4_node: Dict[str, A
         aether_points.append({"point_id": f"AP-{index:04d}", "source_record_id": record_id, "source_record_type": record_type, "lens_system": dominant, "system_id": system_id, "aether_density": field_vector["aether_density"], "zero_proximity": field_vector["zero_proximity"], "tunnel_cost": field_vector["tunnel_cost"], "rail_hardness": field_vector["rail_hardness"], "resonance_pressure": field_vector["resonance_pressure"], "repair_gain": field_vector["repair_gain"], "geodesic_mode": mode, "authority_surface": str(JSON_OUTPUTS["aether_point_registry"]), "source_paths": list(source_paths), "note": "Aether point projected from the Pt 2 field-weight layer."})
     return coordinates, lens_states, assignments, aether_points
 
-
 def wrap(list_key: str, items: Sequence[Any], authority_surface: Path, docs_gate: str, extra: Dict[str, Any] | None = None) -> Dict[str, Any]:
     payload = {"generated_at": utc_now(), "derivation_version": DERIVATION_VERSION, "derivation_command": DERIVATION_COMMAND, "docs_gate": docs_gate, "authority_surface": str(authority_surface), list_key: list(items), "summary": {"count": len(items)}}
     if extra:
         payload.update(extra)
     return payload
-
 
 def main() -> int:
     docs_gate = parse_docs_gate(DOCS_GATE_PATH.read_text(encoding="utf-8"))
@@ -606,7 +582,6 @@ def main() -> int:
     write_text(RUNTIME_MD_PATH, f"# phase4_pt2_inter_metro_lens_weight_runtime\n\n- generated_at: `{dashboard['generated_at']}`\n- docs_gate: `{docs_gate}`\n- interlocks: `{dashboard['interlock_count']}`\n- coordinates: `{dashboard['coordinate_count']}`\n- lens_states: `{dashboard['lens_state_count']}`\n- aether_points: `{dashboard['aether_point_count']}`\n")
     write_text(RECEIPT_MD_PATH, "# 2026-03-12 phase4_pt2_inter_metro_lens_weight_superstructure\n\n" + f"- `locate('Grand Central')`: `{sample_queries['locate_top']}`\n- `interlock('GCZ')`: `{sample_queries['interlock_top']}`\n- `lens('SFCR')`: `{sample_queries['lens_top']}`\n- `field('Aether')`: `{sample_queries['field_top']}`\n- `project('Field3D')`: `{sample_queries['project_top']}`\n- `route(CoreMetro -> HDSCTMetro)`: `{sample_queries['route_outcome']}`\n- `fire('cloud field repair')`: `{sample_queries['fire_top']}`\n- `promote('IX-16')`: `{sample_queries['promote_outcome']}`\n")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

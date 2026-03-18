@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ import shutil
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 LENSES = ("S", "F", "C", "R")
 FACETS = (
@@ -96,7 +99,6 @@ QUANTUM_OPERATOR_PHASES = (
     "Stabilize", "Transmit", "Archive", "Renew",
 )
 
-
 @dataclass(frozen=True)
 class Chapter:
     index: int
@@ -120,7 +122,6 @@ class Chapter:
     @property
     def addr(self) -> str:
         return f"{self.code}<{self.station}>"
-
 
 CHAPTERS = [
     Chapter(1, "0000", "Kernel and Entry Law", 0, 0, "Su", "Foundational anchor, legend, and parse-safe entry station for the whole tome.", ("AppA", "AppC", "AppI", "AppM"), ("manuscript-architecture", "live-orchestration")),
@@ -165,15 +166,12 @@ APPENDICES = [
     ("AppP", "Deployment Profiles and Monitoring", "Deployment regimes, monitoring surfaces, observability, and execution profiles."),
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def slugify(value: str) -> str:
     value = value.lower()
@@ -181,41 +179,32 @@ def slugify(value: str) -> str:
     value = re.sub(r"[\s_-]+", "_", value).strip("_")
     return value or "untitled"
 
-
 def normalize_name(name: str) -> str:
     cleaned = re.sub(r"\s+\(\d+\)(?=\.[^.]+$)", "", name).strip()
     return Path(cleaned).stem
 
-
 def chapter_filename(chapter: Chapter) -> str:
     return f"{chapter.code}_{chapter.station}_{slugify(chapter.title)}.md"
-
 
 def appendix_filename(code: str, title: str) -> str:
     return f"{code}_{slugify(title)}.md"
 
-
 def capsule_filename(index: int, record_name: str) -> str:
     return f"{index:02d}_{slugify(normalize_name(record_name))}.md"
-
 
 def station_header(chapter: Chapter) -> str:
     return f"[Arc {chapter.arc} | Rot {chapter.rot} | Lane {chapter.lane} | w={chapter.omega}]"
 
-
 def lane_members(lane: str) -> list[Chapter]:
     return [chapter for chapter in CHAPTERS if chapter.lane == lane]
 
-
 def arc_members(arc: int) -> list[Chapter]:
     return [chapter for chapter in CHAPTERS if chapter.arc == arc]
-
 
 def orbit_neighbors(chapter: Chapter) -> tuple[Chapter, Chapter]:
     previous = CHAPTERS[(chapter.index - 2) % len(CHAPTERS)]
     nxt = CHAPTERS[chapter.index % len(CHAPTERS)]
     return previous, nxt
-
 
 def infer_family(name: str, excerpt: str) -> str:
     text = f"{name} {excerpt}".lower()
@@ -350,7 +339,6 @@ def infer_family(name: str, excerpt: str) -> str:
     best_family = max(scores, key=scores.get)
     return best_family if scores[best_family] > 0 else "general-corpus"
 
-
 def infer_chapter_links(name: str, excerpt: str, family: str) -> list[str]:
     text = f"{name} {excerpt}".lower()
     links: list[str] = []
@@ -401,7 +389,6 @@ def infer_chapter_links(name: str, excerpt: str, family: str) -> list[str]:
             seen.add(item)
     return ordered[:4]
 
-
 def infer_appendix_links(name: str, excerpt: str, family: str) -> list[str]:
     text = f"{name} {excerpt}".lower()
     links: list[str] = []
@@ -435,7 +422,6 @@ def infer_appendix_links(name: str, excerpt: str, family: str) -> list[str]:
             seen.add(item)
     return ordered[:4]
 
-
 def summarize_focus(name: str, excerpt: str, family: str) -> str:
     text = f"{name} {excerpt}".lower()
     if family == "higher-dimensional-geometry":
@@ -460,15 +446,12 @@ def summarize_focus(name: str, excerpt: str, family: str) -> str:
         return "Adds temporal phase structure and cyclical recurrence contracts."
     return "Contributes supporting material to the broader manuscript lattice."
 
-
 def ascii_clean(text: str) -> str:
     return text.encode("ascii", "replace").decode()
-
 
 def record_blob(record: dict) -> str:
     headings = " ".join(record.get("heading_candidates") or [])
     return f"{Path(record.get('relative_path', '')).name} {record.get('excerpt', '')} {headings}".lower()
-
 
 def collect_signals(record: dict) -> dict[str, int]:
     blob = record_blob(record)
@@ -486,7 +469,6 @@ def collect_signals(record: dict) -> dict[str, int]:
     }
     return {key: sum(1 for term in terms if term in blob) for key, terms in keyword_sets.items()}
 
-
 def assign_pentadic_lanes(record: dict) -> list[str]:
     blob = record_blob(record)
     lane_keywords = {
@@ -498,7 +480,6 @@ def assign_pentadic_lanes(record: dict) -> list[str]:
     }
     assigned = [lane for lane, keywords in lane_keywords.items() if any(keyword in blob for keyword in keywords)]
     return assigned or ["E"]
-
 
 def family_stats(records: list[dict]) -> dict[str, dict]:
     stats: dict[str, dict] = {}
@@ -534,7 +515,6 @@ def family_stats(records: list[dict]) -> dict[str, dict]:
             info["lanes"][lane] += 1
     return stats
 
-
 def compute_family_targets(records: list[dict]) -> dict[str, list[str]]:
     targets: dict[str, set[str]] = {}
     for record in records:
@@ -543,7 +523,6 @@ def compute_family_targets(records: list[dict]) -> dict[str, list[str]]:
         for chapter_code in infer_chapter_links(name, record.get("excerpt", ""), family):
             targets.setdefault(family, set()).add(chapter_code)
     return {family: sorted(chapters) for family, chapters in targets.items()}
-
 
 def build_top_readme(output_root: Path, record_count: int, live_docs_blocked: bool) -> None:
     text = f"""
@@ -583,7 +562,6 @@ python "C:\\Users\\dmitr\\Documents\\Athena Agent\\DEEPER_CRYSTALIZATION\\ns_bui
 ```
 """
     write_text(output_root / "README.md", text)
-
 
 def build_toolkit_docs(output_root: Path, live_docs_status: str) -> None:
     toolkit = """
@@ -678,7 +656,6 @@ This toolkit is the normalized operating contract extracted from the prompt pack
     write_text(output_root / "01_TOOLKIT" / "01_section_drafting_and_intake_rules.md", intake)
     write_text(output_root / "01_TOOLKIT" / "02_nervous_system_operating_loop.md", operating)
 
-
 def build_receipts(output_root: Path, build_root: Path, records: list[dict]) -> bool:
     gate_source = build_root / "receipts" / "live_docs_gate_status.md"
     gate_target = output_root / "00_RECEIPTS" / "00_live_docs_gate_status.md"
@@ -720,7 +697,6 @@ def build_receipts(output_root: Path, build_root: Path, records: list[dict]) -> 
         lines.append("- None")
     write_text(output_root / "00_RECEIPTS" / "01_build_receipt.md", "\n".join(lines))
     return live_docs_blocked
-
 
 def build_capsules(output_root: Path, records: list[dict]) -> dict[str, list[str]]:
     source_map: dict[str, list[str]] = {chapter.code: [] for chapter in CHAPTERS}
@@ -784,7 +760,6 @@ def build_capsules(output_root: Path, records: list[dict]) -> dict[str, list[str
     write_text(output_root / "02_CORPUS_CAPSULES" / "INDEX.md", "\n".join(index_lines))
     return source_map
 
-
 def build_metro_docs(output_root: Path, records: list[dict], live_docs_blocked: bool) -> None:
     orbit = " -> ".join(chapter.addr for chapter in CHAPTERS + [CHAPTERS[0]])
     rails = [f"- {lane}: {', '.join(chapter.addr for chapter in lane_members(lane))}" for lane in ("Su", "Me", "Sa")]
@@ -842,7 +817,6 @@ def build_metro_docs(output_root: Path, records: list[dict], live_docs_blocked: 
     ]
     write_text(output_root / "03_METRO" / "03_build_queue.md", "\n".join(queue))
 
-
 def chapter_lane_signature(chapter: Chapter) -> list[str]:
     signature: list[str] = []
     for family in chapter.families:
@@ -868,7 +842,6 @@ def chapter_lane_signature(chapter: Chapter) -> list[str]:
             seen.add(lane)
     return ordered[:3] or ["E"]
 
-
 def chapter_governance_signs(chapter: Chapter) -> list[str]:
     sign_map = {
         "manuscript-architecture": ["SIG02", "SIG03"],
@@ -893,7 +866,6 @@ def chapter_governance_signs(chapter: Chapter) -> list[str]:
         signs.append("SIG15")
     return signs[:4]
 
-
 def chapter_civilization_scale(chapter: Chapter) -> str:
     if chapter.index <= 3:
         return "message->task->chapter"
@@ -905,10 +877,8 @@ def chapter_civilization_scale(chapter: Chapter) -> str:
         return "chapter->family->rail_council"
     return "family->rail_council->civilization"
 
-
 def family_council_id(family: str) -> str:
     return f"COUNCIL-{slugify(family)}"
-
 
 def chapter_keyword_profile(chapter_code: str) -> tuple[str, ...]:
     profiles = {
@@ -919,7 +889,6 @@ def chapter_keyword_profile(chapter_code: str) -> tuple[str, ...]:
     }
     return profiles.get(chapter_code, ())
 
-
 def chapter_match_score(chapter_code: str, name: str, excerpt: str) -> int:
     text = f"{name} {excerpt}".lower()
     score = 0
@@ -927,7 +896,6 @@ def chapter_match_score(chapter_code: str, name: str, excerpt: str) -> int:
         if term in text:
             score += 1
     return score
-
 
 def top_support_records(records: list[dict], chapter_code: str, limit: int = 8) -> list[dict]:
     ranked = []
@@ -938,7 +906,6 @@ def top_support_records(records: list[dict], chapter_code: str, limit: int = 8) 
             ranked.append((score, name.lower(), record))
     ranked.sort(key=lambda item: (-item[0], item[1]))
     return [record for _, _, record in ranked[:limit]]
-
 
 def build_higher_dimensional_docs(output_root: Path, records: list[dict], source_map: dict[str, list[str]], live_docs_blocked: bool) -> None:
     stats = family_stats(records)
@@ -1165,7 +1132,6 @@ def build_higher_dimensional_docs(output_root: Path, records: list[dict], source
         json.dumps({"generated_at": utc_now(), "sources": source_index, "edges": hyper_edges}, indent=2),
     )
 
-
 def build_chapters(output_root: Path, source_map: dict[str, list[str]]) -> None:
     index_lines = ["# Chapter Index", ""]
     for chapter in CHAPTERS:
@@ -1215,7 +1181,6 @@ def build_chapters(output_root: Path, source_map: dict[str, list[str]]) -> None:
         index_lines.append(f"- [{chapter.addr} - {chapter.title}](./{filename})")
     write_text(output_root / "04_CHAPTERS" / "INDEX.md", "\n".join(index_lines))
 
-
 def build_appendices(output_root: Path) -> None:
     index_lines = ["# Appendix Index", ""]
     for code, title, purpose in APPENDICES:
@@ -1237,7 +1202,6 @@ def build_appendices(output_root: Path) -> None:
         write_text(output_root / "05_APPENDICES" / filename, "\n".join(lines))
         index_lines.append(f"- [{code} - {title}](./{filename})")
     write_text(output_root / "05_APPENDICES" / "INDEX.md", "\n".join(index_lines))
-
 
 def build_runtime_notes(output_root: Path) -> None:
     notes = """
@@ -1265,7 +1229,6 @@ def build_runtime_notes(output_root: Path) -> None:
 - Existing Chapter 11 pass: `self_actualize\\manuscript_sections\\011_ch11_helical_manifestation_engine.md`
     """
     write_text(output_root / "06_RUNTIME" / "00_regeneration_protocol.md", notes)
-
 
 def build_recursive_docs(output_root: Path, build_root: Path, recursive_state: dict, records: list[dict], source_map: dict[str, list[str]], live_docs_blocked: bool) -> None:
     deep_pass = recursive_state["deep_pass"]
@@ -1478,7 +1441,6 @@ def build_recursive_docs(output_root: Path, build_root: Path, recursive_state: d
     write_text(output_root / "06_RUNTIME" / "05_nerve_edge_manifest.json", json.dumps({"generated_at": utc_now(), "deep_pass": deep_pass, "edges": edges}, indent=2))
     write_text(output_root / "07_RECURSION" / "03_recursive_state.json", json.dumps(recursive_state, indent=2))
 
-
 def build_civilization_docs(output_root: Path, records: list[dict], source_map: dict[str, list[str]], recursive_state: dict, live_docs_blocked: bool) -> None:
     deep_pass = recursive_state["deep_pass"]
     stats = family_stats(records)
@@ -1680,7 +1642,6 @@ def build_civilization_docs(output_root: Path, records: list[dict], source_map: 
     }
     write_text(output_root / "06_RUNTIME" / "08_message_task_manifest.json", json.dumps(message_manifest, indent=2))
 
-
 def build_frontier_docs(output_root: Path, records: list[dict], source_map: dict[str, list[str]], live_docs_blocked: bool) -> None:
     frontier_targets = ["Ch03", "Ch10", "Ch12", "Ch14"]
     bundle_index = [
@@ -1741,7 +1702,6 @@ def build_frontier_docs(output_root: Path, records: list[dict], source_map: dict
     write_text(output_root / "10_FRONTIERS" / "INDEX.md", "\n".join(bundle_index))
     write_text(output_root / "06_RUNTIME" / "09_frontier_manifest.json", json.dumps(bundle_manifest, indent=2))
 
-
 def build_shadow_docs(output_root: Path, records: list[dict], source_map: dict[str, list[str]], live_docs_blocked: bool) -> None:
     stats = family_stats(records)
     family_counts = {family: info["count"] for family, info in stats.items()}
@@ -1768,7 +1728,6 @@ def build_shadow_docs(output_root: Path, records: list[dict], source_map: dict[s
         f"- Current live-doc state: `{'BLOCKED' if live_docs_blocked else 'OPEN'}`.",
     ]
     write_text(output_root / "11_SHADOWS" / "00_shadow_report.md", "\n".join(shadow_lines))
-
 
 def build_helical_docs(output_root: Path, records: list[dict], live_docs_blocked: bool) -> None:
     selected = []
@@ -1875,7 +1834,6 @@ def build_helical_docs(output_root: Path, records: list[dict], live_docs_blocked
         ],
     }
     write_text(output_root / "06_RUNTIME" / "10_helical_manifest.json", json.dumps(manifest, indent=2))
-
 
 def build_mirror_corpus_docs(output_root: Path, records: list[dict]) -> None:
     mirror_records = [record for record in records if record.get("source_layer") != "LocalProject"]
@@ -2004,7 +1962,6 @@ def build_mirror_corpus_docs(output_root: Path, records: list[dict]) -> None:
     }
     write_text(output_root / "06_RUNTIME" / "06_mirror_manifest.json", json.dumps(mirror_manifest, indent=2))
 
-
 def load_records(build_root: Path) -> list[dict]:
     local_atlas = build_root / "atlas" / "deeper_crystalization_atlas.json"
     if not local_atlas.exists():
@@ -2015,7 +1972,6 @@ def load_records(build_root: Path) -> list[dict]:
     records.extend(load_atlas_records(build_root / "atlas" / "fresh_extracted_atlas.json", "FreshExtracted"))
     records.extend(load_atlas_records(build_root / "atlas" / "myth_math_atlas.json", "MythMath"))
     return records
-
 
 def load_recursive_state(build_root: Path) -> dict:
     state_path = build_root / "recursive_state.json"
@@ -2035,7 +1991,6 @@ def load_recursive_state(build_root: Path) -> dict:
     state_path.write_text(json.dumps(new_state, indent=2), encoding="utf-8")
     return new_state
 
-
 def load_atlas_records(atlas_path: Path, source_prefix: str) -> list[dict]:
     if not atlas_path.exists():
         return []
@@ -2052,7 +2007,6 @@ def load_atlas_records(atlas_path: Path, source_prefix: str) -> list[dict]:
         item["source_layer"] = source_prefix
         loaded.append(item)
     return loaded
-
 
 def build_full_stack_manifest(
     output_root: Path,
@@ -2109,7 +2063,6 @@ def build_full_stack_manifest(
         },
     }
     write_text(output_root / "06_RUNTIME" / "12_full_stack_manifest.json", json.dumps(manifest, indent=2))
-
 
 def main() -> int:
     from chapter_frontier_compiler import CHAPTER_FRONTIER_CODES, compile_and_write_chapter_pack
@@ -2175,7 +2128,6 @@ def main() -> int:
 
     print(f"Built nervous system at: {output_root}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

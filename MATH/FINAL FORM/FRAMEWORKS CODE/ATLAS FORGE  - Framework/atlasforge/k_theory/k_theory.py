@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        ALGEBRAIC K-THEORY MODULE                             ║
@@ -26,7 +30,6 @@ import numpy as np
 from numpy.typing import NDArray
 from fractions import Fraction
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GROTHENDIECK GROUP (K₀)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -51,7 +54,6 @@ class ProjectiveModule:
     def is_free(self) -> bool:
         """Check if module is free (no torsion)."""
         return self.torsion_data is None or len(self.torsion_data) == 0
-
 
 @dataclass
 class K0Element:
@@ -90,7 +92,6 @@ class K0Element:
         """Create K₀ element from projective module."""
         return cls(P.rank, 0, P.ring_name)
 
-
 @dataclass
 class GrothendieckGroup:
     """
@@ -121,7 +122,6 @@ class GrothendieckGroup:
         """K₀(k) ≅ ℤ for any field k."""
         return cls(name, class_group_order=1)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # K₁ - WHITEHEAD GROUP
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -149,7 +149,6 @@ class K1Element:
         det = np.linalg.det(M)
         return cls(det, ring_name)
 
-
 @dataclass
 class WhiteheadGroup:
     """
@@ -169,7 +168,6 @@ class WhiteheadGroup:
     def reals(cls) -> 'WhiteheadGroup':
         """K₁(ℝ) ≅ ℝ*."""
         return cls("R")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # K₂ - MILNOR K-THEORY AND STEINBERG SYMBOLS
@@ -211,7 +209,6 @@ class SteinbergSymbol:
         # Simplified: assume a, b are units
         return 1.0
 
-
 @dataclass
 class MilnorK2:
     """
@@ -233,7 +230,6 @@ class MilnorK2:
         """
         # Simplified computation
         return 1
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HIGHER K-THEORY
@@ -296,7 +292,6 @@ class HigherKGroup:
             structure = f"Z/{q**i - 1}"
         return cls(n, f"F_{q}", structure)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EXACT SEQUENCES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -315,7 +310,6 @@ class LocalizationSequence:
         """Description of boundary ∂: K_n(R_p) → K_{n-1}(R/p)."""
         return f"∂_{n}: K_{n}({self.ring_name}_{self.prime_ideal}) → K_{n-1}({self.ring_name}/{self.prime_ideal})"
 
-
 @dataclass  
 class FundamentalTheorem:
     """
@@ -333,7 +327,6 @@ class FundamentalTheorem:
     
     def laurent_extension(self, n: int) -> str:
         return f"K_{n}({self.ring_name}[t,t⁻¹]) ≅ K_{n}({self.ring_name}) ⊕ K_{n-1}({self.ring_name})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY-K-THEORY BRIDGE
@@ -382,7 +375,6 @@ class GatewayKTheoryBridge:
         rank = int(round(A)) if A > 0 else 0
         return K0Element(rank, 0, "Gateway")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -391,26 +383,21 @@ def k0_integers() -> GrothendieckGroup:
     """Get K₀(ℤ)."""
     return GrothendieckGroup.integers()
 
-
 def k1_integers() -> WhiteheadGroup:
     """Get K₁(ℤ)."""
     return WhiteheadGroup.integers()
-
 
 def k_n_integers(n: int) -> HigherKGroup:
     """Get K_n(ℤ)."""
     return HigherKGroup.of_integers(n)
 
-
 def steinberg_symbol(a: complex, b: complex) -> SteinbergSymbol:
     """Create Steinberg symbol {a, b}."""
     return SteinbergSymbol(a, b)
 
-
 def projective_module(rank: int, ring: str = "Z") -> ProjectiveModule:
     """Create projective module of given rank."""
     return ProjectiveModule(rank, ring)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

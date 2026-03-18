@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 from __future__ import annotations
 
 import argparse
@@ -23,13 +27,11 @@ from tesseract_metro_v4 import (
     analyze_record,
 )
 
-
 DEFAULT_WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 DEFAULT_ATLAS = Path("self_actualize/corpus_atlas.json")
 DEFAULT_MANIFEST = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_rewrites_manifest.json")
 DEFAULT_ARCHIVE_MEMBER_MANIFEST = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_archive_members_manifest.json")
 DEFAULT_GATE = Path("self_actualize/live_docs_gate_status.md")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build sibling Mycelium Metro v4 rewrites for the corpus atlas.")
@@ -42,13 +44,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
 
-
 def resolve_path(workspace_root: Path, raw_path: str) -> Path:
     candidate = Path(raw_path)
     if candidate.is_absolute():
         return candidate
     return (workspace_root / candidate).resolve()
-
 
 def load_previous_manifest(path: Path) -> dict:
     if not path.exists():
@@ -58,7 +58,6 @@ def load_previous_manifest(path: Path) -> dict:
     except json.JSONDecodeError:
         return {}
 
-
 def previous_entry_map(previous_manifest: dict) -> dict[str, dict]:
     entries = previous_manifest.get("ms_registry") or []
     return {
@@ -66,7 +65,6 @@ def previous_entry_map(previous_manifest: dict) -> dict[str, dict]:
         for entry in entries
         if isinstance(entry, dict) and "relative_path" in entry
     }
-
 
 def is_unchanged(previous_entry: dict | None, output_path: Path, record_sha: str, docs_status: str) -> bool:
     if not previous_entry:
@@ -77,7 +75,6 @@ def is_unchanged(previous_entry: dict | None, output_path: Path, record_sha: str
         and previous_entry.get("docs_gate_status") == docs_status
         and output_path.exists()
     )
-
 
 def build_manifest(
     workspace_root: Path,
@@ -110,7 +107,6 @@ def build_manifest(
         "truth_totals": truth_totals(registry_entries),
         "ms_registry": registry_entries,
     }
-
 
 def run(args: argparse.Namespace) -> dict[str, object]:
     workspace_root = Path(args.workspace_root).resolve()
@@ -186,7 +182,6 @@ def run(args: argparse.Namespace) -> dict[str, object]:
         manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return manifest
 
-
 def main() -> int:
     args = parse_args()
     manifest = run(args)
@@ -196,7 +191,6 @@ def main() -> int:
     print(f"Skipped unchanged: {manifest['skipped_unchanged_count']}")
     print(f"Manifest: {manifest['manifest_path']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

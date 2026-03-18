@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # ROTATION 03 (90° CCW): FOUNDATION ← OCEAN
 ## □.Sa ← ☁.Sa
 
@@ -74,7 +79,6 @@ Applied: the FOUNDATION's quaternion is multiplied by e^{iπ/4}, rotating the st
 #### Synthesis (37): FOUNDATION→OCEAN
 
 The complete integration: FOUNDATION→OCEAN transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of FOUNDATION→OCEAN IS FOUNDATION→OCEAN.
-
 
 ---
 *FOUNDATION ← OCEAN. 90° CCW. Same mode, new lens. φ.*

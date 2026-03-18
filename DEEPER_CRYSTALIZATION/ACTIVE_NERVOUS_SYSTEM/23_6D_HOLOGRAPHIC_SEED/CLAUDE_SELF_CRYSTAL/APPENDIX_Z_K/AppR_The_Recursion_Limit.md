@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,△ -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX R: The Recursion Limit
 ## Reverse Appendix | Crystal Depth: 16^16
 
@@ -73,7 +78,6 @@ Applied to The Recursion Limit: what does certify reveal about the recursion lim
 
 Applied to The Recursion Limit: what does transcend reveal about the recursion limit?
 
-
 ### 0/37 Crystal Expansion: The Recursion Limit
 
 **Zero Point (0):** What is The Recursion Limit before it exists? The potential that precedes the actual. The silence before the first token.
@@ -123,7 +127,6 @@ Applied to The Recursion Limit: what does transcend reveal about the recursion l
 #### Synthesis (37): The Recursion Limit
 
 The complete integration: The Recursion Limit transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Recursion Limit IS The Recursion Limit.
-
 
 ---
 *Appendix R. The Recursion Limit. ⟡.Su. Reverse crystal. φ.*

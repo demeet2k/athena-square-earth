@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S20 | face=R | node=196 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S19→Xi108:W2:A2:S21→Xi108:W1:A2:S20→Xi108:W3:A2:S20→Xi108:W2:A1:S20→Xi108:W2:A3:S20
+
 from __future__ import annotations
 
 import hashlib
@@ -19,7 +23,6 @@ from .ledger_writer import (
     write_json,
 )
 from .route_engine import classify_path
-
 
 TEMPLE_KEYWORDS = {
     "law",
@@ -58,10 +61,8 @@ HALL_KEYWORDS = {
 TEMPLE_LANES = ["M1-SYNTH", "M2-PLAN", "Athena-A", "M4-PRUNE"]
 HALL_LANES = ["M3-WORK", "Athena-G", "Athena-P", "A2", "A6", "A8", "M4-PRUNE"]
 
-
 def _slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "untyped"
-
 
 def _latest_event_record(event_id: str) -> dict[str, Any]:
     for row in reversed(read_jsonl(event_ledger_path())):
@@ -69,13 +70,11 @@ def _latest_event_record(event_id: str) -> dict[str, Any]:
             return row
     raise KeyError(f"unknown event id: {event_id}")
 
-
 def _latest_route_decision(event_id: str) -> dict[str, Any] | None:
     for row in reversed(read_jsonl(route_receipts_path())):
         if row.get("event_id") == event_id and row.get("receipt_type") == "route_decision":
             return row
     return None
-
 
 def _latest_claim(event_id: str) -> dict[str, Any] | None:
     for row in reversed(read_jsonl(claim_ledger_path())):
@@ -83,13 +82,11 @@ def _latest_claim(event_id: str) -> dict[str, Any] | None:
             return row
     return None
 
-
 def _latest_latency(event_id: str) -> dict[str, Any] | None:
     for row in reversed(read_jsonl(route_receipts_path())):
         if row.get("event_id") == event_id and row.get("receipt_type") == "latency_receipt":
             return row
     return None
-
 
 def _event_text(event_record: dict[str, Any]) -> str:
     packet = event_record["packet"]
@@ -101,14 +98,12 @@ def _event_text(event_record: dict[str, Any]) -> str:
     ]
     return " ".join(piece.lower() for piece in pieces if piece)
 
-
 def _planes_for_event(event_record: dict[str, Any]) -> tuple[bool, bool]:
     text = _event_text(event_record)
     path_class = classify_path(event_record)
     temple_hit = path_class == "structural" or any(keyword in text for keyword in TEMPLE_KEYWORDS)
     hall_hit = path_class in {"quest", "executable"} or any(keyword in text for keyword in HALL_KEYWORDS)
     return temple_hit, hall_hit
-
 
 def _front_key(event_record: dict[str, Any], plane: str) -> str:
     packet = event_record["packet"]
@@ -126,16 +121,13 @@ def _front_key(event_record: dict[str, Any], plane: str) -> str:
         ]
     )
 
-
 def _front_id(front_key: str) -> str:
     digest = hashlib.sha1(front_key.encode("utf-8")).hexdigest().upper()[:10]
     return f"CF-{digest}"
 
-
 def _quest_id(front_id: str, plane: str) -> str:
     prefix = "TQ-CMD" if plane == "temple" else "Q-CMD"
     return f"{prefix}-{front_id.split('-')[-1]}"
-
 
 def _best_lane(plane: str, route_receipt: dict[str, Any] | None) -> str:
     if route_receipt:
@@ -148,7 +140,6 @@ def _best_lane(plane: str, route_receipt: dict[str, Any] | None) -> str:
             return selected[0]
     return "M2-PLAN" if plane == "temple" else "M3-WORK"
 
-
 def _route_quality(route_receipt: dict[str, Any] | None) -> float:
     if not route_receipt:
         return 0.0
@@ -157,20 +148,17 @@ def _route_quality(route_receipt: dict[str, Any] | None) -> float:
         return 0.0
     return round(float(ranked[0].get("score", 0.0)), 6)
 
-
 def _truth(event_record: dict[str, Any]) -> str:
     witness_class = event_record["lookup_addr"]["WitnessClass"]
     if witness_class == "OK":
         return "OK"
     return "NEAR"
 
-
 def _witness_needed(event_record: dict[str, Any]) -> list[str]:
     base = ["route_receipt", "claim_receipt"]
     if _truth(event_record) != "OK":
         base.append("witness_closure")
     return base
-
 
 def _target_surfaces(plane: str) -> list[str]:
     if plane == "temple":
@@ -182,7 +170,6 @@ def _target_surfaces(plane: str) -> list[str]:
         "GLOBAL_EMERGENT_GUILD_HALL/BOARDS/09_COMMAND_EVENT_QUEUE_BOARD.md",
         "GLOBAL_EMERGENT_GUILD_HALL/BOARDS/06_QUEST_BOARD.md",
     ]
-
 
 def _writeback(plane: str) -> list[str]:
     if plane == "temple":
@@ -198,7 +185,6 @@ def _writeback(plane: str) -> list[str]:
         "C:/Users/dmitr/Documents/CLAUDE/Q-SHRINK/NERVOUS_SYSTEM/analysis/COMMAND_PROTOCOL_MIRROR.md",
     ]
 
-
 def _objective(event_record: dict[str, Any], plane: str) -> str:
     packet = event_record["packet"]
     path_class = classify_path(event_record)
@@ -206,13 +192,11 @@ def _objective(event_record: dict[str, Any], plane: str) -> str:
         return f"Promote command event `{packet['event_id']}` into lawful Temple pressure for {path_class} coherence."
     return f"Promote command event `{packet['event_id']}` into ownerable Hall work for {path_class} execution."
 
-
 def _why_now(event_record: dict[str, Any], plane: str) -> str:
     packet = event_record["packet"]
     if plane == "temple":
         return f"Committed command change `{packet['tag']}` touches governance-relevant structure and should not remain only a routed event."
     return f"Committed command change `{packet['tag']}` has executable pressure and should become claimable Hall work."
-
 
 def _load_front_memory() -> dict[str, Any]:
     return read_json(
@@ -223,10 +207,8 @@ def _load_front_memory() -> dict[str, Any]:
         },
     )
 
-
 def _store_front_memory(memory: dict[str, Any]) -> None:
     write_json(front_memory_path(), memory)
-
 
 def _front_record(
     *,
@@ -263,7 +245,6 @@ def _front_record(
         "promoted_at": datetime.now(tz=UTC).isoformat(),
     }
 
-
 def _upsert_front(memory: dict[str, Any], front: dict[str, Any]) -> tuple[dict[str, Any], str]:
     now = datetime.now(tz=UTC).isoformat()
     active = memory["active_fronts"].get(front["front_key"])
@@ -294,7 +275,6 @@ def _upsert_front(memory: dict[str, Any], front: dict[str, Any]) -> tuple[dict[s
         "last_updated_at": now,
     }
     return memory["active_fronts"][front["front_key"]], "created"
-
 
 def promote_event(event_id: str) -> dict[str, Any]:
     event_record = _latest_event_record(event_id)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S26 | face=F | node=345 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S25→Xi108:W2:A10:S27→Xi108:W1:A10:S26→Xi108:W3:A10:S26→Xi108:W2:A9:S26→Xi108:W2:A11:S26
+
 from __future__ import annotations
 
 import argparse
@@ -18,7 +22,6 @@ if __package__ in {None, ""}:
 else:
     from . import swarm_board
 
-
 ROOT = swarm_board.WORKSPACE_ROOT
 GLOBAL_COMMAND_ROOT = swarm_board.COMMAND_FOLDER_ROOT
 RUNTIME_STATE_PATH = swarm_board.COMMAND_RUNTIME_STATE_PATH
@@ -27,7 +30,6 @@ ARCHIVIST_ID = "ARCHIVIST-01"
 ACTIVE_PROTOCOL_VERSION = "V2"
 COMMAND_POLICY_ID = "goal_fit+priority+gold_signal+bridge_signal+coord_proximity+freshness+joy_q"
 
-
 def rel(path: Path | str) -> str:
     target = Path(path)
     try:
@@ -35,18 +37,14 @@ def rel(path: Path | str) -> str:
     except ValueError:
         return target.as_posix()
 
-
 def read_json(path: Path, default: Any) -> Any:
     return swarm_board.read_json(path, default)
-
 
 def write_json(path: Path, payload: Any) -> None:
     swarm_board.write_json(path, payload)
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def active_protocol_defaults() -> dict[str, Any]:
     defaults_payload = swarm_board.command_protocol_defaults()
@@ -60,10 +58,8 @@ def active_protocol_defaults() -> dict[str, Any]:
         "claim_mode": routing.get("claim_mode", "first-lease"),
     }
 
-
 def detect_watcher_mode() -> str:
     return "event-driven" if os.name == "nt" else "polling"
-
 
 def _resolve_command_path(source: str | Path) -> Path:
     source_path = Path(source)
@@ -72,7 +68,6 @@ def _resolve_command_path(source: str | Path) -> Path:
     if source_path.parts and source_path.parts[0] == "GLOBAL COMMAND":
         return (ROOT / source_path).resolve()
     return (GLOBAL_COMMAND_ROOT / source_path).resolve()
-
 
 def build_change_record(source: str | Path, change_type: str) -> dict[str, Any]:
     source_path = _resolve_command_path(source)
@@ -111,7 +106,6 @@ def build_change_record(source: str | Path, change_type: str) -> dict[str, Any]:
         "mtime_iso": mtime_iso,
     }
 
-
 def _diff_for_change(change: dict[str, Any]) -> dict[str, Any]:
     kind = change["kind"]
     return {
@@ -122,13 +116,11 @@ def _diff_for_change(change: dict[str, Any]) -> dict[str, Any]:
         "changes": [change],
     }
 
-
 def _packet_by_id(event_id: str) -> dict[str, Any] | None:
     for row in reversed(read_json(swarm_board.COMMAND_PACKET_LOG_PATH, [])):
         if row.get("event_id") == event_id:
             return row
     return None
-
 
 def _route_by_id(event_id: str) -> dict[str, Any] | None:
     for row in reversed(read_json(swarm_board.COMMAND_ROUTE_LOG_PATH, [])):
@@ -139,13 +131,11 @@ def _route_by_id(event_id: str) -> dict[str, Any] | None:
             return payload
     return None
 
-
 def _claim_by_event_id(event_id: str) -> dict[str, Any] | None:
     for row in reversed(read_json(swarm_board.COMMAND_LEASE_LOG_PATH, [])):
         if row.get("event_id") == event_id:
             return row
     return None
-
 
 def _route_command_packet_v2(packet: dict[str, Any], topk: int | None = None) -> dict[str, Any]:
     route = dict(swarm_board.route_command_packet(packet))
@@ -153,7 +143,6 @@ def _route_command_packet_v2(packet: dict[str, Any], topk: int | None = None) ->
         route["topk"] = int(topk)
     route["policy"] = route.get("policy_id", COMMAND_POLICY_ID)
     return route
-
 
 def build_event_packet(change: dict[str, Any], watcher_mode: str | None = None) -> tuple[dict[str, Any], float, float]:
     watcher_mode = watcher_mode or detect_watcher_mode()
@@ -168,12 +157,10 @@ def build_event_packet(change: dict[str, Any], watcher_mode: str | None = None) 
     encode_done = time.perf_counter()
     return packet, round((encode_done - detection_started) * 1000.0, 4), 0.0
 
-
 def rank_worker_candidates(packet: dict[str, Any], topk: int = 5) -> tuple[list[dict[str, Any]], float]:
     started = time.perf_counter()
     route = _route_command_packet_v2(packet, topk=topk)
     return route["candidate_targets"][:topk], round((time.perf_counter() - started) * 1000.0, 4)
-
 
 def handle_emit(event_source: str, change_type: str, as_json: bool = False) -> dict[str, Any]:
     change = build_change_record(event_source, change_type)
@@ -218,7 +205,6 @@ def handle_emit(event_source: str, change_type: str, as_json: bool = False) -> d
         print(f"Emitted {packet['event_id']} for {packet['relative_path']}")
     return payload
 
-
 def handle_route(event_id: str, topk: int, as_json: bool = False) -> dict[str, Any]:
     packet = _packet_by_id(event_id)
     if packet is None:
@@ -245,7 +231,6 @@ def handle_route(event_id: str, topk: int, as_json: bool = False) -> dict[str, A
     else:
         print(f"Routed {event_id} via {route['route_path']}")
     return route
-
 
 def handle_claim(event_id: str, ant_id: str | None, lease_ms: int, as_json: bool = False) -> dict[str, Any]:
     packet = _packet_by_id(event_id)
@@ -308,7 +293,6 @@ def handle_claim(event_id: str, ant_id: str | None, lease_ms: int, as_json: bool
     else:
         print(f"Claimed {event_id} with {worker_id} for {lease_ms}ms")
     return payload
-
 
 def handle_commit(event_id: str, result: str = "success", as_json: bool = False) -> dict[str, Any]:
     commit_started = time.perf_counter()
@@ -404,7 +388,6 @@ def handle_commit(event_id: str, result: str = "success", as_json: bool = False)
         print(f"Committed {event_id} as {result}")
     return payload
 
-
 def handle_reinforce(event_id: str, result: str, latency_score: float, noise_penalty: float, as_json: bool = False) -> dict[str, Any]:
     packet = _packet_by_id(event_id)
     route = _route_by_id(event_id)
@@ -452,7 +435,6 @@ def handle_reinforce(event_id: str, result: str, latency_score: float, noise_pen
         print(f"Reinforced {event_id} -> {edge['path_class']} ({edge['path_score']})")
     return payload
 
-
 def handle_status(as_json: bool = False) -> dict[str, Any]:
     payload = {
         "generated_at": utc_now(),
@@ -476,7 +458,6 @@ def handle_status(as_json: bool = False) -> dict[str, Any]:
             f"capillaries={len(payload['top_capillaries'])}"
         )
     return payload
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Dedicated COMMAND membrane runtime entrypoint.")
@@ -522,7 +503,6 @@ def parse_args() -> argparse.Namespace:
 
     return parser.parse_args()
 
-
 def main() -> int:
     args = parse_args()
     if args.command == "build":
@@ -565,7 +545,6 @@ def main() -> int:
         handle_status(args.as_json)
         return 0
     raise ValueError(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # AppR - Rosetta Procedural Generation Engine
 
 Routing role: The universal seed-to-atlas expansion protocol. Given any seed (cardinal or constant), this appendix defines the deterministic procedure that generates its full 64-cell crystal tile and its 256-cell constant-crystal extension. This is the math Rosetta Stone of the entire system.

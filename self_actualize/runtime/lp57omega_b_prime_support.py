@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=347 | depth=2 | phase=Mutable
+# METRO: Sa,Me,Ω
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
@@ -15,7 +19,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     write_json,
     write_text,
 )
-
 
 B_PRIME_REGISTRY_PATH = (
     SELF_ACTUALIZE_ROOT / "myth_math_lp57omega_b_prime_witness_registry.json"
@@ -219,10 +222,8 @@ ROW_PIN_MAP = {
     "33": {"z": "ZA+ZB+ZC+ZD", "ck": "Z*", "rt_alias": "rtZ"},
 }
 
-
 def _marker_block(marker: str, body: str) -> str:
     return "\n".join([f"<!-- {marker}:START -->", body.rstrip(), f"<!-- {marker}:END -->"])
-
 
 def apply_marker_block(current: str, marker: str, body: str) -> str:
     start_marker = f"<!-- {marker}:START -->"
@@ -237,39 +238,30 @@ def apply_marker_block(current: str, marker: str, body: str) -> str:
         return current + "\n\n" + block + "\n"
     return block + "\n"
 
-
 def format_set(values: list[str]) -> str:
     return "{" + ",".join(values) + "}"
-
 
 def format_orbit(states: list[list[str]]) -> str:
     return " -> ".join(format_set(state) for state in states)
 
-
 def symmetry_by_suffix() -> dict[str, dict[str, Any]]:
     return {row["record_id"][1:]: row for row in SYMMETRY_ROWS}
-
 
 def rotation_by_suffix() -> dict[str, dict[str, Any]]:
     return {row["record_id"][1:]: row for row in ROTATION_ROWS}
 
-
 def spin_by_suffix() -> dict[str, dict[str, Any]]:
     return {row["record_id"][1:]: row for row in SPIN_ROWS}
-
 
 def bundle_id_for(suffix: str) -> str:
     return f"B{suffix}"
 
-
 def route_pin(alias: str) -> dict[str, str]:
     return dict(ROUTE_PINS[alias])
-
 
 def render_aether(bundle_id: str, phase_bin: str, slot: str, hidden_pole: str | None = None) -> str:
     bundle_token = bundle_id if hidden_pole is None else f"{bundle_id}:h={hidden_pole}"
     return f"AE=({AETHER_LENS},{phase_bin},{bundle_token};{slot})"
-
 
 def build_aether_coordinate(
     phase_key: str,
@@ -292,7 +284,6 @@ def build_aether_coordinate(
         coordinate["hidden_pole"] = hidden_pole
     return coordinate
 
-
 def build_expected_outputs(
     coordinate: dict[str, Any],
     z_alias: str,
@@ -308,7 +299,6 @@ def build_expected_outputs(
         "sigma_satisfied": SIGMA_ROUTE,
         "hub_budget_satisfied": "Hub<=6",
     }
-
 
 def build_witness_seed(
     seed_id: str,
@@ -328,7 +318,6 @@ def build_witness_seed(
         "version_pins": SHARED_PINS["version_pins"],
     }
 
-
 def build_replay_seed(
     seed_id: str,
     coordinate: dict[str, Any],
@@ -345,7 +334,6 @@ def build_replay_seed(
         "env_pin": SHARED_PINS["env_pin"],
         "hash": f"H({seed_id}|{coordinate['render']}|{SHARED_PINS['env_pin']})",
     }
-
 
 def build_rotation_rows() -> list[dict[str, Any]]:
     symmetry_lookup = symmetry_by_suffix()
@@ -413,7 +401,6 @@ def build_rotation_rows() -> list[dict[str, Any]]:
         )
     return rows
 
-
 def build_spin_rows() -> list[dict[str, Any]]:
     rotation_lookup = rotation_by_suffix()
     symmetry_lookup = symmetry_by_suffix()
@@ -464,7 +451,6 @@ def build_spin_rows() -> list[dict[str, Any]]:
             }
         )
     return rows
-
 
 def build_antispin_rows() -> list[dict[str, Any]]:
     spin_lookup = spin_by_suffix()
@@ -519,7 +505,6 @@ def build_antispin_rows() -> list[dict[str, Any]]:
             }
         )
     return rows
-
 
 def build_b_prime_registry() -> dict[str, Any]:
     docs_gate_payload = load_docs_gate_status()
@@ -620,21 +605,17 @@ def build_b_prime_registry() -> dict[str, Any]:
         "antispin_rows": antispin_rows,
     }
 
-
 def _table(headers: list[str], rows: list[list[str]]) -> str:
     header = "| " + " | ".join(headers) + " |"
     separator = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([header, separator, *body])
 
-
 def _json_block(payload: Any) -> str:
     return "```json\n" + json.dumps(payload, indent=2, ensure_ascii=False) + "\n```"
 
-
 def _payload_suffix(seed: dict[str, Any]) -> str:
     return seed["hash"]
-
 
 def render_b_prime_markdown(registry: dict[str, Any]) -> str:
     pole_rows = [
@@ -788,10 +769,8 @@ ZD = {registry['seed_lock']['z_aliases']['ZD']}
 {_json_block(registry["antispin_rows"])}
 """
 
-
 def _verify_seed_fields(seed: dict[str, Any], expected_fields: list[str]) -> bool:
     return set(seed.keys()) == set(expected_fields)
-
 
 def _verify_expected_outputs(
     payload: dict[str, Any],
@@ -809,7 +788,6 @@ def _verify_expected_outputs(
         "sigma_satisfied": SIGMA_ROUTE,
         "hub_budget_satisfied": "Hub<=6",
     }
-
 
 def _verify_witness_seed(
     seed: dict[str, Any],
@@ -829,7 +807,6 @@ def _verify_witness_seed(
         and seed["version_pins"] == SHARED_PINS["version_pins"]
     )
 
-
 def _verify_replay_seed(
     seed: dict[str, Any],
     coordinate: dict[str, Any],
@@ -846,7 +823,6 @@ def _verify_replay_seed(
         and seed["env_pin"] == SHARED_PINS["env_pin"]
         and seed["hash"] == f"H({seed['id']}|{coordinate['render']}|{SHARED_PINS['env_pin']})"
     )
-
 
 def verify_b_prime_registry(registry: dict[str, Any], markdown: str | None = None) -> dict[str, Any]:
     checks: dict[str, bool] = {}

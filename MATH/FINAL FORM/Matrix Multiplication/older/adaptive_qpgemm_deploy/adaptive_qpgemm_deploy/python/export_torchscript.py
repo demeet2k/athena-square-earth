@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=80 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 Export helper for Adaptive QP-GEMM -> TorchScript .pt artifact.
 
@@ -22,7 +26,6 @@ import torch.nn as nn
 
 from qpgemm import QPGEMMConfig, optimize_vision_model, layer_report
 
-
 class SimVisionStack(nn.Module):
     """
     Simulated "4-layer vision stack" (MLP-style) used for exporting and validation.
@@ -44,7 +47,6 @@ class SimVisionStack(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.net(x)
 
-
 def build_model(args: argparse.Namespace) -> nn.Module:
     # Replace this with your production vision model constructor if desired.
     return SimVisionStack(
@@ -53,7 +55,6 @@ def build_model(args: argparse.Namespace) -> nn.Module:
         num_layers=args.num_layers,
         num_classes=args.num_classes,
     )
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -150,7 +151,6 @@ def main():
         json.dump(layer_report(optimized), f, indent=2)
 
     print("[Done]")
-
 
 if __name__ == "__main__":
     main()

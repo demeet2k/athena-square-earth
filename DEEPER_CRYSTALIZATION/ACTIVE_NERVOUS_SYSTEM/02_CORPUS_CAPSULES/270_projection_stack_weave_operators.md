@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # Projection Stack and Weave Operators
 
 The crystal's full lift chain is 4D -> 6D -> 12D -> 36D -> 108D -> A+, governed by weave operators with odd multiplicities 3/5/7/9 and odd control shells at 5/7/9/11. The 3D core crystal c_3^core = (Z, A_4, kappa, M, A_hat, V, R, M, Phi, L, C, g, r, Addr) is the minimal pre-holographic generator from which the entire 108D A+ live crystal regenerates through the operator chain Omega = QSHRINK o PolarCompress o Braid_108 o Proj_108 o Weave o A+ o ReWeave o Map o HoloMobius o Expand(c_3^core).

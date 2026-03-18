@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - Quantum Hugging Framework
 =====================================
@@ -121,7 +125,6 @@ from .neighborhood import (
     validate_neighborhood,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -135,7 +138,6 @@ def validate_hugging_framework() -> bool:
     assert validate_tse()
     assert validate_neighborhood()
     return True
-
 
 # =============================================================================
 # CONVENIENCE FACTORIES
@@ -198,7 +200,6 @@ def create_omega_infinity_system(epsilon: float = 1.0,
         "tse": tse
     }
 
-
 def encode_with_hugging(S: float, 
                        epsilon: float = 1.0,
                        observer: Observer = None) -> PacketSequence:
@@ -218,7 +219,6 @@ def encode_with_hugging(S: float,
     )
     
     return layer.encode_hugged(S)
-
 
 # =============================================================================
 # EXPORTS
@@ -260,7 +260,6 @@ __all__ = [
 
 __version__ = "2.1.0"
 __module_name__ = "hugging"
-
 
 if __name__ == "__main__":
     print("=" * 60)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=136 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        GALOIS THEORY MODULE                                  ║
@@ -28,7 +32,6 @@ from typing import Optional, Tuple, List, Dict, Set, Callable
 from fractions import Fraction
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLYNOMIAL RING
@@ -163,7 +166,6 @@ class Polynomial:
                     terms.append(f"{c}x^{i}")
         return " + ".join(terms) if terms else "0"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIELD EXTENSION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -238,7 +240,6 @@ class QuadraticExtension:
         a2, b2 = elem2
         return (a1 * a2 + Fraction(self.D) * b1 * b2, a1 * b2 + a2 * b1)
 
-
 @dataclass
 class CyclotomicExtension:
     """
@@ -279,7 +280,6 @@ class CyclotomicExtension:
     def galois_group_order(self) -> int:
         """Order of Galois group = degree = φ(n)."""
         return self.degree
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GALOIS GROUP
@@ -351,7 +351,6 @@ class GaloisGroup:
         # Abelian groups are always solvable
         return self.is_abelian
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPLITTING FIELD
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -389,7 +388,6 @@ class SplittingField:
         """Order of Galois group = [K:ℚ] for Galois extension."""
         return self.degree_over_Q()
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # RADICAL EXTENSIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -416,7 +414,6 @@ class RadicalExtension:
         principal = self.base_element ** (1 / self.root_degree)
         zeta = np.exp(2j * np.pi / self.root_degree)
         return [principal * (zeta ** k) for k in range(self.root_degree)]
-
 
 @dataclass
 class SolvabilityChecker:
@@ -451,7 +448,6 @@ class SolvabilityChecker:
         # Degree ≥ 5: depends on Galois group
         # For generic polynomial, S_n is not solvable for n ≥ 5
         return False, f"Degree {n} ≥ 5: Generic polynomial has Galois group S_{n}, which is not solvable"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY GALOIS CONNECTION
@@ -491,7 +487,6 @@ class GatewayGaloisBridge:
         D_sf = QuadraticExtension._squarefree_part(D)
         return GaloisGroup.of_quadratic(D_sf)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -500,26 +495,21 @@ def polynomial(*coeffs) -> Polynomial:
     """Create polynomial from coefficients (constant term first)."""
     return Polynomial([Fraction(c) for c in coeffs])
 
-
 def quadratic_extension(D: int) -> QuadraticExtension:
     """Create quadratic extension ℚ(√D)."""
     return QuadraticExtension(D)
-
 
 def cyclotomic_extension(n: int) -> CyclotomicExtension:
     """Create cyclotomic extension ℚ(ζ_n)."""
     return CyclotomicExtension(n)
 
-
 def galois_group_quadratic(D: int) -> GaloisGroup:
     """Galois group of ℚ(√D)/ℚ."""
     return GaloisGroup.of_quadratic(D)
 
-
 def is_solvable_by_radicals(poly: Polynomial) -> bool:
     """Check if polynomial is solvable by radicals."""
     return SolvabilityChecker(poly).is_solvable_by_radicals()[0]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

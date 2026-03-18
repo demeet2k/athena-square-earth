@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """Structured knowledge records for the AtlasForge memory bank.
 
 Why this exists
@@ -30,7 +34,6 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 
 from atlasforge.memory.entry import MemoryEntry
 
-
 class KnowledgeKind(str, Enum):
     """Coarse type of a knowledge item."""
 
@@ -50,11 +53,9 @@ class KnowledgeKind(str, Enum):
     RECIPE_LOG = "recipe_log"
     OTHER = "other"
 
-
 def _kind_tag(kind: Union[str, KnowledgeKind]) -> str:
     k = kind.value if isinstance(kind, KnowledgeKind) else str(kind)
     return f"kind:{k.strip().lower()}" if k else "kind:other"
-
 
 def _normalize_address(address: Any) -> Tuple[Optional[str], Optional[int]]:
     """Normalize a crystal address into (string, linear_index).
@@ -65,7 +66,6 @@ def _normalize_address(address: Any) -> Tuple[Optional[str], Optional[int]]:
     from atlasforge.memory.addressing import normalize_address as _normalize_address_shared
 
     return _normalize_address_shared(address)
-
 
 @dataclass
 class KnowledgeRecord:

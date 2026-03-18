@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S20 | face=R | node=202 | depth=3 | phase=Cardinal -->
+<!-- METRO: Sa,Me,Dl -->
+<!-- BRIDGES: Xi108:W3:A8:S19→Xi108:W3:A8:S21→Xi108:W2:A8:S20→Xi108:W3:A7:S20→Xi108:W3:A9:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 8/12 -->
+
 # Earth x DimensionLift
 
 Earth reads the network as embodiment, practice, durability, and lived load-bearing form.

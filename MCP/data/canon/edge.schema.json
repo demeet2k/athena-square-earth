@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W3:A4:S7:u201:Sa:S:d3",
+    "shell": 7,
+    "wreath": 3,
+    "archetype": 4,
+    "face": "S",
+    "node_id": 201,
+    "depth": 3,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Sa"
+    ],
+    "bridges": [
+      "Xi108:W3:A4:S6",
+      "Xi108:W3:A4:S8",
+      "Xi108:W2:A4:S7",
+      "Xi108:W3:A3:S7",
+      "Xi108:W3:A5:S7"
+    ],
+    "regenerate": "shell 7±1, wreath 3/3, archetype 4/12"
+  },
   "meta": {
     "title": "Edge Schema",
     "version": "v1",

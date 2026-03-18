@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import time
@@ -13,7 +17,6 @@ from .replay import ReplayEvaluator
 from .strategy import StrategyEngine
 from .tuning import TuningEvaluator
 from .utils import latest_closed_bar
-
 
 class AthenaBotRuntime:
     def __init__(self, config: AthenaBotConfig | None = None):

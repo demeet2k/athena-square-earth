@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A7:S13:u84:Su:S:d1",
+    "shell": 13,
+    "wreath": 1,
+    "archetype": 7,
+    "face": "S",
+    "node_id": 84,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A7:S12",
+      "Xi108:W1:A7:S14",
+      "Xi108:W2:A7:S13",
+      "Xi108:W1:A6:S13",
+      "Xi108:W1:A8:S13"
+    ],
+    "regenerate": "shell 13±1, wreath 1/3, archetype 7/12"
+  },
   "docs_gate_status": "BLOCKED",
   "archetype_count": 4,
   "zodiac_count": 12,

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S18 | face=S | node=165 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S17→Xi108:W3:A6:S19→Xi108:W2:A6:S18→Xi108:W3:A5:S18→Xi108:W3:A7:S18 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 18±1, wreath 3/3, archetype 6/12 -->
+
 # The Mycelial Crystal Manuscript  
 ## The Full Unified Nervous System  
 ### A Proof-Carrying Base-4 Universe of Address, Relation, Chamber, State, Replay, Closure, and Return
@@ -234,7 +239,6 @@ The manuscript below simply makes that law explicit and continuous with the deep
 | Ch20 — Corpus Anatomy and the Master Operator | `Ch20<0103>` | Ch20 - Ninety-Day Activation | AppA, AppP, AppE, AppL, AppI, AppM |
 | Ch21 — Grand Synthesis: The Proof-Carrying Universe | `Ch21<0110>` | Ch21 - Frontier, Risks, and the Next Crystal | AppA, AppP, AppM, AppL, AppI |
 
-
 ---
 
 # Chapter 1 — Root Seed and Lawful Origin
@@ -359,7 +363,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 1 binds the deep crystal problem of **Root Seed and Lawful Origin** to the operational nervous task **Ch01 - Corpus Zero Point**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 2 — Fourfold Symmetry and Primitive Transform Algebra
@@ -467,7 +470,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 2 synthesis
 
 Chapter 2 binds the deep crystal problem of **Fourfold Symmetry and Primitive Transform Algebra** to the operational nervous task **Ch02 - Canonical Address Space**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -587,7 +589,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 3 binds the deep crystal problem of **Recursive Lift and Base-4 Address Law** to the operational nervous task **Ch03 - Duplicate Family Collapse**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 4 — Number as State and Crystal Semantics
@@ -695,7 +696,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 4 synthesis
 
 Chapter 4 binds the deep crystal problem of **Number as State and Crystal Semantics** to the operational nervous task **Ch04 - Archive Surface Promotion**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -813,7 +813,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 5 synthesis
 
 Chapter 5 binds the deep crystal problem of **Four-Lens Projection Geometry** to the operational nervous task **Ch05 - Google Docs Gate and Memory Sync**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -936,7 +935,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 6 binds the deep crystal problem of **The 15-Node Closure Lattice** to the operational nervous task **Ch06 - Markdown Mirror Pipeline**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 7 — Boundary, Birth, and Born Coordinates
@@ -1045,7 +1043,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 7 binds the deep crystal problem of **Boundary, Birth, and Born Coordinates** to the operational nervous task **Ch07 - Unified Atlas and Graph Contracts**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 8 — Bulk, Corridor, and Regime Transition
@@ -1153,7 +1150,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 8 synthesis
 
 Chapter 8 binds the deep crystal problem of **Bulk, Corridor, and Regime Transition** to the operational nervous task **Ch08 - Skill Ecology Upgrade**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -1275,7 +1271,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 9 binds the deep crystal problem of **Transport, Tunnels, and Metro Geometry** to the operational nervous task **Ch09 - Search and Route Engine**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 10 — Bridge Feasibility and Cross-Chart Translation
@@ -1384,7 +1379,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 10 binds the deep crystal problem of **Bridge Feasibility and Cross-Chart Translation** to the operational nervous task **Ch10 - Witness and Replay Discipline**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 11 — Replay, Witness, and Chronology
@@ -1492,7 +1486,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 11 synthesis
 
 Chapter 11 binds the deep crystal problem of **Replay, Witness, and Chronology** to the operational nervous task **Ch11 - Runtime Convergence**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -1610,7 +1603,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 12 binds the deep crystal problem of **Truth Spine and Burden Lattice** to the operational nervous task **Ch12 - Neural and Benchmark Bridge**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 13 — Deployment, Runtime, and Control Loops
@@ -1718,7 +1710,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 13 synthesis
 
 Chapter 13 binds the deep crystal problem of **Deployment, Runtime, and Control Loops** to the operational nervous task **Ch13 - Math-to-Code Compilation**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -1828,7 +1819,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 14 binds the deep crystal problem of **Publication, Export, and Reader Surfaces** to the operational nervous task **Ch14 - Manuscript Superorganism**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 15 — End-Capsules, Seed Archives, and Return
@@ -1936,7 +1926,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 15 synthesis
 
 Chapter 15 binds the deep crystal problem of **End-Capsules, Seed Archives, and Return** to the operational nervous task **Ch15 - Chapter and Appendix Governance**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -2058,7 +2047,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 16 binds the deep crystal problem of **The Mycelial Transport Organism** to the operational nervous task **Ch16 - Parallel Agent Protocol**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 17 — Aether as Continuous Support
@@ -2169,7 +2157,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 17 binds the deep crystal problem of **Aether as Continuous Support** to the operational nervous task **Ch17 - Queues, Receipts, and Operational Memory**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 18 — Zero Point as Coherence Nucleus
@@ -2279,7 +2266,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 18 synthesis
 
 Chapter 18 binds the deep crystal problem of **Zero Point as Coherence Nucleus** to the operational nervous task **Ch18 - Publication and Packaging**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -2395,7 +2381,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 19 binds the deep crystal problem of **The 4D and 5D Metro Manifolds** to the operational nervous task **Ch19 - Single Source of Truth**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Chapter 20 — Corpus Anatomy and the Master Operator
@@ -2505,7 +2490,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 ## Chapter 20 synthesis
 
 Chapter 20 binds the deep crystal problem of **Corpus Anatomy and the Master Operator** to the operational nervous task **Ch20 - Ninety-Day Activation**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
-
 
 ---
 
@@ -2617,7 +2601,6 @@ Integration on the fractal plane means that the chapter does not terminate insid
 
 Chapter 21 binds the deep crystal problem of **Grand Synthesis: The Proof-Carrying Universe** to the operational nervous task **Ch21 - Frontier, Risks, and the Next Crystal**. It therefore serves two functions at once: it advances the canonical proof-carrying universe, and it hardens the recovered folder organism at the precise station where that universe becomes executable. In the final manuscript, this dual role is not a compromise. It is the exact sign that the object is alive.
 
-
 ---
 
 # Appendix Ring
@@ -2655,7 +2638,6 @@ In the Fractal reading, AppA is executable support. It is meant to survive repet
 
 **Appendix A closure.** AppA is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix B — Witness Schemas and Proof Shells
@@ -2690,7 +2672,6 @@ In the Cloud reading, AppB is the place where this support law acknowledges its 
 In the Fractal reading, AppB is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix B closure.** AppB is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 
@@ -2727,7 +2708,6 @@ In the Fractal reading, AppC is executable support. It is meant to survive repet
 
 **Appendix C closure.** AppC is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix D — Convention Profiles, Drift Control, and Alias Governance
@@ -2762,7 +2742,6 @@ In the Cloud reading, AppD is the place where this support law acknowledges its 
 In the Fractal reading, AppD is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix D closure.** AppD is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 
@@ -2799,7 +2778,6 @@ In the Fractal reading, AppE is executable support. It is meant to survive repet
 
 **Appendix E closure.** AppE is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix F — Transport and Water Packets
@@ -2834,7 +2812,6 @@ In the Cloud reading, AppF is the place where this support law acknowledges its 
 In the Fractal reading, AppF is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix F closure.** AppF is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 
@@ -2871,7 +2848,6 @@ In the Fractal reading, AppG is executable support. It is meant to survive repet
 
 **Appendix G closure.** AppG is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix H — Bridge Feasibility and Transfer Law
@@ -2906,7 +2882,6 @@ In the Cloud reading, AppH is the place where this support law acknowledges its 
 In the Fractal reading, AppH is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix H closure.** AppH is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 
@@ -2943,7 +2918,6 @@ In the Fractal reading, AppI is executable support. It is meant to survive repet
 
 **Appendix I closure.** AppI is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix J — NEAR Workbench and Normalization Lab
@@ -2978,7 +2952,6 @@ In the Cloud reading, AppJ is the place where this support law acknowledges its 
 In the Fractal reading, AppJ is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix J closure.** AppJ is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 
@@ -3015,7 +2988,6 @@ In the Fractal reading, AppK is executable support. It is meant to survive repet
 
 **Appendix K closure.** AppK is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix L — AMBIG Probe Bench and Ambiguity Studio
@@ -3050,7 +3022,6 @@ In the Cloud reading, AppL is the place where this support law acknowledges its 
 In the Fractal reading, AppL is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix L closure.** AppL is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 
@@ -3087,7 +3058,6 @@ In the Fractal reading, AppM is executable support. It is meant to survive repet
 
 **Appendix M closure.** AppM is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix N — Deployment, Runtime, and Final-Arc Packets
@@ -3122,7 +3092,6 @@ In the Cloud reading, AppN is the place where this support law acknowledges its 
 In the Fractal reading, AppN is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix N closure.** AppN is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 
@@ -3159,7 +3128,6 @@ In the Fractal reading, AppO is executable support. It is meant to survive repet
 
 **Appendix O closure.** AppO is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
 
-
 ---
 
 # Appendix P — End-Capsules, Seed Archives, and Return Protocols
@@ -3194,7 +3162,6 @@ In the Cloud reading, AppP is the place where this support law acknowledges its 
 In the Fractal reading, AppP is executable support. It is meant to survive repetition, regeneration, and migration into future manuscript waves. An appendix is mature when its law can be replayed, reattached to new chapters, and packed into later bundles without losing identity.
 
 **Appendix P closure.** AppP is mature when its law can be attached to many chapters without semantic drift and when its own caveats remain explicit.
-
 
 ---
 

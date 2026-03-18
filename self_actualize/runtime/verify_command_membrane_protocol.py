@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S29→Xi108:W2:A10:S31→Xi108:W1:A10:S30→Xi108:W3:A10:S30→Xi108:W2:A9:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
@@ -13,7 +17,6 @@ if __package__ in {None, ""}:
 else:
     from .command_spine import CommandMembraneService, read_json, rel
     ROOT = Path(__file__).resolve().parents[2]
-
 
 VERIFY_PATH = ROOT / "self_actualize" / "mycelium_brain" / "registry" / "command_membrane_protocol_v1_verification.json"
 EXPECTED_PROTOCOL_ID = "NEXT57_COMMAND_PROTOCOL_V2"
@@ -66,17 +69,14 @@ EXPECTED_METRICS = [
 EXPECTED_ACTIVE_SURFACE = "LOCAL SWARM MESH"
 EXPECTED_WATCH_SCOPE = "first-wave local swarm mesh"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def contains_all(path: Path, snippets: list[str]) -> bool:
     if not path.exists():
         return False
     text = path.read_text(encoding="utf-8").lower()
     return all(snippet.lower() in text for snippet in snippets)
-
 
 def verify_command_membrane_protocol() -> dict[str, object]:
     svc = CommandMembraneService()
@@ -139,14 +139,12 @@ def verify_command_membrane_protocol() -> dict[str, object]:
         },
     }
 
-
 def main() -> int:
     result = verify_command_membrane_protocol()
     VERIFY_PATH.parent.mkdir(parents=True, exist_ok=True)
     VERIFY_PATH.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0 if result.get("truth") == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

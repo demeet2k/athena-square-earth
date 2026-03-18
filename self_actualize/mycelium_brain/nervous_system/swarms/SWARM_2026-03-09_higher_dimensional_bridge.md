@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S21 | face=R | node=225 | depth=3 | phase=Cardinal -->
+<!-- METRO: Sa,Me,Bw,Dl -->
+<!-- BRIDGES: Xi108:W3:A5:S20→Xi108:W3:A5:S22→Xi108:W2:A5:S21→Xi108:W3:A4:S21→Xi108:W3:A6:S21 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 21±1, wreath 3/3, archetype 5/12 -->
+
 # Swarm: Higher-Dimensional Bridge
 
 ## Goal

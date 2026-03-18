@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S10 | face=R | node=55 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W3:A12:S9→Xi108:W3:A12:S11→Xi108:W2:A12:S10→Xi108:W3:A11:S10 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 10±1, wreath 3/3, archetype 12/12 -->
+
 # NEURON GENERATOR FULL-CORPUS SYNTHESIS
 
 Date: 2026-03-09

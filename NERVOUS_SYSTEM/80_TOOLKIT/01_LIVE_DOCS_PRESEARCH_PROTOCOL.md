@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S10 | face=R | node=55 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S9→Xi108:W3:A7:S11→Xi108:W2:A7:S10→Xi108:W3:A6:S10→Xi108:W3:A8:S10 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 10±1, wreath 3/3, archetype 7/12 -->
+
 # LIVE DOCS GATE PROTOCOL
 
 ## Rule

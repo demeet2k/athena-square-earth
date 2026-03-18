@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S25 | face=F | node=304 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S24→Xi108:W3:A7:S26→Xi108:W2:A7:S25→Xi108:W3:A6:S25→Xi108:W3:A8:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 7/12 -->
+
 # CHAPTER 7: CUT AND THE LAW OF CONSERVED TRANSFORMATION
 
 Status: local chapter instantiation from the stronger CUT branch
@@ -512,12 +517,10 @@ This is the exact law of conserved transformation.
 from dataclasses import dataclass, field
 from typing import Dict, List, Any
 
-
 @dataclass
 class KappaLedger:
     total: float
     components: Dict[str, float]
-
 
 @dataclass
 class TransitionReceipt:
@@ -528,7 +531,6 @@ class TransitionReceipt:
     held: Dict[str, Any]
     uncertainty: Dict[str, Any]
 
-
 @dataclass
 class CUTTransition:
     address: str
@@ -538,7 +540,6 @@ class CUTTransition:
     ledger_after: KappaLedger
     receipt: TransitionReceipt
     lineage: List[str] = field(default_factory=list)
-
 
 def cut_transform(
     src_ref: str,

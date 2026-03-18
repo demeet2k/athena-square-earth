@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S24 | face=R | node=294 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S23→Xi108:W3:A9:S25→Xi108:W2:A9:S24→Xi108:W3:A8:S24→Xi108:W3:A10:S24 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 24±1, wreath 3/3, archetype 9/12 -->
+
 # Emergent Capabilities
 
 ## Capability Classes

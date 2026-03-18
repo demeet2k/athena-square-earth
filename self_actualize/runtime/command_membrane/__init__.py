@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=427 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -31,7 +35,6 @@ from ..command_spine import (
     SELF_ROOT,
 )
 
-
 DEFAULT_CONFIG = CommandMembraneConfig()
 PUBLIC_STATE_PATH = ROOT / "NERVOUS_SYSTEM" / "95_MANIFESTS" / "COMMAND_MEMBRANE_STATE.json"
 PROTOCOL_JSON_PATH = DEFAULT_CONFIG.protocol_json_path
@@ -56,14 +59,11 @@ PACKET_SCHEMA_ID = COMMAND_PACKET_SCHEMA_ID_V2
 CAPILLARY_LAW_ID = COMMAND_CAPILLARY_LAW_ID_V2
 REWARD_FIELD_ID = COMMAND_REWARD_FIELD_ID_V2
 
-
 def make_service(config: CommandMembraneConfig | None = None) -> CommandMembraneService:
     return CommandMembraneService(config or DEFAULT_CONFIG)
 
-
 def service(config: CommandMembraneConfig | None = None) -> CommandMembraneService:
     return make_service(config)
-
 
 def resolve_source_path(source: str | Path, service: CommandMembraneService | None = None) -> Path:
     svc = service or make_service()
@@ -73,7 +73,6 @@ def resolve_source_path(source: str | Path, service: CommandMembraneService | No
     if candidate.parts and candidate.parts[0].upper() == "GLOBAL COMMAND":
         return (ROOT / candidate).resolve()
     return (svc.config.command_surface_root / candidate).resolve()
-
 
 def build_change_record(
     area: str | Path,
@@ -91,7 +90,6 @@ def build_change_record(
         "confidence": confidence,
         "parent_event_id": parent_event_id,
     }
-
 
 def build_event_packet(
     *,
@@ -127,7 +125,6 @@ def build_event_packet(
     packet.coord12_frame = coord12_frame
     return packet, 0.0, round((ended - started) * 1000.0, 4)
 
-
 def rank_worker_candidates(
     packet: Any,
     *,
@@ -142,7 +139,6 @@ def rank_worker_candidates(
     payload = svc.route_event(packet.event_id, state=state)
     ended = perf_counter()
     return list(payload.get("candidate_targets", []))[:topk], round((ended - started) * 1000.0, 4)
-
 
 def build(config: CommandMembraneConfig | None = None) -> dict[str, Any]:
     svc = make_service(config)
@@ -159,10 +155,8 @@ def build(config: CommandMembraneConfig | None = None) -> dict[str, Any]:
         "public_state": public_state,
     }
 
-
 def docs_gate_status(config: CommandMembraneConfig | None = None) -> dict[str, Any]:
     return make_service(config).docs_gate_status()
-
 
 def emit(
     source_path: str | Path,
@@ -183,13 +177,11 @@ def emit(
     svc.sync_public_surfaces()
     return svc.packet_to_summary(packet) if packet else {"status": "deduped", "source_path": str(source_path)}
 
-
 def route(event_id: str, *, service: CommandMembraneService | None = None) -> dict[str, Any]:
     svc = service or make_service()
     payload = svc.route_event(event_id)
     svc.sync_public_surfaces()
     return payload
-
 
 def claim(
     event_id: str,
@@ -204,7 +196,6 @@ def claim(
     svc.sync_public_surfaces()
     payload.setdefault("event_id", event_id)
     return payload
-
 
 def commit(
     event_id: str,
@@ -251,7 +242,6 @@ def commit(
         "receipt_md": payload.get("receipt_md", ""),
     }
 
-
 def reinforce(
     event_id: str,
     *,
@@ -264,7 +254,6 @@ def reinforce(
     payload = svc.reinforce_event(event_id, path=path, result=result, latency_score=latency_score)
     svc.sync_public_surfaces()
     return payload
-
 
 def watch(
     surface: str = "command",
@@ -287,14 +276,11 @@ def watch(
     svc.sync_public_surfaces()
     return payload
 
-
 def status(*, service: CommandMembraneService | None = None) -> dict[str, Any]:
     return (service or make_service()).sync_public_surfaces()
 
-
 def metrics(surface: str = "command-folder", *, service: CommandMembraneService | None = None) -> dict[str, Any]:
     return (service or make_service()).metrics(surface=surface)
-
 
 __all__ = [
     "BENCHMARK_FIELDS",

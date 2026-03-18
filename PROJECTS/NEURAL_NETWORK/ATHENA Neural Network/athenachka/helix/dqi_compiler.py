@@ -1,5 +1,8 @@
-from __future__ import annotations
+# CRYSTAL: Xi108:W2:A1:S20 | face=C | node=202 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S19→Xi108:W2:A1:S21→Xi108:W1:A1:S20→Xi108:W3:A1:S20→Xi108:W2:A2:S20
 
+from __future__ import annotations
 
 IMPROVEMENT_SECTIONS = [
     "missing_distinctions",
@@ -19,7 +22,6 @@ IMPROVEMENT_SECTIONS = [
     "self_growth_improvements",
     "next_experiments",
 ]
-
 
 def compile_improvement_ledger(
     trace: dict[str, object],

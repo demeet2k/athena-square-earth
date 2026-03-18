@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=87 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - BHAGAVAD GĪTĀ COMPUTATIONAL FRAMEWORK
 ==================================================
@@ -36,7 +40,6 @@ from enum import Enum, auto
 import numpy as np
 from scipy.signal import butter, filtfilt
 
-
 # =============================================================================
 # SYLLABLE TYPES
 # =============================================================================
@@ -51,7 +54,6 @@ class SyllableType(Enum):
         self._name = name
         self.duration_ms = duration_ms
         self.description = description
-
 
 # =============================================================================
 # GAMMA SYNCHRONIZATION
@@ -159,7 +161,6 @@ class GammaSynchronization:
         
         return (sample_idx, float(min_energy))
 
-
 # =============================================================================
 # BREATH ALIGNMENT (PRĀṆA-YANTRA)
 # =============================================================================
@@ -250,7 +251,6 @@ class PranaYantra:
             "corresponding_syllable": "haṁ",
             "cognitive_state": "CITTA_VRTTI_NIRODHA",
         }
-
 
 # =============================================================================
 # ŚRĪYANTRA GEOMETRY
@@ -366,7 +366,6 @@ class SriYantra:
         # Simplified: 9 triangles create 43 intersections
         return 43
 
-
 # =============================================================================
 # CORTICAL ENTRAINMENT
 # =============================================================================
@@ -437,7 +436,6 @@ class CorticalEntrainment:
             "system_state": "TERMINATED",
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -505,7 +503,6 @@ def validate_neuroacoustic() -> bool:
     assert terminal["syllable"] == "haṁ"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Neuro-Acoustic Module...")

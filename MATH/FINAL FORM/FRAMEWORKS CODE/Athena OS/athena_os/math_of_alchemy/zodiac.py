@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - THE MATH OF ALCHEMY
 ================================
@@ -44,7 +48,6 @@ from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
 from .elements import ElementalState, Element
-
 
 # =============================================================================
 # ZODIAC TYPES
@@ -93,7 +96,6 @@ class ZodiacSign(Enum):
     def is_mutable(self) -> bool:
         return self.modality == "Mutable"
 
-
 class AlchemicalOperation(Enum):
     """The Twelve Alchemical Operations of the Great Work."""
     
@@ -117,7 +119,6 @@ class AlchemicalOperation(Enum):
         self.action = action
         self.zodiac = zodiac
         self._description = description
-
 
 # =============================================================================
 # ZODIACAL MATRICES
@@ -193,7 +194,6 @@ class ZodiacMatrices:
         """Get all 12 zodiacal matrices."""
         return {sign: cls.get_matrix(sign) for sign in ZodiacSign}
 
-
 # =============================================================================
 # ZODIACAL OPERATOR
 # =============================================================================
@@ -252,7 +252,6 @@ class ZodiacOperator:
             "operation": self.operation._name if self.operation else None,
             "intensity": self.intensity,
         }
-
 
 # =============================================================================
 # ZODIACAL SYSTEM (LIE ALGEBRA)
@@ -335,7 +334,6 @@ class ZodiacSystem:
                 "mutable": [s._name for s in self.get_quadruplicity("Mutable")],
             },
         }
-
 
 # =============================================================================
 # THE GREAT WORK (MAGNUM OPUS)
@@ -438,7 +436,6 @@ class MagnumOpus:
             "goal": "Find fixed point (Philosopher's Stone)",
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -495,7 +492,6 @@ def validate_zodiac() -> bool:
     assert final.magnitude > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zodiac Module...")

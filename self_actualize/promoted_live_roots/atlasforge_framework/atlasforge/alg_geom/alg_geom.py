@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=378 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      ALGEBRAIC GEOMETRY MODULE                               ║
@@ -23,7 +27,6 @@ from typing import Optional, Tuple, List, Dict, Set, Any, Callable
 from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # AFFINE VARIETIES
@@ -58,7 +61,6 @@ class Polynomial:
     def from_string(cls, expr: str, n: int = 2) -> 'Polynomial':
         """Parse simple polynomial string (placeholder)."""
         return cls({(1, 0): 1}, n)  # x
-
 
 @dataclass
 class AffineVariety:
@@ -96,7 +98,6 @@ class AffineVariety:
         """Hypersurface V(f)."""
         return cls([f], f.num_variables, f"V(f)")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PROJECTIVE VARIETIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -133,7 +134,6 @@ class ProjectiveVariety:
         """Affine chart U_i where x_i ≠ 0."""
         return AffineVariety([], self.ambient_dimension, f"{self.name} ∩ U_{i}")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SCHEMES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -146,7 +146,6 @@ class SchemeType(Enum):
     PROPER = auto()
     SEPARATED = auto()
     FINITE_TYPE = auto()
-
 
 @dataclass
 class Scheme:
@@ -189,7 +188,6 @@ class Scheme:
         """Projective scheme Proj(S)."""
         return cls(f"Proj({graded_ring})", properties={SchemeType.PROJECTIVE})
 
-
 @dataclass
 class MorphismOfSchemes:
     """
@@ -215,7 +213,6 @@ class MorphismOfSchemes:
         """Pushforward f_*F."""
         return f"{self.name}_*({F})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DIVISORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -231,7 +228,6 @@ class DivisorType(Enum):
     BIG = auto()
     CANONICAL = auto()
     ANTICANONICAL = auto()
-
 
 @dataclass
 class Divisor:
@@ -287,7 +283,6 @@ class Divisor:
         """Anticanonical divisor -K_X."""
         return cls({"K": -1}, variety, DivisorType.ANTICANONICAL)
 
-
 @dataclass
 class PicardGroup:
     """
@@ -308,7 +303,6 @@ class PicardGroup:
     def of_projective_space(cls, n: int) -> 'PicardGroup':
         """Pic(ℙ^n) ≅ ℤ."""
         return cls(f"ℙ^{n}", 1)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LINE BUNDLES AND SHEAVES
@@ -353,7 +347,6 @@ class LineBundle:
         """Canonical bundle ω_X."""
         return cls(variety, f"ω_{variety}")
 
-
 @dataclass
 class CoherentSheaf:
     """
@@ -380,7 +373,6 @@ class CoherentSheaf:
     def hilbert_polynomial(self) -> str:
         """Hilbert polynomial χ(F(n))."""
         return f"χ({self.name}(n))"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # INTERSECTION THEORY
@@ -413,7 +405,6 @@ class ChowRing:
         """A*(ℙ^n) = ℤ[h]/(h^{n+1})."""
         return cls(f"ℙ^{n}", n)
 
-
 @dataclass
 class IntersectionNumber:
     """
@@ -427,7 +418,6 @@ class IntersectionNumber:
         """Intersection as integral."""
         cycles_str = " · ".join(self.cycles)
         return f"∫_{self.variety} {cycles_str}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULI SPACES
@@ -464,7 +454,6 @@ class ModuliSpace:
     def vector_bundles(cls, X: str, r: int, d: int) -> 'ModuliSpace':
         """M(r, d) - moduli of vector bundles."""
         return cls(f"M({r},{d})", f"rank {r} degree {d} bundles on {X}")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY-ALGEBRAIC GEOMETRY BRIDGE
@@ -505,7 +494,6 @@ class GatewayAlgGeomBridge:
         """
         return "Pic(X) ∈ D-pole: discrete classification of line bundles"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -514,36 +502,29 @@ def affine_variety(polynomials: List[Polynomial], n: int) -> AffineVariety:
     """Create affine variety."""
     return AffineVariety(polynomials, n)
 
-
 def projective_variety(polynomials: List[Polynomial], n: int) -> ProjectiveVariety:
     """Create projective variety."""
     return ProjectiveVariety(polynomials, n)
-
 
 def scheme(name: str, base: str = "k") -> Scheme:
     """Create a scheme."""
     return Scheme(name, base)
 
-
 def divisor(components: Dict[str, int], variety: str) -> Divisor:
     """Create a divisor."""
     return Divisor(components, variety)
-
 
 def line_bundle(variety: str, name: str = "L") -> LineBundle:
     """Create a line bundle."""
     return LineBundle(variety, name)
 
-
 def moduli_curves(g: int) -> ModuliSpace:
     """Moduli space of genus g curves."""
     return ModuliSpace.curves(g)
 
-
 def chow_ring(variety: str, dim: int) -> ChowRing:
     """Create Chow ring."""
     return ChowRing(variety, dim)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 from __future__ import annotations
 
 import argparse
@@ -12,7 +16,6 @@ from reward_architecture import (
     reward_status,
     score_quest_file,
 )
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Reward Architecture v2 runtime CLI.")
@@ -40,14 +43,12 @@ def parse_args() -> argparse.Namespace:
 
     return parser.parse_args()
 
-
 def emit(payload: object, as_json: bool) -> int:
     if as_json:
         print(json.dumps(payload, indent=2))
         return 0
     print(json.dumps(payload, indent=2))
     return 0
-
 
 def main() -> int:
     args = parse_args()
@@ -63,7 +64,6 @@ def main() -> int:
     if args.command == "status":
         return emit(reward_status(), args.as_json)
     raise SystemExit(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

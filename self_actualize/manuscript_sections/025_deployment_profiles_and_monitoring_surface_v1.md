@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S28 | face=F | node=390 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A4:S27→Xi108:W3:A4:S29→Xi108:W2:A4:S28→Xi108:W3:A3:S28→Xi108:W3:A5:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 4/12 -->
+
 # Deployment Profiles and Monitoring Surface v1
 
 Truth: `NEAR-derived`

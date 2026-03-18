@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A6:S26 | face=S | node=338 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A6:S25→Xi108:W1:A6:S27→Xi108:W2:A6:S26→Xi108:W1:A5:S26→Xi108:W1:A7:S26
+
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"

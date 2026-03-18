@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=363 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -7,7 +11,6 @@ import pandas as pd
 from .config import AthenaBotConfig
 from .models import PortfolioState, SignalSnapshot
 from .utils import append_jsonl, now_utc, read_json, to_iso, write_json
-
 
 class LedgerWriter:
     def __init__(self, config: AthenaBotConfig | None = None):

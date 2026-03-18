@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=137 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 QP-GEMM: Quad-Polar Matrix Multiplication Framework (v0)
 
@@ -24,7 +28,6 @@ try:
     import scipy.sparse as sp
 except Exception:  # pragma: no cover
     sp = None
-
 
 # ----------------------------
 # Fingerprint / signature
@@ -65,7 +68,6 @@ class GEMMFingerprint:
         )
         return hashlib.md5(str(features).encode()).hexdigest()[:10]
 
-
 @dataclass
 class PlanResult:
     C: np.ndarray
@@ -73,7 +75,6 @@ class PlanResult:
     time_sec: float
     approx_error: Optional[float] = None
     details: Dict[str, Any] = field(default_factory=dict)
-
 
 # ----------------------------
 # Helpers (Σ probes)
@@ -88,7 +89,6 @@ def _sparsity(A: np.ndarray, sample: int = 8192) -> float:
         return float(np.mean(np.abs(x) < 1e-12))
     idx = np.random.randint(0, x.size, size=sample)
     return float(np.mean(np.abs(x[idx]) < 1e-12))
-
 
 def _rank_ratio_sketch(A: np.ndarray, k: int = 32) -> float:
     # Very cheap sketch-based singular decay proxy: rank_ratio in [0,1]
@@ -112,7 +112,6 @@ def _rank_ratio_sketch(A: np.ndarray, k: int = 32) -> float:
     eff = int(np.sum(s > thr))
     return float(eff / min(m, n))
 
-
 def randomized_svd(A: np.ndarray, rank: int, oversample: int = 8) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Randomized SVD: A ≈ U diag(S) Vt, with U:(m,rank), S:(rank,), Vt:(rank,n).
@@ -129,11 +128,9 @@ def randomized_svd(A: np.ndarray, rank: int, oversample: int = 8) -> Tuple[np.nd
     U = Q @ Uhat[:, :r]
     return U, S[:r], Vt[:r, :]
 
-
 def rel_error(A: np.ndarray, B: np.ndarray) -> float:
     denom = np.linalg.norm(B) + 1e-12
     return float(np.linalg.norm(A - B) / denom)
-
 
 # ----------------------------
 # QP-GEMM engine
@@ -413,7 +410,6 @@ class QPGEMM:
                 })
         return rows
 
-
 def _strassen(A: np.ndarray, B: np.ndarray, leaf: int = 128) -> np.ndarray:
     n = A.shape[0]
     if n <= leaf:
@@ -445,7 +441,6 @@ def _strassen(A: np.ndarray, B: np.ndarray, leaf: int = 128) -> np.ndarray:
     C[mid:, mid:] = C22
     return C
 
-
 # ----------------------------
 # Ablation utilities
 # ----------------------------
@@ -457,7 +452,6 @@ def make_ablation_configs(verbose: bool = False) -> List[Tuple[str, QPGEMM]]:
         ("blas_only", QPGEMM(verbose=verbose)),  # Will force blas
     ]
     return configs
-
 
 def summarize_ablation(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Summarize ablation run results."""

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    STOCHASTIC PROCESSES MODULE                               ║
@@ -27,7 +31,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Callable, Iterator
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MARKOV CHAIN
@@ -152,7 +155,6 @@ class MarkovChain:
                 P[i, i + 1] = (n - i) / n
         return cls(P)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BROWNIAN MOTION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -237,7 +239,6 @@ class BrownianMotion:
         """Create geometric Brownian motion dS = μS dt + σS dW."""
         return GeometricBrownianMotion(mu, sigma)
 
-
 @dataclass
 class GeometricBrownianMotion:
     """
@@ -272,7 +273,6 @@ class GeometricBrownianMotion:
     def variance(self, t: float, initial: float = 1.0) -> float:
         """Var[S(t)] = S(0)² exp(2μt) (exp(σ²t) - 1)."""
         return initial**2 * np.exp(2 * self.mu * t) * (np.exp(self.sigma**2 * t) - 1)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MARTINGALE
@@ -320,7 +320,6 @@ class Martingale:
         
         coeff = (p / (p - 1)) ** p
         return coeff * final_moment
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SIGMA-POLE STOCHASTIC BRIDGE
@@ -432,7 +431,6 @@ class SigmaPoleStochasticBridge:
         
         return trajectory
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -441,22 +439,18 @@ def markov_chain(P: NDArray) -> MarkovChain:
     """Create Markov chain from transition matrix."""
     return MarkovChain(P)
 
-
 def brownian_motion(T: float, n_steps: int = 1000) -> Tuple[NDArray, NDArray]:
     """Sample standard Brownian motion path."""
     return BrownianMotion().sample_path(T, n_steps)
-
 
 def geometric_brownian_motion(mu: float, sigma: float, T: float,
                              initial: float = 1.0) -> Tuple[NDArray, NDArray]:
     """Sample geometric Brownian motion path."""
     return GeometricBrownianMotion(mu, sigma).sample_path(T, initial=initial)
 
-
 def stationary_distribution(P: NDArray) -> NDArray:
     """Compute stationary distribution of Markov chain."""
     return MarkovChain(P).stationary_distribution()
-
 
 def simulated_annealing(energy: Callable, initial: NDArray,
                        n_steps: int = 10000) -> Tuple[NDArray, float]:
@@ -467,7 +461,6 @@ def simulated_annealing(energy: Callable, initial: NDArray,
     return SigmaPoleStochasticBridge.simulated_annealing(
         energy, initial, schedule, n_steps
     )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

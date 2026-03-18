@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Cc -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # 11 CROWN OF CROWNS -- 108D A+ Holographic Extraction Engine
 
 ## Layer 11 of the Crystal Nervous System
@@ -1017,7 +1022,6 @@ Status: SEALED
 ## 17. Receipt
 
 **Document Hash (SHA-256)**: `efae4662cf5a40dfefcb4117643ddef8019a36301cee9fc4e9bd2198c3f6a556`
-
 
 **Document**: 11_CROWN_OF_CROWNS_108D.md
 **Layer**: 11 (Crown of Crowns)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=103 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - BIT4 WORD-LEVEL COMPLETION
 ======================================
@@ -44,7 +48,6 @@ from functools import lru_cache
 import hashlib
 
 from .core import B4, BOT, ZERO, ONE, TOP
-
 
 # =============================================================================
 # WORD REPRESENTATION
@@ -127,7 +130,6 @@ class Word:
         """Bitwise XOR."""
         return Word(tuple(a ^ b for a, b in zip(self.bits, other.bits)))
 
-
 # =============================================================================
 # WORD SET (COMPLETED WORD)
 # =============================================================================
@@ -139,7 +141,6 @@ class WordClass(Enum):
     DETERMINATE = auto()  # Sing_n: |S| = 1
     CONSTRAINED = auto()  # Multi_n: 1 < |S| < 2^n
     UNCONSTRAINED = auto()  # ⊤_n: |S| = 2^n
-
 
 @dataclass
 class WordSet:
@@ -325,7 +326,6 @@ class WordSet:
         words = frozenset(compatible_words(0, []))
         return cls(words, n)
 
-
 # =============================================================================
 # LIFTED OPERATIONS
 # =============================================================================
@@ -342,7 +342,6 @@ def lift_unary(f: Callable[[Word], Word], ws: WordSet) -> WordSet:
     new_words = frozenset(f(w) for w in ws.words)
     return WordSet(new_words, ws.n)
 
-
 def lift_binary(f: Callable[[Word, Word], Word], 
                ws1: WordSet, ws2: WordSet) -> WordSet:
     """
@@ -358,7 +357,6 @@ def lift_binary(f: Callable[[Word, Word], Word],
     )
     return WordSet(new_words, ws1.n)
 
-
 # =============================================================================
 # WORD ARITHMETIC
 # =============================================================================
@@ -369,20 +367,17 @@ def word_add(w1: Word, w2: Word) -> Word:
     result = (int(w1) + int(w2)) % (2 ** n)
     return Word.from_int(result, n)
 
-
 def word_sub(w1: Word, w2: Word) -> Word:
     """Subtract words (modulo 2^n)."""
     n = w1.n
     result = (int(w1) - int(w2)) % (2 ** n)
     return Word.from_int(result, n)
 
-
 def word_mul(w1: Word, w2: Word) -> Word:
     """Multiply words (modulo 2^n)."""
     n = w1.n
     result = (int(w1) * int(w2)) % (2 ** n)
     return Word.from_int(result, n)
-
 
 def lifted_add(ws1: WordSet, ws2: WordSet) -> WordSet:
     """
@@ -394,36 +389,29 @@ def lifted_add(ws1: WordSet, ws2: WordSet) -> WordSet:
     """
     return lift_binary(word_add, ws1, ws2)
 
-
 def lifted_sub(ws1: WordSet, ws2: WordSet) -> WordSet:
     """Exact lifted subtraction."""
     return lift_binary(word_sub, ws1, ws2)
-
 
 def lifted_mul(ws1: WordSet, ws2: WordSet) -> WordSet:
     """Exact lifted multiplication."""
     return lift_binary(word_mul, ws1, ws2)
 
-
 def lifted_not(ws: WordSet) -> WordSet:
     """Lifted bitwise NOT."""
     return lift_unary(lambda w: w.bitwise_not(), ws)
-
 
 def lifted_and(ws1: WordSet, ws2: WordSet) -> WordSet:
     """Lifted bitwise AND."""
     return lift_binary(lambda w1, w2: w1.bitwise_and(w2), ws1, ws2)
 
-
 def lifted_or(ws1: WordSet, ws2: WordSet) -> WordSet:
     """Lifted bitwise OR."""
     return lift_binary(lambda w1, w2: w1.bitwise_or(w2), ws1, ws2)
 
-
 def lifted_xor(ws1: WordSet, ws2: WordSet) -> WordSet:
     """Lifted bitwise XOR."""
     return lift_binary(lambda w1, w2: w1.bitwise_xor(w2), ws1, ws2)
-
 
 # =============================================================================
 # COLLAPSE PROTOCOLS
@@ -438,7 +426,6 @@ class CollapsePolicy(Enum):
     MINIMUM = auto()       # Pick minimum value
     MAXIMUM = auto()       # Pick maximum value
 
-
 @dataclass
 class CollapseResult:
     """Result of word collapse."""
@@ -451,7 +438,6 @@ class CollapseResult:
     @property
     def is_error(self) -> bool:
         return not self.success
-
 
 def collapse_word(ws: WordSet, policy: CollapsePolicy,
                   seed: int = 0) -> CollapseResult:
@@ -486,7 +472,6 @@ def collapse_word(ws: WordSet, policy: CollapsePolicy,
     else:  # OPTIMISTIC - pick first
         word = next(iter(ws.words))
         return CollapseResult(word, True, policy, len(ws))
-
 
 # =============================================================================
 # MUST-MEASUREMENT (MONOTONE KNOWLEDGE EXTRACTION)
@@ -549,7 +534,6 @@ class MustMeasurement:
             return 0.0
         return np.log2(len(self.ws))
 
-
 # =============================================================================
 # HALF-ADDER IN WORD SPACE
 # =============================================================================
@@ -566,7 +550,6 @@ def half_adder_word(a: Word, b: Word) -> Tuple[Word, Word]:
     carry_bit = a[0] & b[0]
     
     return Word((sum_bit,)), Word((carry_bit,))
-
 
 def lifted_half_adder(ws_a: WordSet, ws_b: WordSet) -> Tuple[WordSet, WordSet]:
     """
@@ -588,7 +571,6 @@ def lifted_half_adder(ws_a: WordSet, ws_b: WordSet) -> Tuple[WordSet, WordSet]:
     
     return WordSet(frozenset(sums), 1), WordSet(frozenset(carries), 1)
 
-
 # =============================================================================
 # FULL ADDER
 # =============================================================================
@@ -604,7 +586,6 @@ def full_adder_word(a: Word, b: Word, cin: Word) -> Tuple[Word, Word]:
     carry_bit = (a[0] & b[0]) | (xor_ab & cin[0])
     
     return Word((sum_bit,)), Word((carry_bit,))
-
 
 def lifted_full_adder(ws_a: WordSet, ws_b: WordSet, 
                       ws_cin: WordSet) -> Tuple[WordSet, WordSet]:
@@ -625,7 +606,6 @@ def lifted_full_adder(ws_a: WordSet, ws_b: WordSet,
                 carries.add(cout)
     
     return WordSet(frozenset(sums), 1), WordSet(frozenset(carries), 1)
-
 
 # =============================================================================
 # N-BIT RIPPLE CARRY ADDER
@@ -678,7 +658,6 @@ def ripple_carry_add(ws_a: WordSet, ws_b: WordSet) -> WordSet:
     build_words(0, [])
     
     return WordSet(frozenset(result_words), n)
-
 
 # =============================================================================
 # VALIDATION
@@ -764,7 +743,6 @@ def validate_word() -> bool:
     assert len(c) == 2   # carry can be 0 or 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Word module...")

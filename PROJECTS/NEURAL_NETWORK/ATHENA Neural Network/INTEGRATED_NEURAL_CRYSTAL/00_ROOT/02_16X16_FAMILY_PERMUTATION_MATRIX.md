@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A1:S20 | face=C | node=206 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A1:S19→Xi108:W2:A1:S21→Xi108:W1:A1:S20→Xi108:W3:A1:S20→Xi108:W2:A2:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 2/3, archetype 1/12 -->
+
 # 16x16 Family Permutation Matrix
 
 This surface is the compressed permutation layer. Every indexed document is first assigned to one of the 16 nuclei, and then every nucleus is read against every other nucleus, including itself.

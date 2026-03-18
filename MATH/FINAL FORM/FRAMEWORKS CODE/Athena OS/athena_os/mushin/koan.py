@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S17 | face=S | node=150 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S16→Xi108:W2:A1:S18→Xi108:W1:A1:S17→Xi108:W3:A1:S17→Xi108:W2:A2:S17
+
 """
 ATHENA OS - MUSHIN KERNEL: KOAN MODULE
 =======================================
@@ -37,7 +41,6 @@ from enum import Enum
 import hashlib
 import time
 
-
 # =============================================================================
 # LOGIC STATES
 # =============================================================================
@@ -53,7 +56,6 @@ class LogicState(Enum):
     NON_DUAL = "non_dual"          # Rebooted in Mushin
     MU = "mu"                      # Neither yes nor no
 
-
 class KoanResult(Enum):
     """Possible results of koan processing."""
     
@@ -63,7 +65,6 @@ class KoanResult(Enum):
     MU = "mu"                      # "Unask the question"
     OVERFLOW = "overflow"
     SATORI = "satori"
-
 
 # =============================================================================
 # KOAN DATABASE
@@ -107,7 +108,6 @@ CLASSIC_KOANS = {
         "resolution": "True Buddha is not an object"
     }
 }
-
 
 # =============================================================================
 # LOGIC GATE
@@ -154,7 +154,6 @@ class LogicGate:
         self.state = LogicState.BINARY
         self.current_iterations = 0
 
-
 # =============================================================================
 # KOAN STRUCTURE
 # =============================================================================
@@ -180,7 +179,6 @@ class Koan:
     def get_hash(self) -> str:
         """Get unique hash of this koan."""
         return hashlib.md5(self.question.encode()).hexdigest()[:8]
-
 
 # =============================================================================
 # KOAN SOLVER
@@ -319,7 +317,6 @@ class KoanSolver:
         """
         return self.logic_gate.state == LogicState.NON_DUAL
 
-
 # =============================================================================
 # TETRALEMMA LOGIC GATE
 # =============================================================================
@@ -331,7 +328,6 @@ class TetralemmaState(Enum):
     NOT_EXISTS = "not_exists"      # X = 0
     BOTH = "both"                  # X = 1 ∧ 0
     NEITHER = "neither"            # X = NULL
-
 
 @dataclass
 class TetralemmaGate:
@@ -402,7 +398,6 @@ class TetralemmaGate:
         # This is the Śūnyatā state
         return True  # True nature is beyond existence/non-existence
 
-
 # =============================================================================
 # KOAN FACTORY
 # =============================================================================
@@ -445,7 +440,6 @@ class KoanFactory:
     def list_koans(self) -> List[str]:
         """List all koan IDs."""
         return list(self.koans.keys())
-
 
 # =============================================================================
 # KOAN SYSTEM
@@ -516,7 +510,6 @@ class KoanSystem:
             "logic_state": self.solver.logic_gate.state.value
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -562,7 +555,6 @@ def validate_koan() -> bool:
     assert result["crashed"]
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Koan Module...")

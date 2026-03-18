@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me,Bw,✶
+# BRIDGES: Xi108:W2:A1:S29→Xi108:W2:A1:S31→Xi108:W1:A1:S30→Xi108:W3:A1:S30→Xi108:W2:A2:S30
+
 from __future__ import annotations
 
 import json
@@ -8,7 +12,6 @@ from self_actualize.runtime.qshrink_refine_common import (
     QSHRINK_NEXT4_STATE_PATH,
     load_next4_state,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -42,24 +45,19 @@ OUTPUT_README_PATH = QSHRINK_ECOSYSTEM_ROOT / "README.md"
 
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_connectivity_fractal"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_optional_json(path: Path, default: dict | None = None) -> dict:
     if not path.exists():
         return default or {}
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def docs_gate_detail(cloud: dict, next4_state: dict) -> dict:
     docs_gate = dict(cloud.get("docs_gate", {}))
@@ -71,13 +69,11 @@ def docs_gate_detail(cloud: dict, next4_state: dict) -> dict:
         docs_gate["surface_excerpt"] = "\n".join(read_text(LIVE_DOCS_GATE_PATH).splitlines()[:12])
     return docs_gate
 
-
 def pressure_by_id(cloud: dict, pressure_id: str) -> dict:
     for pressure in cloud.get("ranked_pressures", []):
         if pressure.get("id") == pressure_id:
             return pressure
     return {}
-
 
 def coerce_route_targets(cloud: dict) -> list[dict]:
     route_targets = list(cloud.get("route_targets", []))
@@ -88,7 +84,6 @@ def coerce_route_targets(cloud: dict) -> list[dict]:
     if temple_target not in route_targets:
         route_targets.append(temple_target)
     return route_targets
-
 
 def build_payload() -> dict:
     cloud = load_optional_json(QSHRINK_CLOUD_PATH, {"truth": "NEAR"})
@@ -324,7 +319,6 @@ def build_payload() -> dict:
         },
     }
 
-
 def render_fractal(payload: dict) -> str:
     active_basis = "\n".join(f"- `{item}`" for item in payload["active_basis_documents"])
     route_targets = "\n".join(
@@ -431,7 +425,6 @@ def render_fractal(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def render_capsule(payload: dict) -> str:
     primary = payload["priority_carrythrough"]["primary_recursive_pressure"]
     secondary = payload["priority_carrythrough"]["secondary_recursive_pressure"]
@@ -452,7 +445,6 @@ def render_capsule(payload: dict) -> str:
             "",
         ]
     )
-
 
 def render_receipt(payload: dict) -> str:
     primary = payload["priority_carrythrough"]["primary_recursive_pressure"]
@@ -493,7 +485,6 @@ Preserve the landed Fractal corridor as upstream witness, keep the Docs blocker 
 
 `{payload['deeper_receiver']}`
 """
-
 
 def render_fleet_route_map(payload: dict) -> str:
     primary = payload["priority_carrythrough"]["primary_recursive_pressure"]
@@ -544,7 +535,6 @@ def render_fleet_route_map(payload: dict) -> str:
 - pinned_blocker: `{blocker['id']} {blocker['body']}` / `{blocker['status']}`
 """
 
-
 def render_orgin_route_map(payload: dict) -> str:
     secondary = payload["priority_carrythrough"]["secondary_recursive_pressure"]
     return f"""# FAMILY ORGIN Route Map
@@ -572,7 +562,6 @@ def render_orgin_route_map(payload: dict) -> str:
 `ORGIN -> {payload['next_hall_seed']} writeback -> {payload['deeper_receiver']}`
 """
 
-
 def refresh_ecosystem_readme() -> None:
     if not OUTPUT_README_PATH.exists():
         return
@@ -596,7 +585,6 @@ def refresh_ecosystem_readme() -> None:
         filtered_lines.append(fractal_entry)
     OUTPUT_README_PATH.write_text("\n".join(filtered_lines).rstrip() + "\n", encoding="utf-8")
 
-
 def main() -> int:
     payload = build_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -613,7 +601,6 @@ def main() -> int:
     print(f"Wrote Athena FLEET route map: {ATHENA_FLEET_ROUTE_MAP_PATH}")
     print(f"Wrote ORGIN route map: {ORGIN_ROUTE_MAP_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

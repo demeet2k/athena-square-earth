@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed
+# METRO: Wr,Me
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 from __future__ import annotations
 
 import argparse
@@ -7,7 +11,6 @@ import re
 from pathlib import Path
 
 from nervous_system_core import slugify, utc_now, write_json, write_text
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 WORKSPACE_ROOT = PROJECT_ROOT.parent
@@ -49,7 +52,6 @@ ACTION_SCORES = {
     "REFUSE_INADMISSIBLE": 0,
 }
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build the Super-Cycle 57 orchestration surface.")
     subparsers = parser.add_subparsers(dest="command")
@@ -58,17 +60,14 @@ def parse_args() -> argparse.Namespace:
     parser.set_defaults(command="build")
     return parser.parse_args()
 
-
 def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def live_docs_error(receipt_text: str) -> str:
     for line in receipt_text.splitlines():
         if "Missing OAuth client file" in line:
             return line.strip()
     return "Live Google Docs blocked by missing OAuth credentials."
-
 
 def replace_or_append_section(text: str, header: str, lines: list[str]) -> str:
     block = "\n".join([header, *lines]).rstrip() + "\n"
@@ -80,7 +79,6 @@ def replace_or_append_section(text: str, header: str, lines: list[str]) -> str:
         return stripped + "\n\n" + block
     return block
 
-
 def ensure_line_after_anchor(text: str, anchor: str, line: str) -> str:
     if line in text:
         return text
@@ -90,7 +88,6 @@ def ensure_line_after_anchor(text: str, anchor: str, line: str) -> str:
             lines.insert(idx + 1, line)
             return "\n".join(lines).rstrip() + "\n"
     return text.rstrip() + "\n" + line + "\n"
-
 
 PASS_DEFINITIONS = [
     {
@@ -272,7 +269,6 @@ PASS_DEFINITIONS = [
     },
 ]
 
-
 def project_relative(path: Path) -> str:
     try:
         return str(path.resolve().relative_to(PROJECT_ROOT.resolve())).replace("\\", "/")
@@ -282,13 +278,11 @@ def project_relative(path: Path) -> str:
         except ValueError:
             return str(path.resolve())
 
-
 def parse_active_fronts(text: str) -> dict[str, str]:
     fronts: dict[str, str] = {}
     for match in re.finditer(r"^### Quest ([A-Z0-9]+): .+? `?\[(.+?)\]`?$", text, re.MULTILINE):
         fronts[match.group(1)] = match.group(2)
     return fronts
-
 
 def build_active_seat_templates() -> dict[str, list[dict[str, str]]]:
     templates: dict[str, list[dict[str, str]]] = {}
@@ -321,14 +315,11 @@ def build_active_seat_templates() -> dict[str, list[dict[str, str]]]:
         templates[master["id"]] = entries
     return templates
 
-
 def candidate_id(loop_index: int, organ: str) -> str:
     return f"SC57-L{loop_index:02d}-{organ.upper()}"
 
-
 def visible_promotion(action: str) -> bool:
     return action == "ACTIVATE_NOW"
-
 
 def decision_reason(pass_title: str, step_text: str, target: str, action: str) -> str:
     if action == "ACTIVATE_NOW":
@@ -343,16 +334,13 @@ def decision_reason(pass_title: str, step_text: str, target: str, action: str) -
         return f"{target.title()} work should contract into a seed instead of widening now."
     return f"{target.title()} remains held while the loop concentrates on: {step_text}"
 
-
 def target_front_name(target: str, loop_index: int, pass_id: str) -> str:
     prefixes = {"hall": "SC57-H", "temple": "SC57-T", "runtime": "SC57-R", "compression": "SC57-C"}
     return f"{prefixes[target]}-{pass_id}-{loop_index:02d}"
 
-
 def packet_priority_score(action: str, target: str, loop_index: int) -> int:
     organ_bonus = {"hall": 4, "temple": 3, "runtime": 5, "compression": 2}[target]
     return ACTION_SCORES[action] + organ_bonus + (60 - loop_index)
-
 
 def build_packets(loop_index: int, pass_id: str, pass_title: str, step_text: str, actions: tuple[str, str, str, str]) -> list[dict[str, object]]:
     packet_specs = [
@@ -383,14 +371,12 @@ def build_packets(loop_index: int, pass_id: str, pass_title: str, step_text: str
         )
     return sorted(packets, key=lambda item: (-int(item["priority_score"]), item["packet_id"]))
 
-
 def awakening_refresh(loop_index: int) -> dict[str, object]:
     return {
         "board_agent_delta": True,
         "full_bundle_refresh": loop_index % 3 == 0,
         "pass_boundary_bundle": loop_index % 9 == 0,
     }
-
 
 def build_master_receipts(step_text: str, packets: list[dict[str, object]]) -> dict[str, dict[str, object]]:
     hall = next(packet for packet in packets if packet["target"] == "hall")
@@ -420,12 +406,10 @@ def build_master_receipts(step_text: str, packets: list[dict[str, object]]) -> d
         },
     }
 
-
 def restart_seed(loop_index: int, pass_id: str, next_step: str | None) -> str:
     if next_step:
         return f"SC57::{pass_id}::L{loop_index:02d}-> {next_step}"
     return "SC57-EPOCH2::2/16::Restart from current control stack with a new 57-loop epoch"
-
 
 def render_lattice_law(active_templates: dict[str, list[dict[str, str]]]) -> str:
     lines = [
@@ -452,7 +436,6 @@ def render_lattice_law(active_templates: dict[str, list[dict[str, str]]]) -> str
         lines.append(f"- `{master['label']}` :: `{len(active_templates[master['id']])}` active addresses with action mode `{master['action_mode']}`")
     return "\n".join(lines) + "\n"
 
-
 def render_loop_ledger(loops: list[dict[str, object]]) -> str:
     lines = ["# Super-Cycle 57 Loop Ledger", ""]
     current_pass = None
@@ -467,7 +450,6 @@ def render_loop_ledger(loops: list[dict[str, object]]) -> str:
         )
     return "\n".join(lines) + "\n"
 
-
 def render_decisions(title: str, loops: list[dict[str, object]], key: str) -> str:
     lines = [f"# {title}", ""]
     for loop in loops:
@@ -478,14 +460,12 @@ def render_decisions(title: str, loops: list[dict[str, object]], key: str) -> st
         )
     return "\n".join(lines) + "\n"
 
-
 def render_compression_receipts(loops: list[dict[str, object]]) -> str:
     lines = ["# Pruning and Compression Receipts", ""]
     for loop in loops:
         decision = loop["compression_decision"]
         lines.append(f"- `L{loop['loop_index']:02d}` :: {decision['action']} :: {decision['reason']}")
     return "\n".join(lines) + "\n"
-
 
 def render_awakening_cadence(loops: list[dict[str, object]]) -> str:
     lines = [
@@ -504,7 +484,6 @@ def render_awakening_cadence(loops: list[dict[str, object]]) -> str:
             f"full_bundle={refresh['full_bundle_refresh']} pass_boundary={refresh['pass_boundary_bundle']}"
         )
     return "\n".join(lines) + "\n"
-
 
 def render_closure_bundle(loops: list[dict[str, object]], active_fronts: dict[str, str]) -> str:
     lines = [
@@ -528,7 +507,6 @@ def render_closure_bundle(loops: list[dict[str, object]], active_fronts: dict[st
     lines.extend(["", "## Next epoch seed", f"- `{loops[-1]['restart_seed']}`"])
     return "\n".join(lines) + "\n"
 
-
 def update_active_readme() -> None:
     text = ACTIVE_README.read_text(encoding="utf-8")
     bullet = "- `17_SUPER_CYCLE_57`: four-master orchestration layer, 57 loop ledger, packet registry, promotion decisions, and sparse `4^6` seat law. Manifest: `06_RUNTIME/18_super_cycle_57_manifest.json`."
@@ -549,7 +527,6 @@ def update_active_readme() -> None:
         text = text.replace(scaffold_old, scaffold_new)
     write_text(ACTIVE_README, text)
 
-
 def update_full_stack_manifest(layer_manifest: dict[str, object]) -> None:
     manifest = load_json(FULL_STACK_MANIFEST)
     manifest["generated_at"] = utc_now()
@@ -569,7 +546,6 @@ def update_full_stack_manifest(layer_manifest: dict[str, object]) -> None:
         "live_docs_blocked": True,
     }
     write_json(FULL_STACK_MANIFEST, manifest)
-
 
 def build_super_cycle() -> dict[str, object]:
     live_docs_text = LIVE_DOCS_RECEIPT.read_text(encoding="utf-8")
@@ -747,7 +723,6 @@ def build_super_cycle() -> dict[str, object]:
     update_full_stack_manifest(manifest)
     return manifest
 
-
 def main() -> int:
     args = parse_args()
     if args.command != "build":
@@ -759,7 +734,6 @@ def main() -> int:
         print(f"Super-Cycle layer: {LAYER_ROOT}")
         print(f"Runtime manifest: {OUTPUT_MANIFEST}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

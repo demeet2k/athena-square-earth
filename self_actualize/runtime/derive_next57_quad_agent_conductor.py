@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=345 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
@@ -5,7 +9,6 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF_DIR = ROOT / "self_actualize"
@@ -347,32 +350,25 @@ AWAKENING_NOTES = [
     },
 ]
 
-
 def now_utc() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
-
 def docs_gate() -> str:
     return "BLOCKED" if "BLOCKED" in read_text(LIVE_DOCS_GATE_PATH) else "READY"
-
 
 def phase_for_loop(loop_number: int) -> tuple[str, str]:
     for phase_id, phase_name, start, end in PHASES:
@@ -380,10 +376,8 @@ def phase_for_loop(loop_number: int) -> tuple[str, str]:
             return phase_id, phase_name
     raise ValueError(f"no phase for loop {loop_number}")
 
-
 def primary_note(loop_number: int) -> str:
     return PRIMARY_NOTE_CADENCE[(loop_number - 1) % len(PRIMARY_NOTE_CADENCE)]
-
 
 def restart_seed(loop_number: int) -> str:
     if loop_number == 1:
@@ -395,10 +389,8 @@ def restart_seed(loop_number: int) -> str:
         return "NEXT57-SUCCESSOR -> deeper packet/fiber execution under the same live front stack"
     return f"L{loop_number + 1:02d} -> {LOOPS[loop_number]}"
 
-
 def marker_block(marker: str, body: str) -> str:
     return f"<!-- {marker}:START -->\n{body.strip()}\n<!-- {marker}:END -->"
-
 
 def replace_block(text: str, marker: str, body: str) -> str:
     replacement = marker_block(marker, body)
@@ -410,7 +402,6 @@ def replace_block(text: str, marker: str, body: str) -> str:
         return pattern.sub(replacement, text, count=1)
     return replacement + "\n\n" + text
 
-
 def replace_section(text: str, heading: str, replacement: str, next_prefix: str = "## ") -> str:
     pattern = re.compile(
         rf"^{re.escape(heading)}\n.*?(?=^{re.escape(next_prefix)}|\Z)",
@@ -420,23 +411,19 @@ def replace_section(text: str, heading: str, replacement: str, next_prefix: str 
         return pattern.sub(replacement.rstrip() + "\n", text, count=1)
     return text.rstrip() + "\n\n" + replacement.rstrip() + "\n"
 
-
 def replace_subsection(text: str, heading: str, replacement: str) -> str:
     pattern = re.compile(rf"^{re.escape(heading)}\n.*?(?=^### |\Z)", re.DOTALL | re.MULTILINE)
     if pattern.search(text):
         return pattern.sub(replacement.rstrip() + "\n", text, count=1)
     return text.rstrip() + "\n\n" + replacement.rstrip() + "\n"
 
-
 def slug_token(text: str) -> str:
     token = text.lower().replace("/", "_").replace(" ", "_").replace("-", "_")
     token = re.sub(r"[^a-z0-9_]+", "", token)
     return re.sub(r"_+", "_", token).strip("_")
 
-
 def loop_token(loop_number: int) -> str:
     return f"L{loop_number:02d}"
-
 
 def top_agent_loop_rows() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
@@ -465,7 +452,6 @@ def top_agent_loop_rows() -> list[dict[str, Any]]:
                 }
             )
     return rows
-
 
 def nested_quest_rows() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
@@ -504,7 +490,6 @@ def nested_quest_rows() -> list[dict[str, Any]]:
             )
     return rows
 
-
 def loop_receipts() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for loop_number in range(1, LOOP_COUNT + 1):
@@ -527,7 +512,6 @@ def loop_receipts() -> list[dict[str, Any]]:
             }
         )
     return rows
-
 
 def program_payload() -> dict[str, Any]:
     return {
@@ -574,7 +558,6 @@ def program_payload() -> dict[str, Any]:
         ],
     }
 
-
 def conductor_block_body() -> str:
     return "\n".join(
         [
@@ -604,7 +587,6 @@ def conductor_block_body() -> str:
         ]
     )
 
-
 def bootstrap_block_body() -> str:
     return "\n".join(
         [
@@ -623,7 +605,6 @@ def bootstrap_block_body() -> str:
         ]
     )
 
-
 def q42_override_section() -> str:
     return "\n".join(
         [
@@ -641,7 +622,6 @@ def q42_override_section() -> str:
             f"- historical_predecessors: `{HISTORICAL_PREDECESSORS['hall']} / {HISTORICAL_PREDECESSORS['temple']} [witness-only]`",
         ]
     )
-
 
 def hall_quest_block_body() -> str:
     quests = [
@@ -667,7 +647,6 @@ def hall_quest_block_body() -> str:
     )
     return "\n".join(lines)
 
-
 def temple_quest_block_body() -> str:
     quests = [
         ("TQ57-L01-T01", "Freeze Precedence Law", "Keep Cortex -> RuntimeHub -> GovernanceMirror -> Hall/Temple as the canonical writeback order."),
@@ -692,7 +671,6 @@ def temple_quest_block_body() -> str:
     )
     return "\n".join(lines)
 
-
 def queue_block_body() -> str:
     return "\n".join(
         [
@@ -709,7 +687,6 @@ def queue_block_body() -> str:
             "- Execution law: Worker may only execute board-backed or current planner/researcher-backed work.",
         ]
     )
-
 
 def next_contract_body() -> str:
     return "\n".join(
@@ -733,7 +710,6 @@ def next_contract_body() -> str:
         ]
     )
 
-
 def temple_state_body() -> str:
     return "\n".join(
         [
@@ -753,7 +729,6 @@ def temple_state_body() -> str:
         ]
     )
 
-
 def whole_coordination_body() -> str:
     return "\n".join(
         [
@@ -771,7 +746,6 @@ def whole_coordination_body() -> str:
         ]
     )
 
-
 def change_feed_body() -> str:
     return "\n".join(
         [
@@ -788,7 +762,6 @@ def change_feed_body() -> str:
         ]
     )
 
-
 def requests_block_body() -> str:
     return "\n".join(
         [
@@ -803,7 +776,6 @@ def requests_block_body() -> str:
             f"- Restart seed: `{restart_seed(1)}`",
         ]
     )
-
 
 def quest_board_program_section() -> str:
     return "\n".join(
@@ -830,7 +802,6 @@ def quest_board_program_section() -> str:
         ]
     )
 
-
 def quest_board_historical_q51() -> str:
     return "\n".join(
         [
@@ -848,7 +819,6 @@ def quest_board_historical_q51() -> str:
             "  do not reopen `Q51` as the present-tense owner front",
         ]
     )
-
 
 def temple_board_program_section() -> str:
     return "\n".join(
@@ -868,7 +838,6 @@ def temple_board_program_section() -> str:
         ]
     )
 
-
 def temple_board_historical_tq07() -> str:
     return "\n".join(
         [
@@ -884,7 +853,6 @@ def temple_board_historical_tq07() -> str:
             "  do not reactivate `TQ07` as the present-tense Temple front",
         ]
     )
-
 
 def active_queue_runtime_shadow_section() -> str:
     return "\n".join(
@@ -908,7 +876,6 @@ def active_queue_runtime_shadow_section() -> str:
         ]
     )
 
-
 def current_restart_seed_section() -> str:
     return "\n".join(
         [
@@ -924,7 +891,6 @@ def current_restart_seed_section() -> str:
             "`16/64/256/1024/4096`, keep historical `Q51/TQ07` witness-only, and keep the Docs gate honestly `BLOCKED` until OAuth material appears",
         ]
     )
-
 
 def next_self_program_section() -> str:
     return "\n".join(
@@ -945,7 +911,6 @@ def next_self_program_section() -> str:
             f"  `{rel(LOOP_RECEIPTS_PATH)}`",
         ]
     )
-
 
 def prompt_section() -> str:
     return "\n".join(
@@ -969,7 +934,6 @@ def prompt_section() -> str:
             "```",
         ]
     )
-
 
 def overlay_block_body() -> str:
     return "\n".join(
@@ -997,7 +961,6 @@ def overlay_block_body() -> str:
         ]
     )
 
-
 def parallel_swarm_section() -> str:
     return "\n".join(
         [
@@ -1009,7 +972,6 @@ def parallel_swarm_section() -> str:
             "- do not let the swarm companion replace the conductor or invent a Hall-local `QS64-25`",
         ]
     )
-
 
 def active_queue_front_section() -> str:
     return "\n".join(
@@ -1037,7 +999,6 @@ def active_queue_front_section() -> str:
         ]
     )
 
-
 def active_queue_program_section() -> str:
     return "\n".join(
         [
@@ -1056,12 +1017,10 @@ def active_queue_program_section() -> str:
         ]
     )
 
-
 def update_surface(path: Path, updater) -> None:
     original = read_text(path)
     updated = updater(original)
     write_text(path, updated)
-
 
 def render_charter() -> str:
     lines = [
@@ -1098,7 +1057,6 @@ def render_charter() -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def render_contract() -> str:
     return "\n".join(
         [
@@ -1117,7 +1075,6 @@ def render_contract() -> str:
             "- do not reactivate `Q51 / TQ07` as live owner surfaces",
         ]
     )
-
 
 def render_awakening_bundle() -> str:
     lines = [
@@ -1142,7 +1099,6 @@ def render_awakening_bundle() -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def render_hall_doc() -> str:
     lines = [
         "# NEXT 57-Loop Quad-Agent Conductor",
@@ -1159,7 +1115,6 @@ def render_hall_doc() -> str:
         lines.append(f"- `{loop_token(loop_number)}` `{phase_for_loop(loop_number)[0]}` `{primary_note(loop_number)}` -> {objective}")
     return "\n".join(lines)
 
-
 def render_temple_doc() -> str:
     return "\n".join(
         [
@@ -1173,7 +1128,6 @@ def render_temple_doc() -> str:
         ]
     )
 
-
 def render_receipt() -> str:
     return "\n".join(
         [
@@ -1186,7 +1140,6 @@ def render_receipt() -> str:
             "- Result: `installed the generator-owned conductor family and rewrote the live owner-facing blocks`",
         ]
     )
-
 
 def render_verification() -> dict[str, Any]:
     surfaces = {
@@ -1214,19 +1167,16 @@ def render_verification() -> dict[str, Any]:
     }
     return {"generated_at_utc": now_utc(), "docs_gate": docs_gate(), "checks": checks, "all_passed": all(checks.values())}
 
-
 def update_active_run(text: str) -> str:
     text = replace_block(text, "MASTER_LOOP_57_BOOTSTRAP", bootstrap_block_body())
     text = replace_block(text, "FOUR_AGENT_57_LOOP_PROGRAM", conductor_block_body())
     return replace_section(text, "## Q42 Current Override", q42_override_section())
-
 
 def update_build_queue(text: str) -> str:
     text = replace_block(text, "MASTER_LOOP_57_BOOTSTRAP", bootstrap_block_body())
     text = replace_block(text, "FOUR_AGENT_57_LOOP_PROGRAM", conductor_block_body())
     text = replace_section(text, "## Q42 Current Override", q42_override_section())
     return replace_block(text, "FOUR_AGENT_57_CYCLE", overlay_block_body())
-
 
 def update_quest_board(text: str) -> str:
     text = replace_block(text, "MASTER_LOOP_57_HALL_QUEST", hall_quest_block_body())
@@ -1236,7 +1186,6 @@ def update_quest_board(text: str) -> str:
     text = replace_subsection(text, "### 57-Loop Four-Agent Corpus Cycle `[PROMOTED]`", quest_board_program_section())
     return replace_subsection(text, "### Quest Q51: Install The 57-Loop Four-Agent Corpus Expansion Program `[OPEN]`", quest_board_historical_q51())
 
-
 def update_temple_board(text: str) -> str:
     text = replace_block(text, "MASTER_LOOP_57_TEMPLE_QUEST", temple_quest_block_body())
     text = replace_block(text, "FOUR_AGENT_57_LOOP_PROGRAM", conductor_block_body())
@@ -1245,7 +1194,6 @@ def update_temple_board(text: str) -> str:
     text = replace_subsection(text, "### TQ07: Govern The 57-Loop Four-Agent Corpus Expansion Program `[ACTIVE]`", temple_board_historical_tq07())
     return replace_subsection(text, "### TQ07: Govern The 57-Loop Four-Agent Corpus Cycle `[ACTIVE]`", temple_board_historical_tq07())
 
-
 def update_active_queue(text: str) -> str:
     text = replace_block(text, "FOUR_AGENT_57_LOOP_PROGRAM", conductor_block_body())
     text = replace_block(text, "MASTER_LOOP_57_QUEUE", queue_block_body())
@@ -1253,7 +1201,6 @@ def update_active_queue(text: str) -> str:
     text = replace_subsection(text, "### FRONT-NEXT57-FOUR-AGENT-CORPUS-CYCLE", active_queue_front_section())
     text = replace_subsection(text, "### FRONT-NEXT-4-POW-6-57-CYCLE-PROGRAM", active_queue_program_section())
     return replace_block(text, "FOUR_AGENT_57_CYCLE", overlay_block_body())
-
 
 def update_next_self_prompt(text: str) -> str:
     text = replace_block(text, "MASTER_LOOP_57_NEXT_CONTRACT", next_contract_body())
@@ -1265,20 +1212,16 @@ def update_next_self_prompt(text: str) -> str:
     text = replace_section(text, "## Prompt", prompt_section())
     return replace_block(text, "FOUR_AGENT_57_CYCLE", overlay_block_body())
 
-
 def update_temple_state(text: str) -> str:
     text = replace_block(text, "MASTER_LOOP_57_TEMPLE_STATE", temple_state_body())
     return replace_block(text, "FOUR_AGENT_57_LOOP_PROGRAM", conductor_block_body())
-
 
 def update_whole_coordination(text: str) -> str:
     text = replace_block(text, "NEXT57_WHOLE_COORDINATION", whole_coordination_body())
     return replace_block(text, "FOUR_AGENT_57_LOOP_PROGRAM", conductor_block_body())
 
-
 def update_change_feed(text: str) -> str:
     return replace_block(text, "MASTER_LOOP_57_CHANGE", change_feed_body())
-
 
 def update_requests_board(text: str) -> str:
     text = replace_block(text, "MASTER_LOOP_57_REQUEST", requests_block_body())
@@ -1286,7 +1229,6 @@ def update_requests_board(text: str) -> str:
         "[Q51 OPEN 2026-03-13] Guild Hall + Temple + Adventurer + AP6D: govern one Hybrid-Gate 57-loop four-agent program that starts at `1024 ACTIVE / 3072 DORMANT`, repairs activation drift first, and only widens at `G2`, `G3`, and `G4`",
         "[Q51 HISTORICAL PREDECESSOR 2026-03-13] Guild Hall + Temple + Adventurer + AP6D: earlier Hybrid-Gate 57-loop program superseded by the generator-owned NEXT 57-Loop Quad-Agent Conductor; preserve as witness history only",
     )
-
 
 def main() -> None:
     write_json(PROGRAM_JSON_PATH, program_payload())
@@ -1314,7 +1256,6 @@ def main() -> None:
     update_surface(REQUESTS_BOARD_PATH, update_requests_board)
 
     write_json(VERIFY_JSON_PATH, render_verification())
-
 
 if __name__ == "__main__":
     main()

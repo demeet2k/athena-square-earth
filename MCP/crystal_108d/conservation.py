@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A10:S4 | face=F | node=8 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A10:S3→Xi108:W1:A10:S5→Xi108:W2:A10:S4→Xi108:W1:A9:S4→Xi108:W1:A11:S4
+
 """6 conservation laws and motion checking."""
 
 import json
@@ -5,7 +9,6 @@ import json
 from ._cache import JsonCache
 
 _laws = JsonCache("conservation_laws.json")
-
 
 def query_conservation(motion_json: str) -> str:
     """

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=83 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - GLOBAL INFORMATION NETWORK
 ======================================
@@ -29,7 +33,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Set, Callable
 from enum import Enum
 import numpy as np
-
 
 # =============================================================================
 # FOUR-VALUED LOGIC
@@ -74,7 +77,6 @@ class V4(Enum):
         """Not overdetermined (not Both)."""
         return self != V4.B
 
-
 # =============================================================================
 # LOGICAL OPERATIONS
 # =============================================================================
@@ -93,7 +95,6 @@ def v4_negation(v: V4) -> V4:
         return V4.T
     else:
         return v  # B and U are self-dual under negation
-
 
 def v4_conjunction(a: V4, b: V4) -> V4:
     """
@@ -120,7 +121,6 @@ def v4_conjunction(a: V4, b: V4) -> V4:
     # U propagates
     return V4.U
 
-
 def v4_disjunction(a: V4, b: V4) -> V4:
     """
     Disjunction (∨) in V4 - Kleene strong.
@@ -146,13 +146,11 @@ def v4_disjunction(a: V4, b: V4) -> V4:
     # U propagates
     return V4.U
 
-
 def v4_implication(a: V4, b: V4) -> V4:
     """
     Material implication: a → b ≡ ¬a ∨ b
     """
     return v4_disjunction(v4_negation(a), b)
-
 
 # =============================================================================
 # EVIDENCE-BASED VALUATION
@@ -208,7 +206,6 @@ class Evidence:
     def uncertainty(self) -> float:
         """Measure of uncertainty (0 = certain, 1 = unknown)."""
         return 1.0 - max(self.positive, self.negative)
-
 
 # =============================================================================
 # VALUATION FUNCTION
@@ -291,7 +288,6 @@ class Valuation:
         # Base case: proposition lookup
         return self[formula]
 
-
 # =============================================================================
 # PARADOX LIFT OPERATOR
 # =============================================================================
@@ -359,7 +355,6 @@ class ParadoxLift:
                 tension += 0.5  # Undetermined also contributes
         
         return tension
-
 
 # =============================================================================
 # INFERENCE ENGINE
@@ -434,7 +429,6 @@ class ParaconsistentInference:
         else:
             return None
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -502,7 +496,6 @@ def validate_valuation() -> bool:
     assert not engine.is_explosive("p")  # Key: no explosion
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Four-Valued Logic...")

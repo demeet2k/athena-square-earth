@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # THE TIME CRYSTAL: 108-DIMENSIONAL MEGA-CASCADE
 
 **[Z_4 x| Z_3^3 -> S^1 | 4 x 3^3 = 108 | 36 Shells | 666 Nodes | 3 Wreaths | 12 Archetypes | OPUS MAGNUM]**

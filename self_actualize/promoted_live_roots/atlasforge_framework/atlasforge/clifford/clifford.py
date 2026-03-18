@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=302 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      CLIFFORD ALGEBRAS MODULE                                ║
@@ -28,7 +32,6 @@ from typing import Optional, Tuple, List, Dict
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MULTIVECTOR
@@ -233,7 +236,6 @@ class Multivector:
         coeffs[2 ** index] = 1.0
         return cls(dim, coeffs, signature or (dim, 0, 0))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CLIFFORD ALGEBRA
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -308,7 +310,6 @@ class CliffordAlgebra:
         target_grade = ga + gb
         return product.grade(min(target_grade, self.dim))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROTORS AND SPINORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -378,7 +379,6 @@ class Rotor:
         
         return cls(unnorm)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECIFIC ALGEBRAS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -416,7 +416,6 @@ class GeometricAlgebras:
         """Split quaternions as Cl(1,1)."""
         return CliffordAlgebra(1, 1)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -425,23 +424,19 @@ def clifford_algebra(p: int, q: int = 0) -> CliffordAlgebra:
     """Create Clifford algebra Cl(p,q)."""
     return CliffordAlgebra(p, q)
 
-
 def multivector(dim: int, coeffs: List[float], 
                signature: Tuple[int, int, int] = None) -> Multivector:
     """Create multivector."""
     return Multivector(dim, np.array(coeffs), signature)
-
 
 def rotor_from_angle(algebra: CliffordAlgebra, angle: float, 
                     plane: Tuple[int, int]) -> Rotor:
     """Create rotation rotor."""
     return Rotor.from_angle_plane(algebra, angle, plane[0], plane[1])
 
-
 def geometric_product(a: Multivector, b: Multivector) -> Multivector:
     """Compute geometric product."""
     return a * b
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

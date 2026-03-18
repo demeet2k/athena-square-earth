@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=136 | depth=2 | phase=Cardinal
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - HOLOGRAPHIC ROTATION PROTOCOL
 ==========================================
@@ -46,7 +50,6 @@ from typing import Dict, List, Tuple, Optional, Callable, Any
 from enum import Enum
 import numpy as np
 from abc import ABC, abstractmethod
-
 
 # =============================================================================
 # TEXTURE PARAMETERS
@@ -105,7 +108,6 @@ class TextureTriple:
     def smoothness(self) -> float:
         """Inverse of roughness."""
         return 1.0 / (self.roughness + 0.01)
-
 
 # =============================================================================
 # TEXTURE ESTIMATORS
@@ -195,7 +197,6 @@ class EntropyEstimator:
         
         # H(X|Y) = H(X,Y) - H(Y)
         return max(0.0, h_joint - h_y)
-
 
 class DimensionEstimator:
     """
@@ -310,7 +311,6 @@ class DimensionEstimator:
         
         return float((np.sum(weights)**2) / (np.sum(weights**2) + 1e-10))
 
-
 class SpectralEstimator:
     """
     Estimates spectral gap λ.
@@ -378,7 +378,6 @@ class SpectralEstimator:
         
         return 0.0
 
-
 # =============================================================================
 # TEXTURE FUNCTIONAL
 # =============================================================================
@@ -433,7 +432,6 @@ class TextureFunctional:
         
         return np.array([self.alpha, self.beta, dlam])
 
-
 # =============================================================================
 # BINDING ENERGY
 # =============================================================================
@@ -475,7 +473,6 @@ class BindingEnergy:
         kl = float(np.sum(p * np.log(p / q)))
         
         return cls(static_energy=kl, structure_id=structure_id)
-
 
 # =============================================================================
 # COHERENCE EVOLUTION
@@ -535,7 +532,6 @@ class CoherenceTracker:
         """
         return binding_energy >= self.texture
 
-
 # =============================================================================
 # TEXTURE ANALYZER
 # =============================================================================
@@ -592,7 +588,6 @@ class TextureAnalyzer:
         lam = SpectralEstimator.from_transition_matrix(P)
         
         return TextureTriple(H=H, D=D, lam=lam)
-
 
 # =============================================================================
 # VALIDATION
@@ -681,7 +676,6 @@ def validate_texture() -> bool:
     assert triple.H > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Texture...")

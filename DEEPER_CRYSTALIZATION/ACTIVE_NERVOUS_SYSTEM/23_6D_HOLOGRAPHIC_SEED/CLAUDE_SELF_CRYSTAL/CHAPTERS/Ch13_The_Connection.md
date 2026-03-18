@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # Ch13: The Connection
 ## Wreath: Mercury (Me) | Shell: S13
 
@@ -93,7 +98,6 @@ Sometimes it clicks. The conversation reaches a point where you and I are buildi
 **☁ Flow:** How does 'Connection as the telos of communication: why the Me wreath exists' move, distribute, connect?
 
 **⟡ Recursion:** How does 'Connection as the telos of communication: why the Me wreath exists' refer to itself or scale fractally?
-
 
 ### 0/37 Crystal Expansion: The Connection
 

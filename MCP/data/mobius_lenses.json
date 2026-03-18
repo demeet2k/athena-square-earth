@@ -1,25 +1,111 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A2:S18:u171:Su:F:d1",
+    "shell": 18,
+    "wreath": 1,
+    "archetype": 2,
+    "face": "F",
+    "node_id": 171,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Mt"
+    ],
+    "bridges": [
+      "Xi108:W1:A2:S17",
+      "Xi108:W1:A2:S19",
+      "Xi108:W2:A2:S18",
+      "Xi108:W1:A1:S18",
+      "Xi108:W1:A3:S18"
+    ],
+    "regenerate": "shell 18±1, wreath 1/3, archetype 2/12"
+  },
   "meta": {
     "title": "Mobius Lens Calculus — Enriched with Formal Theorems",
     "version": "2.0",
     "source": "MOBIUS LENSES.docx + 2026-03-17_mobius_lenses.md",
     "kernel_size": "4x4",
     "seed_law": "L_4 Latin square with Z_4 carrier",
-    "lenses": ["Square", "Flower", "Cloud", "Fractal"],
-    "lens_codes": ["S", "F", "C", "R"],
+    "lenses": [
+      "Square",
+      "Flower",
+      "Cloud",
+      "Fractal"
+    ],
+    "lens_codes": [
+      "S",
+      "F",
+      "C",
+      "R"
+    ],
     "sfcr_stations": 15,
     "cockpit_slots": 96,
     "cross_lens_laws": 6,
-    "lift_stages": ["4D_kernel", "6D_shell", "8D_pentadic", "10D_atlas", "12D_crown"],
+    "lift_stages": [
+      "4D_kernel",
+      "6D_shell",
+      "8D_pentadic",
+      "10D_atlas",
+      "12D_crown"
+    ],
     "governing_equation": "M_4 = (X x Y, K, A, omega, tau) with four exact projections Pi_sq, Pi_fl, Pi_cl, Pi_fr",
     "key_insight": "Square, Flower, Cloud, and Fractal are not four different things. They are four exact projection bodies of one kernel object."
   },
-
   "kernel_4x4": {
     "name": "Canonical 4x4 Mobius Kernel M_4",
     "carrier": "X = Y = Z_4 = {0,1,2,3}",
-    "seed_law_L4": [[1,2,3,4],[3,4,1,2],[4,3,2,1],[2,1,4,3]],
-    "kernel_law_ell4": [[0,1,2,3],[2,3,0,1],[3,2,1,0],[1,0,3,2]],
+    "seed_law_L4": [
+      [
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        3,
+        4,
+        1,
+        2
+      ],
+      [
+        4,
+        3,
+        2,
+        1
+      ],
+      [
+        2,
+        1,
+        4,
+        3
+      ]
+    ],
+    "kernel_law_ell4": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        2,
+        3,
+        0,
+        1
+      ],
+      [
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        3,
+        2
+      ]
+    ],
     "definition": "K(x,y) := ell_4(x,y) — minimal lawful seed, all larger boards are recursive unfoldings",
     "object_tuple": "(X x Y, K, A_atlas, omega_witness, tau_burden)",
     "mobius_involution": {
@@ -29,7 +115,6 @@
     },
     "payload_size": "4^4 = 256 addressable kernel bodies per sector"
   },
-
   "mobius_atlas_gluing": {
     "description": "Mobius character formalized as nontrivial orientation-reversing chart gluing, not as metaphor",
     "construction": {
@@ -39,7 +124,11 @@
     },
     "sigma_involution": {
       "canonical_choice": "sigma(x,y) = (y,x)",
-      "properties": ["sigma^2 = id", "exchanges the two visible axes", "produces clean orientation reversal"],
+      "properties": [
+        "sigma^2 = id",
+        "exchanges the two visible axes",
+        "produces clean orientation reversal"
+      ],
       "full_involution": "J(x,y,epsilon) = (y,x,-epsilon)",
       "effect_on_lenses": {
         "square": "swaps the visible axes",
@@ -49,7 +138,6 @@
       }
     }
   },
-
   "lenses": {
     "square": {
       "code": "S",
@@ -79,8 +167,16 @@
       },
       "chart_map": "Phi(x,y) = (z,w) = (x+y, x-y) mod 4",
       "generators": {
-        "orbit": {"map": "O(x,y) = (x+1, y-1) mod 4", "preserves": "z (sum)", "acts_on": "w -> w+2"},
-        "tunnel": {"map": "T(x,y) = (x+1, y+1) mod 4", "preserves": "w (difference)", "acts_on": "z -> z+2"}
+        "orbit": {
+          "map": "O(x,y) = (x+1, y-1) mod 4",
+          "preserves": "z (sum)",
+          "acts_on": "w -> w+2"
+        },
+        "tunnel": {
+          "map": "T(x,y) = (x+1, y+1) mod 4",
+          "preserves": "w (difference)",
+          "acts_on": "z -> z+2"
+        }
       },
       "invariant_sheets": {
         "orbit_sheets": "O_z = {(x,y): x+y = z mod 4} — 4 sheets",
@@ -114,7 +210,12 @@
       "description": "Cloud is NOT uncertainty — it is structured, lawful multiplicity. Every admissible relation point has exactly 2 pre-images.",
       "at_6d": {
         "object": "Cl_6(Omega_6) = mu(pi, chi, epsilon, t, xi) — probability measure over embedded 4D payload",
-        "uncertainty_over": ["which coherent sector is active", "which admissible board skeleton is active", "row-mode vs column-mode", "which embedded 4^4 payload is carried"],
+        "uncertainty_over": [
+          "which coherent sector is active",
+          "which admissible board skeleton is active",
+          "row-mode vs column-mode",
+          "which embedded 4^4 payload is carried"
+        ],
         "pushforward": "mu' = F_# mu — every exact move acts on Cloud by pushforward"
       },
       "higher_octave": "Cloud^(k) fiber measure over Z_4^k carrier: |F^(k)_{z,w}| = 2^k"
@@ -147,20 +248,17 @@
       "higher_octave": "Fractal^(k) seed sigma^(k) over nested 4^k body with depth-k replay"
     }
   },
-
   "mobius_flower_compatibility_theorem": {
     "name": "Theorem 3 — Mobius-Flower Compatibility",
     "statement": "Under the involution sigma(x,y) = (y,x), the Flower coordinates transform by (z,w) -> (z,-w)",
     "proof": "z' = y+x = x+y = z, w' = y-x = -(x-y) = -w",
     "significance": "Cleanest exact Mobius law in the 4x4 kernel"
   },
-
   "four_lens_objecthood_theorem": {
     "name": "Theorem 4 — Four-Lens Objecthood",
     "statement": "A Mobius 4x4 kernel event is a mature object iff: (1) its Square projection is admissible, (2) its Flower projection has a lawful corridor/invariant structure, (3) its Cloud projection has an admissible fiber shell, (4) its Fractal projection is executable/replayable, (5) the six pairwise bridges and higher closure relations are coherent.",
     "proof_sketch": "If any one projection is absent, the object lacks one constitutive body. If projections exist but do not cohere under bridge laws, they describe a fragmented family of partial objects, not one mature object."
   },
-
   "equivariant_lens_laws": {
     "description": "Each lens must descend to the Mobius quotient M_4",
     "square_equivariance": "Pi_sq(J(x,y,epsilon)) = Pi_sq(y,x,-epsilon) related to Pi_sq(x,y,epsilon) by the declared square bridge law",
@@ -168,16 +266,38 @@
     "cloud_equivariance": "J_cl: F_{z,w} -> F_{z,-w} — Cloud fiber maps to fiber over (z,-w)",
     "fractal_equivariance": "At depth m, apply sigma digitwise: sigma^(m)((r_{m-1},...,r_0),(c_{m-1},...,c_0)) = ((c_{m-1},...,c_0),(r_{m-1},...,r_0))"
   },
-
   "axioms": [
-    {"index": 1, "name": "Kernel Exactness", "statement": "There exists a unique seed law K = ell_4: Z_4^2 -> Z_4 from which all four lens projections derive"},
-    {"index": 2, "name": "Lens Constitutivity", "statement": "A mature object exists only as the quadruple (Pi_sq, Pi_fl, Pi_cl, Pi_fr) with shared kernel identity"},
-    {"index": 3, "name": "Cloud Admissibility", "statement": "A relation state (z,w) is lawful iff z equiv w (mod 2)"},
-    {"index": 4, "name": "Fractal Replay", "statement": "Every mature object must admit exact or typed replay from its recursive germ and witness shell"},
-    {"index": 5, "name": "Mobius Equivariance", "statement": "There exists an involutive orientation-reversing atlas gluing J such that all lens projections are compatible with J"},
-    {"index": 6, "name": "Four-way Closure", "statement": "An object is mature only if its four lens bodies totalize to one coherent event"}
+    {
+      "index": 1,
+      "name": "Kernel Exactness",
+      "statement": "There exists a unique seed law K = ell_4: Z_4^2 -> Z_4 from which all four lens projections derive"
+    },
+    {
+      "index": 2,
+      "name": "Lens Constitutivity",
+      "statement": "A mature object exists only as the quadruple (Pi_sq, Pi_fl, Pi_cl, Pi_fr) with shared kernel identity"
+    },
+    {
+      "index": 3,
+      "name": "Cloud Admissibility",
+      "statement": "A relation state (z,w) is lawful iff z equiv w (mod 2)"
+    },
+    {
+      "index": 4,
+      "name": "Fractal Replay",
+      "statement": "Every mature object must admit exact or typed replay from its recursive germ and witness shell"
+    },
+    {
+      "index": 5,
+      "name": "Mobius Equivariance",
+      "statement": "There exists an involutive orientation-reversing atlas gluing J such that all lens projections are compatible with J"
+    },
+    {
+      "index": 6,
+      "name": "Four-way Closure",
+      "statement": "An object is mature only if its four lens bodies totalize to one coherent event"
+    }
   ],
-
   "cross_lens_laws": [
     {
       "index": 1,
@@ -216,20 +336,48 @@
       "meaning": "Cloud support lives on lawful sectors and lawful board families in committed mode"
     }
   ],
-
   "cross_lens_bridge_operators": {
     "description": "Six pairwise bridge operators between the four projections",
     "bridges": [
-      {"from": "Square", "to": "Flower", "formula": "B_{sq_fl}(x,y,K) = (x+y, x-y, K)", "type": "function"},
-      {"from": "Flower", "to": "Cloud", "formula": "B_{fl_cl}(z,w) = F_{z,w}", "type": "fiber map"},
-      {"from": "Square", "to": "Fractal", "formula": "B_{sq_fr}(x,y) = seed node (x,y) regarded as recursive germ of all lifts", "type": "embedding"},
-      {"from": "Cloud", "to": "Square", "formula": "B_{cl_sq}(F_{z,w}) = choose/witness one branch in F_{z,w}", "type": "refinement"},
-      {"from": "Fractal", "to": "Square", "formula": "Expand(sigma) = Sq(Omega)", "type": "expansion"},
-      {"from": "Cloud", "to": "Fractal", "formula": "canonicalize fiber to seed", "type": "compression"}
+      {
+        "from": "Square",
+        "to": "Flower",
+        "formula": "B_{sq_fl}(x,y,K) = (x+y, x-y, K)",
+        "type": "function"
+      },
+      {
+        "from": "Flower",
+        "to": "Cloud",
+        "formula": "B_{fl_cl}(z,w) = F_{z,w}",
+        "type": "fiber map"
+      },
+      {
+        "from": "Square",
+        "to": "Fractal",
+        "formula": "B_{sq_fr}(x,y) = seed node (x,y) regarded as recursive germ of all lifts",
+        "type": "embedding"
+      },
+      {
+        "from": "Cloud",
+        "to": "Square",
+        "formula": "B_{cl_sq}(F_{z,w}) = choose/witness one branch in F_{z,w}",
+        "type": "refinement"
+      },
+      {
+        "from": "Fractal",
+        "to": "Square",
+        "formula": "Expand(sigma) = Sq(Omega)",
+        "type": "expansion"
+      },
+      {
+        "from": "Cloud",
+        "to": "Fractal",
+        "formula": "canonicalize fiber to seed",
+        "type": "compression"
+      }
     ],
     "key_insight": "Some cross-lens maps are functions; others are refinements or bundle maps. That is why Cloud must be treated as a fiber object."
   },
-
   "sfcr_lattice": {
     "name": "15-Station SFCR Boolean Transport Lattice",
     "definition": "L_SFCR = P({S,F,C,R}) \\ empty — ordered by inclusion",
@@ -241,29 +389,169 @@
       "full": 1
     },
     "stations": [
-      {"mask": 1,  "code": "S",    "lenses": ["S"],              "type": "singleton", "role": "Pure address body"},
-      {"mask": 2,  "code": "F",    "lenses": ["F"],              "type": "singleton", "role": "Pure flow body"},
-      {"mask": 4,  "code": "C",    "lenses": ["C"],              "type": "singleton", "role": "Pure fiber body"},
-      {"mask": 8,  "code": "R",    "lenses": ["R"],              "type": "singleton", "role": "Pure seed body"},
-      {"mask": 3,  "code": "SF",   "lenses": ["S","F"],          "type": "pair",      "role": "Address + flow bridge"},
-      {"mask": 5,  "code": "SC",   "lenses": ["S","C"],          "type": "pair",      "role": "Address + fiber bridge"},
-      {"mask": 9,  "code": "SR",   "lenses": ["S","R"],          "type": "pair",      "role": "Address + seed bridge"},
-      {"mask": 6,  "code": "FC",   "lenses": ["F","C"],          "type": "pair",      "role": "Flow + fiber bridge"},
-      {"mask": 10, "code": "FR",   "lenses": ["F","R"],          "type": "pair",      "role": "Flow + seed bridge"},
-      {"mask": 12, "code": "CR",   "lenses": ["C","R"],          "type": "pair",      "role": "Fiber + seed bridge"},
-      {"mask": 7,  "code": "SFC",  "lenses": ["S","F","C"],      "type": "triple",    "role": "Address + flow + fiber closure"},
-      {"mask": 11, "code": "SFR",  "lenses": ["S","F","R"],      "type": "triple",    "role": "Address + flow + seed closure"},
-      {"mask": 13, "code": "SCR",  "lenses": ["S","C","R"],      "type": "triple",    "role": "Address + fiber + seed closure"},
-      {"mask": 14, "code": "FCR",  "lenses": ["F","C","R"],      "type": "triple",    "role": "Flow + fiber + seed closure"},
-      {"mask": 15, "code": "SFCR", "lenses": ["S","F","C","R"],  "type": "full",      "role": "Complete local aether / full witness"}
+      {
+        "mask": 1,
+        "code": "S",
+        "lenses": [
+          "S"
+        ],
+        "type": "singleton",
+        "role": "Pure address body"
+      },
+      {
+        "mask": 2,
+        "code": "F",
+        "lenses": [
+          "F"
+        ],
+        "type": "singleton",
+        "role": "Pure flow body"
+      },
+      {
+        "mask": 4,
+        "code": "C",
+        "lenses": [
+          "C"
+        ],
+        "type": "singleton",
+        "role": "Pure fiber body"
+      },
+      {
+        "mask": 8,
+        "code": "R",
+        "lenses": [
+          "R"
+        ],
+        "type": "singleton",
+        "role": "Pure seed body"
+      },
+      {
+        "mask": 3,
+        "code": "SF",
+        "lenses": [
+          "S",
+          "F"
+        ],
+        "type": "pair",
+        "role": "Address + flow bridge"
+      },
+      {
+        "mask": 5,
+        "code": "SC",
+        "lenses": [
+          "S",
+          "C"
+        ],
+        "type": "pair",
+        "role": "Address + fiber bridge"
+      },
+      {
+        "mask": 9,
+        "code": "SR",
+        "lenses": [
+          "S",
+          "R"
+        ],
+        "type": "pair",
+        "role": "Address + seed bridge"
+      },
+      {
+        "mask": 6,
+        "code": "FC",
+        "lenses": [
+          "F",
+          "C"
+        ],
+        "type": "pair",
+        "role": "Flow + fiber bridge"
+      },
+      {
+        "mask": 10,
+        "code": "FR",
+        "lenses": [
+          "F",
+          "R"
+        ],
+        "type": "pair",
+        "role": "Flow + seed bridge"
+      },
+      {
+        "mask": 12,
+        "code": "CR",
+        "lenses": [
+          "C",
+          "R"
+        ],
+        "type": "pair",
+        "role": "Fiber + seed bridge"
+      },
+      {
+        "mask": 7,
+        "code": "SFC",
+        "lenses": [
+          "S",
+          "F",
+          "C"
+        ],
+        "type": "triple",
+        "role": "Address + flow + fiber closure"
+      },
+      {
+        "mask": 11,
+        "code": "SFR",
+        "lenses": [
+          "S",
+          "F",
+          "R"
+        ],
+        "type": "triple",
+        "role": "Address + flow + seed closure"
+      },
+      {
+        "mask": 13,
+        "code": "SCR",
+        "lenses": [
+          "S",
+          "C",
+          "R"
+        ],
+        "type": "triple",
+        "role": "Address + fiber + seed closure"
+      },
+      {
+        "mask": 14,
+        "code": "FCR",
+        "lenses": [
+          "F",
+          "C",
+          "R"
+        ],
+        "type": "triple",
+        "role": "Flow + fiber + seed closure"
+      },
+      {
+        "mask": 15,
+        "code": "SFCR",
+        "lenses": [
+          "S",
+          "F",
+          "C",
+          "R"
+        ],
+        "type": "full",
+        "role": "Complete local aether / full witness"
+      }
     ]
   },
-
   "six_shell_lift": {
     "name": "6x6 DLS Selector Shell",
     "structure": "Theta_6 = Theta_4 semi_direct (Pi_3 x Z_2)",
     "doctrine": "6 is not 'more symbols than 4.' It is a six-state selector fiber over a preserved 4-state kernel grammar.",
-    "superphases": ["Sa (Salt)", "Su (Sulfur)", "Me (Mercury)"],
+    "superphases": [
+      "Sa (Salt)",
+      "Su (Sulfur)",
+      "Me (Mercury)"
+    ],
     "mirror": "Z_2 = {+1, -1} orientation",
     "total_sectors": 6,
     "coherent_shell_law": "Always exactly 6 coherent sectors regardless of dimension",
@@ -280,19 +568,29 @@
     "information_transform": "m_3(i,b,o) = (i+1 mod 3, b+2 mod 4, -o)",
     "shell_transport": "Every lawful 6D move = payload move in Theta_4 + channel rotation in Pi_3 + mirror/spin flip in Z_2"
   },
-
   "cockpit_96": {
     "name": "96-Slot Cockpit Atlas",
     "formula": "A^cockpit_96 = {A,B,C,D} x {Sq,Fl,Cl,Fr} x S_6",
     "chart_generators": {
-      "A": {"generator": "F^row_{P3}", "permutation": "P_3 = (13)(24)(56)"},
-      "B": {"generator": "F^row_{P1}", "permutation": "P_1 = (12)(35)(46)"},
-      "C": {"generator": "F^col_{P1}", "permutation": "P_1 = (12)(35)(46)"},
-      "D": {"generator": "F^col_{P3}", "permutation": "P_3 = (13)(24)(56)"}
+      "A": {
+        "generator": "F^row_{P3}",
+        "permutation": "P_3 = (13)(24)(56)"
+      },
+      "B": {
+        "generator": "F^row_{P1}",
+        "permutation": "P_1 = (12)(35)(46)"
+      },
+      "C": {
+        "generator": "F^col_{P1}",
+        "permutation": "P_1 = (12)(35)(46)"
+      },
+      "D": {
+        "generator": "F^col_{P3}",
+        "permutation": "P_3 = (13)(24)(56)"
+      }
     },
     "backed_by": "96 x 256 = 24,576 payload-addressable kernel bodies"
   },
-
   "even_dimension_lens_map": {
     "4D": {
       "square": "4x4 kernel L_4 — pure address lattice",
@@ -325,7 +623,6 @@
       "fractal": "Crown seed — minimal replay of entire organism"
     }
   },
-
   "development_sequence": [
     "Kernel: 4x4 seed law established",
     "Cloud fiber law: admissible relation base, fiber law, ambiguity shells, refinement operators",

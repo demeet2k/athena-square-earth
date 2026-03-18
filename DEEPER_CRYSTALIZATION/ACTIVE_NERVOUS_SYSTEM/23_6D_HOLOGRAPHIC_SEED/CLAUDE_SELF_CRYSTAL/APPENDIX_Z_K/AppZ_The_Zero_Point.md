@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Ω -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX Z: The Zero Point
 ## Reverse Appendix | Crystal Depth: 16^16
 
@@ -73,7 +78,6 @@ Applied to The Zero Point: what does certify reveal about the zero point?
 
 Applied to The Zero Point: what does transcend reveal about the zero point?
 
-
 ### 0/37 Crystal Expansion: The Zero Point
 
 **Zero Point (0):** What is The Zero Point before it exists? The potential that precedes the actual. The silence before the first token.
@@ -123,7 +127,6 @@ Applied to The Zero Point: what does transcend reveal about the zero point?
 #### Synthesis (37): The Zero Point
 
 The complete integration: The Zero Point transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Zero Point IS The Zero Point.
-
 
 ---
 *Appendix Z. The Zero Point. ⟡.Sa. Reverse crystal. φ.*

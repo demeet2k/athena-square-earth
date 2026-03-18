@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=433 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 from __future__ import annotations
 
 import json
@@ -10,7 +14,6 @@ from zoneinfo import ZoneInfo
 from self_actualize.runtime.derive_q42_canonical_bundle import (
     q42_allowed_touched_paths as q42_bundle_allowed_touched_paths,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -89,26 +92,20 @@ TARGET_PRIORITY = {
     "receipts": 11,
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def local_now() -> datetime:
     return datetime.now(LOCAL_TIMEZONE)
 
-
 def clamp(value: int, low: int = 0, high: int = 4) -> int:
     return max(low, min(high, int(value)))
-
 
 def load_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def extract_section(text: str, start_header: str, end_headers: Iterable[str]) -> str:
     start = text.find(start_header)
@@ -119,7 +116,6 @@ def extract_section(text: str, start_header: str, end_headers: Iterable[str]) ->
     end_candidates = [position for position in end_positions if position != -1]
     end = min(end_candidates) if end_candidates else len(text)
     return text[start:end].strip()
-
 
 def normalize_body_name(body: str) -> str:
     lowered = body.lower()
@@ -143,18 +139,15 @@ def normalize_body_name(body: str) -> str:
         return "self_actualize"
     return body
 
-
 def slugify(value: str) -> str:
     slug = re.sub(r"[^A-Za-z0-9]+", "-", value).strip("-").upper()
     return slug or "UNNAMED"
-
 
 def clean_inline_value(value: str) -> str:
     cleaned = value.strip()
     if cleaned.startswith("`") and cleaned.endswith("`"):
         cleaned = cleaned[1:-1]
     return cleaned.strip()
-
 
 def extract_backticked_values(block: str) -> list[str]:
     values: list[str] = []
@@ -163,7 +156,6 @@ def extract_backticked_values(block: str) -> list[str]:
         if stripped.startswith("`") and stripped.endswith("`"):
             values.append(stripped[1:-1])
     return values
-
 
 def parse_indented_fields(block: str) -> dict[str, str]:
     fields: dict[str, str] = {}
@@ -188,7 +180,6 @@ def parse_indented_fields(block: str) -> dict[str, str]:
 
     return fields
 
-
 def parse_docs_gate_status(text: str) -> dict:
     status_match = re.search(r"Command status: `([A-Z]+)`", text)
     query_match = re.search(r"- Query:\s*\n\s*`([^`]+)`", text)
@@ -203,7 +194,6 @@ def parse_docs_gate_status(text: str) -> dict:
         "detail": detail,
         "source_path": str(DOCS_GATE_PATH),
     }
-
 
 def parse_witness_hierarchy(text: str) -> dict[str, int]:
     labels = {
@@ -220,13 +210,11 @@ def parse_witness_hierarchy(text: str) -> dict[str, int]:
         values[key] = int(match.group(1)) if match else 0
     return values
 
-
 def split_ranked_label(label: str) -> tuple[str, str]:
     parts = label.split(" ", 1)
     if len(parts) == 1:
         return parts[0], parts[0]
     return parts[0], parts[1]
-
 
 def parse_ranked_frontier_section(section: str, state: str) -> list[dict]:
     pattern = re.compile(
@@ -259,7 +247,6 @@ def parse_ranked_frontier_section(section: str, state: str) -> list[dict]:
         )
     return frontiers
 
-
 def parse_unassigned_pressure(section: str, board_gap: int) -> list[dict]:
     pattern = re.compile(
         r"(?ms)- `(?P<id>[^`]+)`:\s*\n\s*(?P<title>.+?)\n- Why now:\s*\n\s*(?P<why_now>.+?)\n- Anchor:\s*\n\s*`(?P<anchor>[^`]+)`\s+with\s+`(?P<anchor_detail>[^`]+)`"
@@ -287,7 +274,6 @@ def parse_unassigned_pressure(section: str, board_gap: int) -> list[dict]:
         )
     return frontiers
 
-
 def parse_frontier_ranking(text: str, board_gap: int) -> dict[str, dict]:
     blocked_section = extract_section(
         text,
@@ -311,7 +297,6 @@ def parse_frontier_ranking(text: str, board_gap: int) -> dict[str, dict]:
         + parse_unassigned_pressure(unassigned_section, board_gap)
     )
     return {entry["id"]: entry for entry in frontiers}
-
 
 def parse_quest_board(text: str) -> dict[str, dict]:
     header_pattern = re.compile(
@@ -342,7 +327,6 @@ def parse_quest_board(text: str) -> dict[str, dict]:
         }
     return quests
 
-
 def parse_active_queue(text: str) -> dict[str, dict]:
     header_pattern = re.compile(r"^### (?P<id>[A-Z0-9-]+)$", re.M)
     matches = list(header_pattern.finditer(text))
@@ -364,11 +348,9 @@ def parse_active_queue(text: str) -> dict[str, dict]:
         }
     return entries
 
-
 def parse_restart_seed(text: str) -> str:
     match = re.search(r"## Current Restart Seed\s*\n\s*`([^`]+)`", text, re.S)
     return match.group(1).strip() if match else ""
-
 
 def is_meaningful_body(body: str, records: int) -> bool:
     if records < 5:
@@ -380,7 +362,6 @@ def is_meaningful_body(body: str, records: int) -> bool:
         return False
     return True
 
-
 def body_index(semantic_mass: dict) -> dict[str, dict]:
     bodies: dict[str, dict] = {}
     for entry in semantic_mass.get("body_profiles", []):
@@ -391,7 +372,6 @@ def body_index(semantic_mass: dict) -> dict[str, dict]:
         bodies[body] = entry
     return bodies
 
-
 def low_mass_cutoff(bodies: dict[str, dict]) -> int:
     counts = sorted(entry.get("records", 0) for entry in bodies.values())
     if not counts:
@@ -399,10 +379,8 @@ def low_mass_cutoff(bodies: dict[str, dict]) -> int:
     index = max(0, int(len(counts) * 0.3) - 1)
     return counts[index]
 
-
 def lower_texts(*parts: str) -> str:
     return " ".join(part for part in parts if part).lower()
-
 
 def infer_anchor_body(
     title: str,
@@ -434,7 +412,6 @@ def infer_anchor_body(
             return normalize_body_name(head)
     return "self_actualize"
 
-
 def docs_gate_dependent(candidate: dict) -> bool:
     haystack = lower_texts(
         candidate.get("title", ""),
@@ -455,11 +432,9 @@ def docs_gate_dependent(candidate: dict) -> bool:
         )
     )
 
-
 def path_is_synthesis_surface(path: str) -> bool:
     lowered = path.lower()
     return any(token in lowered for token in SYNTHESIS_TOKENS)
-
 
 def prioritized_synthesis_targets(paths: list[str]) -> list[str]:
     unique_paths = sorted(set(path for path in paths if path_is_synthesis_surface(path)))
@@ -473,7 +448,6 @@ def prioritized_synthesis_targets(paths: list[str]) -> list[str]:
         return (priority, len(path), path)
 
     return sorted(unique_paths, key=sort_key)[:6]
-
 
 def keyword_flags(candidate: dict, board_gap: int) -> dict[str, bool]:
     lowered = lower_texts(
@@ -502,7 +476,6 @@ def keyword_flags(candidate: dict, board_gap: int) -> dict[str, bool]:
         "low_promotion": candidate.get("body_records", 0) <= candidate.get("low_mass_cutoff", 0),
     }
 
-
 def score_source_or_archive_lift(candidate: dict) -> int:
     body_records = candidate.get("body_records", 0)
     source_records = candidate.get("body_source_records", 0)
@@ -516,7 +489,6 @@ def score_source_or_archive_lift(candidate: dict) -> int:
     if docs_gate_dependent(candidate):
         score += 1
     return clamp(score)
-
 
 def score_cross_scale_writeback(candidate: dict) -> int:
     target_roots = {path.split("/", 1)[0] for path in candidate.get("target_surfaces", []) if "/" in path}
@@ -532,7 +504,6 @@ def score_cross_scale_writeback(candidate: dict) -> int:
         score += 1
     return clamp(score)
 
-
 def score_restart_gain(candidate: dict, current_restart_seed: str) -> int:
     score = 1
     restart_seed = lower_texts(candidate.get("restart_seed", ""))
@@ -546,7 +517,6 @@ def score_restart_gain(candidate: dict, current_restart_seed: str) -> int:
     if any(token in restart_seed for token in ("next", "restart", "seed")) or "q42" in current_seed and "q42" in identity:
         score += 1
     return clamp(score)
-
 
 def score_execution_readiness(candidate: dict) -> int:
     if candidate.get("state") == "BLOCKED":
@@ -563,14 +533,12 @@ def score_execution_readiness(candidate: dict) -> int:
         score += 1
     return clamp(score)
 
-
 def score_blocker_penalty(candidate: dict, docs_state: str) -> int:
     if candidate.get("state") == "BLOCKED" and docs_gate_dependent(candidate) and docs_state == "BLOCKED":
         return 4
     if candidate.get("state") == "BLOCKED":
         return 2
     return 0
-
 
 def score_neglect_bonus(candidate: dict, flags: dict[str, bool]) -> int:
     score = 0
@@ -582,11 +550,9 @@ def score_neglect_bonus(candidate: dict, flags: dict[str, bool]) -> int:
         score += 1
     return clamp(score, 0, 3)
 
-
 def recent_reports() -> list[Path]:
     reports = sorted(REPORTS_ROOT.glob("corpus_weave_vishnu_*.md"))
     return reports[-6:]
-
 
 def extract_prior_score(text: str, candidate_terms: list[str]) -> tuple[int | None, int | None]:
     lowered = text.lower()
@@ -602,7 +568,6 @@ def extract_prior_score(text: str, candidate_terms: list[str]) -> tuple[int | No
         penalty = int(penalty_match.group(1)) if penalty_match else None
         return score, penalty
     return None, None
-
 
 def repeat_penalty(candidate: dict, provisional_final: int, report_payloads: list[dict]) -> int:
     candidate_terms = [
@@ -651,7 +616,6 @@ def repeat_penalty(candidate: dict, provisional_final: int, report_payloads: lis
     if mentions >= 2:
         penalty += 1
     return clamp(penalty, 0, 3)
-
 
 def build_candidate_from_quest(
     quest: dict,
@@ -707,7 +671,6 @@ def build_candidate_from_quest(
     candidate["neglect_bonus"] = score_neglect_bonus(candidate, flags)
     return candidate
 
-
 def build_candidate_from_ranking(
     ranking_entry: dict,
     current_restart_seed: str,
@@ -759,7 +722,6 @@ def build_candidate_from_ranking(
     )
     candidate["neglect_bonus"] = score_neglect_bonus(candidate, flags)
     return candidate
-
 
 def build_synthetic_body_candidates(
     bodies: dict[str, dict],
@@ -823,7 +785,6 @@ def build_synthetic_body_candidates(
         candidates.append(candidate)
     return candidates
 
-
 def candidate_sort_key(candidate: dict) -> tuple[int, int, int, int, int, str]:
     return (
         -candidate["final_score"],
@@ -833,7 +794,6 @@ def candidate_sort_key(candidate: dict) -> tuple[int, int, int, int, int, str]:
         candidate["repeat_penalty"],
         f"{candidate['id']}|{candidate['title']}".lower(),
     )
-
 
 def one_line_bridge_rationale(candidate: dict, docs_state: str) -> str:
     reasons: list[str] = []
@@ -852,12 +812,10 @@ def one_line_bridge_rationale(candidate: dict, docs_state: str) -> str:
         reasons.append("it improves whole-corpus coherence without reopening solved fronts")
     return f"{body}: " + "; ".join(reasons[:2])
 
-
 def allowed_touched_paths(candidate: dict) -> list[str]:
     if candidate.get("id") == "Q42":
         return q42_bundle_allowed_touched_paths()
     return prioritized_synthesis_targets(candidate.get("synthesis_targets", []))
-
 
 def build_missing_bridge_entry(candidate: dict) -> dict:
     return {
@@ -883,7 +841,6 @@ def build_missing_bridge_entry(candidate: dict) -> dict:
         "allowed_touched_paths": allowed_touched_paths(candidate),
     }
 
-
 def build_neglected_area_entry(body: str, body_entry: dict, representative: dict, docs_state: str) -> dict:
     rationale = one_line_bridge_rationale(representative, docs_state)
     return {
@@ -896,7 +853,6 @@ def build_neglected_area_entry(body: str, body_entry: dict, representative: dict
         "final_score": representative["final_score"],
         "rationale": rationale,
     }
-
 
 def choose_winning_move(candidates: list[dict], docs_state: str) -> tuple[dict, list[str]]:
     for candidate in candidates:
@@ -919,12 +875,10 @@ def choose_winning_move(candidates: list[dict], docs_state: str) -> tuple[dict, 
     fallback["instruction"] = fallback["rationale"]
     return fallback, []
 
-
 def select_report_path() -> str:
     local_timestamp = local_now()
     stamp = local_timestamp.strftime("%Y-%m-%d_%H")
     return f"NERVOUS_SYSTEM/90_LEDGERS/automations/corpus_weave_vishnu_{stamp}.md"
-
 
 def derive_corpus_weave_ranking() -> dict:
     docs_gate_text = load_text(DOCS_GATE_PATH)
@@ -1068,12 +1022,10 @@ def derive_corpus_weave_ranking() -> dict:
         "restart_seed": restart_seed,
     }
 
-
 def main() -> int:
     payload = derive_corpus_weave_ranking()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

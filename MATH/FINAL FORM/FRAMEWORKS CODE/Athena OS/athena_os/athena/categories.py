@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=149 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - CATEGORIES MODULE
 =============================
@@ -38,7 +42,6 @@ from typing import Dict, List, Optional, Tuple, Any, Set, Callable, Union
 from enum import Enum, auto
 from abc import ABC, abstractmethod
 
-
 # =============================================================================
 # THE TEN CATEGORIES
 # =============================================================================
@@ -55,7 +58,6 @@ class CategoryType(Enum):
     HAVING = 7      # Possession/condition
     ACTION = 8      # What it does
     PASSION = 9     # What is done to it
-
 
 @dataclass(frozen=True)
 class Category:
@@ -76,7 +78,6 @@ class Category:
     @property
     def is_accident(self) -> bool:
         return not self.is_substance
-
 
 # Define all ten categories
 CATEGORY_ENTITY = Category(
@@ -182,7 +183,6 @@ ACCIDENT_CATEGORIES: List[Category] = [
     ALL_CATEGORIES[i] for i in range(1, 10)
 ]
 
-
 # =============================================================================
 # PREDICATION
 # =============================================================================
@@ -190,7 +190,6 @@ ACCIDENT_CATEGORIES: List[Category] = [
 class PredicationError(Exception):
     """Error in categorical predication."""
     pass
-
 
 @dataclass
 class Term:
@@ -211,7 +210,6 @@ class Term:
     def can_be_predicate(self) -> bool:
         """Categories 1-9 can be predicates."""
         return self.category != CategoryType.ENTITY
-
 
 @dataclass
 class Predication:
@@ -246,13 +244,11 @@ class Predication:
         copula = "are" if self.is_affirmative else "are not"
         return f"{quant} {self.subject.name} {copula} {self.predicate.name}"
 
-
 def validate_subject(term: Term) -> bool:
     """Validate term can be subject."""
     if term.category != CategoryType.ENTITY:
         raise PredicationError(f"Non-entity subject: {term.name}")
     return True
-
 
 def validate_predicate(term: Term) -> bool:
     """Validate term can be predicate."""
@@ -261,7 +257,6 @@ def validate_predicate(term: Term) -> bool:
     if term.category.value not in range(1, 10):
         raise PredicationError(f"Invalid predicate category: {term.category}")
     return True
-
 
 # =============================================================================
 # CATEGORY PROFILES
@@ -300,7 +295,6 @@ class CategoryProfile:
         """Fraction of accident categories defined."""
         return len(self.accidents) / 9.0
 
-
 def extract_category_profile(entity: Term, 
                              accident_values: Dict[CategoryType, Any]) -> CategoryProfile:
     """Extract a category profile for an entity."""
@@ -309,7 +303,6 @@ def extract_category_profile(entity: Term,
         if value is not None and cat != CategoryType.ENTITY:
             profile.set_accident(cat, value)
     return profile
-
 
 # =============================================================================
 # THE FOUR CAUSES
@@ -322,7 +315,6 @@ class CauseType(Enum):
     EFFICIENT = auto()  # What brought it about
     FINAL = auto()      # Its purpose/end (telos)
 
-
 @dataclass(frozen=True)
 class CauseDefinition:
     """Definition of a cause type."""
@@ -333,7 +325,6 @@ class CauseDefinition:
     question: str
     description: str
     examples: Tuple[str, ...]
-
 
 CAUSE_MATERIAL = CauseDefinition(
     CauseType.MATERIAL,
@@ -373,7 +364,6 @@ ALL_CAUSES: Dict[CauseType, CauseDefinition] = {
     CauseType.EFFICIENT: CAUSE_EFFICIENT,
     CauseType.FINAL: CAUSE_FINAL,
 }
-
 
 # =============================================================================
 # CAUSAL ANALYSIS
@@ -435,7 +425,6 @@ class CausalAnalysis:
             return "COMPLETE"
         return f"INCOMPLETE (missing: {', '.join(c.name for c in missing)})"
 
-
 def causal_completeness(entity: Term, 
                        causes: Dict[CauseType, Any]) -> CausalAnalysis:
     """Create causal analysis and check completeness."""
@@ -444,7 +433,6 @@ def causal_completeness(entity: Term,
         if value is not None:
             analysis.set_cause(cause_type, value)
     return analysis
-
 
 # =============================================================================
 # CAUSAL CHAIN TRAVERSAL
@@ -456,7 +444,6 @@ class CausalChainResult(Enum):
     TERMINATED_SELF = auto()    # Self-causing (Prime Mover)
     TERMINATED_DEPTH = auto()   # Max depth reached
     ERROR_CYCLE = auto()        # Cycle detected
-
 
 @dataclass
 class CausalChain:
@@ -477,7 +464,6 @@ class CausalChain:
             CausalChainResult.TERMINATED_NONE,
             CausalChainResult.TERMINATED_SELF
         )
-
 
 def traverse_causal_chain(
     entity: Term,
@@ -520,7 +506,6 @@ def traverse_causal_chain(
     
     return CausalChain(chain, cause_type, CausalChainResult.TERMINATED_DEPTH)
 
-
 # =============================================================================
 # HYLOMORPHISM
 # =============================================================================
@@ -554,7 +539,6 @@ class HylomorphicEntity:
         """Prime matter has no form (purely potential)."""
         return self.matter is not None and self.form is None
 
-
 # =============================================================================
 # ACTUALITY AND POTENTIALITY
 # =============================================================================
@@ -565,7 +549,6 @@ class ActualityLevel(Enum):
     FIRST_ACTUALITY = 1     # Has form, capacity not exercised
     SECOND_ACTUALITY = 2    # Capacity actively exercised
     PURE_ACTUALITY = 3      # No unrealized potential
-
 
 @dataclass
 class ActualityState:
@@ -595,7 +578,6 @@ class ActualityState:
         if capacity in self.actualized_capacities:
             self.actualized_capacities.remove(capacity)
             self.potential_capacities.add(capacity)
-
 
 # =============================================================================
 # CATEGORY SYSTEM
@@ -644,7 +626,6 @@ class CategorySystem:
     def get_cause_info(self, cause_type: CauseType) -> CauseDefinition:
         """Get cause definition."""
         return self.causes[cause_type]
-
 
 # =============================================================================
 # VALIDATION
@@ -709,7 +690,6 @@ def validate_categories() -> bool:
     assert profile.completeness() == 3/9
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

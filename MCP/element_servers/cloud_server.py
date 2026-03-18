@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S21 | face=C | node=228 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A3:S20→Xi108:W2:A3:S22→Xi108:W1:A3:S21→Xi108:W3:A3:S21→Xi108:W2:A2:S21→Xi108:W2:A4:S21
+
 """
 ATHENA CLOUD SERVER — Water Element (C)
 =======================================
@@ -56,7 +60,6 @@ NEURAL_NET_DIR = NS_ROOT / "13_DEEPER_NEURAL_NET" / "09_RUNTIME"
 SWARM_DIR = BOARD_DIR / "08_SWARM_RUNTIME"
 FRONTIERS_DIR = NS_ROOT / "10_FRONTIERS"
 
-
 def _read_file(path: Path, limit: int = 500) -> str:
     if not path.exists():
         return f"Not found: {path.name}"
@@ -65,7 +68,6 @@ def _read_file(path: Path, limit: int = 500) -> str:
     if len(lines) > limit:
         return "\n".join(lines[:limit]) + f"\n\n[…truncated at {limit} lines]"
     return text
-
 
 @mcp.tool()
 def search_everywhere(query: str, max_results: int = 10) -> str:
@@ -94,7 +96,6 @@ def search_everywhere(query: str, max_results: int = 10) -> str:
         return f"No results for '{query}'."
     return f"## Search: '{query}'\n\n" + "\n".join(results)
 
-
 @mcp.tool()
 def search_corpus(query: str) -> str:
     """Search corpus capsules by keyword."""
@@ -112,7 +113,6 @@ def search_corpus(query: str) -> str:
     if not hits:
         return f"No corpus capsules match '{query}'."
     return f"## Corpus Search: '{query}'\n\n" + "\n".join(hits)
-
 
 @mcp.tool()
 def query_neural_net(query: str = "", index: str = "", max_results: int = 10) -> str:
@@ -135,7 +135,6 @@ def query_neural_net(query: str = "", index: str = "", max_results: int = 10) ->
             continue
     return f"## Neural Net Search: '{query}'\n\n{len(hits)} hits:\n" + "\n".join(hits)
 
-
 @mcp.tool()
 def list_corpus_capsules() -> str:
     """List all corpus capsules."""
@@ -143,7 +142,6 @@ def list_corpus_capsules() -> str:
         return "Corpus directory not found."
     capsules = sorted(CORPUS_DIR.glob("*.md"))
     return f"## Corpus Capsules ({len(capsules)})\n\n" + "\n".join(f"- {c.stem}" for c in capsules)
-
 
 @mcp.tool()
 def read_corpus_capsule(capsule_id: str = "") -> str:
@@ -154,7 +152,6 @@ def read_corpus_capsule(capsule_id: str = "") -> str:
     if not matches:
         return f"Capsule '{capsule_id}' not found."
     return _read_file(matches[0])
-
 
 @mcp.tool()
 def read_board_status() -> str:
@@ -167,7 +164,6 @@ def read_board_status() -> str:
         lines.append(f"### {sf.stem}")
         lines.append(_read_file(sf, limit=30))
     return "\n\n".join(lines)
-
 
 @mcp.tool()
 def read_swarm_element(element: str = "") -> str:
@@ -182,7 +178,6 @@ def read_swarm_element(element: str = "") -> str:
         return f"Swarm element '{element}' not found."
     return _read_file(matches[0])
 
-
 @mcp.tool()
 def read_frontier(chapter: str = "") -> str:
     """Read frontier evidence bundles."""
@@ -195,7 +190,6 @@ def read_frontier(chapter: str = "") -> str:
     if not matches:
         return f"Frontier '{chapter}' not found."
     return _read_file(matches[0])
-
 
 @mcp.tool()
 def read_tensor(tensor_name: str = "") -> str:
@@ -210,7 +204,6 @@ def read_tensor(tensor_name: str = "") -> str:
     if not matches:
         return f"Tensor '{tensor_name}' not found."
     return _read_file(matches[0])
-
 
 # ── Mycelium: Observation & Scoring ───────────────────────────────
 
@@ -247,7 +240,6 @@ def score_candidates(family: str = "", top_n: int = 5) -> str:
         )
     return "\n".join(lines)
 
-
 @mcp.tool()
 def emit_mirror_family(shard_id: str = "") -> str:
     """Show all mirror relations for a shard across mediums."""
@@ -279,7 +271,6 @@ def emit_mirror_family(shard_id: str = "") -> str:
             lines.append(f"- `{m['source_shard']}` ↔ `{m['target_shard']}`")
     return "\n".join(lines)
 
-
 # ── Cloud-specific resource ───────────────────────────────────────
 @mcp.resource("athena://cloud-water")
 def resource_cloud() -> str:
@@ -294,7 +285,6 @@ def resource_cloud() -> str:
         "**Tools**: 14 registered\n\n"
         + brain_status()
     )
-
 
 if __name__ == "__main__":
     mcp.run()

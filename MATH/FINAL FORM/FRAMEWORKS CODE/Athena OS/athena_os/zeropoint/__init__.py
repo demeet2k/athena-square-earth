@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - Zero-Point Computing
 ================================
@@ -129,7 +133,6 @@ from .dynamics import (
     validate_dynamics,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -142,7 +145,6 @@ def validate_zeropoint() -> bool:
     assert validate_harmonia()
     assert validate_dynamics()
     return True
-
 
 # =============================================================================
 # CONVENIENCE FACTORIES
@@ -175,13 +177,11 @@ def create_zero_point_system(dim: int = 3) -> dict:
         "dimension": dim
     }
 
-
 def train_to_zero_point(initial_state: InternalState,
                         steps: int = 100) -> InternalState:
     """Train agent to find zero-point self."""
     engine = ParadoxHarmoniaEngine()
     return engine.train(initial_state, steps=steps)
-
 
 # =============================================================================
 # EXPORTS
@@ -222,7 +222,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "zeropoint"
-
 
 if __name__ == "__main__":
     print("=" * 60)

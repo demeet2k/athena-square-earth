@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=398 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -36,7 +40,6 @@ from self_actualize.runtime.hemisphere_synthesis_support import (
 )
 from self_actualize.runtime.hemisphere_visual_atlas_support import FIXED_PAGE_SPECS
 
-
 GUIDED_TOUR_STAGE_ORDER = [
     "seed",
     "primary_hemisphere_page",
@@ -72,17 +75,14 @@ SYNTHESIS_SURFACES = {
     },
 }
 
-
 def opposite_hemisphere(hemisphere: str) -> str:
     return "MYTH" if hemisphere == "MATH" else "MATH"
-
 
 def short_text(value: str, limit: int = 180) -> str:
     collapsed = " ".join(str(value).split())
     if len(collapsed) <= limit:
         return collapsed
     return collapsed[: limit - 1].rstrip() + "..."
-
 
 def load_guided_tour_registries() -> dict[str, Any]:
     if not VISUAL_ATLAS_PAGE_REGISTRY_PATH.exists():
@@ -106,7 +106,6 @@ def load_guided_tour_registries() -> dict[str, Any]:
         registries["guided_tour_manifest"] = load_json(GUIDED_TOUR_MANIFEST_PATH)
     return registries
 
-
 def build_page_value_map(page_map: dict[str, dict[str, Any]], page_type: str) -> dict[str, str]:
     lookup: dict[str, str] = {}
     for page_id, page in page_map.items():
@@ -117,11 +116,9 @@ def build_page_value_map(page_map: dict[str, dict[str, Any]], page_type: str) ->
             lookup[value] = page_id
     return lookup
 
-
 def first_anchor_id(record: dict[str, Any]) -> str:
     anchors = record.get("basis_anchor_ids") or []
     return anchors[0] if anchors else ""
-
 
 def score_sort_key(record: dict[str, Any]) -> tuple[Any, ...]:
     return (
@@ -131,13 +128,11 @@ def score_sort_key(record: dict[str, Any]) -> tuple[Any, ...]:
         record.get("record_id", ""),
     )
 
-
 def locator_sort_key(record: dict[str, Any]) -> tuple[Any, ...]:
     return (
         record.get("relative_path", "").lower(),
         record.get("record_id", ""),
     )
-
 
 def dedupe_page_ids(page_ids: list[str], page_map: dict[str, dict[str, Any]]) -> list[str]:
     ordered: list[str] = []
@@ -148,7 +143,6 @@ def dedupe_page_ids(page_ids: list[str], page_map: dict[str, dict[str, Any]]) ->
         seen.add(page_id)
         ordered.append(page_id)
     return ordered
-
 
 def ensure_guided_tour_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_guided_tour_runtime")
@@ -208,7 +202,6 @@ def ensure_guided_tour_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     registries["_guided_tour_runtime"] = runtime
     return runtime
 
-
 def page_ref(runtime: dict[str, Any], page_id: str) -> dict[str, Any]:
     page = runtime["page_map"].get(page_id)
     if page is None:
@@ -231,7 +224,6 @@ def page_ref(runtime: dict[str, Any], page_id: str) -> dict[str, Any]:
         "counts": page.get("counts", {}),
     }
 
-
 def synthesis_surface_ref(surface_key: str) -> dict[str, Any]:
     surface = SYNTHESIS_SURFACES[surface_key]
     relative_path = surface["relative_path"]
@@ -242,7 +234,6 @@ def synthesis_surface_ref(surface_key: str) -> dict[str, Any]:
         "canonical_path": str(HEMISPHERE_ROOT / relative_path),
         "mirror_path": str(FLEET_MIRROR_ROOT / relative_path),
     }
-
 
 def select_synthesis_surface(
     seed_record: dict[str, Any],
@@ -262,7 +253,6 @@ def select_synthesis_surface(
         return synthesis_surface_ref("math")
     return synthesis_surface_ref("myth")
 
-
 def preview_bullets(section_payload: dict[str, Any], limit: int = 2) -> list[dict[str, Any]]:
     previews: list[dict[str, Any]] = []
     for bullet in section_payload.get("bullets", [])[:limit]:
@@ -273,7 +263,6 @@ def preview_bullets(section_payload: dict[str, Any], limit: int = 2) -> list[dic
             }
         )
     return previews
-
 
 def itinerary_header(itinerary: dict[str, Any]) -> dict[str, Any]:
     stage_headers: list[dict[str, Any]] = []
@@ -316,7 +305,6 @@ def itinerary_header(itinerary: dict[str, Any]) -> dict[str, Any]:
         "stages": stage_headers,
     }
 
-
 def target_page_id_for_hemisphere(
     runtime: dict[str, Any],
     seed_record: dict[str, Any],
@@ -328,7 +316,6 @@ def target_page_id_for_hemisphere(
         .get("target_system", "")
     )
     return runtime["target_page_map"].get(target_system, "")
-
 
 def select_family_or_anchor_page_id(
     runtime: dict[str, Any],
@@ -345,7 +332,6 @@ def select_family_or_anchor_page_id(
     if anchor_page_id:
         return anchor_page_id
     return family_page_id
-
 
 def page_spine_ids(
     runtime: dict[str, Any],
@@ -368,7 +354,6 @@ def page_spine_ids(
         runtime["page_map"],
     )
 
-
 def facet_page_id(
     runtime: dict[str, Any],
     facet_name: str,
@@ -385,7 +370,6 @@ def facet_page_id(
     if facet_name in {"top_level"}:
         return runtime["locator_page_map"].get(facet_value, "")
     return ""
-
 
 def source_page_id_from_payload(
     runtime: dict[str, Any],
@@ -414,7 +398,6 @@ def source_page_id_from_payload(
             if page_id:
                 return page_id
     return locator_entry.get("record_locator_page_id", "VA-LOCATOR")
-
 
 def build_leg(
     runtime: dict[str, Any],
@@ -450,7 +433,6 @@ def build_leg(
         },
     }
 
-
 def build_hub_crossing(
     composer_payload: dict[str, Any],
     synthesis_payload: dict[str, Any],
@@ -466,7 +448,6 @@ def build_hub_crossing(
         "commissure_edge_ids": list(bridge_profile.get("commissure_edge_ids") or []),
         "bridge_preview": preview_bullets(synthesis_payload.get("bridge_interpretation", {}), limit=2),
     }
-
 
 def build_synthesis_landing(
     seed_record: dict[str, Any],
@@ -488,7 +469,6 @@ def build_synthesis_landing(
         },
     }
 
-
 def build_exit_links(
     runtime: dict[str, Any],
     seed_record: dict[str, Any],
@@ -508,7 +488,6 @@ def build_exit_links(
         ),
     }
 
-
 def build_proof_summary(
     composer_payload: dict[str, Any],
     synthesis_payload: dict[str, Any],
@@ -520,7 +499,6 @@ def build_proof_summary(
         composer_payload.get("docs_gate_status", "UNKNOWN"),
     )
     return proof_summary
-
 
 def build_tour_payload(
     composer_payload: dict[str, Any],
@@ -590,7 +568,6 @@ def build_tour_payload(
         payload["alternative_seeds"] = composer_payload["alternative_seeds"][:3]
     return payload
 
-
 def tour_from_composer_payload(
     composer_payload: dict[str, Any],
     registries: dict[str, Any],
@@ -606,7 +583,6 @@ def tour_from_composer_payload(
         registries,
         source_page_id=source_page,
     )
-
 
 def record(
     registries: dict[str, Any],
@@ -627,7 +603,6 @@ def record(
     )
     return tour_from_composer_payload(composer_payload, registries)
 
-
 def search(
     query_text: str,
     registries: dict[str, Any],
@@ -642,7 +617,6 @@ def search(
         expanded=expanded,
     )
     return tour_from_composer_payload(composer_payload, registries)
-
 
 def facet(
     registries: dict[str, Any],
@@ -667,7 +641,6 @@ def facet(
         registries,
         source_page_id=source_page_id or None,
     )
-
 
 def page_seed_ids(registries: dict[str, Any], page_id: str) -> list[str]:
     runtime = ensure_guided_tour_runtime(registries)
@@ -694,7 +667,6 @@ def page_seed_ids(registries: dict[str, Any], page_id: str) -> list[str]:
         records = sorted(runtime["global_records"], key=score_sort_key)
 
     return [record["record_id"] for record in records]
-
 
 def page(
     registries: dict[str, Any],
@@ -757,7 +729,6 @@ def page(
         source_page_id=page_id,
     )
 
-
 def starter_page_ids(page_registry: dict[str, Any]) -> dict[str, list[str]]:
     pages = page_registry.get("pages", [])
     family_pages = sorted(
@@ -777,7 +748,6 @@ def starter_page_ids(page_registry: dict[str, Any]) -> dict[str, list[str]]:
         "target_system": target_pages,
         "hemisphere": hemisphere_pages,
     }
-
 
 def build_guided_tour_seed_registry(
     registries: dict[str, Any],
@@ -824,7 +794,6 @@ def build_guided_tour_seed_registry(
     }
     return seed_registry, page_bundle_cache
 
-
 def build_guided_tour_page_registry(
     page_bundle_cache: dict[str, dict[str, Any]],
     runtime: dict[str, Any],
@@ -857,7 +826,6 @@ def build_guided_tour_page_registry(
         "pages": pages,
     }
 
-
 def build_guided_tour_manifest(
     seed_registry: dict[str, Any],
     page_registry: dict[str, Any],
@@ -885,7 +853,6 @@ def build_guided_tour_manifest(
             "page": "python -m self_actualize.runtime.guide_myth_math_hemisphere_atlas page --page-id <page_id>",
         },
     }
-
 
 def build_guided_tour_payloads(
     *,

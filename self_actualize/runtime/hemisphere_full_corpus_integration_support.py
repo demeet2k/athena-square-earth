@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S27 | face=F | node=375 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S26→Xi108:W2:A12:S28→Xi108:W1:A12:S27→Xi108:W3:A12:S27→Xi108:W2:A11:S27
+
 from __future__ import annotations
 
 from collections import Counter, defaultdict
@@ -33,7 +37,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     weighted_math_score,
 )
 from self_actualize.runtime.hemisphere_dual_route_support import build_dual_route_payloads
-
 
 CORPUS_ATLAS_PATH = SELF_ACTUALIZE_ROOT / "corpus_atlas.json"
 ARCHIVE_ATLAS_PATH = SELF_ACTUALIZE_ROOT / "archive_atlas.json"
@@ -286,17 +289,14 @@ HANDOFF_MODES = (
     "quarantine_heavy",
 )
 
-
 def load_optional_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
     return load_json(path)
 
-
 def normalize_weights(math_weight: float) -> tuple[float, float]:
     rounded_math = round(max(0.0, min(1.0, math_weight)), 6)
     return rounded_math, round(1.0 - rounded_math, 6)
-
 
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     if not rows:
@@ -305,7 +305,6 @@ def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     divider = "| " + " | ".join(["---"] * len(headers)) + " |"
     body = "\n".join("| " + " | ".join(row) + " |" for row in rows)
     return f"{header_line}\n{divider}\n{body}"
-
 
 def top_records(records: list[dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
     return sorted(
@@ -318,14 +317,11 @@ def top_records(records: list[dict[str, Any]], limit: int = 5) -> list[dict[str,
         ),
     )[:limit]
 
-
 def stage_label(stage_id: str) -> str:
     return STAGE_LABELS.get(stage_id, stage_id.replace("_", " ").title())
 
-
 def heading_blob(record: dict[str, Any]) -> str:
     return " ".join(record.get("heading_candidates") or [])
-
 
 def text_blob(record: dict[str, Any], anchor_map: dict[str, BasisAnchor]) -> str:
     anchor_terms: list[str] = []
@@ -346,11 +342,9 @@ def text_blob(record: dict[str, Any], anchor_map: dict[str, BasisAnchor]) -> str
     ]
     return " ".join(part for part in parts if part).lower()
 
-
 def deep_cluster_for_anchor(anchor_id: str, anchor_map: dict[str, BasisAnchor]) -> str:
     anchor = anchor_map.get(anchor_id)
     return anchor.cluster if anchor else ""
-
 
 def primary_basis_element(anchor_ids: list[str], anchor_map: dict[str, BasisAnchor]) -> str:
     for anchor_id in anchor_ids:
@@ -358,7 +352,6 @@ def primary_basis_element(anchor_ids: list[str], anchor_map: dict[str, BasisAnch
         if anchor:
             return anchor.element.lower()
     return ""
-
 
 def deduplicate_merged_records(
     live_records: list[dict[str, Any]],
@@ -410,7 +403,6 @@ def deduplicate_merged_records(
     canonical_records.sort(key=lambda item: normalize_path(item.get("relative_path", "")).lower())
     return canonical_records
 
-
 def build_control_lookups(
     control_records: list[dict[str, Any]],
 ) -> tuple[dict[str, list[dict[str, Any]]], dict[str, list[dict[str, Any]]]]:
@@ -420,7 +412,6 @@ def build_control_lookups(
         by_sha[record.get("sha256", "")].append(record)
         by_path[normalize_path(record.get("relative_path", "")).lower()].append(record)
     return dict(by_sha), dict(by_path)
-
 
 def control_match_for_record(
     record: dict[str, Any],
@@ -434,7 +425,6 @@ def control_match_for_record(
     if path_hits:
         return path_hits[0]
     return None
-
 
 def anchor_metadata(
     record: dict[str, Any],
@@ -459,7 +449,6 @@ def anchor_metadata(
     )
     return justification, confidence, primary_anchor.cluster
 
-
 def symmetry_membership(
     record: dict[str, Any],
     basis_anchor_ids: list[str],
@@ -474,7 +463,6 @@ def symmetry_membership(
         "primary_element": anchor.element if anchor else "",
         "observer_lattice": "O64",
     }
-
 
 def initial_appendix_governance_flags(record: dict[str, Any]) -> list[str]:
     flags: list[str] = []
@@ -493,7 +481,6 @@ def initial_appendix_governance_flags(record: dict[str, Any]) -> list[str]:
         flags.append("commissure")
     return flags
 
-
 def semantic_mass_for_record(record: dict[str, Any]) -> float:
     base = 1.0
     base += 0.08 * min(3, len(record.get("heading_candidates") or []))
@@ -501,7 +488,6 @@ def semantic_mass_for_record(record: dict[str, Any]) -> float:
     if record.get("text_extractable"):
         base += 0.12
     return round(min(1.8, base), 4)
-
 
 def route_quality_for_record(record: dict[str, Any]) -> float:
     quality = 1.0
@@ -512,7 +498,6 @@ def route_quality_for_record(record: dict[str, Any]) -> float:
     if record.get("duplicate_count", 0) > 0:
         quality += 0.04
     return round(max(0.35, min(1.2, quality)), 4)
-
 
 def project_full_record(
     record: dict[str, Any],
@@ -699,7 +684,6 @@ def project_full_record(
     )
     return projected
 
-
 def stage_scores(record: dict[str, Any], anchor_map: dict[str, BasisAnchor]) -> dict[str, float]:
     scores = {stage_id: 0.0 for stage_id in STAGE_ORDER}
     default_stage = STAGE_FAMILY_DEFAULTS.get(record.get("family", ""), "COMPLETE_ACT")
@@ -734,7 +718,6 @@ def stage_scores(record: dict[str, Any], anchor_map: dict[str, BasisAnchor]) -> 
         scores["EARTH"] += 0.05
     return {stage_id: round(score, 4) for stage_id, score in scores.items()}
 
-
 def transition_stages_for_stage(stage_id: str) -> list[str]:
     if stage_id not in STAGE_ORDER:
         return []
@@ -745,7 +728,6 @@ def transition_stages_for_stage(stage_id: str) -> list[str]:
     if index + 1 < len(STAGE_ORDER):
         stages.append(STAGE_ORDER[index + 1])
     return stages[:2]
-
 
 def reassessment_window_for_record(record: dict[str, Any]) -> str:
     if not record.get("text_extractable"):
@@ -758,7 +740,6 @@ def reassessment_window_for_record(record: dict[str, Any]) -> str:
         "reassessment_window",
         "21d",
     )
-
 
 def assignment_blockers(record: dict[str, Any]) -> list[str]:
     blockers: list[str] = []
@@ -773,7 +754,6 @@ def assignment_blockers(record: dict[str, Any]) -> list[str]:
         blockers.append("docs_gate_absence")
     return blockers
 
-
 def basis_overlay_ids(
     record: dict[str, Any],
     basis_note_map: dict[str, dict[str, Any]],
@@ -785,10 +765,8 @@ def basis_overlay_ids(
             overlay_ids.append(note["note_id"])
     return overlay_ids
 
-
 def family_note_id(stage_id: str, family: str) -> str:
     return f"AWNOTE-{stage_id}-{slugify(family)}"
-
 
 def preferred_route_ids(record: dict[str, Any]) -> list[str]:
     route_ids: list[str] = []
@@ -797,7 +775,6 @@ def preferred_route_ids(record: dict[str, Any]) -> list[str]:
         if route_id:
             route_ids.append(route_id)
     return route_ids
-
 
 def build_stage_assignments(
     records: list[dict[str, Any]],
@@ -847,14 +824,12 @@ def build_stage_assignments(
             stage_to_records[primary_stage].append(record)
     return assignments, dict(stage_to_records)
 
-
 def dominant_family(records: list[dict[str, Any]]) -> str:
     if not records:
         return "general-corpus"
     return Counter(
         record.get("family", "general-corpus") for record in records
     ).most_common(1)[0][0]
-
 
 def dominant_anchor(records: list[dict[str, Any]]) -> str:
     counter: Counter[str] = Counter()
@@ -863,7 +838,6 @@ def dominant_anchor(records: list[dict[str, Any]]) -> str:
     if not counter:
         return ""
     return counter.most_common(1)[0][0]
-
 
 def note_primary_hemisphere(records: list[dict[str, Any]]) -> str:
     hemispheres = [
@@ -874,7 +848,6 @@ def note_primary_hemisphere(records: list[dict[str, Any]]) -> str:
     if not hemispheres:
         return "MATH"
     return Counter(hemispheres).most_common(1)[0][0]
-
 
 def build_family_notes(
     records: list[dict[str, Any]],
@@ -917,7 +890,6 @@ def build_family_notes(
         )
     return notes
 
-
 def build_basis_role_notes(
     records: list[dict[str, Any]],
     anchor_map: dict[str, BasisAnchor],
@@ -957,7 +929,6 @@ def build_basis_role_notes(
             }
         )
     return notes
-
 
 def build_stage_family_matrix(
     records: list[dict[str, Any]],
@@ -1004,7 +975,6 @@ def build_stage_family_matrix(
             )
     return notes
 
-
 def build_handoff_notes(
     records: list[dict[str, Any]],
     docs_gate_status: str,
@@ -1046,7 +1016,6 @@ def build_handoff_notes(
             }
         )
     return notes
-
 
 def build_appendix_governance_ledger(
     records: list[dict[str, Any]],
@@ -1125,7 +1094,6 @@ def build_appendix_governance_ledger(
         + ["AppQ"],
     }
 
-
 def build_basis_crosswalk_registry(
     records: list[dict[str, Any]],
     docs_gate_status: str,
@@ -1163,7 +1131,6 @@ def build_basis_crosswalk_registry(
         "anchor_distribution": dict(anchor_distribution),
         "weak_or_uncovered_rows": weak_rows,
     }
-
 
 def build_route_saturation_registry(
     records: list[dict[str, Any]],
@@ -1239,7 +1206,6 @@ def build_route_saturation_registry(
         "required_coverage_keys": list(PRIMARY_HF_ROUTE_KEYS),
     }
 
-
 def build_stage_registry(
     records: list[dict[str, Any]],
     anchor_map: dict[str, BasisAnchor],
@@ -1312,7 +1278,6 @@ def build_stage_registry(
         "global_transition_notes": global_notes,
     }
 
-
 def build_agent_transition_registry(
     records: list[dict[str, Any]],
     stage_registry: dict[str, Any],
@@ -1351,7 +1316,6 @@ def build_agent_transition_registry(
         "handoff_notes": handoff_notes,
     }
 
-
 def build_authority_registry(
     records: list[dict[str, Any]],
     live_atlas: dict[str, Any],
@@ -1368,7 +1332,6 @@ def build_authority_registry(
         "scope_distribution": dict(scope_distribution),
         "records": records,
     }
-
 
 def build_integration_manifest(
     control_manifest: dict[str, Any],
@@ -1427,7 +1390,6 @@ def build_integration_manifest(
         ],
     }
 
-
 def build_record_locator_lines(records: list[dict[str, Any]], limit: int = 12) -> list[list[str]]:
     rows: list[list[str]] = []
     for record in top_records(records, limit):
@@ -1445,7 +1407,6 @@ def build_record_locator_lines(records: list[dict[str, Any]], limit: int = 12) -
             ]
         )
     return rows
-
 
 def render_markdown_pages(
     authority_registry: dict[str, Any],
@@ -1611,7 +1572,6 @@ Docs gate: `{integration_manifest['docs_gate_status']}`
 """,
     }
 
-
 def render_deeper_receipt(integration_manifest: dict[str, Any], stage_registry: dict[str, Any]) -> str:
     counts = integration_manifest["counts"]
     return f"""# Full-Corpus Integration Receipt
@@ -1633,7 +1593,6 @@ Docs gate: `{integration_manifest['docs_gate_status']}`
 - appendix governance ledger: `{FULL_CORPUS_APPENDIX_GOVERNANCE_LEDGER_PATH}`
 - integration manifest: `{FULL_CORPUS_INTEGRATION_MANIFEST_PATH}`
 """
-
 
 def build_full_corpus_integration_payloads(
     *,

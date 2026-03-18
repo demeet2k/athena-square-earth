@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=380 | depth=2 | phase=Mutable
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import hashlib
@@ -5,7 +9,6 @@ import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -65,18 +68,14 @@ THEMES = {
     "witness_route": ["witness", "route", "replay"],
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-
 def count_pattern(text: str, pattern: str) -> int:
     return len(re.findall(re.escape(pattern), text, flags=re.IGNORECASE))
-
 
 def summarize_text(path: Path) -> dict:
     text = path.read_text(encoding="utf-8")
@@ -91,7 +90,6 @@ def summarize_text(path: Path) -> dict:
         "theme_counts": theme_counts,
     }
 
-
 def chapter_atoms(path: Path) -> dict:
     lines = path.read_text(encoding="utf-8").splitlines()
     atoms = [line for line in lines if ATOM_PATTERN.match(line)]
@@ -103,14 +101,12 @@ def chapter_atoms(path: Path) -> dict:
         "completion_percent": round((len(filled) / len(atoms)) * 100, 1) if atoms else 0.0,
     }
 
-
 def aggregate_theme_counts(summaries: list[dict]) -> dict[str, int]:
     totals = {theme: 0 for theme in THEMES}
     for summary in summaries:
         for theme, value in summary["theme_counts"].items():
             totals[theme] += value
     return totals
-
 
 def delta_table(payload: dict) -> list[dict]:
     direct_themes = payload["direct_theme_totals"]
@@ -180,7 +176,6 @@ def delta_table(payload: dict) -> list[dict]:
         },
     ]
 
-
 def derive_payload() -> dict:
     direct_sources = [
         summarize_text(VOID_CH11_PATH),
@@ -245,7 +240,6 @@ def derive_payload() -> dict:
         ],
         "next_seed": "Q11",
     }
-
 
 def render_markdown(payload: dict) -> str:
     delta_rows = "\n".join(
@@ -337,7 +331,6 @@ the locally reconciled family theorem below `OK`.
 `{payload['next_seed']}`
 """
 
-
 def main() -> int:
     payload = derive_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -345,7 +338,6 @@ def main() -> int:
     print(f"Wrote void ch11 theorem json: {OUTPUT_JSON_PATH}")
     print(f"Wrote void ch11 theorem markdown: {OUTPUT_MARKDOWN_PATH}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

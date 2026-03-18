@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S34 | face=S | node=569 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S33→Xi108:W2:A4:S35→Xi108:W1:A4:S34→Xi108:W3:A4:S34→Xi108:W2:A3:S34→Xi108:W2:A5:S34
+
 """
 NIGHTMARE BENCHMARK 02: ADVERSARIAL ATTACKS
 ============================================

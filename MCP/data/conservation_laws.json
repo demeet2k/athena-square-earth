@@ -1,9 +1,35 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S4:u10:Su:R:d0",
+    "shell": 4,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "R",
+    "node_id": 10,
+    "depth": 0,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Sa"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S3",
+      "Xi108:W1:A4:S5",
+      "Xi108:W2:A4:S4",
+      "Xi108:W1:A3:S4",
+      "Xi108:W1:A5:S4"
+    ],
+    "regenerate": "shell 4±1, wreath 1/3, archetype 4/12"
+  },
   "meta": {
     "total_laws": 6,
     "master_invariant": "kappa_tot(t + 420k) = kappa_tot(t) for all integer k",
     "law": "Every serious motion must verify all 6 conservation laws",
-    "round_trip_classes": ["exact", "law_equivalent", "residualized", "illegal"],
+    "round_trip_classes": [
+      "exact",
+      "law_equivalent",
+      "residualized",
+      "illegal"
+    ],
     "illegal_definition": "If the transform changed law but did not declare the loss, it is illegal"
   },
   "laws": [

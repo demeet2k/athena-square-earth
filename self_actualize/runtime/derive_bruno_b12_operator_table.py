@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import hashlib
@@ -6,7 +10,6 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from zipfile import ZipFile
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -37,30 +40,24 @@ OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "bruno_b12_operator_table.json"
 OUTPUT_MARKDOWN_PATH = FAMILIES_ROOT / "BRUNO_B12_OPERATOR_TABLE.md"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_bruno_b12_operator_table"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
-
 
 def read_docx_text(path: Path) -> str:
     with ZipFile(path) as archive:
         xml = archive.read("word/document.xml").decode("utf-8", errors="ignore")
     return re.sub(r"<[^>]+>", " ", xml)
 
-
 def read_text(path: Path) -> str:
     if path.suffix.lower() == ".docx":
         return read_docx_text(path)
     return path.read_text(encoding="utf-8")
 
-
 def normalize_spaces(text: str) -> str:
     return " ".join(text.split())
-
 
 def snippet(text: str, pattern: str, radius: int = 170) -> str:
     match = re.search(pattern, text, flags=re.IGNORECASE)
@@ -70,14 +67,12 @@ def snippet(text: str, pattern: str, radius: int = 170) -> str:
     end = min(len(text), match.end() + radius)
     return normalize_spaces(text[start:end])
 
-
 def source_summary(path: Path) -> dict:
     return {
         "path": str(path),
         "sha256": sha256(path),
         "kind": path.suffix.lower().lstrip("."),
     }
-
 
 def build_seats() -> list[dict]:
     bruno_docx = read_docx_text(BRUNO_WORKING_DOCX)
@@ -243,7 +238,6 @@ def build_seats() -> list[dict]:
         },
     ]
 
-
 def derive_payload() -> dict:
     seats = build_seats()
     seat_truths = [seat["truth"] == "OK" for seat in seats]
@@ -285,7 +279,6 @@ def derive_payload() -> dict:
         ],
         "next_seed": "Q36",
     }
-
 
 def render_markdown(payload: dict) -> str:
     rows = []
@@ -353,7 +346,6 @@ The wheel stays honest by separating:
 `Q36 Convert One AMBIG Leaf Using New Family Witness`
 """
 
-
 def main() -> int:
     payload = derive_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -361,7 +353,6 @@ def main() -> int:
     print(f"Wrote {OUTPUT_JSON_PATH}")
     print(f"Wrote {OUTPUT_MARKDOWN_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

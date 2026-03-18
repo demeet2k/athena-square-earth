@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=130 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - AtlasForge: CHARTS
 ==============================
@@ -50,7 +54,6 @@ import numpy as np
 from abc import ABC, abstractmethod
 import hashlib
 
-
 # =============================================================================
 # ENUMS
 # =============================================================================
@@ -68,7 +71,6 @@ class ChartType(Enum):
     POWER = "power"
     CUSTOM = "custom"
 
-
 class CorridorStatus(Enum):
     """Status of corridor certification."""
     
@@ -77,7 +79,6 @@ class CorridorStatus(Enum):
     CERTIFIED = "certified"
     FAILED = "failed"
     EXPIRED = "expired"
-
 
 class MonotonicityType(Enum):
     """Type of monotonicity."""
@@ -88,7 +89,6 @@ class MonotonicityType(Enum):
     NON_DECREASING = "non_decreasing"
     NON_INCREASING = "non_increasing"
     NON_MONOTONIC = "non_monotonic"
-
 
 # =============================================================================
 # CORRIDOR
@@ -153,7 +153,6 @@ class Corridor:
     
     def __hash__(self) -> int:
         return hash((self.lower, self.upper))
-
 
 # =============================================================================
 # ABSTRACT CHART
@@ -315,7 +314,6 @@ class Chart(ABC):
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(type={self.chart_type.value}, name={self.name})"
 
-
 # =============================================================================
 # CONCRETE CHARTS
 # =============================================================================
@@ -340,7 +338,6 @@ class IdentityChart(Chart):
     
     def _get_params(self) -> str:
         return ""
-
 
 class LinearChart(Chart):
     """
@@ -370,7 +367,6 @@ class LinearChart(Chart):
     
     def _get_params(self) -> str:
         return f"{self.scale}:{self.offset}"
-
 
 class LogarithmicChart(Chart):
     """
@@ -405,7 +401,6 @@ class LogarithmicChart(Chart):
     def _get_params(self) -> str:
         return f"{self.base}"
 
-
 class ExponentialChart(Chart):
     """
     Exponential chart: T(x) = base^x
@@ -439,7 +434,6 @@ class ExponentialChart(Chart):
     def _get_params(self) -> str:
         return f"{self.base}"
 
-
 class PowerChart(Chart):
     """
     Power chart: T(x) = x^n
@@ -472,7 +466,6 @@ class PowerChart(Chart):
     
     def _get_params(self) -> str:
         return f"{self.power}"
-
 
 class MobiusChart(Chart):
     """
@@ -523,7 +516,6 @@ class MobiusChart(Chart):
     
     def _get_params(self) -> str:
         return f"{self.a}:{self.b}:{self.c}:{self.d}"
-
 
 class TrigonometricChart(Chart):
     """
@@ -597,7 +589,6 @@ class TrigonometricChart(Chart):
     def _get_params(self) -> str:
         return f"{self.func}"
 
-
 # =============================================================================
 # CHART COMPOSITION
 # =============================================================================
@@ -634,7 +625,6 @@ class ComposedChart(Chart):
     
     def _get_params(self) -> str:
         return f"{self.inner.chart_id}:{self.outer.chart_id}"
-
 
 # =============================================================================
 # CHART FACTORY
@@ -689,7 +679,6 @@ class ChartFactory:
         """Create a chart that standardizes to mean=0, std=1."""
         return LinearChart(scale=1.0/std, offset=-mean/std)
 
-
 # =============================================================================
 # CHART CERTIFICATE
 # =============================================================================
@@ -736,7 +725,6 @@ class ChartCorridorCertificate:
             "level": self.level,
             "validator_id": self.validator_id
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -803,7 +791,6 @@ def validate_charts() -> bool:
     assert abs(norm_chart.forward(20.0) - 1.0) < 1e-10
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Charts Module...")

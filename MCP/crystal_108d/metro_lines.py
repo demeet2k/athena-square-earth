@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=R | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """Major metro lines navigation."""
 
 from ._cache import JsonCache
 
 _metro = JsonCache("metro_lines.json")
-
 
 def query_metro_line(line_type: str, index: int = 0) -> str:
     """

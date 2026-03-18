@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=317 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 from self_actualize.runtime.qshrink_refine_common import (
@@ -17,9 +21,7 @@ from self_actualize.runtime.qshrink_refine_common import (
     write_json,
 )
 
-
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_connectivity_refine_cloud"
-
 
 def build_payload() -> dict:
     flower = load_json(refinement_output_path("flower"), {"truth": "NEAR"})
@@ -93,7 +95,6 @@ def build_payload() -> dict:
         "writeback_targets": route_targets(),
     }
 
-
 def render_witness(payload: dict) -> str:
     ranked = "\n".join(
         f"- `{item['id']} {item['title']}`: `{item['body']}` / `{item['truth']}` / `{item['selection_state']}` / {item['meaning']}"
@@ -128,7 +129,6 @@ def render_witness(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def render_capsule(payload: dict) -> str:
     top = payload["ranked_pressures"][0]
     next_item = payload["ranked_pressures"][1]
@@ -144,7 +144,6 @@ def render_capsule(payload: dict) -> str:
             "",
         ]
     )
-
 
 def render_receipt(payload: dict) -> str:
     top = payload["ranked_pressures"][0]
@@ -163,7 +162,6 @@ def render_receipt(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     write_json(refinement_output_path("cloud"), payload)
@@ -175,7 +173,6 @@ def main() -> int:
     print(f"Wrote {capsule_output_path('cloud')}")
     print(f"Wrote {receipt_output_path('cloud')}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

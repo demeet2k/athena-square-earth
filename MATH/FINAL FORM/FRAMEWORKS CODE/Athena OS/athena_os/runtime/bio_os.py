@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=140 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - BIO-OS Galenic Humoral System
 =========================================
@@ -27,7 +31,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Callable, Any
 import math
 
-
 # =============================================================================
 # PRIMARY QUALITIES
 # =============================================================================
@@ -55,7 +58,6 @@ class Quality(IntEnum):
         if self in (Quality.HOT, Quality.COLD):
             return "temperature"
         return "moisture"
-
 
 @dataclass
 class QualityState:
@@ -97,7 +99,6 @@ class QualityState:
     def is_balanced(self) -> bool:
         """Check if qualities are in balance (0.5 each)."""
         return abs(self.hot - 0.5) < 0.1 and abs(self.wet - 0.5) < 0.1
-
 
 # =============================================================================
 # THE FOUR HUMORS
@@ -164,7 +165,6 @@ class Humor(IntEnum):
         """Season when this humor naturally predominates."""
         return ['Spring', 'Summer', 'Winter', 'Autumn'][self.value]
 
-
 # =============================================================================
 # THREE SPIRITS
 # =============================================================================
@@ -197,7 +197,6 @@ class Spirit(IntEnum):
     def refinement_level(self) -> int:
         """How refined this spirit is (higher = more refined)."""
         return self.value
-
 
 # =============================================================================
 # HUMORAL STATE
@@ -335,7 +334,6 @@ class HumoralState:
                 f"??{self.phlegm:.2f} ⚫{self.black_bile:.2f} "
                 f"[{self.temperament}] E={self.eukrasia_score:.2f}")
 
-
 # =============================================================================
 # HOMEOSTASIS CONTROLLER (PID)
 # =============================================================================
@@ -392,7 +390,6 @@ class HomeostasisController:
         """Reset controller state."""
         self.integral = 0.0
         self.last_error = 0.0
-
 
 class BioOS:
     """
@@ -491,7 +488,6 @@ class BioOS:
         ]
         return '\n'.join(lines)
 
-
 # =============================================================================
 # CIRCADIAN RHYTHM
 # =============================================================================
@@ -544,7 +540,6 @@ class CircadianClock:
         else:
             return 1.0  # No modification
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -584,7 +579,6 @@ def validate_bio_os() -> bool:
     assert final_score > initial_score  # Should improve
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating BIO-OS...")

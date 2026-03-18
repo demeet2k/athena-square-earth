@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Sa,Me,Ω
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 if str(WORKSPACE_ROOT) not in sys.path:
@@ -31,10 +34,8 @@ from self_actualize.runtime.lp57omega_b_prime_support import (
     write_text,
 )
 
-
 INDEX_MARKER = "LP57OMEGA_B_PRIME_WITNESS"
 DEEP_CONTROL_MARKER = "LP57OMEGA_B_PRIME_REGISTRY"
-
 
 def update_manifest(registry: dict) -> dict:
     manifest = (
@@ -62,7 +63,6 @@ def update_manifest(registry: dict) -> dict:
         manifest["notes"].append(note)
     return manifest
 
-
 def update_index(index_text: str, registry: dict) -> str:
     body = "\n".join(
         [
@@ -88,7 +88,6 @@ def update_index(index_text: str, registry: dict) -> str:
     )
     return apply_marker_block(index_text, INDEX_MARKER, body)
 
-
 def update_deep_control(deep_control_text: str) -> str:
     body = "\n".join(
         [
@@ -104,7 +103,6 @@ def update_deep_control(deep_control_text: str) -> str:
         ]
     )
     return apply_marker_block(deep_control_text, DEEP_CONTROL_MARKER, body)
-
 
 def main() -> int:
     registry = build_b_prime_registry()
@@ -155,7 +153,6 @@ def main() -> int:
         )
     )
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

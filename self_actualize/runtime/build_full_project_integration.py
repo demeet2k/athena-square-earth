@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A1:S30 | face=F | node=441 | depth=2 | phase=Mutable
+# METRO: Me,w,✶
+# BRIDGES: Xi108:W2:A1:S29→Xi108:W2:A1:S31→Xi108:W1:A1:S30→Xi108:W3:A1:S30→Xi108:W2:A2:S30
+
 from __future__ import annotations
 
 import json
@@ -8,7 +12,6 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from textwrap import dedent
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_ROOT = (
@@ -97,7 +100,6 @@ CLOSURE_INFO = {
     "publish": "promote the object into canonical operating surfaces",
 }
 
-
 @dataclass(frozen=True)
 class ChapterSeed:
     code: str
@@ -107,14 +109,12 @@ class ChapterSeed:
     evidence: tuple[str, ...]
     outputs: tuple[str, ...]
 
-
 @dataclass(frozen=True)
 class AppendixSeed:
     code: str
     title: str
     purpose: str
     outputs: tuple[str, ...]
-
 
 @dataclass(frozen=True)
 class NucleusProfile:
@@ -126,7 +126,6 @@ class NucleusProfile:
     pressure: str
     hidden_line: str
 
-
 @dataclass(frozen=True)
 class PartySeed:
     code: str
@@ -136,7 +135,6 @@ class PartySeed:
     archetypes: tuple[str, ...]
     roles: tuple[str, ...]
     future_skills: tuple[str, ...]
-
 
 @dataclass(frozen=True)
 class QuestSeed:
@@ -149,7 +147,6 @@ class QuestSeed:
     outputs: tuple[str, ...]
     future_skills: tuple[str, ...]
     reward: str
-
 
 @dataclass(frozen=True)
 class AgentTransitionSeed:
@@ -169,7 +166,6 @@ class AgentTransitionSeed:
     receipt_target: str
     truth_state: str
     reassessment_window: str
-
 
 CHAPTERS = [
     ChapterSeed("Ch01", "Corpus Zero Point", "Treat the workspace as one organism with many surfaces, not many unrelated projects.", "Eliminates false fragmentation and makes every later integration move cumulative.", ("corpus_atlas.json", "DEEPER_CRYSTALIZATION", "MATH", "Voynich"), ("top-level role map", "source family map", "root thesis")),
@@ -1072,23 +1068,18 @@ AGENT_TRANSITIONS = [
     ),
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: dict) -> None:
     write_text(path, json.dumps(payload, indent=2, ensure_ascii=False))
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def md(text: str) -> str:
     lines = dedent(text).splitlines()
@@ -1100,10 +1091,8 @@ def md(text: str) -> str:
             normalized.append(line)
     return "\n".join(normalized).strip()
 
-
 def list_to_bullets(items: list[str] | tuple[str, ...], indent: str = "- ") -> str:
     return "\n".join(f"{indent}{item}" for item in items)
-
 
 def top_level_rank(name: str) -> int:
     try:
@@ -1111,11 +1100,9 @@ def top_level_rank(name: str) -> int:
     except ValueError:
         return len(TOP_LEVEL_PRIORITY)
 
-
 def normalized_basename(path_text: str) -> str:
     name = Path(path_text).name
     return re.sub(r"\s*\(\d+\)(?=\.[^.]+$)", "", name).lower()
-
 
 def choose_canonical_path(paths: list[str]) -> str:
     def key(path_text: str) -> tuple[int, int, int, str]:
@@ -1124,7 +1111,6 @@ def choose_canonical_path(paths: list[str]) -> str:
         return (top_level_rank(top), len(rel.parts), len(path_text), path_text.lower())
 
     return sorted(paths, key=key)[0]
-
 
 def infer_family_reason(name: str) -> str:
     lowered = name.lower()
@@ -1143,7 +1129,6 @@ def infer_family_reason(name: str) -> str:
     if "self-routing meta-framework" in lowered:
         return "Routing and meta-manuscript governance family."
     return "Repeated source family that should collapse to one canonical home."
-
 
 def collect_duplicate_families(live_records: list[dict]) -> list[dict]:
     grouped: dict[str, list[dict]] = defaultdict(list)
@@ -1176,7 +1161,6 @@ def collect_duplicate_families(live_records: list[dict]) -> list[dict]:
     families.sort(key=lambda item: (-item["count"], item["canonical"].lower()))
     return families[:12]
 
-
 def parse_live_docs_gate() -> tuple[str, str]:
     text = LIVE_DOCS_GATE_PATH.read_text(encoding="utf-8", errors="ignore")
     status = "BLOCKED"
@@ -1187,7 +1171,6 @@ def parse_live_docs_gate() -> tuple[str, str]:
     if match:
         reason = match.group(1).strip()
     return status, reason
-
 
 def parse_board_status() -> dict:
     if not BOARD_STATUS_PATH.exists():
@@ -1239,7 +1222,6 @@ def parse_board_status() -> dict:
         "truth_capacity": int(capture(r"Occupied truth leaves:\s*`\d+`\s*of\s*`(\d+)`", "256")),
     }
 
-
 def integration_metrics(live_atlas: dict, archive_atlas: dict, archive_manifest: dict) -> dict:
     live_records = live_atlas["records"]
     live_summary = live_atlas["summary"]
@@ -1273,13 +1255,11 @@ def integration_metrics(live_atlas: dict, archive_atlas: dict, archive_manifest:
         "board_status": board_status,
     }
 
-
 def render_top_level_table(metrics: dict) -> str:
     rows = ["| Surface | Records |", "| --- | ---: |"]
     for name, count in metrics["top_levels"][:12]:
         rows.append(f"| {name} | {count} |")
     return "\n".join(rows)
-
 
 def render_kind_table(kinds: list[tuple[str, int]]) -> str:
     rows = ["| Kind | Records |", "| --- | ---: |"]
@@ -1287,13 +1267,11 @@ def render_kind_table(kinds: list[tuple[str, int]]) -> str:
         rows.append(f"| {name} | {count} |")
     return "\n".join(rows)
 
-
 def render_duplicate_table(families: list[dict]) -> str:
     rows = ["| Family | Copies | Canonical path |", "| --- | ---: | --- |"]
     for family in families:
         rows.append(f"| {family['name']} | {family['count']} | `{family['canonical']}` |")
     return "\n".join(rows)
-
 
 def top_level_count(metrics: dict, name: str) -> int:
     for top_level, count in metrics["top_levels"]:
@@ -1301,10 +1279,8 @@ def top_level_count(metrics: dict, name: str) -> int:
             return count
     return 0
 
-
 def profiles_for_body(body: str) -> list[NucleusProfile]:
     return [profile for profile in NUCLEUS_PROFILES if profile.body == body]
-
 
 def party_by_code(code: str) -> PartySeed:
     for party in PARTIES:
@@ -1312,13 +1288,11 @@ def party_by_code(code: str) -> PartySeed:
             return party
     raise KeyError(code)
 
-
 def quest_by_code(code: str) -> QuestSeed:
     for quest in QUESTS:
         if quest.code == code:
             return quest
     raise KeyError(code)
-
 
 def workspace_rel(path: Path | str) -> str:
     path_obj = Path(path)
@@ -1327,10 +1301,8 @@ def workspace_rel(path: Path | str) -> str:
     except ValueError:
         return str(path_obj)
 
-
 def path_state(path: Path) -> str:
     return "OK" if path.exists() else "MISSING"
-
 
 def normalize_surface_ref(surface: str) -> str:
     if surface.startswith("MATH GOD/"):
@@ -1338,7 +1310,6 @@ def normalize_surface_ref(surface: str) -> str:
     if surface.startswith("07_FULL_PROJECT_INTEGRATION_256/"):
         return f"DEEPER_CRYSTALIZATION/ACTIVE_NERVOUS_SYSTEM/{surface}"
     return surface
-
 
 def dimensional_readiness(bundle_id: str, payload: dict) -> str:
     if bundle_id == "seed_7d":
@@ -1350,7 +1321,6 @@ def dimensional_readiness(bundle_id: str, payload: dict) -> str:
     if bundle_id == "v4":
         return "canonical"
     return "ready"
-
 
 def summarize_dimensional_bundle(bundle_id: str, payload: dict, path: Path, markdown_path: Path) -> dict:
     rules = DIMENSIONAL_LAYER_RULES[bundle_id]
@@ -1439,7 +1409,6 @@ def summarize_dimensional_bundle(bundle_id: str, payload: dict, path: Path, mark
         )
     return summary
 
-
 def load_dimensional_stack() -> dict[str, dict]:
     stack = {}
     for spec in DIMENSIONAL_BUNDLE_SPECS:
@@ -1455,7 +1424,6 @@ def load_dimensional_stack() -> dict[str, dict]:
         }
     return stack
 
-
 def load_deep_authority_surfaces() -> list[dict]:
     surfaces = []
     for spec in DEEP_AUTHORITY_SPECS:
@@ -1469,10 +1437,8 @@ def load_deep_authority_surfaces() -> list[dict]:
         )
     return surfaces
 
-
 def build_convergence_table(stack: dict[str, dict]) -> list[dict]:
     return [stack[spec["bundle_id"]]["summary"] for spec in DIMENSIONAL_BUNDLE_SPECS]
-
 
 def build_bounded_pressures(stack: dict[str, dict], docs_status: str) -> list[dict]:
     pressures = []
@@ -1499,7 +1465,6 @@ def build_bounded_pressures(stack: dict[str, dict], docs_status: str) -> list[di
             )
     return pressures
 
-
 def build_quest_dimensional_map() -> list[dict]:
     mapping = {
         "QST-01": ("mixed-route frontier", ["water_6d", "seed_7d"]),
@@ -1524,7 +1489,6 @@ def build_quest_dimensional_map() -> list[dict]:
             }
         )
     return rows
-
 
 def build_agent_transition_records(stack: dict[str, dict]) -> list[dict]:
     docs_status = stack["seed_7d"]["payload"].get("docs_gate_status", "BLOCKED")
@@ -1575,7 +1539,6 @@ def build_agent_transition_records(stack: dict[str, dict]) -> list[dict]:
         records.append(record)
     return records
 
-
 def build_transition_matrix(agent_records: list[dict], docs_status: str) -> dict:
     return {
         "generated_at": utc_now(),
@@ -1600,7 +1563,6 @@ def build_transition_matrix(agent_records: list[dict], docs_status: str) -> dict
         "agents_by_id": {record["agent_id"]: record for record in agent_records},
     }
 
-
 def build_chapter_safe_reentry_spine(stack: dict[str, dict]) -> list[dict]:
     chapter_lookup = {
         chapter["chapter_station"]: chapter for chapter in stack["v4"]["payload"].get("chapter_table", [])
@@ -1617,7 +1579,6 @@ def build_chapter_safe_reentry_spine(stack: dict[str, dict]) -> list[dict]:
             }
         )
     return spine
-
 
 def build_route_quality(stack: dict[str, dict]) -> dict:
     routes = stack["seed_7d"]["payload"].get("seed_route_registry", [])
@@ -1641,7 +1602,6 @@ def build_route_quality(stack: dict[str, dict]) -> dict:
         "quarantined_or_gated_routes": quarantined,
     }
 
-
 def build_appendix_governance(stack: dict[str, dict]) -> dict:
     appendix_floor = stack["seed_7d"]["payload"].get("appendix_floor", [])
     floor_ids = [entry.get("appendix_id") for entry in appendix_floor]
@@ -1653,7 +1613,6 @@ def build_appendix_governance(stack: dict[str, dict]) -> dict:
             "AppO": "O references remain overlay-only return history and must dock through AppO/AppQ legality rather than creating a second appendix namespace.",
         },
     }
-
 
 def build_front_to_party_map(quest_map: list[dict]) -> list[dict]:
     rows = []
@@ -1668,7 +1627,6 @@ def build_front_to_party_map(quest_map: list[dict]) -> list[dict]:
             }
         )
     return rows
-
 
 def build_transition_board_summary(agent_records: list[dict], route_quality: dict, metrics: dict) -> dict:
     status_counts = defaultdict(int)
@@ -1688,7 +1646,6 @@ def build_transition_board_summary(agent_records: list[dict], route_quality: dic
         "route_quality": route_quality["counts"],
         "docs_gate_status": metrics["live_docs_status"],
     }
-
 
 def build_verification_receipts(stack: dict[str, dict], agent_records: list[dict], quest_map: list[dict], metrics: dict) -> list[dict]:
     receipts = []
@@ -1831,7 +1788,6 @@ def build_verification_receipts(stack: dict[str, dict], agent_records: list[dict
     )
     return receipts
 
-
 def build_route_graph(stack: dict[str, dict], quest_map: list[dict], agent_records: list[dict]) -> dict:
     nodes = []
     edges = []
@@ -1863,7 +1819,6 @@ def build_route_graph(stack: dict[str, dict], quest_map: list[dict], agent_recor
             }
         )
     return {"node_count": len(nodes), "edge_count": len(edges), "nodes": nodes, "edges": edges}
-
 
 def build_full_corpus_integration_bundle(metrics: dict) -> dict:
     stack = load_dimensional_stack()
@@ -1964,42 +1919,34 @@ def build_full_corpus_integration_bundle(metrics: dict) -> dict:
     }
     return bundle
 
-
 def legacy_match_key(path_text: str) -> str:
     name = Path(path_text.split("::")[-1]).name.lower()
     name = re.sub(r"(_legacy|-legacy|\slegacy)(?=\.)", "", name)
     name = re.sub(r"^legacy[_-]", "", name)
     return re.sub(r"[\s_-]+", "", name)
 
-
 def normalized_rel(path_text: str) -> str:
     return path_text.replace("\\", "/")
-
 
 def is_live_legacy_plus_record(record: dict) -> bool:
     rel = normalized_rel(record["relative_path"]).lower()
     return "/manuscript_sections/alternates/" in rel or "legacy" in rel
 
-
 def is_archive_legacy_record(record: dict) -> bool:
     rel = normalized_rel(record["relative_path"]).lower()
     return "legacy" in rel
-
 
 def is_promoted_legacy_record(relative_path: str) -> bool:
     rel = normalized_rel(relative_path).lower()
     return rel.startswith("self_actualize/promoted_live_roots/") and "/legacy/" in rel
 
-
 def extract_chapter_code(path_text: str) -> str | None:
     match = re.search(r"(ch\d{2})", Path(path_text.split("::")[-1]).name.lower())
     return match.group(1).upper() if match else None
 
-
 def extract_appendix_code(path_text: str) -> str | None:
     match = re.search(r"(app[a-q])", Path(path_text.split("::")[-1]).name.lower())
     return match.group(1).upper() if match else None
-
 
 def infer_legacy_artifact_kind(record: dict, legacy_class: str) -> str:
     ext = record.get("extension", "").lower()
@@ -2012,7 +1959,6 @@ def infer_legacy_artifact_kind(record: dict, legacy_class: str) -> str:
     if ext in {".md", ".txt", ".docx", ".pdf"}:
         return "legacy_framework_manual"
     return "legacy_artifact"
-
 
 def infer_legacy_family_id(relative_path: str) -> str:
     rel = normalized_rel(relative_path).lower()
@@ -2031,7 +1977,6 @@ def infer_legacy_family_id(relative_path: str) -> str:
         return "legacy_runtime_docs"
     return f"legacy_{slugify(Path(relative_path.split('::')[-1]).stem)}"
 
-
 def chapter_target_map() -> dict[str, str]:
     targets = {}
     for chapter in CHAPTERS:
@@ -2039,14 +1984,12 @@ def chapter_target_map() -> dict[str, str]:
         targets[chapter.code.upper()] = workspace_rel(OUTPUT_ROOT / "03_MANUSCRIPTS" / "chapters" / filename)
     return targets
 
-
 def appendix_target_map() -> dict[str, str]:
     targets = {}
     for appendix in APPENDICES:
         filename = f"{appendix.code.lower()}_{slugify(appendix.title)}.md"
         targets[appendix.code.upper()] = workspace_rel(OUTPUT_ROOT / "03_MANUSCRIPTS" / "appendices" / filename)
     return targets
-
 
 def build_non_legacy_candidate_index(live_records: list[dict]) -> dict[str, list[dict]]:
     index: dict[str, list[dict]] = defaultdict(list)
@@ -2057,7 +2000,6 @@ def build_non_legacy_candidate_index(live_records: list[dict]) -> dict[str, list
         if key:
             index[key].append(record)
     return index
-
 
 def choose_candidate_record(candidates: list[dict]) -> dict | None:
     if not candidates:
@@ -2075,7 +2017,6 @@ def choose_candidate_record(candidates: list[dict]) -> dict | None:
         )
 
     return sorted(candidates, key=score)[0]
-
 
 def canonical_target_for_record(source_record: dict, candidate_index: dict[str, list[dict]]) -> dict:
     source_rel = source_record["relative_path"]
@@ -2128,7 +2069,6 @@ def canonical_target_for_record(source_record: dict, candidate_index: dict[str, 
         "reentry": "full_corpus_safe",
     }
 
-
 def retrofit_mode_from_target(source_record: dict, canonical_target: dict) -> str:
     tier = canonical_target["tier"]
     kind = infer_legacy_artifact_kind(source_record, legacy_class_for_record(source_record))
@@ -2144,7 +2084,6 @@ def retrofit_mode_from_target(source_record: dict, canonical_target: dict) -> st
         return "POINTER_REDIRECT"
     return "QUARANTINE"
 
-
 def truth_state_for_retrofit_mode(mode: str) -> str:
     return {
         "PROMOTE_CANONICAL": "NEAR",
@@ -2153,7 +2092,6 @@ def truth_state_for_retrofit_mode(mode: str) -> str:
         "WITNESS_ONLY": "OK",
         "QUARANTINE": "AMBIG",
     }[mode]
-
 
 def status_for_retrofit_mode(mode: str, earth_gate_required: bool) -> str:
     if mode == "QUARANTINE":
@@ -2166,7 +2104,6 @@ def status_for_retrofit_mode(mode: str, earth_gate_required: bool) -> str:
         return "blocked"
     return "active"
 
-
 def legacy_class_for_record(record: dict) -> str:
     rel = normalized_rel(record["relative_path"]).lower()
     if "/manuscript_sections/alternates/" in rel:
@@ -2176,7 +2113,6 @@ def legacy_class_for_record(record: dict) -> str:
     if is_promoted_legacy_record(record["relative_path"]):
         return "promoted_legacy_framework_doc"
     return "explicit_legacy"
-
 
 def appendix_support_for_retrofit(artifact_kind: str, mode: str) -> list[str]:
     items = ["AppI", "AppM"]
@@ -2192,7 +2128,6 @@ def appendix_support_for_retrofit(artifact_kind: str, mode: str) -> list[str]:
         items.append("AppK")
     return sorted(dict.fromkeys(items))
 
-
 def assign_party_and_quests(artifact_kind: str, legacy_class: str, mode: str) -> tuple[str, str, str]:
     if mode == "QUARANTINE":
         return ("PRT-06", "QST-08", "QST-05")
@@ -2203,7 +2138,6 @@ def assign_party_and_quests(artifact_kind: str, legacy_class: str, mode: str) ->
     if artifact_kind in {"legacy_py_doc", "archive_legacy_code"}:
         return ("PRT-02", "QST-04", "QST-02")
     return ("PRT-03", "QST-03", "QST-05")
-
 
 def assisting_agents_for_artifact(artifact_kind: str, mode: str, legacy_class: str) -> list[str]:
     if mode == "QUARANTINE":
@@ -2217,7 +2151,6 @@ def assisting_agents_for_artifact(artifact_kind: str, mode: str, legacy_class: s
     if mode == "POINTER_REDIRECT":
         return ["AGT-03", "AGT-07", "AGT-12"]
     return ["AGT-01", "AGT-05", "AGT-08", "AGT-14"]
-
 
 def chapter_reentry_for_source(source_path: str, stack: dict[str, dict]) -> dict | None:
     chapter_code = extract_chapter_code(source_path)
@@ -2240,7 +2173,6 @@ def chapter_reentry_for_source(source_path: str, stack: dict[str, dict]) -> dict
         "chapter_station": chapter.get("chapter_station"),
         "chapter_title": chapter.get("chapter_title"),
     }
-
 
 def required_surfaces_for_artifact(record: dict, canonical_target: dict, mode: str) -> list[str]:
     surfaces = [
@@ -2265,14 +2197,12 @@ def required_surfaces_for_artifact(record: dict, canonical_target: dict, mode: s
         surfaces.append(workspace_rel(FULL_CORPUS_ROOT / "00_INDEX.md"))
     return sorted(dict.fromkeys(surfaces))
 
-
 def replay_target_for_artifact(record: dict, canonical_target: dict, mode: str) -> str:
     if mode == "WITNESS_ONLY":
         if "::" in record.get("path", ""):
             return record.get("evidence", {}).get("archive_path", record["relative_path"])
         return record["relative_path"]
     return canonical_target["path"]
-
 
 def pointer_updates_for_artifact(record: dict, canonical_target: dict, mode: str) -> list[str]:
     if mode in {"WITNESS_ONLY", "QUARANTINE"}:
@@ -2282,13 +2212,11 @@ def pointer_updates_for_artifact(record: dict, canonical_target: dict, mode: str
         updates.append(workspace_rel(FULL_CORPUS_ROOT / "00_INDEX.md"))
     return sorted(dict.fromkeys(updates))
 
-
 def mirror_outputs_for_artifact(artifact_id: str) -> list[str]:
     return [
         workspace_rel(LEGACY_RETROFIT_ROOT / "artifact_cards" / f"{artifact_id.lower()}.md"),
         workspace_rel(LEGACY_RETROFIT_ROOT / "legacy_family_board.md"),
     ]
-
 
 def completion_receipt_for_artifact(artifact_id: str, mode: str, truth_state: str, earth_gate_required: bool) -> dict:
     return {
@@ -2300,7 +2228,6 @@ def completion_receipt_for_artifact(artifact_id: str, mode: str, truth_state: st
         "next_action": "declare canonical landing and regenerate mirrors" if mode != "WITNESS_ONLY" else "preserve witness and lineage only",
     }
 
-
 def build_archive_witness_map(archive_records: list[dict]) -> tuple[dict[str, list[dict]], list[dict]]:
     witness_map: dict[str, list[dict]] = defaultdict(list)
     archive_only = []
@@ -2310,7 +2237,6 @@ def build_archive_witness_map(archive_records: list[dict]) -> tuple[dict[str, li
         key = legacy_match_key(record["relative_path"])
         witness_map[key].append(record)
     return witness_map, archive_only
-
 
 def apply_legacy_collision_quarantine(records: list[dict]) -> None:
     grouped: dict[tuple[str, str], list[dict]] = defaultdict(list)
@@ -2337,7 +2263,6 @@ def apply_legacy_collision_quarantine(records: list[dict]) -> None:
                 duplicate["truth_state"],
                 True,
             )
-
 
 def build_legacy_artifact_records(
     live_atlas: dict,
@@ -2411,7 +2336,6 @@ def build_legacy_artifact_records(
     apply_legacy_collision_quarantine(records)
     return records
 
-
 def build_legacy_family_board(records: list[dict]) -> dict:
     families: dict[str, dict] = {}
     for item in records:
@@ -2455,7 +2379,6 @@ def build_legacy_family_board(records: list[dict]) -> dict:
         },
     }
 
-
 def build_agent_assist_overlay(records: list[dict], transition_matrix: dict) -> dict:
     agents = {}
     for agent_id in transition_matrix["roster_order"]:
@@ -2483,7 +2406,6 @@ def build_agent_assist_overlay(records: list[dict], transition_matrix: dict) -> 
         "roster_order": transition_matrix["roster_order"],
         "agents_by_id": agents,
     }
-
 
 def build_legacy_verification_receipts(
     records: list[dict], family_board: dict, overlay: dict, metrics: dict
@@ -2527,7 +2449,6 @@ def build_legacy_verification_receipts(
             "detail": f"Family board tracks {len(family_board['family_order'])} retrofit families.",
         },
     ]
-
 
 def build_legacy_retrofit_bundle(
     live_atlas: dict,
@@ -2635,7 +2556,6 @@ def render_seed_doc(metrics: dict) -> str:
         """
     )
 
-
 def render_evidence_boundary(metrics: dict) -> str:
     return md(
         f"""
@@ -2661,7 +2581,6 @@ def render_evidence_boundary(metrics: dict) -> str:
         - Duplicate manuscript families surfaced in this pass: `{len(metrics['duplicate_families'])}`
         """
     )
-
 
 def render_compiler_doc() -> str:
     axis_body = "\n".join(f"- `{BODY_INFO[name]['label']}`: {BODY_INFO[name]['role']}" for name in BODY_ORDER)
@@ -2696,7 +2615,6 @@ def render_compiler_doc() -> str:
         """
     )
 
-
 def render_build_receipt(metrics: dict) -> str:
     return md(
         f"""
@@ -2711,7 +2629,6 @@ def render_build_receipt(metrics: dict) -> str:
         - Total visible surfaces informing this build: `{metrics['total_visible']}`
         """
     )
-
 
 def render_corpus_synthesis(metrics: dict) -> str:
     return md(
@@ -2746,7 +2663,6 @@ def render_corpus_synthesis(metrics: dict) -> str:
         """
     )
 
-
 def render_duplication_doc(metrics: dict) -> str:
     sections = [
         "# Duplication and Drift",
@@ -2764,7 +2680,6 @@ def render_duplication_doc(metrics: dict) -> str:
         sections.extend(f"  - `{path}`" for path in family["paths"])
         sections.append("")
     return "\n".join(sections).rstrip()
-
 
 def render_gains_doc(metrics: dict) -> str:
     return md(
@@ -2792,7 +2707,6 @@ def render_gains_doc(metrics: dict) -> str:
         """
     )
 
-
 def render_shadows_doc() -> str:
     return md(
         """
@@ -2806,7 +2720,6 @@ def render_shadows_doc() -> str:
         - The Square, Circle, and Triangle law exists at the root, but many subsystems still speak in only one of those geometries at a time.
         """
     )
-
 
 def render_body_nuclei_doc(metrics: dict) -> str:
     sections = [
@@ -2828,7 +2741,6 @@ def render_body_nuclei_doc(metrics: dict) -> str:
         sections.append(f"- Hidden line: `{profile.hidden_line}`")
         sections.append("")
     return "\n".join(sections).rstrip()
-
 
 def render_hidden_lines_doc() -> str:
     return md(
@@ -2920,7 +2832,6 @@ def render_hidden_lines_doc() -> str:
         """
     )
 
-
 def render_square_circle_triangle_doc() -> str:
     return md(
         """
@@ -2989,7 +2900,6 @@ def render_square_circle_triangle_doc() -> str:
         """
     )
 
-
 def render_board_shell_fold(metrics: dict) -> str:
     return md(
         f"""
@@ -3026,7 +2936,6 @@ def render_board_shell_fold(metrics: dict) -> str:
         When those four layers stay folded, Athena stops oscillating between vivid coordination and explanatory drift.
         """
     )
-
 
 def render_route_proofs_doc(metrics: dict) -> str:
     return md(
@@ -3089,7 +2998,6 @@ def render_route_proofs_doc(metrics: dict) -> str:
         """
     )
 
-
 def render_tissue_overview(metrics: dict) -> str:
     return md(
         f"""
@@ -3125,7 +3033,6 @@ def render_tissue_overview(metrics: dict) -> str:
         """
     )
 
-
 def render_stack_doc() -> str:
     return md(
         """
@@ -3140,7 +3047,6 @@ def render_stack_doc() -> str:
         5. Canonical outputs: one nervous system, one atlas graph, one source-tier model
         """
     )
-
 
 def render_parallel_lanes_doc() -> str:
     return md(
@@ -3177,7 +3083,6 @@ def render_parallel_lanes_doc() -> str:
         """
     )
 
-
 def render_sequence_doc() -> str:
     return md(
         """
@@ -3205,7 +3110,6 @@ def render_sequence_doc() -> str:
         - Record one replay-safe end-to-end build episode.
         """
     )
-
 
 def generate_body_operation_doc(body: str, operation: str) -> str:
     matrix_lines = []
@@ -3236,13 +3140,11 @@ def generate_body_operation_doc(body: str, operation: str) -> str:
         """
     )
 
-
 def slugify(text: str) -> str:
     lowered = text.lower()
     lowered = re.sub(r"[^\w\s-]", "", lowered)
     lowered = re.sub(r"[\s-]+", "_", lowered).strip("_")
     return lowered or "untitled"
-
 
 def render_master_plan() -> str:
     chapter_lines = "\n".join(
@@ -3269,7 +3171,6 @@ def render_master_plan() -> str:
         """
     )
 
-
 def render_chapter_doc(chapter: ChapterSeed) -> str:
     evidence = list_to_bullets([f"`{item}`" for item in chapter.evidence])
     outputs = list_to_bullets(list(chapter.outputs))
@@ -3295,7 +3196,6 @@ def render_chapter_doc(chapter: ChapterSeed) -> str:
         """
     )
 
-
 def render_appendix_doc(appendix: AppendixSeed) -> str:
     outputs = list_to_bullets(list(appendix.outputs))
     return md(
@@ -3312,7 +3212,6 @@ def render_appendix_doc(appendix: AppendixSeed) -> str:
         """
     )
 
-
 def render_chapter_index() -> str:
     lines = ["# Chapter Index", ""]
     for chapter in CHAPTERS:
@@ -3320,14 +3219,12 @@ def render_chapter_index() -> str:
         lines.append(f"- [{chapter.code} - {chapter.title}](./{filename})")
     return "\n".join(lines)
 
-
 def render_appendix_index() -> str:
     lines = ["# Appendix Index", ""]
     for appendix in APPENDICES:
         filename = f"{appendix.code.lower()}_{slugify(appendix.title)}.md"
         lines.append(f"- [{appendix.code} - {appendix.title}](./{filename})")
     return "\n".join(lines)
-
 
 def render_activation_queue(metrics: dict) -> str:
     family_names = [family["name"] for family in metrics["duplicate_families"][:5]]
@@ -3348,7 +3245,6 @@ def render_activation_queue(metrics: dict) -> str:
         """
     )
 
-
 def render_metric_targets(metrics: dict) -> str:
     return md(
         f"""
@@ -3363,7 +3259,6 @@ def render_metric_targets(metrics: dict) -> str:
         """
     )
 
-
 def render_canonical_sources(metrics: dict) -> str:
     sections = ["# Canonical Sources", ""]
     for family in metrics["duplicate_families"]:
@@ -3375,7 +3270,6 @@ def render_canonical_sources(metrics: dict) -> str:
         sections.extend(f"  - `{path}`" for path in family["paths"])
         sections.append("")
     return "\n".join(sections).rstrip()
-
 
 def render_interconnect_priority_queue(metrics: dict) -> str:
     return md(
@@ -3396,7 +3290,6 @@ def render_interconnect_priority_queue(metrics: dict) -> str:
         The corpus should feel easier to route because motion, explanation, proof, and publication all point at the same addresses.
         """
     )
-
 
 def render_readme(metrics: dict) -> str:
     return md(
@@ -3422,7 +3315,6 @@ def render_readme(metrics: dict) -> str:
         """
     )
 
-
 def swarm_seed_sources() -> list[str]:
     return [
         "DEEPER_CRYSTALIZATION/_build/nervous_system/swarm/01_HIGHER_DIMENSIONAL_MAPPING.md",
@@ -3436,7 +3328,6 @@ def swarm_seed_sources() -> list[str]:
         "NERUAL NETWORK/OLDER Versions/Strong versions/v74/ATHENA_v74_FINAL_SYNTHESIS.md",
         "ECOSYSTEM/FUTURE_SKILLS/FUTURE_SKILL_PLAN_256X256.md",
     ]
-
 
 def render_deeper_readme(metrics: dict) -> str:
     return md(
@@ -3487,7 +3378,6 @@ def render_deeper_readme(metrics: dict) -> str:
         """
     )
 
-
 def render_rotation_doc() -> str:
     return md(
         """
@@ -3516,7 +3406,6 @@ def render_rotation_doc() -> str:
         The higher-dimensional object underneath all four views is a self-restarting mycelial cognition system that needs both tensor coordinates and worker-wave contracts.
         """
     )
-
 
 def render_deeper_compiler_doc() -> str:
     return md(
@@ -3558,7 +3447,6 @@ def render_deeper_compiler_doc() -> str:
         """
     )
 
-
 def render_swarm_overview(metrics: dict) -> str:
     return md(
         f"""
@@ -3583,7 +3471,6 @@ def render_swarm_overview(metrics: dict) -> str:
         Live Docs remains `{metrics['live_docs_status']}`, so the current swarm is local-first and archive-aware rather than live-memory-complete.
         """
     )
-
 
 def render_higher_dimensional_map() -> str:
     return md(
@@ -3624,7 +3511,6 @@ def render_higher_dimensional_map() -> str:
         """
     )
 
-
 def render_neuron_tensor_doc() -> str:
     return md(
         """
@@ -3647,7 +3533,6 @@ def render_neuron_tensor_doc() -> str:
         This address lets one node belong to the manuscript crystal, the swarm field, and the operational integration loop simultaneously.
         """
     )
-
 
 def render_swarm_topology_doc() -> str:
     return md(
@@ -3680,7 +3565,6 @@ def render_swarm_topology_doc() -> str:
         """
     )
 
-
 def lineage_addresses(depth: int = 3) -> list[str]:
     symbols = ["E", "W", "F", "A"]
     results = [""]
@@ -3688,11 +3572,9 @@ def lineage_addresses(depth: int = 3) -> list[str]:
         results = [prefix + symbol for prefix in results for symbol in symbols]
     return results
 
-
 def infer_lane_from_lineage(addr: str) -> str:
     score = sum({"E": 0, "W": 1, "F": 2, "A": 3}[ch] for ch in addr)
     return ["Earth", "Water", "Fire", "Air"][score % 4]
-
 
 def infer_packet_focus(addr: str) -> str:
     if addr.startswith("E"):
@@ -3702,7 +3584,6 @@ def infer_packet_focus(addr: str) -> str:
     if addr.startswith("F"):
         return "surface new routes, archive promotions, and frontier candidates"
     return "formalize tensors, metrics, schemas, and worker maps"
-
 
 def render_wave_zero_manifest() -> str:
     addresses = lineage_addresses()
@@ -3730,7 +3611,6 @@ def render_wave_zero_manifest() -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def render_worker_packet(addr: str, idx: int) -> str:
     lane = infer_lane_from_lineage(addr)
@@ -3784,14 +3664,12 @@ def render_worker_packet(addr: str, idx: int) -> str:
         """
     )
 
-
 def render_worker_index(addresses: list[str]) -> str:
     lines = ["# Worker Packet Index", ""]
     for idx, addr in enumerate(addresses, start=1):
         filename = f"w0_{idx:02d}_{addr.lower()}.md"
         lines.append(f"- [`W0-{idx:02d}` | `{addr}`](./{filename})")
     return "\n".join(lines)
-
 
 def render_restart_contract() -> str:
     return md(
@@ -3823,7 +3701,6 @@ def render_restart_contract() -> str:
         """
     )
 
-
 def render_neural_learnings_doc() -> str:
     return md(
         """
@@ -3854,7 +3731,6 @@ def render_neural_learnings_doc() -> str:
         """
     )
 
-
 def body_example_paths(body: str) -> list[str]:
     mapping = {
         "corpus": [
@@ -3884,7 +3760,6 @@ def body_example_paths(body: str) -> list[str]:
     }
     return mapping[body]
 
-
 def partner_body(body: str) -> str:
     return {
         "corpus": "runtime",
@@ -3892,7 +3767,6 @@ def partner_body(body: str) -> str:
         "runtime": "manuscript",
         "manuscript": "corpus",
     }[body]
-
 
 def scale_scope_note(scale: str) -> str:
     return {
@@ -3902,7 +3776,6 @@ def scale_scope_note(scale: str) -> str:
         "ecosystem": "Route across top-level bodies so the whole corpus behaves like one organism.",
     }[scale]
 
-
 def closure_target_note(closure: str) -> str:
     return {
         "seed": "define the minimum admissible representation and stop it from disappearing again",
@@ -3911,7 +3784,6 @@ def closure_target_note(closure: str) -> str:
         "publish": "promote the route into a canonical surface other agents can safely inherit",
     }[closure]
 
-
 def operation_route_note(operation: str) -> str:
     return {
         "intake": "Pull source into visibility without stripping away its lineage.",
@@ -3919,7 +3791,6 @@ def operation_route_note(operation: str) -> str:
         "route": "Make the next best path explicit enough that search beats wandering.",
         "replay": "Require exact rebuild and witness obligations before trusting the result.",
     }[operation]
-
 
 def cell_shadow_note(body: str, operation: str, scale: str) -> str:
     if body == "archive":
@@ -3930,7 +3801,6 @@ def cell_shadow_note(body: str, operation: str, scale: str) -> str:
         return "The prose grows broader than the lived operating contract and starts naming motion without carrying it."
     return "The corpus keeps restating the same idea under different names because the cell never becomes a stable bridge."
 
-
 def cell_next_move(body: str, operation: str, scale: str, closure: str) -> str:
     body_target = BODY_INFO[body]["targets"][0]
     partner = partner_body(body)
@@ -3940,10 +3810,8 @@ def cell_next_move(body: str, operation: str, scale: str, closure: str) -> str:
         f"and land the result in a witness-bearing bridge toward `{partner_target}` that can `{closure_target_note(closure)}`."
     )
 
-
 def cell_identifier(body: str, operation: str, scale: str, closure: str) -> str:
     return f"{body}.{operation}.{scale}.{closure}"
-
 
 def render_root_cell_doc(index: int, body: str, operation: str, scale: str, closure: str) -> str:
     identifier = cell_identifier(body, operation, scale, closure)
@@ -3986,7 +3854,6 @@ def render_root_cell_doc(index: int, body: str, operation: str, scale: str, clos
         """
     )
 
-
 def render_tissue_index() -> str:
     lines = ["# Root Cell Index", ""]
     index = 1
@@ -4004,7 +3871,6 @@ def render_tissue_index() -> str:
                     index += 1
             lines.append("")
     return "\n".join(lines).rstrip()
-
 
 def render_meta_observer_doc(metrics: dict) -> str:
     board = metrics["board_status"]
@@ -4056,7 +3922,6 @@ def render_meta_observer_doc(metrics: dict) -> str:
         The framework has largely completed the `cell -> organism` move in structural terms and is now entering the `organism -> social swarm` move in operational terms. The challenge is no longer merely specialization. The challenge is collective direction.
         """
     )
-
 
 def render_emergent_capabilities_doc(metrics: dict) -> str:
     board = metrics["board_status"]
@@ -4135,7 +4000,6 @@ def render_emergent_capabilities_doc(metrics: dict) -> str:
         """
     )
 
-
 def render_liminal_transition_doc(metrics: dict) -> str:
     board = metrics["board_status"]
     return md(
@@ -4184,7 +4048,6 @@ def render_liminal_transition_doc(metrics: dict) -> str:
         """
     )
 
-
 def render_guild_readme(metrics: dict) -> str:
     board = metrics["board_status"]
     return md(
@@ -4214,7 +4077,6 @@ def render_guild_readme(metrics: dict) -> str:
         8. `parties/INDEX.md`
         """
     )
-
 
 def render_guild_charter() -> str:
     return md(
@@ -4252,14 +4114,12 @@ def render_guild_charter() -> str:
         """
     )
 
-
 def render_quest_board() -> str:
     rows = ["# Quest Board", "", "| Quest | Transition | Party | Reward |", "| --- | --- | --- | --- |"]
     for quest in QUESTS:
         party = party_by_code(quest.party_code)
         rows.append(f"| `{quest.code}` {quest.title} | `{quest.transition}` | `{party.title}` | {quest.reward} |")
     return "\n".join(rows)
-
 
 def render_adventure_parties_doc() -> str:
     sections = [
@@ -4278,14 +4138,12 @@ def render_adventure_parties_doc() -> str:
         sections.append("")
     return "\n".join(sections).rstrip()
 
-
 def render_party_index() -> str:
     lines = ["# Party Index", ""]
     for party in PARTIES:
         filename = f"{party.code.lower()}_{slugify(party.title)}.md"
         lines.append(f"- [`{party.code}` {party.title}](./{filename})")
     return "\n".join(lines)
-
 
 def render_party_doc(party: PartySeed) -> str:
     roles = list_to_bullets(list(party.roles))
@@ -4317,14 +4175,12 @@ def render_party_doc(party: PartySeed) -> str:
         """
     )
 
-
 def render_quest_index() -> str:
     lines = ["# Quest Index", ""]
     for quest in QUESTS:
         filename = f"{quest.code.lower()}_{slugify(quest.title)}.md"
         lines.append(f"- [`{quest.code}` {quest.title}](./{filename})")
     return "\n".join(lines)
-
 
 def render_quest_doc(quest: QuestSeed) -> str:
     party = party_by_code(quest.party_code)
@@ -4378,7 +4234,6 @@ def render_quest_doc(quest: QuestSeed) -> str:
         """
     )
 
-
 def render_full_corpus_index() -> str:
     return md(
         """
@@ -4403,7 +4258,6 @@ def render_full_corpus_index() -> str:
         - 6D overlays remain additive inputs, not rewritten schemas
         """
     )
-
 
 def render_full_corpus_bundle_md(bundle: dict) -> str:
     evidence = bundle["evidence_boundary"]
@@ -4489,7 +4343,6 @@ def render_full_corpus_bundle_md(bundle: dict) -> str:
         ]
     )
 
-
 def render_transition_matrix_md(matrix: dict) -> str:
     rows = [
         "| Agent | Class | Primary party | Primary quest | Truth | Reassessment |",
@@ -4516,14 +4369,12 @@ def render_transition_matrix_md(matrix: dict) -> str:
         ]
     )
 
-
 def render_agent_note_index(agent_records: list[dict]) -> str:
     lines = ["# Agent Note Index", ""]
     for item in agent_records:
         filename = f"{item['agent_id'].lower()}_{slugify(item['title'])}.md"
         lines.append(f"- [`{item['agent_id']}` {item['title']}](./{filename})")
     return "\n".join(lines)
-
 
 def render_agent_note_doc(agent: dict) -> str:
     surfaces = list_to_bullets([f"`{surface}`" for surface in agent["required_surfaces"]])
@@ -4592,7 +4443,6 @@ def render_agent_note_doc(agent: dict) -> str:
         """
     )
 
-
 def render_legacy_retrofit_index(bundle: dict) -> str:
     matrix = bundle["legacy_retrofit_matrix"]
     board = bundle["legacy_family_board"]
@@ -4632,7 +4482,6 @@ def render_legacy_retrofit_index(bundle: dict) -> str:
         """
     )
 
-
 def render_legacy_retrofit_bundle_md(bundle: dict) -> str:
     matrix = bundle["legacy_retrofit_matrix"]
     board = bundle["legacy_family_board"]
@@ -4665,7 +4514,6 @@ def render_legacy_retrofit_bundle_md(bundle: dict) -> str:
         ]
     )
 
-
 def render_legacy_retrofit_matrix_md(matrix: dict) -> str:
     rows = [
         "| Artifact | Family | Mode | Party | Quest | Truth | Canonical target |",
@@ -4678,7 +4526,6 @@ def render_legacy_retrofit_matrix_md(matrix: dict) -> str:
         )
     return "\n".join(["# Legacy Retrofit Matrix", "", *rows])
 
-
 def render_legacy_family_board_md(board: dict) -> str:
     rows = [
         "| Family | Artifacts | Modes | Status | Promotion queue |",
@@ -4690,7 +4537,6 @@ def render_legacy_family_board_md(board: dict) -> str:
             f"| `{family_id}` | {len(item['artifact_ids'])} | `{item['retrofit_modes']}` | `{item['status_counts']}` | `{item['promotion_queue']}` |"
         )
     return "\n".join(["# Legacy Family Board", "", *rows])
-
 
 def render_legacy_artifact_card(artifact: dict) -> str:
     required = list_to_bullets([f"`{item}`" for item in artifact["required_surfaces"]])
@@ -4765,7 +4611,6 @@ def render_legacy_artifact_card(artifact: dict) -> str:
         """
     )
 
-
 def render_agent_assist_overlay_md(overlay: dict) -> str:
     rows = [
         "| Agent | Class | Assigned artifacts | Modes | Families |",
@@ -4777,7 +4622,6 @@ def render_agent_assist_overlay_md(overlay: dict) -> str:
             f"| `{agent_id}` {item['title']} | `{item['agent_class']}` | {len(item['assigned_artifacts'])} | `{item['supported_modes']}` | `{item['supported_families']}` |"
         )
     return "\n".join(["# Legacy Retrofit Agent Assist Overlay", "", *rows])
-
 
 def render_agent_assist_note(agent: dict) -> str:
     return md(
@@ -4810,7 +4654,6 @@ def render_agent_assist_note(agent: dict) -> str:
         - Quest affinity: {', '.join(f'`{item}`' for item in agent['quest_affinity'])}
         """
     )
-
 
 def build_module() -> None:
     live_atlas = load_json(LIVE_ATLAS_PATH)
@@ -4976,12 +4819,10 @@ def build_module() -> None:
             render_agent_assist_note(agent),
         )
 
-
 def main() -> int:
     build_module()
     print(f"Wrote integration module: {OUTPUT_ROOT}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

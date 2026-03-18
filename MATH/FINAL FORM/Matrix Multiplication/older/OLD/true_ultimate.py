@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=95 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
@@ -52,7 +56,6 @@ from scipy.sparse.linalg import cg, eigsh, gmres
 import warnings
 warnings.filterwarnings('ignore')
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CORE TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -64,7 +67,6 @@ class ProblemType(Enum):
     MATRIX_FUNCTION = "matrix_function"
     SAMPLING = "sampling"
     AUTO = "auto"
-
 
 @dataclass
 class PoleWeights:
@@ -97,7 +99,6 @@ class PoleWeights:
     
     def __repr__(self):
         return f"Poles(Ψ={self.psi:.2f}, Ω={self.omega:.2f}, Σ={self.sigma:.2f}, D={self.delta:.2f})"
-
 
 @dataclass
 class Fingerprint:
@@ -143,7 +144,6 @@ class Fingerprint:
         )
         return hashlib.md5(str(features).encode()).hexdigest()[:8]
 
-
 @dataclass
 class SolveRecord:
     """Record of a solve for learning."""
@@ -161,7 +161,6 @@ class SolveRecord:
             return float('inf')
         return self.objective_achieved * (1 + self.time_taken)
 
-
 @dataclass
 class Result:
     """Solve result."""
@@ -175,7 +174,6 @@ class Result:
     fingerprint: Fingerprint
     history: List[float] = field(default_factory=list)
     extra: Dict = field(default_factory=dict)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # EXPERIENCE DATABASE - Learning from past solves
@@ -232,7 +230,6 @@ class ExperienceDB:
         if f1.is_discrete != f2.is_discrete:
             return False
         return True
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STRUCTURE ANALYZER
@@ -405,7 +402,6 @@ class Analyzer:
         w.normalize()
         return w
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE FOUR POLES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -443,7 +439,6 @@ class Psi:
         vals, vecs = np.linalg.eigh(B)
         return vals[:k], Q @ vecs[:, :k]
 
-
 class Omega:
     """Ω - Continuous flow."""
     
@@ -471,7 +466,6 @@ class Omega:
             g[i] = (f(x) - f0) / eps
             x[i] -= eps
         return g
-
 
 class Sigma:
     """Σ - Stochastic exploration."""
@@ -530,7 +524,6 @@ class Sigma:
         
         return best_x
 
-
 class Delta:
     """D - Direct methods."""
     
@@ -569,7 +562,6 @@ class Delta:
             except:
                 pass
         return lu_solve(lu_factor(A), b)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ADAPTIVE CONTROLLER
@@ -615,7 +607,6 @@ class AdaptiveController:
             self.weights.sigma = (1 - learning_rate) * self.weights.sigma + learning_rate * target.sigma
             self.weights.delta = (1 - learning_rate) * self.weights.delta + learning_rate * target.delta
             self.weights.normalize()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE TRUE ULTIMATE SOLVER
@@ -884,7 +875,6 @@ class TrueUltimate:
     def _footer(self):
         print("═"*80)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE API
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -906,7 +896,6 @@ def linear_solve(A, b) -> Result:
 def eigensolve(A, k=1) -> Result:
     """Find k eigenvalues."""
     return _solver(matrix=A, n_eigenvalues=k)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # COMPREHENSIVE DEMONSTRATION
@@ -1035,7 +1024,6 @@ def comprehensive_demo():
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
     """)
-
 
 if __name__ == "__main__":
     comprehensive_demo()

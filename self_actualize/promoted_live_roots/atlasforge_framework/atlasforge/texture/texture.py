@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=325 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       TEXTURE FUNCTIONAL MODULE                              ║
@@ -27,7 +31,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TEXTURE TYPES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -40,14 +43,12 @@ class TextureType(Enum):
     PATTERN = "pattern"           # Multi-scale structure
     COMPOSITE = "composite"       # Weighted combination
 
-
 class SectorType(Enum):
     """Sector types for Texture."""
     PRIMAL = "primal"       # T_+
     INVERTED = "inverted"   # T_-
     IMAGINARY = "imaginary" # T_i
     CONJUGATE = "conjugate" # T_ī
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ALGORITHMIC COMPLEXITY
@@ -92,7 +93,6 @@ class AlgorithmicComplexity:
     def from_string(self, s: str) -> float:
         """Estimate complexity of string."""
         return self.estimate(s.encode('utf-8'))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ENTROPY MEASURES
@@ -142,7 +142,6 @@ class EntropyMeasure:
         w = np.abs(wigner)
         w = w[w > 1e-15]
         return -np.sum(w * np.log(w)) * dx * dx
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # COHERENCE MEASURES
@@ -203,7 +202,6 @@ class CoherenceMeasure:
         Maximally mixed: γ = 1/d
         """
         return np.real(np.trace(rho @ rho))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PATTERN DENSITY
@@ -287,7 +285,6 @@ class PatternDensity:
         slope = np.polyfit(log_k, log_l, 1)[0]
         return -slope
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SECTOR TEXTURE FUNCTIONAL
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -366,7 +363,6 @@ class SectorTexture:
             TextureType.PATTERN: 0.1
         })
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # COMPLEXITY BUDGET
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -437,7 +433,6 @@ class ComplexityBudget:
             SectorType.CONJUGATE: self.kappa_conjugate
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TEXTURE CONSERVATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -478,7 +473,6 @@ class TextureConservation:
             budget.kappa_conjugate * scale
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TEXTURE BOUND
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -512,7 +506,6 @@ class TextureBound:
         """
         # Cost grows with coherence length
         return 0.1 * coherence_length ** 2 / (kappa + 0.01)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -552,7 +545,6 @@ class TexturePoleBridge:
         Links to ☁ chart and Σ-pole for stochastic management.
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -561,37 +553,30 @@ def algorithmic_complexity() -> AlgorithmicComplexity:
     """Create algorithmic complexity estimator."""
     return AlgorithmicComplexity()
 
-
 def entropy_measure() -> EntropyMeasure:
     """Create entropy measure."""
     return EntropyMeasure()
-
 
 def coherence_measure() -> CoherenceMeasure:
     """Create coherence measure."""
     return CoherenceMeasure()
 
-
 def pattern_density() -> PatternDensity:
     """Create pattern density measure."""
     return PatternDensity()
 
-
 def sector_texture(sector: SectorType) -> SectorTexture:
     """Create sector texture functional."""
     return SectorTexture(sector)
-
 
 def complexity_budget(k_p: float = 0.25, k_inv: float = 0.25,
                       k_im: float = 0.25, k_conj: float = 0.25) -> ComplexityBudget:
     """Create complexity budget."""
     return ComplexityBudget(k_p, k_inv, k_im, k_conj)
 
-
 def texture_conservation(total: float = 1.0) -> TextureConservation:
     """Create texture conservation enforcer."""
     return TextureConservation(total)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=349 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
@@ -33,7 +37,6 @@ from .semantic_embassy_contracts import (
     validate_semantic_export,
 )
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 REGISTRY_ROOT = SELF_ACTUALIZE_ROOT / "mycelium_brain" / "registry"
@@ -49,15 +52,12 @@ DASHBOARD_PATH = REGISTRY_ROOT / "semantic_embassy_dashboard.json"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_semantic_embassy_surface"
 DERIVATION_VERSION = "2026-03-12.semantic-embassy.v1"
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
-
 
 def object_shape_registry() -> dict[str, list[str]]:
     return {
@@ -155,7 +155,6 @@ def object_shape_registry() -> dict[str, list[str]]:
             "normalized_hash",
         ],
     }
-
 
 def build_success_surface(docs_gate_status: str) -> tuple[SemanticEmbassySurface, dict[str, Any]]:
     claim_surface = ClaimSurface(
@@ -341,7 +340,6 @@ def build_success_surface(docs_gate_status: str) -> tuple[SemanticEmbassySurface
     }
     return surface, replay
 
-
 def build_failure_case(
     case_id: str,
     label: str,
@@ -373,7 +371,6 @@ def build_failure_case(
         "blocked_reasons": result.blocked_reasons,
         "hash": result.normalized_hash,
     }
-
 
 def build_failure_matrix(base_surface: SemanticEmbassySurface) -> list[dict[str, Any]]:
     claim = base_surface.claim_surface
@@ -628,7 +625,6 @@ def build_failure_matrix(base_surface: SemanticEmbassySurface) -> list[dict[str,
     )
     return failures
 
-
 def build_payloads() -> dict[str, Any]:
     docs_gate = swarm_board.docs_gate_status()
     docs_gate_status = docs_gate["status"]
@@ -748,7 +744,6 @@ def build_payloads() -> dict[str, Any]:
         "dashboard": dashboard_payload,
     }
 
-
 def derive_semantic_embassy_surface() -> dict[str, Any]:
     payloads = build_payloads()
     write_json(SURFACE_REGISTRY_PATH, payloads["surface"])
@@ -756,7 +751,6 @@ def derive_semantic_embassy_surface() -> dict[str, Any]:
     write_json(RENDER_POLICY_PATH, payloads["policy"])
     write_json(DASHBOARD_PATH, payloads["dashboard"])
     return payloads
-
 
 def main() -> None:
     payloads = derive_semantic_embassy_surface()
@@ -768,7 +762,6 @@ def main() -> None:
         "failure_cases": payloads["dashboard"]["failure_summary"]["total_cases"],
     }
     print(json.dumps(summary, indent=2, sort_keys=True))
-
 
 if __name__ == "__main__":
     main()

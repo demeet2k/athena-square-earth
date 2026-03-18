@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 ATHENA OS - MUSHIN KERNEL: ZAZEN MODULE
 ========================================
@@ -44,7 +48,6 @@ from enum import Enum
 import time
 import random
 
-
 # =============================================================================
 # ZAZEN STATES
 # =============================================================================
@@ -60,7 +63,6 @@ class ZazenState(Enum):
     DISTURBED = "disturbed"        # Thought arose
     INTERRUPTED = "interrupted"    # External interrupt
 
-
 class ThoughtCategory(Enum):
     """Categories of thoughts that arise."""
     
@@ -70,7 +72,6 @@ class ThoughtCategory(Enum):
     DESIRING = "desiring"          # Wanting
     AVERSIVE = "aversive"          # Avoiding
     NEUTRAL = "neutral"            # Non-reactive
-
 
 # =============================================================================
 # THERMODYNAMIC MODEL
@@ -130,7 +131,6 @@ class ThermodynamicState:
         """Check if sufficiently cooled."""
         return self.temperature < 0.1
 
-
 # =============================================================================
 # THOUGHT PROCESS MANAGEMENT
 # =============================================================================
@@ -149,7 +149,6 @@ class Thought:
     duration: float = 0.0
     was_followed: bool = False
     was_dropped: bool = False
-
 
 class ThoughtQueue:
     """
@@ -230,7 +229,6 @@ class ThoughtQueue:
             "current_queue": len(self.queue)
         }
 
-
 # =============================================================================
 # POSTURE SYSTEM
 # =============================================================================
@@ -274,7 +272,6 @@ class PostureState:
         return (self.movement_level < 0.1 and 
                 self.spine == "ERECT" and
                 self.stability > 0.8)
-
 
 # =============================================================================
 # KEISAKU (WARNING STICK)
@@ -349,7 +346,6 @@ class Keisaku:
             "reset_rate": self.successful_resets / max(1, self.strikes)
         }
 
-
 # =============================================================================
 # SHINJIN DATSURAKU
 # =============================================================================
@@ -402,7 +398,6 @@ class BodyMindState:
         self.mind_attached = True
         self.body_driver_loaded = True
         self.mind_driver_loaded = True
-
 
 # =============================================================================
 # ZAZEN SESSION
@@ -565,7 +560,6 @@ class ZazenSession:
             return True
         return False
 
-
 # =============================================================================
 # GARBAGE COLLECTION
 # =============================================================================
@@ -615,7 +609,6 @@ class ZazenGarbageCollector:
             "tension_released": True,
             "collections": self.collections
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -677,7 +670,6 @@ def validate_zazen() -> bool:
     assert cleared == 2
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zazen Module...")

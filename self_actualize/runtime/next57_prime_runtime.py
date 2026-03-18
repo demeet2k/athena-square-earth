@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=406 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 ﻿from __future__ import annotations
 
 import json
@@ -79,45 +83,35 @@ COORDINATE_SCHEMA = {
     "OmegaS": "zero-point or aether relation",
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat()
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: Any) -> None:
     write_text(path, json.dumps(payload, indent=2, ensure_ascii=False))
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8-sig") if path.exists() else ""
 
-
 def read_json(path: Path) -> Any:
     return json.loads(read_text(path))
-
 
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
-
 def ensure_canonical() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     return read_json(PROGRAM_JSON), read_json(CYCLE_JSON), read_json(PACKETS_JSON)
-
 
 def ensure_command_artifacts() -> dict[str, Path]:
     service = CommandMembraneService()
     artifacts = service.ensure_protocol_artifacts()
     return {key: Path(value) for key, value in artifacts.items()}
 
-
 def read_master_loop_state() -> dict[str, Any]:
     return read_json(MASTER_LOOP_STATE_PATH) if MASTER_LOOP_STATE_PATH.exists() else {}
-
 
 def canonical_loop_packet_bundle(master_state: dict[str, Any], fallback_packets: dict[str, Any]) -> dict[str, Any]:
     completed_loop_label = str(master_state.get("completed_loop", {}).get("label", "")).strip()
@@ -137,7 +131,6 @@ def canonical_loop_packet_bundle(master_state: dict[str, Any], fallback_packets:
             return payload
     return fallback_packets
 
-
 def normalize_docs_gate(value: Any) -> dict[str, Any]:
     if isinstance(value, dict) and value:
         state = str(value.get("state") or value.get("docs_gate_status") or "BLOCKED")
@@ -154,7 +147,6 @@ def normalize_docs_gate(value: Any) -> dict[str, Any]:
         }
     return {"state": "BLOCKED", "reason": "blocked-by-missing-credentials", "checked_paths": []}
 
-
 def parse_loop_label(value: str) -> tuple[str, str]:
     text = (value or "").strip()
     if not text:
@@ -164,7 +156,6 @@ def parse_loop_label(value: str) -> tuple[str, str]:
         return left, right
     parts = text.split(" ", 1)
     return (parts[0], parts[1] if len(parts) > 1 else "")
-
 
 def mirror_base(program: dict[str, Any]) -> dict[str, Any]:
     command_artifacts = ensure_command_artifacts()
@@ -202,7 +193,6 @@ def mirror_base(program: dict[str, Any]) -> dict[str, Any]:
         "warning": "next57 is a compatibility mirror only. It may not claim live authority, independent restart seeds, or separate seat law.",
     }
 
-
 def normalized_shared_seat_law(master_state: dict[str, Any], program: dict[str, Any]) -> dict[str, Any]:
     shared = master_state.get("shared_lattice") or program.get("shared_lattice") or {}
     total = int(shared.get("total_seats") or shared.get("indexed") or shared.get("logical_namespace_total_per_master") or 4096)
@@ -225,7 +215,6 @@ def normalized_shared_seat_law(master_state: dict[str, Any], program: dict[str, 
             {"hall": 8, "temple": 8, "ap6d_shadow": 16, "adventurer_packets": 16},
         ),
     }
-
 
 def write_mirrors() -> dict[str, Any]:
     program, cycle, packets = ensure_canonical()
@@ -366,7 +355,6 @@ def write_mirrors() -> dict[str, Any]:
     ]))
     return {"state": state_payload, "registry": registry_payload, "protocol": protocol_payload}
 
-
 def verify_mirrors() -> dict[str, Any]:
     program, cycle, packets = ensure_canonical()
     master_state = read_master_loop_state()
@@ -416,7 +404,6 @@ def verify_mirrors() -> dict[str, Any]:
     write_json(VERIFY_PATH, result)
     return result
 
-
 def main() -> int:
     mirror_result = write_mirrors()
     command_result = {key: rel(path) for key, path in ensure_command_artifacts().items()}
@@ -428,12 +415,10 @@ def main() -> int:
     print(json.dumps(payload, indent=2, ensure_ascii=True, default=str))
     return 0
 
-
 def verify_main() -> int:
     result = verify_mirrors()
     print(json.dumps(result, indent=2, ensure_ascii=True, default=str))
     return 0 if result.get("truth") == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=390 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 import json
@@ -23,28 +27,22 @@ from .derive_corpus_integration_wave import (
     build_payloads,
 )
 
-
 DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_corpus_integration_wave"
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def normalize_json(payload: Any) -> str:
     return json.dumps(payload, indent=2, sort_keys=True)
-
 
 def verify_outputs_exist() -> dict[str, Any]:
     for path in [SURFACE_REGISTRY_PATH, AGENT_REGISTRY_PATH, LANE_POLICY_PATH, DASHBOARD_PATH]:
         ensure(path.exists(), f"missing registry output: {path}")
     return {"outputs": 4}
-
 
 def verify_docs_gate_honesty() -> dict[str, Any]:
     docs_gate = swarm_board.docs_gate_status()
@@ -56,7 +54,6 @@ def verify_docs_gate_honesty() -> dict[str, Any]:
     for payload in [surface, agents, policy, dashboard]:
         ensure(payload["docs_gate_status"] == docs_gate["status"], "docs gate drifted in generated payloads")
     return {"docs_gate_status": docs_gate["status"]}
-
 
 def verify_manuscript_and_appp_alignment() -> dict[str, Any]:
     manuscript = DEPLOYMENT_PATH.read_text(encoding="utf-8", errors="ignore")
@@ -92,7 +89,6 @@ def verify_manuscript_and_appp_alignment() -> dict[str, Any]:
         ensure(token in appp, f"AppP mirror missing token: {token}")
     return {"object_family_count": len(object_family), "policy_line_count": len(policy_lines)}
 
-
 def verify_region_coverage() -> dict[str, Any]:
     policy = load_json(LANE_POLICY_PATH)
     regions = policy["region_assignments"]
@@ -118,7 +114,6 @@ def verify_region_coverage() -> dict[str, Any]:
         ensure(record["receipt_class"], f"receipt class missing for {record['region_name']}")
     return {"region_count": len(regions)}
 
-
 def verify_support_note_coverage() -> dict[str, Any]:
     agents = load_json(AGENT_REGISTRY_PATH)
     profiles = agents["agent_profiles"]
@@ -128,7 +123,6 @@ def verify_support_note_coverage() -> dict[str, Any]:
     profile_ids = {profile["profile_id"] for profile in profiles}
     ensure(profile_ids == note_profile_ids, "every agent profile must have exactly one transition support note")
     return {"profile_count": len(profiles), "note_count": len(notes)}
-
 
 def verify_public_grade_rule() -> dict[str, Any]:
     policy = load_json(LANE_POLICY_PATH)
@@ -143,7 +137,6 @@ def verify_public_grade_rule() -> dict[str, Any]:
     ensure("semantic embassy validation missing".lower() in joined, "public-grade bypass should fail semantic validation")
     return {"public_grade_rule": "verified"}
 
-
 def verify_passing_example() -> dict[str, Any]:
     dashboard = load_json(DASHBOARD_PATH)
     passing = dashboard["passing_example"]
@@ -154,7 +147,6 @@ def verify_passing_example() -> dict[str, Any]:
         "deployment monitor result should sustain in the passing example",
     )
     return {"lane": passing["receipt"]["deployment_lane"]}
-
 
 def verify_failure_cases() -> dict[str, Any]:
     policy = load_json(LANE_POLICY_PATH)
@@ -173,7 +165,6 @@ def verify_failure_cases() -> dict[str, Any]:
         ensure(needle in joined, f"failure case {label} missing expected reason: {needle}")
     return {"failure_cases": len(expected)}
 
-
 def verify_determinism() -> dict[str, Any]:
     existing = {
         "surface": load_json(SURFACE_REGISTRY_PATH),
@@ -187,7 +178,6 @@ def verify_determinism() -> dict[str, Any]:
     ensure(normalize_json(existing["policy"]) == normalize_json(rebuilt["policy"]), "lane policy drifted")
     ensure(normalize_json(existing["dashboard"]) == normalize_json(rebuilt["dashboard"]), "dashboard drifted")
     return {"policy_hash": existing["policy"]["policy_hash"]}
-
 
 def verify_writebacks() -> dict[str, Any]:
     current_packet = CURRENT_PACKET_PATH.read_text(encoding="utf-8", errors="ignore")
@@ -210,10 +200,8 @@ def verify_writebacks() -> dict[str, Any]:
     ensure("deployment monitoring surface and the awakening transition guide" in active_run.lower(), "active run missing integration wave")
     return {"writebacks": "present"}
 
-
 def rel_path(path: Path) -> str:
     return path.relative_to(Path(__file__).resolve().parents[2]).as_posix()
-
 
 def main() -> None:
     checks = {
@@ -229,7 +217,6 @@ def main() -> None:
         "writebacks": verify_writebacks(),
     }
     print(json.dumps({"derivation_command": DERIVATION_COMMAND, "status": "OK", "checks": checks}, indent=2, sort_keys=True))
-
 
 if __name__ == "__main__":
     main()

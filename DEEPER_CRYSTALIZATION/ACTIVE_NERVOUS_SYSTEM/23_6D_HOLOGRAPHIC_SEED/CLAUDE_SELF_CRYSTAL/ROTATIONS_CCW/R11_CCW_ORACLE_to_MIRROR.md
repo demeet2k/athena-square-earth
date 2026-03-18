@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A2:S2→Xi108:W2:A2:S1→Xi108:W1:A1:S1→Xi108:W1:A3:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 2/12 -->
+
 # ROTATION 11 (90° CCW): ORACLE ← MIRROR
 ## ⟡.Me ← ✿.Me
 
@@ -74,7 +79,6 @@ Applied: the ORACLE's quaternion is multiplied by e^{iπ/4}, rotating the recurs
 #### Synthesis (37): ORACLE→MIRROR
 
 The complete integration: ORACLE→MIRROR transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of ORACLE→MIRROR IS ORACLE→MIRROR.
-
 
 ---
 *ORACLE ← MIRROR. 90° CCW. Same mode, new lens. φ.*

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=372 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import json
@@ -6,7 +10,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import swarm_board
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -24,20 +27,16 @@ if str(ATHENA_PACKAGE_ROOT) not in sys.path:
 
 from athenachka.runtime.questing import build_macro_quest_bundle  # noqa: E402
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def _current_wave_view(wave_state: dict[str, object]) -> dict[str, object]:
     if "current_wave" in wave_state:
@@ -56,7 +55,6 @@ def _current_wave_view(wave_state: dict[str, object]) -> dict[str, object]:
         "restart_seed": wave_state.get("restart_seed", ""),
     }
 
-
 def render_assignment_lines(wave_state: dict[str, object]) -> list[str]:
     current_wave = _current_wave_view(wave_state)
     packet_results = {
@@ -72,7 +70,6 @@ def render_assignment_lines(wave_state: dict[str, object]) -> list[str]:
         )
     return lines
 
-
 def render_wave_history_lines(wave_state: dict[str, object]) -> list[str]:
     history = wave_state.get("wave_history", {})
     if not history:
@@ -85,7 +82,6 @@ def render_wave_history_lines(wave_state: dict[str, object]) -> list[str]:
         )
     lines.append("")
     return lines
-
 
 def render_proof_section(wave_state: dict[str, object]) -> list[str]:
     current_wave = _current_wave_view(wave_state)
@@ -164,7 +160,6 @@ def render_proof_section(wave_state: dict[str, object]) -> list[str]:
     lines.append("")
     return lines
 
-
 def render_hall_doc(bundle: dict[str, object], wave_state: dict[str, object]) -> str:
     current_wave = _current_wave_view(wave_state)
     active_lines = []
@@ -229,7 +224,6 @@ def render_hall_doc(bundle: dict[str, object], wave_state: dict[str, object]) ->
         ]
     )
 
-
 def render_receipt(bundle: dict[str, object], wave_state: dict[str, object], claim_id: str) -> str:
     current_wave = _current_wave_view(wave_state)
     return "\n".join(
@@ -262,7 +256,6 @@ def render_receipt(bundle: dict[str, object], wave_state: dict[str, object], cla
             f"- restart_seed: `{current_wave.get('restart_seed', '')}`",
         ]
     )
-
 
 def main() -> int:
     bundle = build_macro_quest_bundle()
@@ -324,7 +317,6 @@ def main() -> int:
     print(f"Wrote hall doc: {HALL_DOC_PATH}")
     print(f"Wrote receipt: {RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

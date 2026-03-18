@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A1:S11 | face=S | node=85 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A1:S10→Xi108:W1:A1:S12→Xi108:W2:A1:S11→Xi108:W1:A2:S11
+
 import argparse
 import hashlib
 import json
@@ -7,7 +11,6 @@ import unittest
 import zipfile
 from pathlib import Path
 from unittest import mock
-
 
 DEEPER_ROOT = Path(__file__).resolve().parents[1]
 if str(DEEPER_ROOT) not in sys.path:
@@ -23,7 +26,6 @@ import export_corpus_4d_to_deeper_network as export_driver
 import integrate_corpus_4d_next46 as integrate_driver
 import query_corpus_4d_registry as query_driver
 import tesseract_metro_v4 as metro
-
 
 class Corpus4DRewriteTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -678,7 +680,6 @@ class Corpus4DRewriteTests(unittest.TestCase):
         self.assertIn("transition_appendix_path", receipt["export_paths"])
         self.assertTrue((self.workspace_root / receipt["export_paths"]["transition_map_path"]).exists())
         self.assertTrue((self.workspace_root / receipt["export_paths"]["transition_appendix_path"]).exists())
-
 
 if __name__ == "__main__":
     unittest.main()

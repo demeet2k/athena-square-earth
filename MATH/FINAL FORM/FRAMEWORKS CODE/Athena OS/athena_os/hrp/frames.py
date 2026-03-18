@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=97 | depth=2 | phase=Cardinal
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - HOLOGRAPHIC ROTATION PROTOCOL
 ==========================================
@@ -39,7 +43,6 @@ from typing import Dict, List, Tuple, Optional, Any, Callable, Union
 from enum import Enum
 from abc import ABC, abstractmethod
 import numpy as np
-
 
 # =============================================================================
 # ELEMENT ENUMERATION
@@ -87,7 +90,6 @@ class Element(Enum):
         idx = cycle.index(self)
         return cycle[(idx - 1) % 4]
 
-
 # =============================================================================
 # STATE SPACE REPRESENTATIONS
 # =============================================================================
@@ -103,7 +105,6 @@ class StateSpaceType(Enum):
     PROBABILITY = "probability" # Probability space
     SYMBOLIC = "symbolic"       # Symbolic alphabet
 
-
 @dataclass
 class StateSpace:
     """Abstract state space descriptor."""
@@ -117,7 +118,6 @@ class StateSpace:
     
     def __str__(self) -> str:
         return f"{self.space_type.value}(dim={self.dimension})"
-
 
 # =============================================================================
 # DYNAMICS REPRESENTATIONS
@@ -135,7 +135,6 @@ class DynamicsType(Enum):
     GRAMMAR = "grammar"         # Formal grammar
     CIRCUIT = "circuit"         # Boolean/arithmetic circuit
 
-
 @dataclass
 class Dynamics:
     """Abstract dynamics descriptor."""
@@ -151,7 +150,6 @@ class Dynamics:
         det = "det" if self.is_deterministic else "stoch"
         return f"{self.dynamics_type.value}({det})"
 
-
 # =============================================================================
 # MEASURE REPRESENTATIONS
 # =============================================================================
@@ -166,7 +164,6 @@ class MeasureType(Enum):
     UNIFORM = "uniform"         # Uniform measure
     SPECTRAL = "spectral"       # Spectral measure
 
-
 @dataclass
 class Measure:
     """Abstract measure descriptor."""
@@ -179,7 +176,6 @@ class Measure:
     
     def __str__(self) -> str:
         return f"{self.measure_type.value}"
-
 
 # =============================================================================
 # FRAME BASE CLASS
@@ -216,7 +212,6 @@ class Frame(ABC):
     
     def __str__(self) -> str:
         return f"{self.element.symbol} {self.element.value.upper()} Frame"
-
 
 # =============================================================================
 # WATER FRAME
@@ -287,7 +282,6 @@ class WaterFrame(Frame):
         
         return np.array(trajectory)
 
-
 # =============================================================================
 # EARTH FRAME
 # =============================================================================
@@ -357,7 +351,6 @@ class EarthFrame(Frame):
                 T[i, j] = 1.0
         
         return T
-
 
 # =============================================================================
 # FIRE FRAME
@@ -451,7 +444,6 @@ class FireFrame(Frame):
         if gap < 1e-10:
             return 10000  # Very slow mixing
         return int(np.ceil(np.log(1/epsilon) / gap))
-
 
 # =============================================================================
 # AIR FRAME
@@ -554,7 +546,6 @@ class AirFrame(Frame):
         
         return min_bits / actual_bits
 
-
 # =============================================================================
 # FRAME FACTORY
 # =============================================================================
@@ -582,7 +573,6 @@ def create_frame(element: Element, **kwargs) -> Frame:
         **{k: v for k, v in kwargs.items() 
            if k not in ['state_space', 'dynamics', 'measure']}
     )
-
 
 # =============================================================================
 # VALIDATION
@@ -657,7 +647,6 @@ def validate_frames() -> bool:
     assert frame.element == Element.FIRE
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Frames...")

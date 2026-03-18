@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=128 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - BIT4
 ================
@@ -36,7 +40,6 @@ import random
 
 from .carrier import B4, B4Vector
 
-
 # =============================================================================
 # COLLAPSE RESULT
 # =============================================================================
@@ -47,7 +50,6 @@ class CollapseResult(Enum):
     FALSE = 0
     TRUE = 1
     ERROR = -1
-
 
 @dataclass
 class CollapseOutcome:
@@ -77,7 +79,6 @@ class CollapseOutcome:
             return False
         return None
 
-
 # =============================================================================
 # COLLAPSE POLICIES
 # =============================================================================
@@ -92,7 +93,6 @@ class CollapsePolicy(Enum):
     DEFAULT_FALSE = "default_false"
     DEFAULT_TRUE = "default_true"
     STRICT = "strict"
-
 
 def collapse_conservative(x: B4) -> CollapseOutcome:
     """
@@ -110,7 +110,6 @@ def collapse_conservative(x: B4) -> CollapseOutcome:
     else:
         return CollapseOutcome(CollapseResult.ERROR)
 
-
 def collapse_optimistic(x: B4) -> CollapseOutcome:
     """
     Optimistic collapse: bias toward truth.
@@ -124,7 +123,6 @@ def collapse_optimistic(x: B4) -> CollapseOutcome:
         return CollapseOutcome(CollapseResult.FALSE)
     else:
         return CollapseOutcome(CollapseResult.TRUE)
-
 
 def collapse_pessimistic(x: B4) -> CollapseOutcome:
     """
@@ -143,7 +141,6 @@ def collapse_pessimistic(x: B4) -> CollapseOutcome:
         return CollapseOutcome(CollapseResult.TRUE)
     else:  # TOP
         return CollapseOutcome(CollapseResult.FALSE)
-
 
 def collapse_random(x: B4, seed: Optional[int] = None) -> CollapseOutcome:
     """
@@ -169,7 +166,6 @@ def collapse_random(x: B4, seed: Optional[int] = None) -> CollapseOutcome:
         else:
             return CollapseOutcome(CollapseResult.TRUE, confidence=0.5)
 
-
 def collapse_default_false(x: B4) -> CollapseOutcome:
     """
     Default-false collapse: false unless definitely true.
@@ -183,7 +179,6 @@ def collapse_default_false(x: B4) -> CollapseOutcome:
         return CollapseOutcome(CollapseResult.TRUE)
     else:
         return CollapseOutcome(CollapseResult.FALSE)
-
 
 def collapse_default_true(x: B4) -> CollapseOutcome:
     """
@@ -199,7 +194,6 @@ def collapse_default_true(x: B4) -> CollapseOutcome:
     else:
         return CollapseOutcome(CollapseResult.TRUE)
 
-
 def collapse_strict(x: B4) -> CollapseOutcome:
     """
     Strict collapse: err on ANY uncertainty.
@@ -207,7 +201,6 @@ def collapse_strict(x: B4) -> CollapseOutcome:
     Same as conservative.
     """
     return collapse_conservative(x)
-
 
 # =============================================================================
 # POLICY REGISTRY
@@ -223,11 +216,9 @@ COLLAPSE_POLICIES: Dict[CollapsePolicy, Callable[[B4], CollapseOutcome]] = {
     CollapsePolicy.STRICT: collapse_strict,
 }
 
-
 def apply_policy(x: B4, policy: CollapsePolicy) -> CollapseOutcome:
     """Apply named collapse policy."""
     return COLLAPSE_POLICIES[policy](x)
-
 
 # =============================================================================
 # CONSTRAINT-GUIDED COLLAPSE
@@ -243,7 +234,6 @@ class Constraint:
     def evaluate(self, bindings: Dict[str, B4]) -> bool:
         """Evaluate constraint under bindings."""
         return self.predicate(bindings)
-
 
 @dataclass
 class ConstraintSet:
@@ -272,7 +262,6 @@ class ConstraintSet:
         
         # If inconsistent with opposite, then entails
         return not self.is_consistent(test_bindings)
-
 
 def collapse_guided(x: B4, var: str, constraints: ConstraintSet,
                    bindings: Dict[str, B4]) -> CollapseOutcome:
@@ -304,7 +293,6 @@ def collapse_guided(x: B4, var: str, constraints: ConstraintSet,
     # No entailment - return error
     return CollapseOutcome(CollapseResult.ERROR)
 
-
 # =============================================================================
 # PROOF-CARRYING COLLAPSE
 # =============================================================================
@@ -331,7 +319,6 @@ class CollapseCertificate:
         
         # Shadow values require proof
         return self.proof is not None
-
 
 @dataclass
 class ProofCarryingCollapse:
@@ -373,7 +360,6 @@ class ProofCarryingCollapse:
         
         return outcome, cert
 
-
 # =============================================================================
 # AUDIT LOGGING
 # =============================================================================
@@ -391,7 +377,6 @@ class CollapseAuditRecord:
     certificate_ref: Optional[str] = None
     context_refs: List[str] = field(default_factory=list)
     timestamp: float = 0.0
-
 
 @dataclass
 class CollapseAuditLog:
@@ -423,7 +408,6 @@ class CollapseAuditLog:
             "false": sum(1 for r in self.records if r.decision == CollapseResult.FALSE),
             "error": sum(1 for r in self.records if r.decision == CollapseResult.ERROR)
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -491,7 +475,6 @@ def validate_collapse() -> bool:
     assert summary["error"] == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating BIT4 Collapse...")

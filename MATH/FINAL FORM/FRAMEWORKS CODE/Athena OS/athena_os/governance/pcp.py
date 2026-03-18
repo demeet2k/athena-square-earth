@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - Proof-Carrying Procedures (PCP)
 ===========================================
@@ -37,7 +41,6 @@ import hashlib
 import json
 import uuid
 
-
 # =============================================================================
 # CLAIM TYPES
 # =============================================================================
@@ -49,20 +52,17 @@ class ClaimType(Enum):
     CONJ = "CONJ"    # Conjecture - untested hypothesis
     AXIOM = "AXIOM"  # Axiom - assumed true
 
-
 class ConstraintType(Enum):
     """Types of constraints."""
     HARD = "HARD"    # Must be satisfied (violation = failure)
     SOFT = "SOFT"    # Should be satisfied (violation = penalty)
     GUIDE = "GUIDE"  # Recommended (violation = warning)
 
-
 class ActionType(Enum):
     """Types of actions."""
     REVERSIBLE = "REVERSIBLE"      # Can be undone
     IRREVERSIBLE = "IRREVERSIBLE"  # Cannot be undone
     CONDITIONAL = "CONDITIONAL"    # Reversible under conditions
-
 
 # =============================================================================
 # SPECIFICATION
@@ -82,7 +82,6 @@ class Constraint:
         if self.check_fn:
             return self.check_fn(context)
         return True  # Default: satisfied
-
 
 @dataclass
 class Specification:
@@ -127,7 +126,6 @@ class Specification:
                     return False
         return True
 
-
 # =============================================================================
 # EVIDENCE
 # =============================================================================
@@ -151,7 +149,6 @@ class EvidenceItem:
             content_hash=content_hash,
             source=source
         )
-
 
 @dataclass
 class Evidence:
@@ -186,7 +183,6 @@ class Evidence:
         """Get chain of evidence hashes."""
         return [item.content_hash for item in self.inputs]
 
-
 # =============================================================================
 # DECISION
 # =============================================================================
@@ -198,7 +194,6 @@ class Alternative:
     action: str
     reason_rejected: str
     evidence_refs: List[str] = field(default_factory=list)
-
 
 @dataclass
 class Decision:
@@ -233,7 +228,6 @@ class Decision:
         """Add a counterfactual hook."""
         self.counterfactual_hooks.append(condition)
 
-
 # =============================================================================
 # PROOF
 # =============================================================================
@@ -246,7 +240,6 @@ class ProofItem:
     passed: bool
     details: str = ""
     timestamp: datetime = field(default_factory=datetime.now)
-
 
 @dataclass
 class Proof:
@@ -309,7 +302,6 @@ class Proof:
         failed = sum(1 for i in all_items if not i.passed)
         return {"passed": passed, "failed": failed, "total": len(all_items)}
 
-
 # =============================================================================
 # AUDIT LOG
 # =============================================================================
@@ -336,7 +328,6 @@ class AuditEvent:
             reference=reference,
             content_hash=hashlib.sha256(content.encode()).hexdigest()[:16]
         )
-
 
 @dataclass
 class AuditLog:
@@ -378,7 +369,6 @@ class AuditLog:
         chain_content = "".join(e.content_hash for e in self.events)
         return hashlib.sha256(chain_content.encode()).hexdigest()[:32]
 
-
 # =============================================================================
 # APPEAL
 # =============================================================================
@@ -407,7 +397,6 @@ class Appeal:
         if decision.action_type == ActionType.IRREVERSIBLE:
             return True
         return self.review_required
-
 
 # =============================================================================
 # PROOF-CARRYING PROCEDURE (PCP)
@@ -520,7 +509,6 @@ class PCP:
             "reverse_spin_ready": self.reverse_spin_ready(),
         }
 
-
 # =============================================================================
 # PCP BUILDER
 # =============================================================================
@@ -615,7 +603,6 @@ class PCPBuilder:
         """Build and return the PCP."""
         return self.pcp
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -664,7 +651,6 @@ def validate_pcp() -> bool:
     assert len(log.chain_hash()) == 32
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating PCP Module...")

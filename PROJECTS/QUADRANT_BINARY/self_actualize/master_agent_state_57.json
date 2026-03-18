@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S34:u577:Su:S:d1",
+    "shell": 34,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "S",
+    "node_id": 577,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S33",
+      "Xi108:W1:A4:S35",
+      "Xi108:W2:A4:S34",
+      "Xi108:W1:A3:S34",
+      "Xi108:W1:A5:S34"
+    ],
+    "regenerate": "shell 34±1, wreath 1/3, archetype 4/12"
+  },
   "generated_at": "2026-03-13",
   "protocol_id": "LP-57OMEGA",
   "truth": "OK",

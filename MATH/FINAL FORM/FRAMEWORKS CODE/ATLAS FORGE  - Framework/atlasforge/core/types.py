@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                           ATLAS FORGE - Core Types                            ║
@@ -20,12 +24,10 @@ import struct
 import hashlib
 from decimal import Decimal, ROUND_DOWN, ROUND_UP, ROUND_HALF_EVEN
 
-
 # Type variables
 T = TypeVar('T')
 S = TypeVar('S')
 Numeric = Union[int, float, Decimal]
-
 
 class RoundingMode(Enum):
     """IEEE-754 rounding modes for deterministic floating-point semantics."""
@@ -35,7 +37,6 @@ class RoundingMode(Enum):
     ROUND_CEILING = "round_ceiling"     # Toward +∞
     ROUND_HALF_EVEN = "round_half_even" # Banker's rounding (default)
     ROUND_HALF_UP = "round_half_up"     # Standard rounding
-
 
 @dataclass(frozen=True)
 class FloatPolicy:
@@ -104,10 +105,8 @@ class FloatPolicy:
         # Round-trip through encoding to normalize
         return self.decode(self.encode(value))
 
-
 # Default float policy for the framework
 DEFAULT_FLOAT_POLICY = FloatPolicy()
-
 
 @dataclass(frozen=True)
 class Bound:
@@ -141,7 +140,6 @@ class Bound:
     def __repr__(self) -> str:
         bracket = "[" if self.inclusive else "("
         return f"{bracket}{self.value}"
-
 
 @dataclass
 class Interval:
@@ -541,7 +539,6 @@ class Interval:
     def __hash__(self) -> int:
         return hash((self.lower, self.upper, self.lower_inclusive, self.upper_inclusive))
 
-
 class Domain(ABC):
     """
     Abstract base class for all domain types.
@@ -569,7 +566,6 @@ class Domain(ABC):
     def dimension(self) -> int:
         """Dimension of the domain."""
         pass
-
 
 @dataclass
 class UnionDomain(Domain):
@@ -633,7 +629,6 @@ class UnionDomain(Domain):
     def __iter__(self) -> Iterator[Interval]:
         return iter(self.intervals)
 
-
 @dataclass
 class PointSet(Domain):
     """
@@ -672,7 +667,6 @@ class PointSet(Domain):
     
     def __iter__(self) -> Iterator[float]:
         return iter(self.points)
-
 
 @dataclass
 class RectangularDomain(Domain):
@@ -713,7 +707,6 @@ class RectangularDomain(Domain):
         """Fix one dimension at a value, returning lower-dimensional domain."""
         new_intervals = [i for j, i in enumerate(self.intervals) if j != dim]
         return RectangularDomain(new_intervals)
-
 
 @dataclass
 class Lattice(Domain):
@@ -782,7 +775,6 @@ class Lattice(Domain):
             k += 1
         
         return sorted(set(points))
-
 
 # Type alias for any domain
 AnyDomain = Union[Interval, UnionDomain, PointSet, RectangularDomain, Lattice]

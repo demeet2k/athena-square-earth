@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=79 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - BHAGAVAD GĪTĀ COMPUTATIONAL FRAMEWORK
 ==================================================
@@ -34,7 +38,6 @@ from enum import Enum, auto
 import numpy as np
 from scipy.linalg import expm
 
-
 # =============================================================================
 # KOSHA LEVELS
 # =============================================================================
@@ -53,7 +56,6 @@ class KoshaLevel(Enum):
         self.comp_analog = comp_analog
         self.description = description
 
-
 # =============================================================================
 # ACTION TYPES
 # =============================================================================
@@ -69,7 +71,6 @@ class ActionGuna(Enum):
         self.level = level
         self._name = name
         self.description = description
-
 
 @dataclass
 class ActionVector:
@@ -97,7 +98,6 @@ class ActionVector:
         }
         
         return self.karma_weight * guna_factor[self.guna_type]
-
 
 # =============================================================================
 # THE KARMA TENSOR
@@ -235,7 +235,6 @@ class KarmaTensor:
         """Check if karma tensor is effectively zero."""
         return self.total_load < tolerance
 
-
 # =============================================================================
 # THE CITTA (MEMORY SYSTEM)
 # =============================================================================
@@ -304,7 +303,6 @@ class Citta:
         Low total Vāsanā energy indicates purity.
         """
         return self.vasana_energy() < 0.1
-
 
 # =============================================================================
 # THE JĪVA AGENT
@@ -514,7 +512,6 @@ class Jiva:
         
         return self
 
-
 # =============================================================================
 # THE DASHA SYSTEM
 # =============================================================================
@@ -629,7 +626,6 @@ class DashaSystem:
         else:
             jiva.karma.burn_prarabdha(dt)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -711,7 +707,6 @@ def validate_jiva() -> bool:
     assert new_planet in dasha.SEQUENCE
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Jīva Module...")

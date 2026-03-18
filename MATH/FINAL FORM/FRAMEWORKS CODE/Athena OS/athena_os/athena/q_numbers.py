@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - Q-NUMBERS
 =====================
@@ -42,7 +46,6 @@ import numpy as np
 import math
 from .crystal_structure import TypedTruth, OutcomeBundle, CrystalAddress, Lens, Facet, Atom
 
-
 # =============================================================================
 # CARRIER
 # =============================================================================
@@ -84,7 +87,6 @@ class Carrier:
         rho = np.zeros((self.dimension, self.dimension), dtype=complex)
         rho[index, index] = 1.0
         return rho
-
 
 # =============================================================================
 # Q-NUMBER (VALUE-STATE)
@@ -207,7 +209,6 @@ class QNumber:
         
         return QNumber(new_carrier, result)
 
-
 # =============================================================================
 # CHANNEL (CPTP MAP)
 # =============================================================================
@@ -303,7 +304,6 @@ class Channel:
             kraus.append(K)
         return cls(carrier, carrier, kraus, "Dephase")
 
-
 # =============================================================================
 # POVM
 # =============================================================================
@@ -380,7 +380,6 @@ class POVM:
         """Create from orthogonal projectors."""
         return cls(carrier, projectors, "PVM")
 
-
 # =============================================================================
 # INSTRUMENT
 # =============================================================================
@@ -452,7 +451,6 @@ class Instrument:
         
         return cls(povm.carrier, povm.carrier, operations, f"Lüders({povm.name})")
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -499,7 +497,6 @@ def validate_q_numbers() -> bool:
     assert 0 in stats
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

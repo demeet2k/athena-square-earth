@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # Persistent Homology and Bott Periodicity
 
 Bott periodicity (Ch11) classifies the crystal's topology, discovering that Air carries ALL integer topology (Theorem 11.5.3 -- the deepest structural result in the corpus). Persistent homology (Ch12) tracks multi-scale topology with the persistence-truth correspondence mapping topological persistence to epistemic classification. The simplicial complex has Euler characteristic chi = -1.

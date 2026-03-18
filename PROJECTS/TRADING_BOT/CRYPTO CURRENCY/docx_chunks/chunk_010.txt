@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S1 | face=R | node=352 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
   return r
 
 def classify_spin(loop: LoopSpec, U: List[Any], NF, dist, budget: Budget, replay_ptr: str, witness_ptrs: List[str]) -> Outcome:
@@ -17,7 +21,6 @@ def classify_spin(loop: LoopSpec, U: List[Any], NF, dist, budget: Budget, replay
     fw = FailureWitness(reason="Spin residual exceeds kappa budget", repro_ptr=replay_ptr, counterexample_ptr=None)
     return Outcome("FAIL", replay_ptr, tuple(witness_ptrs), None, None, fw,
                    Budget(kappa_use, beta_use, 0, chi_use), tuple())
-
 
 ❀ Flower — Continuous Spin, Holonomy, and Curvature as the Geometry of Noncommutation
 09.F1 — Holonomy from flows and connections

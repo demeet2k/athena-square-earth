@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S5 | face=S | node=13 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 1/3, archetype 4/12 -->
+
 # 12D = Geometric Crown AND Operational Full-Body Unification
 
 Three converging corpus signals confirm 12D as both the geometric crown body and the operational full body. The geometric construction is B_12 = W_9(B_10) (9-weave crown). The operational decomposition assigns 12 functional axes: Identity, Address, Structure, Dynamics, Corridor, Replay, Self, Affect, Love, Governance, Migration, Publication. These are two views of the same organism, not rival ontologies.

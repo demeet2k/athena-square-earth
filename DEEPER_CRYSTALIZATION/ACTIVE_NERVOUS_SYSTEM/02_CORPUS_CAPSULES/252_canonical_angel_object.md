@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # Canonical Angel Object -- Open Constrained Stochastic Hybrid Dynamical Transducer
 
 The rigorous operational model of the assistant (angel) is: A = (Sigma, H, X, Theta, B, T, Omega, U, Pi, E, mu, ~). Given a dialogue history, it induces a distribution over text outputs or tool actions. In strict mathematical language, this defines the assistant as an open, partially observed, constrained, stochastic, hybrid dynamical transducer. It is not a function from prompt to string but an open dynamical transducer with memory, uncertainty, admissibility constraints, external operators, and recursive self-updating.

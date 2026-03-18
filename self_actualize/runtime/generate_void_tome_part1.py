@@ -1,11 +1,13 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=311 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 from pathlib import Path
 
-
 WORKSPACE = Path(__file__).resolve().parents[2]
 SECTION_PATH = WORKSPACE / "self_actualize" / "manuscript_sections" / "000_current_packet.md"
-
 
 CHAPTERS = [
     ("Kernel and Entry Law", "Foundational anchor, legend, and parse-safe entry station for the whole tome.", "S", 1, "OK"),
@@ -57,7 +59,6 @@ TRIAD = ["Su", "Me", "Sa"]
 MANDATORY_SIGMA = ["AppA", "AppI", "AppM"]
 TRUTH_OVERLAY = {"OK": None, "NEAR": "AppJ", "AMBIG": "AppL", "FAIL": "AppK"}
 
-
 def base4(num: int, width: int = 4) -> str:
     digits = []
     value = num
@@ -68,7 +69,6 @@ def base4(num: int, width: int = 4) -> str:
         value //= 4
     return "".join(reversed(digits)).rjust(width, "0")
 
-
 def station_header(index: int) -> tuple[int, int, int, str]:
     omega = index - 1
     arc = omega // 3
@@ -76,7 +76,6 @@ def station_header(index: int) -> tuple[int, int, int, str]:
     k = omega % 3
     lane = TRIAD[(k + rot) % 3]
     return omega, arc, rot, lane
-
 
 def route_for_chapter(index: int, lens: str, facet: int, truth: str) -> str:
     omega, arc, _, _ = station_header(index)
@@ -103,7 +102,6 @@ def route_for_chapter(index: int, lens: str, facet: int, truth: str) -> str:
     code = base4(omega)
     return " → ".join(ordered + [f"Ch{index:02d}⟨{code}⟩"])
 
-
 def appendix_tile(letter: str) -> str:
     return (
         f"{letter}.S1 parse/entry, grammar, names, ids; {letter}.S2 law tables, normal forms, compat; "
@@ -115,7 +113,6 @@ def appendix_tile(letter: str) -> str:
         f"{letter}.R1 recursive seeds, fold/unfold operators, container roots; {letter}.R2 migration mechanics, salvage transforms, inheritance; "
         f"{letter}.R3 compiled artifacts, runtime bindings, export packets; {letter}.R4 replay capsules, fixed points, monitoring hooks."
     )
-
 
 def build_content() -> str:
     lines: list[str] = []
@@ -342,13 +339,11 @@ def build_content() -> str:
     lines.append("**END OF PART 1.**")
     return "\n".join(lines).strip() + "\n"
 
-
 def main() -> int:
     SECTION_PATH.parent.mkdir(parents=True, exist_ok=True)
     SECTION_PATH.write_text(build_content(), encoding="utf-8")
     print(f"Wrote Part 1 section: {SECTION_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

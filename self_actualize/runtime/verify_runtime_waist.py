@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=378 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import json
@@ -11,7 +15,6 @@ from .atlas import CorpusAtlas
 from .engine import SelfActualizeEngine
 from . import swarm_board
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "runtime_waist_verification.json"
@@ -19,15 +22,12 @@ DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_runtime_waist"
 DERIVATION_VERSION = "2026-03-12.q07.runtime-waist"
 NEXT_SEED = "FRONT-INT-SKILL-COHESION"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def run_command(args: list[str], cwd: Path) -> dict[str, Any]:
     completed = subprocess.run(
@@ -46,7 +46,6 @@ def run_command(args: list[str], cwd: Path) -> dict[str, Any]:
         "ok": completed.returncode == 0,
     }
 
-
 def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     try:
         return {
@@ -60,7 +59,6 @@ def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
             "status": "FAIL",
             "details": str(exc),
         }
-
 
 def verify_atlas_contract() -> dict[str, Any]:
     atlas = CorpusAtlas.load_default()
@@ -99,7 +97,6 @@ def verify_atlas_contract() -> dict[str, Any]:
         ],
     }
 
-
 def verify_engine_packet() -> dict[str, Any]:
     objective = "create a repeatable verification harness around the main runtime waist"
     engine = SelfActualizeEngine()
@@ -126,7 +123,6 @@ def verify_engine_packet() -> dict[str, Any]:
             else "none"
         ),
     }
-
 
 def verify_swarm_board_pipeline() -> dict[str, Any]:
     snapshot = swarm_board.scan_workspace()
@@ -169,7 +165,6 @@ def verify_swarm_board_pipeline() -> dict[str, Any]:
         "recent_change_count": len(diff.get("changes", [])),
     }
 
-
 def verify_swarm_board_build_command() -> dict[str, Any]:
     result = run_command(
         [sys.executable, "-m", "self_actualize.runtime.swarm_board", "build"],
@@ -183,7 +178,6 @@ def verify_swarm_board_build_command() -> dict[str, Any]:
         "stderr": result["stderr"],
         "board_root": str(swarm_board.BOARD_ROOT),
     }
-
 
 def verify_payload() -> dict[str, Any]:
     checks = [
@@ -209,7 +203,6 @@ def verify_payload() -> dict[str, Any]:
         ),
     }
 
-
 def main() -> int:
     payload = verify_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -218,7 +211,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S26 | face=F | node=351 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S25→Xi108:W2:A12:S27→Xi108:W1:A12:S26→Xi108:W3:A12:S26→Xi108:W2:A11:S26
+
 from __future__ import annotations
 
 import json
@@ -18,15 +22,12 @@ FILES = {
     'nexus': MANIFEST_DIR / 'ATHENA_PRIME_6D_NEXUS_TUNNELS.json',
 }
 
-
 def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding='utf-8'))
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def main() -> int:
     data = {name: load(path) for name, path in FILES.items()}
@@ -68,7 +69,6 @@ def main() -> int:
     VERIFY_PATH.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(report, indent=2))
     return 0
-
 
 if __name__ == '__main__':
     raise SystemExit(main())

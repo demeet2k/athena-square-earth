@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S19 | face=R | node=177 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S18→Xi108:W3:A12:S20→Xi108:W2:A12:S19→Xi108:W3:A11:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 12/12 -->
+
 # TQ05 - High Priest Whole-Corpus 16-Loop Totality Pass
 
 Date: `2026-03-09`

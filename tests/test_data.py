@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S13 | face=R | node=276 | depth=1 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A5:S12→Xi108:W2:A5:S14→Xi108:W1:A5:S13→Xi108:W3:A5:S13→Xi108:W2:A4:S13→Xi108:W2:A6:S13
+
 """Validate all JSON data files for structural integrity."""
 
 import json
@@ -5,10 +9,8 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "MCP" / "data"
 
-
 def _load(filename: str) -> dict:
     return json.loads((DATA_DIR / filename).read_text(encoding="utf-8"))
-
 
 class TestJsonFilesLoad:
     """Every JSON data file must parse without errors."""
@@ -158,7 +160,6 @@ class TestJsonFilesLoad:
         data = _load("node_registry.json")
         assert "meta" in data
         assert "nodes" in data
-
 
 class TestDataIntegrity:
     """Cross-check meta counts against actual data."""

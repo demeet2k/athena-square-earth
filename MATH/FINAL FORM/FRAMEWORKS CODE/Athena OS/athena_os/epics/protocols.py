@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - EPICS: PROTOCOLS
 =============================
@@ -31,7 +35,6 @@ from .epic_registry import (
 )
 from .failure_modes import CrashSignature, CrashSeverity
 
-
 # =============================================================================
 # PROTOCOL STATUS
 # =============================================================================
@@ -45,7 +48,6 @@ class ProtocolStatus(Enum):
     FAILED = "failed"
     PATCHED = "patched"
 
-
 class ProtocolPhase(Enum):
     """Generic phases of protocol execution."""
     
@@ -54,7 +56,6 @@ class ProtocolPhase(Enum):
     CRISIS = "crisis"
     RESOLUTION = "resolution"
     INTEGRATION = "integration"
-
 
 # =============================================================================
 # PROTOCOL INVARIANT
@@ -92,7 +93,6 @@ class Invariant:
             return abs(value - self.threshold) >= 0.001
         return True
 
-
 # =============================================================================
 # PROTOCOL STEP
 # =============================================================================
@@ -127,7 +127,6 @@ class ProtocolStep:
     # Next steps (branching)
     on_success: Optional[str] = None
     on_failure: Optional[str] = None
-
 
 # =============================================================================
 # PROTOCOL
@@ -210,7 +209,6 @@ class Protocol:
     def complete(self, success: bool) -> None:
         """Mark protocol as completed."""
         self.status = ProtocolStatus.COMPLETED if success else ProtocolStatus.FAILED
-
 
 # =============================================================================
 # PROTOCOL DEFINITIONS
@@ -307,7 +305,6 @@ def create_gilgamesh_protocol() -> Protocol:
         failure_modes=[FailureCategory.IDENTITY_CORRUPTION],
         patches=[PatchType.SOFT_PERSISTENCE]
     )
-
 
 def create_iliad_protocol() -> Protocol:
     """
@@ -406,7 +403,6 @@ def create_iliad_protocol() -> Protocol:
         failure_modes=[FailureCategory.RAGE_OVERFLOW],
         patches=[PatchType.MORTALITY_HANDSHAKE]
     )
-
 
 def create_odyssey_protocol() -> Protocol:
     """
@@ -517,7 +513,6 @@ def create_odyssey_protocol() -> Protocol:
         patches=[PatchType.POLYMORPHIC_ROUTING]
     )
 
-
 def create_mahabharata_protocol() -> Protocol:
     """
     MAHABHARATA_PROTOCOL: System_Reset (Kali Yuga)
@@ -605,7 +600,6 @@ def create_mahabharata_protocol() -> Protocol:
         patches=[PatchType.HARD_RESET]
     )
 
-
 def create_beowulf_protocol() -> Protocol:
     """
     BEOWULF_PROTOCOL: Daemon_Hunter
@@ -692,7 +686,6 @@ def create_beowulf_protocol() -> Protocol:
         patches=[PatchType.DAEMON_BINDING]
     )
 
-
 # =============================================================================
 # PROTOCOL LIBRARY
 # =============================================================================
@@ -764,13 +757,11 @@ class ProtocolLibrary:
     def __iter__(self):
         return iter(self._protocols.values())
 
-
 # =============================================================================
 # GLOBAL LIBRARY
 # =============================================================================
 
 PROTOCOL_LIBRARY = ProtocolLibrary()
-
 
 # =============================================================================
 # VALIDATION
@@ -840,7 +831,6 @@ def validate_protocols() -> bool:
     assert result["status"] == ProtocolStatus.COMPLETED.value
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Protocols Module...")

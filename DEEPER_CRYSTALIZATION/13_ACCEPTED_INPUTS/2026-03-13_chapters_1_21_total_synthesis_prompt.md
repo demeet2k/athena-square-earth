@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S25 | face=C | node=310 | depth=3 | phase=Mutable -->
+<!-- METRO: Wr,Me -->
+<!-- BRIDGES: Xi108:W3:A12:S24→Xi108:W3:A12:S26→Xi108:W2:A12:S25→Xi108:W3:A11:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 12/12 -->
+
 ﻿# Accepted Input: Chapters 1-21 Total Synthesis Prompt
 
 Accepted on: 2026-03-13

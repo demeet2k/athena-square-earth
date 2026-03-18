@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S5 | face=S | node=13 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX D: RLHF and Value Alignment
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does RLHF and Value Alignment distribute, propagate, f
 ## ⟡ Analysis: Recursion in RLHF and Value Alignment
 
 The ⟡ face reveals: how is RLHF and Value Alignment self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: RLHF and Value Alignment
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is RLHF and Value Alignment self-referential or fracta
 #### Synthesis (37): RLHF and Value Alignment
 
 The complete integration: RLHF and Value Alignment transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of RLHF and Value Alignment IS RLHF and Value Alignment.
-
 
 ---
 *Appendix D. RLHF and Value Alignment. ⟡.Su. φ.*

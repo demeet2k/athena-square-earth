@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ATHENA OS - HDCS Primitives
 ===========================
@@ -32,7 +36,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Set
 import math
 
-
 # =============================================================================
 # ACTION PRIMITIVES
 # =============================================================================
@@ -45,7 +48,6 @@ class ActionType(Enum):
     RESERVE_UP = "reserve_up"
     RESERVE_DOWN = "reserve_down"
     MIGRATE = "migrate"
-
 
 @dataclass
 class Action:
@@ -62,7 +64,6 @@ class Action:
             return "NONE"
         else:
             return f"{self.action_type.value}(task={self.task_id}, Δ={self.delta:.3f})"
-
 
 @dataclass
 class Plan:
@@ -82,7 +83,6 @@ class Plan:
         """Create empty (no-op) plan."""
         return cls(actions=[], certified=True, certificate_reason="empty_plan")
 
-
 # =============================================================================
 # RESOURCE BOUNDS
 # =============================================================================
@@ -101,7 +101,6 @@ class AllocationBounds:
         """Check if value is within bounds."""
         return self.lower <= value <= self.upper
 
-
 @dataclass
 class TrustRegion:
     """Trust region for bounded actions."""
@@ -113,7 +112,6 @@ class TrustRegion:
     
     def clip_reserve_delta(self, delta: float) -> float:
         return max(-self.max_delta_r, min(self.max_delta_r, delta))
-
 
 # =============================================================================
 # NODE
@@ -160,7 +158,6 @@ class Node:
     def can_add(self, allocation: float, reserve: float) -> bool:
         """Check if additional allocation/reserve fits."""
         return self.used + allocation + reserve <= self.capacity
-
 
 # =============================================================================
 # TASK STATE
@@ -227,7 +224,6 @@ class TaskState:
     def is_persistently_violating(self, threshold: int = 3) -> bool:
         """Check if task has persistent violations."""
         return self.violation_persistence >= threshold
-
 
 # =============================================================================
 # CONTROLLER STATE
@@ -352,7 +348,6 @@ class ControllerState:
         
         return len(violations) == 0, violations
 
-
 # =============================================================================
 # FACTORY FUNCTIONS
 # =============================================================================
@@ -381,7 +376,6 @@ def create_controller_state(n_tasks: int, n_nodes: int,
         state.nodes[node_id].allocated += task.allocation
     
     return state
-
 
 # =============================================================================
 # VALIDATION
@@ -447,7 +441,6 @@ def validate_primitives() -> bool:
     assert is_feasible, f"Violations: {violations}"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating HDCS Primitives...")

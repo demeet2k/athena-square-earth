@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - BIO-OS CONTROL LOOPS
 ================================
@@ -35,7 +39,6 @@ from enum import Enum, auto
 from abc import ABC, abstractmethod
 import numpy as np
 
-
 # =============================================================================
 # STOIC CONTROL FRAMEWORK
 # =============================================================================
@@ -46,7 +49,6 @@ class ControlType(Enum):
     CONTROLLABLE = "u"      # Things we can control (actions)
     DISTURBANCE = "d"       # Things we cannot control (externals)
     UNCERTAIN = "?"         # Requires classification
-
 
 @dataclass
 class StoicPartition:
@@ -84,7 +86,6 @@ class StoicPartition:
         if total == 0:
             return 1.0
         return len(self.controllables) / total
-
 
 class VirtuePolicy:
     """
@@ -132,7 +133,6 @@ class VirtuePolicy:
         """Add custom virtue policy."""
         self._policies[virtue] = policy
 
-
 @dataclass
 class StoicController:
     """
@@ -169,7 +169,6 @@ class StoicController:
         """Check if robustness margin meets target."""
         return self.partition.robustness_margin() >= self.margin_target
 
-
 # =============================================================================
 # PID EMOTIONAL REGULATION
 # =============================================================================
@@ -185,7 +184,6 @@ class PIDGains:
     # Anti-windup limits
     integral_min: float = -10.0
     integral_max: float = 10.0
-
 
 class EmotionalPIDController:
     """
@@ -282,7 +280,6 @@ class EmotionalPIDController:
         self.gains.Ki = 0.1 * speed_factor
         self.gains.Kd = 0.05 * speed_factor
 
-
 @dataclass
 class EmotionalState:
     """Emotional state vector."""
@@ -301,7 +298,6 @@ class EmotionalState:
     def magnitude(self) -> float:
         """Emotional intensity."""
         return np.linalg.norm(self.to_array())
-
 
 class EmotionalRegulator:
     """
@@ -365,7 +361,6 @@ class EmotionalRegulator:
         
         return 0.0
 
-
 # =============================================================================
 # KALMAN FILTER (WITNESS/OBSERVER)
 # =============================================================================
@@ -385,7 +380,6 @@ class KalmanParameters:
     
     # Observation noise covariance
     R: np.ndarray = field(default_factory=lambda: 0.5 * np.eye(2))
-
 
 class WitnessFilter:
     """
@@ -510,7 +504,6 @@ class WitnessFilter:
         recent_error = np.mean(self._error_history[-5:])
         return recent_error > threshold * self.estimation_uncertainty
 
-
 # =============================================================================
 # SUFFERING AS ERROR SIGNAL
 # =============================================================================
@@ -534,7 +527,6 @@ class Setpoint:
         """Adapt setpoint toward actual (hedonic adaptation)."""
         if self.adaptive:
             self.value += self.adaptation_rate * (actual - self.value)
-
 
 class SufferingModel:
     """
@@ -628,7 +620,6 @@ class SufferingModel:
         values = [sp.value for sp in self._setpoints.values()]
         return np.var(values)
 
-
 # =============================================================================
 # INTEGRATED BIO-OS CONTROLLER
 # =============================================================================
@@ -718,7 +709,6 @@ class BioOSController:
             "is_robust": self.stoic.is_robust()
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -803,7 +793,6 @@ def validate_bio_os() -> bool:
     assert "chronic_suffering" in diag
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Bio-OS Control Loops...")

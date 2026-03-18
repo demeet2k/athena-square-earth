@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - HELLENIC COMPUTATION FRAMEWORK
 ==========================================
@@ -39,7 +43,6 @@ import numpy as np
 from abc import ABC, abstractmethod
 
 from .foundation import StateVector, Klein4Op
-
 
 # =============================================================================
 # THE DICHOTOMY OF CONTROL
@@ -90,7 +93,6 @@ class ControlDomain(Enum):
         """Is this in our control? (eph' hēmin)"""
         return self.is_internal
 
-
 @dataclass
 class Impression:
     """
@@ -116,7 +118,6 @@ class Impression:
         """Is this impression about something in our control?"""
         return self.domain.in_our_control()
 
-
 # =============================================================================
 # THE PROHAIRESIS (KERNEL SPACE)
 # =============================================================================
@@ -127,7 +128,6 @@ class AssentState(Enum):
     WITHHELD = 0     # ἐποχή - suspension
     ASSENT = 1       # συγκατάθεσις - assent
     DISSENT = 2      # Not formal Stoic term, but useful
-
 
 @dataclass
 class Prohairesis:
@@ -219,7 +219,6 @@ class Prohairesis:
             self.impressions_queue.clear()
             self.restore_tranquility(0.1)
 
-
 # =============================================================================
 # THE PNEUMATIC FIELD
 # =============================================================================
@@ -243,7 +242,6 @@ class PneumaTension(Enum):
     
     def __lt__(self, other: PneumaTension) -> bool:
         return self.level < other.level
-
 
 @dataclass
 class PneumaField:
@@ -298,7 +296,6 @@ class PneumaField:
         
         return intensity_match / (1 + tension_diff)
 
-
 # =============================================================================
 # THE PASSIONS AND VIRTUES
 # =============================================================================
@@ -330,7 +327,6 @@ class Passion(Enum):
             1 if self.is_future else 0
         )
 
-
 class Eupathos(Enum):
     """
     The three good emotions (εὐπάθειαι) - rational alternatives to passions.
@@ -347,7 +343,6 @@ class Eupathos(Enum):
         self._name = name
         self.greek = greek
         self.replaces = replaces
-
 
 class Virtue(Enum):
     """
@@ -375,7 +370,6 @@ class Virtue(Enum):
             Virtue.TEMPERANCE: StateVector(1, 1),
         }
         return mapping[self]
-
 
 # =============================================================================
 # THE STOIC KERNEL
@@ -517,7 +511,6 @@ class StoicKernel:
             "pneuma_tension": self.pneuma.tension.value[0],
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -586,7 +579,6 @@ def validate_stoicism() -> bool:
     assert status["ataraxia"] > 0.5
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Stoic Control Kernel Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - FLOWERS Module (Wave-Side Modes)             ║
@@ -43,7 +47,6 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 @dataclass
 class NodalPattern:
     """
@@ -67,7 +70,6 @@ class NodalPattern:
                 f"{self.symmetry_order}-fold symmetry, "
                 f"λ = {self.eigenvalue:.4f}")
 
-
 class FlowerMode(ABC):
     """Abstract base class for standing wave modes (flowers)."""
     
@@ -84,7 +86,6 @@ class FlowerMode(ABC):
     def sample_on_grid(self, n: int) -> NDArray:
         """Sample mode on n×n grid."""
         pass
-
 
 class RoseCurve(FlowerMode):
     """
@@ -135,7 +136,6 @@ class RoseCurve(FlowerMode):
         X, Y = np.meshgrid(x, y)
         return self.evaluate_cartesian(X, Y)
 
-
 class SphericalHarmonic(FlowerMode):
     """
     Spherical harmonic Y_l^m on the unit sphere.
@@ -174,7 +174,6 @@ class SphericalHarmonic(FlowerMode):
         phi = np.linspace(0, 2*np.pi, n)
         THETA, PHI = np.meshgrid(theta, phi)
         return self.evaluate(THETA, PHI)
-
 
 class LaplacianEigenfunction(FlowerMode):
     """
@@ -222,7 +221,6 @@ class LaplacianEigenfunction(FlowerMode):
         X, Y = np.meshgrid(x, y)
         return self.evaluate(X, Y)
 
-
 @dataclass
 class FlowerSampling:
     """
@@ -244,7 +242,6 @@ class FlowerSampling:
             return np.ones_like(self.values, dtype=bool)
         return np.abs(self.values) < threshold * max_val
 
-
 @dataclass
 class PetalDecomposition:
     """
@@ -259,7 +256,6 @@ class PetalDecomposition:
     def petal_mask(self, petal_idx: int) -> NDArray[np.bool_]:
         """Return mask for specific petal."""
         return self.labels == petal_idx
-
 
 class FlowerEncoder:
     """
@@ -395,7 +391,6 @@ class FlowerEncoder:
         
         return diversity_sum / n_windows
 
-
 class FlowerGenerator:
     """
     Generate flower modes with specified properties.
@@ -430,7 +425,6 @@ class FlowerGenerator:
                 result += w * values
         
         return result
-
 
 class SeedFlowerBridge:
     """
@@ -507,14 +501,12 @@ class SeedFlowerBridge:
             'nodal_pattern': flower.nodal_pattern(),
         }
 
-
 def create_tetradic_flower(n_petals: int = 4) -> FlowerMode:
     """
     Create a flower with tetradic (4-fold) symmetry.
     """
     k = n_petals if n_petals % 2 == 1 else n_petals // 2
     return RoseCurve(k=k)
-
 
 def analyze_flower_spectrum(
     modes: List[FlowerMode],

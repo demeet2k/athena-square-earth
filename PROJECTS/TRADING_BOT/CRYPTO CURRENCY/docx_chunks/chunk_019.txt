@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A5:S18 | face=F | node=319 | depth=1 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A5:S17→Xi108:W3:A5:S19→Xi108:W2:A5:S18→Xi108:W3:A4:S18→Xi108:W3:A6:S18
+
  matrix + migration tools
 A container ecosystem MUST include:
 A compatibility matrix: which decoder/harness versions can accept which container schema versions
@@ -364,7 +368,6 @@ REF.payload := {
   overlay_version: hash,
   constraints: { ... }  // MUST be derivable, not editorial
 }
-
 
 19.2.2 ORBIT_NEXT (chapter orbit)
 Purpose: define the default “forward motion” through stations, across chapters, without prose scanning.

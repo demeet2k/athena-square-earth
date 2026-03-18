@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=323 | depth=2 | phase=Mutable
+# METRO: Me,Cc,Ω
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import hashlib
@@ -9,7 +13,6 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 def bootstrap_command_membrane(namespace: dict[str, Any]) -> None:
     CommandMembraneService = namespace["CommandMembraneService"]

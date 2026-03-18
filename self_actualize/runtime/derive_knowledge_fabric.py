@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=441 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import hashlib
@@ -18,7 +22,6 @@ from self_actualize.runtime.knowledge_fabric_contracts import (
     StorageZoneRecord,
 )
 from self_actualize.runtime.knowledge_fabric_query_engine import run_shortcut, summarize_route
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -245,24 +248,19 @@ CODE_EXTENSIONS = {
 DATA_EXTENSIONS = {".json", ".yaml", ".yml", ".csv", ".toml", ".xml", ".ini"}
 MANUSCRIPT_EXTENSIONS = {".md", ".txt", ".rtf"}
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_json(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
-
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
@@ -270,23 +268,18 @@ def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
 
-
 def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
-
 
 def normalize_path(relative_path: str) -> str:
     return relative_path.replace("/", "\\")
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def parse_docs_gate(markdown: str) -> str:
     match = re.search(r"Command status: `([^`]+)`", markdown)
     return match.group(1) if match else "UNKNOWN"
-
 
 def parse_root_basis(markdown: str) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
@@ -313,7 +306,6 @@ def parse_root_basis(markdown: str) -> List[Dict[str, Any]]:
         )
     return rows
 
-
 def build_root_lookup(root_rows: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
     lookup = {row["root_name"]: row for row in root_rows}
     lookup[".claude"] = {
@@ -336,7 +328,6 @@ def build_root_lookup(root_rows: List[Dict[str, Any]]) -> Dict[str, Dict[str, An
     }
     return lookup
 
-
 def parse_timestamp(value: str) -> datetime | None:
     if not value:
         return None
@@ -344,7 +335,6 @@ def parse_timestamp(value: str) -> datetime | None:
         return datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError:
         return None
-
 
 def freshness_from_timestamp(value: str) -> Dict[str, Any]:
     stamp = parse_timestamp(value)
@@ -368,10 +358,8 @@ def freshness_from_timestamp(value: str) -> Dict[str, Any]:
         score = 0.22
     return {"score": round(score, 3), "band": band, "days_old": round(days_old, 1)}
 
-
 def text_extractable_for_extension(extension: str) -> bool:
     return extension.lower() not in MEDIA_EXTENSIONS or extension.lower() == ".pdf"
-
 
 def title_hint_from_record(relative_path: str, atlas_record: Dict[str, Any] | None) -> str:
     if atlas_record:
@@ -380,7 +368,6 @@ def title_hint_from_record(relative_path: str, atlas_record: Dict[str, Any] | No
             return str(candidates[0]).strip()
     stem = Path(relative_path.split("::")[-1]).stem
     return stem.replace("_", " ").replace("-", " ").strip() or relative_path
-
 
 def determine_generated_path(lower_rel: str) -> bool:
     generated_tokens = [
@@ -398,7 +385,6 @@ def determine_generated_path(lower_rel: str) -> bool:
     ]
     return lower_rel.startswith("self_actualize\\") and any(token in lower_rel for token in generated_tokens)
 
-
 def determine_root(relative_path: str, root_lookup: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
     top_level = normalize_path(relative_path).split("\\", 1)[0]
     row = root_lookup.get(top_level)
@@ -410,7 +396,6 @@ def determine_root(relative_path: str, root_lookup: Dict[str, Dict[str, Any]]) -
         "root_status": "local",
         "current_role": "unclassified-local",
     }
-
 
 def determine_family_id(relative_path: str) -> str:
     parts = normalize_path(relative_path).split("\\")
@@ -440,7 +425,6 @@ def determine_family_id(relative_path: str) -> str:
     if len(parts) >= 2:
         return parts[1]
     return parts[0]
-
 
 def determine_zone(
     relative_path: str,
@@ -491,7 +475,6 @@ def determine_zone(
         return "ReserveQuarantine"
     return "Cortex"
 
-
 def determine_secondary_zones(source_substrate: str, primary_zone: str) -> List[str]:
     secondary: List[str] = []
     if source_substrate == "indexed" and primary_zone != "CorpusAtlas":
@@ -499,7 +482,6 @@ def determine_secondary_zones(source_substrate: str, primary_zone: str) -> List[
     if source_substrate == "archive" and primary_zone != "ArchiveAtlas":
         secondary.append("ArchiveAtlas")
     return secondary
-
 
 def determine_artifact_class(relative_path: str, extension: str, source_substrate: str) -> str:
     rel = normalize_path(relative_path).lower()
@@ -528,7 +510,6 @@ def determine_artifact_class(relative_path: str, extension: str, source_substrat
         return "manuscript"
     return "data"
 
-
 def determine_surface_class(relative_path: str, zone: str, artifact_class: str) -> str:
     rel = normalize_path(relative_path).lower()
     name = Path(relative_path.split("::")[-1]).name.lower()
@@ -555,7 +536,6 @@ def determine_surface_class(relative_path: str, zone: str, artifact_class: str) 
     if artifact_class == "manifest":
         return "registry"
     return "overview"
-
 
 def determine_authority_surface(relative_path: str, zone: str, root_name: str) -> str:
     rel = normalize_path(relative_path).lower()
@@ -585,7 +565,6 @@ def determine_authority_surface(relative_path: str, zone: str, root_name: str) -
         return str(NERVOUS_SYSTEM_ROOT / "00_INDEX.md")
     return str(NERVOUS_SYSTEM_ROOT / "00_INDEX.md")
 
-
 def determine_authority_rank(zone: str) -> int:
     if zone == "Cortex":
         return 5
@@ -596,7 +575,6 @@ def determine_authority_rank(zone: str) -> int:
     if zone in {"BoardScope", "PromotedSlice"}:
         return 2
     return 1
-
 
 def determine_witness_class(relative_path: str, source_substrate: str) -> str:
     rel = normalize_path(relative_path).lower()
@@ -611,7 +589,6 @@ def determine_witness_class(relative_path: str, source_substrate: str) -> str:
     if source_substrate == "physical":
         return "physical"
     return "indexed"
-
 
 def determine_truth_role(
     source_substrate: str,
@@ -638,7 +615,6 @@ def determine_truth_role(
         return "reserve"
     return "source"
 
-
 def determine_semantic_role(
     zone: str,
     artifact_class: str,
@@ -664,7 +640,6 @@ def determine_semantic_role(
         return "publication"
     return "support"
 
-
 def determine_replay_class(
     artifact_class: str,
     source_substrate: str,
@@ -680,7 +655,6 @@ def determine_replay_class(
         return "replay-partial"
     return "replay-safe"
 
-
 def determine_proof_state(witness_class: str, authority_rank: int, zone: str) -> str:
     if zone == "ReserveQuarantine" and witness_class in {"physical", "board"}:
         return "AMBIG"
@@ -691,7 +665,6 @@ def determine_proof_state(witness_class: str, authority_rank: int, zone: str) ->
     if witness_class == "physical":
         return "AMBIG"
     return "FAIL"
-
 
 def build_query_tags(
     relative_path: str,
@@ -741,7 +714,6 @@ def build_query_tags(
             tags.add(tag)
     tags.discard("")
     return sorted(tags)
-
 
 def build_fabric_record(
     relative_path: str,
@@ -833,7 +805,6 @@ def build_fabric_record(
         note=note,
     )
 
-
 def scan_physical_paths(ignore_dirs: Iterable[str]) -> List[Path]:
     ignore = set(ignore_dirs)
     paths: List[Path] = []
@@ -856,7 +827,6 @@ def scan_physical_paths(ignore_dirs: Iterable[str]) -> List[Path]:
         for filename in filenames:
             paths.append(Path(root) / filename)
     return paths
-
 
 def build_zone_registry() -> List[StorageZoneRecord]:
     specs = [
@@ -1018,7 +988,6 @@ def build_zone_registry() -> List[StorageZoneRecord]:
         ) in specs
     ]
 
-
 def build_authority_registry(zones: List[StorageZoneRecord]) -> List[Dict[str, Any]]:
     registry: List[Dict[str, Any]] = []
     for zone in zones:
@@ -1034,7 +1003,6 @@ def build_authority_registry(zones: List[StorageZoneRecord]) -> List[Dict[str, A
             }
         )
     return registry
-
 
 def build_shortcuts() -> List[ShortcutPlanRecord]:
     specs = [
@@ -1167,7 +1135,6 @@ def build_shortcuts() -> List[ShortcutPlanRecord]:
         ) in specs
     ]
 
-
 def build_generated_output_records(
     root_lookup: Dict[str, Dict[str, Any]],
     board_source_rel: str,
@@ -1223,7 +1190,6 @@ def build_generated_output_records(
             )
         )
     return records
-
 
 def build_records(
     corpus_atlas: Dict[str, Any],
@@ -1294,7 +1260,6 @@ def build_records(
             records.append(record)
     return records
 
-
 def build_top_entry_records(records: List[FabricRecord], shortcuts: List[ShortcutPlanRecord]) -> List[Dict[str, Any]]:
     synth = run_shortcut(
         {item.shortcut_id: item.to_dict() for item in shortcuts}["KF-S04"],
@@ -1316,7 +1281,6 @@ def build_top_entry_records(records: List[FabricRecord], shortcuts: List[Shortcu
         }
         for item in synth["matches"]
     ]
-
 
 def build_edges(
     records: List[FabricRecord],
@@ -1500,7 +1464,6 @@ def build_edges(
         edge_index += 1
     return edges
 
-
 def build_packets(
     records: List[FabricRecord],
     shortcuts: List[ShortcutPlanRecord],
@@ -1552,7 +1515,6 @@ def build_packets(
         )
     return packets
 
-
 def build_zone_health(records: List[FabricRecord], zones: List[StorageZoneRecord]) -> List[Dict[str, Any]]:
     grouped: Dict[str, List[FabricRecord]] = defaultdict(list)
     for record in records:
@@ -1569,7 +1531,6 @@ def build_zone_health(records: List[FabricRecord], zones: List[StorageZoneRecord
             state = "WATCH"
         rows.append({"zone_name": zone.zone_name, "record_count": len(items), "generated_count": sum(1 for item in items if item.witness_class == "generated"), "archive_count": sum(1 for item in items if item.witness_class == "archive"), "physical_count": sum(1 for item in items if item.witness_class == "physical"), "stale_count": stale, "ambiguous_count": ambiguous, "state": state})
     return rows
-
 
 def build_dashboard(records: List[FabricRecord], edges: List[FabricEdge], zones: List[StorageZoneRecord], packets: List[ExplorationPacketRecord], top_entries: List[Dict[str, Any]], docs_gate: str) -> KnowledgeFabricDashboard:
     zone_health = build_zone_health(records, zones)
@@ -1620,7 +1581,6 @@ def build_dashboard(records: List[FabricRecord], edges: List[FabricEdge], zones:
         ],
     )
 
-
 def render_schema_markdown(zones: List[StorageZoneRecord], authority_registry: List[Dict[str, Any]]) -> str:
     zone_table = markdown_table(["Zone", "Purpose", "Authority Surface", "Witness Floor"], [[zone.zone_name, zone.purpose, zone.authority_surface, zone.witness_floor] for zone in zones])
     authority_table = markdown_table(["Authority", "Zone", "Rank", "Witness Floor"], [[item["authority_id"], item["zone_name"], str(item["authority_rank"]), item["witness_floor"]] for item in authority_registry])
@@ -1656,7 +1616,6 @@ Weighted ranking only begins after deterministic filtering.
 
 {authority_table}
 """
-
 
 def render_overview_markdown(dashboard: KnowledgeFabricDashboard) -> str:
     return f"""# Phase 4 Knowledge Fabric
@@ -1699,16 +1658,13 @@ The Knowledge Fabric is the layer that answers what kind of information lives wh
 - New Phase 4 surfaces currently exist as generated shell and runtime mirrors until the next atlas refresh promotes them into indexed witness.
 """
 
-
 def render_zone_registry_markdown(zones: List[StorageZoneRecord]) -> str:
     table = markdown_table(["Zone", "Purpose", "Authority", "Witness Floor", "Query Methods"], [[zone.zone_name, zone.purpose, zone.authority_surface, zone.witness_floor, ", ".join(zone.query_methods)] for zone in zones])
     return f"# Storage Zone Registry\n\nDate: `{utc_now()[:10]}`\nDerivation version: `{DERIVATION_VERSION}`\n\nThis manifest is the canonical answer to `what information is stored where`.\n\n{table}\n"
 
-
 def render_zone_atlas_markdown(zone_health: List[Dict[str, Any]]) -> str:
     table = markdown_table(["Zone", "Records", "Generated", "Archive", "Physical", "Stale", "Ambiguous", "State"], [[row["zone_name"], str(row["record_count"]), str(row["generated_count"]), str(row["archive_count"]), str(row["physical_count"]), str(row["stale_count"]), str(row["ambiguous_count"]), row["state"]] for row in zone_health])
     return f"# Storage Zone Atlas\n\nDate: `{utc_now()[:10]}`\nDerivation version: `{DERIVATION_VERSION}`\n\n{table}\n"
-
 
 def render_class_map_markdown(authority_registry: List[Dict[str, Any]]) -> str:
     surface_table = markdown_table(["Surface Class", "Meaning"], [[row["surface_class"], row["note"]] for row in SURFACE_CLASS_REGISTRY])
@@ -1717,7 +1673,6 @@ def render_class_map_markdown(authority_registry: List[Dict[str, Any]]) -> str:
     replay_table = markdown_table(["Replay Class", "Meaning"], [[row["replay_class"], row["note"]] for row in REPLAY_CLASS_REGISTRY])
     authority_table = markdown_table(["Authority", "Zone", "Rank", "Witness Floor"], [[row["authority_id"], row["zone_name"], str(row["authority_rank"]), row["witness_floor"]] for row in authority_registry])
     return f"# Record Class And Surface Class Map\n\n## Surface Classes\n\n{surface_table}\n\n## Artifact Classes\n\n{artifact_table}\n\n## Truth Roles\n\n{truth_table}\n\n## Replay Classes\n\n{replay_table}\n\n## Authority And Witness\n\n{authority_table}\n"
-
 
 def render_dashboard_markdown(dashboard: KnowledgeFabricDashboard) -> str:
     validation_lines = "\n".join(f"- `{key}`: `{value}`" for key, value in dashboard.validations.items())
@@ -1767,10 +1722,8 @@ Fabric scope: `{dashboard.canonical_scope}`
 {ambiguous_table}
 """
 
-
 def render_where_information_lives(zones: List[StorageZoneRecord]) -> str:
     return "# Where Information Lives\n\n" + "\n".join(f"- `{zone.zone_name}`: {zone.purpose} Authority: `{zone.authority_surface}`. Witness floor: `{zone.witness_floor}`." for zone in zones) + "\n"
-
 
 def render_thinking_markdown(shortcuts: List[ShortcutPlanRecord]) -> str:
     table = markdown_table(["Shortcut", "Intent", "Preferred Zones", "Ranking Stack", "Stop Condition"], [[shortcut.title, shortcut.intent_class, ", ".join(shortcut.preferred_zones), ", ".join(shortcut.ranking_stack), shortcut.stop_condition] for shortcut in shortcuts])
@@ -1788,11 +1741,9 @@ It begins from a shortcut, then uses deterministic filters before weighted ranki
 {table}
 """
 
-
 def render_top_entry_markdown(entries: List[Dict[str, Any]]) -> str:
     table = markdown_table(["Title", "Path", "Zone", "Witness", "Score"], [[entry["title_hint"], entry["relative_path"], entry["storage_zone"], entry["witness_class"], f"{entry['score']:.4f}"] for entry in entries])
     return f"# Knowledge Fabric Top Entry Records\n\n{table}\n"
-
 
 def render_runbook_markdown(packets: List[ExplorationPacketRecord]) -> str:
     table = markdown_table(["Packet", "Intent", "Traversal Mode", "Visited Zones", "Result", "Route Summary"], [[packet.packet_id, packet.query_intent, packet.traversal_mode, ", ".join(packet.visited_zones), packet.result_class, packet.route_summary] for packet in packets])
@@ -1814,7 +1765,6 @@ Derivation version: `{DERIVATION_VERSION}`
 
 {table}
 """
-
 
 def render_readiness_markdown(dashboard: KnowledgeFabricDashboard) -> str:
     next_lines = "\n".join(f"- {item}" for item in dashboard.next_frontier)
@@ -1845,13 +1795,11 @@ Verdict: `OK`
 {next_lines}
 """
 
-
 def render_edge_ledger_markdown(edges: List[FabricEdge]) -> str:
     counts = Counter(edge.edge_kind for edge in edges)
     count_table = markdown_table(["Edge Kind", "Count"], [[kind, str(count)] for kind, count in sorted(counts.items())])
     sample_table = markdown_table(["Source", "Target", "Kind", "Reason"], [[edge.source_record, edge.target_record, edge.edge_kind, edge.bridge_reason] for edge in edges[:12]])
     return f"# Knowledge Fabric Edge Ledger\n\n## Edge Counts\n\n{count_table}\n\n## Sample Edges\n\n{sample_table}\n"
-
 
 def render_runtime_markdown(dashboard: KnowledgeFabricDashboard) -> str:
     top = dashboard.top_entry_records[0] if dashboard.top_entry_records else {}
@@ -1883,12 +1831,10 @@ python -m self_actualize.runtime.derive_knowledge_fabric
 ```
 """
 
-
 def render_receipt_markdown(dashboard: KnowledgeFabricDashboard) -> str:
     outputs = [ZONE_REGISTRY_JSON_PATH, SURFACE_CLASS_JSON_PATH, ARTIFACT_CLASS_JSON_PATH, TRUTH_ROLE_JSON_PATH, REPLAY_CLASS_JSON_PATH, AUTHORITY_WITNESS_JSON_PATH, RECORDS_JSON_PATH, EDGES_JSON_PATH, SHORTCUTS_JSON_PATH, PACKETS_JSON_PATH, TOP_ENTRY_JSON_PATH, DASHBOARD_JSON_PATH, SCHEMA_MD_PATH, OVERVIEW_MD_PATH, ZONE_REGISTRY_MD_PATH, ZONE_ATLAS_MD_PATH, CLASS_MAP_MD_PATH, DASHBOARD_MD_PATH, WHERE_INFO_MD_PATH, THINKING_MD_PATH, TOP_ENTRY_MD_PATH, RUNBOOK_MD_PATH, READINESS_MD_PATH, EDGE_LEDGER_MD_PATH, RUNTIME_MD_PATH]
     output_lines = "\n".join(f"- `{path}`" for path in outputs)
     return f"# Knowledge Fabric Derivation Receipt\n\n- Generated: `{dashboard.generated_at}`\n- Command: `{DERIVATION_COMMAND}`\n- Docs gate: `{dashboard.docs_gate}`\n\n## Outputs\n\n{output_lines}\n"
-
 
 def main() -> int:
     docs_gate = parse_docs_gate(DOCS_GATE_PATH.read_text(encoding="utf-8"))
@@ -1953,7 +1899,6 @@ def main() -> int:
     print(f"Wrote {DASHBOARD_MD_PATH}")
     print(f"Wrote {RUNTIME_MD_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

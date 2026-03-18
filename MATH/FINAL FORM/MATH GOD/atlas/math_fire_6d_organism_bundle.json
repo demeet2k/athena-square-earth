@@ -1,4 +1,24 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A12:S17:u150:Su:S:d1",
+    "shell": 17,
+    "wreath": 1,
+    "archetype": 12,
+    "face": "S",
+    "node_id": 150,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A12:S16",
+      "Xi108:W1:A12:S18",
+      "Xi108:W2:A12:S17",
+      "Xi108:W1:A11:S17"
+    ],
+    "regenerate": "shell 17±1, wreath 1/3, archetype 12/12"
+  },
   "generated_at": "2026-03-13T12:57:06",
   "docs_gate_status": "BLOCKED",
   "scope": "C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM",
@@ -597,8 +617,8 @@
       "matched_tesseract_records": [
         {
           "record_id": "8a7439477e7579036c18d801",
-          "global_addr": "Ms\u27e80230\u27e9::Ch02\u27e80001\u27e9.S1.a",
-          "chapter_station": "Ch02\u27e80001\u27e9",
+          "global_addr": "Ms⟨0230⟩::Ch02⟨0001⟩.S1.a",
+          "chapter_station": "Ch02⟨0001⟩",
           "truth_state": "OK",
           "relative_path": "The Crystal\\Quantum Computing on Standard Hardware.docx"
         }
@@ -920,8 +940,8 @@
       "matched_tesseract_records": [
         {
           "record_id": "e685629a1b4a1562aeaa3d3a",
-          "global_addr": "Ms\u27e83311\u27e9::Ch18\u27e80101\u27e9.S1.b",
-          "chapter_station": "Ch18\u27e80101\u27e9",
+          "global_addr": "Ms⟨3311⟩::Ch18⟨0101⟩.S1.b",
+          "chapter_station": "Ch18⟨0101⟩",
           "truth_state": "OK",
           "relative_path": "The Crystal\\Crystal Computing\\ZERO-POINT COMPUTING.docx"
         }

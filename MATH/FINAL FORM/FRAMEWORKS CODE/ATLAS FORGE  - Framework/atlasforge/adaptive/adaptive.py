@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                 ATLAS FORGE - Adaptive Hybridization Framework                ║
@@ -34,7 +38,6 @@ from atlasforge.diagnosis.diagnosis import (
     STRATEGY_CONFIGS, predict_best_strategy
 )
 
-
 class Budget(Enum):
     """Computational budget levels."""
     TINY = "tiny"         # < 100 evaluations
@@ -42,7 +45,6 @@ class Budget(Enum):
     MEDIUM = "medium"     # < 10000 evaluations
     LARGE = "large"       # < 100000 evaluations
     UNLIMITED = "unlimited"
-
 
 @dataclass
 class HybridWeights:
@@ -89,7 +91,6 @@ class HybridWeights:
     def stochastic_dominant(cls) -> 'HybridWeights':
         return cls(psi=0.0, omega=0.10, sigma=0.50, d=0.40)
 
-
 @dataclass
 class HybridResult:
     """Result from hybrid optimization."""
@@ -106,7 +107,6 @@ class HybridResult:
         return (f"HybridResult(value={self.objective_value:.6f}, "
                 f"strategy='{self.strategy}', iters={self.iterations})")
 
-
 @dataclass
 class StrategyTestResult:
     """Result of testing a single strategy."""
@@ -117,7 +117,6 @@ class StrategyTestResult:
     best_objective: float
     n_trials: int
     solutions: List[NDArray] = field(default_factory=list)
-
 
 class HybridOperator:
     """
@@ -224,7 +223,6 @@ class HybridOperator:
             grad[i] = (self.objective(x_plus) - f_x) / eps
         
         return grad
-
 
 class AdaptiveHybridSolver:
     """
@@ -430,7 +428,6 @@ class AdaptiveHybridSolver:
             convergence_history=history,
         )
 
-
 class StrategyTournament:
     """
     Tournament for comparing multiple strategies on a problem.
@@ -522,7 +519,6 @@ class StrategyTournament:
         lines.append("═" * 70)
         
         return "\n".join(lines)
-
 
 # Convenience function
 def adaptive_solve(

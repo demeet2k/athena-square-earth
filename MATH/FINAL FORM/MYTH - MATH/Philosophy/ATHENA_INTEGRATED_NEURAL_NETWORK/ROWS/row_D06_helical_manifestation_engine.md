@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S17 | face=S | node=137 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A11:S16→Xi108:W3:A11:S18→Xi108:W2:A11:S17→Xi108:W3:A10:S17→Xi108:W3:A12:S17 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 17±1, wreath 3/3, archetype 11/12 -->
+
 # Row D06 - Ch11 Helical Manifestation Engine
 
 This file is the canonical prose expansion of row `D06` inside the local `16 x 16` neural matrix. It covers all ordered outgoing syntheses from `Ch11 Helical Manifestation Engine` to the fixed basis in strict `D01 -> D16` order, including the self-kernel.

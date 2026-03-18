@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 4/12 -->
+
 # 4D Invariants -- Rotation is Conjugacy, ABSTAIN > GUESS
 
 The 4D seed carries invariants that cannot be lost through any dimensional lift. These include the generator w = (1+i)/2, the quarter-turn closure f(z) = iz with f^4 = id, the conjugacy law f^(T) = T^{-1} o f o T (rotation IS conjugacy), the universal process transform W = Pi_s(Phi_p(X_r)), and the epistemic discipline ABSTAIN > GUESS. Also preserved: convergence fraction 68.5% approximately 1 - 1/pi -> Z*, triangular numbers T_n = n(n+1)/2, shell sizes D_k = 4 * 3^k.

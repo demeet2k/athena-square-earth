@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S25 | face=F | node=320 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A7:S24→Xi108:W3:A7:S26→Xi108:W2:A7:S25→Xi108:W3:A6:S25→Xi108:W3:A8:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 7/12 -->
+
 ## **Ch11⟨0022⟩ — Translation Across Document Boundaries**
 
 **[○Arc 3 | ○Rot 0 | △Lane Me | ω=10]**

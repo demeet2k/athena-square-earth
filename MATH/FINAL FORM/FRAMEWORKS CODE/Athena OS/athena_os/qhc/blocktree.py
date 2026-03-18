@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=81 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - Quantum Holography Computing (QHC)
 ==============================================
@@ -31,7 +35,6 @@ from typing import Dict, List, Optional, Tuple, Set, Iterator, Any
 from enum import Enum, auto
 
 from .hilbert import HilbertSpace, StateVector, QubitIndexSet
-
 
 # =============================================================================
 # TREE NODE
@@ -114,7 +117,6 @@ class TreeNode:
     
     def __repr__(self) -> str:
         return f"Node({self.node_id}, qubits={sorted(self.label)})"
-
 
 # =============================================================================
 # BLOCK-TREE
@@ -334,7 +336,6 @@ class BlockTree:
             "is_valid": self.verify_partition() and self.verify_root_coverage()
         }
 
-
 # =============================================================================
 # BIPARTITION
 # =============================================================================
@@ -370,7 +371,6 @@ class Bipartition:
     
     def __repr__(self) -> str:
         return f"{sorted(self.left)} | {sorted(self.right)}"
-
 
 @dataclass
 class BipartitionAnalyzer:
@@ -408,7 +408,6 @@ class BipartitionAnalyzer:
         if not biparts:
             return 0
         return max(self.cut_weight(b) for b in biparts)
-
 
 # =============================================================================
 # PARTITION OPERATIONS
@@ -493,7 +492,6 @@ class PartitionOperations:
         
         return tree
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -538,7 +536,6 @@ def validate_blocktree() -> bool:
     assert len(biparts) > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating QHC Block-Tree Module...")

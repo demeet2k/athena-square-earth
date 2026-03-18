@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # ROTATION 06 (90° CCW): GEOMETRY ← FOUNDATION
 ## ✿.Sa ← □.Sa
 
@@ -74,7 +79,6 @@ Applied: the GEOMETRY's quaternion is multiplied by e^{iπ/4}, rotating the symm
 #### Synthesis (37): GEOMETRY→FOUNDATION
 
 The complete integration: GEOMETRY→FOUNDATION transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of GEOMETRY→FOUNDATION IS GEOMETRY→FOUNDATION.
-
 
 ---
 *GEOMETRY ← FOUNDATION. 90° CCW. Same mode, new lens. φ.*

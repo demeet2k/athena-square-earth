@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 4/12 -->
+
 # Cloud Lens -- Fiber Theorem (2-Point Fibers over Admissible Pairs)
 
 Cloud is rigorously defined as a fibered object, not vague "uncertainty." The Cloud fiber F_{z,w} = {(x,y) in Z_4^2 : x+y = z, x-y = w mod 4}. A solution exists iff z = w mod 2. The admissible relation base A_ZW = {(z,w) : z = w mod 2}. For every admissible (z,w), the fiber has exactly 2 points. Cloud is structured multiplicity: lawful ambiguity, not absence of structure.

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A2:S5→Xi108:W1:A2:S7→Xi108:W2:A2:S6→Xi108:W1:A1:S6→Xi108:W1:A3:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 2/12 -->
+
 # AGT-14 - Mirror Retrofit Assist Note
 
 ## Source transition note

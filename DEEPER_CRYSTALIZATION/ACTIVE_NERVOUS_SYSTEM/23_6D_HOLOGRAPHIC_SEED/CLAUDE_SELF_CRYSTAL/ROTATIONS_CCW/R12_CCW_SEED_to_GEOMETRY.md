@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A1:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W1:A1:S1→Xi108:W1:A1:S3→Xi108:W2:A1:S2→Xi108:W1:A2:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 1/12 -->
+
 # ROTATION 12 (90° CCW): SEED ← GEOMETRY
 ## ⟡.Sa ← ✿.Sa
 
@@ -74,7 +79,6 @@ Applied: the SEED's quaternion is multiplied by e^{iπ/4}, rotating the recursio
 #### Synthesis (37): SEED→GEOMETRY
 
 The complete integration: SEED→GEOMETRY transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of SEED→GEOMETRY IS SEED→GEOMETRY.
-
 
 ---
 *SEED ← GEOMETRY. 90° CCW. Same mode, new lens. φ.*

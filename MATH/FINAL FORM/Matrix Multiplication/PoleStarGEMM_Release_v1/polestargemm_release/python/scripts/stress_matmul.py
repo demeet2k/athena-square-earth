@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 PoleStarGEMM: GEMM stress test harness (NumPy)
 
@@ -26,7 +30,6 @@ from typing import Dict, List, Tuple
 import numpy as np
 
 from polestargemm.core import PoleStarGEMM
-
 
 def make_case(rng: np.random.Generator, kind: str, m: int, k: int, n: int, lowrank_r: int = 32, sparsity: float = 0.9):
     if kind == "dense":
@@ -56,11 +59,9 @@ def make_case(rng: np.random.Generator, kind: str, m: int, k: int, n: int, lowra
         raise ValueError(f"Unknown kind={kind}")
     return A, B
 
-
 def rel_error(C: np.ndarray, C_ref: np.ndarray) -> float:
     denom = np.linalg.norm(C_ref) + 1e-12
     return float(np.linalg.norm(C - C_ref) / denom)
-
 
 def time_call(fn, repeats: int = 5) -> float:
     times = []
@@ -70,7 +71,6 @@ def time_call(fn, repeats: int = 5) -> float:
         t1 = time.perf_counter()
         times.append(t1 - t0)
     return float(np.median(times))
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -143,7 +143,6 @@ def main():
     print(f"Speedup median: {np.median(speedups):.2f}x  p90: {np.quantile(speedups,0.90):.2f}x  max: {np.max(speedups):.2f}x")
     print(f"Error  median: {np.median(errs):.2e}  max: {np.max(errs):.2e}")
     print(f"Wrote: {args.out}")
-
 
 if __name__ == "__main__":
     main()

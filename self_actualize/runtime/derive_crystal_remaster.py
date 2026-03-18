@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S29 | face=F | node=415 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S28→Xi108:W2:A4:S30→Xi108:W1:A4:S29→Xi108:W3:A4:S29→Xi108:W2:A3:S29→Xi108:W2:A5:S29
+
 from __future__ import annotations
 
 import hashlib
@@ -18,7 +22,6 @@ from self_actualize.runtime.dimensional_backplane import (
     apply_dimensional_backplane,
     summarize_backplane,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -219,28 +222,22 @@ RHYTHM_SPEC: List[Tuple[str, str, str, str, str, str]] = [
     ("RH-06", "restart", "Emit the next seed without losing lineage or current truth.", "NERVOUS_SYSTEM\\90_LEDGERS\\35_CRYSTAL_RHYTHM_LEDGER.md", "NERVOUS_SYSTEM\\95_MANIFESTS\\ACTIVE_RUN.md", "next restart seed is explicit"),
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
-
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(read_text(path))
-
 
 def write_json(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
@@ -248,10 +245,8 @@ def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def resolve_first_existing(candidates: Iterable[str]) -> str:
     for candidate in candidates:
@@ -259,11 +254,9 @@ def resolve_first_existing(candidates: Iterable[str]) -> str:
             return candidate
     return next(iter(candidates), "")
 
-
 def parse_docs_gate(markdown: str) -> str:
     match = re.search(r"Command status: `([^`]+)`", markdown)
     return match.group(1) if match else "UNKNOWN"
-
 
 def parse_root_basis(markdown: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     bodies: List[Dict[str, Any]] = []
@@ -288,14 +281,12 @@ def parse_root_basis(markdown: str) -> Tuple[List[Dict[str, Any]], List[Dict[str
                 anchors.append({"root_id": parts[0], "root": parts[1], "indexed_count": int(parts[2]), "status": parts[3], "current_role": parts[4]})
     return bodies, anchors
 
-
 def parse_anchor_list(markdown: str, heading: str) -> List[str]:
     pattern = rf"## {re.escape(heading)}\s+((?:- `[^`]+`\s*)+)"
     match = re.search(pattern, markdown, flags=re.MULTILINE)
     if not match:
         return []
     return re.findall(r"- `([^`]+)`", match.group(1))
-
 
 def build_capsule_anchor_map() -> Dict[str, Dict[str, List[str]]]:
     anchor_map: Dict[str, Dict[str, List[str]]] = {}
@@ -310,7 +301,6 @@ def build_capsule_anchor_map() -> Dict[str, Dict[str, List[str]]]:
                 "appendix_anchors": parse_anchor_list(markdown, "Suggested appendix anchors"),
             }
     return anchor_map
-
 
 def build_body_registry(
     body_rows: List[Dict[str, Any]],
@@ -366,7 +356,6 @@ def build_body_registry(
         interim[body_id]["direct_synapse_targets"] = sorted(direct_targets.get(body_id, []))
     return records, interim
 
-
 def build_family_contracts(
     body_rows: List[Dict[str, Any]],
     bodies_by_id: Dict[str, Dict[str, Any]],
@@ -404,7 +393,6 @@ def build_family_contracts(
         )
     return contracts
 
-
 def build_direct_synapses(
     bodies_by_id: Dict[str, Dict[str, Any]],
 ) -> List[DirectSynapseRecord]:
@@ -436,7 +424,6 @@ def build_direct_synapses(
             )
         )
     return records
-
 
 def build_handoff_packets(
     bodies_by_id: Dict[str, Dict[str, Any]],
@@ -470,7 +457,6 @@ def build_handoff_packets(
         )
     return packets
 
-
 def build_rhythm_steps() -> List[RhythmStepRecord]:
     return [
         RhythmStepRecord(
@@ -485,11 +471,9 @@ def build_rhythm_steps() -> List[RhythmStepRecord]:
         for step_id, phase, purpose, primary_surface, writeback_target, stop_condition in RHYTHM_SPEC
     ]
 
-
 def atlas_contains(relative_path: str, corpus_atlas: Dict[str, Any]) -> bool:
     normalized = relative_path.replace("/", "\\")
     return any(record.get("relative_path") == normalized for record in corpus_atlas.get("records", []))
-
 
 def build_verification(
     bodies: List[CrystalBodyRecord],
@@ -545,7 +529,6 @@ def build_verification(
         "next_restart_seed": "admit -> classify -> interlock -> compile -> writeback -> restart",
     }
 
-
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -555,7 +538,6 @@ def sha256_file(path: Path) -> str:
                 break
             digest.update(chunk)
     return digest.hexdigest()
-
 
 def atlas_kind_for_path(path: Path) -> str:
     extension = path.suffix.lower()
@@ -571,10 +553,8 @@ def atlas_kind_for_path(path: Path) -> str:
         return "text"
     return "binary"
 
-
 def atlas_text_extractable(path: Path) -> bool:
     return path.suffix.lower() in {".md", ".txt", ".json", ".py", ".toml", ".yaml", ".yml", ".csv", ".ps1", ".sh", ".cmd", ".html"}
-
 
 def atlas_headings(text: str) -> List[str]:
     headings: List[str] = []
@@ -587,7 +567,6 @@ def atlas_headings(text: str) -> List[str]:
         if len(headings) >= 6:
             break
     return headings
-
 
 def atlas_role_tags(relative_path: str, kind: str) -> List[str]:
     lowered = relative_path.lower().replace("\\", "/")
@@ -615,7 +594,6 @@ def atlas_role_tags(relative_path: str, kind: str) -> List[str]:
         if tag not in unique:
             unique.append(tag)
     return unique
-
 
 def build_atlas_record(path: Path) -> Dict[str, Any]:
     relative_path = relative_string(path)
@@ -657,7 +635,6 @@ def build_atlas_record(path: Path) -> Dict[str, Any]:
     docs_gate_status = parse_docs_gate(read_text(DOCS_GATE_PATH))
     return apply_dimensional_backplane(record, docs_gate_status)
 
-
 def summarize_corpus_atlas(records: List[Dict[str, Any]]) -> Dict[str, Dict[str, int]]:
     by_extension: Dict[str, int] = {}
     by_top_level: Dict[str, int] = {}
@@ -676,7 +653,6 @@ def summarize_corpus_atlas(records: List[Dict[str, Any]]) -> Dict[str, Dict[str,
     }
     summary.update(summarize_backplane(records))
     return summary
-
 
 def refresh_corpus_atlas(paths: List[Path]) -> Dict[str, Any]:
     atlas = load_json(CORPUS_ATLAS_PATH)
@@ -701,7 +677,6 @@ def refresh_corpus_atlas(paths: List[Path]) -> Dict[str, Any]:
     atlas["summary"] = summarize_corpus_atlas(records)
     write_json(CORPUS_ATLAS_PATH, atlas)
     return atlas
-
 
 def render_charter(
     bodies: List[CrystalBodyRecord],
@@ -763,7 +738,6 @@ Every active surface must know:
 - runtime lanes green: `{verification['validations']['runtime_verification_green']}`
 """
 
-
 def render_body_registry(bodies: List[CrystalBodyRecord]) -> str:
     rows = [
         [body.body_id, body.root, body.body_state, body.crystal_role, body.authority, body.dock or "-", body.lineage_class, ", ".join(body.direct_synapse_targets) if body.direct_synapse_targets else "-"]
@@ -773,7 +747,6 @@ def render_body_registry(bodies: List[CrystalBodyRecord]) -> str:
         ["ID", "Root", "State", "Crystal Role", "Authority", "Dock", "Lineage", "Direct Synapses"],
         rows,
     )
-
 
 def render_family_contracts(contracts: List[CrystalFamilyContractRecord]) -> str:
     rows = [
@@ -785,7 +758,6 @@ def render_family_contracts(contracts: List[CrystalFamilyContractRecord]) -> str
         rows,
     )
 
-
 def render_direct_synapses(edges: List[DirectSynapseRecord]) -> str:
     rows = [
         [edge.edge_id, edge.source_root, edge.target_root, edge.relation, f"{edge.weight:.2f}", " -> ".join(edge.route)]
@@ -795,7 +767,6 @@ def render_direct_synapses(edges: List[DirectSynapseRecord]) -> str:
         ["Edge", "Source", "Target", "Relation", "Weight", "Route"],
         rows,
     )
-
 
 def render_handoff_protocol(packets: List[SynapticHandoffPacketRecord]) -> str:
     rows = [
@@ -835,7 +806,6 @@ def render_handoff_protocol(packets: List[SynapticHandoffPacketRecord]) -> str:
         rows,
     )
 
-
 def render_rhythm_ledger(steps: List[RhythmStepRecord]) -> str:
     rows = [
         [step.step_id, step.phase, step.purpose, step.primary_surface, step.writeback_target, step.stop_condition]
@@ -845,7 +815,6 @@ def render_rhythm_ledger(steps: List[RhythmStepRecord]) -> str:
         ["Step", "Phase", "Purpose", "Primary Surface", "Writeback", "Stop Condition"],
         rows,
     )
-
 
 def render_verification(verification: Dict[str, Any]) -> str:
     rows = [[key, str(value)] for key, value in verification["validations"].items()]
@@ -869,7 +838,6 @@ Docs gate: `{verification['docs_gate']}`
 {unresolved}
 """
 
-
 def render_runtime_surface(outputs: Dict[str, str], verification: Dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# crystal_remaster_runtime
@@ -882,7 +850,6 @@ def render_runtime_surface(outputs: Dict[str, str], verification: Dict[str, Any]
 
 {output_lines}
 """
-
 
 def render_receipt(outputs: Dict[str, str], verification: Dict[str, Any], direct_synapses: List[DirectSynapseRecord]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
@@ -917,7 +884,6 @@ def render_receipt(outputs: Dict[str, str], verification: Dict[str, Any], direct
 
 {unresolved}
 """
-
 
 def main() -> int:
     docs_gate = parse_docs_gate(read_text(DOCS_GATE_PATH))
@@ -1058,7 +1024,6 @@ def main() -> int:
     print(f"Runtime lanes green: {verification['validations']['runtime_verification_green']}")
     print(f"Atlas refresh complete: {verification['validations']['atlas_refresh_complete']}")
     return 0 if verification["validations"]["runtime_verification_green"] else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

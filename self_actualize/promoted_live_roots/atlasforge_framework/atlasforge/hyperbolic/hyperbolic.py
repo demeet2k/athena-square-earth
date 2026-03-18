@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=310 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      HYPERBOLIC GEOMETRY MODULE                              ║
@@ -29,7 +33,6 @@ from typing import Optional, Tuple, List, Callable, Union
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # COMPLEX NUMBER UTILITIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -44,7 +47,6 @@ def mobius_transform(z: complex, a: complex, b: complex,
         return complex(float('inf'), 0)
     return (a * z + b) / denom
 
-
 def cross_ratio(z1: complex, z2: complex, z3: complex, z4: complex) -> complex:
     """
     Cross-ratio (z1, z2; z3, z4) = (z1-z3)(z2-z4) / (z1-z4)(z2-z3)
@@ -52,7 +54,6 @@ def cross_ratio(z1: complex, z2: complex, z3: complex, z4: complex) -> complex:
     Invariant under Möbius transformations.
     """
     return ((z1 - z3) * (z2 - z4)) / ((z1 - z4) * (z2 - z3))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POINCARÉ DISK MODEL
@@ -162,7 +163,6 @@ class PoincareDisk:
         """
         return (w - 1j) / (w + 1j)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POINCARÉ HALF-PLANE MODEL
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -241,7 +241,6 @@ class PoincareHalfPlane:
         r = np.sqrt((x1 - c)**2 + y1**2)
         
         return (c, r)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYPERBOLIC ISOMETRIES
@@ -362,7 +361,6 @@ class HyperbolicIsometry:
         """Identity isometry."""
         return cls(1, 0, 0, 1)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYPERBOLIC GEODESIC
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -439,7 +437,6 @@ class HyperbolicGeodesic:
     def sample_points(self, n: int = 50) -> List[complex]:
         """Sample n points along the geodesic."""
         return [self.point_at_parameter(t) for t in np.linspace(0, 1, n)]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYPERBOLIC POLYGON
@@ -533,7 +530,6 @@ class HyperbolicPolygon:
             vertices.append(z)
         return cls(vertices, model)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FUNDAMENTAL DOMAIN
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -595,7 +591,6 @@ class FundamentalDomain:
         
         return z, operations
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY-HYPERBOLIC BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -656,7 +651,6 @@ class GatewayHyperbolicBridge:
             complex(v * sqrt_A, 0), complex(u, 0)
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -665,31 +659,25 @@ def hyperbolic_distance_disk(z1: complex, z2: complex) -> float:
     """Distance in Poincaré disk."""
     return PoincareDisk.distance(z1, z2)
 
-
 def hyperbolic_distance_halfplane(z1: complex, z2: complex) -> float:
     """Distance in upper half-plane."""
     return PoincareHalfPlane.distance(z1, z2)
-
 
 def disk_to_halfplane(z: complex) -> complex:
     """Cayley transform: disk → half-plane."""
     return PoincareDisk.to_half_plane(z)
 
-
 def halfplane_to_disk(w: complex) -> complex:
     """Inverse Cayley: half-plane → disk."""
     return PoincareDisk.from_half_plane(w)
-
 
 def hyperbolic_midpoint(z1: complex, z2: complex) -> complex:
     """Midpoint in disk model."""
     return PoincareDisk.geodesic_midpoint(z1, z2)
 
-
 def classify_isometry(M: HyperbolicIsometry) -> str:
     """Classify isometry type."""
     return M.isometry_type
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A12:S36 | face=S | node=666 | depth=2 | phase=Mutable
+# METRO: Sa,Me,Ω
+# BRIDGES: Xi108:W2:A12:S35→Xi108:W1:A12:S36→Xi108:W3:A12:S36→Xi108:W2:A11:S36
+
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 if str(WORKSPACE_ROOT) not in sys.path:
@@ -23,11 +26,9 @@ from self_actualize.runtime.lp57omega_b_prime_support import (  # noqa: E402
 )
 from self_actualize.runtime.hemisphere_brain_support import utc_now  # noqa: E402
 
-
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def main() -> int:
     expected = build_b_prime_registry()
@@ -99,7 +100,6 @@ def main() -> int:
     write_json(B_PRIME_MANIFEST_REPORT_PATH, report)
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

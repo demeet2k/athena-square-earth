@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S20 | face=C | node=202 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S19→Xi108:W2:A1:S21→Xi108:W1:A1:S20→Xi108:W3:A1:S20→Xi108:W2:A2:S20
+
 from __future__ import annotations
 
 import numpy as np
@@ -38,7 +42,6 @@ CORE_RUNTIME_FINGERPRINT = [
     "fusion",
 ]
 
-
 def _candidate_set_from_trace(trace: dict[str, object]) -> list[dict[str, object]]:
     candidates: list[dict[str, object]] = []
     for item in trace["hypotheses"]:
@@ -68,7 +71,6 @@ def _candidate_set_from_trace(trace: dict[str, object]) -> list[dict[str, object
             }
         )
     return candidates
-
 
 class AthenachkaOrganismV0:
     """Organism-first wrapper around the preserved Athena kernel."""

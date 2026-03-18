@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=323 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 AtlasForge Installation Verification Script
 
@@ -8,7 +12,6 @@ Run this to verify the framework is correctly installed and functional.
 import sys
 import math
 import tempfile
-
 
 def main():
     print()
@@ -214,7 +217,6 @@ def main():
         print(f"✗ {e}")
         errors.append(("book", str(e)))
 
-
     print()
     print("=" * 60)
     
@@ -227,9 +229,6 @@ def main():
         print("VERIFICATION PASSED: All systems operational!")
         print("=" * 60)
         return 0
-
-
-
 
 if __name__ == "__main__":
     sys.exit(main())

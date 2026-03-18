@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 from datetime import timedelta
@@ -8,7 +12,6 @@ import requests
 from .config import AthenaBotConfig
 from .models import Candle
 from .utils import latest_closed_bar, parse_ts, timeframe_delta, to_iso
-
 
 class MarketDataProvider:
     """Fetch incremental OHLCV data from Binance spot market data."""

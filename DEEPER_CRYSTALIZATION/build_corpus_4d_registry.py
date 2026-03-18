@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 from __future__ import annotations
 
 import argparse
@@ -6,13 +10,11 @@ from pathlib import Path
 
 from corpus_4d_fronts import build_corpus_4d_registry, resolve_path, write_json
 
-
 DEFAULT_WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 DEFAULT_MANIFEST = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_rewrites_manifest.json")
 DEFAULT_AUDIT = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_rewrites_audit.json")
 DEFAULT_ARCHIVE_MANIFEST = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_archive_members_manifest.json")
 DEFAULT_REGISTRY = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_registry.json")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build the consolidated corpus 4D registry.")
@@ -22,7 +24,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--archive-manifest", default=str(DEFAULT_ARCHIVE_MANIFEST))
     parser.add_argument("--registry-out", default=str(DEFAULT_REGISTRY))
     return parser.parse_args()
-
 
 def run(args: argparse.Namespace) -> dict:
     workspace_root = Path(args.workspace_root).resolve()
@@ -34,7 +35,6 @@ def run(args: argparse.Namespace) -> dict:
     write_json(registry_path, registry)
     return registry
 
-
 def main() -> int:
     registry = run(parse_args())
     print(f"Nodes: {registry['summary']['node_count']}")
@@ -42,7 +42,6 @@ def main() -> int:
     print(f"Duplicate groups: {registry['summary']['duplicate_group_count']}")
     print(f"AMBIG archive parents: {registry['summary']['ambig_archive_parent_count']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

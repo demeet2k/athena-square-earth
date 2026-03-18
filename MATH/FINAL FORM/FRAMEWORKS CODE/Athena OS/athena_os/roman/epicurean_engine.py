@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=84 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - ROMAN KERNEL: EPICUREAN ENGINE MODULE
 ==================================================
@@ -48,7 +52,6 @@ from typing import Dict, List, Optional, Any, Tuple
 from enum import Enum
 import numpy as np
 
-
 # =============================================================================
 # ATOMIC PHYSICS ENUMS
 # =============================================================================
@@ -62,14 +65,12 @@ class AtomType(Enum):
     FIRE = "fire"         # Active, transforming
     SOUL = "soul"         # Ultra-fine, animate
 
-
 class MotionType(Enum):
     """Types of atomic motion."""
     
     INERTIAL = "inertial"     # Straight-line default
     COLLISION = "collision"   # Impact with other atoms
     CLINAMEN = "clinamen"     # Spontaneous swerve
-
 
 # =============================================================================
 # DESIRE CLASSIFICATION
@@ -82,7 +83,6 @@ class DesireCategory(Enum):
     NATURAL_UNNECESSARY = "natural_unnecessary" # Can be satisfied
     VAIN = "vain"                               # Should be eliminated
 
-
 class FearType(Enum):
     """Types of irrational fears to eliminate."""
     
@@ -90,7 +90,6 @@ class FearType(Enum):
     DEATH = "death"         # Fear of non-existence
     PAIN = "pain"           # Fear of suffering
     FAILURE = "failure"     # Fear of not achieving goals
-
 
 # =============================================================================
 # ATOMIC STRUCTURES
@@ -136,7 +135,6 @@ class Atom:
     def move(self, dt: float = 1.0) -> None:
         """Move atom according to velocity."""
         self.position += self.velocity * dt
-
 
 @dataclass
 class AtomicAggregate:
@@ -186,7 +184,6 @@ class AtomicAggregate:
         self.is_living = False
         self.has_soul = False
         return atoms
-
 
 # =============================================================================
 # VOID SIMULATION
@@ -245,7 +242,6 @@ class EpicureanVoid:
         """Calculate total kinetic energy."""
         return sum(a.kinetic_energy() for a in self.atoms)
 
-
 # =============================================================================
 # DESIRE AND PLEASURE SYSTEM
 # =============================================================================
@@ -275,7 +271,6 @@ class Desire:
         else:
             return 0.0  # No true value
 
-
 @dataclass
 class Fear:
     """An irrational fear to be eliminated."""
@@ -293,7 +288,6 @@ class Fear:
             FearType.FAILURE: "What is good is easy to obtain; what is terrible is easy to endure"
         }
         return remedies.get(self.fear_type, "Apply reason to dispel fear")
-
 
 # =============================================================================
 # UTILITY FUNCTION
@@ -338,7 +332,6 @@ class PleasurePainState:
     def has_aponia(self) -> bool:
         """Check if agent has achieved aponia (absence of bodily pain)."""
         return self.bodily_pain < 0.1
-
 
 class UtilityOptimizer:
     """
@@ -439,7 +432,6 @@ class UtilityOptimizer:
             "has_ataraxia": state.has_ataraxia(),
             "has_aponia": state.has_aponia()
         }
-
 
 # =============================================================================
 # EPICUREAN ENGINE
@@ -609,7 +601,6 @@ class EpicureanEngine:
             }
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -681,7 +672,6 @@ def validate_epicurean_engine() -> bool:
     assert "teaching" in result
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Epicurean Engine Module...")

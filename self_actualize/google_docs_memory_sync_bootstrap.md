@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S26 | face=F | node=329 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S25→Xi108:W3:A8:S27→Xi108:W2:A8:S26→Xi108:W3:A7:S26→Xi108:W3:A9:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 8/12 -->
+
 # Google Docs Memory Sync Bootstrap
 
 Date: 2026-03-09

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - ARISTOTELIAN PROCESSING UNIT (APU)
 ==============================================
@@ -41,7 +45,6 @@ from typing import Dict, List, Optional, Tuple, Set, Any, Callable
 from enum import Enum, auto
 import re
 
-
 # =============================================================================
 # PROPOSITIONAL TYPES
 # =============================================================================
@@ -53,7 +56,6 @@ class PropositionType(Enum):
     I = auto()  # Particular Affirmative: Some S is P
     O = auto()  # Particular Negative: Some S is not P
 
-
 class ValidationFlag(Enum):
     """Knowledge validation levels."""
     NOUS = auto()       # Root: Non-demonstrable axioms (First Principles)
@@ -61,7 +63,6 @@ class ValidationFlag(Enum):
     TECHNE = auto()     # Applied: Operational code
     DOXA = auto()       # Unverified: Low-confidence perception
     REJECTED = auto()   # Failed validation
-
 
 class FallacyType(Enum):
     """The 13 Sophistical Refutation Patterns."""
@@ -81,7 +82,6 @@ class FallacyType(Enum):
     NON_CAUSA = auto()          # False cause
     MANY_QUESTIONS = auto()     # Complex question
     CONSEQUENT = auto()         # Affirming the consequent
-
 
 # =============================================================================
 # THE PROPOSITIONAL BIT
@@ -147,7 +147,6 @@ class PropositionalBit:
         }
         val = f" [{self.truth_value}]" if self.is_assigned else ""
         return type_str[self.prop_type] + val
-
 
 # =============================================================================
 # THE SYNTAX VALIDATOR
@@ -259,7 +258,6 @@ class SyntaxValidator:
         self.validated_propositions[prop.prop_id] = prop
         return True
 
-
 # =============================================================================
 # THE SQUARE OF OPPOSITION
 # =============================================================================
@@ -321,7 +319,6 @@ class SquareOfOpposition:
         }
         return (universal.prop_type, particular.prop_type) in subaltern_pairs
 
-
 # =============================================================================
 # THE SYLLOGISTIC LINKER
 # =============================================================================
@@ -358,7 +355,6 @@ class Syllogism:
         # Middle term appears in both premises but not conclusion
         middle = major_terms & minor_terms
         return middle.pop() if middle else None
-
 
 class SyllogisticLinker:
     """
@@ -502,7 +498,6 @@ class SyllogisticLinker:
         
         return syl if syl.is_valid else None
 
-
 # =============================================================================
 # FALLACY DETECTOR
 # =============================================================================
@@ -591,7 +586,6 @@ class FallacyDetector:
         
         return found
 
-
 # =============================================================================
 # THE ARISTOTELIAN PROCESSING UNIT
 # =============================================================================
@@ -673,7 +667,6 @@ class AristotelianProcessingUnit:
             "fallacies_detected": len(self.fallacy_detector.detected_fallacies)
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -739,7 +732,6 @@ def validate_aristotelian_processing_unit() -> bool:
     assert stats["axioms"] == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

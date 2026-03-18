@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=409 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 from __future__ import annotations
 
 import hashlib
@@ -31,7 +35,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     slugify,
     utc_now,
 )
-
 
 MATH_LEANING_FAMILIES = {
     "higher-dimensional-geometry",
@@ -68,10 +71,8 @@ MYTH_SYSTEM_DEFAULTS = {
     "civilization-and-governance": "CoreMetro",
 }
 
-
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
-
 
 def unique_strings(values: list[str]) -> list[str]:
     ordered: list[str] = []
@@ -83,7 +84,6 @@ def unique_strings(values: list[str]) -> list[str]:
         ordered.append(value)
     return ordered
 
-
 def parse_iso_timestamp(value: str) -> datetime | None:
     if not value:
         return None
@@ -93,13 +93,11 @@ def parse_iso_timestamp(value: str) -> datetime | None:
         return None
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
-
 def load_list_registry(path: Path, list_key: str) -> list[dict[str, Any]]:
     if not path.exists():
         return []
     payload = load_json(path)
     return list(payload.get(list_key, []))
-
 
 def load_dual_route_runtime() -> dict[str, Any]:
     systems = load_list_registry(PT2_METRO_SYSTEMS_PATH, "systems")
@@ -127,7 +125,6 @@ def load_dual_route_runtime() -> dict[str, Any]:
         "zpoint_tunnels": load_list_registry(ZPOINT_TUNNELS_PATH, "tunnels"),
     }
 
-
 def root_station_for_record(
     record: dict[str, Any],
     station_map: dict[str, dict[str, Any]],
@@ -142,7 +139,6 @@ def root_station_for_record(
             return station
     return station_map.get("self_actualize") or next(iter(station_map.values()), {})
 
-
 def origin_system_from_station(station: dict[str, Any]) -> str:
     hemisphere = station.get("hemisphere", "bilateral")
     if hemisphere == "left":
@@ -151,10 +147,8 @@ def origin_system_from_station(station: dict[str, Any]) -> str:
         return "Mycelial4D"
     return "GrandCentral"
 
-
 def route_role_for_side(record: dict[str, Any], hemisphere: str) -> str:
     return "primary" if record["primary_hemisphere"] == hemisphere else "secondary"
-
 
 def route_mode_for_side(record: dict[str, Any], hemisphere: str) -> str:
     if record["primary_hemisphere"] == hemisphere:
@@ -163,12 +157,10 @@ def route_mode_for_side(record: dict[str, Any], hemisphere: str) -> str:
         return "commissure_direct"
     return "cross_hemisphere_transfer"
 
-
 def grand_central_exchange_for_route(hemisphere: str, route_mode: str) -> str:
     if route_mode == "commissure_direct":
         return "commissure"
     return "GCL" if hemisphere == "MATH" else "GCR"
-
 
 def target_system_for_route(record: dict[str, Any], hemisphere: str, route_role: str) -> str:
     if not record.get("text_extractable"):
@@ -192,7 +184,6 @@ def target_system_for_route(record: dict[str, Any], hemisphere: str, route_role:
     defaults = MATH_SYSTEM_DEFAULTS if hemisphere == "MATH" else MYTH_SYSTEM_DEFAULTS
     return defaults.get(record.get("family", "general-corpus"), "GrandCentral")
 
-
 def interlock_edge_cost(interlock: dict[str, Any]) -> float:
     cost = 10.0 - float(interlock.get("dispatch_score", 7.0))
     if interlock.get("proof_state") != "OK":
@@ -201,7 +192,6 @@ def interlock_edge_cost(interlock: dict[str, Any]) -> float:
     if "historical" in note or "trading bot" in note:
         cost += 0.25
     return round(cost, 6)
-
 
 def build_interlock_graph(interlocks: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
     graph: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -213,7 +203,6 @@ def build_interlock_graph(interlocks: list[dict[str, Any]]) -> dict[str, list[di
             {"next_system": interlock["source_system"], "interlock": interlock, "reversed": True, "cost": interlock_edge_cost(interlock)}
         )
     return graph
-
 
 def pathfind_system_path(origin_system: str, target_system: str, interlocks: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if origin_system == target_system:
@@ -237,7 +226,6 @@ def pathfind_system_path(origin_system: str, target_system: str, interlocks: lis
             heapq.heappush(heap, (next_rank[0], next_rank[1], next_rank[2], edge["next_system"], [*path, edge]))
     return []
 
-
 def extract_station_path(interlock_path: list[dict[str, Any]], target_system: str, runtime: dict[str, Any]) -> list[str]:
     if not interlock_path:
         system = runtime["system_map"].get(target_system, {})
@@ -254,7 +242,6 @@ def extract_station_path(interlock_path: list[dict[str, Any]], target_system: st
                 stations.append(station_id)
     return stations
 
-
 def seed_lens_members(record: dict[str, Any], hemisphere: str, target_system: str, station_path: list[str]) -> list[str]:
     members: list[str] = []
     family = record.get("family", "general-corpus")
@@ -270,7 +257,6 @@ def seed_lens_members(record: dict[str, Any], hemisphere: str, target_system: st
         members.append("R")
     ordered = [member for member in "SFCR" if member in members]
     return ordered or (["S"] if hemisphere == "MATH" else ["F"])
-
 
 def compute_lens_vector(record: dict[str, Any], hemisphere: str, route_role: str, target_system: str, seed_members: list[str], runtime: dict[str, Any]) -> dict[str, float]:
     seed_set = set(seed_members)
@@ -294,7 +280,6 @@ def compute_lens_vector(record: dict[str, Any], hemisphere: str, route_role: str
         vector[lens_id] = round(clamp(score, 0.0, 1.0), 3)
     return vector
 
-
 def base4(value: int, digits: int = 4) -> str:
     if value <= 0:
         return "0".rjust(digits, "0")
@@ -305,10 +290,8 @@ def base4(value: int, digits: int = 4) -> str:
         current //= 4
     return "".join(reversed(chars)).rjust(digits, "0")
 
-
 def stable_index(text: str, modulo: int) -> int:
     return int(hashlib.md5(text.encode("utf-8")).hexdigest()[:8], 16) % modulo
-
 
 def field_vector_for_route(dominant_lens: str, target_system: str, rail3: str, proof_state: str) -> dict[str, float]:
     return {
@@ -319,7 +302,6 @@ def field_vector_for_route(dominant_lens: str, target_system: str, rail3: str, p
         "resonance_pressure": round(clamp(0.42 + (0.18 if "F" in dominant_lens else 0.0) + (0.06 if "C" in dominant_lens else 0.0), 0.0, 1.0), 3),
         "repair_gain": round(clamp(0.39 + (0.16 if "R" in dominant_lens else 0.0) + (0.05 if "S" in dominant_lens else 0.0) + (0.06 if proof_state == "OK" else 0.0), 0.0, 1.0), 3),
     }
-
 
 def field_id_from_vector(field_vector: dict[str, float]) -> str:
     if field_vector["aether_density"] >= 0.78 and field_vector["tunnel_cost"] <= 0.55:
@@ -334,14 +316,12 @@ def field_id_from_vector(field_vector: dict[str, float]) -> str:
         return "RailHardeningBand"
     return "Zero"
 
-
 def geodesic_mode_from_vector(field_vector: dict[str, float]) -> str:
     if field_vector["zero_proximity"] >= 0.64:
         return "z-point tunnel"
     if field_vector["aether_density"] >= 0.72:
         return "aether geodesic"
     return "rail transit"
-
 
 def zpoint_id_for_route(
     record: dict[str, Any],
@@ -364,7 +344,6 @@ def zpoint_id_for_route(
         return "Z2"
     return "Z0"
 
-
 def route_proof_state(record: dict[str, Any], interlock_path: list[dict[str, Any]], route_mode: str) -> str:
     if record.get("truth_state") == "FAIL":
         return "FAIL"
@@ -382,7 +361,6 @@ def route_proof_state(record: dict[str, Any], interlock_path: list[dict[str, Any
         return "NEAR"
     return "OK" if record.get("confidence", 0.0) >= 0.72 else "NEAR"
 
-
 def dynamic_weight_vector(record: dict[str, Any], route_role: str, route_hop_count: int) -> dict[str, float]:
     modified_at = parse_iso_timestamp(record.get("modified_at", ""))
     age_days = (datetime.now(timezone.utc) - modified_at).total_seconds() / 86400.0 if modified_at else 365.0
@@ -396,7 +374,6 @@ def dynamic_weight_vector(record: dict[str, Any], route_role: str, route_hop_cou
         "confidence": round(float(record.get("confidence", 0.0)), 3),
         "replay_value": 1.0 if record.get("tract") == "replay" else round(float(record.get("route_quality", 1.0)), 3),
     }
-
 
 def transform_chain_for_route(
     primary_carrier: str,
@@ -422,7 +399,6 @@ def transform_chain_for_route(
         candidates.append("Nervous")
     return unique_strings(candidates)[:3]
 
-
 def supported_spaces_for_route(
     preferred_space: str,
     route_role: str,
@@ -438,7 +414,6 @@ def supported_spaces_for_route(
     allowed = {item["space_id"] for item in runtime["spaces"]}
     ordered = [space for space in unique_strings([preferred_space, *candidates]) if space in allowed]
     return ordered or [preferred_space]
-
 
 def preferred_space_for_route(
     route_role: str,
@@ -457,7 +432,6 @@ def preferred_space_for_route(
         candidate = "Transit3D"
     allowed = {item["space_id"] for item in runtime["spaces"]}
     return candidate if candidate in allowed else "Transit3D"
-
 
 def pt2_shortcut_for_route(
     profile: dict[str, Any],
@@ -487,7 +461,6 @@ def pt2_shortcut_for_route(
             return shortcut_id
     return next(iter(runtime["pt2_shortcuts"]), "")
 
-
 def knowledge_fabric_shortcut_for_route(
     record: dict[str, Any],
     route_role: str,
@@ -508,7 +481,6 @@ def knowledge_fabric_shortcut_for_route(
         if shortcut_id in runtime["kf_shortcuts"]:
             return shortcut_id
     return next(iter(runtime["kf_shortcuts"]), "")
-
 
 def route_packet_for_side(record: dict[str, Any], hemisphere: str, station_map: dict[str, dict[str, Any]], runtime: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any], dict[str, bool]]:
     route_role = route_role_for_side(record, hemisphere)
@@ -672,7 +644,6 @@ def route_packet_for_side(record: dict[str, Any], hemisphere: str, station_map: 
         "tesseract": bool(route_packet["global_addr"] and route_packet["tesseract_header"]),
     }
     return route_packet, edge_payload, coverage
-
 
 def build_dual_route_payloads(records: list[dict[str, Any]], station_map: dict[str, dict[str, Any]], docs_gate_status: str) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]]:
     runtime = load_dual_route_runtime()

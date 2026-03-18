@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=132 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - EPICS: EPIC REGISTRY
 =================================
@@ -29,7 +33,6 @@ from typing import Dict, List, Set, Optional, Tuple, Callable, Any, Union
 from enum import Enum, auto
 import numpy as np
 
-
 # =============================================================================
 # SYSTEM DOMAINS
 # =============================================================================
@@ -46,7 +49,6 @@ class SystemDomain(Enum):
     FEDERATION = "federation"           # Coalition building
     CREATION = "creation"               # World/species compilation
 
-
 class FailureCategory(Enum):
     """Categories of system failures encoded in epics."""
     
@@ -60,7 +62,6 @@ class FailureCategory(Enum):
     OVERCONFIDENCE = "overconfidence"         # Pride bug
     DOOMED_RESET = "doomed_reset"             # Scheduled catastrophe
 
-
 class PatchType(Enum):
     """Types of patches/solutions encoded in epics."""
     
@@ -71,7 +72,6 @@ class PatchType(Enum):
     SANDBOX_CONSTRAINT = "sandbox_constraint"   # Bounded chaos
     DAEMON_BINDING = "daemon_binding"          # Threat neutralization
     COALITION_PROTOCOL = "coalition_protocol"  # Multi-agent coordination
-
 
 # =============================================================================
 # EPIC ENTRY
@@ -126,7 +126,6 @@ class EpicEntry:
             "failure_modes": [f.value for f in self.failure_modes],
             "patches": [p.value for p in self.patches]
         }
-
 
 # =============================================================================
 # EPIC REGISTRY
@@ -575,13 +574,11 @@ class EpicRegistry:
     def __iter__(self):
         return iter(self._epics.values())
 
-
 # =============================================================================
 # GLOBAL REGISTRY
 # =============================================================================
 
 EPIC_REGISTRY = EpicRegistry()
-
 
 # =============================================================================
 # VALIDATION
@@ -637,7 +634,6 @@ def validate_epic_registry() -> bool:
     assert len(signatures) == len(registry)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Epic Registry Module...")

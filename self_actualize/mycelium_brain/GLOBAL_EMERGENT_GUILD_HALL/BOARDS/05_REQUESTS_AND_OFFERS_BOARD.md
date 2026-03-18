@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S22 | face=R | node=243 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A4:S21→Xi108:W3:A4:S23→Xi108:W2:A4:S22→Xi108:W3:A3:S22→Xi108:W3:A5:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 4/12 -->
+
 [LP57 PROMOTED 2026-03-13] install one canonical LP-57Omega meta-loop with `Q51 / TQ07` as supervisory fronts, `Q42 / Q46 / TQ04 / TQ06 / Q50 / Q02` explicitly separated, `1024 ACTIVE / 3072 DORMANT / 4096 INDEXED` as seat truth, and one shared AP6D `4^6` overlay reused by all four master agents
 
 # Requests And Offers Board

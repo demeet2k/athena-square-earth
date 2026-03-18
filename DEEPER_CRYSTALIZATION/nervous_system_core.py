@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A1:S5 | face=S | node=11 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A1:S4→Xi108:W1:A1:S6→Xi108:W2:A1:S5→Xi108:W1:A2:S5
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ import unicodedata
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 FAMILY_LABELS = {
     "live-orchestration": "Live orchestration and prompt control",
@@ -21,7 +24,6 @@ FAMILY_LABELS = {
     "identity-and-instruction": "Athena identity, pedagogy, and narrative voice",
     "general-corpus": "General corpus support",
 }
-
 
 @dataclass(frozen=True)
 class Chapter:
@@ -47,7 +49,6 @@ class Chapter:
     def addr(self) -> str:
         return f"{self.code}<{self.station}>"
 
-
 CHAPTERS = [
     Chapter(1, "0000", "Kernel and Entry Law", 0, 0, "Su", "Foundational anchor, legend, and parse-safe entry station for the whole tome.", ("AppA", "AppC", "AppI", "AppM"), ("manuscript-architecture", "live-orchestration")),
     Chapter(2, "0001", "Address Algebra and Crystal Coordinates", 0, 0, "Me", "Canonical addressing, base-4 station coding, and identity-preserving lattice placement.", ("AppA", "AppC", "AppB", "AppI", "AppM"), ("manuscript-architecture", "transport-and-runtime", "mythic-sign-systems")),
@@ -72,7 +73,6 @@ CHAPTERS = [
     Chapter(21, "0110", "Self-Replication, Open Problems, and the Next Crystal", 6, 0, "Sa", "The manuscript as seed, generator, and future metro for the next tome.", ("AppA", "AppP", "AppM", "AppL", "AppI"), ("live-orchestration", "manuscript-architecture", "civilization-and-governance")),
 ]
 
-
 APPENDICES = [
     ("AppA", "Addressing, Symbols, Parsing Grammar", "Entry grammar, local address parsing, symbol hygiene, and manuscript station identity."),
     ("AppB", "Canon Laws, Equivalence Budgets, Normal Forms", "Equivalence rules, commutation budgets, normal-form contracts, and law stabilization."),
@@ -92,30 +92,24 @@ APPENDICES = [
     ("AppP", "Deployment Profiles and Monitoring", "Deployment regimes, monitoring surfaces, observability, and execution profiles."),
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, data: object) -> None:
     write_text(path, json.dumps(data, indent=2, ensure_ascii=False))
-
 
 def slugify(value: str) -> str:
     normalized = normalize_lookup_text(value)
     slug = re.sub(r"\s+", "_", normalized).strip("_")
     return slug or "untitled"
 
-
 def normalize_name(name: str) -> str:
     cleaned = re.sub(r"\s+\(\d+\)(?=\.[^.]+$)", "", name).strip()
     return Path(cleaned).stem
-
 
 def clean_display_name(name: str) -> str:
     base = normalize_name(name).replace("_", " ").replace("â€”", "-").replace("—", "-").replace("–", "-")
@@ -124,13 +118,11 @@ def clean_display_name(name: str) -> str:
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" -_")
     return cleaned or normalize_name(name)
 
-
 def presentation_name(name: str) -> str:
     cleaned = clean_display_name(name)
     cleaned = re.sub(r"^[#>\-\*\+\[\]\(\)\d\.\s]+", "", cleaned)
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" -_:;")
     return cleaned or clean_display_name(name)
-
 
 def normalize_lookup_text(value: str) -> str:
     normalized = clean_display_name(value).replace("_", " ").lower()
@@ -138,10 +130,8 @@ def normalize_lookup_text(value: str) -> str:
     normalized = re.sub(r"\s+", " ", normalized).strip()
     return normalized
 
-
 def lookup_tokens(value: str) -> list[str]:
     return [token for token in normalize_lookup_text(value).split() if token]
-
 
 def chapter_keyword_profile(chapter_code: str) -> tuple[str, ...]:
     profiles = {
@@ -151,7 +141,6 @@ def chapter_keyword_profile(chapter_code: str) -> tuple[str, ...]:
         "Ch14": ("migrate", "migration", "version", "rollback", "delta", "retro", "weaving", "compat", "pulse"),
     }
     return profiles.get(chapter_code, ())
-
 
 def infer_family(name: str, excerpt: str) -> str:
     text = f"{name} {excerpt}".lower()
@@ -286,7 +275,6 @@ def infer_family(name: str, excerpt: str) -> str:
     best_family = max(scores, key=scores.get)
     return best_family if scores[best_family] > 0 else "general-corpus"
 
-
 def infer_chapter_links(name: str, excerpt: str, family: str) -> list[str]:
     text = f"{name} {excerpt}".lower()
     links: list[str] = []
@@ -337,7 +325,6 @@ def infer_chapter_links(name: str, excerpt: str, family: str) -> list[str]:
             seen.add(item)
     return ordered[:4]
 
-
 def infer_appendix_links(name: str, excerpt: str, family: str) -> list[str]:
     text = f"{name} {excerpt}".lower()
     links: list[str] = []
@@ -371,7 +358,6 @@ def infer_appendix_links(name: str, excerpt: str, family: str) -> list[str]:
             seen.add(item)
     return ordered[:4]
 
-
 def compute_family_targets(records: list[dict]) -> dict[str, list[str]]:
     targets: dict[str, set[str]] = {}
     for record in records:
@@ -380,7 +366,6 @@ def compute_family_targets(records: list[dict]) -> dict[str, list[str]]:
         for chapter_code in infer_chapter_links(name, record.get("excerpt", ""), family):
             targets.setdefault(family, set()).add(chapter_code)
     return {family: sorted(chapters) for family, chapters in targets.items()}
-
 
 def load_atlas_records(atlas_path: Path, source_prefix: str) -> list[dict]:
     if not atlas_path.exists():
@@ -399,7 +384,6 @@ def load_atlas_records(atlas_path: Path, source_prefix: str) -> list[dict]:
         loaded.append(item)
     return loaded
 
-
 def load_records(build_root: Path) -> list[dict]:
     local_atlas = build_root / "atlas" / "deeper_crystalization_atlas.json"
     if not local_atlas.exists():
@@ -410,7 +394,6 @@ def load_records(build_root: Path) -> list[dict]:
     records.extend(load_atlas_records(build_root / "atlas" / "fresh_extracted_atlas.json", "FreshExtracted"))
     records.extend(load_atlas_records(build_root / "atlas" / "myth_math_atlas.json", "MythMath"))
     return records
-
 
 def read_live_docs_blocked(active_root: Path | None = None, build_root: Path | None = None) -> bool:
     candidate_paths: list[Path] = []
@@ -428,7 +411,6 @@ def read_live_docs_blocked(active_root: Path | None = None, build_root: Path | N
             return "Missing OAuth client file" in text or "credentials.json" in text
     return True
 
-
 def load_recursive_state_snapshot(active_root: Path | None = None, build_root: Path | None = None) -> dict:
     candidate_paths: list[Path] = []
     if active_root is not None:
@@ -442,7 +424,6 @@ def load_recursive_state_snapshot(active_root: Path | None = None, build_root: P
             except json.JSONDecodeError:
                 continue
     return {"deep_pass": 0}
-
 
 __all__ = [
     "APPENDICES",

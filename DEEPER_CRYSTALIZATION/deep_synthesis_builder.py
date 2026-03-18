@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 from __future__ import annotations
 
 import json
@@ -20,9 +24,7 @@ from nervous_system_core import (
     write_text,
 )
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent
-
 
 ARC_PROFILES = {
     0: {
@@ -54,7 +56,6 @@ ARC_PROFILES = {
         "thesis": "Arc 6 asks what survives completion. Chapters 19 through 21 treat non-convergence, collective synchrony, and self-replication as one succession problem: how a crystal becomes seed again without lying about what remains unresolved.",
     },
 }
-
 
 DOMAIN_PROFILES = [
     {
@@ -107,7 +108,6 @@ DOMAIN_PROFILES = [
     },
 ]
 
-
 LENS_PROFILES = {
     "Fire": {
         "core": "ignition",
@@ -139,7 +139,6 @@ LENS_PROFILES = {
     },
 }
 
-
 def chapter_support(records: list[dict]) -> dict[str, list[str]]:
     support = {chapter.code: [] for chapter in CHAPTERS}
     for record in records:
@@ -149,7 +148,6 @@ def chapter_support(records: list[dict]) -> dict[str, list[str]]:
         for chapter_code in infer_chapter_links(name, excerpt, family):
             support.setdefault(chapter_code, []).append(normalize_name(name))
     return support
-
 
 def chapter_synopsis(chapter, support: dict[str, list[str]]) -> str:
     lane_meaning = {
@@ -165,14 +163,12 @@ def chapter_synopsis(chapter, support: dict[str, list[str]]) -> str:
         f"It braids `{families}` through `{hubs}` and currently carries `{evidence}` routed source packets."
     )
 
-
 def appendix_feed_map() -> dict[str, list[str]]:
     mapping = {code: [] for code, _, _ in APPENDICES}
     for chapter in CHAPTERS:
         for hub in chapter.hubs:
             mapping.setdefault(hub, []).append(chapter.code)
     return mapping
-
 
 def mermaid_level_one() -> str:
     lines = ["```mermaid", "flowchart LR"]
@@ -197,7 +193,6 @@ def mermaid_level_one() -> str:
     )
     return "\n".join(lines)
 
-
 def mermaid_level_two() -> str:
     return "\n".join(
         [
@@ -218,7 +213,6 @@ def mermaid_level_two() -> str:
             "```",
         ]
     )
-
 
 def mermaid_level_three() -> str:
     return "\n".join(
@@ -262,7 +256,6 @@ def mermaid_level_three() -> str:
         ]
     )
 
-
 def mermaid_level_four() -> str:
     return "\n".join(
         [
@@ -284,7 +277,6 @@ def mermaid_level_four() -> str:
             "```",
         ]
     )
-
 
 def build_deep_synthesis(
     output_root: Path,
@@ -585,7 +577,6 @@ def build_deep_synthesis(
     write_text(output_root / "06_RUNTIME" / "11_deep_synthesis_manifest.json", json.dumps(manifest, indent=2))
     return manifest
 
-
 def main() -> int:
     output_root = PROJECT_ROOT / "ACTIVE_NERVOUS_SYSTEM"
     build_root = PROJECT_ROOT / "_build"
@@ -597,7 +588,6 @@ def main() -> int:
     build_deep_synthesis(output_root, build_root, records, recursive_state, live_docs_blocked)
     print(f"Wrote deep synthesis package at: {output_root / '12_SYNTHESIS'}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

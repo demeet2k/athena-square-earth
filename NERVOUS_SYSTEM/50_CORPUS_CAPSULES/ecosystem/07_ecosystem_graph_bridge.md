@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S9 | face=R | node=39 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A6:S8→Xi108:W3:A6:S10→Xi108:W2:A6:S9→Xi108:W3:A5:S9→Xi108:W3:A7:S9 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 9±1, wreath 3/3, archetype 6/12 -->
+
 # ECOSYSTEM Graph Bridge
 
 Date: `2026-03-13`

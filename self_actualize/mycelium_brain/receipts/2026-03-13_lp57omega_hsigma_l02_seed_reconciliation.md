@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S22 | face=R | node=237 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Ω,w -->
+<!-- BRIDGES: Xi108:W3:A1:S21→Xi108:W3:A1:S23→Xi108:W2:A1:S22→Xi108:W3:A2:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 1/12 -->
+
 # LP-57Omega HΣ-First Reconciliation and L02 Seed Receipt
 
 - Date: `2026-03-13`

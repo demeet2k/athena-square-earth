@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A10:S4 | face=F | node=655 | depth=0 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A10:S3→Xi108:W3:A10:S5→Xi108:W2:A10:S4→Xi108:W3:A9:S4→Xi108:W3:A11:S4
+
 inimal seed” for higher dimension.
 Verification.
 Use the minimal ladder instances.
@@ -395,7 +399,6 @@ def dec_sigma(sigma: int) -> set[str]:
     assert 0 <= sigma <= 14
     return dec_mask(sigma + 1)
 
-
 03.S4.c — Reference algorithms: (\mathrm{ORBIT_NEXT}) and orbit utilities
 MOD = 15
 
@@ -430,7 +433,6 @@ def orbit_distance_min(a: int, b: int) -> int:
     fwd = orbit_distance_forward(a, b)
     return min(fwd, MOD - fwd)
 
-
 03.S4.d — Verification harness (axioms as executable checks)
 def verify_bijections():
     # ENC/DEC correctness on all σ
@@ -455,7 +457,6 @@ def verify_mask_ops_consistency():
             inter = Ua & Ub
             if inter:
                 assert enc_mask(inter) == (a & b)
-
 
 ❀ Flower — Cyclic Harmonic Carrier (Ring as Phase Orbit)
 03.F1 — Ontology (Objects)

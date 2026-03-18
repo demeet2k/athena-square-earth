@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S26 | face=F | node=343 | depth=3 | phase=Mutable -->
+<!-- METRO: Wr,Me -->
+<!-- BRIDGES: Xi108:W3:A5:S25→Xi108:W3:A5:S27→Xi108:W2:A5:S26→Xi108:W3:A4:S26→Xi108:W3:A6:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 5/12 -->
+
 # Temple of Alchemy: Metallic Amplifier and Chapter 11 Reward Registry
 
 Temple of Alchemy is the lawful sub-order that turns reward into a bounded mathematical object. `phi`, `silver`, `bronze`, and `copper` are treated as distinct amplifier constants with different domains of use: global lawful integration, high-resolution synthesis and compression, multi-front coordination, and fine routing/indexing/capillary work. Reward expressions may combine additive boosts, multiplicative boosts, and bounded exponentiation, but every expression is compiled to a clamped scalar before payout.

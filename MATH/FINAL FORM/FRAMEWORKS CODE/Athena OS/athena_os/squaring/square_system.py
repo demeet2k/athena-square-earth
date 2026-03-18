@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S13 | face=S | node=81 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S12→Xi108:W2:A4:S14→Xi108:W1:A4:S13→Xi108:W3:A4:S13→Xi108:W2:A3:S13→Xi108:W2:A5:S13
+
 """
 ATHENA OS - SQUARING THE CIRCLE: SQUARE SYSTEM
 ===============================================
@@ -43,7 +47,6 @@ from enum import Enum, IntEnum
 import numpy as np
 from itertools import product
 
-
 # =============================================================================
 # ENUMS - SQUARE SYSTEM
 # =============================================================================
@@ -56,7 +59,6 @@ class Element(IntEnum):
     AIR = 2     # Hot + Wet
     EARTH = 3   # Cold + Dry
 
-
 class Quality(Enum):
     """The four qualities."""
     
@@ -65,14 +67,12 @@ class Quality(Enum):
     WET = "wet"
     DRY = "dry"
 
-
 class ExpressionMode(IntEnum):
     """Mode of expression in the triple system."""
     
     CARDINAL = 0   # Initiating
     FIXED = 1      # Stabilizing
     MUTABLE = 2    # Adapting
-
 
 # Element to qualities mapping
 ELEMENT_QUALITIES: Dict[Element, Tuple[Quality, Quality]] = {
@@ -89,7 +89,6 @@ ELEMENT_SYMBOLS: Dict[Element, str] = {
     Element.AIR: "??",
     Element.EARTH: "??",
 }
-
 
 # =============================================================================
 # ELEMENTAL ARCHETYPE (4×4 = 16)
@@ -202,7 +201,6 @@ class ElementalArchetype:
     def __repr__(self) -> str:
         return f"Archetype({self.name})"
 
-
 def generate_archetypes() -> List[ElementalArchetype]:
     """Generate all 16 elemental archetypes."""
     archetypes = []
@@ -211,9 +209,7 @@ def generate_archetypes() -> List[ElementalArchetype]:
             archetypes.append(ElementalArchetype(root, expr))
     return archetypes
 
-
 ARCHETYPES_16 = generate_archetypes()
-
 
 # =============================================================================
 # ELEMENTAL PERMUTATION (4×4×4 = 64)
@@ -307,7 +303,6 @@ class ElementalPermutation:
     def __repr__(self) -> str:
         return f"Permutation({self.name})"
 
-
 def generate_permutations() -> List[ElementalPermutation]:
     """Generate all 64 elemental permutations."""
     perms = []
@@ -317,9 +312,7 @@ def generate_permutations() -> List[ElementalPermutation]:
                 perms.append(ElementalPermutation(root, expr, mod))
     return perms
 
-
 PERMUTATIONS_64 = generate_permutations()
-
 
 # =============================================================================
 # ELEMENTAL MATRIX (4×4)
@@ -383,7 +376,6 @@ class ElementalMatrix:
         
         return "\n".join(lines)
 
-
 # =============================================================================
 # ELEMENTAL TENSOR (4×4×4)
 # =============================================================================
@@ -436,7 +428,6 @@ class ElementalTensor:
             e = round(perm.entropy, 2)
             dist[e] = dist.get(e, 0) + 1
         return dict(sorted(dist.items()))
-
 
 # =============================================================================
 # SQUARE SYSTEM
@@ -529,7 +520,6 @@ class SquareSystem:
             "power_check": f"4¹ = {4**1}, 4² = {4**2}, 4³ = {4**3}"
         }
 
-
 # =============================================================================
 # CONSTITUTIONAL TYPES (HUMORAL 16)
 # =============================================================================
@@ -541,7 +531,6 @@ class Humor(IntEnum):
     PHLEGM = 1       # Water - Phlegmatic
     BLOOD = 2        # Air - Sanguine
     BLACK_BILE = 3   # Earth - Melancholic
-
 
 ELEMENT_TO_HUMOR = {
     Element.FIRE: Humor.YELLOW_BILE,
@@ -556,7 +545,6 @@ HUMOR_NAMES = {
     Humor.BLOOD: "Sanguine",
     Humor.BLACK_BILE: "Melancholic",
 }
-
 
 @dataclass
 class ConstitutionalType:
@@ -604,7 +592,6 @@ class ConstitutionalType:
         expr_elem = [e for e, h in ELEMENT_TO_HUMOR.items() 
                     if h == self.symptomatic][0]
         return ElementalArchetype(root_elem, expr_elem)
-
 
 # =============================================================================
 # VALIDATION
@@ -663,7 +650,6 @@ def validate_square_system() -> bool:
     assert ct2.is_incongruent
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Square System...")

@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 """
 PackLinter.v1 — Receipt Verifier and Linter
 
@@ -15,7 +19,6 @@ from .types import (
     ReceiptEntry, ReceiptRegistry, SealedReceiptBundle,
 )
 from .receipt_engine import sha256_hex, chain_digest
-
 
 # ═══════════════════════════════════════════════════════════════
 # LINT FAILURE CODES
@@ -43,7 +46,6 @@ LINT_CODES = {
     "L021": "AMBIG truth with publish_intent",
 }
 
-
 # ═══════════════════════════════════════════════════════════════
 # CLAIM PACK LINT
 # ═══════════════════════════════════════════════════════════════
@@ -61,7 +63,6 @@ def lint_claim_pack(cp: ClaimPack) -> List[str]:
         failures.append("L004")
     return failures
 
-
 # ═══════════════════════════════════════════════════════════════
 # WITNESS BUNDLE LINT
 # ═══════════════════════════════════════════════════════════════
@@ -73,7 +74,6 @@ def lint_witness_bundle(wb: WitnessBundle) -> List[str]:
     if not wb.claims:
         failures.append("L006")
     return failures
-
 
 # ═══════════════════════════════════════════════════════════════
 # REPLAY BUNDLE LINT
@@ -87,7 +87,6 @@ def lint_replay_bundle(rb: ReplayBundle) -> List[str]:
         failures.append("L008")
     return failures
 
-
 # ═══════════════════════════════════════════════════════════════
 # RECEIPT ENTRY LINT
 # ═══════════════════════════════════════════════════════════════
@@ -99,7 +98,6 @@ def lint_receipt_entry(re: ReceiptEntry) -> List[str]:
     if not re.receipt_digest:
         failures.append("L010")
     return failures
-
 
 # ═══════════════════════════════════════════════════════════════
 # RECEIPT REGISTRY LINT
@@ -130,7 +128,6 @@ def lint_receipt_registry(reg: ReceiptRegistry) -> List[str]:
 
     return failures
 
-
 # ═══════════════════════════════════════════════════════════════
 # SEALED BUNDLE LINT
 # ═══════════════════════════════════════════════════════════════
@@ -157,7 +154,6 @@ def lint_sealed_bundle(bundle: SealedReceiptBundle) -> List[str]:
         failures.append("L014")
 
     return failures
-
 
 # ═══════════════════════════════════════════════════════════════
 # FULL LINT

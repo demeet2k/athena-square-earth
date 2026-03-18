@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=141 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Problem Diagnosis System                     ║
@@ -31,7 +35,6 @@ import random
 import numpy as np
 from numpy.typing import NDArray
 
-
 class ProblemClass(Enum):
     """Problem classification for pole selection."""
     SPECTRAL_DOMINANT = "spectral"      # Ψ + D
@@ -42,14 +45,12 @@ class ProblemClass(Enum):
     MIXED = "mixed"                      # 4-pole equal
     UNKNOWN = "unknown"
 
-
 class LandscapeType(Enum):
     """Landscape characterization."""
     SMOOTH = "smooth"           # Few local optima, gradients reliable
     RUGGED = "rugged"           # Many local optima, traps everywhere
     MIXED = "mixed"             # Smooth in some regions, rugged in others
     FLAT = "flat"               # Many equivalent solutions
-
 
 @dataclass
 class SpectralAnalysis:
@@ -108,7 +109,6 @@ class SpectralAnalysis:
         else:
             return "Ψ not useful - Negligible spectral gap"
 
-
 @dataclass
 class LandscapeAnalysis:
     """Analysis of objective landscape."""
@@ -126,7 +126,6 @@ class LandscapeAnalysis:
             return "Σ useful - Some local optima (mixed)"
         else:
             return "Σ not needed - Few local optima (smooth)"
-
 
 @dataclass 
 class GradientAnalysis:
@@ -147,7 +146,6 @@ class GradientAnalysis:
         else:
             return "Ω unreliable - Use Σ instead"
 
-
 @dataclass
 class ConstraintAnalysis:
     """Analysis of constraint structure."""
@@ -164,7 +162,6 @@ class ConstraintAnalysis:
             return "D essential - Must maintain feasibility"
         else:
             return "D baseline - Standard local search"
-
 
 @dataclass
 class DiagnosticMetrics:
@@ -263,7 +260,6 @@ class DiagnosticMetrics:
         
         return weight_map.get(problem_class, weight_map[ProblemClass.MIXED])
 
-
 @dataclass
 class ProblemSignature:
     """Compact problem signature for strategy selection."""
@@ -293,7 +289,6 @@ class ProblemSignature:
             has_constraints=metrics.constraint.has_hard_constraints,
             dimension=metrics.dimension,
         )
-
 
 class ProblemDiagnoser:
     """
@@ -484,7 +479,6 @@ class ProblemDiagnoser:
         lines.append("═" * 60)
         return "\n".join(lines)
 
-
 class QuickDiagnoser:
     """Fast diagnostic for quick pole selection."""
     
@@ -514,7 +508,6 @@ class QuickDiagnoser:
         else:
             return {'Ψ': 0.25, 'Ω': 0.25, 'Σ': 0.25, 'D': 0.25}
 
-
 # Strategy configurations based on empirical findings
 STRATEGY_CONFIGS = {
     # 4-pole configurations
@@ -536,7 +529,6 @@ STRATEGY_CONFIGS = {
     # 1-pole configurations
     'D-only': {'Ψ': 0.00, 'Ω': 0.00, 'Σ': 0.00, 'D': 1.00},
 }
-
 
 def predict_best_strategy(sig: ProblemSignature) -> str:
     """Predict best strategy from problem signature."""

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=349 | depth=2 | phase=Mutable
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 """
 TIME FRACTAL TRADING BOT - PRODUCTION SIGNAL MODULE
 =====================================================
@@ -38,7 +42,6 @@ FOREX_DIR = os.path.join(BASE_DIR, "forex_data")
 SIGNALS_DIR = os.path.join(BASE_DIR, "bot_signals")
 os.makedirs(SIGNALS_DIR, exist_ok=True)
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -46,7 +49,6 @@ def log(msg):
     except:
         pass
     sys.stdout.flush()
-
 
 # =============================================================================
 # SECTION 1: DATA MANAGER
@@ -110,7 +112,6 @@ class DataManager:
             return prices[mask].reset_index(drop=True), dates[mask].reset_index(drop=True)
 
         return prices, dates
-
 
 # =============================================================================
 # SECTION 2: FRACTAL SCORER - Runs All 6 Framework Layers
@@ -348,7 +349,6 @@ class FractalScorer:
         except:
             return {'vol_score': 0.0, 'vol_regime': 'unknown', 'vol_expanding': False}
 
-
 # =============================================================================
 # SECTION 3: SIGNAL AGGREGATOR
 # =============================================================================
@@ -452,7 +452,6 @@ class SignalAggregator:
             }
         }
 
-
 # =============================================================================
 # SECTION 4: RISK MANAGER
 # =============================================================================
@@ -538,7 +537,6 @@ class RiskManager:
             'max_position_pct': round(min(position_pct, base_position), 4),
             'rationale': rationale,
         }
-
 
 # =============================================================================
 # SECTION 5: BOT RUNNER
@@ -792,7 +790,6 @@ class BotRunner:
         log("SCAN COMPLETE")
         log(f"{'='*70}")
 
-
 # =============================================================================
 # MAIN ENTRY POINT
 # =============================================================================
@@ -812,7 +809,6 @@ def main():
     signals = bot.run_scan()
 
     return signals
-
 
 if __name__ == "__main__":
     main()

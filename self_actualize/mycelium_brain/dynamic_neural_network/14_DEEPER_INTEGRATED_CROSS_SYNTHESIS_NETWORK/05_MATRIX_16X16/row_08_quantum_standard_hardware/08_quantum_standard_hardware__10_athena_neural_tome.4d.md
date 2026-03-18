@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S22 | face=R | node=245 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A10:S21→Xi108:W3:A10:S23→Xi108:W2:A10:S22→Xi108:W3:A9:S22→Xi108:W3:A11:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 10/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppM -> AppJ -> AppI
 Tunnel: Z_quantum_computing_on_standard_hardware_athena_ne -> Z* -> Ch21⟨0110⟩

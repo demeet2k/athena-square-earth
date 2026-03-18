@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=426 | depth=2 | phase=Mutable
+# METRO: Sa,Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -13,7 +17,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     load_json,
     utc_now,
 )
-
 
 DENSE_65_PRIMARY_CAP = 8
 DENSE_65_PRIOR_SEED_POSITION = "1/65"
@@ -105,7 +108,6 @@ DENSE_65_HEADER_ROW = {
     "truth": "OK",
 }
 
-
 def _row(
     shell_position: str,
     cell_id: str,
@@ -119,14 +121,12 @@ def _row(
         **fields,
     }
 
-
 DENSE_65_P_ROWS = [
     _row("2/65", "P0", "P", pole="A", label="Fire", theta="0deg", rot_plus="C", inverse="B", rot_minus="D", z="Z(Fire)", ae="AE[F]"),
     _row("3/65", "P2", "P", pole="B", label="Water", theta="180deg", rot_plus="D", inverse="A", rot_minus="C", z="Z(Water)", ae="AE[W]"),
     _row("4/65", "P1", "P", pole="C", label="Air", theta="90deg", rot_plus="B", inverse="D", rot_minus="A", z="Z(Air)", ae="AE[A]"),
     _row("5/65", "P3", "P", pole="D", label="Earth", theta="270deg", rot_plus="A", inverse="C", rot_minus="B", z="Z(Earth)", ae="AE[E]"),
 ]
-
 
 DENSE_65_S_ROWS = [
     _row("6/65", "S01", "S", mu="01", pole_set=["A"], card=1),
@@ -146,7 +146,6 @@ DENSE_65_S_ROWS = [
     _row("20/65", "S33", "S", mu="33", pole_set=["A", "B", "C", "D"], card=4),
 ]
 
-
 DENSE_65_R_ROWS = [
     _row("21/65", "R01", "R", src_set=["A"], rot_plus_set=["C"], rot_minus_set=["D"]),
     _row("22/65", "R02", "R", src_set=["B"], rot_plus_set=["D"], rot_minus_set=["C"]),
@@ -164,7 +163,6 @@ DENSE_65_R_ROWS = [
     _row("34/65", "R32", "R", src_set=["B", "C", "D"], rot_plus_set=["A", "B", "D"], rot_minus_set=["A", "B", "C"]),
     _row("35/65", "R33", "R", src_set=["A", "B", "C", "D"], rot_plus_set=["A", "B", "C", "D"], rot_minus_set=["A", "B", "C", "D"]),
 ]
-
 
 DENSE_65_Q_ROWS = [
     _row("36/65", "Q01", "Q", base4_orbit=[["A"], ["C"], ["B"], ["D"]]),
@@ -184,7 +182,6 @@ DENSE_65_Q_ROWS = [
     _row("50/65", "Q33", "Q", base4_orbit=[["A", "B", "C", "D"], ["A", "B", "C", "D"], ["A", "B", "C", "D"], ["A", "B", "C", "D"]]),
 ]
 
-
 DENSE_65_T_ROWS = [
     _row("51/65", "T01", "T", hide_pole="C", triad_set=["A", "B", "D"], anti_plus_orbit=[["A"], ["B"], ["D"]], anti_minus_orbit=[["A"], ["D"], ["B"]]),
     _row("52/65", "T02", "T", hide_pole="A", triad_set=["C", "B", "D"], anti_plus_orbit=[["B"], ["D"], ["C"]], anti_minus_orbit=[["B"], ["C"], ["D"]]),
@@ -202,7 +199,6 @@ DENSE_65_T_ROWS = [
     _row("64/65", "T32", "T", hide_pole="A", triad_set=["C", "B", "D"], anti_plus_orbit=[["B", "C", "D"], ["B", "C", "D"], ["B", "C", "D"]], anti_minus_orbit=[["B", "C", "D"], ["B", "C", "D"], ["B", "C", "D"]]),
     _row("65/65", "T33", "T", hide_pole="A", triad_set=["C", "B", "D"], anti_plus_orbit=[["A", "B", "C", "D"], ["A", "B", "C", "D"], ["A", "B", "C", "D"]], anti_minus_orbit=[["A", "B", "C", "D"], ["A", "B", "C", "D"], ["A", "B", "C", "D"]]),
 ]
-
 
 DENSE_65_BASE_ROWS = [
     *DENSE_65_P_ROWS,
@@ -232,21 +228,17 @@ R_LOOKUP = {row["cell_id"]: row for row in DENSE_65_R_ROWS}
 Q_LOOKUP = {row["cell_id"]: row for row in DENSE_65_Q_ROWS}
 T_LOOKUP = {row["cell_id"]: row for row in DENSE_65_T_ROWS}
 
-
 def _shell_suffix(cell_id: str) -> str | None:
     return cell_id[1:] if len(cell_id) > 1 and cell_id[0] in {"S", "R", "Q", "T"} else None
 
-
 def _format_pole_set(values: list[str]) -> str:
     return "{" + ",".join(values) + "}"
-
 
 def _bundle_lock_for_row(row: dict[str, Any]) -> dict[str, Any] | None:
     suffix = _shell_suffix(row["cell_id"])
     if suffix is None:
         return None
     return DENSE_65_BUNDLE_LOCK.get(suffix)
-
 
 def _phase_bin_for_row(row: dict[str, Any]) -> str:
     family = row["cell_family"]
@@ -258,7 +250,6 @@ def _phase_bin_for_row(row: dict[str, Any]) -> str:
         return "T3"
     return "H"
 
-
 def _tunnel_required_for_row(row: dict[str, Any]) -> bool:
     lock = _bundle_lock_for_row(row)
     if lock is None:
@@ -268,7 +259,6 @@ def _tunnel_required_for_row(row: dict[str, Any]) -> bool:
     pole_set = list(lock["pole_set"])
     opposites = {("A", "B"), ("C", "D")}
     return any(pair[0] in pole_set and pair[1] in pole_set for pair in opposites)
-
 
 def _dense_transfer_signature_for_row(row: dict[str, Any]) -> dict[str, Any] | None:
     family = row["cell_family"]
@@ -299,7 +289,6 @@ def _dense_transfer_signature_for_row(row: dict[str, Any]) -> dict[str, Any] | N
         "proof_ref": "Sigma=AppA->AppI->AppM ; AppF rotation ; AppG antispin",
     }
 
-
 def _dense_metro_witness_for_row(row: dict[str, Any]) -> dict[str, Any] | None:
     family = row["cell_family"]
     if family not in DENSE_65_CELL_FAMILIES:
@@ -322,7 +311,6 @@ def _dense_metro_witness_for_row(row: dict[str, Any]) -> dict[str, Any] | None:
         "witness_status": "OK",
     }
 
-
 def _dense_kernel_binding(cell_row: dict[str, Any], pole_set: list[str]) -> dict[str, Any]:
     suffix = _shell_suffix(cell_row["cell_id"])
     return {
@@ -343,7 +331,6 @@ def _dense_kernel_binding(cell_row: dict[str, Any], pole_set: list[str]) -> dict
         "authority_refs": dict(DENSE_65_AUTHORITY_REFS),
         "overlay_mode": "kernel_overlay",
     }
-
 
 def _enriched_shell_row(row: dict[str, Any]) -> dict[str, Any]:
     enriched = dict(row)
@@ -380,15 +367,12 @@ def _enriched_shell_row(row: dict[str, Any]) -> dict[str, Any]:
         enriched["dense_metro_witness"] = _dense_metro_witness_for_row(row)
     return enriched
 
-
 DENSE_65_SHELL_ROWS = [DENSE_65_HEADER_ROW, *[_enriched_shell_row(row) for row in DENSE_65_BASE_ROWS]]
-
 
 def _route_key_for_cell_id(cell_id: str) -> str:
     if cell_id.startswith("T"):
         return "rtZ"
     return "rtZ" if cell_id[1:] in {"03", "30", "33"} else "rtL"
-
 
 DENSE_65_CANONICAL_SEED_TABLE = {
     cell_id: {
@@ -407,10 +391,8 @@ DENSE_65_CANONICAL_SEED_TABLE = {
     for cell_id in [f"{family}{mu}"]
 }
 
-
 def _ascii_sha256(payload: str) -> str:
     return hashlib.sha256(payload.encode("ascii")).hexdigest()
-
 
 def _record_label(cell_id: str) -> str:
     if cell_id.startswith("R"):
@@ -418,7 +400,6 @@ def _record_label(cell_id: str) -> str:
     if cell_id.startswith("Q"):
         return "spin-orbit"
     return "antispin-orbit"
-
 
 def _family_orbit_mechanics_ref(family: str) -> str:
     if family == "R":
@@ -435,7 +416,6 @@ def _family_orbit_mechanics_ref(family: str) -> str:
         "ACTIVE_NERVOUS_SYSTEM/04_CHAPTERS/Ch11_0022_void_book_and_restart_token_tunneling.md :: "
         "Ch11<0022> void book, restart token tunneling, and lawful antispin packaging"
     )
-
 
 def _family_prior_route_witness(family: str) -> str:
     if family == "R":
@@ -456,7 +436,6 @@ def _family_prior_route_witness(family: str) -> str:
         "route-class=order-3 antispin orbit / restart-safe residual packaging"
     )
 
-
 def _transfer_coordinate_stamp(cell_row: dict[str, Any]) -> dict[str, Any]:
     shell_position = cell_row["shell_position"]
     slot_number = shell_position.split("/")[0]
@@ -475,7 +454,6 @@ def _transfer_coordinate_stamp(cell_row: dict[str, Any]) -> dict[str, Any]:
         "Omega_s": "NEAR-derived:active",
     }
 
-
 def _aether_transfer_signature(cell_id: str) -> str:
     bindings = _orientation_bindings_for_cell(cell_id)
     family = cell_id[0]
@@ -487,7 +465,6 @@ def _aether_transfer_signature(cell_id: str) -> str:
     if family == "Q":
         return f"{bindings[0]['ae_coord']['canonical_key']} binds the flower-lens spin orbit."
     return f"{bindings[0]['ae_coord']['canonical_key']} binds the flower-lens residual antispin shell."
-
 
 def _z_transfer_signature_text(spec: dict[str, Any]) -> str:
     if spec["family"] == "R":
@@ -505,19 +482,16 @@ def _z_transfer_signature_text(spec: dict[str, Any]) -> str:
         f"carries the t3 residual with hidden pole={spec['hidden_pole']}."
     )
 
-
 def _packaging_status(family: str) -> str:
     if family == "T":
         return "flower-residual t3 shell"
     return "flower-core operator shell"
-
 
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     header = "| " + " | ".join(headers) + " |"
     separator = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([header, separator, *body])
-
 
 def _canonicalize_pole_list(values: list[str]) -> list[str]:
     deduped = []
@@ -526,13 +500,11 @@ def _canonicalize_pole_list(values: list[str]) -> list[str]:
             deduped.append(pole)
     return deduped
 
-
 def canonical_hide_pole(pole_set: list[str]) -> str:
     for pole in DENSE_65_RING_ORDER:
         if pole not in pole_set:
             return pole
     return "A"
-
 
 def _normalize_face_to_pole(face: Any) -> str | None:
     if not face:
@@ -541,7 +513,6 @@ def _normalize_face_to_pole(face: Any) -> str | None:
     if key in {"void", "aether"}:
         return None
     return POLE_FACE_MAP.get(key)
-
 
 def _appendix_stack(route: dict[str, Any], cell_family: str) -> list[str]:
     stack = ["AppA", "AppI", "AppM"]
@@ -555,7 +526,6 @@ def _appendix_stack(route: dict[str, Any], cell_family: str) -> list[str]:
             if appendix not in stack:
                 stack.append(appendix)
     return stack
-
 
 def _compact_route_witness(route: dict[str, Any], witness_side: str) -> dict[str, Any]:
     return {
@@ -580,7 +550,6 @@ def _compact_route_witness(route: dict[str, Any], witness_side: str) -> dict[str
         "appm_replay_ref": DENSE_65_AUTHORITY_REFS["replay_kernel"],
         "truth_state": route.get("truth_state") or route.get("proof_state") or "UNKNOWN",
     }
-
 
 def _z_transfer_signature(
     route: dict[str, Any],
@@ -655,7 +624,6 @@ def _z_transfer_signature(
         },
     }
 
-
 def _order4_projection_summary(route: dict[str, Any]) -> dict[str, Any]:
     return {
         "addr4": route.get("addr4"),
@@ -664,7 +632,6 @@ def _order4_projection_summary(route: dict[str, Any]) -> dict[str, Any]:
         "rail3": route.get("rail3"),
         "dominant_lens_system": route.get("dominant_lens_system"),
     }
-
 
 def _rail_antispin_lock(
     route: dict[str, Any],
@@ -691,7 +658,6 @@ def _rail_antispin_lock(
         "truth_state": route.get("truth_state") or route.get("proof_state") or "UNKNOWN",
     }
 
-
 def _derive_record_pole_set(
     record: dict[str, Any],
     pt2_face_lookup: dict[str, list[str]],
@@ -707,7 +673,6 @@ def _derive_record_pole_set(
         if pole:
             poles.append(pole)
     return _canonicalize_pole_list(poles)
-
 
 def _build_witness_row(
     *,
@@ -781,7 +746,6 @@ def _build_witness_row(
         )
     return row
 
-
 def _shell_registry(docs_gate_status: str) -> dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -804,7 +768,6 @@ def _shell_registry(docs_gate_status: str) -> dict[str, Any]:
         "group_counts": dict(DENSE_65_GROUP_COUNTS),
         "rows": _shell_rows_with_explicit_ae(),
     }
-
 
 def _index_markdown(shell_registry: dict[str, Any], manifest: dict[str, Any]) -> str:
     rows = [
@@ -871,7 +834,6 @@ def _index_markdown(shell_registry: dict[str, Any], manifest: dict[str, Any]) ->
         ]
     )
 
-
 def _cell_markdown(
     *,
     title: str,
@@ -929,7 +891,6 @@ def _cell_markdown(
         cell_rows.append("")
     return "\n".join([f"# {title}", "", *cell_rows]).rstrip() + "\n"
 
-
 def _coverage_markdown(
     *,
     manifest: dict[str, Any],
@@ -965,7 +926,6 @@ def _coverage_markdown(
             ),
         ]
     )
-
 
 def build_dense_65_payloads(
     *,
@@ -1163,7 +1123,6 @@ def build_dense_65_payloads(
         "markdown_pages": markdown_pages,
     }
 
-
 def _ae_coord(*, phase_id: str, bundle: str, slot: str, hidden_pole: str | None = None) -> dict[str, Any]:
     phase_label = DENSE_65_PHASE_BINS.get(phase_id, phase_id)
     canonical_key = f"AE=({DENSE_65_FLOWER_LENS},{phase_label},{bundle};{slot})"
@@ -1187,7 +1146,6 @@ def _ae_coord(*, phase_id: str, bundle: str, slot: str, hidden_pole: str | None 
         payload["HiddenPole"] = hidden_pole
     return payload
 
-
 def _binding_witness_seed(
     seed_id: str,
     ae_coord: dict[str, Any],
@@ -1206,7 +1164,6 @@ def _binding_witness_seed(
         "collector": "SYSTEM",
         "version_pins": DENSE_65_VERSION_PINS_2B,
     }
-
 
 def _binding_replay_seed(
     seed_id: str,
@@ -1236,7 +1193,6 @@ def _binding_replay_seed(
         "env_pin": DENSE_65_ENV_PIN_2B,
         "hash": _ascii_sha256(seed_payload),
     }
-
 
 def _orientation_bindings_for_cell(cell_id: str) -> list[dict[str, Any]]:
     spec = DENSE_65_CANONICAL_SEED_TABLE[cell_id]
@@ -1327,7 +1283,6 @@ def _orientation_bindings_for_cell(cell_id: str) -> list[dict[str, Any]]:
         )
     return bindings
 
-
 def _canonical_seed_refs(cell_id: str) -> list[dict[str, str]]:
     return [
         {
@@ -1338,7 +1293,6 @@ def _canonical_seed_refs(cell_id: str) -> list[dict[str, str]]:
         }
         for binding in _orientation_bindings_for_cell(cell_id)
     ]
-
 
 def _shell_rows_with_explicit_ae() -> list[dict[str, Any]]:
     rows = [{**DENSE_65_HEADER_ROW}]
@@ -1372,7 +1326,6 @@ def _shell_rows_with_explicit_ae() -> list[dict[str, Any]]:
                 }
             )
     return rows
-
 
 def _compressed_orientation_bindings(bindings: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [
@@ -1409,7 +1362,6 @@ def _compressed_orientation_bindings(bindings: list[dict[str, Any]]) -> list[dic
         for binding in bindings
     ]
 
-
 def _full_pointer_records(transfer_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [
         {
@@ -1436,7 +1388,6 @@ def _full_pointer_records(transfer_records: list[dict[str, Any]]) -> list[dict[s
         }
         for record in transfer_records
     ]
-
 
 def build_dense_65_canonical_payloads(docs_gate_status: str) -> dict[str, Any]:
     shell_registry = {

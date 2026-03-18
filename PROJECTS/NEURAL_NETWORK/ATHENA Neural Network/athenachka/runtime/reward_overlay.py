@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S21 | face=C | node=228 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S20→Xi108:W2:A1:S22→Xi108:W1:A1:S21→Xi108:W3:A1:S21→Xi108:W2:A2:S21
+
 from __future__ import annotations
 
 from dataclasses import replace
@@ -16,7 +20,6 @@ from ..contracts import (
     RewardVector,
     RunOutcome,
 )
-
 
 POSITIVE_WEIGHTS = {
     "integration_gain": 5,
@@ -60,10 +63,8 @@ CLASS_ORDER = [
     AdventureClass.S,
 ]
 
-
 def clamp01(value: float) -> float:
     return max(0.0, min(1.0, float(value)))
-
 
 def normalize_reward_vector(vector: RewardVector) -> RewardVector:
     return RewardVector(
@@ -85,30 +86,24 @@ def normalize_reward_vector(vector: RewardVector) -> RewardVector:
         docs_dishonesty_loss=clamp01(vector.docs_dishonesty_loss),
     )
 
-
 def positive_score(vector: RewardVector) -> float:
     normalized = normalize_reward_vector(vector)
     weighted = sum(getattr(normalized, key) * weight for key, weight in POSITIVE_WEIGHTS.items())
     return round(weighted / POSITIVE_DENOMINATOR, 6)
-
 
 def negative_score(vector: RewardVector) -> float:
     normalized = normalize_reward_vector(vector)
     weighted = sum(getattr(normalized, key) * weight for key, weight in NEGATIVE_WEIGHTS.items())
     return round(weighted / NEGATIVE_DENOMINATOR, 6)
 
-
 def net_efficiency_score(vector: RewardVector) -> float:
     return round(100.0 * (positive_score(vector) - negative_score(vector)), 2)
-
 
 def base_xp_delta(vector: RewardVector) -> int:
     return round(net_efficiency_score(vector))
 
-
 def level_from_xp(xp_total: int) -> int:
     return max(0, min(100, int(xp_total) // 100))
-
 
 def adventure_class_for_level(level: int) -> AdventureClass:
     if level >= 90:
@@ -125,7 +120,6 @@ def adventure_class_for_level(level: int) -> AdventureClass:
         return AdventureClass.E
     return AdventureClass.F
 
-
 def class_floor_xp(adventure_class: AdventureClass) -> int:
     floors = {
         AdventureClass.F: 0,
@@ -138,17 +132,14 @@ def class_floor_xp(adventure_class: AdventureClass) -> int:
     }
     return floors[adventure_class]
 
-
 def class_from_xp(xp_total: int) -> AdventureClass:
     return adventure_class_for_level(level_from_xp(xp_total))
-
 
 def previous_class(adventure_class: AdventureClass) -> AdventureClass:
     index = CLASS_ORDER.index(adventure_class)
     if index == 0:
         return AdventureClass.F
     return CLASS_ORDER[index - 1]
-
 
 def apply_reward_transform(
     base_delta: int,
@@ -171,7 +162,6 @@ def apply_reward_transform(
         return round(min((base_delta**2) / 100, 500))
     return base_delta
 
-
 def select_reward_transform(
     *,
     cross_family: bool = False,
@@ -190,7 +180,6 @@ def select_reward_transform(
         return RewardTransform.PHI
     return RewardTransform.BASE
 
-
 def outcome_from_vector(vector: RewardVector) -> RunOutcome:
     delta = net_efficiency_score(vector)
     if delta > 0:
@@ -198,7 +187,6 @@ def outcome_from_vector(vector: RewardVector) -> RunOutcome:
     if delta < 0:
         return RunOutcome.NEGATIVE
     return RunOutcome.NEUTRAL
-
 
 def evaluate_reward_run(
     *,
@@ -238,7 +226,6 @@ def evaluate_reward_run(
         truth=truth,
     )
 
-
 def apply_signed_xp(profile: AgentProgressProfile, xp_delta: int) -> AgentProgressProfile:
     xp_total = max(0, int(profile.xp_total))
     current_class = profile.adventure_class
@@ -276,7 +263,6 @@ def apply_signed_xp(profile: AgentProgressProfile, xp_delta: int) -> AgentProgre
         demotion_buffer=demotion_buffer,
     )
 
-
 def update_progress_profile(
     profile: AgentProgressProfile,
     *,
@@ -304,7 +290,6 @@ def update_progress_profile(
         promotion_state=promotion_state,
         linked_agents=sorted(set(updated.linked_agents + list(linked_agents or []))),
     )
-
 
 def distribute_credit(
     *,
@@ -360,7 +345,6 @@ def distribute_credit(
         truth=truth,
     )
 
-
 def promotion_requirements_met(
     profile: AgentProgressProfile,
     *,
@@ -382,7 +366,6 @@ def promotion_requirements_met(
     if not merge_approved:
         failures.append("merge or governance approval missing")
     return not failures, failures
-
 
 def build_promotion_record(
     profile: AgentProgressProfile,
@@ -417,7 +400,6 @@ def build_promotion_record(
         truth=truth,
     )
 
-
 def build_mini_hive_charter(
     *,
     agent_id: str,
@@ -438,7 +420,6 @@ def build_mini_hive_charter(
         truth=truth,
     )
 
-
 def build_reward_steering_profile(
     profile: AgentProgressProfile,
     *,
@@ -457,7 +438,6 @@ def build_reward_steering_profile(
         "replay_breach_open": replay_breach_open,
         "docs_dishonesty_recent": docs_dishonesty_recent,
     }
-
 
 def apply_reward_steering(
     score_vector: MotionScoreVector,

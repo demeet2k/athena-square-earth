@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - KABBALAH: TOPOLOGY MODULE
 ======================================
@@ -33,7 +37,6 @@ from enum import Enum, auto
 from abc import ABC, abstractmethod
 import numpy as np
 from collections import deque
-
 
 # =============================================================================
 # FOUR WORLDS (ABSTRACTION LAYERS)
@@ -72,14 +75,12 @@ class World(Enum):
         }
         return levels[self]
 
-
 class Pillar(Enum):
     """The Three Pillars of the Tree."""
     
     MERCY = "mercy"       # Right pillar (expansion)
     SEVERITY = "severity" # Left pillar (contraction)
     BALANCE = "balance"   # Middle pillar (integration)
-
 
 # =============================================================================
 # SEFIRA NODE
@@ -136,7 +137,6 @@ class Sefira:
     @property
     def data(self) -> Any:
         return self._data
-
 
 # =============================================================================
 # THE TEN SEFIROT
@@ -252,7 +252,6 @@ def create_sefirot() -> Dict[int, Sefira]:
         )
     }
 
-
 # =============================================================================
 # PATH (EDGE)
 # =============================================================================
@@ -288,7 +287,6 @@ class Path:
     
     def __repr__(self) -> str:
         return f"Path({self.letter}: {self.source}→{self.target})"
-
 
 def create_paths() -> List[Path]:
     """
@@ -331,7 +329,6 @@ def create_paths() -> List[Path]:
     ]
     
     return paths
-
 
 # =============================================================================
 # TREE OF LIFE GRAPH
@@ -495,7 +492,6 @@ class TreeOfLife:
     def n_edges(self) -> int:
         return len(self._paths)
 
-
 # =============================================================================
 # ADJACENCY MATRIX REPRESENTATION
 # =============================================================================
@@ -556,7 +552,6 @@ class TreeMatrix:
             state = P @ state
         
         return state
-
 
 # =============================================================================
 # VALIDATION
@@ -642,7 +637,6 @@ def validate_topology() -> bool:
     assert np.sum(final) > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Kabbalah Topology Module...")

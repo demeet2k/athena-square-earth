@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=80 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       MIRROR SYMMETRY MODULE                                 ║
@@ -24,7 +28,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CALABI-YAU MANIFOLDS
@@ -75,7 +78,6 @@ class HodgeDiamond:
             (1, 1): 20,
             (2, 0): 1, (0, 2): 1,
         }, dimension=2)
-
 
 @dataclass
 class CalabiYauManifold:
@@ -128,7 +130,6 @@ class CalabiYauManifold:
             hodge_diamond=HodgeDiamond.cy_threefold(h11=101, h21=1)
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MIRROR PAIRS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -162,7 +163,6 @@ class MirrorPair:
             CalabiYauManifold.mirror_quintic()
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TOPOLOGICAL STRING THEORY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -171,7 +171,6 @@ class ModelType(Enum):
     """A-model vs B-model."""
     A_MODEL = "A-model (symplectic)"
     B_MODEL = "B-model (complex)"
-
 
 @dataclass
 class TopologicalString:
@@ -203,7 +202,6 @@ class TopologicalString:
         """Genus 0 B-model: periods."""
         return "F_0^B = ∫_X Ω ∧ ∂²F/∂t² (periods)"
 
-
 @dataclass
 class GromovWittenInvariants:
     """
@@ -224,7 +222,6 @@ class GromovWittenInvariants:
     def wdvv_equation(self) -> str:
         """WDVV equations for genus 0."""
         return "Σ_e ⟨α,β,e⟩ g^{ef} ⟨f,γ,δ⟩ symmetric in (α,β,γ,δ)"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HOMOLOGICAL MIRROR SYMMETRY
@@ -251,7 +248,6 @@ class DerivedCategoryCoherent:
         """Serre functor S = [n] ⊗ ω_X."""
         return "S(E) = E ⊗ ω_X[n]"
 
-
 @dataclass
 class FukayaCategory:
     """
@@ -272,7 +268,6 @@ class FukayaCategory:
     def a_infinity_structure(self) -> str:
         """A_∞ structure from disk counts."""
         return "m_k: Hom^⊗k → Hom from holomorphic disk counts"
-
 
 @dataclass
 class HomologicalMirrorSymmetry:
@@ -298,7 +293,6 @@ class HomologicalMirrorSymmetry:
     def ext_floer_isomorphism(self) -> str:
         """Ext ≅ HF."""
         return "Ext^*(E_1, E_2) ≅ HF^*(L_1, L_2)"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SYZ CONJECTURE
@@ -331,7 +325,6 @@ class SYZFibration:
         """Discriminant locus."""
         return "Δ ⊂ B where fibers degenerate"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MIRROR MAP
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -358,7 +351,6 @@ class MirrorMap:
     def period_computation(self) -> str:
         """Mirror map from periods."""
         return "t = ∫_A Ω / ∫_B Ω (ratio of periods)"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -410,7 +402,6 @@ class MirrorPoleBridge:
         """
         return "Ψ ↔ Moduli: Hierarchical structure near boundaries"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -420,32 +411,26 @@ def calabi_yau(name: str, dim: int, h11: int, h21: int) -> CalabiYauManifold:
     hodge = HodgeDiamond.cy_threefold(h11, h21) if dim == 3 else None
     return CalabiYauManifold(name, dim, hodge)
 
-
 def mirror_pair(X: CalabiYauManifold, X_mir: CalabiYauManifold) -> MirrorPair:
     """Create mirror pair."""
     return MirrorPair(X, X_mir)
 
-
 def quintic_pair() -> MirrorPair:
     """Standard quintic mirror pair."""
     return MirrorPair.quintic_mirror()
-
 
 def topological_string(cy: CalabiYauManifold, 
                        model: ModelType) -> TopologicalString:
     """Create topological string theory."""
     return TopologicalString(cy, model)
 
-
 def hms(pair: MirrorPair) -> HomologicalMirrorSymmetry:
     """Create HMS statement."""
     return HomologicalMirrorSymmetry(pair)
 
-
 def syz(dim: int) -> SYZFibration:
     """Create SYZ fibration."""
     return SYZFibration(dim)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

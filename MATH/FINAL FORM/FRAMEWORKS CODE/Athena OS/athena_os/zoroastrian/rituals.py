@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=149 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - ZOROASTRIAN: RITUALS MODULE
 ========================================
@@ -41,7 +45,6 @@ from typing import Dict, List, Set, Optional, Tuple, Callable, Any, Union
 from enum import Enum, auto
 import numpy as np
 
-
 # =============================================================================
 # FIRE TEMPLE (ATAR)
 # =============================================================================
@@ -52,7 +55,6 @@ class FireGrade(Enum):
     ATASH_DADGAH = 1    # Household fire
     ATASH_ADARAN = 2    # Village fire (16 fires)
     ATASH_BEHRAM = 3    # Cathedral fire (16 fires x 16 = 256 sources)
-
 
 @dataclass
 class SacredFire:
@@ -138,7 +140,6 @@ class SacredFire:
     def age(self) -> float:
         return self._age
 
-
 class FireTemple:
     """
     The Fire Temple: Server Room.
@@ -219,7 +220,6 @@ class FireTemple:
     def is_active(self) -> bool:
         return self._active
 
-
 # =============================================================================
 # YASNA (MAINTENANCE LOOP)
 # =============================================================================
@@ -233,7 +233,6 @@ class YasnaChapter(Enum):
     OFFERINGS = 4
     CONCLUSION = 5
 
-
 @dataclass
 class YasnaState:
     """State of a Yasna ceremony."""
@@ -242,7 +241,6 @@ class YasnaState:
     progress: float = 0.0
     coherence_generated: float = 0.0
     errors: int = 0
-
 
 class Yasna:
     """
@@ -341,7 +339,6 @@ class Yasna:
     def is_complete(self) -> bool:
         return self._chapter_index >= self.N_CHAPTERS
 
-
 # =============================================================================
 # PURITY PROTOCOLS
 # =============================================================================
@@ -354,7 +351,6 @@ class ContaminationType(Enum):
     SEVERE = 3      # Deep corruption
     CRITICAL = 4    # System compromise
 
-
 @dataclass
 class ContaminationEvent:
     """A contamination event to be purified."""
@@ -363,7 +359,6 @@ class ContaminationEvent:
     contamination_type: ContaminationType
     intensity: float
     timestamp: float
-
 
 class Padyab:
     """
@@ -393,7 +388,6 @@ class Padyab:
             "remaining": contamination.intensity - reduction
         }
 
-
 class Nahn:
     """
     Nahn: Moderate purification (ritual bath).
@@ -421,7 +415,6 @@ class Nahn:
             "reduction": reduction,
             "remaining": contamination.intensity - reduction
         }
-
 
 class Barashnum:
     """
@@ -510,7 +503,6 @@ class Barashnum:
     def current_stage(self) -> int:
         return self._current_stage
 
-
 # =============================================================================
 # MANTHRA (ACOUSTIC KERNEL)
 # =============================================================================
@@ -555,7 +547,6 @@ class Manthra:
             "effect": self.effect
         }
 
-
 # The Prime Directive
 AHUNA_VAIRYA = Manthra(
     name="Ahuna Vairya",
@@ -581,7 +572,6 @@ YENGHE_HATAM = Manthra(
     power=6.0,
     effect="worship"
 )
-
 
 class ManthraCollection:
     """Collection of manthras for ritual use."""
@@ -616,7 +606,6 @@ class ManthraCollection:
             "results": results
         }
 
-
 # =============================================================================
 # SUDREH AND KUSTI
 # =============================================================================
@@ -645,7 +634,6 @@ class Sudreh:
         if not self.worn:
             return 0.0
         return self.integrity * 0.5
-
 
 @dataclass  
 class Kusti:
@@ -676,7 +664,6 @@ class Kusti:
         if not self.wound:
             return 0.0
         return self.integrity * 0.5 * (self.wound_count / 3)
-
 
 class PersonalForceField:
     """
@@ -718,7 +705,6 @@ class PersonalForceField:
     @property
     def is_equipped(self) -> bool:
         return self.sudreh.worn and self.kusti.wound
-
 
 # =============================================================================
 # VALIDATION
@@ -838,7 +824,6 @@ def validate_rituals() -> bool:
     assert np.all(filtered < noise)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zoroastrian Rituals Module...")

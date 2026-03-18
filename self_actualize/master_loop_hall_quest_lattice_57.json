@@ -1,4 +1,26 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S25:u317:Su:F:d1",
+    "shell": 25,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "F",
+    "node_id": 317,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Me",
+      "T"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S24",
+      "Xi108:W1:A4:S26",
+      "Xi108:W2:A4:S25",
+      "Xi108:W1:A3:S25",
+      "Xi108:W1:A5:S25"
+    ],
+    "regenerate": "shell 25±1, wreath 1/3, archetype 4/12"
+  },
   "generated_at": "2026-03-13",
   "protocol_id": "LP-57OMEGA",
   "kind": "hall",

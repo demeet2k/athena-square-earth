@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S17 | face=S | node=138 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S16→Xi108:W3:A1:S18→Xi108:W2:A1:S17→Xi108:W3:A2:S17 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 17±1, wreath 3/3, archetype 1/12 -->
+
 # RECURSIVE EXECUTIVE SELF-OPTIMIZATION FRAMEWORK
 
 ## A Complete Mathematical Formalization

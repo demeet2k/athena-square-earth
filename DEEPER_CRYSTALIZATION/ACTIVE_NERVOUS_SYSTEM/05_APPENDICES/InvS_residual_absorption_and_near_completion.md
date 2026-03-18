@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A9:S6 | face=F | node=419 | depth=0 | phase=Fixed -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W2:A9:S5→Xi108:W2:A9:S7→Xi108:W1:A9:S6→Xi108:W3:A9:S6→Xi108:W2:A8:S6→Xi108:W2:A10:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 2/3, archetype 9/12 -->
+
 # InvS - Residual Absorption & NEAR Completion
 
 Routing role: Reverses AppJ (Residual Ledgers and NEAR Machinery). Where AppJ tracked residuals — quantities that did not fit cleanly into the lattice structure — and maintained NEAR machinery for approximate operations, InvS absorbs all residuals into the crystal lattice and completes all NEAR approximations to their exact values. Nothing approximate survives into the seed.

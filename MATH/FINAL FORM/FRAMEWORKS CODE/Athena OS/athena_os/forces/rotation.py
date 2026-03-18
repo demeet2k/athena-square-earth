@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - Rotation Calculus
 =============================
@@ -38,7 +42,6 @@ from .framework import (
     Carrier, ConstraintObject, Presentation,
     ForceTheory, Rotation, RotationType, Certificate
 )
-
 
 # =============================================================================
 # TRANSPORT OPERATORS
@@ -107,7 +110,6 @@ class TransportMap:
             inverse_map=lambda y: other.inverse(self.inverse(y))
         )
 
-
 # =============================================================================
 # ROTATION CATEGORIES
 # =============================================================================
@@ -151,7 +153,6 @@ class GaugeRotation(TransportMap):
         Field strength transforms covariantly.
         """
         return F  # Would compute g^{-1} F g
-
 
 class CongruenceRotation(TransportMap):
     """
@@ -221,7 +222,6 @@ class CongruenceRotation(TransportMap):
         
         return cls(carrier, matrix, name="CKM")
 
-
 class DualityRotation(TransportMap):
     """
     Duality rotation: symplectic transformation on doubled field space.
@@ -268,7 +268,6 @@ class DualityRotation(TransportMap):
         """Create electromagnetic duality (F ↔ *F)."""
         return cls(carrier, np.array([[0, 1], [-1, 0]]))
 
-
 class DiffeomorphismRotation(TransportMap):
     """
     Diffeomorphism rotation: coordinate transformation.
@@ -310,7 +309,6 @@ class DiffeomorphismRotation(TransportMap):
         J = self.jacobian(point)
         return J @ v
 
-
 class DiscretizationRotation(TransportMap):
     """
     Discretization rotation: continuum ↔ lattice transform.
@@ -351,7 +349,6 @@ class DiscretizationRotation(TransportMap):
         """Check if continuum limit exists (a → 0 is well-defined)."""
         # Would involve checking scaling behavior
         return True
-
 
 class RGFlowRotation(TransportMap):
     """
@@ -410,7 +407,6 @@ class RGFlowRotation(TransportMap):
         
         return cls(carrier, scale_ratio, qcd_beta)
 
-
 # =============================================================================
 # ROTATION ALGEBRA
 # =============================================================================
@@ -456,7 +452,6 @@ class RotationAlgebra:
         # Simplified check
         return True
 
-
 # =============================================================================
 # ROUND-TRIP CERTIFICATION (SNAP)
 # =============================================================================
@@ -483,7 +478,6 @@ class SnapCertificate:
     def is_valid(self) -> bool:
         """Check if the snap certificate is valid."""
         return self.converged and self.final_defect < self.tolerance
-
 
 def compute_snap(presentation: Presentation, 
                  rotation: TransportMap,
@@ -518,7 +512,6 @@ def compute_snap(presentation: Presentation,
         tolerance=tolerance,
         converged=defect < tolerance
     )
-
 
 # =============================================================================
 # VALIDATION
@@ -558,7 +551,6 @@ def validate_rotation_calculus() -> bool:
     assert snap.converged
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Rotation Calculus...")

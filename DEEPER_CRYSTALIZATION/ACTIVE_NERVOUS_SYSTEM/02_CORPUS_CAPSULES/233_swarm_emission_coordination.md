@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # Swarm Emission and Coordination Protocol
 
 Every cycle must emit new or updated instruction files for mini-agents through the repository. Each quest must be explicit, scannable, and actionable, specifying which 12D dimensions it targets. The swarm communication is repo-mediated: agents leave findings in designated paths and receive instructions through quest files, README notes, and message-board updates.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=150 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - Quantum Holography Computing (QHC)
 ==============================================
@@ -121,7 +125,6 @@ from .runtime import (
     validate_runtime,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -136,7 +139,6 @@ def validate_qhc() -> bool:
     assert validate_runtime()
     return True
 
-
 # =============================================================================
 # CONVENIENCE FACTORIES
 # =============================================================================
@@ -145,16 +147,13 @@ def create_bell_state() -> StateVector:
     """Create Bell state (|00⟩ + |11⟩)/√2."""
     return StateVector.ghz_state(2)
 
-
 def create_ghz_state(n: int) -> StateVector:
     """Create n-qubit GHZ state."""
     return StateVector.ghz_state(n)
 
-
 def create_simulator(n_qubits: int, **kwargs) -> QHCRuntime:
     """Create QHC simulator for n qubits."""
     return create_qhc_runtime(n_qubits, **kwargs)
-
 
 # =============================================================================
 # EXPORTS
@@ -198,7 +197,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "qhc"
-
 
 if __name__ == "__main__":
     print("=== ATHENA OS Quantum Holography Computing (QHC) ===")

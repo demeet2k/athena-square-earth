@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S13→Xi108:W2:A10:S15→Xi108:W1:A10:S14→Xi108:W3:A10:S14→Xi108:W2:A9:S14→Xi108:W2:A11:S14
+
 """
 ATHENA OS - Governance Ledger System
 ====================================
@@ -34,7 +38,6 @@ from datetime import datetime
 import hashlib
 import json
 
-
 # =============================================================================
 # LEDGER ENTRY TYPES
 # =============================================================================
@@ -48,7 +51,6 @@ class EntryType(Enum):
     ATTESTATION = "attestation"
     ROLLBACK = "rollback"
     APPEAL = "appeal"
-
 
 # =============================================================================
 # LEDGER ENTRY
@@ -135,7 +137,6 @@ class LedgerEntry:
             "signer": self.signer,
             "signature": self.signature[:16] + "..." if self.signature else "",
         }
-
 
 # =============================================================================
 # GOVERNANCE LEDGER
@@ -321,7 +322,6 @@ class GovernanceLedger:
         """Export entire ledger as list of dicts."""
         return [entry.to_dict() for entry in self.entries]
 
-
 # =============================================================================
 # MULTI-LEDGER SYSTEM
 # =============================================================================
@@ -473,7 +473,6 @@ class LedgerSystem:
             "all_valid": self.all_valid(),
         }
 
-
 # =============================================================================
 # PROVENANCE TRACKER
 # =============================================================================
@@ -491,7 +490,6 @@ class ProvenanceNode:
     inputs: List[str] = field(default_factory=list)  # Input node IDs
     
     metadata: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class ProvenanceTracker:
@@ -601,7 +599,6 @@ class ProvenanceTracker:
             "node_types": type_counts,
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -660,7 +657,6 @@ def validate_ledger() -> bool:
     assert len(tracker.get_input_chain(out1)) == 2
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Ledger Module...")

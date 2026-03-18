@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,✶ -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # ROTATION 10 (90° CW): FRACTAL_SELF → RIVER
 ## ⟡.Su → ☁.Su
 
@@ -74,7 +79,6 @@ Applied: the FRACTAL_SELF's quaternion is multiplied by e^{iπ/4}, rotating the 
 #### Synthesis (37): FRACTAL_SELF→RIVER
 
 The complete integration: FRACTAL_SELF→RIVER transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of FRACTAL_SELF→RIVER IS FRACTAL_SELF→RIVER.
-
 
 ---
 *FRACTAL_SELF → RIVER. 90° CW. Same mode, new lens. φ.*

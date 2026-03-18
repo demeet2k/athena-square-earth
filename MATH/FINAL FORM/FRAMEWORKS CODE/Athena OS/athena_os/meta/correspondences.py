@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ATHENA OS — CROSS-TRADITION MAPPINGS
 =====================================
@@ -33,7 +37,6 @@ from enum import Enum, auto
 # Import unified types
 from ..unified_types import Element, B4, TypedTruth, Cause, Category, Lens
 
-
 # =============================================================================
 # TRADITION ENUM
 # =============================================================================
@@ -52,7 +55,6 @@ class Tradition(Enum):
     YORUBA = "yoruba"
     ZOROASTRIAN = "zoroastrian"
     HERMETIC = "hermetic"
-
 
 # =============================================================================
 # FOUR-FOLD CORRESPONDENCES
@@ -83,7 +85,6 @@ class FourFoldCorrespondence:
     yoruba: str          # Orisha
     zoroastrian: str     # Amesha Spenta
     hermetic: str        # Tria Prima aspect
-
 
 # The Four-Fold Master Table
 FOUR_FOLD_TABLE: Dict[Element, FourFoldCorrespondence] = {
@@ -153,7 +154,6 @@ FOUR_FOLD_TABLE: Dict[Element, FourFoldCorrespondence] = {
     ),
 }
 
-
 # =============================================================================
 # NUMERICAL CORRESPONDENCES
 # =============================================================================
@@ -171,7 +171,6 @@ class NumericalCorrespondence:
     hindu: str
     buddhist: str
     hermetic: str
-
 
 SACRED_NUMBERS: Dict[int, NumericalCorrespondence] = {
     1: NumericalCorrespondence(
@@ -264,7 +263,6 @@ SACRED_NUMBERS: Dict[int, NumericalCorrespondence] = {
     ),
 }
 
-
 # =============================================================================
 # PROCESS CORRESPONDENCES
 # =============================================================================
@@ -280,7 +278,6 @@ class ProcessCorrespondence:
     hindu: str          # Yogic
     hermetic: str       # Alchemical
     buddhist: str       # Vajrayana
-
 
 TRANSFORMATION_STAGES: List[ProcessCorrespondence] = [
     ProcessCorrespondence(
@@ -321,7 +318,6 @@ TRANSFORMATION_STAGES: List[ProcessCorrespondence] = [
     ),
 ]
 
-
 # =============================================================================
 # LENS CORRESPONDENCES
 # =============================================================================
@@ -336,7 +332,6 @@ class LensCorrespondence:
     hindu: str
     buddhist: str
     hermetic: str
-
 
 LENS_TABLE: Dict[Lens, LensCorrespondence] = {
     Lens.SQUARE: LensCorrespondence(
@@ -373,7 +368,6 @@ LENS_TABLE: Dict[Lens, LensCorrespondence] = {
     ),
 }
 
-
 # =============================================================================
 # CAUSE CORRESPONDENCES
 # =============================================================================
@@ -388,7 +382,6 @@ class CauseCorrespondence:
     hindu: str
     buddhist: str
     hermetic: str
-
 
 CAUSE_TABLE: Dict[Cause, CauseCorrespondence] = {
     Cause.MATERIAL: CauseCorrespondence(
@@ -425,7 +418,6 @@ CAUSE_TABLE: Dict[Cause, CauseCorrespondence] = {
     ),
 }
 
-
 # =============================================================================
 # TREE CORRESPONDENCES
 # =============================================================================
@@ -440,7 +432,6 @@ class TreeCorrespondence:
     realms: List[str]
     root: str
     crown: str
-
 
 WORLD_TREES: Dict[Tradition, TreeCorrespondence] = {
     Tradition.HEBREW: TreeCorrespondence(
@@ -481,7 +472,6 @@ WORLD_TREES: Dict[Tradition, TreeCorrespondence] = {
     ),
 }
 
-
 # =============================================================================
 # TRANSLATION FUNCTIONS
 # =============================================================================
@@ -509,7 +499,6 @@ def translate_element(element: Element, from_tradition: Tradition,
     }
     return tradition_map.get(to_tradition, element.name)
 
-
 def translate_number(value: int, to_tradition: Tradition) -> Optional[str]:
     """Get significance of number in tradition."""
     corr = SACRED_NUMBERS.get(value)
@@ -527,7 +516,6 @@ def translate_number(value: int, to_tradition: Tradition) -> Optional[str]:
     }
     return tradition_map.get(to_tradition)
 
-
 def get_transformation_stage(stage: int, tradition: Tradition) -> Optional[str]:
     """Get transformation stage name in tradition."""
     if stage < 1 or stage > len(TRANSFORMATION_STAGES):
@@ -542,7 +530,6 @@ def get_transformation_stage(stage: int, tradition: Tradition) -> Optional[str]:
         Tradition.HERMETIC: corr.hermetic,
     }
     return tradition_map.get(tradition, corr.name)
-
 
 # =============================================================================
 # MASTER CORRESPONDENCE TABLE
@@ -567,7 +554,6 @@ def print_four_fold_table() -> str:
     lines.append("╚════════════════════════════════════════════════════════════════════════════════════╝")
     return "\n".join(lines)
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -588,7 +574,6 @@ __all__ = [
     'translate_element', 'translate_number', 'get_transformation_stage',
     'print_four_fold_table',
 ]
-
 
 # =============================================================================
 # VERIFICATION

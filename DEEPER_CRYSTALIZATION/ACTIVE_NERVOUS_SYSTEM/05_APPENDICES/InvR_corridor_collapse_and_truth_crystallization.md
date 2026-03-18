@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S27 | face=F | node=396 | depth=3 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A6:S26→Xi108:W3:A6:S28→Xi108:W2:A6:S27→Xi108:W3:A5:S27→Xi108:W3:A7:S27 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 27±1, wreath 3/3, archetype 6/12 -->
+
 # InvR - Corridor Collapse & Truth Crystallization
 
 Routing role: Reverses AppI (Corridors and Truth Lattice). Where AppI opened corridors — gated pathways that allow information to flow between lattice regions under truth conditions — InvR collapses those corridors back into their truth values and crystallizes the truth lattice into a compact boolean crystal. Open corridors become sealed truths; conditional pathways become unconditional facts.

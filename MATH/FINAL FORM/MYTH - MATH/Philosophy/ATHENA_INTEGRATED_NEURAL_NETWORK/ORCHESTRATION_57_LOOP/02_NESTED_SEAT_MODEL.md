@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A3:S17 | face=S | node=140 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A3:S16→Xi108:W3:A3:S18→Xi108:W2:A3:S17→Xi108:W3:A2:S17→Xi108:W3:A4:S17 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 17±1, wreath 3/3, archetype 3/12 -->
+
 # Nested Seat Model
 
 Source basis: `57-loop plan + Adventurer 64^4 law + AP6D 16/64/256/1024/4096 count law`

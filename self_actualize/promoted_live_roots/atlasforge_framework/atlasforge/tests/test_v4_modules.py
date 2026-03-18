@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W3:A10:S36 | face=C | node=405 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A10:S35→Xi108:W2:A10:S36→Xi108:W3:A9:S36→Xi108:W3:A11:S36
+
 """
 AtlasForge v4.0.0-final Comprehensive Test Suite
 
@@ -35,7 +39,6 @@ def section(name: str):
     print(f"\n{'='*60}")
     print(f" {name}")
     print(f"{'='*60}")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY ALGEBRA TESTS
@@ -102,7 +105,6 @@ def test_gateway_algebra():
     test("Fold doubling κ → 2κ",
          np.isclose(fl.kappa(1), 2.0))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # METALLIC SEQUENCES TESTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -160,7 +162,6 @@ def test_metallic_sequences():
     p, q = cf.convergent(4)
     test("Convergent approaches √2",
          abs(p/q - np.sqrt(2)) < 0.01)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LATIN KERNEL TESTS
@@ -222,7 +223,6 @@ def test_latin_kernels():
     test("Affine DLS construction for p=7, k=2",
          affine.matrix.shape == (7, 7))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # OA6 ALGEBRA TESTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -279,7 +279,6 @@ def test_oa6_algebra():
     final_kappa = word.kernel_transport(1.0)
     test("Kernel transport through C·R·C",
          final_kappa == 1.0)  # All preserve κ
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID COUPLING TESTS
@@ -343,7 +342,6 @@ def test_hybrid_coupling():
     diag = analyze_hybrid(H)
     test("Analysis includes eigenvalues",
          'eigenvalues' in diag)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PROOFS AND CERTIFICATES TESTS
@@ -428,7 +426,6 @@ def test_proofs_certificates():
     test("Seed pack has seed",
          "construction" in pack.seeds)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BIOLOGY AND PHYSICS TESTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -499,7 +496,6 @@ def test_biology_physics():
     test("Multi-scale states set correctly",
          msh.get_state(0, (0,)) == FIRE)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MAIN TEST RUNNER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -534,7 +530,6 @@ def main():
         import traceback
         traceback.print_exc()
         return 2
-
 
 if __name__ == "__main__":
     sys.exit(main())

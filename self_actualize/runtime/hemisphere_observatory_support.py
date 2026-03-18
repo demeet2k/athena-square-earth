@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=351 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -39,9 +43,7 @@ from self_actualize.runtime.hemisphere_replay_support import (
     search as replay_search_query,
 )
 
-
 OBSERVATORY_GROUPS = ("main_pages", "family", "anchor", "target_system", "hemisphere")
-
 
 def load_observatory_registries() -> dict[str, Any]:
     registries = load_constellation_registries()
@@ -52,7 +54,6 @@ def load_observatory_registries() -> dict[str, Any]:
     if OBSERVATORY_MANIFEST_PATH.exists():
         registries["observatory_manifest"] = load_json(OBSERVATORY_MANIFEST_PATH)
     return registries
-
 
 def ensure_observatory_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_observatory_runtime")
@@ -69,7 +70,6 @@ def ensure_observatory_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     registries["_observatory_runtime"] = runtime
     return runtime
 
-
 def tour_summary(bundle: dict[str, Any]) -> dict[str, Any]:
     return {
         "source_page": bundle.get("source_page", {}),
@@ -77,7 +77,6 @@ def tour_summary(bundle: dict[str, Any]) -> dict[str, Any]:
         "page_spine_ids": [page.get("page_id", "") for page in bundle.get("page_spine", [])],
         "exit_links": bundle.get("exit_links", {}),
     }
-
 
 def expedition_summary(bundle: dict[str, Any]) -> dict[str, Any]:
     companions = bundle.get("companion_tours", {})
@@ -91,7 +90,6 @@ def expedition_summary(bundle: dict[str, Any]) -> dict[str, Any]:
         "page_count": len(bundle.get("page_matrix", {}).get("unique_pages", [])),
     }
 
-
 def constellation_summary(bundle: dict[str, Any]) -> dict[str, Any]:
     return {
         "slice_type": bundle.get("slice_type", ""),
@@ -102,14 +100,12 @@ def constellation_summary(bundle: dict[str, Any]) -> dict[str, Any]:
         "page_spine_ids": [page.get("page_id", "") for page in bundle.get("page_spine", [])],
     }
 
-
 def replay_summary(bundle: dict[str, Any]) -> dict[str, Any]:
     return {
         "pass_count": len(bundle.get("replay_passes", [])),
         "support_count": len(bundle.get("support_ids", [])),
         "return_links": bundle.get("return_links", {}),
     }
-
 
 def best_synthesis_landing(bundle: dict[str, Any]) -> dict[str, Any]:
     landing = bundle.get("synthesis_landing", {})
@@ -119,7 +115,6 @@ def best_synthesis_landing(bundle: dict[str, Any]) -> dict[str, Any]:
         "section_count": len(landing.get("sections", [])),
         "sections": landing.get("sections", []),
     }
-
 
 def build_watchpoints(seed_record: dict[str, Any], guided_bundle: dict[str, Any]) -> list[dict[str, Any]]:
     watchpoints = [
@@ -141,7 +136,6 @@ def build_watchpoints(seed_record: dict[str, Any], guided_bundle: dict[str, Any]
     if float(seed_record.get("confidence", 0.0)) < 0.6:
         watchpoints.append({"type": "low_confidence", "value": True})
     return watchpoints
-
 
 def operator_links(seed_id: str) -> dict[str, Any]:
     return {
@@ -166,7 +160,6 @@ def operator_links(seed_id: str) -> dict[str, Any]:
             f"record --record-id {seed_id}"
         ),
     }
-
 
 def build_observatory_bundle(
     guided_bundle: dict[str, Any],
@@ -218,7 +211,6 @@ def build_observatory_bundle(
         payload["alternative_seeds"] = guided_bundle["alternative_seeds"][:3]
     return payload
 
-
 def resolve_stack_for_mode(
     mode: str,
     registries: dict[str, Any],
@@ -246,7 +238,6 @@ def resolve_stack_for_mode(
         replay_bundle = replay_page_query(registries, **kwargs)
     return guided_bundle, expedition_bundle, constellation_bundle, replay_bundle
 
-
 def record(
     registries: dict[str, Any],
     *,
@@ -273,7 +264,6 @@ def record(
         registries,
     )
 
-
 def search(
     query_text: str,
     registries: dict[str, Any],
@@ -295,7 +285,6 @@ def search(
         replay_bundle,
         registries,
     )
-
 
 def facet(
     registries: dict[str, Any],
@@ -319,7 +308,6 @@ def facet(
         registries,
     )
 
-
 def page(
     registries: dict[str, Any],
     *,
@@ -339,7 +327,6 @@ def page(
         replay_bundle,
         registries,
     )
-
 
 def build_observatory_seed_registry(
     registries: dict[str, Any],
@@ -374,7 +361,6 @@ def build_observatory_seed_registry(
             for group_name, entries in sorted(groups.items())
         },
     }
-
 
 def build_observatory_page_registry(
     registries: dict[str, Any],
@@ -412,7 +398,6 @@ def build_observatory_page_registry(
         "pages": pages,
     }
 
-
 def build_observatory_manifest(
     seed_registry: dict[str, Any],
     page_registry: dict[str, Any],
@@ -439,7 +424,6 @@ def build_observatory_manifest(
             "page": "python -m self_actualize.runtime.brief_myth_math_hemisphere_atlas page --page-id <page_id>",
         },
     }
-
 
 def build_observatory_payloads(
     *,

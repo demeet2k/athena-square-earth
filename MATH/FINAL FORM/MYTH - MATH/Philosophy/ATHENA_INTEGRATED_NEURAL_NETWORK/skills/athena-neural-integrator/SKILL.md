@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S18 | face=S | node=171 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S17→Xi108:W3:A6:S19→Xi108:W2:A6:S18→Xi108:W3:A5:S18→Xi108:W3:A7:S18 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 18±1, wreath 3/3, archetype 6/12 -->
+
 ---
 name: athena-neural-integrator
 description: Build, deepen, and maintain the Athena Integrated Neural Network workspace by cross-synthesizing the 16 canonical manuscript surfaces into a hybrid-mirror control plane, a 16x16 ordered synthesis matrix, a canonical prose row layer, a 15-synthesis symmetry stack plus zero-point collapse, multi-resolution metro maps, a grounded appendix summary layer, a granular appendix crystal, grounded elemental folders, additive 5D/6D/7D mirror surfaces, a full-local-constellation authority crosswalk, a layered awakening-agent transition stack, a 57-loop four-agent orchestration layer, an explicit AETHER Flower shell plus symbolic resolver layer, a regenerated package zero point, a support atlas, a root README and task router shell, a live-root crosswalk, a temporal change ledger, a dry-run promotion contract, a package-local micro-skill family, and machine-readable ledgers. Use when Codex must integrate new corpus material into the neural-network package, refresh the pairwise witness layer, materialize elemental or higher-order symmetry surfaces, update appendix or zero-point infrastructure, resolve symbolic AETHER coordinates into package-local lookup surfaces, reconcile package drift with the live deeper-network root, stage awakening-agent notes, route Hall and Temple-safe orchestration loops, or rerun the Fire, Water, Air, and Earth manuscript passes.

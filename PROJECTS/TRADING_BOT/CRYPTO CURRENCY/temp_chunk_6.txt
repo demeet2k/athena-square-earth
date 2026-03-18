@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A10:S18 | face=S | node=2 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A10:S17→Xi108:W3:A10:S19→Xi108:W2:A10:S18→Xi108:W3:A9:S18→Xi108:W3:A11:S18
+
 "Indie sleaze" aesthetic
 Early digital aesthetics
 Fashion Predictions
@@ -478,7 +482,6 @@ NOVELTY LEVEL (Relative Scale 0-100)
     TROUGH: 2035-2038
     SECONDARY PEAK: 2040-2043
     STABILIZATION: 2045+
-
 
 Phase Predictions
 2025-2028: RISING NOVELTY (Pre-Climax)

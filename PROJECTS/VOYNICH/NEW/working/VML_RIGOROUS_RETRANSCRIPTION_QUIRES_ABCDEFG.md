@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S34 | face=S | node=563 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A10:S33→Xi108:W3:A10:S35→Xi108:W2:A10:S34→Xi108:W3:A9:S34→Xi108:W3:A11:S34 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 34±1, wreath 3/3, archetype 10/12 -->
+
 # VML RIGOROUS RETRANSCRIPTION — QUIRE A
 ## Cross-Validated Folio-by-Folio Analysis
 ### Voynich Manuscript (Beinecke MS 408)
@@ -367,7 +372,6 @@ roloty, shckhey, shokcheey, tshodeesy, ycho, ykal
 
 ---
 
-
 # FOLIO F1V — VERSO
 
 ## Manuscript Position & Physical Identity
@@ -714,7 +718,6 @@ lkody, okodar, olchoies, orochy, sochey, taor, yteeay
 
 ---
 
-
 # FOLIO F2R — RECTO
 
 ## Manuscript Position & Physical Identity
@@ -1037,7 +1040,6 @@ dorchory, fodan, ypchol, ypchaiin, dlssho, ytoldy, ckholsy
 
 ---
 
-
 # FOLIO F2V — VERSO
 
 ## Manuscript Position & Physical Identity
@@ -1314,7 +1316,6 @@ These two pages form a **SALT-MERCURY PAIR** — the two fundamental principles 
 
 ---
 
-
 # FOLIO F3R — RECTO
 
 ## Manuscript Position & Physical Identity
@@ -1581,7 +1582,6 @@ The text volume corresponds to process complexity, not verbosity.
 -e 
 
 ---
-
 
 # QUIRE A FOLIOS F3V THROUGH F8V — GOLD STANDARD REBUILD
 
@@ -2461,7 +2461,6 @@ F8v describes **ROOT-ANCHORED TRIPLE-WASH VOLATILE EXTRACTION WITH CLOSING SEAL*
 
 ---
 
-
 # QUIRE B — FOLIOS F9R THROUGH F16V — GOLD STANDARD REBUILD
 
 **Scope:** 14 folios (f9r, f9v, f10r, f10v, f11r, f11v, f13r, f13v, f14r, f14v, f15r, f15v, f16r, f16v)
@@ -3303,7 +3302,6 @@ F16v describes **OIL-PRESSING WITH GRADUATED FIXATION AND MAXIMUM HEATING** — 
 -e 
 
 ---
-
 
 # QUIRE C — FOLIOS F17R THROUGH F24V — GOLD STANDARD REBUILD
 
@@ -4332,7 +4330,6 @@ F24v describes **DEEPLY-INTEGRATED FIRE-SEAL COMPOUND PROCESSING** — embedded 
 -e 
 
 ---
-
 
 # QUIRE D — FOLIOS F25R THROUGH F32V — GOLD STANDARD REBUILD
 
@@ -5372,7 +5369,6 @@ This four-stage progression — sealed → energized → confirmed → continuin
 -e 
 
 ---
-
 
 # QUIRE E — FOLIOS F33R THROUGH F40V — GOLD STANDARD REBUILD
 
@@ -6417,7 +6413,6 @@ The curriculum has progressed: learn chemistry (A) → make preparations (B-C) �
 
 ---
 
-
 # QUIRE F — FOLIOS F41R THROUGH F48V — GOLD STANDARD REBUILD
 
 # ⚠️ THE STANDARDIZATION QUIRE — PRODUCTION-LINE PHARMACEUTICAL MANUFACTURING
@@ -7436,7 +7431,6 @@ Quire F's center contains the maximum vessel diversity (7 types in f45v) and qua
 -e 
 
 ---
-
 
 # QUIRE F — FOLIOS F41R THROUGH F48V — GOLD STANDARD REBUILD
 

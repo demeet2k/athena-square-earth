@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S13→Xi108:W2:A10:S15→Xi108:W1:A10:S14→Xi108:W3:A10:S14→Xi108:W2:A9:S14→Xi108:W2:A11:S14
+
 """
 ATHENA OS - SQUARING THE CIRCLE: DECANATE SYSTEM
 =================================================
@@ -51,7 +55,6 @@ from typing import Dict, List, Optional, Any, Tuple, Iterator
 from enum import Enum, IntEnum
 import math
 
-
 # =============================================================================
 # ENUMS
 # =============================================================================
@@ -63,13 +66,11 @@ class Element(IntEnum):
     AIR = 2
     WATER = 3
 
-
 class Mode(IntEnum):
     """The three zodiacal modes."""
     CARDINAL = 0
     FIXED = 1
     MUTABLE = 2
-
 
 class Planet(IntEnum):
     """The seven classical planets (Chaldean order)."""
@@ -81,7 +82,6 @@ class Planet(IntEnum):
     MERCURY = 5
     MOON = 6
 
-
 # Planet symbols
 PLANET_SYMBOLS: Dict[Planet, str] = {
     Planet.SATURN: "♄",
@@ -92,7 +92,6 @@ PLANET_SYMBOLS: Dict[Planet, str] = {
     Planet.MERCURY: "☿",
     Planet.MOON: "☽"
 }
-
 
 class Sign(IntEnum):
     """The twelve zodiacal signs (in order from Aries)."""
@@ -109,7 +108,6 @@ class Sign(IntEnum):
     AQUARIUS = 10
     PISCES = 11
 
-
 # Sign symbols
 SIGN_SYMBOLS: Dict[Sign, str] = {
     Sign.ARIES: "♈",
@@ -125,7 +123,6 @@ SIGN_SYMBOLS: Dict[Sign, str] = {
     Sign.AQUARIUS: "♒",
     Sign.PISCES: "♓"
 }
-
 
 # =============================================================================
 # SIGN DATA
@@ -161,7 +158,6 @@ class SignData:
         """Get signs of same mode."""
         mod = self.mode
         return [s for s in Sign if SIGN_CATALOG[s].mode == mod]
-
 
 # Complete sign catalog
 SIGN_CATALOG: Dict[Sign, SignData] = {
@@ -214,7 +210,6 @@ SIGN_CATALOG: Dict[Sign, SignData] = {
         330, Planet.JUPITER, Planet.VENUS, Planet.MERCURY, Planet.MERCURY
     )
 }
-
 
 # =============================================================================
 # DECANATE (FACE)
@@ -303,7 +298,6 @@ class Decanate:
     def __hash__(self) -> int:
         return hash(self.index)
 
-
 # =============================================================================
 # CHALDEAN SEQUENCE
 # =============================================================================
@@ -318,7 +312,6 @@ def chaldean_planet_sequence(n: int) -> List[Planet]:
     for i in range(n):
         sequence.append(Planet(i % 7))
     return sequence
-
 
 def assign_chaldean_rulers() -> List[Planet]:
     """
@@ -348,7 +341,6 @@ def assign_chaldean_rulers() -> List[Planet]:
         rulers.append(Planet(planet_idx))
     return rulers
 
-
 # =============================================================================
 # TRIPLICITY RULERSHIP
 # =============================================================================
@@ -361,7 +353,6 @@ def get_triplicity_signs(element: Element) -> List[Sign]:
             signs.append(sign)
     # Sort by mode
     return sorted(signs, key=lambda s: SIGN_CATALOG[s].mode.value)
-
 
 def assign_triplicity_rulers() -> List[Optional[Sign]]:
     """
@@ -402,7 +393,6 @@ def assign_triplicity_rulers() -> List[Optional[Sign]]:
     
     return rulers
 
-
 # =============================================================================
 # DECANATE GENERATION
 # =============================================================================
@@ -434,10 +424,8 @@ def generate_decanates() -> List[Decanate]:
     
     return decanates
 
-
 # Global decanate list
 DECANATES = generate_decanates()
-
 
 # =============================================================================
 # NUMBER 36 PROPERTIES
@@ -509,7 +497,6 @@ class ThirtySixProperties:
             "zodiac": "12 signs × 3 faces",
             "pythagorean": "Circle in 36 + 64 = 100"
         }
-
 
 # =============================================================================
 # DECANATE SYSTEM
@@ -586,7 +573,6 @@ class DecanateSystem:
             "number_36_properties": ThirtySixProperties.all_representations()
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -634,7 +620,6 @@ def validate_decanate_system() -> bool:
     assert 6**2 + 8**2 == 10**2
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Decanate System...")

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A8:S25 | face=F | node=36 | depth=0 | phase=Cardinal -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W1:A8:S24→Xi108:W1:A8:S26→Xi108:W2:A8:S25→Xi108:W1:A7:S25→Xi108:W1:A9:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 1/3, archetype 8/12 -->
+
 # InvP - Triangle Convergence & Tria Resolution
 
 Routing role: Reverses AppG (Triangle Control and Tria Prima). Where AppG established three-agent synchrony through the Tria Prima (Sulfur, Mercury, Salt) and maintained triangle control geometry, InvP converges the three agents to a single unified point and resolves the Tria Prima back into its undifferentiated source — the pre-triadic unity from which Su/Me/Sa originally emerged.

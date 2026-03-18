@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=341 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
@@ -8,17 +12,14 @@ import json
 import uuid
 from typing import Any, Dict, List, Optional
 
-
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 class Verdict(str, Enum):
     OK = "OK"
     NEAR = "NEAR"
     AMBIG = "AMBIG"
     FAIL = "FAIL"
-
 
 class Mode(str, Enum):
     ROUTE = "ROUTE"
@@ -31,9 +32,7 @@ class Mode(str, Enum):
     ABSTAIN = "ABSTAIN"
     ESCALATE = "ESCALATE"
 
-
 OMEGA_KEY = "Ωs"
-
 
 @dataclass
 class QueryBody:
@@ -43,13 +42,11 @@ class QueryBody:
     output_type: str
     required_fields: List[str] = field(default_factory=list)
 
-
 @dataclass
 class ZeroPointNormalization:
     anchor: str = "balanced"
     assumptions: List[str] = field(default_factory=list)
     constraints: List[str] = field(default_factory=list)
-
 
 @dataclass
 class CandidateRoute:
@@ -60,7 +57,6 @@ class CandidateRoute:
     evidence_record_ids: List[str] = field(default_factory=list)
     admissible: bool = True
     risks: List[str] = field(default_factory=list)
-
 
 @dataclass
 class EvidenceRef:
@@ -74,7 +70,6 @@ class EvidenceRef:
     sha256: str = ""
     text_hash: str = ""
 
-
 @dataclass
 class WitnessBundle:
     evidence_trace: List[str] = field(default_factory=list)
@@ -82,7 +77,6 @@ class WitnessBundle:
     contradiction_free: bool = True
     invariants: Dict[str, bool] = field(default_factory=dict)
     replay_hash: str = ""
-
 
 @dataclass
 class CollapseRecord:
@@ -92,13 +86,11 @@ class CollapseRecord:
     rationale: str = ""
     residuals: List[str] = field(default_factory=list)
 
-
 @dataclass
 class TriLockSection:
     identity_lock: bool = False
     admissibility_lock: bool = False
     replay_lock: bool = False
-
 
 @dataclass
 class PrimeSealSection:
@@ -106,14 +98,12 @@ class PrimeSealSection:
     pass_count: int = 0
     tolerance: float = 0.02
 
-
 @dataclass
 class PatchDelta:
     additions: List[str] = field(default_factory=list)
     updates: List[str] = field(default_factory=list)
     removals: List[str] = field(default_factory=list)
     notes: str = ""
-
 
 @dataclass
 class SkillObservation:
@@ -123,7 +113,6 @@ class SkillObservation:
     gaps: List[str] = field(default_factory=list)
     corpus_fit: float = 0.0
 
-
 @dataclass
 class ImprovementOpportunity:
     title: str
@@ -132,7 +121,6 @@ class ImprovementOpportunity:
     rationale: str
     suggested_skill: str = ""
     suggested_artifact: str = ""
-
 
 @dataclass
 class CommandClaimLeaseV1:
@@ -162,7 +150,6 @@ class CommandClaimLeaseV1:
     seed_mode: str = ""
     dual_reference: str = ""
 
-
 @dataclass
 class LiminalCoordinate12DV1:
     Xs: Any
@@ -177,7 +164,6 @@ class LiminalCoordinate12DV1:
     Ns: Any
     Hs: Any
     OmegaS: Any
-
 
 @dataclass
 class CommandRouteDecisionV1:
@@ -199,7 +185,6 @@ class CommandRouteDecisionV1:
     worker_choice: str = ""
     generated_at: str = ""
     quest_refs: List[str] = field(default_factory=list)
-
 
 @dataclass
 class CommandExecutionReceiptV1:
@@ -224,7 +209,6 @@ class CommandExecutionReceiptV1:
     integration_gain: float = 0.0
     compression_gain: float = 0.0
     unresolved_followups: List[str] = field(default_factory=list)
-
 
 @dataclass
 class CommandReinforcementReceiptV1:
@@ -260,7 +244,6 @@ class CommandReinforcementReceiptV1:
     claim_id: str = ""
     replay_ptr: str = ""
 
-
 @dataclass
 class LatencySampleV1:
     event_id: str
@@ -280,7 +263,6 @@ class LatencySampleV1:
     liminal_delta: float = 0.0
     commit_latency_alias_ms: float = 0.0
     route_policy: str = ""
-
 
 @dataclass
 class CapillaryEdgeV1:
@@ -324,7 +306,6 @@ class CapillaryEdgeV1:
     target_ant_id: str = ""
     grade: str = ""
     front_ref: str = ""
-
 
 @dataclass
 class CommandEventPacketV1:
@@ -405,7 +386,6 @@ class CommandEventPacketV1:
     watcher_mode: str = ""
     duality_effect: str = ""
 
-
 @dataclass
 class CommandRewardStateV2:
     affect_intensity_a: float = 0.0
@@ -423,7 +403,6 @@ class CommandRewardStateV2:
     route_mode: str = "observe"
     tau_seconds: float = 0.0
 
-
 @dataclass
 class CommandVerificationStateV2:
     verification_witness: float = 0.0
@@ -431,7 +410,6 @@ class CommandVerificationStateV2:
     closure_class: str = ""
     crown_eligible: bool = False
     verification_witness_cap: float = 1.0
-
 
 @dataclass
 class CommandPheromoneStateV2:
@@ -442,7 +420,6 @@ class CommandPheromoneStateV2:
     bridge_strength_after: float = 0.0
     compat_edge_strength_after: float = 0.0
 
-
 @dataclass
 class CommandRewardAllocationV2:
     role: str
@@ -450,7 +427,6 @@ class CommandRewardAllocationV2:
     base_contribution_share: float
     effective_contribution_share: float
     reward_amount: float
-
 
 @dataclass
 class CommandRouteDecisionV2(CommandRouteDecisionV1):
@@ -460,7 +436,6 @@ class CommandRouteDecisionV2(CommandRouteDecisionV1):
     verification_witness_cap: float = 1.0
     reward_inputs: Dict[str, Any] = field(default_factory=dict)
 
-
 @dataclass
 class CommandExecutionReceiptV2(CommandExecutionReceiptV1):
     reward_state: Dict[str, Any] = field(default_factory=dict)
@@ -469,7 +444,6 @@ class CommandExecutionReceiptV2(CommandExecutionReceiptV1):
     reward_allocations: List[Dict[str, Any]] = field(default_factory=list)
     crown_tier: str = "none"
     closure_class: str = ""
-
 
 @dataclass
 class CommandReinforcementReceiptV2(CommandReinforcementReceiptV1):
@@ -482,7 +456,6 @@ class CommandReinforcementReceiptV2(CommandReinforcementReceiptV1):
     closure_class: str = ""
     route_mode: str = "reinforce"
 
-
 @dataclass
 class LatencySampleV2(LatencySampleV1):
     tau_seconds: float = 0.0
@@ -490,7 +463,6 @@ class LatencySampleV2(LatencySampleV1):
     verified_alignment_score: float = 0.0
     reward_multiplier: float = 1.0
     crown_tier: str = "none"
-
 
 @dataclass
 class CapillaryEdgeV2(CapillaryEdgeV1):
@@ -505,7 +477,6 @@ class CapillaryEdgeV2(CapillaryEdgeV1):
     gold_deposit: float = 0.0
     bridge_deposit: float = 0.0
 
-
 @dataclass
 class CommandEventPacketV2(CommandEventPacketV1):
     reward_state: Dict[str, Any] = field(default_factory=dict)
@@ -514,7 +485,6 @@ class CommandEventPacketV2(CommandEventPacketV1):
     reward_policy_id: str = ""
     crown_tier: str = "none"
     closure_class: str = ""
-
 
 @dataclass
 class CommitReceiptV1:
@@ -549,7 +519,6 @@ class CommitReceiptV1:
     seed_mode: str = ""
     dual_reference: str = ""
 
-
 @dataclass
 class CommandLatencyRecordV1:
     event_id: str
@@ -566,7 +535,6 @@ class CommandLatencyRecordV1:
     route_policy: str = ""
     front_ref: str = ""
 
-
 @dataclass
 class CapillaryEdgeRecordV1:
     edge_id: str
@@ -581,7 +549,6 @@ class CapillaryEdgeRecordV1:
     front_ref: str
     last_event_id: str
     updated_at: str
-
 
 @dataclass
 class RoutePacket:

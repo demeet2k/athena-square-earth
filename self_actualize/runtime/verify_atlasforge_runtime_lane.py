@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
@@ -6,23 +10,19 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 PROMOTED_ROOT = SELF_ACTUALIZE_ROOT / "promoted_live_roots" / "atlasforge_framework"
 OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "atlasforge_runtime_lane.json"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_atlasforge_runtime_lane"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def ensure_promoted_root() -> None:
     promoted_root_str = str(PROMOTED_ROOT)
     if promoted_root_str not in sys.path:
         sys.path.insert(0, promoted_root_str)
-
 
 def run_check(label: str, fn) -> dict:
     try:
@@ -38,7 +38,6 @@ def run_check(label: str, fn) -> dict:
             "status": "FAIL",
             "details": str(exc),
         }
-
 
 def verify_lane() -> dict:
     ensure_promoted_root()
@@ -117,7 +116,6 @@ def verify_lane() -> dict:
         "lane_law": "narrow replay-safe import and solver lane only; excludes sqlite-backed memory cleanup paths",
     }
 
-
 def main() -> int:
     payload = verify_lane()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -126,7 +124,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

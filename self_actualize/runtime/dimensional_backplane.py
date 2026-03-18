@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=354 | depth=2 | phase=Mutable
+# METRO: Sa,Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 from __future__ import annotations
 
 import re
 from typing import Any
-
 
 CHAPTER_RETURN_ANCHORS = ["Ch12<0023>", "Ch13<0030>", "Ch16<0033>"]
 REPLAY_APPENDIX_ANCHORS = ["AppI", "AppM"]
@@ -280,19 +283,15 @@ CORPUS_BODY_NODES: dict[str, dict[str, Any]] = {
     },
 }
 
-
 def _normalized_text(*parts: str) -> str:
     return " ".join(part.lower() for part in parts if part)
-
 
 def _phrase_hits(text: str, phrases: list[str]) -> int:
     return sum(1 for phrase in phrases if phrase in text)
 
-
 def _path_has(lowered_path: str, needle: str) -> bool:
     needle = needle.lower().replace("/", "\\")
     return needle in lowered_path.replace("/", "\\")
-
 
 def body_node_for_top_level(top_level: str) -> dict[str, Any]:
     if top_level in CORPUS_BODY_NODES:
@@ -305,7 +304,6 @@ def body_node_for_top_level(top_level: str) -> dict[str, Any]:
         "transfer_hubs": ["AppA", "AppI", "AppM"],
         "feeds_basis": ["02", "05"],
     }
-
 
 def infer_basis_refs(record: dict[str, Any]) -> list[str]:
     relative_path = record.get("relative_path", "")
@@ -345,7 +343,6 @@ def infer_basis_refs(record: dict[str, Any]) -> list[str]:
         selected = body_node["feeds_basis"][:4]
     return selected
 
-
 def infer_d5_state(record: dict[str, Any], basis_refs: list[str]) -> str:
     relative_path = record.get("relative_path", "").lower().replace("/", "\\")
     if any(
@@ -356,7 +353,6 @@ def infer_d5_state(record: dict[str, Any], basis_refs: list[str]) -> str:
     if set(basis_refs).intersection({"05", "06", "07", "08", "10", "16"}):
         return "addressable"
     return "latent"
-
 
 def infer_d6_state(record: dict[str, Any], basis_refs: list[str]) -> str:
     relative_path = record.get("relative_path", "").lower().replace("/", "\\")
@@ -378,7 +374,6 @@ def infer_d6_state(record: dict[str, Any], basis_refs: list[str]) -> str:
         return "addressable"
     return "latent"
 
-
 def infer_canonical_status(relative_path: str) -> str:
     lowered = relative_path.lower().replace("/", "\\")
     if _path_has(lowered, f"\\{INGRESS_CANONICAL_PATH.lower()}\\"):
@@ -394,7 +389,6 @@ def infer_canonical_status(relative_path: str) -> str:
     if _path_has(lowered, f"\\{H6_CANONICAL_PATH.lower()}\\"):
         return "canonical_h6_convergence"
     return "standard"
-
 
 def infer_appendix_support(record: dict[str, Any], body_node: dict[str, Any], basis_refs: list[str]) -> list[str]:
     appendices = set(body_node["transfer_hubs"])
@@ -417,7 +411,6 @@ def infer_appendix_support(record: dict[str, Any], body_node: dict[str, Any], ba
         appendices.add("AppP")
     return sorted(appendices)
 
-
 def infer_return_targets(record: dict[str, Any], appendix_support: list[str]) -> list[str]:
     relative_path = record.get("relative_path", "").lower().replace("/", "\\")
     targets = list(CHAPTER_RETURN_ANCHORS)
@@ -434,7 +427,6 @@ def infer_return_targets(record: dict[str, Any], appendix_support: list[str]) ->
             deduped.append(target)
     return deduped
 
-
 def infer_metro_levels(record: dict[str, Any], d5_state: str, d6_state: str) -> list[int]:
     levels = {1, 2, 3, 4}
     if d5_state in {"active", "addressable"}:
@@ -445,7 +437,6 @@ def infer_metro_levels(record: dict[str, Any], d5_state: str, d6_state: str) -> 
     if any(token in relative_path for token in ("\\07_7d_cross_agent_seed", "\\07_level_7_", "seed-7d", "h7")):
         levels.add(7)
     return sorted(levels)
-
 
 def infer_dimensional_bindings(record: dict[str, Any], body_node: dict[str, Any], basis_refs: list[str]) -> dict[str, Any]:
     relative_path = record.get("relative_path", "")
@@ -493,7 +484,6 @@ def infer_dimensional_bindings(record: dict[str, Any], body_node: dict[str, Any]
         },
     }
 
-
 def infer_metro_bindings(record: dict[str, Any], body_node: dict[str, Any], basis_refs: list[str], appendix_support: list[str]) -> dict[str, Any]:
     d5_state = infer_d5_state(record, basis_refs)
     d6_state = infer_d6_state(record, basis_refs)
@@ -521,7 +511,6 @@ def infer_metro_bindings(record: dict[str, Any], body_node: dict[str, Any], basi
         "line_role": body_node["station_role"],
     }
 
-
 def infer_control_bindings(record: dict[str, Any], basis_refs: list[str], docs_gate_status: str) -> dict[str, Any]:
     relative_path = record.get("relative_path", "")
     canonical_status = infer_canonical_status(relative_path)
@@ -535,7 +524,6 @@ def infer_control_bindings(record: dict[str, Any], basis_refs: list[str], docs_g
         "earth_package_root": EARTH_CANONICAL_PATH,
     }
 
-
 def apply_dimensional_backplane(record: dict[str, Any], docs_gate_status: str = "BLOCKED") -> dict[str, Any]:
     enriched = dict(record)
     body_node = body_node_for_top_level(record.get("top_level", ""))
@@ -545,7 +533,6 @@ def apply_dimensional_backplane(record: dict[str, Any], docs_gate_status: str = 
     enriched["metro_bindings"] = infer_metro_bindings(record, body_node, basis_refs, appendix_support)
     enriched["control_bindings"] = infer_control_bindings(record, basis_refs, docs_gate_status)
     return enriched
-
 
 def summarize_backplane(records: list[dict[str, Any]]) -> dict[str, dict[str, int]]:
     by_d3_line: dict[str, int] = {}

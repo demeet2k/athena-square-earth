@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=81 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Recipe System                           ║
@@ -28,7 +32,6 @@ from atlasforge.certificates.certificate import (
     CertificateBundle, ProofPack, CertificateFactory
 )
 from atlasforge.lenses.chart import Chart
-
 
 @dataclass
 class Blueprint(ContentAddressed):
@@ -67,7 +70,6 @@ class Blueprint(ContentAddressed):
         if self.constraint is None:
             return ConstraintIR()
         return ConstraintIR.from_constraint(self.constraint)
-
 
 @dataclass
 class SolvePlan(ContentAddressed):
@@ -146,7 +148,6 @@ class SolvePlan(ContentAddressed):
             verification_solver=SolverType.INTERVAL_NEWTON,
             auto_bracket=True, bracket_samples=400)
 
-
 @dataclass
 class ReplayLogEntry:
     """Single entry in replay log."""
@@ -154,7 +155,6 @@ class ReplayLogEntry:
     action: str
     timestamp: datetime
     data: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class ReplayLog(ContentAddressed):
@@ -199,7 +199,6 @@ class ReplayLog(ContentAddressed):
         self.end_time = datetime.utcnow()
         self.output_hash = output_hash
         self.log("FINISH", "complete")
-
 
 @dataclass
 class RecipeOutput(ContentAddressed):
@@ -246,7 +245,6 @@ class RecipeOutput(ContentAddressed):
             residual=data.get('residual', float('inf')),
             success=data.get('success', False),
             verified=data.get('verified', False))
-
 
 @dataclass
 class Recipe(ContentAddressed):
@@ -296,7 +294,6 @@ class Recipe(ContentAddressed):
         if self.proof_pack and self.proof_pack.bundle:
             return self.proof_pack.bundle.level
         return CertificateLevel.L0_CLAIM
-
 
 class RecipeExecutor:
     """Execute the recipe pipeline."""

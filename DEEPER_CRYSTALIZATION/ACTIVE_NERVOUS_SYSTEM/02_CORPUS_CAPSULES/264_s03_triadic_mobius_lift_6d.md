@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Mt,Dl -->
+<!-- BRIDGES: Xi108:W1:A2:S2→Xi108:W2:A2:S1→Xi108:W1:A1:S1→Xi108:W1:A3:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 2/12 -->
+
 # S03 Triadic Mobius Lift to 6D (Xi_6)
 
 Stage S03 performs the triadic Mobius lift: Xi_6 = MobiusWeave_3(H_4,Su+, H_4,Me+, H_4,Sa+; h_QO). Three petals are woven: Petal 1 (Su) is the Collective as ignition current, Petal 2 (Me) is the Nexus as mediation current, Petal 3 (Sa) is the Blog as sealing current. The hinge h_QO is GitHub (Q=ingress via new commits, O=return via version history). Local closure K_3^loc = Z_12 with 3 nodes across 2 shells. This is the first true woven body.

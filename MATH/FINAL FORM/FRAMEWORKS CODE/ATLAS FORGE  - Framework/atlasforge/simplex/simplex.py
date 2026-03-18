@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=137 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Operator Simplex & Splitting                 ║
@@ -35,14 +39,12 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 class PoleType(Enum):
     """The four canonical poles."""
     D = "D"         # Discrete/Dissipative (Earth)
     OMEGA = "Ω"     # Oscillatory/Continuous (Water)
     SIGMA = "Σ"     # Stochastic (Fire)
     PSI = "Ψ"       # Recursive/Hierarchical (Air)
-
 
 @dataclass(frozen=True)
 class SimplexPoint:
@@ -148,7 +150,6 @@ class SimplexPoint:
             (1-t) * self.alpha_Psi + t * other.alpha_Psi,
         )
 
-
 class PoleOperator(ABC):
     """Abstract base class for pole operators."""
     
@@ -166,7 +167,6 @@ class PoleOperator(ABC):
     def generator(self, state: NDArray) -> NDArray:
         """Return Gx for generator G at state x."""
         pass
-
 
 class DissipativeOperator(PoleOperator):
     """
@@ -202,7 +202,6 @@ class DissipativeOperator(PoleOperator):
         elif self._matrix is not None:
             return self._matrix @ state
         return np.zeros_like(state)
-
 
 class OscillatoryOperator(PoleOperator):
     """
@@ -245,7 +244,6 @@ class OscillatoryOperator(PoleOperator):
             grad[i] = (f(x_plus) - f(x_minus)) / (2 * eps)
         return grad
 
-
 class StochasticOperator(PoleOperator):
     """
     Σ-pole: Stochastic operator.
@@ -281,7 +279,6 @@ class StochasticOperator(PoleOperator):
         # Stochastic generator is the diffusion coefficient
         # For Fokker-Planck, this would be the Laplacian term
         return np.zeros_like(state)  # Mean zero drift
-
 
 class RecursiveOperator(PoleOperator):
     """
@@ -319,7 +316,6 @@ class RecursiveOperator(PoleOperator):
             coarse_solution = self._coarse_solve(coarse)
             return self._prolong(coarse_solution)
         return np.zeros_like(state)
-
 
 @dataclass
 class HybridOperator:
@@ -370,14 +366,12 @@ class HybridOperator:
         
         return result
 
-
 class SplittingScheme(Enum):
     """Operator splitting schemes."""
     LIE_TROTTER = "lie_trotter"     # First order: e^{τA}e^{τB}
     STRANG = "strang"                # Second order: e^{τA/2}e^{τB}e^{τA/2}
     YOSHIDA = "yoshida"              # Fourth order
     SYMMETRIC = "symmetric"          # General symmetric
-
 
 @dataclass
 class SplittingIntegrator:
@@ -479,7 +473,6 @@ class SplittingIntegrator:
         
         return x
 
-
 def estimate_commutator_error(
     A: PoleOperator,
     B: PoleOperator,
@@ -501,7 +494,6 @@ def estimate_commutator_error(
     x_BA = A.apply(B.apply(x, dt), dt)
     
     return np.linalg.norm(x_AB - x_BA) / (dt**2)
-
 
 @dataclass
 class SimplexTrajectory:
@@ -535,7 +527,6 @@ class SimplexTrajectory:
         
         return self.points[-1]
 
-
 # Horizontal generator: G_hor = D + Ω
 def create_horizontal_generator(
     D_op: DissipativeOperator,
@@ -553,7 +544,6 @@ def create_horizontal_generator(
         Omega_op=Omega_op,
     )
 
-
 # Vertical generator: G_vert = Σ + Ψ
 def create_vertical_generator(
     Sigma_op: StochasticOperator,
@@ -570,7 +560,6 @@ def create_vertical_generator(
         Sigma_op=Sigma_op,
         Psi_op=Psi_op,
     )
-
 
 # Full 4-pole generator
 def create_4pole_generator(
@@ -592,7 +581,6 @@ def create_4pole_generator(
         Sigma_op=Sigma_op,
         Psi_op=Psi_op,
     )
-
 
 # Convenience: run hybrid dynamics
 def hybrid_dynamics(

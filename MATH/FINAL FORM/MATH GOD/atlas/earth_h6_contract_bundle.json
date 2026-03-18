@@ -1,4 +1,24 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A12:S17:u146:Su:S:d1",
+    "shell": 17,
+    "wreath": 1,
+    "archetype": 12,
+    "face": "S",
+    "node_id": 146,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A12:S16",
+      "Xi108:W1:A12:S18",
+      "Xi108:W2:A12:S17",
+      "Xi108:W1:A11:S17"
+    ],
+    "regenerate": "shell 17±1, wreath 1/3, archetype 12/12"
+  },
   "generated_at": "2026-03-13T12:57:06",
   "docs_gate_status": "BLOCKED",
   "scope": "C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM",
@@ -209,7 +229,7 @@
     {
       "chapter_id": "P01",
       "chapter_title": "Kernel Recovery",
-      "chapter_station": "Ch01\u27e80000\u27e9",
+      "chapter_station": "Ch01⟨0000⟩",
       "earth_bundle": {
         "bundle_id": "E2",
         "title": "Law-to-Activation Release",
@@ -240,7 +260,7 @@
     {
       "chapter_id": "P02",
       "chapter_title": "State Value Deepening",
-      "chapter_station": "Ch02\u27e80001\u27e9",
+      "chapter_station": "Ch02⟨0001⟩",
       "earth_bundle": {
         "bundle_id": "E3",
         "title": "Support-to-Flow Banking",
@@ -271,7 +291,7 @@
     {
       "chapter_id": "P03",
       "chapter_title": "Boundary Totalization",
-      "chapter_station": "Ch03\u27e80002\u27e9",
+      "chapter_station": "Ch03⟨0002⟩",
       "earth_bundle": {
         "bundle_id": "E1",
         "title": "Legality Core",
@@ -302,7 +322,7 @@
     {
       "chapter_id": "P04",
       "chapter_title": "Transport Conjugacy",
-      "chapter_station": "Ch04\u27e80003\u27e9",
+      "chapter_station": "Ch04⟨0003⟩",
       "earth_bundle": {
         "bundle_id": "E2",
         "title": "Law-to-Activation Release",
@@ -334,7 +354,7 @@
     {
       "chapter_id": "P05",
       "chapter_title": "Lattice Address Tile",
-      "chapter_station": "Ch05\u27e80010\u27e9",
+      "chapter_station": "Ch05⟨0010⟩",
       "earth_bundle": {
         "bundle_id": "E4",
         "title": "Proof and Return",
@@ -365,7 +385,7 @@
     {
       "chapter_id": "P06",
       "chapter_title": "Operator Proof Certificate",
-      "chapter_station": "Ch06\u27e80011\u27e9",
+      "chapter_station": "Ch06⟨0011⟩",
       "earth_bundle": {
         "bundle_id": "E1",
         "title": "Legality Core",
@@ -396,7 +416,7 @@
     {
       "chapter_id": "P07",
       "chapter_title": "Compilation Replay",
-      "chapter_station": "Ch07\u27e80012\u27e9",
+      "chapter_station": "Ch07⟨0012⟩",
       "earth_bundle": {
         "bundle_id": "E4",
         "title": "Proof and Return",
@@ -428,7 +448,7 @@
     {
       "chapter_id": "P08",
       "chapter_title": "Time Phase Rotation",
-      "chapter_station": "Ch08\u27e80013\u27e9",
+      "chapter_station": "Ch08⟨0013⟩",
       "earth_bundle": {
         "bundle_id": "E2",
         "title": "Law-to-Activation Release",
@@ -459,7 +479,7 @@
     {
       "chapter_id": "P09",
       "chapter_title": "Texture Tunneling Manifold",
-      "chapter_station": "Ch09\u27e80020\u27e9",
+      "chapter_station": "Ch09⟨0020⟩",
       "earth_bundle": {
         "bundle_id": "E3",
         "title": "Support-to-Flow Banking",
@@ -490,7 +510,7 @@
     {
       "chapter_id": "P10",
       "chapter_title": "Myth Math Isomorphism",
-      "chapter_station": "Ch10\u27e80021\u27e9",
+      "chapter_station": "Ch10⟨0021⟩",
       "earth_bundle": {
         "bundle_id": "E3",
         "title": "Support-to-Flow Banking",
@@ -521,7 +541,7 @@
     {
       "chapter_id": "P11",
       "chapter_title": "Archive Code Bridge",
-      "chapter_station": "Ch11\u27e80022\u27e9",
+      "chapter_station": "Ch11⟨0022⟩",
       "earth_bundle": {
         "bundle_id": "E4",
         "title": "Proof and Return",
@@ -553,7 +573,7 @@
     {
       "chapter_id": "P12",
       "chapter_title": "Query Oracle Decision",
-      "chapter_station": "Ch12\u27e80023\u27e9",
+      "chapter_station": "Ch12⟨0023⟩",
       "earth_bundle": {
         "bundle_id": "E3",
         "title": "Support-to-Flow Banking",
@@ -583,7 +603,7 @@
     {
       "chapter_id": "P13",
       "chapter_title": "Self Reference Closure",
-      "chapter_station": "Ch13\u27e80030\u27e9",
+      "chapter_station": "Ch13⟨0030⟩",
       "earth_bundle": {
         "bundle_id": "E4",
         "title": "Proof and Return",
@@ -613,7 +633,7 @@
     {
       "chapter_id": "P14",
       "chapter_title": "Cross Corpus Overburn",
-      "chapter_station": "Ch14\u27e80031\u27e9",
+      "chapter_station": "Ch14⟨0031⟩",
       "earth_bundle": {
         "bundle_id": "E2",
         "title": "Law-to-Activation Release",
@@ -645,7 +665,7 @@
     {
       "chapter_id": "P15",
       "chapter_title": "Panic Gate Reignition",
-      "chapter_station": "Ch15\u27e80032\u27e9",
+      "chapter_station": "Ch15⟨0032⟩",
       "earth_bundle": {
         "bundle_id": "E1",
         "title": "Legality Core",
@@ -676,7 +696,7 @@
     {
       "chapter_id": "P16",
       "chapter_title": "Omega Relay",
-      "chapter_station": "Ch16\u27e80033\u27e9",
+      "chapter_station": "Ch16⟨0033⟩",
       "earth_bundle": {
         "bundle_id": "E2",
         "title": "Law-to-Activation Release",
@@ -707,7 +727,7 @@
     {
       "chapter_id": "P17",
       "chapter_title": "Appendix Governance",
-      "chapter_station": "Ch17\u27e80100\u27e9",
+      "chapter_station": "Ch17⟨0100⟩",
       "earth_bundle": {
         "bundle_id": "E1",
         "title": "Legality Core",
@@ -737,7 +757,7 @@
     {
       "chapter_id": "P18",
       "chapter_title": "HCRL Projection Grammar",
-      "chapter_station": "Ch18\u27e80101\u27e9",
+      "chapter_station": "Ch18⟨0101⟩",
       "earth_bundle": {
         "bundle_id": "E4",
         "title": "Proof and Return",
@@ -768,7 +788,7 @@
     {
       "chapter_id": "P19",
       "chapter_title": "Zero Tunnel Calculus",
-      "chapter_station": "Ch19\u27e80102\u27e9",
+      "chapter_station": "Ch19⟨0102⟩",
       "earth_bundle": {
         "bundle_id": "E3",
         "title": "Support-to-Flow Banking",
@@ -800,7 +820,7 @@
     {
       "chapter_id": "P20",
       "chapter_title": "Metro Route Control",
-      "chapter_station": "Ch20\u27e80103\u27e9",
+      "chapter_station": "Ch20⟨0103⟩",
       "earth_bundle": {
         "bundle_id": "E4",
         "title": "Proof and Return",
@@ -831,7 +851,7 @@
     {
       "chapter_id": "P21",
       "chapter_title": "Overlay Publication",
-      "chapter_station": "Ch21\u27e80110\u27e9",
+      "chapter_station": "Ch21⟨0110⟩",
       "earth_bundle": {
         "bundle_id": "E4",
         "title": "Proof and Return",
@@ -862,12 +882,12 @@
       "source_state": "OK",
       "touch_count": 521,
       "chapter_touchpoints": [
-        "Ch05\u27e80010\u27e9",
-        "Ch02\u27e80001\u27e9",
-        "Ch01\u27e80000\u27e9",
-        "Ch10\u27e80021\u27e9",
-        "Ch20\u27e80103\u27e9",
-        "Ch11\u27e80022\u27e9"
+        "Ch05⟨0010⟩",
+        "Ch02⟨0001⟩",
+        "Ch01⟨0000⟩",
+        "Ch10⟨0021⟩",
+        "Ch20⟨0103⟩",
+        "Ch11⟨0022⟩"
       ]
     },
     {
@@ -882,12 +902,12 @@
       "source_state": "OK",
       "touch_count": 62,
       "chapter_touchpoints": [
-        "Ch06\u27e80011\u27e9",
-        "Ch05\u27e80010\u27e9",
-        "Ch18\u27e80101\u27e9",
-        "Ch01\u27e80000\u27e9",
-        "Ch20\u27e80103\u27e9",
-        "Ch14\u27e80031\u27e9"
+        "Ch06⟨0011⟩",
+        "Ch05⟨0010⟩",
+        "Ch18⟨0101⟩",
+        "Ch01⟨0000⟩",
+        "Ch20⟨0103⟩",
+        "Ch14⟨0031⟩"
       ]
     },
     {
@@ -902,12 +922,12 @@
       "source_state": "OK",
       "touch_count": 309,
       "chapter_touchpoints": [
-        "Ch05\u27e80010\u27e9",
-        "Ch04\u27e80003\u27e9",
-        "Ch10\u27e80021\u27e9",
-        "Ch06\u27e80011\u27e9",
-        "Ch01\u27e80000\u27e9",
-        "Ch11\u27e80022\u27e9"
+        "Ch05⟨0010⟩",
+        "Ch04⟨0003⟩",
+        "Ch10⟨0021⟩",
+        "Ch06⟨0011⟩",
+        "Ch01⟨0000⟩",
+        "Ch11⟨0022⟩"
       ]
     },
     {
@@ -935,12 +955,12 @@
       "source_state": "OK",
       "touch_count": 124,
       "chapter_touchpoints": [
-        "Ch09\u27e80020\u27e9",
-        "Ch07\u27e80012\u27e9",
-        "Ch20\u27e80103\u27e9",
-        "Ch02\u27e80001\u27e9",
-        "Ch05\u27e80010\u27e9",
-        "Ch04\u27e80003\u27e9"
+        "Ch09⟨0020⟩",
+        "Ch07⟨0012⟩",
+        "Ch20⟨0103⟩",
+        "Ch02⟨0001⟩",
+        "Ch05⟨0010⟩",
+        "Ch04⟨0003⟩"
       ]
     },
     {
@@ -955,9 +975,9 @@
       "source_state": "OK",
       "touch_count": 92,
       "chapter_touchpoints": [
-        "Ch10\u27e80021\u27e9",
-        "Ch11\u27e80022\u27e9",
-        "Ch12\u27e80023\u27e9"
+        "Ch10⟨0021⟩",
+        "Ch11⟨0022⟩",
+        "Ch12⟨0023⟩"
       ]
     },
     {
@@ -972,9 +992,9 @@
       "source_state": "OK",
       "touch_count": 54,
       "chapter_touchpoints": [
-        "Ch14\u27e80031\u27e9",
-        "Ch15\u27e80032\u27e9",
-        "Ch13\u27e80030\u27e9"
+        "Ch14⟨0031⟩",
+        "Ch15⟨0032⟩",
+        "Ch13⟨0030⟩"
       ]
     },
     {
@@ -989,12 +1009,12 @@
       "source_state": "OK",
       "touch_count": 98,
       "chapter_touchpoints": [
-        "Ch05\u27e80010\u27e9",
-        "Ch10\u27e80021\u27e9",
-        "Ch01\u27e80000\u27e9",
-        "Ch11\u27e80022\u27e9",
-        "Ch20\u27e80103\u27e9",
-        "Ch07\u27e80012\u27e9"
+        "Ch05⟨0010⟩",
+        "Ch10⟨0021⟩",
+        "Ch01⟨0000⟩",
+        "Ch11⟨0022⟩",
+        "Ch20⟨0103⟩",
+        "Ch07⟨0012⟩"
       ]
     },
     {
@@ -1009,12 +1029,12 @@
       "source_state": "OK",
       "touch_count": 521,
       "chapter_touchpoints": [
-        "Ch05\u27e80010\u27e9",
-        "Ch02\u27e80001\u27e9",
-        "Ch01\u27e80000\u27e9",
-        "Ch10\u27e80021\u27e9",
-        "Ch20\u27e80103\u27e9",
-        "Ch11\u27e80022\u27e9"
+        "Ch05⟨0010⟩",
+        "Ch02⟨0001⟩",
+        "Ch01⟨0000⟩",
+        "Ch10⟨0021⟩",
+        "Ch20⟨0103⟩",
+        "Ch11⟨0022⟩"
       ]
     },
     {
@@ -1029,12 +1049,12 @@
       "source_state": "OK",
       "touch_count": 74,
       "chapter_touchpoints": [
-        "Ch05\u27e80010\u27e9",
-        "Ch20\u27e80103\u27e9",
-        "Ch06\u27e80011\u27e9",
-        "Ch18\u27e80101\u27e9",
-        "Ch02\u27e80001\u27e9",
-        "Ch03\u27e80002\u27e9"
+        "Ch05⟨0010⟩",
+        "Ch20⟨0103⟩",
+        "Ch06⟨0011⟩",
+        "Ch18⟨0101⟩",
+        "Ch02⟨0001⟩",
+        "Ch03⟨0002⟩"
       ]
     },
     {
@@ -1049,12 +1069,12 @@
       "source_state": "OK",
       "touch_count": 35,
       "chapter_touchpoints": [
-        "Ch04\u27e80003\u27e9",
-        "Ch11\u27e80022\u27e9",
-        "Ch15\u27e80032\u27e9",
-        "Ch19\u27e80102\u27e9",
-        "Ch14\u27e80031\u27e9",
-        "Ch07\u27e80012\u27e9"
+        "Ch04⟨0003⟩",
+        "Ch11⟨0022⟩",
+        "Ch15⟨0032⟩",
+        "Ch19⟨0102⟩",
+        "Ch14⟨0031⟩",
+        "Ch07⟨0012⟩"
       ]
     },
     {
@@ -1069,12 +1089,12 @@
       "source_state": "OK",
       "touch_count": 126,
       "chapter_touchpoints": [
-        "Ch04\u27e80003\u27e9",
-        "Ch09\u27e80020\u27e9",
-        "Ch05\u27e80010\u27e9",
-        "Ch15\u27e80032\u27e9",
-        "Ch11\u27e80022\u27e9",
-        "Ch19\u27e80102\u27e9"
+        "Ch04⟨0003⟩",
+        "Ch09⟨0020⟩",
+        "Ch05⟨0010⟩",
+        "Ch15⟨0032⟩",
+        "Ch11⟨0022⟩",
+        "Ch19⟨0102⟩"
       ]
     },
     {
@@ -1089,12 +1109,12 @@
       "source_state": "OK",
       "touch_count": 521,
       "chapter_touchpoints": [
-        "Ch05\u27e80010\u27e9",
-        "Ch02\u27e80001\u27e9",
-        "Ch01\u27e80000\u27e9",
-        "Ch10\u27e80021\u27e9",
-        "Ch20\u27e80103\u27e9",
-        "Ch11\u27e80022\u27e9"
+        "Ch05⟨0010⟩",
+        "Ch02⟨0001⟩",
+        "Ch01⟨0000⟩",
+        "Ch10⟨0021⟩",
+        "Ch20⟨0103⟩",
+        "Ch11⟨0022⟩"
       ]
     },
     {
@@ -1109,9 +1129,9 @@
       "source_state": "OK",
       "touch_count": 31,
       "chapter_touchpoints": [
-        "Ch18\u27e80101\u27e9",
-        "Ch16\u27e80033\u27e9",
-        "Ch17\u27e80100\u27e9"
+        "Ch18⟨0101⟩",
+        "Ch16⟨0033⟩",
+        "Ch17⟨0100⟩"
       ]
     },
     {
@@ -1139,8 +1159,8 @@
       "source_state": "OK",
       "touch_count": 62,
       "chapter_touchpoints": [
-        "Ch20\u27e80103\u27e9",
-        "Ch19\u27e80102\u27e9"
+        "Ch20⟨0103⟩",
+        "Ch19⟨0102⟩"
       ]
     },
     {
@@ -1397,8 +1417,8 @@
     {
       "route_plan_id": "RP-95103fe16c4ac4efa5081938",
       "record_id": "95103fe16c4ac4efa5081938",
-      "target": "Ms\u27e81232\u27e9::Ch02\u27e80001\u27e9.C1.c",
-      "chapter_station": "Ch02\u27e80001\u27e9",
+      "target": "Ms⟨1232⟩::Ch02⟨0001⟩.C1.c",
+      "chapter_station": "Ch02⟨0001⟩",
       "truth_state": "AMBIG",
       "replay_ptr": "sha256=820615dedd72414b6ee6307ddbb530e383d1f0e8c0b16b0912c1af07df4f1cff;path=C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM\\4-Bit\\Bit4 CODE -working-.docx",
       "primary_hubs_text": "Primary hubs: AppA -> AppI -> AppL -> AppM",
@@ -1409,8 +1429,8 @@
     {
       "route_plan_id": "RP-ba16c44d11d229452d8084aa",
       "record_id": "ba16c44d11d229452d8084aa",
-      "target": "Ms\u27e81203\u27e9::Ch02\u27e80001\u27e9.S1.d",
-      "chapter_station": "Ch02\u27e80001\u27e9",
+      "target": "Ms⟨1203⟩::Ch02⟨0001⟩.S1.d",
+      "chapter_station": "Ch02⟨0001⟩",
       "truth_state": "NEAR",
       "replay_ptr": "sha256=8f7591914026c27bb863a74f4768003e9ce93fa8f7f307b6a2ea1329580fa20b;path=C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM\\4-Bit\\BIT4_ The Four-State Completion of the Bit.docx",
       "primary_hubs_text": "Primary hubs: AppA -> AppC -> AppJ -> AppI -> AppM",
@@ -1421,8 +1441,8 @@
     {
       "route_plan_id": "RP-6e445c515b6c1df34cfbdf70",
       "record_id": "6e445c515b6c1df34cfbdf70",
-      "target": "Ms\u27e83112\u27e9::Ch14\u27e80031\u27e9.R2.c",
-      "chapter_station": "Ch14\u27e80031\u27e9",
+      "target": "Ms⟨3112⟩::Ch14⟨0031⟩.R2.c",
+      "chapter_station": "Ch14⟨0031⟩",
       "truth_state": "AMBIG",
       "replay_ptr": "sha256=245790f44e5035b43044d2680a645bdb6186f45e49a2d7f65dc3df002da3172d;path=C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM\\Algorithms\\OLD working\\(Q-Phi 3.0) THE QUANTUMVERSE FRAMEWORK (QVF).docx",
       "primary_hubs_text": "Primary hubs: AppA -> AppG -> AppM -> AppB -> AppL -> AppI",
@@ -1433,8 +1453,8 @@
     {
       "route_plan_id": "RP-a739802258052bd70809d05d",
       "record_id": "a739802258052bd70809d05d",
-      "target": "Ms\u27e82003\u27e9::Ch15\u27e80032\u27e9.F1.d",
-      "chapter_station": "Ch15\u27e80032\u27e9",
+      "target": "Ms⟨2003⟩::Ch15⟨0032⟩.F1.d",
+      "chapter_station": "Ch15⟨0032⟩",
       "truth_state": "AMBIG",
       "replay_ptr": "sha256=a360b4d8a09a498fbdedbed73b25ed4f7e2bd85a41ef4d107d276d6c2af6c004;path=C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM\\Algorithms\\OLD working\\BIG THREE (algorithmic suite) 2.0.docx",
       "primary_hubs_text": "Primary hubs: AppA -> AppG -> AppE -> AppL -> AppI -> AppM",
@@ -1445,8 +1465,8 @@
     {
       "route_plan_id": "RP-58c3b51f4cfb2432e4a4530e",
       "record_id": "58c3b51f4cfb2432e4a4530e",
-      "target": "Ms\u27e80212\u27e9::Ch05\u27e80010\u27e9.F3.c",
-      "chapter_station": "Ch05\u27e80010\u27e9",
+      "target": "Ms⟨0212⟩::Ch05⟨0010⟩.F3.c",
+      "chapter_station": "Ch05⟨0010⟩",
       "truth_state": "AMBIG",
       "replay_ptr": "sha256=638bf8c4428ded144e05259070b46ffb20ed33aa968f826eea5433e5d362a879;path=C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM\\Algorithms\\OLD working\\United Q-Phi 4x5x5.docx",
       "primary_hubs_text": "Primary hubs: AppA -> AppC -> AppE -> AppL -> AppI -> AppM",
@@ -1457,8 +1477,8 @@
     {
       "route_plan_id": "RP-c18d3b68e96f40a7fb38ea59",
       "record_id": "c18d3b68e96f40a7fb38ea59",
-      "target": "Ms\u27e81100\u27e9::Ch01\u27e80000\u27e9.R3.a",
-      "chapter_station": "Ch01\u27e80000\u27e9",
+      "target": "Ms⟨1100⟩::Ch01⟨0000⟩.R3.a",
+      "chapter_station": "Ch01⟨0000⟩",
       "truth_state": "OK",
       "replay_ptr": "sha256=07fd13e73b6b3ade88ae56645bfbc9ef4cc34028fd1ff3445ea74ce993df6cc2;path=C:\\Users\\dmitr\\Documents\\Athena Agent\\MATH\\FINAL FORM\\Algorithms\\The Quantum Hugging Framework.docx",
       "primary_hubs_text": "Primary hubs: AppA -> AppM -> AppH -> AppI",

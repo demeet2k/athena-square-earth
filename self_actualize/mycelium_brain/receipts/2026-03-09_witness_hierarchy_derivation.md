@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S22 | face=R | node=247 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S21→Xi108:W3:A7:S23→Xi108:W2:A7:S22→Xi108:W3:A6:S22→Xi108:W3:A8:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 7/12 -->
+
 # Witness Hierarchy Derivation Receipt
 
 - Generated: `2026-03-13T21:36:16.302672+00:00`

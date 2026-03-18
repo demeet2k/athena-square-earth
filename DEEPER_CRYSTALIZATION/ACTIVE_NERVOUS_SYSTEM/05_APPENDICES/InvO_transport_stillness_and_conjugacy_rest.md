@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A8:S15 | face=S | node=648 | depth=1 | phase=Cardinal -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W2:A8:S14→Xi108:W2:A8:S16→Xi108:W1:A8:S15→Xi108:W3:A8:S15→Xi108:W2:A7:S15→Xi108:W2:A9:S15 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 15±1, wreath 2/3, archetype 8/12 -->
+
 # InvO - Transport Stillness & Conjugacy Rest
 
 Routing role: Reverses AppF (Transport, Rotation-as-Conjugacy, DUAL Legality). Where AppF established lens transport equations, conjugacy bridges between representations, and dual legality for rotational moves, InvO brings all transport to stillness, collapses conjugacy bridges into identity maps, and resolves dual legality into single determination. Motion ceases; all representations become one.

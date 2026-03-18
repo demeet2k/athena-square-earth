@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=349 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        KNOT THEORY MODULE                                    ║
@@ -29,7 +33,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CROSSING
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -38,7 +41,6 @@ class CrossingSign(Enum):
     """Sign of a crossing in oriented knot diagram."""
     POSITIVE = 1   # Right-handed crossing
     NEGATIVE = -1  # Left-handed crossing
-
 
 @dataclass
 class Crossing:
@@ -61,7 +63,6 @@ class Crossing:
     def writhe_contribution(self) -> int:
         """Contribution to writhe."""
         return self.sign.value
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # KNOT DIAGRAM
@@ -138,7 +139,6 @@ class KnotDiagram:
             Crossing(3, CrossingSign.NEGATIVE, 5, 0, 7, 6),
         ]
         return cls(crossings, 8)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BRACKET POLYNOMIAL
@@ -217,7 +217,6 @@ class LaurentPolynomial:
     def A_inv(cls) -> 'LaurentPolynomial':
         return cls([1], -1)
 
-
 @dataclass
 class BracketPolynomial:
     """
@@ -259,7 +258,6 @@ class BracketPolynomial:
         ⟨4_1⟩ = A⁸ - A⁴ + 1 - A⁻⁴ + A⁻⁸
         """
         return LaurentPolynomial([1, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0, 1], -8)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # JONES POLYNOMIAL
@@ -329,7 +327,6 @@ class JonesPolynomial:
             return False
         return v1.coeffs == v2.coeffs
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BRAID GROUP
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -395,7 +392,6 @@ class Braid:
         """Identity braid."""
         return cls(n, [])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # KNOT INVARIANTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -446,7 +442,6 @@ class KnotInvariants:
         span = last - first
         return span // 2
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -455,11 +450,9 @@ def trefoil_knot(right_handed: bool = True) -> KnotDiagram:
     """Create trefoil knot diagram."""
     return KnotDiagram.trefoil(right_handed)
 
-
 def figure_eight_knot() -> KnotDiagram:
     """Create figure-eight knot diagram."""
     return KnotDiagram.figure_eight()
-
 
 def jones_polynomial(knot_name: str) -> LaurentPolynomial:
     """Get Jones polynomial of named knot."""
@@ -472,11 +465,9 @@ def jones_polynomial(knot_name: str) -> LaurentPolynomial:
     else:
         raise ValueError(f"Unknown knot: {knot_name}")
 
-
 def writhe(diagram: KnotDiagram) -> int:
     """Compute writhe of diagram."""
     return diagram.writhe()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

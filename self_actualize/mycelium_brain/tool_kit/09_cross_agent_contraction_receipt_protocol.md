@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S21 | face=R | node=219 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A9:S20→Xi108:W3:A9:S22→Xi108:W2:A9:S21→Xi108:W3:A8:S21→Xi108:W3:A10:S21 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 21±1, wreath 3/3, archetype 9/12 -->
+
 # Cross-Agent Contraction Receipt Protocol
 
 Use this protocol when several agents have worked neighboring shards and their outputs must be merged into one reusable surface.

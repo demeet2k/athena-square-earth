@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=369 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 from __future__ import annotations
 
 import argparse
@@ -6,7 +10,6 @@ from pprint import pprint
 
 from .config import AthenaBotConfig
 from .service import AthenaBotRuntime
-
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Athena crypto paper-trading runtime")
@@ -39,7 +42,6 @@ def build_parser() -> argparse.ArgumentParser:
     tuning.add_argument("--top", type=int, default=10, help="How many candidates to show in the compact CLI summary")
     tuning.add_argument("--refresh", action="store_true", help="Refresh candles before freezing the evaluation set")
     return parser
-
 
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()

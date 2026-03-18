@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S14→Xi108:W2:A1:S16→Xi108:W1:A1:S15→Xi108:W3:A1:S15→Xi108:W2:A2:S15
+
 """
 ATHENA OS - SYNTAX ALGEBRA CORE
 ===============================
@@ -36,7 +40,6 @@ from abc import ABC, abstractmethod
 import hashlib
 from functools import cached_property
 
-
 # =============================================================================
 # POLE ENUMERATION
 # =============================================================================
@@ -72,7 +75,6 @@ class Pole(Enum):
             Pole.I: "IN-SYNTAX - Metatransformers (code about code)",
             Pole.O: "OUT-SYNTAX - Obligations and context"
         }[self]
-
 
 # =============================================================================
 # REPRESENTATION LEVELS
@@ -117,7 +119,6 @@ class RepLevel(Enum):
     def __le__(self, other: 'RepLevel') -> bool:
         return self.order <= other.order
 
-
 # =============================================================================
 # DIRECTION (SPIN DYNAMICS)
 # =============================================================================
@@ -145,7 +146,6 @@ class Direction(Enum):
             Direction.EQ: "⇌",
             Direction.DRIFT: "∿"
         }[self]
-
 
 # =============================================================================
 # LENS FAMILIES
@@ -176,13 +176,11 @@ class LensFamily(Enum):
             LensFamily.B_OUTER: (Pole.A, Pole.I)  # Primary for outer
         }[self]
 
-
 # =============================================================================
 # BASE ARTIFACT TYPES
 # =============================================================================
 
 T = TypeVar('T')
-
 
 @dataclass(frozen=True)
 class Provenance:
@@ -210,7 +208,6 @@ class Provenance:
             metadata=dict(self.metadata)
         )
 
-
 @dataclass
 class Artifact(ABC):
     """
@@ -237,7 +234,6 @@ class Artifact(ABC):
         """Get the sort tag for type checking."""
         return f"{self.pole.symbol}_{self.rep_level.symbol}"
 
-
 # =============================================================================
 # SYNTAX ARTIFACTS (S)
 # =============================================================================
@@ -263,7 +259,6 @@ class SyntaxArtifact(Artifact):
         content_hash = hashlib.sha256(str(self.content).encode()).hexdigest()[:16]
         return f"S_{self.rep_level.symbol}_{content_hash}"
 
-
 @dataclass
 class TextArtifact(SyntaxArtifact):
     """Source text artifact."""
@@ -274,7 +269,6 @@ class TextArtifact(SyntaxArtifact):
     def __post_init__(self):
         object.__setattr__(self, 'pole', Pole.S)
         object.__setattr__(self, 'rep_level', RepLevel.TXT)
-
 
 @dataclass  
 class StructArtifact(SyntaxArtifact):
@@ -287,7 +281,6 @@ class StructArtifact(SyntaxArtifact):
         object.__setattr__(self, 'pole', Pole.S)
         object.__setattr__(self, 'rep_level', RepLevel.STR)
 
-
 @dataclass
 class MidArtifact(SyntaxArtifact):
     """Intermediate representation artifact."""
@@ -298,7 +291,6 @@ class MidArtifact(SyntaxArtifact):
     def __post_init__(self):
         object.__setattr__(self, 'pole', Pole.S)
         object.__setattr__(self, 'rep_level', RepLevel.MID)
-
 
 # =============================================================================
 # ANTI-SYNTAX ARTIFACTS (A)
@@ -318,7 +310,6 @@ class CollapseKind(Enum):
     TIMEOUT = "timeout"       # Resource exhaustion
     ABORT = "abort"           # Explicit abort
 
-
 class CollapsePhase(Enum):
     """Phase at which collapse occurred."""
     
@@ -326,7 +317,6 @@ class CollapsePhase(Enum):
     PARSE = "parse"
     VALIDATE = "validate"
     RUNTIME = "runtime"
-
 
 @dataclass
 class AntiArtifact(Artifact):
@@ -352,7 +342,6 @@ class AntiArtifact(Artifact):
     def artifact_id(self) -> str:
         msg_hash = hashlib.sha256(self.message.encode()).hexdigest()[:8]
         return f"A_{self.kind.value}_{self.phase.value}_{msg_hash}"
-
 
 # =============================================================================
 # IN-SYNTAX ARTIFACTS (I)
@@ -380,7 +369,6 @@ class InArtifact(Artifact):
     @property
     def artifact_id(self) -> str:
         return f"I_{self.transform_name}_{self.source_rep.symbol}_{self.target_rep.symbol}"
-
 
 @dataclass
 class Transform(InArtifact):
@@ -416,7 +404,6 @@ class Transform(InArtifact):
                 original_artifact_id=artifact.artifact_id
             )
 
-
 # =============================================================================
 # OUT-SYNTAX ARTIFACTS (O)
 # =============================================================================
@@ -449,7 +436,6 @@ class OutArtifact(Artifact):
             return False
         return self.strength <= other.strength
 
-
 @dataclass
 class Contract(OutArtifact):
     """A contract obligation with preconditions and postconditions."""
@@ -461,7 +447,6 @@ class Contract(OutArtifact):
         super().__post_init__()
         object.__setattr__(self, 'obligation_type', 'contract')
 
-
 @dataclass
 class Invariant(OutArtifact):
     """An invariant that must hold."""
@@ -472,7 +457,6 @@ class Invariant(OutArtifact):
         super().__post_init__()
         object.__setattr__(self, 'obligation_type', 'invariant')
 
-
 @dataclass
 class Policy(OutArtifact):
     """A policy constraint."""
@@ -482,7 +466,6 @@ class Policy(OutArtifact):
     def __post_init__(self):
         super().__post_init__()
         object.__setattr__(self, 'obligation_type', 'policy')
-
 
 # =============================================================================
 # WORLD AND OBSERVATIONS
@@ -508,7 +491,6 @@ class WorldState:
             resources=dict(self.resources)
         )
 
-
 @dataclass  
 class Observation:
     """
@@ -530,10 +512,8 @@ class Observation:
                 not self.traces and 
                 not self.logs)
 
-
 # Special bottom observation
 BOTTOM = Observation()
-
 
 # =============================================================================
 # EXECUTION SEMANTICS
@@ -565,7 +545,6 @@ class ExecutionResult:
     def success(cls, obs: Observation, state: WorldState) -> 'ExecutionResult':
         """Create successful result."""
         return cls(observation=obs, new_state=state, is_bottom=False)
-
 
 # =============================================================================
 # SYNTAX ALGEBRA
@@ -627,7 +606,6 @@ class SyntaxAlgebra:
         }[pole]
         
         return len(registry)
-
 
 # =============================================================================
 # VALIDATION
@@ -707,7 +685,6 @@ def validate_core() -> bool:
     assert ExecutionResult.bottom().is_bottom
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating SYNTAX core...")

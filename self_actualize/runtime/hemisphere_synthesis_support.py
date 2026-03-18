@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=412 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 from __future__ import annotations
 
 import re
@@ -24,13 +28,10 @@ from self_actualize.runtime.hemisphere_route_composer_support import (
     search as composer_search_query,
 )
 
-
 SYNTHESIS_STARTER_CAP = 24
-
 
 def collapse_whitespace(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
-
 
 def short_excerpt(value: str, limit: int = 160) -> str:
     collapsed = collapse_whitespace(value)
@@ -40,14 +41,11 @@ def short_excerpt(value: str, limit: int = 160) -> str:
         return collapsed
     return collapsed[: limit - 1].rstrip() + "..."
 
-
 def stage_label(stage_name: str) -> str:
     return stage_name.replace("_", " ").title()
 
-
 def support_id(record_id: str, hemisphere: str, stage: str, evidence_kind: str) -> str:
     return f"SUP-{slugify(f'{record_id}-{hemisphere}-{stage}-{evidence_kind}')}"
-
 
 def build_synthesis_evidence_registry(
     *,
@@ -81,7 +79,6 @@ def build_synthesis_evidence_registry(
         "records": dict(sorted(records.items())),
     }
 
-
 def load_synthesis_registries() -> dict[str, Any]:
     if not SYNTHESIS_EVIDENCE_REGISTRY_PATH.exists():
         raise FileNotFoundError(
@@ -100,7 +97,6 @@ def load_synthesis_registries() -> dict[str, Any]:
         registries["synthesis_manifest"] = load_json(SYNTHESIS_MANIFEST_PATH)
     return registries
 
-
 def ensure_synthesis_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_synthesis_runtime")
     if runtime is not None:
@@ -114,7 +110,6 @@ def ensure_synthesis_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     registries["_synthesis_runtime"] = runtime
     return runtime
 
-
 def ensure_ledger_row(
     ledger: dict[str, dict[str, Any]],
     row: dict[str, Any],
@@ -123,7 +118,6 @@ def ensure_ledger_row(
     if row_id not in ledger:
         ledger[row_id] = row
     return row_id
-
 
 def title_row(
     evidence_record: dict[str, Any],
@@ -141,7 +135,6 @@ def title_row(
         "text": evidence_record.get("title", ""),
     }
 
-
 def excerpt_row(
     evidence_record: dict[str, Any],
     hemisphere: str,
@@ -158,7 +151,6 @@ def excerpt_row(
         "text": evidence_record.get("excerpt", ""),
     }
 
-
 def heading_row(
     evidence_record: dict[str, Any],
     hemisphere: str,
@@ -174,7 +166,6 @@ def heading_row(
         "source_surface": "cached_text",
         "text": " | ".join((evidence_record.get("heading_candidates") or [])[:3]),
     }
-
 
 def route_state_row(
     record_id: str,
@@ -201,7 +192,6 @@ def route_state_row(
         "preferred_space": route_packet.get("preferred_space", ""),
     }
 
-
 def absence_row(
     record_id: str,
     relative_path: str,
@@ -220,7 +210,6 @@ def absence_row(
         "reason": reason,
     }
 
-
 def spine_row(seed_record: dict[str, Any], shared_spine: dict[str, Any]) -> dict[str, Any]:
     return {
         "support_id": support_id(seed_record["record_id"], "BOTH", "shared_spine", "spine_state"),
@@ -234,7 +223,6 @@ def spine_row(seed_record: dict[str, Any], shared_spine: dict[str, Any]) -> dict
         "target_hub_id": shared_spine.get("target_hub_id", ""),
         "sequence": [item.get("hub_id", item.get("kind", "")) for item in shared_spine.get("sequence", [])],
     }
-
 
 def bridge_row(seed_record: dict[str, Any], bridge_profile: dict[str, Any], proof_summary: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -251,7 +239,6 @@ def bridge_row(seed_record: dict[str, Any], bridge_profile: dict[str, Any], proo
         "route_proof_states": proof_summary.get("route_proof_states", {}),
     }
 
-
 def appendix_row(seed_record: dict[str, Any], appendix_ids: list[str]) -> dict[str, Any]:
     return {
         "support_id": support_id(seed_record["record_id"], "BOTH", "appendix_support", "appendix_state"),
@@ -263,7 +250,6 @@ def appendix_row(seed_record: dict[str, Any], appendix_ids: list[str]) -> dict[s
         "source_surface": "cached_text",
         "appendix_support": appendix_ids,
     }
-
 
 def record_support_ids(
     runtime: dict[str, Any],
@@ -294,7 +280,6 @@ def record_support_ids(
         )
     )
     return ids
-
 
 def stage_bullet_text(runtime: dict[str, Any], stage_payload: dict[str, Any]) -> str:
     stage = stage_payload["stage"]
@@ -347,7 +332,6 @@ def stage_bullet_text(runtime: dict[str, Any], stage_payload: dict[str, Any]) ->
         f"{stage_payload.get('pt2_shortcut_id', '')} and {stage_payload.get('knowledge_fabric_shortcut_id', '')} "
         f"toward {stage_payload.get('preferred_space', '')}."
     )
-
 
 def synthesize_itinerary_section(
     runtime: dict[str, Any],
@@ -434,14 +418,12 @@ def synthesize_itinerary_section(
         "bullets": bullets,
     }, stage_supports
 
-
 def first_route_support(stage_supports: dict[str, list[str]], *stages: str) -> list[str]:
     for stage in stages:
         support_ids = stage_supports.get(stage, [])
         if support_ids:
             return support_ids
     return []
-
 
 def itinerary_target_systems(itinerary: dict[str, Any]) -> list[str]:
     systems: list[str] = []
@@ -452,7 +434,6 @@ def itinerary_target_systems(itinerary: dict[str, Any]) -> list[str]:
         if target_system and target_system not in systems:
             systems.append(target_system)
     return systems
-
 
 def synthesize_unified_section(
     runtime: dict[str, Any],
@@ -502,7 +483,6 @@ def synthesize_unified_section(
         ],
     }
 
-
 def synthesize_bridge_section(
     seed_record: dict[str, Any],
     composer_payload: dict[str, Any],
@@ -537,7 +517,6 @@ def synthesize_bridge_section(
         ],
     }
 
-
 def synthesize_appendix_section(
     seed_record: dict[str, Any],
     ledger: dict[str, dict[str, Any]],
@@ -562,7 +541,6 @@ def synthesize_appendix_section(
             }
         ],
     }
-
 
 def synthesize_from_composer_payload(
     composer_payload: dict[str, Any],
@@ -609,7 +587,6 @@ def synthesize_from_composer_payload(
         payload["alternative_seeds"] = composer_payload["alternative_seeds"][:3]
     return payload
 
-
 def record(
     registries: dict[str, Any],
     *,
@@ -629,7 +606,6 @@ def record(
     )
     return synthesize_from_composer_payload(composer_payload, registries)
 
-
 def search(
     query_text: str,
     registries: dict[str, Any],
@@ -645,7 +621,6 @@ def search(
     )
     return synthesize_from_composer_payload(composer_payload, registries)
 
-
 def facet(
     registries: dict[str, Any],
     *,
@@ -660,7 +635,6 @@ def facet(
         expanded=expanded,
     )
     return synthesize_from_composer_payload(composer_payload, registries)
-
 
 def build_synthesis_seed_registry(
     *,
@@ -692,7 +666,6 @@ def build_synthesis_seed_registry(
         },
     }
 
-
 def build_synthesis_facet_registry(
     *,
     composer_facet_registry: dict[str, Any],
@@ -717,7 +690,6 @@ def build_synthesis_facet_registry(
             for facet_name, values in sorted(facets.items())
         },
     }
-
 
 def build_synthesis_manifest(
     *,
@@ -746,7 +718,6 @@ def build_synthesis_manifest(
             "python -m self_actualize.runtime.synthesize_myth_math_hemisphere_routes facet --family <family>",
         ],
     }
-
 
 def build_synthesis_payloads(
     *,

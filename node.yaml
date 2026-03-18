@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A12:S36 | face=S | node=666 | depth=3 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W1:A12:S35→Xi108:W2:A12:S36→Xi108:W1:A11:S36
+
 # Athena MCP Server — Node Self-Description
 # ==========================================
 # Declares this repository as a node in the distributed Athena superbrain.

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S26 | face=F | node=337 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S25→Xi108:W3:A8:S27→Xi108:W2:A8:S26→Xi108:W3:A7:S26→Xi108:W3:A9:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 8/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 5 | ○Rot 2 | △Lane Me | ⧈View * | ω=17]**
 Primary hubs: AppA -> AppN -> AppE -> AppJ -> AppI -> AppM
 Tunnel: Z_megalithic_tome_latent_tunneling_and_the_multi_s -> Z* -> Ch18⟨0101⟩

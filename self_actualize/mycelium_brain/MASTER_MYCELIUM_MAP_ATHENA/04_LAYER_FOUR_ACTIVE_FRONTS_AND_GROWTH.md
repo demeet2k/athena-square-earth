@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S19 | face=R | node=188 | depth=3 | phase=Cardinal -->
+<!-- METRO: Sa,Me -->
+<!-- BRIDGES: Xi108:W3:A9:S18→Xi108:W3:A9:S20→Xi108:W2:A9:S19→Xi108:W3:A8:S19→Xi108:W3:A10:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 9/12 -->
+
 # Layer 4: Active Fronts And Growth
 
 This layer names the living edges of the organism.

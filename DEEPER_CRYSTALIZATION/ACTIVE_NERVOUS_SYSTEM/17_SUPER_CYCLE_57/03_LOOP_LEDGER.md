@@ -1,5 +1,9 @@
-# Super-Cycle 57 Loop Ledger
+<!-- CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 4/12 -->
 
+# Super-Cycle 57 Loop Ledger
 
 ## Evidence Lock and Intake
 - `L01` :: Freeze docs gate, current control stack, and Q42 / TQ04 / Q50 / Q46 / Q02 truth. :: Hall=HOLD Temple=HOLD Runtime=HOLD Compression=HOLD

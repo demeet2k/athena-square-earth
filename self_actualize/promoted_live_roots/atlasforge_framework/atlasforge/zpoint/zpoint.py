@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      Z-POINT DISCIPLINE MODULE                               ║
@@ -24,7 +28,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 import hashlib
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE FOUR CHARTS (UNIVERSES)
@@ -61,7 +64,6 @@ class Chart(Enum):
         }
         return desc[self]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PAYLOAD AND IDENTITY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -86,7 +88,6 @@ class MathIdentity:
         data = f"{self.genus}|{self.basis}|{self.selector}|{self.name}"
         return hashlib.sha256(data.encode()).hexdigest()[:16]
 
-
 @dataclass
 class Payload:
     """
@@ -103,7 +104,6 @@ class Payload:
     def is_exact(self) -> bool:
         """Check if payload is exact (no approximation)."""
         return self.epsilon == 0.0
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Z-POINT (ZERO POINT ANCHOR)
@@ -142,7 +142,6 @@ class ZPoint:
     def anchor(cls, seed: 'MathSeed', theta: float = 1e-10) -> 'ZPoint':
         """Create Z-point anchor for seed."""
         return cls(seed=seed, theta=theta)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MATH SEED (FRACTAL NUCLEUS)
@@ -219,7 +218,6 @@ class MathSeed:
             }
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CHART NUCLEI (REPRESENTATIONS IN EACH CHART)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -239,7 +237,6 @@ class ChartNucleus:
         """Transform to another chart (abstract)."""
         return ChartNucleus(target, self.content, self.drift)
 
-
 @dataclass
 class SquareNucleus(ChartNucleus):
     """
@@ -253,7 +250,6 @@ class SquareNucleus(ChartNucleus):
     
     def __post_init__(self):
         self.chart = Chart.SQUARE
-
 
 @dataclass
 class FlowerNucleus(ChartNucleus):
@@ -269,7 +265,6 @@ class FlowerNucleus(ChartNucleus):
     def __post_init__(self):
         self.chart = Chart.FLOWER
 
-
 @dataclass
 class CloudNucleus(ChartNucleus):
     """
@@ -284,7 +279,6 @@ class CloudNucleus(ChartNucleus):
     def __post_init__(self):
         self.chart = Chart.CLOUD
 
-
 @dataclass
 class FractalNucleus(ChartNucleus):
     """
@@ -298,7 +292,6 @@ class FractalNucleus(ChartNucleus):
     
     def __post_init__(self):
         self.chart = Chart.FRACTAL
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HUBS (TRANSFORMATION CENTERS)
@@ -326,7 +319,6 @@ class Hub(Enum):
         }
         return laws[self]
 
-
 @dataclass
 class HubTransition:
     """
@@ -346,7 +338,6 @@ class HubTransition:
         The round-trip must preserve the representation.
         """
         return True  # Simplified
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BREATH LOOP
@@ -384,7 +375,6 @@ class BreathLoop:
     def oxygen(seed: MathSeed) -> List[str]:
         """Oxygen: Generate templates/patterns from seed."""
         return seed.statements
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROUND-TRIP VERIFICATION
@@ -426,7 +416,6 @@ class RoundTripVerifier:
         }
         return {name: self.verify(seed, path) for name, path in paths.items()}
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DRIFT TRACKING
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -463,7 +452,6 @@ class DriftLedger:
         """Check if total drift is within budget."""
         return self.total_drift() <= budget
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -498,7 +486,6 @@ class ZPointPoleBridge:
         ensuring round-trip consistency and bounded drift.
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -507,22 +494,18 @@ def math_seed(name: str, statements: List[str]) -> MathSeed:
     """Create a MathSeed."""
     return MathSeed.create(name, statements)
 
-
 def z_point(seed: MathSeed, theta: float = 1e-10) -> ZPoint:
     """Create a Z-point anchor."""
     return ZPoint.anchor(seed, theta)
-
 
 def math_identity(genus: str, basis: str, selector: str, name: str) -> MathIdentity:
     """Create a MathIdentity."""
     return MathIdentity(genus, basis, selector, name)
 
-
 def verify_round_trip(seed: MathSeed, tolerance: float = 1e-10) -> Dict[str, bool]:
     """Verify round-trip property."""
     verifier = RoundTripVerifier(tolerance)
     return verifier.verify_all_paths(seed)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

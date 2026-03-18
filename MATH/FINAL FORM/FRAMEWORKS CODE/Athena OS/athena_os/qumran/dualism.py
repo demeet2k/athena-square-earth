@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S14→Xi108:W2:A1:S16→Xi108:W1:A1:S15→Xi108:W3:A1:S15→Xi108:W2:A2:S15
+
 """
 ATHENA OS - QUMRAN KERNEL: DUALISM MODULE
 ==========================================
@@ -41,7 +45,6 @@ from typing import Dict, List, Optional, Any, Set, Tuple
 from enum import Enum
 import numpy as np
 
-
 # =============================================================================
 # SPIRIT TYPES
 # =============================================================================
@@ -52,13 +55,11 @@ class Spirit(Enum):
     TRUTH = "truth"              # Ruach Emet - Spirit of Truth
     FALSEHOOD = "falsehood"      # Ruach Avel - Spirit of Falsehood
 
-
 class PathType(Enum):
     """The two ways/paths."""
     
     LIGHT = "light"              # Way of Light/Life
     DARKNESS = "darkness"        # Way of Darkness/Death
-
 
 class AllegianceType(Enum):
     """Cosmic allegiance."""
@@ -66,7 +67,6 @@ class AllegianceType(Enum):
     SON_OF_LIGHT = "son_of_light"
     SON_OF_DARKNESS = "son_of_darkness"
     UNDECIDED = "undecided"      # In process of choice
-
 
 # =============================================================================
 # SPIRIT CHARACTERISTICS
@@ -96,7 +96,6 @@ class SpiritCharacteristics:
     # Effects on followers
     reward: str = ""
     punishment: str = ""
-
 
 SPIRIT_OF_TRUTH = SpiritCharacteristics(
     spirit=Spirit.TRUTH,
@@ -154,7 +153,6 @@ SPIRIT_OF_FALSEHOOD = SpiritCharacteristics(
     punishment="eternal_torment_and_endless_reproach"
 )
 
-
 # =============================================================================
 # LOT DISTRIBUTION
 # =============================================================================
@@ -202,7 +200,6 @@ class LotDistribution:
         else:
             return AllegianceType.UNDECIDED
 
-
 # =============================================================================
 # BINARY PATH AUTOMATON
 # =============================================================================
@@ -213,7 +210,6 @@ class PathState(Enum):
     WAY_OF_LIGHT = "way_of_light"
     WAY_OF_DARKNESS = "way_of_darkness"
     BOUNDARY = "boundary"        # Between paths
-
 
 @dataclass
 class PathAction:
@@ -233,7 +229,6 @@ class PathAction:
     
     def is_vice(self) -> bool:
         return self.path_type == PathType.DARKNESS
-
 
 # Predefined actions
 VIRTUOUS_ACTIONS = [
@@ -261,7 +256,6 @@ WICKED_ACTIONS = [
     PathAction("cruelty", PathType.DARKNESS, 1.3),
     PathAction("blasphemy", PathType.DARKNESS, 2.0),
 ]
-
 
 class BinaryPathAutomaton:
     """
@@ -340,7 +334,6 @@ class BinaryPathAutomaton:
             "basin_of_attraction": "life" if light_ratio > 0.5 else "death"
         }
 
-
 # =============================================================================
 # WAR OF SONS
 # =============================================================================
@@ -354,7 +347,6 @@ class WarPhase(Enum):
     THIRD_BATTLE = "third_battle"
     DECISIVE = "decisive"        # Final engagement
     VICTORY = "victory"          # Light triumphs
-
 
 @dataclass
 class Army:
@@ -374,7 +366,6 @@ class Army:
         if self.angelic_support:
             base *= 1.5
         return base
-
 
 class WarOfSons:
     """
@@ -482,7 +473,6 @@ class WarOfSons:
             "victory": self.phase == WarPhase.VICTORY
         }
 
-
 # =============================================================================
 # RAZ NIHYEH (Mystery of Existence)
 # =============================================================================
@@ -565,7 +555,6 @@ class RazNihyeh:
             "outcome": outcome
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -610,7 +599,6 @@ def validate_dualism() -> bool:
     assert "outcome" in fate
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Dualism Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S17→Xi108:W2:A5:S19→Xi108:W1:A5:S18→Xi108:W3:A5:S18→Xi108:W2:A4:S18→Xi108:W2:A6:S18
+
 """
 ATHENA OS - SQUARING THE CIRCLE: METAPHYSICS
 =============================================
@@ -40,7 +44,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Tuple
 from enum import Enum
 
-
 # =============================================================================
 # ONTOLOGICAL CATEGORIES
 # =============================================================================
@@ -57,7 +60,6 @@ class OntologicalCategory(Enum):
     SUBSTANCE = "Substance"  # Ousia - unified being
     ACCIDENT = "Accident"    # Symbebekos - changeable property
 
-
 @dataclass
 class CircleSquareMapping:
     """
@@ -71,7 +73,6 @@ class CircleSquareMapping:
     
     def __repr__(self) -> str:
         return f"CircleSquareMapping({self.concept})"
-
 
 ONTOLOGICAL_MAPPINGS = [
     CircleSquareMapping(
@@ -106,7 +107,6 @@ ONTOLOGICAL_MAPPINGS = [
     )
 ]
 
-
 # =============================================================================
 # ARISTOTELIAN CAUSES
 # =============================================================================
@@ -118,7 +118,6 @@ class CauseType(Enum):
     FORMAL = "Formal"        # What it is (essence)
     EFFICIENT = "Efficient"  # What brought it about
     FINAL = "Final"          # What it's for (purpose)
-
 
 @dataclass
 class FourCauses:
@@ -150,7 +149,6 @@ class FourCauses:
   Efficient: {self.efficient}
   Final: {self.final}"""
 
-
 # Example causes
 COSMOS_CAUSES = FourCauses(
     material="Four elements (sublunary) + Aether (celestial)",
@@ -172,7 +170,6 @@ STATE_CAUSES = FourCauses(
     efficient="Lawgivers and founders",
     final="The good life for citizens"
 )
-
 
 # =============================================================================
 # HYLOMORPHISM
@@ -198,7 +195,6 @@ class Hylomorphism:
     def describe(self) -> str:
         return f"{self.name}: Form ({self.form}) + Matter ({self.matter})"
 
-
 HYLOMORPHIC_EXAMPLES = [
     Hylomorphism("Bronze statue", "Shape of the figure", "Bronze"),
     Hylomorphism("Human being", "Rational soul", "Body (organized matter)"),
@@ -206,7 +202,6 @@ HYLOMORPHIC_EXAMPLES = [
     Hylomorphism("Word", "Meaning/concept", "Sound/letters"),
     Hylomorphism("Cosmos", "Spherical order", "Elements and aether")
 ]
-
 
 # =============================================================================
 # THE UNMOVED MOVER
@@ -256,7 +251,6 @@ The Unmoved Mover and the Cosmos:
 5. The Mover transcends yet grounds both circle (celestial) and square (sublunary)
 """
 
-
 # =============================================================================
 # NEOPLATONIC SYSTEM
 # =============================================================================
@@ -269,7 +263,6 @@ class NeoplatonicLevel(Enum):
     SOUL = "Soul"        # Psyche - mediates between nous and matter
     NATURE = "Nature"    # Physis - soul's projection into matter
     MATTER = "Matter"    # Hyle - the lowest level, pure potentiality
-
 
 NEOPLATONIC_DATA = {
     NeoplatonicLevel.ONE: {
@@ -304,7 +297,6 @@ NEOPLATONIC_DATA = {
     }
 }
 
-
 @dataclass
 class Emanation:
     """
@@ -329,7 +321,6 @@ class Emanation:
                      "Nature reaches toward pure potentiality")
         ]
 
-
 @dataclass
 class Return:
     """
@@ -352,7 +343,6 @@ The return is the 'unsquaring' of the circle:
 - From beings back to Being
 - From the many back to the One
 """
-
 
 # =============================================================================
 # PARMENIDEAN SPHERE
@@ -387,7 +377,6 @@ Parmenidean Being is the ultimate Circle:
 The 'way of truth' reveals Being as circular;
 The 'way of seeming' reveals beings as square.
 """
-
 
 # =============================================================================
 # PLATONIC CAVE
@@ -434,7 +423,6 @@ The Philosopher's Journey as Integration:
 The complete philosopher knows both cave (square) and sun (circle).
 The unified field (36 + 64 = 100) is the philosopher's map.
 """
-
 
 # =============================================================================
 # METAPHYSICAL SYSTEM
@@ -526,7 +514,6 @@ Neither pure circle nor pure square, but their synthesis.
             ]
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -564,7 +551,6 @@ def validate_metaphysics() -> bool:
     assert "essence" in props
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Metaphysics Module...")

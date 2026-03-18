@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=132 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - BIT4
 ================
@@ -36,7 +40,6 @@ from enum import Enum
 
 from .carrier import B4, TwoRail, B4Vector
 
-
 # =============================================================================
 # LIFT SCHEMAS
 # =============================================================================
@@ -47,7 +50,6 @@ class LiftSchema(Enum):
     RAIL_DUAL = "RD"      # Rail-dual lift
     MINTERM_SUM = "MS"    # Minterm-sum lift
     SUPPORT = "SUP"       # Support-based lift
-
 
 # =============================================================================
 # BOOLEAN GATES
@@ -75,7 +77,6 @@ def bool_impl(x: bool, y: bool) -> bool:
     """Implication: x → y = ¬x ∨ y"""
     return (not x) or y
 
-
 # =============================================================================
 # RAIL-DUAL LIFTING
 # =============================================================================
@@ -95,7 +96,6 @@ def lift_unary_rd(h: Callable[[bool], bool]) -> Callable[[B4], B4]:
     
     return lifted
 
-
 def lift_binary_rd(h: Callable[[bool, bool], bool]) -> Callable[[B4, B4], B4]:
     """
     Rail-dual lift of binary Boolean gate.
@@ -114,7 +114,6 @@ def lift_binary_rd(h: Callable[[bool, bool], bool]) -> Callable[[B4, B4], B4]:
     
     return lifted
 
-
 # =============================================================================
 # BIT4 GATES (RAIL-DUAL LIFTED)
 # =============================================================================
@@ -129,7 +128,6 @@ def b4_not_rd(x: B4) -> B4:
     enc = TwoRail.encode(x)
     return TwoRail(1 - enc.t, 1 - enc.f).decode()
 
-
 def b4_and_rd(x: B4, y: B4) -> B4:
     """Rail-dual AND."""
     ex = TwoRail.encode(x)
@@ -138,7 +136,6 @@ def b4_and_rd(x: B4, y: B4) -> B4:
         min(ex.t, ey.t),
         min(ex.f, ey.f)
     ).decode()
-
 
 def b4_or_rd(x: B4, y: B4) -> B4:
     """Rail-dual OR."""
@@ -149,7 +146,6 @@ def b4_or_rd(x: B4, y: B4) -> B4:
         max(ex.f, ey.f)
     ).decode()
 
-
 def b4_xor_rd(x: B4, y: B4) -> B4:
     """Rail-dual XOR."""
     ex = TwoRail.encode(x)
@@ -159,18 +155,15 @@ def b4_xor_rd(x: B4, y: B4) -> B4:
         ex.f ^ ey.f
     ).decode()
 
-
 def b4_nand_rd(x: B4, y: B4) -> B4:
     """Rail-dual NAND."""
     enc_and = TwoRail.encode(b4_and_rd(x, y))
     return TwoRail(1 - enc_and.t, 1 - enc_and.f).decode()
 
-
 def b4_nor_rd(x: B4, y: B4) -> B4:
     """Rail-dual NOR."""
     enc_or = TwoRail.encode(b4_or_rd(x, y))
     return TwoRail(1 - enc_or.t, 1 - enc_or.f).decode()
-
 
 # =============================================================================
 # SUPPORT-BASED LIFTING
@@ -195,7 +188,6 @@ def lift_unary_support(h: Callable[[bool], bool]) -> Callable[[B4], B4]:
     
     return lifted
 
-
 def lift_binary_support(h: Callable[[bool, bool], bool]) -> Callable[[B4, B4], B4]:
     """
     Support-based lift of binary Boolean gate.
@@ -216,7 +208,6 @@ def lift_binary_support(h: Callable[[bool, bool], bool]) -> Callable[[B4, B4], B
     
     return lifted
 
-
 # =============================================================================
 # BIT4 GATES (SUPPORT-BASED)
 # =============================================================================
@@ -225,16 +216,13 @@ def b4_and_sup(x: B4, y: B4) -> B4:
     """Support-based AND."""
     return lift_binary_support(bool_and)(x, y)
 
-
 def b4_or_sup(x: B4, y: B4) -> B4:
     """Support-based OR."""
     return lift_binary_support(bool_or)(x, y)
 
-
 def b4_not_sup(x: B4) -> B4:
     """Support-based NOT (same as truth-negation ¬)."""
     return lift_unary_support(bool_not)(x)
-
 
 # =============================================================================
 # GATE SPECIFICATION
@@ -263,7 +251,6 @@ class GateSpec:
         if self.b4_func:
             return self.b4_func(*args)
         raise ValueError(f"No B4 function defined for gate {self.name}")
-
 
 # =============================================================================
 # GATE LIBRARY
@@ -399,7 +386,6 @@ class GateLibrary:
         
         return lib
 
-
 # =============================================================================
 # CIRCUIT REPRESENTATION
 # =============================================================================
@@ -411,7 +397,6 @@ class Wire:
     name: str
     value: B4 = B4.BOT
 
-
 @dataclass
 class GateInstance:
     """An instance of a gate in a circuit."""
@@ -419,7 +404,6 @@ class GateInstance:
     gate_name: str
     input_wires: List[str]
     output_wire: str
-
 
 @dataclass
 class Circuit:
@@ -485,7 +469,6 @@ class Circuit:
                 return i + 1
         return max_iter
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -534,7 +517,6 @@ def validate_gates() -> bool:
     assert circ.get_output("c") == B4.ONE
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating BIT4 Gates...")

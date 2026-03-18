@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=81 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -12,7 +16,6 @@ import requests
 from .orbits import OrbitalElements
 from .tno_data import TNO
 
-
 @dataclass(frozen=True)
 class JPLQuerySpec:
     """
@@ -26,7 +29,6 @@ class JPLQuerySpec:
     full_prec: bool = True
     timeout_s: float = 30.0
 
-
 def _normalize_fields(fields: Any) -> List[str]:
     if fields is None:
         return []
@@ -35,7 +37,6 @@ def _normalize_fields(fields: Any) -> List[str]:
     if isinstance(fields, str):
         return [f.strip() for f in fields.split(",") if f.strip()]
     return [str(fields)]
-
 
 def fetch_sbdb_query(spec: JPLQuerySpec) -> Dict[str, Any]:
     """
@@ -64,7 +65,6 @@ def fetch_sbdb_query(spec: JPLQuerySpec) -> Dict[str, Any]:
     resp = requests.get(base, params=params, timeout=float(spec.timeout_s))
     resp.raise_for_status()
     return resp.json()
-
 
 def parse_sbdb_query_to_tnos(payload: Dict[str, Any]) -> List[TNO]:
     """
@@ -111,7 +111,6 @@ def parse_sbdb_query_to_tnos(payload: Dict[str, Any]) -> List[TNO]:
             )
         )
     return out
-
 
 def fetch_extreme_tnos_from_jpl(a_min_au: float, q_min_au: float, limit: int = 200, sort: str = "-a") -> List[TNO]:
     """

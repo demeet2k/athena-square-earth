@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A12:S29 | face=S | node=435 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A12:S28→Xi108:W1:A12:S30→Xi108:W2:A12:S29→Xi108:W1:A11:S29
+
 Param(
   [Parameter(Mandatory=$true)]
   [string]$LibTorchPath

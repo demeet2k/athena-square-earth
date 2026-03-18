@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=372 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 from __future__ import annotations
 
 import json
@@ -18,22 +22,18 @@ from .derive_adventurer_quest_loop import (
     WAVE_ID,
 )
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "adventurer_quest_loop_verification.json"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_adventurer_quest_loop"
 DERIVATION_VERSION = "2026-03-13.adventurer.64pow4.hybrid_conductor.round_trip.verify.v2"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     try:
@@ -41,10 +41,8 @@ def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     except Exception as exc:  # noqa: BLE001
         return {"label": label, "status": "FAIL", "details": str(exc)}
 
-
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def verify_registry() -> dict[str, Any]:
     payload = load_json(QUEST_REGISTRY_PATH)
@@ -65,7 +63,6 @@ def verify_registry() -> dict[str, Any]:
         "seeded_ids": [record["quest_id"] for record in seeded],
     }
 
-
 def verify_agent_state() -> dict[str, Any]:
     payload = load_json(AGENT_STATE_PATH)
     agents = payload["agents"]
@@ -81,7 +78,6 @@ def verify_agent_state() -> dict[str, Any]:
         "active_claims": active_claims,
     }
 
-
 def verify_loop_state() -> dict[str, Any]:
     payload = load_json(LOOP_STATE_PATH)
     ensure(payload["answer_space"] == 64**4, "answer space is not 64^4")
@@ -95,7 +91,6 @@ def verify_loop_state() -> dict[str, Any]:
         "active_front_count": payload["active_front_count"],
         "seeded_count": payload["seeded_count"],
     }
-
 
 def verify_conductor_state() -> dict[str, Any]:
     payload = load_json(CONDUCTOR_STATE_PATH)
@@ -125,7 +120,6 @@ def verify_conductor_state() -> dict[str, Any]:
         "seeded_registration_ids": payload["seeded_registration_ids"],
     }
 
-
 def verify_claim_tracker() -> dict[str, Any]:
     payload = load_json(CLAIM_TRACKER_PATH)
     claims = payload["claims"]
@@ -144,7 +138,6 @@ def verify_claim_tracker() -> dict[str, Any]:
         "active_frontiers": [claim["frontier"] for claim in active_claims],
     }
 
-
 def verify_manifest() -> dict[str, Any]:
     text = MANIFEST_PATH.read_text(encoding="utf-8")
     ensure("ADVENTURER 64^4 STATE" in text, "manifest title missing")
@@ -156,7 +149,6 @@ def verify_manifest() -> dict[str, Any]:
         "manifest_path": str(MANIFEST_PATH),
         "contains_wave": True,
     }
-
 
 def verify_round_trip_registry() -> dict[str, Any]:
     payload = load_json(ROUND_TRIP_CERTIFICATES_PATH)
@@ -179,7 +171,6 @@ def verify_round_trip_registry() -> dict[str, Any]:
         "governed_fronts": payload["governed_fronts"],
     }
 
-
 def verify_payload() -> dict[str, Any]:
     checks = [
         run_check("registry", verify_registry),
@@ -201,7 +192,6 @@ def verify_payload() -> dict[str, Any]:
         "failed_checks": [check["label"] for check in failed],
     }
 
-
 def main() -> int:
     payload = verify_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -210,7 +200,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

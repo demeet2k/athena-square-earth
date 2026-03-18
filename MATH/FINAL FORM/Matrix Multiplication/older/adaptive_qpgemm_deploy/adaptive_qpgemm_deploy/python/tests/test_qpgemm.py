@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A11:S2 | face=R | node=100 | depth=1 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A11:S1→Xi108:W2:A11:S3→Xi108:W1:A11:S2→Xi108:W3:A11:S2→Xi108:W2:A10:S2→Xi108:W2:A12:S2
+
 import torch
 import torch.nn as nn
 
 from qpgemm import QPGEMMConfig, QPGEMMEngine, QPLinear, optimize_vision_model
-
 
 def test_engine_dense_vs_lowrank():
     torch.manual_seed(0)
@@ -12,7 +15,6 @@ def test_engine_dense_vs_lowrank():
     out = engine.analyze(W)
     assert out["strategy"] in ("dense", "lowrank")
     assert "stats" in out
-
 
 def test_qplinear_shapes_and_forward():
     torch.manual_seed(0)
@@ -24,7 +26,6 @@ def test_qplinear_shapes_and_forward():
     y1 = qpl(x)
     rel = (y1 - y0).norm() / (y0.norm() + 1e-12)
     assert rel.item() < 1e-4
-
 
 def test_optimize_replaces_linear():
     class Toy(nn.Module):

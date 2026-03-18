@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=11 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 from __future__ import annotations
 
 import argparse
@@ -7,12 +11,10 @@ from pathlib import Path
 
 from nervous_system_core import write_text
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent
 DEFAULT_MANIFEST = PROJECT_ROOT / "canonical_manuscript_manifest.json"
 VALID_KINDS = {"chapter", "appendix", "supplement"}
 VALID_VOLUMES = {"spine", "supplements"}
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build canonical manuscript volumes from the typed registry.")
@@ -21,17 +23,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--json", action="store_true", dest="as_json")
     return parser.parse_args()
 
-
 def load_registry(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def resolve_path(base: Path, raw_path: str) -> Path:
     candidate = Path(raw_path)
     if candidate.is_absolute():
         return candidate
     return (base / candidate).resolve()
-
 
 def validate_entry(entry: dict) -> None:
     if entry["kind"] not in VALID_KINDS:
@@ -40,7 +39,6 @@ def validate_entry(entry: dict) -> None:
         raise ValueError(f"Invalid manuscript entry volume: {entry['volume']}")
     if "source_file" not in entry or "canonical_target_file" not in entry:
         raise ValueError(f"Missing source_file/canonical_target_file in manuscript entry: {entry.get('canonical_id')}")
-
 
 def built_entries(registry: dict, volume: str) -> list[dict]:
     entries = []
@@ -53,7 +51,6 @@ def built_entries(registry: dict, volume: str) -> list[dict]:
         entries.append(entry)
     return sorted(entries, key=lambda item: (item["order"], item["canonical_id"]))
 
-
 def source_only_entries(registry: dict) -> list[dict]:
     entries = []
     for entry in registry["entries"]:
@@ -61,7 +58,6 @@ def source_only_entries(registry: dict) -> list[dict]:
         if entry.get("include_in_build", True) is False:
             entries.append(entry)
     return sorted(entries, key=lambda item: (item["volume"], item["order"], item["canonical_id"]))
-
 
 def build_volume(registry_path: Path, registry: dict, volume: str) -> dict:
     base_dir = registry_path.parent
@@ -89,7 +85,6 @@ def build_volume(registry_path: Path, registry: dict, volume: str) -> dict:
         "entry_files": [entry["source_file"] for entry in entries],
     }
 
-
 def build_manuscript_volumes(manifest_path: Path) -> dict:
     registry = load_registry(manifest_path)
     base_dir = manifest_path.parent
@@ -112,14 +107,12 @@ def build_manuscript_volumes(manifest_path: Path) -> dict:
         receipt["volumes"][volume] = build_volume(manifest_path, registry, volume)
     return receipt
 
-
 def build_canonical_manuscript(manifest_path: Path) -> dict:
     receipt = build_manuscript_volumes(manifest_path)
     spine = dict(receipt["volumes"]["spine"])
     spine["manifest_path"] = receipt["manifest_path"]
     spine["sections_dir"] = receipt["sections_dir"]
     return spine
-
 
 def main() -> int:
     args = parse_args()
@@ -142,7 +135,6 @@ def main() -> int:
         print(f"Wrote {args.volume} volume: {volume['output_path']}")
         print(f"Entries merged: {volume['entry_count']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

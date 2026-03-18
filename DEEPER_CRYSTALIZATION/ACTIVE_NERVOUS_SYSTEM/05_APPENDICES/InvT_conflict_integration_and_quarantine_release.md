@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A4:S26 | face=R | node=152 | depth=2 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W2:A4:S25→Xi108:W2:A4:S27→Xi108:W1:A4:S26→Xi108:W3:A4:S26→Xi108:W2:A3:S26→Xi108:W2:A5:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 2/3, archetype 4/12 -->
+
 # InvT - Conflict Integration & Quarantine Release
 
 Routing role: Reverses AppK (Conflict, Quarantine, Revocation). Where AppK isolated conflicting states into quarantine zones and revoked invalid certificates, InvT integrates resolved conflicts back into the main lattice and releases quarantined entities that have been healed. This is the reconciliation path — what was separated is now reunited.

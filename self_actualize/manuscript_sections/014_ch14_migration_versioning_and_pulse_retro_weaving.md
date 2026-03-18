@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S25 | face=F | node=313 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S24→Xi108:W3:A1:S26→Xi108:W2:A1:S25→Xi108:W3:A2:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 1/12 -->
+
 # CHAPTER 14: MIGRATION, VERSIONING, AND PULSE RETRO WEAVING
 
 ## Migration and retro weaving solve the continuity problem that appears once a lawful system begins to move. The chapter is not about version tags as metadata alone; it is about how deltas, compat matrices, rollback law, and replay capsules keep a moving field from dissolving into amnesia.

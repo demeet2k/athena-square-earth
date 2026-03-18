@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - HDCS: AUTOMATIC GAIN CONTROL & STABILITY
 =====================================================
@@ -38,7 +42,6 @@ from enum import Enum, auto
 import numpy as np
 from scipy import linalg
 
-
 # =============================================================================
 # GAIN REGIMES
 # =============================================================================
@@ -51,7 +54,6 @@ class GainRegime(Enum):
     DAMPED = "damped"         # Soft saturation, safety mode
     SATURATED = "saturated"   # Hard limit reached
 
-
 class StabilityType(Enum):
     """Types of stability."""
     
@@ -60,7 +62,6 @@ class StabilityType(Enum):
     MARGINALLY_STABLE = "marginal"
     UNSTABLE = "unstable"
     LYAPUNOV_STABLE = "lyapunov"
-
 
 # =============================================================================
 # GAIN FUNCTION
@@ -131,7 +132,6 @@ class GainFunction:
             regime = GainRegime.SATURATED
         
         return output, regime
-
 
 # =============================================================================
 # AUTOMATIC GAIN CONTROL
@@ -254,7 +254,6 @@ class AutomaticGainControl:
             "energy": self._system_energy,
             "history_length": len(self._gain_history)
         }
-
 
 # =============================================================================
 # LYAPUNOV ANALYSIS
@@ -393,7 +392,6 @@ class LyapunovAnalysis:
     def S_matrix(self) -> np.ndarray:
         return self._S.copy()
 
-
 # =============================================================================
 # RICCATI SOLVER
 # =============================================================================
@@ -484,7 +482,6 @@ class RiccatiSolver:
             self.solve()
         return self._S.copy()
 
-
 # =============================================================================
 # BIFURCATION ANALYSIS
 # =============================================================================
@@ -559,7 +556,6 @@ class BifurcationAnalysis:
             })
         
         return results
-
 
 # =============================================================================
 # VALIDATION
@@ -641,7 +637,6 @@ def validate_agc_stability() -> bool:
         assert abs(hopf_point) < 0.5
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating AGC & Stability Module...")

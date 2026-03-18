@@ -1,3 +1,6 @@
+# CRYSTAL: Xi108:W2:A1:S24 | face=C | node=294 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24
 
 """
 ATHENA NEURAL NETWORK v78Q-NP
@@ -520,7 +523,6 @@ def js_divergence(P: np.ndarray, eps: float = 1e-10) -> np.ndarray:
     kl = np.sum(P * (np.log(P) - np.log(M[:, None, :])), axis=2)  # (H,B)
     js = kl.mean(axis=1)
     return js
-
 
 def iou(a: np.ndarray, b: np.ndarray) -> float:
     a = a.astype(bool)

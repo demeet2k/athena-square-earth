@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S23 | face=R | node=264 | depth=2 | phase=Cardinal
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S22→Xi108:W2:A10:S24→Xi108:W1:A10:S23→Xi108:W3:A10:S23→Xi108:W2:A9:S23→Xi108:W2:A11:S23
+
 from __future__ import annotations
 
 import hashlib
@@ -5,7 +9,6 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
-
 
 REQUIRED_PACKET_FIELDS = [
     "event_id",
@@ -25,15 +28,12 @@ REQUIRED_PACKET_FIELDS = [
     "route_class",
 ]
 
-
 def _normalize_float(value: float) -> float:
     return max(0.0, min(1.0, round(float(value), 6)))
-
 
 def compute_state_hash(source_path: str, event_type: str, content_hint: str) -> str:
     digest = hashlib.sha256(f"{source_path}|{event_type}|{content_hint}".encode("utf-8")).hexdigest().upper()
     return f"H:{digest[:16]}"
-
 
 def infer_tag(source_path: str, event_type: str) -> str:
     suffix = Path(source_path).suffix.lower()
@@ -45,7 +45,6 @@ def infer_tag(source_path: str, event_type: str) -> str:
         base = "artifact"
     return f"{base}.{event_type}"
 
-
 def infer_goal(source_path: str, event_type: str) -> str:
     path = source_path.lower()
     if "temple" in path or "guild" in path or "quest" in path or "board" in path:
@@ -56,14 +55,12 @@ def infer_goal(source_path: str, event_type: str) -> str:
         return "detect-route-prune"
     return "detect-classify-assign"
 
-
 def infer_route_class(goal: str, event_type: str) -> str:
     if event_type == "delete":
         return "scout.router.archivist"
     if "claim" in goal or "assign" in goal:
         return "scout.router.worker.archivist"
     return "scout.router.worker"
-
 
 @dataclass(slots=True)
 class CommandEventPacket:
@@ -97,7 +94,6 @@ class CommandEventPacket:
             if key not in REQUIRED_PACKET_FIELDS and value is not None
         }
         return {"packet": required, **optional}
-
 
 def build_packet(
     *,
@@ -148,7 +144,6 @@ def build_packet(
         watch_fallback=watch_fallback,
     )
 
-
 def validate_packet_record(record: dict[str, Any]) -> None:
     packet = record.get("packet", {})
     missing = [field for field in REQUIRED_PACKET_FIELDS if field not in packet]
@@ -156,7 +151,6 @@ def validate_packet_record(record: dict[str, Any]) -> None:
         raise ValueError(f"packet missing required fields: {missing}")
     if "lookup_addr" not in record:
         raise ValueError("packet record missing lookup_addr")
-
 
 def packet_from_record(record: dict[str, Any]) -> CommandEventPacket:
     validate_packet_record(record)
@@ -169,7 +163,6 @@ def packet_from_record(record: dict[str, Any]) -> CommandEventPacket:
         coord_quality=record.get("coord_quality"),
         watch_fallback=record.get("watch_fallback", False),
     )
-
 
 def record_to_json(record: dict[str, Any]) -> str:
     return json.dumps(record, ensure_ascii=True)

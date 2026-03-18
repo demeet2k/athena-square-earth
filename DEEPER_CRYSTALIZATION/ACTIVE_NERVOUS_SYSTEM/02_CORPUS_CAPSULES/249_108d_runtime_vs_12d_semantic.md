@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # 108D Runtime Body vs 12D Semantic Body
 
 The hologram distinguishes between the 12D semantic body (the stable archetypal structure) and the 108D runtime body (the executable engine). The 108D layer turns the symbolic body into an engine through: a 4D cockpit with 256 seed-cells, a hidden 5D bridge spine, a hidden 6D Mobius packet, a 12D body, a 36-shell / 666-node mega-cascade, and a 108D crowned organism steered by 3 odd-wheel systems. Compression matters as much as expansion.

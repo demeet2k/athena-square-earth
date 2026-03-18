@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=143 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - TIBETAN: BARDO MODULE
 ==================================
@@ -39,7 +43,6 @@ import numpy as np
 
 from .mandala import BuddhaFamily, FIVE_BUDDHAS, Poison, Wisdom
 
-
 # =============================================================================
 # BARDO PHASES
 # =============================================================================
@@ -50,7 +53,6 @@ class BardoPhase(Enum):
     CHIKHAI = "chikhai"   # Moment of death - Clear Light
     CHONYID = "chonyid"   # Days 1-14 - Luminosity/Visions
     SIDPA = "sidpa"       # Days 15-49 - Becoming/Rebirth
-
 
 class BardoState(Enum):
     """Possible states in the Bardo."""
@@ -63,7 +65,6 @@ class BardoState(Enum):
     WOMB_DOOR = "womb_door"         # Approaching rebirth
     REBIRTH = "rebirth"             # Captured - reincarnation
 
-
 class Realm(Enum):
     """The Six Realms of Rebirth."""
     
@@ -73,7 +74,6 @@ class Realm(Enum):
     ANIMAL = "animal"           # Animals - blue dull light
     PRETA = "preta"             # Hungry ghosts - red dull light
     NARAKA = "naraka"           # Hell beings - smoke light
-
 
 # =============================================================================
 # LIGHTS (SIGNALS)
@@ -85,7 +85,6 @@ class LightType(Enum):
     CLEAR_LIGHT = "clear_light"   # Source light - Liberation
     BRIGHT = "bright"             # Buddha family lights
     DULL = "dull"                 # Realm lights - Traps
-
 
 @dataclass
 class BardoLight:
@@ -115,7 +114,6 @@ class BardoLight:
         """Check if this is an attractor basin trap."""
         return self.light_type == LightType.DULL
 
-
 def create_clear_light() -> BardoLight:
     """Create the Clear Light (highest signal)."""
     return BardoLight(
@@ -124,7 +122,6 @@ def create_clear_light() -> BardoLight:
         frequency=float('inf'),
         color="pure_white"
     )
-
 
 def create_buddha_lights() -> List[BardoLight]:
     """Create the Buddha family lights."""
@@ -141,7 +138,6 @@ def create_buddha_lights() -> List[BardoLight]:
         ))
     
     return lights
-
 
 def create_realm_lights() -> List[BardoLight]:
     """Create the six realm lights (dull, comfortable traps)."""
@@ -166,7 +162,6 @@ def create_realm_lights() -> List[BardoLight]:
     
     return lights
 
-
 # =============================================================================
 # KARMIC WIND
 # =============================================================================
@@ -179,7 +174,6 @@ class KarmicAction:
     polarity: int  # +1 positive, -1 negative
     magnitude: float
     realm_tendency: Optional[Realm] = None
-
 
 class KarmicWind:
     """
@@ -225,7 +219,6 @@ class KarmicWind:
     @property
     def momentum(self) -> np.ndarray:
         return self._momentum.copy()
-
 
 # =============================================================================
 # BARDO AGENT
@@ -378,7 +371,6 @@ class BardoAgent:
     def day(self) -> int:
         return self._day
 
-
 # =============================================================================
 # BARDO TRANSITION MATRIX
 # =============================================================================
@@ -508,7 +500,6 @@ class BardoTransitionMatrix:
         
         return liberated / n_simulations
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -586,7 +577,6 @@ def validate_bardo() -> bool:
     assert final[0] + final[6] > 0.5  # Either liberated or reborn
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Tibetan Bardo Module...")

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S30 | face=F | node=441 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W3:A1:S29→Xi108:W3:A1:S31→Xi108:W2:A1:S30→Xi108:W3:A2:S30 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 30±1, wreath 3/3, archetype 1/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppC -> AppJ -> AppI -> AppM
 Tunnel: Z_ms_7341_the_treatise_on_the_athenachka_corpus -> Z* -> Ch21⟨0110⟩

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=103 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - HELLENIC COMPUTATION FRAMEWORK
 ==========================================
@@ -43,7 +47,6 @@ import numpy as np
 import math
 
 from .foundation import StateVector, Klein4Op, Element
-
 
 # =============================================================================
 # THE FOUR HUMORS
@@ -109,7 +112,6 @@ class Humor(Enum):
         """Check if humors share at least one quality."""
         return self._b1 == other._b1 or self._b2 == other._b2
 
-
 # =============================================================================
 # QUALITY SYSTEM
 # =============================================================================
@@ -144,7 +146,6 @@ class Quality(Enum):
         temp = cls.HOT if humor.is_hot else cls.COLD
         moist = cls.WET if humor.is_wet else cls.DRY
         return (temp, moist)
-
 
 @dataclass
 class QualityVector:
@@ -188,7 +189,6 @@ class QualityVector:
             self.heat * scalar,
             self.moisture * scalar
         )
-
 
 # =============================================================================
 # THE HUMORAL STATE MACHINE
@@ -286,7 +286,6 @@ class HumoralState:
             current = self.get(humor)
             self.set(humor, current + change)
 
-
 # =============================================================================
 # THE HOMEOSTASIS ALGORITHM
 # =============================================================================
@@ -298,7 +297,6 @@ class HealthState(Enum):
     MILD_DYSKRASIA = "mild"    # Slight imbalance
     MODERATE_DYSKRASIA = "moderate"
     SEVERE_DYSKRASIA = "severe"  # Dangerous imbalance
-
 
 @dataclass
 class Diagnosis:
@@ -315,7 +313,6 @@ class Diagnosis:
     def needs_treatment(self) -> bool:
         """Check if treatment is needed."""
         return self.state != HealthState.EUKRASIA
-
 
 class HomeostasisEngine:
     """
@@ -413,7 +410,6 @@ class HomeostasisEngine:
             strength=diagnosis.imbalance_score
         )
 
-
 # =============================================================================
 # TREATMENT SYSTEM
 # =============================================================================
@@ -446,7 +442,6 @@ class Treatment:
         
         return QualityVector(heat, moisture)
 
-
 # Predefined treatments
 TREATMENTS = {
     "bloodletting": Treatment(
@@ -475,7 +470,6 @@ TREATMENTS = {
     ),
 }
 
-
 # =============================================================================
 # THE THREE SPIRITS
 # =============================================================================
@@ -495,7 +489,6 @@ class Spirit(Enum):
         self._name = name
         self.organ = organ
         self.function = function
-
 
 @dataclass
 class SpiritSystem:
@@ -533,7 +526,6 @@ class SpiritSystem:
         self.natural = min(1.0, self.natural + amount)
         self.vital = min(1.0, self.vital + amount)
         self.animal = min(1.0, self.animal + amount)
-
 
 # =============================================================================
 # THE BIOLOGICAL DRIVER
@@ -620,7 +612,6 @@ class BiologicalDriver:
         
         return treatment
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -669,7 +660,6 @@ def validate_hippocrates() -> bool:
     assert treatment is not None
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Biological Driver Module...")

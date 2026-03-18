@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 from __future__ import annotations
 
 import argparse
@@ -7,10 +11,8 @@ from typing import Optional
 
 from .qphi import QPHIConfig, load_tnos_for_run, run_qphi
 
-
 def _int(x: str) -> int:
     return int(float(x))
-
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
@@ -60,7 +62,6 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--earth-lon", type=float, default=0.0, help="Earth ecliptic longitude (deg) for a tiny geocentric-distance correction.")
 
     return p
-
 
 def main(argv: Optional[list[str]] = None) -> None:
     args = build_parser().parse_args(argv)
@@ -120,7 +121,6 @@ def main(argv: Optional[list[str]] = None) -> None:
     (out_dir / "run_summary_print.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
 
     print(json.dumps(summary, indent=2, sort_keys=True))
-
 
 if __name__ == "__main__":
     main()

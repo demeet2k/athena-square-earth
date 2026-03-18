@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=406 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 from collections import Counter
@@ -219,7 +223,6 @@ from self_actualize.runtime.hemisphere_command_membrane_support import (
     COMMAND_MEMBRANE_WATCHED_SURFACE_REGISTRY_PATH,
 )
 
-
 VERIFY_COMMAND = "python -m self_actualize.runtime.verify_myth_math_hemisphere_brain"
 FLOAT_TOLERANCE = 0.00001
 FIXTURE_EXPECTATIONS = {
@@ -279,14 +282,12 @@ EXPECTED_DYNAMIC_WEIGHT_KEYS = {
 EXPECTED_LIMINAL_KEYS = {"omega", "integration", "coherence", "function"}
 ROUTE_SIDES = ("MATH", "MYTH")
 
-
 def run_check(label: str, ok: bool, details: dict[str, Any]) -> dict[str, Any]:
     return {
         "label": label,
         "status": "OK" if ok else "FAIL",
         "details": details,
     }
-
 
 def record_lookup(records: list[dict[str, Any]], suffix: str) -> dict[str, Any] | None:
     suffix_normalized = normalize_path(suffix).lower()
@@ -296,10 +297,8 @@ def record_lookup(records: list[dict[str, Any]], suffix: str) -> dict[str, Any] 
             return record
     return None
 
-
 def expected_route_role(record: dict[str, Any], hemisphere: str) -> str:
     return "primary" if record.get("primary_hemisphere") == hemisphere else "secondary"
-
 
 def expected_route_mode(record: dict[str, Any], hemisphere: str) -> str:
     if record.get("primary_hemisphere") == hemisphere:
@@ -308,12 +307,10 @@ def expected_route_mode(record: dict[str, Any], hemisphere: str) -> str:
         return "commissure_direct"
     return "cross_hemisphere_transfer"
 
-
 def expected_exchange(hemisphere: str, route_mode: str) -> str:
     if route_mode == "commissure_direct":
         return "commissure"
     return "GCL" if hemisphere == "MATH" else "GCR"
-
 
 def expected_field_id(field_vector: dict[str, float]) -> str:
     if field_vector["aether_density"] >= 0.78 and field_vector["tunnel_cost"] <= 0.55:
@@ -327,7 +324,6 @@ def expected_field_id(field_vector: dict[str, float]) -> str:
     if field_vector["rail_hardness"] >= 0.62:
         return "RailHardeningBand"
     return "Zero"
-
 
 def expected_zpoint_id(record: dict[str, Any], route_packet: dict[str, Any]) -> str:
     if route_packet["field_id"] == "Aether":
@@ -348,14 +344,12 @@ def expected_zpoint_id(record: dict[str, Any], route_packet: dict[str, Any]) -> 
         return "Z2"
     return "Z0"
 
-
 def expected_geodesic_mode(field_vector: dict[str, float]) -> str:
     if field_vector["zero_proximity"] >= 0.64:
         return "z-point tunnel"
     if field_vector["aether_density"] >= 0.72:
         return "aether geodesic"
     return "rail transit"
-
 
 def expected_preferred_space(route_packet: dict[str, Any]) -> str:
     if (
@@ -368,7 +362,6 @@ def expected_preferred_space(route_packet: dict[str, Any]) -> str:
     if len(route_packet["dominant_lens_system"]) >= 2:
         return "Lens3D"
     return "Transit3D"
-
 
 def route_field_present(field: str, value: Any) -> bool:
     if field == "interlock_ids":
@@ -393,7 +386,6 @@ def route_field_present(field: str, value: Any) -> bool:
         return bool(value.strip())
     return value is not None
 
-
 def build_route_lookup(
     routes: list[dict[str, Any]],
 ) -> dict[str, dict[str, dict[str, Any]]]:
@@ -401,7 +393,6 @@ def build_route_lookup(
     for route in routes:
         lookup.setdefault(route["record_id"], {})[route["hemisphere"]] = route
     return lookup
-
 
 def build_edge_lookup(
     edges: list[dict[str, Any]],
@@ -411,12 +402,10 @@ def build_edge_lookup(
         lookup.setdefault(edge["record_id"], {})[edge["hemisphere"]] = edge
     return lookup
 
-
 def build_coverage_lookup(
     rows: list[dict[str, Any]],
 ) -> dict[str, dict[str, Any]]:
     return {row["record_id"]: row for row in rows}
-
 
 def build_atlas_edge_lookup(
     edges: list[dict[str, Any]],
@@ -429,12 +418,10 @@ def build_atlas_edge_lookup(
         lookup.setdefault(record_id, {}).setdefault(edge.get("edge_type", ""), []).append(edge)
     return lookup
 
-
 def page_exists(page_entry: dict[str, Any]) -> bool:
     canonical_path = Path(page_entry.get("canonical_path", ""))
     mirror_path = Path(page_entry.get("mirror_path", ""))
     return canonical_path.is_file() and mirror_path.is_file()
-
 
 def alias_has_record(
     alias_index: dict[str, Any],
@@ -451,7 +438,6 @@ def alias_has_record(
         return True
     return False
 
-
 def response_has_record(response: dict[str, Any], record_id: str) -> bool:
     if response.get("best_match", {}).get("record_id") == record_id:
         return True
@@ -460,13 +446,11 @@ def response_has_record(response: dict[str, Any], record_id: str) -> bool:
             return True
     return False
 
-
 def itinerary_stage_map(itinerary: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {
         stage.get("stage", ""): stage
         for stage in itinerary.get("stages", [])
     }
-
 
 def composer_response_shape_ok(response: dict[str, Any]) -> bool:
     seed_record = response.get("seed_record")
@@ -497,7 +481,6 @@ def composer_response_shape_ok(response: dict[str, Any]) -> bool:
     if len(shared_spine) < 4 or shared_spine[2].get("hub_id") != "GC0-UNIFIED-CORPUS":
         return False
     return bool(response.get("bridge_profile", {}).get("mode"))
-
 
 def synthesis_response_shape_ok(response: dict[str, Any]) -> bool:
     seed_record = response.get("seed_record")
@@ -549,7 +532,6 @@ def synthesis_response_shape_ok(response: dict[str, Any]) -> bool:
     if len(response.get("alternative_seeds", [])) > 3:
         return False
     return True
-
 
 def guided_tour_response_shape_ok(
     response: dict[str, Any],
@@ -606,7 +588,6 @@ def guided_tour_response_shape_ok(
         return False
     return True
 
-
 def expedition_response_shape_ok(
     response: dict[str, Any],
     page_lookup: dict[str, dict[str, Any]],
@@ -639,7 +620,6 @@ def expedition_response_shape_ok(
     if len(response.get("alternative_seeds", [])) > 3:
         return False
     return bool(response.get("exit_links")) and bool(response.get("proof_summary"))
-
 
 def constellation_response_shape_ok(
     response: dict[str, Any],
@@ -674,7 +654,6 @@ def constellation_response_shape_ok(
         return False
     return bool(response.get("exit_links")) and bool(response.get("proof_summary"))
 
-
 def replay_response_shape_ok(
     response: dict[str, Any],
     evidence_ledger: dict[str, Any],
@@ -704,7 +683,6 @@ def replay_response_shape_ok(
         return False
     return bool(response.get("return_links")) and bool(response.get("proof_summary"))
 
-
 def observatory_response_shape_ok(response: dict[str, Any]) -> bool:
     seed_record = response.get("seed_record")
     if not seed_record or not seed_record.get("record_id"):
@@ -726,7 +704,6 @@ def observatory_response_shape_ok(response: dict[str, Any]) -> bool:
     if len(response.get("alternative_seeds", [])) > 3:
         return False
     return bool(response.get("watchpoints"))
-
 
 def verify_payload() -> dict[str, Any]:
     atlas_payload = load_json(HEMISPHERE_ATLAS_PATH)
@@ -4396,7 +4373,6 @@ def verify_payload() -> dict[str, Any]:
         "checks": checks,
     }
 
-
 def main() -> int:
     payload = verify_payload()
     write_json(VERIFY_PATH, payload)
@@ -4405,7 +4381,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

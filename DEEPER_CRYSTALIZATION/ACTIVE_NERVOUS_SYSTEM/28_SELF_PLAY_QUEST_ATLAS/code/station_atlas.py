@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=13 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 """
 StationAtlas.v1 — 19-Station Quest Atlas Definitions
 
@@ -16,7 +20,6 @@ from .constants import (
 )
 from .types import Element4, Pass3, QuestClass, Vec4
 
-
 # ═══════════════════════════════════════════════════════════════
 # STATION DEFINITION
 # ═══════════════════════════════════════════════════════════════
@@ -32,7 +35,6 @@ class StationDef:
     description: str = ""
     payout_base: float = 1.0     # base payout multiplier
     tags: List[str] = field(default_factory=list)
-
 
 # ═══════════════════════════════════════════════════════════════
 # 19 STATION DEFINITIONS (S01–S19)
@@ -193,7 +195,6 @@ STATIONS: Dict[int, StationDef] = {
     ),
 }
 
-
 # ═══════════════════════════════════════════════════════════════
 # PAYOUT MATRIX
 # ═══════════════════════════════════════════════════════════════
@@ -218,7 +219,6 @@ def compute_station_payout(station: int, pass3: Pass3) -> Vec4:
         earth=BASE_XP_UNIT * sdef.payout_base * ev.earth * d[3] * chi,
     )
 
-
 def compute_full_payout_matrix() -> Dict[Tuple[int, str], Vec4]:
     """Compute payout vectors for all 57 station×pass combinations."""
     matrix = {}
@@ -226,7 +226,6 @@ def compute_full_payout_matrix() -> Dict[Tuple[int, str], Vec4]:
         for p in Pass3:
             matrix[(s, p.value)] = compute_station_payout(s, p)
     return matrix
-
 
 # ═══════════════════════════════════════════════════════════════
 # LOOKUPS
@@ -241,16 +240,13 @@ def station_for_loop(loop_index: int) -> Tuple[int, Pass3]:
     pass_idx = loop_index % PASS_COUNT
     return station, list(Pass3)[pass_idx]
 
-
 def loop_for_station(station: int, pass3: Pass3) -> int:
     """Convert (station, pass) to a 0-based loop index."""
     return (station - 1) * PASS_COUNT + list(Pass3).index(pass3)
 
-
 def accessible_stations(level: int) -> List[int]:
     """Return list of station numbers accessible at the given level."""
     return [s for s, sdef in STATIONS.items() if sdef.unlock_level <= level]
-
 
 def station_quest_classes(station: int) -> List[str]:
     """Return quest classes available at the given station."""

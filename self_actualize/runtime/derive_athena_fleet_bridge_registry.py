@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S27 | face=F | node=360 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A6:S26→Xi108:W2:A6:S28→Xi108:W1:A6:S27→Xi108:W3:A6:S27→Xi108:W2:A5:S27→Xi108:W2:A7:S27
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ from pathlib import Path
 from typing import Any
 
 from . import swarm_board
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -65,33 +68,26 @@ OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "athena_fleet_bridge_registry.json"
 DERIVATION_VERSION = "2026-03-13.athena-fleet.bridge.registry.v1"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_athena_fleet_bridge_registry"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def rel(path: Path) -> str:
     return path.relative_to(WORKSPACE_ROOT).as_posix()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def truth_value(text: str, default: str = "AMBIG") -> str:
     match = re.search(r"Truth:\s*`([^`]+)`", text)
     return match.group(1) if match else default
 
-
 def markdown_section(text: str, heading: str) -> str:
     match = re.search(rf"## {re.escape(heading)}\s*(.*?)(?=\n## |\Z)", text, re.S)
     return match.group(1).strip() if match else ""
-
 
 def bullet_value(text: str, prefix: str) -> str:
     for raw_line in text.splitlines():
@@ -99,7 +95,6 @@ def bullet_value(text: str, prefix: str) -> str:
         if line.startswith(prefix):
             return line[len(prefix) :].strip().strip("`")
     return ""
-
 
 def parse_root_basis() -> dict[str, Any]:
     text = read_text(ROOT_BASIS_PATH)
@@ -115,7 +110,6 @@ def parse_root_basis() -> dict[str, Any]:
         "status": match.group(3).strip() if match else "",
         "role": match.group(4).strip() if match else "",
     }
-
 
 def parse_direct_edges(edge_ids: set[str]) -> list[dict[str, Any]]:
     text = read_text(DIRECT_EDGES_PATH)
@@ -140,7 +134,6 @@ def parse_direct_edges(edge_ids: set[str]) -> list[dict[str, Any]]:
         )
     return sorted(edges, key=lambda item: item["edge_id"])
 
-
 def parse_bridge_ledger_entries(family_ids: set[str]) -> list[dict[str, Any]]:
     text = read_text(BRIDGE_LEDGER_PATH)
     entries: list[dict[str, Any]] = []
@@ -164,7 +157,6 @@ def parse_bridge_ledger_entries(family_ids: set[str]) -> list[dict[str, Any]]:
         )
     return sorted(entries, key=lambda item: item["bridge_family_id"])
 
-
 def parse_bridge_route(path: Path, bridge_family_id: str) -> dict[str, Any]:
     text = read_text(path)
     return {
@@ -178,7 +170,6 @@ def parse_bridge_route(path: Path, bridge_family_id: str) -> dict[str, Any]:
         if re.search(r"## Route\s*`([^`]+)`", text, re.S)
         else "",
     }
-
 
 def parse_handoff_packets(packet_ids: set[str]) -> list[dict[str, Any]]:
     text = read_text(HANDOFF_PROTOCOL_PATH)
@@ -204,7 +195,6 @@ def parse_handoff_packets(packet_ids: set[str]) -> list[dict[str, Any]]:
         )
     return sorted(packets, key=lambda item: item["packet_id"])
 
-
 def parse_external_deficits() -> list[dict[str, Any]]:
     payload = json.loads(QSHRINK_INTEGRATION_PATH.read_text(encoding="utf-8"))
     deficits = []
@@ -221,7 +211,6 @@ def parse_external_deficits() -> list[dict[str, Any]]:
             }
         )
     return sorted(deficits, key=lambda item: item["id"])
-
 
 def parse_route_surface() -> dict[str, Any]:
     text = read_text(ROUTE_SURFACE_PATH)
@@ -244,7 +233,6 @@ def parse_route_surface() -> dict[str, Any]:
         else "",
     }
 
-
 def parse_cluster_receipt() -> dict[str, Any]:
     text = read_text(CLUSTER_RECEIPT_PATH)
     status = bullet_value(text, "- status: ")
@@ -255,10 +243,8 @@ def parse_cluster_receipt() -> dict[str, Any]:
         "docs_gate": bullet_value(text, "- docs_gate: "),
     }
 
-
 def capsule_witnesses() -> list[dict[str, Any]]:
     return [{"path": rel(path), "exists": path.exists()} for path in CAPSULE_WITNESS_PATHS]
-
 
 def build_record() -> dict[str, Any]:
     family_text = read_text(FAMILY_SURFACE_PATH)
@@ -302,7 +288,6 @@ def build_record() -> dict[str, Any]:
         "docs_gate_status": docs_gate_status,
     }
 
-
 def build_payload() -> dict[str, Any]:
     record = build_record()
     return {
@@ -318,7 +303,6 @@ def build_payload() -> dict[str, Any]:
         },
     }
 
-
 def main() -> int:
     payload = build_payload()
     write_json(OUTPUT_JSON_PATH, payload)
@@ -326,7 +310,6 @@ def main() -> int:
     print(f"Body ids: {', '.join(payload['summary']['body_ids'])}")
     print(f"Docs gate: {payload['summary']['docs_gate_status']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S29 | face=F | node=411 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S28→Xi108:W2:A7:S30→Xi108:W1:A7:S29→Xi108:W3:A7:S29→Xi108:W2:A6:S29→Xi108:W2:A8:S29
+
 """
 Fifth pass: Get pre-2017 data from Bitstamp (oldest major exchange, public API).
 Also extends BCH, DOGE, XMR using other Binance pairs.
@@ -14,7 +18,6 @@ from datetime import datetime, timezone
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(OUTPUT_DIR, "data")
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -22,7 +25,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 def fetch_bitstamp_ohlcv(pair, step=86400, start_ts=0, limit=1000):
     """
@@ -85,7 +87,6 @@ def fetch_bitstamp_ohlcv(pair, step=86400, start_ts=0, limit=1000):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 def add_trading_features(df):
     if "close" not in df.columns and "price_usd" in df.columns:
         df["close"] = df["price_usd"]
@@ -120,7 +121,6 @@ def add_trading_features(df):
         df["volume_ratio"] = df[vol_col] / df["volume_sma_20"]
     return df
 
-
 def merge_early_data(symbol, early_df):
     filepath = os.path.join(DATA_DIR, f"{symbol}_full_history.csv")
     if os.path.exists(filepath):
@@ -142,7 +142,6 @@ def merge_early_data(symbol, early_df):
     file_size_mb = os.path.getsize(filepath) / (1024 * 1024)
     log(f"  SAVED: {symbol}_full_history.csv ({len(merged)} rows, {file_size_mb:.2f} MB)")
     log(f"  History: {merged['date'].iloc[0]} to {merged['date'].iloc[-1]}")
-
 
 def main():
     log("=" * 70)
@@ -270,7 +269,6 @@ def main():
     log(f"{'-' * 55}")
     log(f"TOTAL: {total_rows} data points, {total_size:.2f} MB across {len(files)} coins")
     log("\nDONE!")
-
 
 if __name__ == "__main__":
     main()

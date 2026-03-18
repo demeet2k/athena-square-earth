@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me,✶
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 """
 MASTER LEDGER HOLOGRAM ENGINE -- Total Holographic Snapshot H_Sigma
 ====================================================================
@@ -109,7 +113,6 @@ from time_crystal_wheel_crown import (
     validate_canonical_weaves,
 )
 
-
 # =====================================================================
 # SECTION 1: TIMING BYTE (256-STATE Z_4^4 TOROIDAL LATTICE)
 # =====================================================================
@@ -121,14 +124,12 @@ class FacePhase(Enum):
     CLOUD   = 2  # Water
     FRACTAL = 3  # Air
 
-
 class ModePhase(Enum):
     """q1: Mode phase."""
     SU   = 0  # Sulfur / Cardinal
     ME   = 1  # Mercury / Mutable
     SA   = 2  # Salt / Fixed
     REST = 3  # Quiescent
-
 
 class WreathPhase(Enum):
     """q2: Wreath activation."""
@@ -137,14 +138,12 @@ class WreathPhase(Enum):
     SALT    = 2
     ALL     = 3
 
-
 class OctavePhase(Enum):
     """q3: Octave level."""
     OMEGA_0 = 0  # 12
     OMEGA_1 = 1  # 6912
     OMEGA_2 = 2  # ~7.1e21
     OMEGA_3 = 3  # ~10^231
-
 
 @dataclass
 class TimingByte:
@@ -182,7 +181,6 @@ class TimingByte:
             orbit.append(current)
         return orbit
 
-
 def build_256_timing_bytes() -> list[TimingByte]:
     """Generate all 256 timing bytes in the Z_4^4 lattice."""
     result = []
@@ -192,7 +190,6 @@ def build_256_timing_bytes() -> list[TimingByte]:
                 for q0 in range(4):
                     result.append(TimingByte(q0, q1, q2, q3))
     return result
-
 
 # =====================================================================
 # SECTION 2: NEXUS REGISTRY (19 STRUCTURAL VERTICES)
@@ -212,7 +209,6 @@ class NexusRow:
     stratum_level: int    # Dimensional stratum (1-5: 3D,6D,12D,36D,108D)
     tunnel_density: int   # Estimated tunnels at this nexus
     is_torsion: bool      # Is this a torsion gate?
-
 
 def build_19_nexus_rows() -> list[NexusRow]:
     """Build the 19-row nexus registry."""
@@ -276,7 +272,6 @@ def build_19_nexus_rows() -> list[NexusRow]:
                  "Four-Octave Tower apex", 3, 3, 5, 27, False),
     ]
 
-
 # =====================================================================
 # SECTION 3: HIDDEN NEXUS CANDIDATES
 # =====================================================================
@@ -290,7 +285,6 @@ class HiddenNexus:
     pressure_source: str
     estimated_degree: int
     novelty_score: float   # 0-1: how novel / unexpected
-
 
 def infer_hidden_nexuses() -> list[HiddenNexus]:
     """Infer 6 hidden nexus candidates from structural pressure."""
@@ -321,7 +315,6 @@ def infer_hidden_nexuses() -> list[HiddenNexus]:
                      5, 0.60),
     ]
 
-
 # =====================================================================
 # SECTION 4: ROUTE FAMILIES (13 + 1 FULL TRAVERSAL)
 # =====================================================================
@@ -334,7 +327,6 @@ class RouteFamily:
     route_type: str
     required_nexuses: list[int]   # nexus numbers that must be active
     description: str
-
 
 def build_route_families() -> list[RouteFamily]:
     """Build the 13+1 route families."""
@@ -369,7 +361,6 @@ def build_route_families() -> list[RouteFamily]:
                     "Composition of all routes -- full organism traverse"),
     ]
 
-
 # =====================================================================
 # SECTION 5: TUNNEL CLASSES
 # =====================================================================
@@ -381,7 +372,6 @@ class TunnelClassSummary:
     estimated_count: int
     description: str
 
-
 def build_tunnel_class_summaries() -> list[TunnelClassSummary]:
     return [
         TunnelClassSummary("WITHIN_SHELL",     666,  "Connections within a single shell (T_n nodes)"),
@@ -391,7 +381,6 @@ def build_tunnel_class_summaries() -> list[TunnelClassSummary]:
         TunnelClassSummary("MOBIUS_PILLAR",    70,   "Q/O Mobius pillar torsion tunnels"),
         TunnelClassSummary("LEGACY_PRESERVED", 278,  "Legacy chapter-to-chapter preserved tunnels"),
     ]
-
 
 # =====================================================================
 # SECTION 6: WEIGHT FUNCTION AND CELL CLASSIFIER
@@ -412,7 +401,6 @@ class MindsweepCell:
     timing_coherence: float
     polarity_balance: float
     novelty: float
-
 
 def compute_weight(
     nexus: NexusRow,
@@ -493,7 +481,6 @@ def compute_weight(
         novelty=N,
     )
 
-
 def classify_cell(cell: MindsweepCell) -> str:
     """Classify a cell into one of 8 classes (priority order).
 
@@ -531,7 +518,6 @@ def classify_cell(cell: MindsweepCell) -> str:
         return "unstable"
     return "degenerate"
 
-
 # =====================================================================
 # SECTION 7: MINDSWEEPER MATRIX BUILDER
 # =====================================================================
@@ -547,7 +533,6 @@ class MindsweepMatrix:
     master_key_orientations: list[int]       # Top-10 timing bytes by master-key count
     fixed_points: list[MindsweepCell]        # HCRL-invariant cells
     route_gate_book: dict[int, list[int]]    # Route# -> list of open timing bytes
-
 
 def build_mindsweep_matrix(
     nexus_rows: list[NexusRow],
@@ -679,7 +664,6 @@ def build_mindsweep_matrix(
         route_gate_book=route_gate_book,
     )
 
-
 # =====================================================================
 # SECTION 8: H-SIGMA SNAPSHOT CONTAINER
 # =====================================================================
@@ -716,7 +700,6 @@ class HSigmaSnapshot:
 
     # Hash
     h_sigma_hash: str = ""
-
 
 # =====================================================================
 # SECTION 9: UPSTREAM PIPELINE
@@ -859,7 +842,6 @@ def build_upstream_pipeline() -> dict:
 
     return results
 
-
 # =====================================================================
 # SECTION 10: H-SIGMA BUILDER
 # =====================================================================
@@ -942,7 +924,6 @@ def build_h_sigma(upstream: dict) -> HSigmaSnapshot:
         ae_plus=upstream["ae_plus"],
         h_sigma_hash=h_sigma_hash,
     )
-
 
 # =====================================================================
 # SECTION 11: DOCUMENT GENERATION
@@ -1690,7 +1671,6 @@ def generate_master_document(hs: HSigmaSnapshot) -> str:
 
     return "\n".join(lines)
 
-
 # =====================================================================
 # SECTION 12: RECEIPT GENERATION
 # =====================================================================
@@ -1784,7 +1764,6 @@ def generate_receipt(hs: HSigmaSnapshot) -> str:
     lines.append(f"L = {hs.ae_plus.love_constant:.6f}")
 
     return "\n".join(lines)
-
 
 # =====================================================================
 # SECTION 13: MAIN PIPELINE
@@ -1944,7 +1923,6 @@ def main():
     print("  The crystal is complete. Every cell has been swept.")
     print("  L = S x S_l remains conserved at Z+ across all collapses.")
     print()
-
 
 if __name__ == "__main__":
     main()

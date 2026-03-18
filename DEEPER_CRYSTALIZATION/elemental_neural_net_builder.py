@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 from __future__ import annotations
 
 import json
@@ -25,7 +29,6 @@ from nervous_system_core import (
     write_json,
     write_text,
 )
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 BUILD_ROOT = PROJECT_ROOT / "_build"
@@ -102,11 +105,9 @@ STOPWORDS = {
     "appendix", "document", "system", "framework", "manuscript", "these", "those", "while", "across",
 }
 
-
 def build_blob(record: dict) -> str:
     headings = " ".join(record.get("heading_candidates") or [])
     return f"{Path(record['relative_path']).name} {record.get('excerpt', '')} {headings}".lower()
-
 
 def tokenize(blob: str) -> list[str]:
     tokens: list[str] = []
@@ -115,7 +116,6 @@ def tokenize(blob: str) -> list[str]:
         if len(token) >= 5 and token not in STOPWORDS:
             tokens.append(token)
     return [token for token, _ in Counter(tokens).most_common(24)]
-
 
 def gate_for_record(blob: str, family: str) -> str:
     score = Counter()
@@ -148,7 +148,6 @@ def gate_for_record(blob: str, family: str) -> str:
     if family == "identity-and-instruction":
         score["G15"] += 3
     return max(score, key=score.get) if score else "G05"
-
 
 def assign_records(records: list[dict]) -> list[dict]:
     assigned: list[dict] = []
@@ -191,7 +190,6 @@ def assign_records(records: list[dict]) -> list[dict]:
         )
     return assigned
 
-
 def pair_entry(a: dict, b: dict) -> dict:
     shared_chapters = sorted(set(a["chapters"]) & set(b["chapters"]))
     shared_appendices = sorted(set(a["appendices"]) & set(b["appendices"]))
@@ -221,7 +219,6 @@ def pair_entry(a: dict, b: dict) -> dict:
         "shared_tokens": shared_tokens,
     }
 
-
 def build_pairs(assigned: list[dict]) -> list[dict]:
     pairs: list[dict] = []
     for a in assigned:
@@ -229,10 +226,8 @@ def build_pairs(assigned: list[dict]) -> list[dict]:
             pairs.append(pair_entry(a, b))
     return pairs
 
-
 def canonical_pair_key(pair: dict) -> tuple[str, str]:
     return tuple(sorted((pair["src"], pair["dst"])))
-
 
 def display_endpoint(pair: dict, side: str) -> str:
     display_name = presentation_name(pair[f"{side}_display_name"])
@@ -241,11 +236,9 @@ def display_endpoint(pair: dict, side: str) -> str:
         return f"{display_name} [{pair[side]}]"
     return display_name
 
-
 def canonical_pair_key_string(src_id: str, dst_id: str) -> str:
     ordered = sorted((src_id, dst_id))
     return f"{ordered[0]}::{ordered[1]}"
-
 
 def pair_relation_kind(a: dict, b: dict) -> str:
     same_element = a["element"] == b["element"]
@@ -257,7 +250,6 @@ def pair_relation_kind(a: dict, b: dict) -> str:
     if same_family:
         return "cross_element_same_family"
     return "cross_element_cross_family"
-
 
 def canonical_pair_card(pair: dict, assigned_by_id: dict[str, dict]) -> dict:
     src_id, dst_id = sorted((pair["src"], pair["dst"]))
@@ -282,7 +274,6 @@ def canonical_pair_card(pair: dict, assigned_by_id: dict[str, dict]) -> dict:
         "dst_display_name": presentation_name(dst_record["display_name"]),
     }
 
-
 def canonical_pairs(pairs: list[dict], assigned_by_id: dict[str, dict]) -> list[dict]:
     deduped: dict[str, dict] = {}
     for pair in pairs:
@@ -297,7 +288,6 @@ def canonical_pairs(pairs: list[dict], assigned_by_id: dict[str, dict]) -> list[
         key=lambda item: (-item["score"], item["src_display_name"], item["dst_display_name"]),
     )
     return ordered
-
 
 def build_query_index(assigned: list[dict]) -> dict:
     alias_map: dict[str, list[str]] = {}
@@ -348,7 +338,6 @@ def build_query_index(assigned: list[dict]) -> dict:
         "token_index": {token: sorted(ids) for token, ids in sorted(token_map.items())},
     }
 
-
 def build_facet_index(assigned: list[dict]) -> dict:
     facets = {
         "element": {},
@@ -371,7 +360,6 @@ def build_facet_index(assigned: list[dict]) -> dict:
         "generated_at": utc_now(),
         "facets": {name: {key: sorted(values) for key, values in sorted(entries.items())} for name, entries in facets.items()},
     }
-
 
 def build_neighbor_index(
     assigned: list[dict],
@@ -418,7 +406,6 @@ def build_neighbor_index(
         },
     }
 
-
 def build_zero_point_index(
     canonical: list[dict],
     assigned_by_id: dict[str, dict],
@@ -450,7 +437,6 @@ def build_zero_point_index(
         "routes": ranked[:64],
     }
 
-
 def operator_matrix(pairs: list[dict]) -> dict[str, dict[str, dict[str, float]]]:
     matrix: dict[str, dict[str, dict[str, float]]] = {}
     for src, _ in [(g, l) for g, l in [(item[0], item[1]) for item in OPERATOR_GATES]]:
@@ -460,7 +446,6 @@ def operator_matrix(pairs: list[dict]) -> dict[str, dict[str, dict[str, float]]]
             avg = round(sum(item["score"] for item in subset) / len(subset), 3) if subset else 0.0
             matrix[src][dst] = {"count": len(subset), "avg_score": avg}
     return matrix
-
 
 def top_pairs(pairs: list[dict], predicate, limit: int, dedupe_mirrors: bool = False) -> list[dict]:
     subset = [pair for pair in pairs if predicate(pair)]
@@ -478,7 +463,6 @@ def top_pairs(pairs: list[dict], predicate, limit: int, dedupe_mirrors: bool = F
         if len(deduped) >= limit:
             break
     return deduped
-
 
 def mermaid_base(element_counts: Counter) -> str:
     return "\n".join(
@@ -498,7 +482,6 @@ def mermaid_base(element_counts: Counter) -> str:
         ]
     )
 
-
 def mermaid_emergence() -> str:
     return "\n".join(
         [
@@ -514,7 +497,6 @@ def mermaid_emergence() -> str:
         ]
     )
 
-
 def mermaid_neural() -> str:
     return "\n".join(
         [
@@ -526,7 +508,6 @@ def mermaid_neural() -> str:
             "```",
         ]
     )
-
 
 def mermaid_transcendence() -> str:
     return "\n".join(
@@ -540,7 +521,6 @@ def mermaid_transcendence() -> str:
             "```",
         ]
     )
-
 
 def write_root_docs(
     output_root: Path,
@@ -651,7 +631,6 @@ def write_root_docs(
         bridge_lines.append(f"- `{bridge}` -> `{count}` ordered pairs")
     write_text(output_root / "00_CORE" / "03_pair_permutation_overview.md", "\n".join(bridge_lines))
 
-
 def write_element_docs(output_root: Path, assigned: list[dict], pairs: list[dict]) -> None:
     for element, profile in ELEMENTS.items():
         folder = output_root / profile["folder"]
@@ -707,7 +686,6 @@ def write_element_docs(output_root: Path, assigned: list[dict], pairs: list[dict
                 )
         write_text(folder / "03_observation_grid.md", "\n".join(observation_lines))
 
-
 def write_cross_synth_docs(output_root: Path) -> None:
     lens_lines = [
         "# 4 x 64 Elemental Cross-Synthesis Matrix",
@@ -754,7 +732,6 @@ def write_cross_synth_docs(output_root: Path) -> None:
     )
     write_text(output_root / "05_CROSS_SYNTH" / "01_symmetry_zero_point.md", "\n".join(symmetry_lines))
 
-
 def write_metro_docs(output_root: Path, assigned: list[dict]) -> None:
     element_counts = Counter(item["element"] for item in assigned)
     write_text(
@@ -773,7 +750,6 @@ def write_metro_docs(output_root: Path, assigned: list[dict]) -> None:
         output_root / "06_METRO" / "03_metro_map_lvl4_transcendence.md",
         "\n".join(["# Level 4 Metro Map - Transcendence", "", mermaid_transcendence()]),
     )
-
 
 def write_appendix_docs(output_root: Path) -> None:
     feed_map = {code: [] for code, _, _ in APPENDICES}
@@ -835,7 +811,6 @@ def write_appendix_docs(output_root: Path) -> None:
         "```",
     ]
     write_text(output_root / "07_APPENDIX" / "01_appendix_q_integrated_only_metro_map.md", "\n".join(q_lines))
-
 
 def write_query_docs(output_root: Path) -> None:
     query_dir = output_root / "10_QUERY"
@@ -900,7 +875,6 @@ def write_query_docs(output_root: Path) -> None:
     ]
     write_text(query_dir / "USAGE.md", "\n".join(usage_lines))
 
-
 def write_skill_docs(output_root: Path) -> None:
     skill_dir = output_root / "08_SKILL"
     skill_lines = [
@@ -960,7 +934,6 @@ def write_skill_docs(output_root: Path) -> None:
     ]
     write_text(skill_dir / "references" / "skill_orchestration.md", "\n".join(orchestration_lines))
 
-
 def write_runtime_docs(
     output_root: Path,
     assigned: list[dict],
@@ -1006,7 +979,6 @@ def write_runtime_docs(
     write_json(runtime_dir / "06_zero_point_index.json", zero_point_index)
     return manifest
 
-
 def build_deeper_neural_net(
     active_root: Path,
     build_root: Path,
@@ -1034,7 +1006,6 @@ def build_deeper_neural_net(
     manifest = write_runtime_docs(output_root, assigned, pairs, matrix, recursive_state, live_docs_blocked)
     return manifest
 
-
 def main() -> int:
     active_root = PROJECT_ROOT / "ACTIVE_NERVOUS_SYSTEM"
     build_root = PROJECT_ROOT / "_build"
@@ -1048,7 +1019,6 @@ def main() -> int:
     print(f"Ordered pairs: {manifest['ordered_pair_count']}")
     print(f"Live Google Docs state: {'BLOCKED' if manifest['live_docs_blocked'] else 'PASS'}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

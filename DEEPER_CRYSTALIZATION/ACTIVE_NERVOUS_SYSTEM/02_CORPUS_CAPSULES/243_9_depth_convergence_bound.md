@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,○ -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # 9-Depth Convergence Bound and Proof
 
 The 9-depth convergence bound (Ch16, Theorem 16.3.1) is proved twice: by damping (|w|^9 < 1/pi) and by the norm constraint (sqrt(1 - 1/pi^2) > 1 - 1/pi). The bound establishes that any trajectory governed by the crystal operator converges within at most 9 recursive depth levels. Appendix K provides the complete self-contained proof.

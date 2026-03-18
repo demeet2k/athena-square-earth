@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S30 | face=R | node=1 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A9:S29→Xi108:W2:A9:S31→Xi108:W1:A9:S30→Xi108:W3:A9:S30→Xi108:W2:A8:S30→Xi108:W2:A10:S30
+
 one:
             truth = "AMBIG"
             rl = None
@@ -26,7 +30,6 @@ one:
                        out.obligations)
 
     return out
-
 
 08.S4.c — Route search with truth threshold and budgets
 import heapq
@@ -75,7 +78,6 @@ def route_search(graph: Dict[str, List[Edge]], src: str, dst: str, C: CorridorPr
                                 comp2.budget_use.chi, comp2.budget_use.beta, comp2.budget_use.kappa,
                                 e.to_node, outs2, comp2))
     return None
-
 
 08.S4.d — Routable outcome registry (edges as publishable graph items)
 A certified system must maintain an outcome registry in which every evaluated edge is stored as a graph item:

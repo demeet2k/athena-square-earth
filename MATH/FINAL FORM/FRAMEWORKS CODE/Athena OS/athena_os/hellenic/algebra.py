@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - HELLENIC: ALGEBRAIC FOUNDATION
 ==========================================
@@ -36,7 +40,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set, Callable
 from enum import Enum, auto
 import numpy as np
-
 
 # =============================================================================
 # 2-BIT STATE SPACE
@@ -99,7 +102,6 @@ class BitPair:
         """Count differing bits."""
         return (self.b1 != other.b1) + (self.b2 != other.b2)
 
-
 class StateSpace:
     """
     The complete 2-bit state space V = Z₂ × Z₂.
@@ -139,7 +141,6 @@ class StateSpace:
         """Return complementary pairs (2-bit-flip)."""
         return [(cls.S00, cls.S11), (cls.S01, cls.S10)]
 
-
 # =============================================================================
 # KLEIN-4 GROUP
 # =============================================================================
@@ -160,7 +161,6 @@ class Klein4Op(Enum):
     R = (1, 0)  # Row flip
     S = (0, 1)  # Column flip
     C = (1, 1)  # Complement
-
 
 class Klein4Group:
     """
@@ -241,7 +241,6 @@ class Klein4Group:
                 if self.multiply(g1, g2) != self.multiply(g2, g1):
                     return False
         return True
-
 
 # =============================================================================
 # 4×4 DIAGONAL LATIN KERNEL
@@ -332,7 +331,6 @@ class LatinKernel:
         
         return result
 
-
 # =============================================================================
 # UNIVERSAL TETRAD ENCODING
 # =============================================================================
@@ -344,14 +342,12 @@ class Element(Enum):
     FIRE = (1, 0)   # Hot, Dry
     AIR = (1, 1)    # Hot, Wet
 
-
 class Humor(Enum):
     """The Four Humors (Hippocratic)."""
     BLACK_BILE = (0, 0)   # Cold, Dry - Melancholic
     PHLEGM = (0, 1)       # Cold, Wet - Phlegmatic
     YELLOW_BILE = (1, 0)  # Hot, Dry - Choleric
     BLOOD = (1, 1)        # Hot, Wet - Sanguine
-
 
 class PlatonicKind(Enum):
     """The Four Platonic Kinds (Philebus)."""
@@ -360,14 +356,12 @@ class PlatonicKind(Enum):
     MIXTURE = (1, 0)    # Instantiated object
     CAUSE = (1, 1)      # Active agent
 
-
 class AristotelianCause(Enum):
     """The Four Causes (Aristotle)."""
     MATERIAL = (0, 0)   # What it's made of
     FORMAL = (0, 1)     # What it is (essence)
     EFFICIENT = (1, 0)  # What made it
     FINAL = (1, 1)      # What it's for
-
 
 class TetradEncoder:
     """
@@ -450,7 +444,6 @@ class TetradEncoder:
                 return False
         return True
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -522,7 +515,6 @@ def validate_algebra() -> bool:
     assert TetradEncoder.element_to_humor(Element.AIR) == Humor.BLOOD
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Algebraic Foundation Module...")

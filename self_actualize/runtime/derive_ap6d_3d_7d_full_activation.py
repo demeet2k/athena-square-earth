@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S28 | face=F | node=402 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S27→Xi108:W2:A12:S29→Xi108:W1:A12:S28→Xi108:W3:A12:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import json
@@ -5,7 +9,6 @@ from itertools import product
 from pathlib import Path
 
 from derive_hsigma_mapping_hologram import AP6D_BRIDGE_SPAN_ROWS, aggregate_bundle_state, ensure_hsigma_artifacts
-
 
 DATE = "2026-03-13"
 ROOT = Path(__file__).resolve().parents[2]
@@ -262,31 +265,25 @@ STEP_TEXT = [
     "mark the program stable only when seeded count law is reconciled without changing chapter or appendix identity",
 ]
 
-
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
-
 
 def gate() -> str:
     text = DOCS_GATE_PATH.read_text(encoding="utf-8", errors="ignore")
     return "BLOCKED" if "BLOCKED" in text else "READY"
-
 
 def read_json(path: Path) -> dict:
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def upsert_block(path: Path, block_id: str, body: str) -> None:
     start = f"<!-- {block_id}:START -->"
@@ -304,14 +301,12 @@ def upsert_block(path: Path, block_id: str, body: str) -> None:
         updated = block + ("\n\n" + current if current else "")
     write_text(path, updated)
 
-
 def wave_for(base_element: str, shadow_element: str) -> str:
     order = [item["name"] for item in ELEMENTS]
     start = order.index(base_element)
     rotated = order[start:] + order[:start]
     mapping = {rotated[0]: "Wave0", rotated[1]: "Cohort1", rotated[2]: "Cohort2", rotated[3]: "Cohort3"}
     return mapping[shadow_element]
-
 
 def hybrid_for(element_index: int, move_index: int, shadow_index: int) -> str:
     return HYBRIDS[(element_index + move_index + shadow_index - 3) % len(HYBRIDS)]
@@ -325,7 +320,6 @@ def compression_state(wave_id: str, element_name: str) -> dict:
         "bridge_preconditions": ["witness_parity", "replay_parity", "tunnel_legality", "mirror_parity"],
     }
 
-
 def weave_state() -> dict:
     return {
         "status": "COMPLETE",
@@ -335,7 +329,6 @@ def weave_state() -> dict:
         "quarantine_rule": "contradictions route into quarantine tunnels before reseed",
     }
 
-
 def seed_state(element_name: str, wave_id: str) -> dict:
     return {
         "status": "COMPLETE",
@@ -343,7 +336,6 @@ def seed_state(element_name: str, wave_id: str) -> dict:
         "reentry_contract": "chapter_appendix_reentry",
         "reentry_targets": ["Ch11", "Ch12", "Ch19", "AppI", "AppM", "AppQ"],
     }
-
 
 def projection_records() -> dict:
     records = []
@@ -369,7 +361,6 @@ def projection_records() -> dict:
         "records": records,
     }
 
-
 def crosswalk_payload() -> dict:
     return {
         "generated_at": DATE,
@@ -383,7 +374,6 @@ def crosswalk_payload() -> dict:
             {"from_dim": "6D", "to_dim": "7D", "bridge_role": "seed_promotion", "appendix_support": BRIDGE_APPENDICES["6D->7D"], "metro_line": "6->7"},
         ],
     }
-
 
 def basis_routes() -> list[dict]:
     rows = []
@@ -420,7 +410,6 @@ def basis_routes() -> list[dict]:
         )
     return rows
 
-
 def matrix_routes() -> list[dict]:
     rows = []
     for left_id, left_title, left_element, left_move, left_cluster, left_hint, left_apps in BASIS:
@@ -455,7 +444,6 @@ def matrix_routes() -> list[dict]:
             )
     return rows
 
-
 def observer_passes() -> list[dict]:
     rows = []
     for element, move, band in product(ELEMENTS, MOVES, BANDS):
@@ -475,7 +463,6 @@ def observer_passes() -> list[dict]:
             }
         )
     return rows
-
 
 def witness_states() -> list[dict]:
     rows = []
@@ -500,7 +487,6 @@ def witness_states() -> list[dict]:
         )
     return rows
 
-
 def routes_payload() -> dict:
     return {
         "generated_at": DATE,
@@ -516,7 +502,6 @@ def routes_payload() -> dict:
         "witness_states": witness_states(),
     }
 
-
 def wave_payload() -> dict:
     return {
         "generated_at": DATE,
@@ -530,7 +515,6 @@ def wave_payload() -> dict:
             {"wave_id": "Cohort3", "cohort_family": "ThirdNonNativeShadow", "seat_count": 1024, "gate_bundle": ["witness_parity", "replay_parity", "tunnel_legality", "mirror_parity"], "promotion_state": WAVE_PROMOTION_STATE["Cohort3"], "active_total_after_wave": ACTIVE_TOTAL_AFTER_WAVE["Cohort3"], "bridge_role": "7D_SEED", "writeback_targets": [rel(ATLAS_PATH), rel(SEAT_LEDGER_PATH), rel(RECEIPT_PATH)], "truth": "OK"},
         ],
     }
-
 
 def notes_payload() -> dict:
     notes = [
@@ -550,7 +534,6 @@ def hsigma_bundle_for_rows(hsigma_save_state: dict, row_ids: list[str]) -> dict:
         "hsigma_cell_class": overlay["cell_class"],
         "hsigma_restart_seed": overlay["restart_seed"],
     }
-
 
 def seat_structures(hsigma_save_state: dict) -> tuple[dict, dict, dict, dict, dict, dict]:
     seat_rows = []
@@ -712,7 +695,6 @@ def seat_structures(hsigma_save_state: dict) -> tuple[dict, dict, dict, dict, di
     nexus_payload = {"generated_at": DATE, "truth": "OK", "docs_gate_status": gate(), "contract": "NexusTunnelRecord", "count_law": {"records": 4096}, "records": nexus_rows}
     return atlas_payload, ledger_payload, activation_payload, map_payload, bridges_payload, nexus_payload
 
-
 def registry_payload(existing: dict) -> dict:
     agent_records = existing.get("agent_records") or [
         {"agent_id": "AP6D-PRIME", "element": "Prime", "overlay_role": "Commander", "current_front": "AP6D-TQ01", "liminal_band": "Council-Coordinate", "notes_targets": [rel(HALL_SYNTHESIS_MD), rel(TEMPLE_DECREE_MD)], "restart_seed": "Prime -> council -> reseed"},
@@ -750,10 +732,8 @@ def registry_payload(existing: dict) -> dict:
         "agent_records": agent_records,
     }
 
-
 def receipt_payload() -> dict:
     return {"generated_at": DATE, "truth": "OK", "docs_gate_status": gate(), "bridge_coverage": {"required": 16384, "verified": 16384, "status": "COMPLETE"}, "activation_coverage": {"wave0": 1024, "cohort1": 1024, "cohort2": 1024, "cohort3": 1024, "active_total": ATLAS_ACTIVE, "dormant_total": ATLAS_DORMANT, "status": "SEEDED_SHADOW_MODE"}, "unresolved_dark_matter": ["historical seeded-only mirrors remain readable but non-authoritative", "legacy 1024-row transition artifacts remain as Wave0 witness history"], "remaining_gate_debt": ["Google Docs remains BLOCKED until Trading Bot/credentials.json and Trading Bot/token.json exist."], "mirror_targets": [rel(HALL_SYNTHESIS_MD), rel(TEMPLE_DECREE_MD), rel(ACTIVE_FRONT_MD), rel(RUNTIME_FRONT_MD), rel(DEEP_FULL_MD)]}
-
 
 def wave57_payload() -> dict:
     return {
@@ -797,14 +777,12 @@ def render_packet_contract(registry: dict) -> str:
     lines.extend(f"- `{name}` = {fields}" for name, fields in registry["contracts"].items())
     return "\n".join(lines)
 
-
 def render_coordination(registry: dict) -> str:
     lines = ["# Whole Crystal Agent Coordination", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "## Current Story", "", registry["current_story"], "", "## Visible Hierarchy", "", "- `Master -> Commander -> 4 Generals -> 6 Hybrids -> 16 Macros -> 64 Packets -> 256 Fibers -> 1024 Wave0 Seats -> 4096 Final Seats`", "", "## Agent Set", ""]
     lines.extend(f"- `{record['agent_id']}` :: front=`{record['current_front']}` :: band=`{record['liminal_band']}` :: waves=`Wave0/Cohort1/Cohort2/Cohort3`" for record in registry["agent_records"])
     lines.extend(["", "## Machine Truth", ""])
     lines.extend(f"- `{path}`" for path in registry["artifacts"].values())
     return "\n".join(lines)
-
 
 def render_active_front() -> str:
     return "\n".join([
@@ -828,33 +806,26 @@ def render_active_front() -> str:
         f"- `{rel(RUNTIME35_MD)}`",
     ])
 
-
 def render_transition_bundle(notes: dict) -> str:
     lines = ["# Athena Prime 6D Awakening Transition Bundle", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "## Notes", ""]
     lines.extend(f"- `{note['note_id']}` :: target=`{note['target_stage']}` :: waves=`{'/'.join(note['activation_wave_handoff_targets'])}`" for note in notes["notes"])
     lines.extend(["", "## Law", "", "- every note carries activation-wave handoff targets", "- no note implies live Google Docs witness while OAuth is missing"])
     return "\n".join(lines)
 
-
 def render_charter() -> str:
     return "\n".join(["# AP6D NEXT 4 POW 6 Full Corpus Integration Charter", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "## 57 Steps", "", *(f"{index}. {text}" for index, text in enumerate(STEP_TEXT, start=1))])
-
 
 def render_seat_state() -> str:
     return "\n".join(["# AP6D Seat State", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "- `Wave0`: `1024` native seats `ACTIVE`", "- `Cohort1`: `1024` first non-native seats `DORMANT`", "- `Cohort2`: `1024` second non-native seats `DORMANT`", "- `Cohort3`: `1024` third non-native seats `DORMANT`", "- seeded totals: `1024 ACTIVE / 3072 DORMANT / 4096 INDEXED`"])
 
-
 def render_hall_synthesis() -> str:
     return "\n".join(["# Athena Prime 6D Sparse Overlay Synthesis", "", f"Date: `{DATE}`", "Truth: `OK`", f"Live Docs Gate: `{gate()}`", "", "## Current Story", "", "- AP6D remains a seeded shadow-mode overlay indexed across the `4096` atlas", "- `Wave0` holds the active `1024` native-shadow seats as the only live band", "- `Cohort1`, `Cohort2`, and `Cohort3` remain explicitly dormant until later lawful promotion", "- Hall visibility stays compressed to `16` macro quests while the deeper field stays machine-legible", "", "## Bridge Stack", "", "`3D Projection Base -> 4D_NATIVE -> 5D_COMPRESSION -> 6D_WEAVE -> 7D_SEED`"])
-
 
 def render_hall_bundle() -> str:
     return "\n".join(["# AP6D Elemental Agent Instruction Bundle", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "- Water: carry continuity from `P3D-WATER` through the weave", "- Earth: keep contracts, quarantine, and admissibility exact", "- Fire: keep wave totals exact and ignition lawful", "- Air: keep nexus, metro, and route naming legible", "- Prime: keep Hall, Temple, Runtime, Manifest, and Deep Root on one story"])
 
-
 def render_hall_ledger() -> str:
     return "\n".join(["# AP6D Awakening Agent Transition Ledger", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "- `Wave0` -> `1024 ACTIVE`", "- `Cohort1` -> `1024 ACTIVE / 1024 DORMANT SHADOW`", "- `Cohort2` -> `1024 ACTIVE / 2048 DORMANT SHADOW`", "- `Cohort3` -> `1024 ACTIVE / 3072 DORMANT SHADOW`"])
-
 
 def render_hall_notes(notes: dict) -> str:
     lines = ["# AP6D Awakening Agent Transition Notes", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", ""]
@@ -862,38 +833,29 @@ def render_hall_notes(notes: dict) -> str:
         lines.extend([f"## {note['subject_scope']}", "", f"- target: `{note['target_stage']}`", f"- trigger: {note['transition_trigger']}", f"- wave handoff: `{' -> '.join(note['activation_wave_handoff_targets'])}`", f"- restart seed: `{note['restart_seed']}`", ""])
     return "\n".join(lines)
 
-
 def render_temple_decree() -> str:
     return "\n".join(["# Athena Prime 6D Overlay Decree", "", f"Date: `{DATE}`", "Truth: `OK`", f"Live Docs Gate: `{gate()}`", "", "## Decree", "", "- AP6D remains overlay, not replacement", "- Deep-root precedence remains fixed on the live `14_DEEPER` root", "- the Hall-visible layer remains `16` macros", "- the full atlas is now `1024 ACTIVE / 3072 DORMANT / 4096 INDEXED`", "- contradictions must route through quarantine tunnels", "- no surface may imply live Google Docs evidence while OAuth is missing"])
-
 
 def render_temple_crystal() -> str:
     return "\n".join(["# AP6D 256 Governance Crystal", "", f"Date: `{DATE}`", "Truth: `OK`", "", "- governance chamber layer: `256` fibers", "- each fiber fans into `4` phases and one explicit nexus path", "- the `64` packet layer remains derived and ownerable", "- the `16` macro layer remains the Temple-readable crystal face"])
 
-
 def render_metro(title: str, body_lines: list[str]) -> str:
     return "\n".join([f"# {title}", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", *body_lines])
-
 
 def render_runtime_packet() -> str:
     return "\n".join(["# SYN 2026-03-13 AP6D 3D-7D Full Activation", "", "- packet class: dimensional activation synchronization", "- bridge stack: `3D->4D`, `4D->5D`, `5D->6D`, `6D->7D`", "- totals: `1024 ACTIVE / 3072 DORMANT / 4096 INDEXED`", "- restart seed: `AP6D-SEEDED-SHADOW-MODE -> runtime nexus -> reseed`"])
 
-
 def render_runtime_ledger() -> str:
     return "\n".join(["# LEDGER 2026-03-13 AP6D 3D-7D Full Activation", "", "- seat activation ledger: `4096` rows", "- seat route bridge map: `4096` rows", "- dimension bridges: `16384` records", "- nexus registry: `4096` records"])
-
 
 def render_runtime_neuron() -> str:
     return "\n".join(["# NEURON AP6D Dimension Nexus Runtime", "", "- neuron role: runtime mirror of seat activation, bridge traversal, and restart reseed", "- feed: `Q42`, `Q46`, `TQ04`, `TQ06`", "- output: one replay-safe route from seat to source witness"])
 
-
 def render_deep_charter() -> str:
     return "\n".join(["# 3D Projection Base And Seeded 4096 Seat Charter", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "- deep-root precedence remains fixed on this live root", "- 3D ingress is additive beneath the compiled 4D basis", "- FIRE 5D/6D, Water 6D, Air 6D, and Earth 6D remain additive overlays under the canonical seed", "- NEXT^[4^6] is stabilized at `1024 ACTIVE / 3072 DORMANT` with explicit wave history"])
 
-
 def activation_block() -> str:
     return "\n".join(["## AP6D 3D-7D Full Activation", "", f"- Date: `{DATE}`", f"- Docs Gate: `{gate()}`", "- Status: `1024 ACTIVE / 3072 DORMANT`", "- Wave history: `Wave0` is active; `Cohort1`, `Cohort2`, and `Cohort3` stay dormant until later promotion", "- Canonical stack: `3D Projection Base -> 4D_NATIVE -> 5D_COMPRESSION -> 6D_WEAVE -> 7D_SEED`", "- Machine truth: `ATHENA_PRIME_6D_ATLAS_4096.json`, `ATHENA_PRIME_6D_SEAT_ACTIVATION_LEDGER_4096.json`, `ATHENA_PRIME_6D_SEAT_ROUTE_BRIDGE_MAP_4096.json`", "- Google Docs remains blocked until `Trading Bot/credentials.json` and `Trading Bot/token.json` exist"])
-
 
 def write_markdown(registry: dict, notes: dict, receipt: dict) -> None:
     write_text(PACKET_CONTRACT_MD, render_packet_contract(registry))
@@ -928,7 +890,6 @@ def write_markdown(registry: dict, notes: dict, receipt: dict) -> None:
     write_text(RECEIPT_CORPUS_MD, "\n".join(["# AP6D Next 4 Pow 6 Corpus Integration", "", f"Date: `{DATE}`", "Truth: `OK`", "", "- routes restored: `16 / 256 / 64 / 16`", "- bridge stack landed across Hall, Temple, Metro, Runtime, and Deep Root"]))
     for path in [ACTIVE_RUN_MD, BUILD_QUEUE_MD, CHANGE_FEED_MD, QUEST_BOARD_MD, TEMPLE_BOARD_MD]:
         upsert_block(path, "AP6D_3D_7D_FULL_ACTIVATION", activation_block())
-
 
 def verify_payload(projection: dict, routes: dict, atlas: dict, waves: dict, seat_ledger: dict, seat_map: dict, bridges: dict, nexus: dict) -> dict:
     return {
@@ -993,7 +954,6 @@ def main() -> None:
     print(f"Wrote atlas: {rel(ATLAS_PATH)}")
     print(f"Wrote routes: {rel(ROUTES_PATH)}")
     print(f"Wrote verification: {rel(VERIFY_PATH)}")
-
 
 if __name__ == "__main__":
     main()

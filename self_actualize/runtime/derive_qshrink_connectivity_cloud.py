@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A1:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A1:S25→Xi108:W2:A1:S27→Xi108:W1:A1:S26→Xi108:W3:A1:S26→Xi108:W2:A2:S26
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -31,24 +34,19 @@ DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_connectivi
 ACTIVE_SUBFRONT = "QS64-19 Connectivity-Diagnose-Cloud"
 RESTART_SEED = "QS64-20 Connectivity-Diagnose-Fractal"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_optional_json(path: Path, default: dict | None = None) -> dict:
     if not path.exists():
         return default or {}
     return load_json(path)
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
-
 
 def docs_gate_detail(flower: dict) -> dict:
     docs_gate = dict(flower.get("docs_gate", {}))
@@ -59,7 +57,6 @@ def docs_gate_detail(flower: dict) -> dict:
     if LIVE_DOCS_GATE_PATH.exists() and "surface_excerpt" not in docs_gate:
         docs_gate["surface_excerpt"] = "\n".join(read_text(LIVE_DOCS_GATE_PATH).splitlines()[:12])
     return docs_gate
-
 
 def build_ranked_pressures(runtime_carrier_status: str) -> list[dict]:
     runtime_promoted = runtime_carrier_status == "OK"
@@ -138,7 +135,6 @@ def build_ranked_pressures(runtime_carrier_status: str) -> list[dict]:
             "resolution_target": "Retain as a stability anchor.",
         },
     ]
-
 
 def build_payload() -> dict:
     flower = load_optional_json(QSHRINK_FLOWER_PATH, {"truth": "NEAR", "corridor_bodies": {}})
@@ -263,7 +259,6 @@ def build_payload() -> dict:
         },
     }
 
-
 def render_cloud(payload: dict) -> str:
     rows = []
     for pressure in payload["ranked_pressures"]:
@@ -315,7 +310,6 @@ def render_cloud(payload: dict) -> str:
         ]
     )
 
-
 def render_capsule(payload: dict) -> str:
     top_blocker = payload["ranked_pressures"][0]
     next_target = payload["promoted_pressure"]
@@ -338,7 +332,6 @@ def render_capsule(payload: dict) -> str:
             "",
         ]
     )
-
 
 def render_receipt(payload: dict) -> str:
     pressure_lines = "\n".join(
@@ -375,7 +368,6 @@ Hold Cloud as the canonical core-corridor ranking layer, promote `P2` into the a
 `{payload['next_restart_seed']}`
 """
 
-
 def refresh_ecosystem_readme() -> None:
     if not OUTPUT_README_PATH.exists():
         return
@@ -390,7 +382,6 @@ def refresh_ecosystem_readme() -> None:
         readme_text = readme_text.rstrip() + "\n" + entry + "\n"
     OUTPUT_README_PATH.write_text(readme_text, encoding="utf-8")
 
-
 def main() -> int:
     payload = build_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -403,7 +394,6 @@ def main() -> int:
     print(f"Wrote qshrink cloud capsule: {OUTPUT_CAPSULE_PATH}")
     print(f"Wrote cloud receipt: {OUTPUT_RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

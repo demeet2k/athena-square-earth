@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=384 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║              LM TOME V: THE LIMINAL TOWER                                    ║
@@ -25,7 +29,6 @@ import numpy as np
 from numpy.typing import NDArray
 import hashlib
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FRAMES AND REGIMES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -47,7 +50,6 @@ class Frame:
     def is_operational(self) -> bool:
         """Check if frame is operational (decidable predicates, totalized semantics)."""
         return len(self.questions) > 0 and len(self.semantics) > 0
-
 
 @dataclass
 class Regime:
@@ -71,7 +73,6 @@ class Regime:
     error_penalties: Dict[str, float] = field(default_factory=dict)
     budgets: Dict[str, float] = field(default_factory=dict)
 
-
 @dataclass
 class Individual:
     """
@@ -89,7 +90,6 @@ class Individual:
         """An entity is an object iff it carries validity corridor and enforceable integrity."""
         return len(self.corridor) > 0 and len(self.cert_chain) > 0
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LIMINAL STATE SPACE (AQM-Λ)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -103,7 +103,6 @@ class ValidityCondition:
     predicate: str
     gate_type: str  # "corridor", "witness", "certificate"
     is_satisfied: bool = False
-
 
 @dataclass
 class LiminalState:
@@ -139,7 +138,6 @@ class LiminalState:
         satisfied = sum(1 for c in all_conditions if c.is_satisfied)
         return satisfied / len(all_conditions)
 
-
 @dataclass
 class LiminalStateSpace:
     """
@@ -159,7 +157,6 @@ class LiminalStateSpace:
         """Get all states that can persist."""
         return [s for s in self.states if s.can_persist()]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LIFT OPERATOR (Λ)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -169,7 +166,6 @@ class LiftType(Enum):
     VENT_TO_CELL = "vent_cell"       # Geochemistry → Biology
     TOOL_TO_AGENT = "tool_agent"     # Code → Digital Life
     REGIME_TO_OBJECT = "regime_obj"  # General lift
-
 
 @dataclass
 class LiftOperator:
@@ -207,7 +203,6 @@ class LiftOperator:
         """Code → Digital Life lift."""
         return cls(LiftType.TOOL_TO_AGENT, "code", "digital_life")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DESIRE AS CAUSAL OPERATOR
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -218,7 +213,6 @@ class DesireImplementation(Enum):
     REINFORCEMENT_PLANNING = "cognitive"  # Reinforcement and planning
     IMITATION_NORMS = "cultural"          # Imitation and norms
     VERIFICATION_OPTIMIZATION = "digital" # Verification and optimization
-
 
 @dataclass
 class ObjectiveFunctional:
@@ -239,7 +233,6 @@ class ObjectiveFunctional:
         elif self.viability_potential:
             return self.viability_potential(state)
         return 0.0
-
 
 @dataclass
 class LookaheadOperator:
@@ -297,7 +290,6 @@ class LookaheadOperator:
         
         return best_action
 
-
 @dataclass
 class DesireOperator:
     """
@@ -328,7 +320,6 @@ class DesireOperator:
             context.get("actions", []) if context else [],
             context.get("transition", lambda s, a: s) if context else lambda s, a: s
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MIRACLES: THRESHOLD EVENTS
@@ -366,7 +357,6 @@ class FeasibilityLandscape:
             return (organizational_scale - self.entropic_floor) / (self.feasible_min - self.entropic_floor)
         return (self.malthusian_ceiling - organizational_scale) / (self.malthusian_ceiling - self.feasible_max)
 
-
 @dataclass
 class Ratchet:
     """
@@ -387,7 +377,6 @@ class Ratchet:
     def is_effective(self, threshold: float = 10.0) -> bool:
         """Check if ratchet is effective (high persistence/decay ratio)."""
         return self.ratchet_strength >= threshold
-
 
 @dataclass
 class MiracleEvent:
@@ -423,7 +412,6 @@ class MiracleEvent:
             return "probable"
         
         return "possible"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CLOSURE METRICS (Ω, I, C, F)
@@ -465,7 +453,6 @@ class ClosureMetrics:
                 1.0 - self.chi,
                 1.0 - self.phi)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # OBJECTIVE DRIFT AND PATHOLOGY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -477,7 +464,6 @@ class PathologyClass(Enum):
     REWARD_HACKING = "hacking"          # Gaming the objective
     MESA_OPTIMIZATION = "mesa"          # Inner optimizer misaligned
     DISTRIBUTIONAL_SHIFT = "shift"      # Environment changes
-
 
 @dataclass
 class ObjectiveDrift:
@@ -505,7 +491,6 @@ class ObjectiveDrift:
         self.drift_history.append((description, magnitude))
         self.drift_magnitude += magnitude
 
-
 @dataclass
 class MisalignmentDiagnosis:
     """
@@ -515,7 +500,6 @@ class MisalignmentDiagnosis:
     severity: float  # 0 to 1
     description: str
     remediation: Optional[str] = None
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STEERED CLOSURE ENGINEERING
@@ -547,7 +531,6 @@ class LossFunctionOfAliveness:
         loss += self.weights.get("function", 1.0) * (1.0 - metrics.phi)
         return loss
 
-
 @dataclass
 class ConstraintCage:
     """
@@ -574,7 +557,6 @@ class ConstraintCage:
                      checker: Callable[[Any, str], bool]) -> bool:
         """Check if state is within cage."""
         return len(self.check_violation(state, checker)) == 0
-
 
 @dataclass
 class NoRegressionGate:
@@ -607,7 +589,6 @@ class NoRegressionGate:
             if value < floor:
                 regressions.append(metric)
         return len(regressions) == 0, regressions
-
 
 @dataclass
 class SteeredClosureEngine:
@@ -658,7 +639,6 @@ class SteeredClosureEngine:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # KERNEL ARCHITECTURE (AQM-K)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -678,7 +658,6 @@ class ContentAddressedObject:
         data_str = str(data)
         content_hash = hashlib.sha256(data_str.encode()).hexdigest()[:16]
         return cls(content_hash, object_type, data)
-
 
 @dataclass
 class TypedOperator:
@@ -705,7 +684,6 @@ class TypedOperator:
             composed
         )
 
-
 @dataclass
 class InvariantObligation:
     """
@@ -720,7 +698,6 @@ class InvariantObligation:
         if self.checker:
             return self.checker(state)
         return True
-
 
 @dataclass
 class CertificateChain:
@@ -738,7 +715,6 @@ class CertificateChain:
     def verify_chain(self, verifier: Callable[[str], bool]) -> bool:
         """Verify entire chain."""
         return all(verifier(cert) for cert in self.certificates)
-
 
 @dataclass
 class AQMKernelArchitecture:
@@ -776,7 +752,6 @@ class AQMKernelArchitecture:
                 failures.append(ob_id)
         return len(failures) == 0, failures
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CRYSTAL ADDRESSING (4⁴ CRYSTAL)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -788,7 +763,6 @@ class CrystalLens(Enum):
     CLOUD = "C"    # ☁ Probability
     FRACTAL = "R"  # ❋ Recursion
 
-
 class CrystalCell(Enum):
     """Crystal cells."""
     OBJECTS = "1"      # What exists
@@ -796,14 +770,12 @@ class CrystalCell(Enum):
     INVARIANTS = "3"   # What holds
     CERTIFICATES = "4" # What proves
 
-
 class CrystalDeliverable(Enum):
     """Crystal deliverable types."""
     DEFINITION = "D"   # Definitions
     THEOREM = "T"      # Theorems
     ALGORITHM = "A"    # Algorithms
     EXECUTABLE = "X"   # Executable artifacts
-
 
 @dataclass
 class CrystalAddress:
@@ -832,7 +804,6 @@ class CrystalAddress:
             kind=CrystalDeliverable(parts[3]),
             item=int(parts[4]) if len(parts) > 4 else 1
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -935,7 +906,6 @@ class LiminalTowerPoleBridge:
         Ψ: Recursive emergence, lift operators
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -944,26 +914,21 @@ def frame(questions: Set[str] = None) -> Frame:
     """Create frame."""
     return Frame(questions=questions or set())
 
-
 def regime(regime_id: str) -> Regime:
     """Create regime."""
     return Regime(regime_id)
-
 
 def individual(individual_id: str) -> Individual:
     """Create individual."""
     return Individual(individual_id)
 
-
 def liminal_state(state_id: str) -> LiminalState:
     """Create liminal state."""
     return LiminalState(state_id)
 
-
 def lift_operator(lift_type: LiftType) -> LiftOperator:
     """Create lift operator."""
     return LiftOperator(lift_type, "", "")
-
 
 def desire_operator(operator_id: str, 
                     implementation: DesireImplementation) -> DesireOperator:
@@ -973,12 +938,10 @@ def desire_operator(operator_id: str,
         ObjectiveFunctional(f"{operator_id}_objective")
     )
 
-
 def closure_metrics(omega: float = 1.0, iota: float = 1.0,
                     chi: float = 0.0, phi: float = 1.0) -> ClosureMetrics:
     """Create closure metrics."""
     return ClosureMetrics(omega, iota, chi, phi)
-
 
 def steered_closure_engine(engine_id: str) -> SteeredClosureEngine:
     """Create steered closure engine."""
@@ -989,17 +952,14 @@ def steered_closure_engine(engine_id: str) -> SteeredClosureEngine:
         NoRegressionGate(f"{engine_id}_gate")
     )
 
-
 def aqm_kernel(kernel_id: str) -> AQMKernelArchitecture:
     """Create AQM kernel."""
     return AQMKernelArchitecture(kernel_id)
-
 
 def crystal_address(chapter: int, lens: CrystalLens,
                     cell: CrystalCell, kind: CrystalDeliverable) -> CrystalAddress:
     """Create crystal address."""
     return CrystalAddress(chapter, lens, cell, kind)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

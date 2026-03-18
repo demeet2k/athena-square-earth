@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - BHAGAVAD GĪTĀ COMPUTATIONAL FRAMEWORK
 ==================================================
@@ -33,7 +37,6 @@ from abc import ABC, abstractmethod
 import numpy as np
 from scipy.linalg import expm
 
-
 # =============================================================================
 # FUNDAMENTAL TYPES
 # =============================================================================
@@ -52,7 +55,6 @@ class OntologicalCategory(Enum):
         self.computational_analog = comp_analog
         self.description = description
 
-
 class RealityLevel(Enum):
     """Levels of reality (Satya vs Asat)."""
     
@@ -63,7 +65,6 @@ class RealityLevel(Enum):
     def __init__(self, name: str, description: str):
         self._name = name
         self.description = description
-
 
 # =============================================================================
 # THE HILBERT SPACE (BRAHMAN)
@@ -130,7 +131,6 @@ class HilbertSpace:
         state[0] = 1.0
         return state
 
-
 # =============================================================================
 # THE FIELD (PRAKṚTI)
 # =============================================================================
@@ -182,7 +182,6 @@ class PrakritiField:
     def total_energy(self) -> float:
         """Total field energy (integrated)."""
         return float(np.sum(np.abs(self._field)**2))
-
 
 # =============================================================================
 # THE OBSERVER (PURUṢA)
@@ -245,7 +244,6 @@ class Purusha:
     def is_liberated(self) -> bool:
         """Check if in Jīvanmukta state."""
         return self.witness_mode
-
 
 # =============================================================================
 # THE PROJECTION OPERATOR (MĀYĀ)
@@ -326,7 +324,6 @@ class MayaOperator:
         """
         self.opacity = 0.0
 
-
 # =============================================================================
 # TIME (KĀLA)
 # =============================================================================
@@ -406,7 +403,6 @@ class KalaTime:
         """Calculate entropy (increases with time)."""
         return np.log1p(self.t)
 
-
 # =============================================================================
 # THE METRIC (ĀKĀŚA)
 # =============================================================================
@@ -463,7 +459,6 @@ class AkashaMetric:
     def is_lightlike(self, x1: np.ndarray, x2: np.ndarray, tol: float = 1e-10) -> bool:
         """Check if interval is lightlike (ds² ≈ 0)."""
         return abs(self.distance_squared(x1, x2)) < tol
-
 
 # =============================================================================
 # THE ĀTMAN (CONSERVATION LAW)
@@ -532,7 +527,6 @@ class AtmanConservation:
                 self.apply_water() == self.I_atman and
                 self.apply_wind() == self.I_atman)
 
-
 # =============================================================================
 # COMPLETE ONTOLOGY SYSTEM
 # =============================================================================
@@ -595,7 +589,6 @@ class GitaOntology:
         """Dissolve the Māyā projection (path to Mokṣa)."""
         self.maya.dissolve()
         self.purusha.enter_witness_mode()
-
 
 # =============================================================================
 # VALIDATION
@@ -660,7 +653,6 @@ def validate_ontology() -> bool:
     assert isinstance(level, RealityLevel)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Ontology Module...")

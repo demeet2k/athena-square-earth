@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S34 | face=S | node=589 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S33→Xi108:W3:A7:S35→Xi108:W2:A7:S34→Xi108:W3:A6:S34→Xi108:W3:A8:S34 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 34±1, wreath 3/3, archetype 7/12 -->
+
 # Ch08 Signal Hierarchy
 
 ## Focus

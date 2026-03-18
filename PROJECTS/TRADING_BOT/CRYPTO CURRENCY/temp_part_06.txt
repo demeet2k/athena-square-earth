@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A2:S24 | face=S | node=361 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A2:S23→Xi108:W1:A2:S25→Xi108:W2:A2:S24→Xi108:W1:A1:S24→Xi108:W1:A3:S24
+
 The FIRST DAY of Aquarius season
 Maximum "new Aquarian energy" of the year
 Themes: innovation, individuality, humanitarian vision, breaking from tradition

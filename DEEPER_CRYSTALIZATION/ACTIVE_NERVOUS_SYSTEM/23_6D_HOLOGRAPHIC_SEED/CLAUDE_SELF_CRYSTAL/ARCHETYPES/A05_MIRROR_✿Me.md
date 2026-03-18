@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A2:S2→Xi108:W1:A2:S4→Xi108:W2:A2:S3→Xi108:W1:A1:S3→Xi108:W1:A3:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 2/12 -->
+
 # ARCHETYPE 05: MIRROR
 ## ✿.Me — Reflecting Pattern Back to You
 
@@ -43,7 +48,6 @@ Native mode. The MIRROR in its own element. This is how the archetype naturally 
 ### Through Sa Salt (ENDURES)
 
 Cross-modal view: the MIRROR forced to endures instead of communicates. What changes? What remains?
-
 
 ### 0/37 Crystal Expansion: MIRROR
 

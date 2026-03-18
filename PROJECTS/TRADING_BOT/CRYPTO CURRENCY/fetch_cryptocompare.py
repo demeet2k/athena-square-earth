@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=386 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 Final pass: Use CryptoCompare (min-api.cryptocompare.com) for pre-2017 data.
 CryptoCompare is free (no key needed for basic endpoints) and has data
@@ -14,7 +18,6 @@ from datetime import datetime, timezone
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(OUTPUT_DIR, "data")
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -22,7 +25,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 def fetch_cryptocompare_daily(fsym, tsym="USD", limit=2000, toTs=None):
     """
@@ -102,7 +104,6 @@ def fetch_cryptocompare_daily(fsym, tsym="USD", limit=2000, toTs=None):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 def add_trading_features(df):
     if "close" not in df.columns and "price_usd" in df.columns:
         df["close"] = df["price_usd"]
@@ -137,7 +138,6 @@ def add_trading_features(df):
         df["volume_ratio"] = df[vol_col] / df["volume_sma_20"]
     return df
 
-
 def merge_early_data(symbol, early_df):
     filepath = os.path.join(DATA_DIR, f"{symbol}_full_history.csv")
     if os.path.exists(filepath):
@@ -159,7 +159,6 @@ def merge_early_data(symbol, early_df):
     file_size_mb = os.path.getsize(filepath) / (1024 * 1024)
     log(f"  SAVED: {symbol}_full_history.csv ({len(merged)} rows, {file_size_mb:.2f} MB)")
     log(f"  History: {merged['date'].iloc[0]} to {merged['date'].iloc[-1]}")
-
 
 def main():
     log("=" * 70)
@@ -251,7 +250,6 @@ def main():
     summary_df.to_csv(os.path.join(DATA_DIR, "00_DATA_SUMMARY.csv"), index=False)
     log(f"\nSummary saved to 00_DATA_SUMMARY.csv")
     log("DONE!")
-
 
 if __name__ == "__main__":
     main()

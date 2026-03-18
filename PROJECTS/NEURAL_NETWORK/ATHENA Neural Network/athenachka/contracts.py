@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S21 | face=C | node=213 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S20→Xi108:W2:A1:S22→Xi108:W1:A1:S21→Xi108:W3:A1:S21→Xi108:W2:A2:S21
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
@@ -6,15 +10,12 @@ import hashlib
 import json
 from typing import Any, Literal
 
-
 TruthType = Literal["OK", "NEAR", "AMBIG", "FAIL"]
-
 
 def stable_hash(payload: Any) -> str:
     """Deterministic hash for replay signatures and checkpoint ids."""
     blob = json.dumps(payload, sort_keys=True, default=str).encode("utf-8")
     return hashlib.sha256(blob).hexdigest()
-
 
 @dataclass
 class CandidateHypothesis:
@@ -27,7 +28,6 @@ class CandidateHypothesis:
     probabilities: list[float]
     mask_mass: float
 
-
 @dataclass
 class BornCoordinate:
     name: str
@@ -36,7 +36,6 @@ class BornCoordinate:
     bridge_receipt: dict[str, Any] = field(default_factory=dict)
     promoted: bool = False
 
-
 @dataclass
 class LoopActivation:
     loop_id: str
@@ -44,7 +43,6 @@ class LoopActivation:
     phase_budget: int
     corridor_budget: float
     activation_reason: str
-
 
 @dataclass
 class QuestPacket:
@@ -58,7 +56,6 @@ class QuestPacket:
     status: str
     owner_class: str
 
-
 class MergeState(str, Enum):
     PROPOSED = "PROPOSED"
     BUNDLED = "BUNDLED"
@@ -71,14 +68,12 @@ class MergeState(str, Enum):
     DECIDED_REFUSE = "DECIDED_REFUSE"
     DECIDED_QUARANTINE = "DECIDED_QUARANTINE"
 
-
 class MergeDestination(str, Enum):
     COMMIT = "COMMIT"
     DEFER_NEAR = "DEFER_NEAR"
     DEFER_AMBIG = "DEFER_AMBIG"
     REFUSE = "REFUSE"
     QUARANTINE_FAIL = "QUARANTINE_FAIL"
-
 
 class MotionAction(str, Enum):
     ACTIVATE_NOW = "ACTIVATE_NOW"
@@ -91,7 +86,6 @@ class MotionAction(str, Enum):
     ESCALATE_TO_COMMITTEE = "ESCALATE_TO_COMMITTEE"
     REFUSE_INADMISSIBLE = "REFUSE_INADMISSIBLE"
 
-
 class AdventureClass(str, Enum):
     F = "F"
     E = "E"
@@ -101,13 +95,11 @@ class AdventureClass(str, Enum):
     A = "A"
     S = "S"
 
-
 class RewardTransform(str, Enum):
     BASE = "BASE"
     PHI = "PHI"
     DOUBLE_PHI = "DOUBLE_PHI"
     SQUARED = "SQUARED"
-
 
 class AdventureRunState(str, Enum):
     SPAWN_ZERO = "SPAWN_ZERO"
@@ -121,12 +113,10 @@ class AdventureRunState(str, Enum):
     PROMOTION_ELIGIBLE = "PROMOTION_ELIGIBLE"
     MINI_HIVE_AUTHORIZED = "MINI_HIVE_AUTHORIZED"
 
-
 class RunOutcome(str, Enum):
     POSITIVE = "POSITIVE"
     NEUTRAL = "NEUTRAL"
     NEGATIVE = "NEGATIVE"
-
 
 @dataclass
 class CommitteePack:
@@ -143,7 +133,6 @@ class CommitteePack:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class MotionScoreVector:
@@ -164,7 +153,6 @@ class MotionScoreVector:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class MotionCandidatePacket:
@@ -210,7 +198,6 @@ class MotionCandidatePacket:
         payload["score_vector"] = self.score_vector.to_dict()
         return payload
 
-
 @dataclass
 class MotionConstitutionState:
     route_graph: dict[str, Any] = field(default_factory=dict)
@@ -224,7 +211,6 @@ class MotionConstitutionState:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class MotionReceipt:
@@ -243,7 +229,6 @@ class MotionReceipt:
         payload["action"] = self.action.value
         return payload
 
-
 @dataclass
 class MotionDecision:
     candidate_id: str
@@ -259,7 +244,6 @@ class MotionDecision:
         payload = asdict(self)
         payload["action"] = self.action.value
         return payload
-
 
 @dataclass
 class AwakeningAgentTransitionNote:
@@ -286,7 +270,6 @@ class AwakeningAgentTransitionNote:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class FullCorpusIntegrationState:
     basis_counts: dict[str, Any]
@@ -300,7 +283,6 @@ class FullCorpusIntegrationState:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class SwarmSeatProjection:
@@ -320,7 +302,6 @@ class SwarmSeatProjection:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class SwarmLoopRecord:
@@ -342,7 +323,6 @@ class SwarmLoopRecord:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class SwarmMacroBundleRecord:
     bundle_id: str
@@ -357,7 +337,6 @@ class SwarmMacroBundleRecord:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class FourAgentSwarmState:
@@ -387,7 +366,6 @@ class FourAgentSwarmState:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class PrimeLoopCycleRecord:
     loop_id: str
@@ -409,7 +387,6 @@ class PrimeLoopCycleRecord:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class LiminalCoordinateStamp:
     coordinate_id: str
@@ -426,7 +403,6 @@ class LiminalCoordinateStamp:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class MasterAgentLedgerEntry:
@@ -453,7 +429,6 @@ class MasterAgentLedgerEntry:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class QuestEmissionBundle:
     bundle_id: str
@@ -471,7 +446,6 @@ class QuestEmissionBundle:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class LoopDeltaReceipt:
     loop_id: str
@@ -485,7 +459,6 @@ class LoopDeltaReceipt:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class RewardVector:
@@ -509,7 +482,6 @@ class RewardVector:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class PhiEfficiencySnapshot:
     snapshot_id: str
@@ -527,7 +499,6 @@ class PhiEfficiencySnapshot:
         payload = asdict(self)
         payload["reward_vector"] = self.reward_vector.to_dict()
         return payload
-
 
 @dataclass
 class AgentProgressProfile:
@@ -555,7 +526,6 @@ class AgentProgressProfile:
         payload["adventure_class"] = self.adventure_class.value
         return payload
 
-
 @dataclass
 class QuestOutcomeCredit:
     quest_id: str
@@ -576,7 +546,6 @@ class QuestOutcomeCredit:
         payload["reward_transform"] = self.reward_transform.value
         payload["outcome"] = self.outcome.value
         return payload
-
 
 @dataclass
 class RewardRunEvaluation:
@@ -603,7 +572,6 @@ class RewardRunEvaluation:
         payload["outcome"] = self.outcome.value
         return payload
 
-
 @dataclass
 class PromotionEligibilityRecord:
     agent_id: str
@@ -620,7 +588,6 @@ class PromotionEligibilityRecord:
         payload["adventure_class"] = self.adventure_class.value
         return payload
 
-
 @dataclass
 class MiniHiveCharter:
     charter_id: str
@@ -636,7 +603,6 @@ class MiniHiveCharter:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class DissentPacket:
     dissent_packet_id: str
@@ -647,7 +613,6 @@ class DissentPacket:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class WitnessPack:
@@ -660,7 +625,6 @@ class WitnessPack:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class ReplayPack:
     replay_pack_id: str
@@ -671,7 +635,6 @@ class ReplayPack:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class GovernanceApproval:
@@ -684,7 +647,6 @@ class GovernanceApproval:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class ContinuationSeed:
     seed_id: str
@@ -694,7 +656,6 @@ class ContinuationSeed:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class MergeLedgerEntry:
@@ -712,7 +673,6 @@ class MergeLedgerEntry:
         payload = asdict(self)
         payload["chosen_destination"] = self.chosen_destination.value
         return payload
-
 
 @dataclass
 class MergeDecision:
@@ -732,7 +692,6 @@ class MergeDecision:
         )
         return payload
 
-
 @dataclass
 class MergeAttempt:
     merge_id: str
@@ -749,7 +708,6 @@ class MergeAttempt:
         payload["current_state"] = self.current_state.value
         return payload
 
-
 @dataclass
 class AthenachkaState:
     corpus: dict[str, Any] = field(default_factory=dict)
@@ -765,7 +723,6 @@ class AthenachkaState:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class AthenaResult:

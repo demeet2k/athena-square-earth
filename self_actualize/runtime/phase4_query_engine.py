@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=422 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 from __future__ import annotations
 
 import heapq
 import re
 from collections import defaultdict
 from typing import Any, Dict, Iterable, List, Tuple
-
 
 SPECIAL_SURFACES = {
     "GC0": {
@@ -77,17 +80,14 @@ MODE_SHORTCUTS = {
     "promote": ["SC-01", "SC-04", "SC-05", "SC-09", "SC-10", "SC-13"],
 }
 
-
 def normalize(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
-
 
 def shorten(text: str, limit: int = 120) -> str:
     text = " ".join(text.split())
     if len(text) <= limit:
         return text
     return text[: limit - 3] + "..."
-
 
 def objective_vector(objective: str) -> Dict[str, float]:
     key = normalize(objective)
@@ -159,11 +159,9 @@ def objective_vector(objective: str) -> Dict[str, float]:
     total = sum(vector.values()) or 1.0
     return {key: round(value / total, 3) for key, value in vector.items()}
 
-
 def lookup_shortcuts(registries: Dict[str, Any], shortcut_ids: Iterable[str]) -> List[Dict[str, Any]]:
     records = {item["shortcut_id"]: item for item in registries["shortcut_registry"]["shortcuts"]}
     return [records[shortcut_id] for shortcut_id in shortcut_ids if shortcut_id in records]
-
 
 def build_alias_map(registries: Dict[str, Any]) -> Dict[str, Dict[str, str]]:
     alias_map: Dict[str, Dict[str, str]] = {}
@@ -225,7 +223,6 @@ def build_alias_map(registries: Dict[str, Any]) -> Dict[str, Dict[str, str]]:
             )
     return alias_map
 
-
 def record_search_fields(record: Dict[str, Any], record_type: str) -> str:
     values: List[str] = []
     if record_type == "body":
@@ -275,7 +272,6 @@ def record_search_fields(record: Dict[str, Any], record_type: str) -> str:
         values.extend([record["wave_id"], record["pair_id"], record["objective"]])
     values.extend(record.get("source_paths", []))
     return normalize(" ".join(values))
-
 
 def locate(query: str, registries: Dict[str, Any], limit: int = 8) -> Dict[str, Any]:
     query_norm = normalize(query)
@@ -360,7 +356,6 @@ def locate(query: str, registries: Dict[str, Any], limit: int = 8) -> Dict[str, 
         ],
     }
 
-
 def resolve_surface(reference: str, registries: Dict[str, Any]) -> Dict[str, Any] | None:
     alias_map = build_alias_map(registries)
     key = normalize(reference)
@@ -368,7 +363,6 @@ def resolve_surface(reference: str, registries: Dict[str, Any]) -> Dict[str, Any
         return alias_map[key]
     located = locate(reference, registries, limit=1)["matches"]
     return located[0] if located else None
-
 
 def build_route_graph(registries: Dict[str, Any]) -> Tuple[Dict[str, List[Tuple[str, float, str]]], Dict[str, str]]:
     graph: Dict[str, List[Tuple[str, float, str]]] = defaultdict(list)
@@ -450,7 +444,6 @@ def build_route_graph(registries: Dict[str, Any]) -> Tuple[Dict[str, List[Tuple[
 
     return graph, labels
 
-
 def dijkstra(graph: Dict[str, List[Tuple[str, float, str]]], start: str, goal: str) -> Tuple[float, List[str]]:
     heap: List[Tuple[float, str]] = [(0.0, start)]
     best = {start: 0.0}
@@ -474,7 +467,6 @@ def dijkstra(graph: Dict[str, List[Tuple[str, float, str]]], start: str, goal: s
         path.append(parent[path[-1]])  # type: ignore[arg-type]
     path.reverse()
     return best[goal], path
-
 
 def route(source: str, target: str, registries: Dict[str, Any]) -> Dict[str, Any]:
     source_surface = resolve_surface(source, registries)
@@ -526,7 +518,6 @@ def route(source: str, target: str, registries: Dict[str, Any]) -> Dict[str, Any
         ],
     }
 
-
 def neglect(registries: Dict[str, Any], limit: int = 8) -> Dict[str, Any]:
     signals = sorted(
         registries["neglect_registry"]["signals"],
@@ -544,7 +535,6 @@ def neglect(registries: Dict[str, Any], limit: int = 8) -> Dict[str, Any]:
         ],
     }
 
-
 def score_pair_for_objective(pair: Dict[str, Any], objective: str) -> float:
     weights = objective_vector(objective)
     charge_seed = pair.get("charge_seed", {})
@@ -554,7 +544,6 @@ def score_pair_for_objective(pair: Dict[str, Any], objective: str) -> float:
         token in objective_key for token in ["repair", "neglect", "prune", "restart"]
     ) else 0.0
     return round(score + (0.16 * pair.get("witness_floor", 0.0)) + (0.18 * neglect_bonus), 4)
-
 
 def fire(objective: str, registries: Dict[str, Any], limit: int = 8) -> Dict[str, Any]:
     ranked = sorted(
@@ -595,7 +584,6 @@ def fire(objective: str, registries: Dict[str, Any], limit: int = 8) -> Dict[str
             registries["wave_registry"]["authority_surface"],
         ],
     }
-
 
 def promote(candidate_ref: str | None, registries: Dict[str, Any]) -> Dict[str, Any]:
     candidates = registries["weave_registry"]["candidates"]

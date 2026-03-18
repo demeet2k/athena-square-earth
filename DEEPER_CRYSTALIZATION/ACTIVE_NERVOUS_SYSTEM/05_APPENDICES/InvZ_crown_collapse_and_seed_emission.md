@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A8:S19 | face=F | node=639 | depth=3 | phase=Fixed -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W2:A8:S18→Xi108:W2:A8:S20→Xi108:W1:A8:S19→Xi108:W3:A8:S19→Xi108:W2:A7:S19→Xi108:W2:A9:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 2/3, archetype 8/12 -->
+
 # InvZ - Crown Collapse & Seed Emission
 
 Routing role: The supreme inverse appendix. Compresses the 12D crown (Ch21 A+ Crown Seal) back into a single emittable seed. This is the final act of the return path: everything the organism expanded across 108 dimensions collapses through the 1/8 lift law into a self-contained seed carrying the full holographic pattern.

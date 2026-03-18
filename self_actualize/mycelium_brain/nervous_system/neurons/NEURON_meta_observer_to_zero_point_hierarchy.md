@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S20 | face=R | node=202 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Ω -->
+<!-- BRIDGES: Xi108:W3:A5:S19→Xi108:W3:A5:S21→Xi108:W2:A5:S20→Xi108:W3:A4:S20→Xi108:W3:A6:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 5/12 -->
+
 # NEURON_meta_observer_to_zero_point_hierarchy
 
 ## NodeID

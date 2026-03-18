@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=128 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 ATHENA OS - STOIC CONTROL KERNEL
 ================================
@@ -45,7 +49,6 @@ from enum import Enum, auto
 import math
 import time
 
-
 # =============================================================================
 # ACCESS PERMISSIONS
 # =============================================================================
@@ -56,12 +59,10 @@ class AccessLevel(Enum):
     READ_ONLY = auto()   # Not up to us (User Space)
     NO_ACCESS = auto()   # Cannot access at all
 
-
 class ControlDomain(Enum):
     """The two fundamental domains of control."""
     UP_TO_US = auto()      # ἐφ' ἡμῖν (eph' hēmin)
     NOT_UP_TO_US = auto()  # οὐκ ἐφ' ἡμῖν (ouk eph' hēmin)
-
 
 # =============================================================================
 # KERNEL SPACE VARIABLES (UP TO US)
@@ -74,7 +75,6 @@ class KernelVariable(Enum):
     MOTIVATION = auto()  # Horme - Impulse to act
     DESIRE = auto()      # Orexis - Vector toward object
     AVERSION = auto()    # Ekklisis - Vector away from object
-
 
 @dataclass
 class Opinion:
@@ -100,7 +100,6 @@ class Opinion:
     def is_neutral(self) -> bool:
         return self.value_assigned == 0
 
-
 @dataclass
 class Motivation:
     """
@@ -121,7 +120,6 @@ class Motivation:
         """Withhold approval from impulse."""
         self.approved = False
         self.intensity *= 0.5
-
 
 @dataclass
 class Desire:
@@ -145,7 +143,6 @@ class Desire:
         preferred = {"health", "wealth", "reputation", "pleasure"}
         return self.object.lower() in preferred
 
-
 @dataclass
 class Aversion:
     """
@@ -162,7 +159,6 @@ class Aversion:
         """Redirect aversion to a different object."""
         self.object = new_object
 
-
 # =============================================================================
 # USER SPACE VARIABLES (NOT UP TO US)
 # =============================================================================
@@ -174,7 +170,6 @@ class UserVariable(Enum):
     PROPERTY = auto()    # Subject to theft, market forces
     REPUTATION = auto()  # Subject to others' opinions
     OFFICE = auto()      # Subject to network admin (Fate)
-
 
 @dataclass
 class ExternalVariable:
@@ -204,7 +199,6 @@ class ExternalVariable:
             f"SUFFERING: Cannot write to {self.var_type.name}. "
             f"This is NOT UP TO US. Accept or suffer."
         )
-
 
 # =============================================================================
 # THE DICHOTOMY OF CONTROL
@@ -281,7 +275,6 @@ class DichotomyOfControl:
                              else "accept without attachment"
         }
 
-
 # =============================================================================
 # THE PROHAIRESIS (KERNEL SPACE)
 # =============================================================================
@@ -292,7 +285,6 @@ class AssentStatus(Enum):
     ASSENTED = auto()   # Accepted as true
     DISSENTED = auto()  # Rejected as false
     WITHHELD = auto()   # Judgment suspended
-
 
 @dataclass
 class Phantasia:
@@ -317,7 +309,6 @@ class Phantasia:
         # Simplified: clear and distinct impressions
         return len(self.content) > 0 and self.source in {"sensation", "reason"}
 
-
 @dataclass
 class Hypolepsis:
     """
@@ -335,7 +326,6 @@ class Hypolepsis:
     def is_neutral(self) -> bool:
         """Check if judgment is neutral (indifferent)."""
         return abs(self.value) < 0.1
-
 
 @dataclass
 class Sunkatathesis:
@@ -360,7 +350,6 @@ class Sunkatathesis:
     def withhold(self) -> None:
         """Suspend judgment - neither assent nor dissent."""
         self.status = AssentStatus.WITHHELD
-
 
 class Prohairesis:
     """
@@ -477,7 +466,6 @@ class Prohairesis:
         
         return "PASSED: Impression accepted for evaluation"
 
-
 # =============================================================================
 # THE PNEUMATIC FIELD
 # =============================================================================
@@ -488,7 +476,6 @@ class PneumaType(Enum):
     PHYSIS = auto()      # Nature - animates plants
     PSYCHE = auto()      # Soul - animates animals
     LOGOS = auto()       # Reason - animates rational beings
-
 
 @dataclass
 class PneumaField:
@@ -532,7 +519,6 @@ class PneumaField:
         """
         return self.inward_motion == self.outward_motion
 
-
 class Tonos:
     """
     Tonos - The tension that defines objects.
@@ -569,7 +555,6 @@ class Tonos:
         
         # Coupling decreases with distance but never reaches zero
         return 1.0 / (1.0 + distance)
-
 
 # =============================================================================
 # EKPYROSIS (SYSTEM RESET)
@@ -627,7 +612,6 @@ class Ekpyrosis:
         """
         # In the ideal Stoic state, answer is always True
         return True
-
 
 # =============================================================================
 # THE STOIC KERNEL
@@ -700,7 +684,6 @@ class StoicKernel:
         """
         return self.prohairesis.is_sovereign
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -766,7 +749,6 @@ def validate_stoic_control() -> bool:
     assert result["domain"] == "NOT_UP_TO_US"
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S13→Xi108:W2:A4:S15→Xi108:W1:A4:S14→Xi108:W3:A4:S14→Xi108:W2:A3:S14→Xi108:W2:A5:S14
+
 """
 ATHENA OS - Mathematical Operations Crystal
 ==========================================
@@ -38,7 +42,6 @@ from typing import Dict, List, Optional, Tuple, Any, Callable, Union
 import math
 import cmath
 
-
 # =============================================================================
 # OPERATION FAMILIES
 # =============================================================================
@@ -60,7 +63,6 @@ class OperationFamily(Enum):
         }
         return symbols[self]
 
-
 # =============================================================================
 # SQUARE OPERATIONS
 # =============================================================================
@@ -71,7 +73,6 @@ class SquareOp(Enum):
     MINUS = "-"      # Subtraction
     TIMES = "×"      # Multiplication
     DIVIDE = "÷"     # Division
-
 
 @dataclass
 class SquareOperator:
@@ -116,7 +117,6 @@ class SquareOperator:
             return SquareOperator.divide(a, b)
         raise ValueError(f"Unknown op: {op}")
 
-
 # =============================================================================
 # FLOWER OPERATIONS
 # =============================================================================
@@ -127,7 +127,6 @@ class FlowerOp(Enum):
     SIN = "sin"           # sin(x)
     NEG_SIN = "-sin"      # -sin(x)
     NEG_COS = "-cos"      # -cos(x) (for completeness)
-
 
 @dataclass
 class FlowerOperator:
@@ -190,7 +189,6 @@ class FlowerOperator:
         """Get the 90° shadow cycle."""
         return [FlowerOp.COS, FlowerOp.NEG_SIN, FlowerOp.NEG_COS, FlowerOp.SIN]
 
-
 # =============================================================================
 # CLOUD OPERATIONS
 # =============================================================================
@@ -201,7 +199,6 @@ class CloudOp(Enum):
     INTEG = "∫"       # Integration
     FOURIER = "F"     # Fourier transform
     MELLIN = "M"      # Mellin transform
-
 
 @dataclass
 class CloudOperator:
@@ -251,7 +248,6 @@ class CloudOperator:
         """Exponential eigenfunction e^{gt}."""
         return cmath.exp(g * t)
 
-
 # =============================================================================
 # FRACTAL OPERATIONS
 # =============================================================================
@@ -262,7 +258,6 @@ class FractalOp(Enum):
     LOG = "log"       # Logarithm
     POW = "pow"       # Power
     ROOT = "root"     # Root
-
 
 @dataclass
 class FractalOperator:
@@ -325,7 +320,6 @@ class FractalOperator:
         diff = abs(lhs - rhs)
         return diff < 1e-10 or abs(diff - 2*math.pi) < 1e-10
 
-
 # =============================================================================
 # OPERATION CRYSTAL
 # =============================================================================
@@ -350,7 +344,6 @@ class OperationRecord:
             "domain": self.domain,
             "branch": self.branch,
         }
-
 
 @dataclass
 class OperationCrystal:
@@ -438,7 +431,6 @@ class OperationCrystal:
             counts[record.family.value] += 1
         return counts
 
-
 # =============================================================================
 # OPERATION IDENTITIES
 # =============================================================================
@@ -458,7 +450,6 @@ class OperationIdentity:
             return self.verifier()
         except Exception:
             return False
-
 
 def create_core_identities() -> List[OperationIdentity]:
     """Create core operation identities."""
@@ -532,10 +523,8 @@ def create_core_identities() -> List[OperationIdentity]:
     
     return identities
 
-
 # Global identities
 CORE_IDENTITIES = create_core_identities()
-
 
 # =============================================================================
 # VALIDATION
@@ -576,7 +565,6 @@ def validate_operations() -> bool:
         assert identity.verify(), f"Identity failed: {identity.name}"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Operations Module...")

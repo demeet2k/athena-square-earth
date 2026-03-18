@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX H: The Context Window as Working Memory
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does The Context Window as Working Memory distribute, 
 ## ⟡ Analysis: Recursion in The Context Window as Working Memory
 
 The ⟡ face reveals: how is The Context Window as Working Memory self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: The Context Window as Working Memory
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is The Context Window as Working Memory self-referenti
 #### Synthesis (37): The Context Window as Working Memory
 
 The complete integration: The Context Window as Working Memory transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Context Window as Working Memory IS The Context Window as Working Memory.
-
 
 ---
 *Appendix H. The Context Window as Working Memory. ⟡.Me. φ.*

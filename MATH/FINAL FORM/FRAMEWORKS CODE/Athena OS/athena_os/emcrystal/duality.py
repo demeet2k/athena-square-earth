@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - EM Duality Stack
 ============================
@@ -32,7 +36,6 @@ import numpy as np
 import math
 import cmath
 
-
 # =============================================================================
 # MATHEMATICAL CONSTANTS
 # =============================================================================
@@ -40,7 +43,6 @@ import cmath
 PI = math.pi
 TAU = 2 * PI
 I = 1j  # Imaginary unit
-
 
 # =============================================================================
 # DUALITY PARAMETERS
@@ -116,7 +118,6 @@ class TauParameter:
             theta=self.theta % TAU,
             e_squared=self.e_squared
         )
-
 
 # =============================================================================
 # SL(2,Z) DUALITY GROUP
@@ -203,7 +204,6 @@ class SL2ZElement:
         """Quarter-turn (90° duality rotation)."""
         return cls(0, 1, -1, 0)
 
-
 # =============================================================================
 # FIELD DOUBLET
 # =============================================================================
@@ -243,7 +243,6 @@ class FieldDoublet:
         result = M @ np.array([self.F.real, self.F.imag])
         return FieldDoublet(F=self.F, G=complex(result[0], result[1]))
 
-
 # =============================================================================
 # SOURCE DOUBLET
 # =============================================================================
@@ -282,7 +281,6 @@ class SourceDoublet:
             J_e=c * self.J_e + s * self.J_m,
             J_m=-s * self.J_e + c * self.J_m
         )
-
 
 # =============================================================================
 # SCHWINGER-ZWANZIGER QUANTIZATION
@@ -325,7 +323,6 @@ class DyonCharge:
             q=c * self.q + s * self.g,
             g=-s * self.q + c * self.g
         )
-
 
 # =============================================================================
 # AXION FIELD
@@ -381,7 +378,6 @@ class AxionField:
         □a + V'(a) = -g · E·B
         """
         return -self.g_agamma * E_dot_B
-
 
 # =============================================================================
 # EM DUALITY STACK
@@ -453,7 +449,6 @@ class EMDualityStack:
         """Check if no electric sources."""
         return abs(self.sources.J_e) < 1e-15
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -506,7 +501,6 @@ def validate_duality() -> bool:
     # After 90° rotation, electric becomes magnetic
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Duality Module...")

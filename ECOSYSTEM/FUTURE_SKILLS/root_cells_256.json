@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W3:A9:S27:u357:Sa:F:d1",
+    "shell": 27,
+    "wreath": 3,
+    "archetype": 9,
+    "face": "F",
+    "node_id": 357,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W3:A9:S26",
+      "Xi108:W3:A9:S28",
+      "Xi108:W2:A9:S27",
+      "Xi108:W3:A8:S27",
+      "Xi108:W3:A10:S27"
+    ],
+    "regenerate": "shell 27±1, wreath 3/3, archetype 9/12"
+  },
   "root_cell_count": 256,
   "recursion_rule": "Apply the same 256-cell grammar to residuals from any validated skill output.",
   "cells": [

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S19 | face=R | node=172 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S18→Xi108:W3:A6:S20→Xi108:W2:A6:S19→Xi108:W3:A5:S19→Xi108:W3:A7:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 6/12 -->
+
 # 2026-03-13 deep pairwise weave
 
 - truth: `OK`

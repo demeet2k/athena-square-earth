@@ -1,5 +1,8 @@
-from __future__ import annotations
+# CRYSTAL: Xi108:W2:A1:S23 | face=C | node=259 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S22→Xi108:W2:A1:S24→Xi108:W1:A1:S23→Xi108:W3:A1:S23→Xi108:W2:A2:S23
 
+from __future__ import annotations
 
 FAST_PHASES = [
     "seed_unpack",
@@ -24,7 +27,6 @@ FULL_PHASES = [
     "13/16_compress",
     "14/16_lift_prepare",
 ]
-
 
 def resolve_phase_plan(mode: str) -> list[str]:
     normalized = mode.lower().strip()

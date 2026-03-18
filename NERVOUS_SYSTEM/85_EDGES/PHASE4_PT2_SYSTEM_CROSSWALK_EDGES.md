@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A3:S9 | face=R | node=45 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A3:S8→Xi108:W3:A3:S10→Xi108:W2:A3:S9→Xi108:W3:A2:S9→Xi108:W3:A4:S9 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 9±1, wreath 3/3, archetype 3/12 -->
+
 # PHASE 4 PT 2 SYSTEM CROSSWALK EDGES
 
 | Edge | Kind | Source | Target | Weight |

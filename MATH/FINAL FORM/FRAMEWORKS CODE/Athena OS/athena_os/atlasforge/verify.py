@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=87 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - AtlasForge
 ======================
@@ -32,7 +36,6 @@ from .recipes import Recipe, Certificate, ProofPack, CertificateType, Certificat
 from .constraints import Constraint, RootConstraint, FixedPointConstraint, ConstraintIR
 from .domains import Domain, Interval
 
-
 # =============================================================================
 # TRUTH PROFILES
 # =============================================================================
@@ -43,7 +46,6 @@ class TruthProfile(Enum):
     EXPLORE = "explore"    # No constraints, plausibility only
     VALIDATE = "validate"  # Check structure, no proofs
     PROVE = "prove"        # Full verification required
-
 
 # =============================================================================
 # VERIFICATION REPORT
@@ -57,7 +59,6 @@ class VerificationResult(Enum):
     SKIP = "skip"
     ERROR = "error"
 
-
 @dataclass
 class VerificationItem:
     """Single verification check result."""
@@ -66,7 +67,6 @@ class VerificationItem:
     result: VerificationResult
     message: str = ""
     evidence: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class VerificationReport:
@@ -135,7 +135,6 @@ class VerificationReport:
             "errors": self.errors
         }
 
-
 # =============================================================================
 # VALIDATORS
 # =============================================================================
@@ -150,7 +149,6 @@ class Validator:
                 profile: TruthProfile) -> VerificationItem:
         """Run validation."""
         raise NotImplementedError
-
 
 @dataclass
 class CorridorValidator(Validator):
@@ -202,7 +200,6 @@ class CorridorValidator(Validator):
             result=VerificationResult.SKIP,
             message="No scalar output to verify"
         )
-
 
 @dataclass
 class EnclosureValidator(Validator):
@@ -266,7 +263,6 @@ class EnclosureValidator(Validator):
             message="Enclosure certificate valid"
         )
 
-
 @dataclass
 class SignChangeValidator(Validator):
     """
@@ -321,7 +317,6 @@ class SignChangeValidator(Validator):
             message="Incomplete sign change evidence"
         )
 
-
 @dataclass
 class ReplayValidator(Validator):
     """
@@ -363,7 +358,6 @@ class ReplayValidator(Validator):
             result=VerificationResult.OK,
             message=f"Replay log valid: {len(recipe.replay_log.steps)} steps"
         )
-
 
 # =============================================================================
 # VERIFICATION KERNEL
@@ -428,7 +422,6 @@ class VerifierKernel:
                     profile: TruthProfile = TruthProfile.PROVE) -> List[VerificationReport]:
         """Verify multiple recipes."""
         return [self.verify(r, profile) for r in recipes]
-
 
 # =============================================================================
 # SOLVE AND VERIFY PIPELINE
@@ -508,7 +501,6 @@ class SolveVerifyPipeline:
         
         return recipe, report
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -565,7 +557,6 @@ def validate_verify() -> bool:
     assert report.passed
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating AtlasForge Verification...")

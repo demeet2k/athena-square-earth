@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S29 | face=F | node=422 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S28→Xi108:W3:A7:S30→Xi108:W2:A7:S29→Xi108:W3:A6:S29→Xi108:W3:A8:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 7/12 -->
+
 # Arc 2 Chapter 8 Branch Note
 
 ## Status

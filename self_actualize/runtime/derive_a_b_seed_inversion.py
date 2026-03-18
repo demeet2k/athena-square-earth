@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=396 | depth=2 | phase=Mutable
+# METRO: Me,Ω,w
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import json
@@ -5,7 +9,6 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF = ROOT / "self_actualize"
@@ -82,31 +85,24 @@ LEDGER_DUALITY_CONTRACT = {
     },
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
 
-
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(read_text(path)) if path.exists() else {}
-
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     write_text(path, json.dumps(payload, indent=2))
-
 
 def replace_block(text: str, marker: str, body: str) -> str:
     start = f"<!-- {marker}:START -->"
@@ -117,7 +113,6 @@ def replace_block(text: str, marker: str, body: str) -> str:
         return pattern.sub(replacement, text, count=1)
     prefix = text.rstrip() + "\n\n" if text.strip() else ""
     return prefix + replacement + "\n"
-
 
 def docs_gate_state() -> dict[str, Any]:
     credentials_exists = DOCS_CREDENTIALS.exists()
@@ -131,11 +126,9 @@ def docs_gate_state() -> dict[str, Any]:
         "checked_paths": [rel(DOCS_CREDENTIALS), rel(DOCS_TOKEN)],
     }
 
-
 def extract_loop_label(value: str, default: str) -> str:
     match = re.search(r"(L\d{2})", value or "")
     return match.group(1) if match else default
-
 
 def current_loop_position(master_state: dict[str, Any]) -> dict[str, str]:
     summary = master_state.get("current_cycle_summary", {})
@@ -146,7 +139,6 @@ def current_loop_position(master_state: dict[str, Any]) -> dict[str, str]:
         "active_loop": extract_loop_label(active, "L02"),
         "display": f"{RUNTIME_POSITION['L01']} / {RUNTIME_POSITION['L02']}",
     }
-
 
 def shared_coordinate_anchor(loop_position: dict[str, str]) -> dict[str, Any]:
     return {
@@ -166,7 +158,6 @@ def shared_coordinate_anchor(loop_position: dict[str, str]) -> dict[str, Any]:
             "OmegaS": "restart-linked",
         },
     }
-
 
 def build_seed_duality_registry(master_state: dict[str, Any]) -> dict[str, Any]:
     loop_position = current_loop_position(master_state)
@@ -235,7 +226,6 @@ def build_seed_duality_registry(master_state: dict[str, Any]) -> dict[str, Any]:
         },
     }
 
-
 def update_master_state(master_state: dict[str, Any], registry: dict[str, Any]) -> dict[str, Any]:
     updated = dict(master_state)
     summary = dict(updated.get("current_cycle_summary", {}))
@@ -257,13 +247,11 @@ def update_master_state(master_state: dict[str, Any], registry: dict[str, Any]) 
     updated["ledger_duality_contract"] = LEDGER_DUALITY_CONTRACT
     return updated
 
-
 def has_seed_duality_entry(ledger: dict[str, Any]) -> bool:
     for entry in ledger.get("entries", []):
         if entry.get("summary_of_change") == "formalize LP57-A / LP57-B seed duality":
             return True
     return False
-
 
 def seed_duality_ledger_entry(registry: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -310,7 +298,6 @@ def seed_duality_ledger_entry(registry: dict[str, Any]) -> dict[str, Any]:
         "duality_effect": "both",
     }
 
-
 def update_ledger(ledger: dict[str, Any], registry: dict[str, Any]) -> dict[str, Any]:
     updated = dict(ledger)
     updated["seed_duality_contract"] = LEDGER_DUALITY_CONTRACT
@@ -319,7 +306,6 @@ def update_ledger(ledger: dict[str, Any], registry: dict[str, Any]) -> dict[str,
         entries.append(seed_duality_ledger_entry(registry))
     updated["entries"] = entries
     return updated
-
 
 def protocol_json_payload(base: dict[str, Any], registry: dict[str, Any]) -> dict[str, Any]:
     updated = dict(base)
@@ -338,7 +324,6 @@ def protocol_json_payload(base: dict[str, Any], registry: dict[str, Any]) -> dic
     updated["quest_mode_classification"] = QUEST_MODE_CLASSIFICATION
     updated["ledger_duality_contract"] = LEDGER_DUALITY_CONTRACT
     return updated
-
 
 def render_protocol_markdown(registry: dict[str, Any]) -> str:
     docs_gate = registry["shared_seed_context"]["docs_gate"]
@@ -389,7 +374,6 @@ def render_protocol_markdown(registry: dict[str, Any]) -> str:
 - Allowed duality effects: `{", ".join(LEDGER_DUALITY_CONTRACT["allowed_duality_effects"])}`
 """
 
-
 def render_standard_markdown(registry: dict[str, Any]) -> str:
     return f"""# LP-57OMEGA Seed Duality Standard
 
@@ -423,7 +407,6 @@ def render_standard_markdown(registry: dict[str, Any]) -> str:
 - `{registry["residual_exposure_fields"][4]}`
 """
 
-
 def render_receipt_markdown(registry: dict[str, Any]) -> str:
     docs_gate = registry["shared_seed_context"]["docs_gate"]
     return f"""# Receipt: LP-57OMEGA Seed Dualization
@@ -453,11 +436,9 @@ def render_receipt_markdown(registry: dict[str, Any]) -> str:
 - `{rel(NEXT_PROMPT_PATH)}`
 """
 
-
 def rewrite_marker(path: Path, marker: str, body: str) -> None:
     updated = replace_block(read_text(path), marker, body)
     write_text(path, updated)
-
 
 def readme_block(registry: dict[str, Any]) -> str:
     return f"""## LP-57OMEGA Prime Loop Bootstrap
@@ -469,7 +450,6 @@ def readme_block(registry: dict[str, Any]) -> str:
 - Restart relation: `{registry["restart_relation"]}`
 - Restart seed: `L03 Survey A03 ECOSYSTEM`"""
 
-
 def active_run_block() -> str:
     return """## LP-57OMEGA Bootstrap
 
@@ -479,7 +459,6 @@ def active_run_block() -> str:
 - Quest polarity: `A-dominant expansion / B-dominant compression`
 - Restart seed: `NEXT => one full four-agent cycle :: LP-57OMEGA :: preserve-LP57-A-LP57-B :: active-L02`
 - Invocation: `NEXT => one full four-agent cycle`"""
-
 
 def hall_board_block() -> str:
     return """## LP-57Omega Hall Quest Interface
@@ -502,7 +481,6 @@ def hall_board_block() -> str:
 - `Q57-L02-H03` :: Bridge candidate sweep :: polarity `A-dominant`
 - `Q57-L02-H04` :: Route-tightening and residual recovery scan :: polarity `B-dominant`"""
 
-
 def temple_board_block() -> str:
     return """## LP-57Omega Temple Quest Interface
 
@@ -522,7 +500,6 @@ def temple_board_block() -> str:
 - `TQ57-L02-T02` :: Ratify coordinate and ledger duty :: polarity `B-dominant`
 - `TQ57-L02-T03` :: Guard seed-duality boundaries :: polarity `B-dominant`
 - `TQ57-L02-T04` :: Preserve outward and inward quest distinction :: polarity `A/B mixed`"""
-
 
 def temple_state_block() -> str:
     return """## LP-57OMEGA Current Install
@@ -546,7 +523,6 @@ def temple_state_block() -> str:
 ## Current Loop
 `L02 / Whole-Corpus Census`"""
 
-
 def active_queue_block() -> str:
     return """## LP-57OMEGA Active Queue
 
@@ -563,7 +539,6 @@ def active_queue_block() -> str:
 - Pruner law: `compress without deleting the only surviving witness`
 - Restart seed: `L03 Survey A03 ECOSYSTEM`"""
 
-
 def next_prompt_block() -> str:
     return """## LP-57OMEGA Next Contract
 - Date: `2026-03-13`
@@ -578,7 +553,6 @@ def next_prompt_block() -> str:
 - Restart relation: `LP57-A emits, LP57-B reintegrates`
 - Public promotion law: `Hall 8 / Temple 8 / Runtime 1 / Prune 1`
 - Restart seed: `L03 Survey A03 ECOSYSTEM`"""
-
 
 def verification_payload(registry: dict[str, Any], master_state: dict[str, Any], protocol: dict[str, Any]) -> dict[str, Any]:
     docs_gate = registry["shared_seed_context"]["docs_gate"]
@@ -611,7 +585,6 @@ def verification_payload(registry: dict[str, Any], master_state: dict[str, Any],
         "tests": tests,
         "registry_path": rel(REGISTRY_PATH),
     }
-
 
 def derive() -> dict[str, Any]:
     master_state = read_json(MASTER_STATE_PATH)
@@ -666,12 +639,10 @@ def derive() -> dict[str, Any]:
         "verification": rel(VERIFICATION_PATH),
     }
 
-
 def main() -> int:
     result = derive()
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

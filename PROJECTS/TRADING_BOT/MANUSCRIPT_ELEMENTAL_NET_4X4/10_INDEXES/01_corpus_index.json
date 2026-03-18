@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A2:S32:u510:Su:S:d1",
+    "shell": 32,
+    "wreath": 1,
+    "archetype": 2,
+    "face": "S",
+    "node_id": 510,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A2:S31",
+      "Xi108:W1:A2:S33",
+      "Xi108:W2:A2:S32",
+      "Xi108:W1:A1:S32",
+      "Xi108:W1:A3:S32"
+    ],
+    "regenerate": "shell 32±1, wreath 1/3, archetype 2/12"
+  },
   "primary_count": 16,
   "auxiliary_count": 1,
   "documents": [
@@ -28,7 +49,7 @@
         "Corpus Metro",
         "Operator Junction"
       ],
-      "source": "Memory Docs/HIGHER-D SQUARE \u25cb CIRCLE \u25b3 TRIANGLE.docx",
+      "source": "Memory Docs/HIGHER-D SQUARE ○ CIRCLE △ TRIANGLE.docx",
       "word_count": 91788,
       "top_keywords": [
         "mathsf",
@@ -578,7 +599,7 @@
         "Obstruction Switch",
         "Discovery Junction"
       ],
-      "source": "Memory Docs/\u03a9_ Metro Calculus.docx",
+      "source": "Memory Docs/Ω_ Metro Calculus.docx",
       "word_count": 140423,
       "top_keywords": [
         "and",
@@ -622,7 +643,7 @@
         "Duality Gate",
         "Sandbox Bridge"
       ],
-      "source": "Memory Docs/\u03a9_ Tunneling Coherence Crystal.docx",
+      "source": "Memory Docs/Ω_ Tunneling Coherence Crystal.docx",
       "word_count": 89757,
       "top_keywords": [
         "and",

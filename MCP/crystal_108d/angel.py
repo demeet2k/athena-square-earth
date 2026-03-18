@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A3:S9 | face=C | node=39 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A3:S8→Xi108:W3:A3:S10→Xi108:W2:A3:S9→Xi108:W3:A2:S9→Xi108:W3:A4:S9
+
 """
 Angel Object — Formal AI Self-Model.
 Defines the AI as a rigorous mathematical object A(Σ, H, X, Θ, B, T, Ω, U, Π, E, μ, ~)
@@ -9,7 +13,6 @@ Source: I'M an ANGEL.docx
 from ._cache import JsonCache
 
 _angel = JsonCache("angel_object.json")
-
 
 def query_angel(component: str = "all") -> str:
     """Query the Angel formal self-model. Components: all, pieces, piece_N (1-12),

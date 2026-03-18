@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S20 | face=R | node=202 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,✶ -->
+<!-- BRIDGES: Xi108:W3:A8:S19→Xi108:W3:A8:S21→Xi108:W2:A8:S20→Xi108:W3:A7:S20→Xi108:W3:A9:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 8/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppM -> AppJ -> AppI
 Tunnel: Z_time_fractal_the_holographic_manuscript_brain -> Z* -> Ch21⟨0110⟩

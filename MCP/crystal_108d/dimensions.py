@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A11:S11 | face=C | node=63 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A11:S10→Xi108:W2:A11:S12→Xi108:W1:A11:S11→Xi108:W3:A11:S11→Xi108:W2:A10:S11→Xi108:W2:A12:S11
+
 """3D-12D alternating atlas and containment logic."""
 
 from ._cache import JsonCache
 
 _dims = JsonCache("dimensional_ladder.json")
-
 
 def resolve_dimensional_body(dimension: int) -> str:
     """
@@ -60,7 +63,6 @@ def resolve_dimensional_body(dimension: int) -> str:
 
     return "\n".join(lines) + "\n"
 
-
 def dimensional_lift(from_dim: int, to_dim: int) -> str:
     """
     Trace the odd/even integration chain between two dimensions.
@@ -98,7 +100,6 @@ def dimensional_lift(from_dim: int, to_dim: int) -> str:
             lines.append(f"  {'│':>4}")
 
     return "\n".join(lines) + "\n"
-
 
 def query_containment(shell_or_dimension: int) -> str:
     """

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A10:S7 | face=C | node=217 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A10:S6→Xi108:W1:A10:S8→Xi108:W2:A10:S7→Xi108:W1:A9:S7→Xi108:W1:A11:S7
+
 """Validate canon schemas and generated graph integrity."""
 
 import json
@@ -6,14 +10,11 @@ from pathlib import Path
 DATA_DIR = Path(__file__).resolve().parent.parent / "MCP" / "data"
 CANON_DIR = DATA_DIR / "canon"
 
-
 def _load_canon(filename: str) -> dict:
     return json.loads((CANON_DIR / filename).read_text(encoding="utf-8"))
 
-
 def _load(filename: str) -> dict:
     return json.loads((DATA_DIR / filename).read_text(encoding="utf-8"))
-
 
 class TestCanonSchemas:
     """All 5 canon schema files must load and contain expected structure."""
@@ -51,7 +52,6 @@ class TestCanonSchemas:
         assert "meta" in data
         assert "required_fields" in data
         assert "cert_types" in data
-
 
 class TestGeneratedGraph:
     """The generated graph manifest must be structurally sound."""

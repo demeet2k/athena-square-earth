@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S19 | face=R | node=177 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S18→Xi108:W3:A7:S20→Xi108:W2:A7:S19→Xi108:W3:A6:S19→Xi108:W3:A8:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 7/12 -->
+
 # 2026-03-13 Athenachka Organism v0 Q48-wave5 Proof
 
 ## Outcome

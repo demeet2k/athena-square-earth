@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=149 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - HELLENIC: HIPPOCRATIC BIOLOGICAL DRIVER
 ====================================================
@@ -43,7 +47,6 @@ from enum import Enum, auto
 import numpy as np
 
 from .algebra import BitPair, Klein4Group, Klein4Op
-
 
 # =============================================================================
 # THE FOUR HUMORS
@@ -98,7 +101,6 @@ class Humor(Enum):
                 return humor
         raise ValueError(f"No humor for bits ({b1}, {b2})")
 
-
 class Temperament(Enum):
     """The Four Temperaments."""
     
@@ -122,7 +124,6 @@ class Temperament(Enum):
     @property
     def traits(self) -> Dict[str, float]:
         return self.value[2]
-
 
 # =============================================================================
 # HUMORAL STATE
@@ -232,7 +233,6 @@ class HumoralState:
             self.blood = value
         self._normalize()
 
-
 # =============================================================================
 # SEASONAL DYNAMICS
 # =============================================================================
@@ -256,7 +256,6 @@ class Season(Enum):
     @property
     def quality_bits(self) -> Tuple[int, int]:
         return self.value[2]
-
 
 class SeasonalCycle:
     """
@@ -306,7 +305,6 @@ class SeasonalCycle:
         original = humor.bit_pair
         opposite_bits = k4.apply(Klein4Op.C, original)
         return Humor.from_bits(opposite_bits.b1, opposite_bits.b2)
-
 
 # =============================================================================
 # HOMEOSTASIS ALGORITHM
@@ -382,7 +380,6 @@ class HomeostasisController:
         
         return 1.0 - (errors[-1] / errors[0])
 
-
 # =============================================================================
 # TREATMENT PROTOCOL
 # =============================================================================
@@ -406,7 +403,6 @@ class TreatmentType(Enum):
     COLD_BATH = ("environment", (-1, 1), "Cooling and moistening")
     EXERCISE = ("environment", (1, -1), "Heating and drying")
     REST = ("environment", (-1, -1), "Cooling and drying")
-
 
 @dataclass
 class Treatment:
@@ -455,7 +451,6 @@ class Treatment:
                 vec[0] += 0.05 * self.intensity  # Black bile (cold/dry)
         
         return HumoralState.from_vector(np.maximum(vec, 0.0))
-
 
 class TreatmentProtocol:
     """
@@ -517,7 +512,6 @@ class TreatmentProtocol:
                         treatments.append(Treatment(TreatmentType.BLOODLETTING, 0.5))
         
         return treatments
-
 
 # =============================================================================
 # HIPPOCRATIC STATE MACHINE
@@ -612,7 +606,6 @@ class HippocraticStateMachine:
             results.append(self.get_status())
         
         return results
-
 
 # =============================================================================
 # VALIDATION
@@ -711,7 +704,6 @@ def validate_hippocratic() -> bool:
     assert len(results) == 10
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Hippocratic Module...")

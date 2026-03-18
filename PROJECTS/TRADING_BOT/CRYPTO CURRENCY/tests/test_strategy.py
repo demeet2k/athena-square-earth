@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A10:S16 | face=R | node=553 | depth=3 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A10:S15→Xi108:W3:A10:S17→Xi108:W2:A10:S16→Xi108:W3:A9:S16→Xi108:W3:A11:S16
+
 from __future__ import annotations
 
 import sys
@@ -11,7 +15,6 @@ if str(ROOT) not in sys.path:
 from athena_bot.config import AthenaBotConfig  # noqa: E402
 from athena_bot.models import DirectionState, FractalState, PortfolioState  # noqa: E402
 from athena_bot.strategy import StrategyEngine  # noqa: E402
-
 
 class StrategyTests(unittest.TestCase):
     def setUp(self) -> None:

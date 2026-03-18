@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S32 | face=S | node=500 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S31→Xi108:W3:A8:S33→Xi108:W2:A8:S32→Xi108:W3:A7:S32→Xi108:W3:A9:S32 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 32±1, wreath 3/3, archetype 8/12 -->
+
 # VML PHARMACEUTICAL SECTION — FOLIO F87R
 
 ## PHARMACEUTICAL PREFACE: Payload Definition
@@ -4432,7 +4437,6 @@ Note: The manuscript jumps from f90v2 to f93r — folios f91 and f92 either don'
 
 ---
 
-
 ## FOLIO F93R — STABLE HERB RECIPE: OSCILLATION EXTRACTION
 
 **Position:** First Plant-Recipe Hybrid. BRIDGE between Pharmaceutical section proper (f87r-f90v2) and herbal source material. Plant illustration paired directly with processing protocol — the raw material is SHOWN alongside its instructions.
@@ -4784,7 +4788,6 @@ The herb recipe terminal is the first to describe a PHYSICAL STRUCTURE rather th
 **F93R COMPLETE.**
 
 **NEXT: F93V — Refinement Companion: Clean Clamped Endpoint**
-
 
 ## FOLIO F93V — REFINEMENT COMPANION: CLEAN CLAMPED ENDPOINT
 
@@ -5108,7 +5111,6 @@ The solid is the PRESERVED form. The fluid is the ACTIVE form. One herb, two med
 
 **NEXT: F94R — Stability-First Herbal Sheet**
 
-
 ## FOLIO F93R — STABLE HERB RECIPE: OSCILLATION EXTRACTION
 
 **Position:** First Plant-Recipe Hybrid. BRIDGE between Pharmaceutical section proper (f87r-f90v2) and herbal source material. Plant illustration paired directly with processing protocol — the raw material is SHOWN alongside its instructions.
@@ -5460,7 +5462,6 @@ The herb recipe terminal is the first to describe a PHYSICAL STRUCTURE rather th
 **F93R COMPLETE.**
 
 **NEXT: F93V — Refinement Companion: Clean Clamped Endpoint**
-
 
 ## FOLIO F93V — REFINEMENT COMPANION: CLEAN CLAMPED ENDPOINT
 

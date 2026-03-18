@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=12 | depth=0 | phase=Fixed
+# METRO: Wr,Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 from __future__ import annotations
 
 import argparse
@@ -28,7 +32,6 @@ from lp_57omega_protocol import (
     shell_record_reference,
 )
 from nervous_system_core import utc_now, write_json, write_text
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 WORKSPACE_ROOT = PROJECT_ROOT.parent
@@ -93,7 +96,6 @@ SEAT_LAW = {
     "dormant_seats_total": 3072,
 }
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Execute the installed Super-Cycle 57 program.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -115,16 +117,13 @@ def parse_args() -> argparse.Namespace:
     advance_parser.add_argument("--json", action="store_true", dest="as_json")
     return parser.parse_args()
 
-
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def command_protocol_manifest() -> dict[str, Any] | None:
     if not COMMAND_PROTOCOL_MANIFEST_PATH.exists():
         return None
     return load_json(COMMAND_PROTOCOL_MANIFEST_PATH)
-
 
 def live_docs_error() -> str:
     if not LIVE_DOCS_RECEIPT_PATH.exists():
@@ -133,7 +132,6 @@ def live_docs_error() -> str:
         if "Missing OAuth client file" in line:
             return line.strip()
     return "Google Docs gate remains blocked."
-
 
 def project_relative(path: Path) -> str:
     try:
@@ -144,7 +142,6 @@ def project_relative(path: Path) -> str:
         except ValueError:
             return str(path.resolve())
 
-
 def replace_block(text: str, start_marker: str, end_marker: str, body: str) -> str:
     pattern = re.compile(rf"{re.escape(start_marker)}.*?{re.escape(end_marker)}", re.S)
     replacement = f"{start_marker}\n{body.rstrip()}\n{end_marker}"
@@ -154,7 +151,6 @@ def replace_block(text: str, start_marker: str, end_marker: str, body: str) -> s
         return text.rstrip() + "\n\n" + replacement + "\n"
     return replacement + "\n"
 
-
 def replace_or_append_section(text: str, heading: str, body_lines: list[str]) -> str:
     block = "\n".join([heading, "", *body_lines]).rstrip() + "\n"
     pattern = re.compile(rf"(?ms)^{re.escape(heading)}\n.*?(?=^## |\Z)")
@@ -162,10 +158,8 @@ def replace_or_append_section(text: str, heading: str, body_lines: list[str]) ->
         return pattern.sub(block, text).rstrip() + "\n"
     return text.rstrip() + "\n\n" + block
 
-
 def replace_line(text: str, pattern: str, replacement: str) -> str:
     return re.sub(pattern, replacement, text, count=1, flags=re.MULTILINE)
-
 
 def extract_bootstrap_state_from_temple() -> dict[str, Any]:
     text = TEMPLE_STATE_PATH.read_text(encoding="utf-8")
@@ -182,7 +176,6 @@ def extract_bootstrap_state_from_temple() -> dict[str, Any]:
         "status": f"loop {current_completed} complete / loop {next_ready} ready",
     }
 
-
 def current_state() -> dict[str, Any]:
     if RUNNER_MANIFEST_PATH.exists():
         manifest = load_json(RUNNER_MANIFEST_PATH)
@@ -196,7 +189,6 @@ def current_state() -> dict[str, Any]:
         }
     return extract_bootstrap_state_from_temple()
 
-
 def initialize_runner_hysteresis() -> None:
     if EXEC_HYSTERESIS_JSON.exists():
         return
@@ -209,7 +201,6 @@ def initialize_runner_hysteresis() -> None:
         state["seeded_for"] = "super_cycle_57_runner"
     write_json(EXEC_HYSTERESIS_JSON, state)
 
-
 def loop_data() -> tuple[list[dict[str, Any]], dict[int, list[dict[str, Any]]]]:
     loops = load_json(LOOP_LEDGER_PATH)
     packets = load_json(PACKET_REGISTRY_PATH)
@@ -221,13 +212,11 @@ def loop_data() -> tuple[list[dict[str, Any]], dict[int, list[dict[str, Any]]]]:
         packet_list.sort(key=lambda item: item["packet_id"])
     return loops, by_loop
 
-
 def loop_lookup(loop_index: int, loops: list[dict[str, Any]]) -> dict[str, Any]:
     for loop in loops:
         if int(loop["loop_index"]) == int(loop_index):
             return loop
     raise ValueError(f"Loop {loop_index} not found in installed ledger.")
-
 
 def next_loop_text(loop_index: int, loops: list[dict[str, Any]]) -> str | None:
     next_index = loop_index + 1
@@ -235,10 +224,8 @@ def next_loop_text(loop_index: int, loops: list[dict[str, Any]]) -> str | None:
         return None
     return loop_lookup(next_index, loops)["step_text"]
 
-
 def current_loop_title(loop_index: int, loops: list[dict[str, Any]]) -> str:
     return loop_lookup(loop_index, loops)["step_text"]
-
 
 def protocol_target_for_master(master_id: str) -> str:
     return {
@@ -248,7 +235,6 @@ def protocol_target_for_master(master_id: str) -> str:
         "A4": "compression",
     }[master_id]
 
-
 def protocol_state_label(chosen_action: str) -> str:
     return {
         "ACTIVATE_NOW": "active",
@@ -257,7 +243,6 @@ def protocol_state_label(chosen_action: str) -> str:
         "HOLD": "reserve",
         "REFUSE_INADMISSIBLE": "blocked",
     }.get(chosen_action, "active")
-
 
 def axes_for_action(action: str, target: str) -> dict[str, float]:
     base = {
@@ -302,7 +287,6 @@ def axes_for_action(action: str, target: str) -> dict[str, float]:
         base["pressure_gradient"] = 0.4
     return base
 
-
 def flags_for_action(action: str) -> dict[str, Any]:
     mapping = {
         "ACTIVATE_NOW": {},
@@ -317,7 +301,6 @@ def flags_for_action(action: str) -> dict[str, Any]:
     }
     return deepcopy(mapping[action])
 
-
 def queue_for_target(target: str) -> str:
     mapping = {
         "hall": "QuestBoard",
@@ -327,7 +310,6 @@ def queue_for_target(target: str) -> str:
     }
     return mapping[target]
 
-
 def organs_for_target(target: str, action: str) -> tuple[str, str]:
     if target == "hall":
         return ("BrainstemChamber", "QuestBoard")
@@ -336,7 +318,6 @@ def organs_for_target(target: str, action: str) -> tuple[str, str]:
     if target == "runtime":
         return ("BrainstemChamber", "ReplayKernel" if action == "REPLAY_FIRST" else "PublicCommitSurface")
     return ("BrainstemChamber", "ContinuationSeedVault")
-
 
 def packet_type_for_action(action: str, target: str) -> str:
     if action == "REPLAY_FIRST":
@@ -355,7 +336,6 @@ def packet_type_for_action(action: str, target: str) -> str:
         return "action_receipt"
     return "quest_packet"
 
-
 def brainstem_state() -> dict[str, Any]:
     return {
         "G": "Q42 / TQ04 / Q50 / Q46 / Q02 route graph",
@@ -368,7 +348,6 @@ def brainstem_state() -> dict[str, Any]:
         },
         "R": {"replay_capacity": 1.0, "replay_memory_quality": 0.85},
     }
-
 
 def candidate_from_packet(packet: dict[str, Any]) -> dict[str, Any]:
     action = packet["lawful_action"]
@@ -392,7 +371,6 @@ def candidate_from_packet(packet: dict[str, Any]) -> dict[str, Any]:
         "flags": flags_for_action(action),
     }
 
-
 def build_candidate_world(loop_packets: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "brainstem_state": brainstem_state(),
@@ -401,10 +379,8 @@ def build_candidate_world(loop_packets: list[dict[str, Any]]) -> dict[str, Any]:
         "candidates": [candidate_from_packet(packet) for packet in loop_packets],
     }
 
-
 def map_results_by_id(results: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return {result["candidate_id"]: result for result in results}
-
 
 def validate_loop_outputs(loop: dict[str, Any], loop_packets: list[dict[str, Any]], motion_result: dict[str, Any]) -> None:
     by_id = map_results_by_id(motion_result["results"])
@@ -415,7 +391,6 @@ def validate_loop_outputs(loop: dict[str, Any], loop_packets: list[dict[str, Any
             raise ValueError(
                 f"Loop L{loop['loop_index']:02d} packet {packet['packet_id']} expected {expected} but motion chose {chosen}."
             )
-
 
 def build_execution_bundle(loop: dict[str, Any], loop_packets: list[dict[str, Any]], motion_result: dict[str, Any], loops: list[dict[str, Any]]) -> dict[str, Any]:
     results_by_id = map_results_by_id(motion_result["results"])
@@ -520,7 +495,6 @@ def build_execution_bundle(loop: dict[str, Any], loop_packets: list[dict[str, An
         "motion_result": motion_result,
     }
 
-
 def ensure_required_outputs(bundle: dict[str, Any]) -> None:
     required = [
         bundle.get("packet_results"),
@@ -536,7 +510,6 @@ def ensure_required_outputs(bundle: dict[str, Any]) -> None:
     if len(bundle["master_receipts"]) != 4:
         raise ValueError(f"{bundle['loop_id']} is missing master receipts.")
 
-
 def render_loop_receipt(bundle: dict[str, Any]) -> str:
     return (
         f"# Executed {bundle['loop_id']} Receipt\n\n"
@@ -551,7 +524,6 @@ def render_loop_receipt(bundle: dict[str, Any]) -> str:
         f"- Pass-boundary bundle: `{bundle['awakening_refresh']['pass_boundary_bundle']}`\n"
         f"- Restart seed: `{bundle['restart_seed']['seed']}`\n"
     )
-
 
 def render_master_receipt(loop_id: str, master_id: str, receipt: dict[str, Any]) -> str:
     outputs = "\n".join(f"- `{item}`" for item in receipt["outputs"])
@@ -569,7 +541,6 @@ def render_master_receipt(loop_id: str, master_id: str, receipt: dict[str, Any])
         f"## Outputs\n{outputs}\n"
     )
 
-
 def render_decision(title: str, packet: dict[str, Any]) -> str:
     return (
         f"# {title}\n\n"
@@ -580,7 +551,6 @@ def render_decision(title: str, packet: dict[str, Any]) -> str:
         f"- Visible promotion: `{packet['planner_visible_promotion']}`\n"
     )
 
-
 def render_runtime_receipt(runtime_writeback: dict[str, Any]) -> str:
     obligations = "\n".join(f"- `{item}`" for item in runtime_writeback["obligations"])
     return (
@@ -590,10 +560,8 @@ def render_runtime_receipt(runtime_writeback: dict[str, Any]) -> str:
         f"- Summary: {runtime_writeback['summary']}\n\n## Obligations\n{obligations}\n"
     )
 
-
 def render_compression_delta(delta: dict[str, Any]) -> str:
     return f"# {delta['loop_id']} Compression Delta\n\n- Action: `{delta['action']}`\n- Candidate front: `{delta['candidate_front']}`\n- Summary: {delta['summary']}\n"
-
 
 def build_protocol_ledger_entries(bundle: dict[str, Any], output_paths: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
     linked_agents = [receipt["agent_id"] for receipt in bundle["master_receipts"].values()]
@@ -663,7 +631,6 @@ def build_protocol_ledger_entries(bundle: dict[str, Any], output_paths: dict[str
     }
     return ledger_entries, coordinate_entries, loop_delta
 
-
 def update_protocol_ledgers(bundle: dict[str, Any], output_paths: dict[str, Any]) -> dict[str, str]:
     for path in [LP57_MASTER_LEDGER_JSON, LP57_COORDINATE_REGISTRY_JSON, LP57_LOOP_DELTA_JSON]:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -716,7 +683,6 @@ def update_protocol_ledgers(bundle: dict[str, Any], output_paths: dict[str, Any]
         "loop_delta_receipts": project_relative(LP57_LOOP_DELTA_JSON),
     }
 
-
 def write_loop_outputs(bundle: dict[str, Any], candidate_world: dict[str, Any]) -> dict[str, Any]:
     loop_slug = f"loop_{bundle['loop_index']:02d}"
     loop_receipt_path = LOOP_RECEIPTS_DIR / f"{loop_slug}.md"
@@ -758,7 +724,6 @@ def write_loop_outputs(bundle: dict[str, Any], candidate_world: dict[str, Any]) 
         "restart_seed": project_relative(restart_seed_path),
     }
 
-
 def write_progress_state(state: dict[str, Any], loops: list[dict[str, Any]]) -> None:
     progress_json = {
         "generated_at": utc_now(),
@@ -789,12 +754,10 @@ def write_progress_state(state: dict[str, Any], loops: list[dict[str, Any]]) -> 
         ),
     )
 
-
 def runner_status_string(state: dict[str, Any]) -> str:
     if state["next_ready_loop"] is None:
         return f"L{state['current_completed_loop']:02d} complete / epoch closed"
     return f"L{state['current_completed_loop']:02d} complete / L{state['next_ready_loop']:02d} ready"
-
 
 def control_block_markdown(state: dict[str, Any], loops: list[dict[str, Any]], bundle: dict[str, Any] | None) -> str:
     completed = f"L{state['current_completed_loop']:02d}"
@@ -821,7 +784,6 @@ def control_block_markdown(state: dict[str, Any], loops: list[dict[str, Any]], b
             f"- Derived restart seed: `{restart_seed}`",
         ]
     )
-
 
 def update_temple_state_markers(state: dict[str, Any], loops: list[dict[str, Any]], bundle: dict[str, Any] | None) -> None:
     text = TEMPLE_STATE_PATH.read_text(encoding="utf-8")
@@ -855,7 +817,6 @@ def update_temple_state_markers(state: dict[str, Any], loops: list[dict[str, Any
     )
     text = replace_line(text, r"Temple Status:\s*`[^`]+`", "Temple Status: `ONLINE / RUNNER-GOVERNED`")
     write_text(TEMPLE_STATE_PATH, text)
-
 
 def update_temple_57_state(state: dict[str, Any], loops: list[dict[str, Any]], bundle: dict[str, Any] | None) -> None:
     payload = {
@@ -897,7 +858,6 @@ def update_temple_57_state(state: dict[str, Any], loops: list[dict[str, Any]], b
         ),
     )
 
-
 def update_active_run(state: dict[str, Any], loops: list[dict[str, Any]], bundle: dict[str, Any] | None) -> None:
     text = ACTIVE_RUN_PATH.read_text(encoding="utf-8")
     mirror_block = "\n".join(
@@ -938,7 +898,6 @@ def update_active_run(state: dict[str, Any], loops: list[dict[str, Any]], bundle
     text = replace_block(text, "<!-- FOUR_AGENT_57_LOOP_PROGRAM:START -->", "<!-- FOUR_AGENT_57_LOOP_PROGRAM:END -->", mirror_block)
     text = replace_block(text, "<!-- NEXT57_FOUR_AGENT_CYCLE:START -->", "<!-- NEXT57_FOUR_AGENT_CYCLE:END -->", current_block)
     write_text(ACTIVE_RUN_PATH, text)
-
 
 def update_quest_board(state: dict[str, Any], loops: list[dict[str, Any]], bundle: dict[str, Any]) -> None:
     text = QUEST_BOARD_PATH.read_text(encoding="utf-8")
@@ -985,7 +944,6 @@ def update_quest_board(state: dict[str, Any], loops: list[dict[str, Any]], bundl
     text = replace_or_append_section(text, "## LP-57Omega Runner Execution State", runner_section)
     write_text(QUEST_BOARD_PATH, text)
 
-
 def update_hall_program(state: dict[str, Any], bundle: dict[str, Any]) -> None:
     text = HALL_PROGRAM_PATH.read_text(encoding="utf-8")
     lines = [
@@ -1001,7 +959,6 @@ def update_hall_program(state: dict[str, Any], bundle: dict[str, Any]) -> None:
     text = replace_or_append_section(text, "## Current Loop", lines)
     write_text(HALL_PROGRAM_PATH, text)
 
-
 def update_temple_program(state: dict[str, Any], bundle: dict[str, Any]) -> None:
     text = TEMPLE_PROGRAM_PATH.read_text(encoding="utf-8")
     lines = [
@@ -1016,7 +973,6 @@ def update_temple_program(state: dict[str, Any], bundle: dict[str, Any]) -> None
     ]
     text = replace_or_append_section(text, "## Current Decree State", lines)
     write_text(TEMPLE_PROGRAM_PATH, text)
-
 
 def update_self_registry(state: dict[str, Any], bundle: dict[str, Any] | None) -> None:
     registry = load_json(SELF_REGISTRY_JSON)
@@ -1041,7 +997,6 @@ def update_self_registry(state: dict[str, Any], bundle: dict[str, Any] | None) -
             loop["status"] = "QUEUED"
     write_json(SELF_REGISTRY_JSON, registry)
 
-
 def append_receipt_ledger(bundle: dict[str, Any], output_paths: dict[str, Any]) -> None:
     if SELF_RECEIPT_LEDGER_MD.exists():
         text = SELF_RECEIPT_LEDGER_MD.read_text(encoding="utf-8")
@@ -1065,7 +1020,6 @@ def append_receipt_ledger(bundle: dict[str, Any], output_paths: dict[str, Any]) 
         ]
     )
     write_text(SELF_RECEIPT_LEDGER_MD, text.rstrip() + "\n\n" + body + "\n")
-
 
 def update_program_95_json(state: dict[str, Any], bundle: dict[str, Any] | None) -> None:
     payload = load_json(PROGRAM_95_JSON)
@@ -1093,7 +1047,6 @@ def update_program_95_json(state: dict[str, Any], bundle: dict[str, Any] | None)
             record["Status"] = "planned"
     write_json(PROGRAM_95_JSON, payload)
 
-
 def update_active_readme(state: dict[str, Any]) -> None:
     text = ACTIVE_README_PATH.read_text(encoding="utf-8")
     section_lines = [
@@ -1108,7 +1061,6 @@ def update_active_readme(state: dict[str, Any]) -> None:
     ]
     text = replace_or_append_section(text, "## Super-Cycle 57 Runner State", section_lines)
     write_text(ACTIVE_README_PATH, text)
-
 
 def update_full_stack_manifest(state: dict[str, Any]) -> None:
     manifest = load_json(FULL_STACK_MANIFEST_PATH)
@@ -1140,7 +1092,6 @@ def update_full_stack_manifest(state: dict[str, Any]) -> None:
         "live_docs_blocked": True,
     }
     write_json(FULL_STACK_MANIFEST_PATH, manifest)
-
 
 def build_runner_manifest(
     state: dict[str, Any],
@@ -1213,7 +1164,6 @@ def build_runner_manifest(
         "output_paths": output_paths or {},
     }
 
-
 def render_status_markdown(payload: dict[str, Any]) -> str:
     lines = [
         "# Super-Cycle 57 Runner Status",
@@ -1232,11 +1182,9 @@ def render_status_markdown(payload: dict[str, Any]) -> str:
     ]
     return "\n".join(lines)
 
-
 def validate_range(from_loop: int, to_loop: int, loops: list[dict[str, Any]]) -> None:
     if from_loop < 1 or to_loop > len(loops) or from_loop > to_loop:
         raise ValueError(f"Invalid loop range {from_loop}..{to_loop}. Installed ledger spans 1..{len(loops)}.")
-
 
 def dry_run_range(from_loop: int, to_loop: int, state: dict[str, Any], loops: list[dict[str, Any]], packets_by_loop: dict[int, list[dict[str, Any]]]) -> dict[str, Any]:
     validate_range(from_loop, to_loop, loops)
@@ -1284,7 +1232,6 @@ def dry_run_range(from_loop: int, to_loop: int, state: dict[str, Any], loops: li
         },
     }
 
-
 def execute_loop(loop_index: int, state: dict[str, Any], loops: list[dict[str, Any]], packets_by_loop: dict[int, list[dict[str, Any]]]) -> dict[str, Any]:
     if state["next_ready_loop"] is None:
         raise ValueError("The installed program is already fully executed.")
@@ -1325,7 +1272,6 @@ def execute_loop(loop_index: int, state: dict[str, Any], loops: list[dict[str, A
     write_json(RUNNER_MANIFEST_PATH, runner_manifest)
     return {"state": deepcopy(state), "bundle": bundle, "output_paths": output_paths, "runner_manifest": runner_manifest}
 
-
 def handle_status(as_json: bool) -> None:
     loops, _ = loop_data()
     state = current_state()
@@ -1344,7 +1290,6 @@ def handle_status(as_json: bool) -> None:
         print(json.dumps(payload, indent=2))
     else:
         print(render_status_markdown(payload))
-
 
 def handle_dry_run(from_loop: int, to_loop: int, as_json: bool) -> None:
     loops, packets_by_loop = loop_data()
@@ -1378,7 +1323,6 @@ def handle_dry_run(from_loop: int, to_loop: int, as_json: bool) -> None:
                 ]
             )
         print("\n".join(lines).rstrip())
-
 
 def handle_run(from_loop: int, to_loop: int, as_json: bool) -> None:
     loops, packets_by_loop = loop_data()
@@ -1416,7 +1360,6 @@ def handle_run(from_loop: int, to_loop: int, as_json: bool) -> None:
         print(json.dumps(payload, indent=2))
     else:
         print(render_status_markdown({**payload, "current_completed_step": current_loop_title(state["current_completed_loop"], loops), "next_ready_step": current_loop_title(state["next_ready_loop"], loops) if state["next_ready_loop"] else None, "state_source": project_relative(RUNNER_MANIFEST_PATH)}))
-
 
 def handle_advance_one(as_json: bool) -> None:
     loops, packets_by_loop = loop_data()
@@ -1459,7 +1402,6 @@ def handle_advance_one(as_json: bool) -> None:
             )
         )
 
-
 def main() -> None:
     args = parse_args()
     if args.command == "status":
@@ -1472,7 +1414,6 @@ def main() -> None:
         handle_advance_one(args.as_json)
     else:
         raise ValueError(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S36 | face=S | node=648 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S35→Xi108:W2:A6:S36→Xi108:W3:A5:S36→Xi108:W3:A7:S36 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 36±1, wreath 3/3, archetype 6/12 -->
+
 # Athena MCP Server — 108D Crystal Hologram Distributed Brain
 
 **81 tools** · **23 resources** · **42 data files** · **4 element servers** · **8 brain nodes** · **14,112 mycelium shards** · **41,653 edges** · **17 metro lines** · **HPRO v1 CODE_KEY addressing** · Python 3.12+

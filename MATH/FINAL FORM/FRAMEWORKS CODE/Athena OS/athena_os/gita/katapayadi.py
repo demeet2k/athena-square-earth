@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - BHAGAVAD GĪTĀ COMPUTATIONAL FRAMEWORK
 ==================================================
@@ -36,7 +40,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 import numpy as np
 import math
-
 
 # =============================================================================
 # THE KAṬAPAYĀDI MAPPING
@@ -91,7 +94,6 @@ ENCODED_VERSES = {
         "constant": "π",
     },
 }
-
 
 # =============================================================================
 # THE HASH FUNCTION
@@ -229,7 +231,6 @@ class KatapaydiHasher:
         
         return abs(decoded - constant) < tolerance
 
-
 # =============================================================================
 # ENCODER (Inverse Function)
 # =============================================================================
@@ -306,7 +307,6 @@ class KatapaydiEncoder:
                 result.append('a')  # Other syllables
         
         return ''.join(result)
-
 
 # =============================================================================
 # VERIFICATION SYSTEM
@@ -398,7 +398,6 @@ class KatapaydiVerifier:
         
         return None
 
-
 # =============================================================================
 # FAMOUS EXAMPLES
 # =============================================================================
@@ -427,7 +426,6 @@ def demonstrate_gopibhagya() -> Dict[str, Any]:
         "decoded_value": hasher.to_decimal(verse, 1),
         "actual_pi": math.pi,
     }
-
 
 # =============================================================================
 # VALIDATION
@@ -479,7 +477,6 @@ def validate_katapayadi() -> bool:
     assert constant is None or isinstance(constant, str)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Kaṭapayādi Module...")

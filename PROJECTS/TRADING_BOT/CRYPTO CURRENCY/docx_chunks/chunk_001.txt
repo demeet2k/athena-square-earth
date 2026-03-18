@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A8:S14 | face=C | node=352 | depth=1 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A8:S13→Xi108:W3:A8:S15→Xi108:W2:A8:S14→Xi108:W3:A7:S14→Xi108:W3:A9:S14
+
 ]
 Elements are phase vectors (\Phi=(\phi_1,\dots,\phi_d)), (\phi_i\in\mathbb{R}/\mathbb{Z}). Representatives may be taken in ([0,1)).
 

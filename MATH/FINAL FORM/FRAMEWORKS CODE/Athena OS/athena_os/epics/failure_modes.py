@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S13 | face=S | node=82 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A3:S12→Xi108:W2:A3:S14→Xi108:W1:A3:S13→Xi108:W3:A3:S13→Xi108:W2:A2:S13→Xi108:W2:A4:S13
+
 """
 ATHENA OS - EPICS: FAILURE MODES
 =================================
@@ -33,7 +37,6 @@ import numpy as np
 
 from .epic_registry import EpicEntry, FailureCategory, PatchType, EPIC_REGISTRY
 
-
 # =============================================================================
 # CRASH SEVERITY
 # =============================================================================
@@ -47,7 +50,6 @@ class CrashSeverity(Enum):
     CRITICAL = "critical"     # Near-total failure
     CATASTROPHIC = "catastrophic"  # Complete system reset required
 
-
 class PropagationPattern(Enum):
     """Patterns of error propagation."""
     
@@ -56,7 +58,6 @@ class PropagationPattern(Enum):
     EXPONENTIAL = "exponential"  # Viral spreading
     CASCADE = "cascade"       # Triggers secondary failures
     RECURSIVE = "recursive"   # Self-amplifying
-
 
 # =============================================================================
 # ERROR INJECTION
@@ -85,7 +86,6 @@ class InjectionPoint:
         # Simplified - in full implementation would map to state index
         vec[0] = self.magnitude
         return vec
-
 
 # =============================================================================
 # CRASH SIGNATURE
@@ -154,7 +154,6 @@ class CrashSignature:
         
         return score >= threshold
 
-
 # =============================================================================
 # FAILURE MODE DEFINITIONS
 # =============================================================================
@@ -196,7 +195,6 @@ def create_rage_overflow_signature() -> CrashSignature:
         patches_attempted=[PatchType.MORTALITY_HANDSHAKE],
         patch_success=True
     )
-
 
 def create_legitimacy_loss_signature() -> CrashSignature:
     """Create the LEGITIMACY LOSS crash signature (Mahabharata pattern)."""
@@ -243,7 +241,6 @@ def create_legitimacy_loss_signature() -> CrashSignature:
         patch_success=True  # System reset successful
     )
 
-
 def create_daemon_leak_signature() -> CrashSignature:
     """Create the DAEMON LEAK crash signature (Beowulf pattern)."""
     return CrashSignature(
@@ -280,7 +277,6 @@ def create_daemon_leak_signature() -> CrashSignature:
         patches_attempted=[PatchType.DAEMON_BINDING],
         patch_success=True  # Each daemon bound, but at cost
     )
-
 
 def create_identity_corruption_signature() -> CrashSignature:
     """Create the IDENTITY CORRUPTION crash signature (Odyssey pattern)."""
@@ -325,7 +321,6 @@ def create_identity_corruption_signature() -> CrashSignature:
         patch_success=True
     )
 
-
 def create_doomed_reset_signature() -> CrashSignature:
     """Create the DOOMED RESET crash signature (Ragnarök pattern)."""
     return CrashSignature(
@@ -362,7 +357,6 @@ def create_doomed_reset_signature() -> CrashSignature:
         patches_attempted=[],
         patch_success=False  # No patch - this is the design
     )
-
 
 # =============================================================================
 # FAILURE MODE LIBRARY
@@ -454,7 +448,6 @@ class FailureModeLibrary:
                 1 for s in self._signatures.values() if not s.recovery_possible
             )
         }
-
 
 # =============================================================================
 # FAILURE ANALYZER
@@ -574,7 +567,6 @@ class FailureAnalyzer:
         
         return prior
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -644,7 +636,6 @@ def validate_failure_modes() -> bool:
     assert "invariants" in prior
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Failure Modes Module...")

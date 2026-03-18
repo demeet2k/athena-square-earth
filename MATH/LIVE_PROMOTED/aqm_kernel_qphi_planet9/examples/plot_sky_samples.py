@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=141 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """Example: plot Q‑PHI sky samples.
 
 Reads `sky_samples.csv` and writes a simple scatter plot.
@@ -19,7 +23,6 @@ from pathlib import Path
 import csv
 
 import matplotlib.pyplot as plt
-
 
 def main(argv: list[str]) -> None:
     if len(argv) < 2:
@@ -54,7 +57,6 @@ def main(argv: list[str]) -> None:
     out_path = csv_path.parent / "sky_samples.png"
     plt.savefig(out_path, dpi=180)
     print(f"Wrote: {out_path}")
-
 
 if __name__ == "__main__":
     main(sys.argv)

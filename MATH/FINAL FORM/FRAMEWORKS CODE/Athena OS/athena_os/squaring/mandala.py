@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=134 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - SQUARING THE CIRCLE: MANDALA
 ========================================
@@ -46,7 +50,6 @@ import math
 from .circle_system import Element, Mode, Archetype, ARCHETYPE_DATA, ARCHETYPE_ORDER
 from .square_system import ElementalArchetype, ARCHETYPES_16
 
-
 # =============================================================================
 # MANDALA CONSTANTS
 # =============================================================================
@@ -59,7 +62,6 @@ MANDALA_TOTAL = 16
 assert PERIPHERAL_COUNT + AXIAL_COUNT == MANDALA_TOTAL
 assert PERIPHERAL_COUNT == len(Element) * len(Mode)
 
-
 # =============================================================================
 # POSITION TYPES
 # =============================================================================
@@ -70,7 +72,6 @@ class PositionType(Enum):
     AXIAL = "axial"           # On the cross (4 positions)
     PERIPHERAL = "peripheral" # On the circumference (12 positions)
 
-
 class CardinalDirection(IntEnum):
     """The four cardinal directions (axial positions)."""
     
@@ -78,7 +79,6 @@ class CardinalDirection(IntEnum):
     EAST = 1    # 90°
     SOUTH = 2   # 180°
     WEST = 3    # 270°
-
 
 DIRECTION_DEGREES = {
     CardinalDirection.NORTH: 0,
@@ -93,7 +93,6 @@ DIRECTION_ELEMENTS = {
     CardinalDirection.SOUTH: Element.AIR,
     CardinalDirection.WEST: Element.EARTH,
 }
-
 
 # =============================================================================
 # MANDALA POSITION
@@ -180,7 +179,6 @@ class MandalaPosition:
     def __repr__(self) -> str:
         return f"MandalaPosition({self.name})"
 
-
 def create_axial_position(direction: CardinalDirection) -> MandalaPosition:
     """Create an axial position."""
     return MandalaPosition(
@@ -188,7 +186,6 @@ def create_axial_position(direction: CardinalDirection) -> MandalaPosition:
         position_type=PositionType.AXIAL,
         direction=direction
     )
-
 
 def create_peripheral_position(archetype: Archetype) -> MandalaPosition:
     """Create a peripheral position."""
@@ -198,7 +195,6 @@ def create_peripheral_position(archetype: Archetype) -> MandalaPosition:
         position_type=PositionType.PERIPHERAL,
         archetype=archetype
     )
-
 
 # =============================================================================
 # CIRCLED CROSS
@@ -260,7 +256,6 @@ class CircledCross:
         """Check if degree is on a cardinal axis."""
         normalized = (degrees + self.rotation) % 90
         return normalized < tolerance or normalized > (90 - tolerance)
-
 
 # =============================================================================
 # MANDALA
@@ -362,7 +357,6 @@ class Mandala:
             "correspondence": "12 mixed + 4 pure archetypes"
         }
 
-
 # =============================================================================
 # MANDALA OPERATIONS
 # =============================================================================
@@ -428,7 +422,6 @@ class MandalaOperations:
             positions.append(current)
         return positions
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -486,7 +479,6 @@ def validate_mandala() -> bool:
         assert arch.is_pure
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Mandala Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Base Classes                            ║
@@ -20,10 +24,8 @@ import hashlib
 import json
 import uuid
 
-
 T = TypeVar('T')
 Self = TypeVar('Self', bound='AtlasObject')
-
 
 class Hashable(ABC):
     """
@@ -77,7 +79,6 @@ class Hashable(ABC):
             Truncated hash string
         """
         return self.content_hash()[:length]
-
 
 class Serializable(ABC):
     """
@@ -146,7 +147,6 @@ class Serializable(ABC):
         data = json.loads(json_str)
         return cls.from_dict(data)
 
-
 class ContentAddressed(Hashable, Serializable):
     """
     Protocol for objects that are identified by their content hash.
@@ -190,7 +190,6 @@ class ContentAddressed(Hashable, Serializable):
         Note: ContentAddressed objects should generally be immutable.
         """
         self._cached_hash = None
-
 
 @dataclass
 class AtlasObject(ContentAddressed):
@@ -332,7 +331,6 @@ class AtlasObject(ContentAddressed):
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(id={self.short_hash()})"
 
-
 @dataclass
 class ImmutableObject(AtlasObject):
     """
@@ -355,7 +353,6 @@ class ImmutableObject(AtlasObject):
                 f"Cannot modify immutable {self.__class__.__name__}"
             )
         super().__setattr__(name, value)
-
 
 @dataclass
 class VersionedObject(AtlasObject):
@@ -408,7 +405,6 @@ class VersionedObject(AtlasObject):
         })
         return d
 
-
 @dataclass
 class CompositeObject(AtlasObject):
     """
@@ -440,10 +436,8 @@ class CompositeObject(AtlasObject):
         d['children'] = self.children
         return d
 
-
 # Registry for type lookup during deserialization
 _TYPE_REGISTRY: Dict[str, Type[AtlasObject]] = {}
-
 
 def register_type(cls: Type[AtlasObject]) -> Type[AtlasObject]:
     """
@@ -457,7 +451,6 @@ def register_type(cls: Type[AtlasObject]) -> Type[AtlasObject]:
     """
     _TYPE_REGISTRY[cls._type_id] = cls
     return cls
-
 
 def deserialize(data: Dict[str, Any]) -> AtlasObject:
     """
@@ -477,7 +470,6 @@ def deserialize(data: Dict[str, Any]) -> AtlasObject:
     
     cls = _TYPE_REGISTRY[type_id]
     return cls.from_dict(data)
-
 
 # Register base types
 register_type(AtlasObject)

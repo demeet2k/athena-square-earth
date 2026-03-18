@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=341 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 import re
@@ -10,7 +14,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     normalize_path,
     utc_now,
 )
-
 
 FACET_NAMES = [
     "hemisphere",
@@ -30,7 +33,6 @@ FACET_NAMES = [
 ]
 NEIGHBOR_LIMIT = 12
 
-
 def normalize(value: str) -> str:
     lowered = value.casefold().strip()
     normalized = re.sub(r"[\W_]+", " ", lowered, flags=re.UNICODE).strip()
@@ -38,17 +40,14 @@ def normalize(value: str) -> str:
         return normalized
     return re.sub(r"\s+", " ", lowered).strip()
 
-
 def route_ref(record_id: str, hemisphere: str) -> str:
     return f"{record_id}::{hemisphere}"
-
 
 def try_relative_path(value: str) -> str | None:
     try:
         return str(Path(value).resolve().relative_to(WORKSPACE_ROOT.resolve()))
     except (ValueError, OSError):
         return None
-
 
 def add_alias(
     aliases_by_norm: dict[str, list[dict[str, str]]],
@@ -70,7 +69,6 @@ def add_alias(
         return
     existing.append(entry)
     kind_counter[alias_kind] += 1
-
 
 def build_alias_index(
     records: list[dict[str, Any]],
@@ -144,7 +142,6 @@ def build_alias_index(
         "aliases_by_norm": sorted_aliases,
     }
 
-
 def add_facet_posting(
     facet_postings: dict[str, dict[str, list[str]]],
     facet_name: str,
@@ -156,7 +153,6 @@ def add_facet_posting(
     bucket = facet_postings[facet_name].setdefault(facet_value, [])
     if ref not in bucket:
         bucket.append(ref)
-
 
 def build_facet_index(
     records: list[dict[str, Any]],
@@ -213,7 +209,6 @@ def build_facet_index(
         "facets": sorted_facets,
     }
 
-
 def sort_record_ids(
     record_ids: list[str],
     record_map: dict[str, dict[str, Any]],
@@ -230,7 +225,6 @@ def sort_record_ids(
         ),
     )
 
-
 def bundle_payload(
     value: str,
     record_ids: list[str],
@@ -246,7 +240,6 @@ def bundle_payload(
         "total": len(ordered),
         "record_ids": ordered[:NEIGHBOR_LIMIT],
     }
-
 
 def build_neighbor_index(
     records: list[dict[str, Any]],
@@ -335,7 +328,6 @@ def build_neighbor_index(
         "records": dict(sorted(lookup.items())),
     }
 
-
 def build_navigator_manifest(
     records: list[dict[str, Any]],
     dual_route_registry: dict[str, Any],
@@ -362,7 +354,6 @@ def build_navigator_manifest(
         "query_modes": ["record", "search", "facet"],
         "neighbor_limit": neighbor_index.get("neighbor_limit", NEIGHBOR_LIMIT),
     }
-
 
 def build_navigator_payloads(
     records: list[dict[str, Any]],

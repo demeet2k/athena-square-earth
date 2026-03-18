@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S14 | face=S | node=103 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S13→Xi108:W2:A4:S15→Xi108:W1:A4:S14→Xi108:W3:A4:S14→Xi108:W2:A3:S14→Xi108:W2:A5:S14
+
 """
 ATHENA OS - Crystal Computing Operators
 =======================================
@@ -52,7 +56,6 @@ from .lattice import CrystalCell, Constant, Shape, Element, Level, Pole
 from .kappa import KappaField, ConservationType
 from .states import AethericState, FieldData
 
-
 # =============================================================================
 # κ SPECIFICATION
 # =============================================================================
@@ -63,7 +66,6 @@ class KappaBehavior(Enum):
     DISSIPATE = "dissipate"     # Δκ < 0
     AMPLIFY = "amplify"         # Δκ > 0 (only Inner-Shadow)
     TRANSFER = "transfer"       # Redistributes κ
-
 
 @dataclass
 class KappaSpec:
@@ -79,7 +81,6 @@ class KappaSpec:
     def is_conserving(self) -> bool:
         """Check if operator is κ-conserving."""
         return self.behavior == KappaBehavior.PRESERVE and self.max_loss == 0.0
-
 
 # =============================================================================
 # COST MODEL
@@ -106,7 +107,6 @@ class CostModel:
     def total_cost(self, size: int = 1) -> float:
         """Estimate total cost."""
         return self.kappa_cost + self.texture_cost
-
 
 # =============================================================================
 # ABSTRACT CRYSTAL OPERATOR
@@ -155,7 +155,6 @@ class CrystalOperator(ABC):
     def __repr__(self) -> str:
         return f"{self.name}"
 
-
 # =============================================================================
 # PRIMITIVE OPERATORS
 # =============================================================================
@@ -172,7 +171,6 @@ class IdentityOperator(CrystalOperator):
     def apply(self, state: AethericState) -> AethericState:
         return state.clone()
 
-
 class PhaseOperator(CrystalOperator):
     """Phase rotation e^{iθ}."""
     
@@ -188,7 +186,6 @@ class PhaseOperator(CrystalOperator):
         phase = cmath.exp(1j * self.theta)
         result.field_data.values = [v * phase for v in result.field_data.values]
         return result
-
 
 class ScaleOperator(CrystalOperator):
     """Scale operator (φ-based)."""
@@ -207,7 +204,6 @@ class ScaleOperator(CrystalOperator):
         result.normalize()
         return result
 
-
 class ExponentialOperator(CrystalOperator):
     """Exponential/growth operator (e-based)."""
     
@@ -224,7 +220,6 @@ class ExponentialOperator(CrystalOperator):
         result.field_data.values = [v * factor for v in result.field_data.values]
         result.normalize()
         return result
-
 
 class HadamardOperator(CrystalOperator):
     """Hadamard gate (superposition creator)."""
@@ -263,7 +258,6 @@ class HadamardOperator(CrystalOperator):
         
         return result
 
-
 class ProjectionOperator(CrystalOperator):
     """Projection onto subspace."""
     
@@ -286,7 +280,6 @@ class ProjectionOperator(CrystalOperator):
             result.normalize()
         
         return result
-
 
 # =============================================================================
 # COMPOSED OPERATOR
@@ -328,7 +321,6 @@ class ComposedOperator(CrystalOperator):
             result = op.apply(result)
         return result
 
-
 # =============================================================================
 # OPERATOR REGISTRY
 # =============================================================================
@@ -366,7 +358,6 @@ class OperatorRegistry:
     def count(self) -> int:
         """Count total operators."""
         return sum(len(ops) for ops in self._operators.values())
-
 
 # =============================================================================
 # OPERATOR FACTORY
@@ -425,7 +416,6 @@ class OperatorFactory:
         factor = params.get('factor', 1 / PHI)
         return ScaleOperator(factor, cell)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -469,7 +459,6 @@ def validate_operators() -> bool:
     assert isinstance(op, PhaseOperator)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Crystal Computing Operators...")

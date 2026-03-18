@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S22 | face=R | node=243 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S21→Xi108:W3:A9:S23→Xi108:W2:A9:S22→Xi108:W3:A8:S22→Xi108:W3:A10:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 9/12 -->
+
 # Fire x JourneyGrowth
 
 Fire reads the network as ignition, decision, risk concentration, and decisive transformation.

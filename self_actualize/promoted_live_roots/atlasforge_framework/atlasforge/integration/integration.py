@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=414 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        UNIFIED INTEGRATION MODULE                            ║
@@ -33,7 +37,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE TYPES AND WEIGHTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -44,7 +47,6 @@ class Pole(Enum):
     OMEGA = "oscillatory"  # Water - Oscillatory, Wave-like
     SIGMA = "stochastic"   # Fire - Stochastic, Probabilistic
     PSI = "recursive"      # Air - Recursive, Hierarchical
-
 
 @dataclass
 class PoleWeights:
@@ -110,7 +112,6 @@ class PoleWeights:
     def lerp(self, other: 'PoleWeights', t: float) -> 'PoleWeights':
         """Linear interpolation between weight configurations."""
         return PoleWeights.from_array((1 - t) * self.as_array + t * other.as_array)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIFIED STATE
@@ -230,7 +231,6 @@ class UnifiedState:
         p = self.cloud
         mask = p > 0
         return -np.sum(p[mask] * np.log(p[mask]))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CROSS-POLE CONNECTORS
@@ -399,7 +399,6 @@ class CrossPoleConnector:
         result.append(current)
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID PATH
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -411,7 +410,6 @@ class HybridPathStep:
     to_pole: Pole
     transformation: str  # Description
     cost: float = 1.0
-
 
 @dataclass
 class HybridPath:
@@ -445,7 +443,6 @@ class HybridPath:
     def is_shortcut(self, single_pole_cost: float) -> bool:
         """Check if this path is a shortcut vs single-pole evolution."""
         return self.total_cost < single_pole_cost
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SHORTCUT DETECTOR
@@ -536,7 +533,6 @@ class ShortcutDetector:
             cost += self.estimate_single_pole_cost(initial, target, pole_sequence[-1]) / 2
         
         return cost
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIFIED SOLVER
@@ -668,7 +664,6 @@ class UnifiedSolver:
             'converged': iteration + 1 < max_iterations
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -677,22 +672,18 @@ def create_unified_state(dimension: int, kappa: float = 1.0) -> UnifiedState:
     """Create new unified state."""
     return UnifiedState(dimension=dimension, kappa=kappa)
 
-
 def pole_weights(d: float = 0.25, omega: float = 0.25, 
                 sigma: float = 0.25, psi: float = 0.25) -> PoleWeights:
     """Create pole weights."""
     return PoleWeights(d=d, omega=omega, sigma=sigma, psi=psi)
 
-
 def diagnose_state(state: UnifiedState) -> Dict[str, Any]:
     """Diagnose unified state."""
     return UnifiedSolver().diagnose(state)
 
-
 def find_shortcut(initial: UnifiedState, target: UnifiedState) -> Optional[HybridPath]:
     """Find shortcut path between states."""
     return ShortcutDetector().find_shortcut_path(initial, target)
-
 
 def hybrid_evolution(state: UnifiedState, weights: PoleWeights, 
                     steps: int = 10) -> UnifiedState:
@@ -702,7 +693,6 @@ def hybrid_evolution(state: UnifiedState, weights: PoleWeights,
     for _ in range(steps):
         current = solver.apply_operator(current, weights)
     return current
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

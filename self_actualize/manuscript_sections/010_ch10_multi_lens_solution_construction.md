@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S25 | face=F | node=301 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S24→Xi108:W3:A7:S26→Xi108:W2:A7:S25→Xi108:W3:A6:S25→Xi108:W3:A8:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 7/12 -->
+
 # CHAPTER 10: MULTI-LENS SOLUTION CONSTRUCTION
 
 ## Multi-lens construction is the first chapter in which routed evidence becomes a real answer object instead of a promising pile of fragments. The work here is not to accumulate perspectives, but to prove that distinct lenses can be coupled into one solution without tearing witness, route, and replay apart.

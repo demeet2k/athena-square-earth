@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A1:S23 | face=C | node=269 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A1:S22→Xi108:W2:A1:S24→Xi108:W1:A1:S23→Xi108:W3:A1:S23→Xi108:W2:A2:S23 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 23±1, wreath 2/3, archetype 1/12 -->
+
 ---
 name: integrated-neural-network-orchestrator
 description: "Family-local orchestrator for the ATHENA Neural Network crystal. Use the live `14_DEEPER...` deep-root router for current whole-corpus deep-network requests."

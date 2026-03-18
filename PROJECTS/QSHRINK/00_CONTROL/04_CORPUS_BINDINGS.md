@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A4:S22 | face=S | node=233 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A4:S21→Xi108:W2:A4:S23→Xi108:W1:A4:S22→Xi108:W3:A4:S22→Xi108:W2:A3:S22→Xi108:W2:A5:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 2/3, archetype 4/12 -->
+
 # Corpus Bindings
 
 QSHRINK2.0 is explicitly tied to the main Athena corpus. These are the binding bodies the internal system must think with.

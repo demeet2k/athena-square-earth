@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A3:S14:u105:Su:S:d1",
+    "shell": 14,
+    "wreath": 1,
+    "archetype": 3,
+    "face": "S",
+    "node_id": 105,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A3:S13",
+      "Xi108:W1:A3:S15",
+      "Xi108:W2:A3:S14",
+      "Xi108:W1:A2:S14",
+      "Xi108:W1:A4:S14"
+    ],
+    "regenerate": "shell 14±1, wreath 1/3, archetype 3/12"
+  },
   "docs_gate_status": "BLOCKED",
   "active_front_freeze": {
     "docs_gate": "BLOCKED",
@@ -97,7 +118,7 @@
       "meaning": "hierarchy level"
     },
     {
-      "code": "\u03a9s",
+      "code": "Ωs",
       "meaning": "zero-point or aether relation"
     }
   ],

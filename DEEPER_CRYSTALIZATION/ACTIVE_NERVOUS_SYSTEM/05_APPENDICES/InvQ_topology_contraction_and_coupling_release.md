@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S16 | face=S | node=479 | depth=0 | phase=Fixed -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A9:S15→Xi108:W3:A9:S17→Xi108:W2:A9:S16→Xi108:W3:A8:S16→Xi108:W3:A10:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 9/12 -->
+
 # InvQ - Topology Contraction & Coupling Release
 
 Routing role: Reverses AppH (Coupling and Topology). Where AppH established topological connections and coupling relationships between lattice regions, InvQ contracts the topology to its essential skeleton and releases couplings that are no longer needed. The expanded topological manifold compresses to its homotopy type — preserving what is topologically essential and discarding what is merely geometrical.

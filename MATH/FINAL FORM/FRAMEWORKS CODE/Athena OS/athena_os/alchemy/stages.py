@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - ALCHEMY MODULE: STAGES
 ==================================
@@ -60,7 +64,6 @@ import numpy as np
 
 from .elements import ElementalState, ElementalSimplex, Element
 
-
 # =============================================================================
 # STAGE DEFINITIONS
 # =============================================================================
@@ -73,7 +76,6 @@ class Stage(IntEnum):
     CITRINITAS = 2   # Yellowing - Awakening
     RUBEDO = 3       # Reddening - Integration
 
-
 class StageColor(Enum):
     """Colors associated with each stage."""
     
@@ -81,7 +83,6 @@ class StageColor(Enum):
     WHITE = "white"   # Albedo
     YELLOW = "yellow" # Citrinitas
     RED = "red"       # Rubedo
-
 
 # =============================================================================
 # STAGE PROPERTIES
@@ -144,7 +145,6 @@ class StageProperties:
         """Check if state is within this stage's basin."""
         return self.distance_to_center(state) < self.basin_radius
 
-
 # Stage definitions
 NIGREDO = StageProperties(
     stage=Stage.NIGREDO,
@@ -200,7 +200,6 @@ STAGES: Dict[Stage, StageProperties] = {
     Stage.CITRINITAS: CITRINITAS,
     Stage.RUBEDO: RUBEDO
 }
-
 
 # =============================================================================
 # STAGE STATE
@@ -269,7 +268,6 @@ class AlchemicalProgress:
     def get_total_progress(self) -> float:
         """Get total progress through all stages [0, 4]."""
         return self.current_stage.value + self.stage_progress
-
 
 # =============================================================================
 # STAGE DYNAMICS
@@ -400,7 +398,6 @@ class StageDynamics:
         
         return False
 
-
 # =============================================================================
 # GREAT WORK
 # =============================================================================
@@ -422,7 +419,6 @@ class GreatWorkResult:
         return (self.success and 
                 self.final_stage == Stage.RUBEDO and
                 self.final_state.is_balanced(threshold=0.05))
-
 
 class GreatWork:
     """
@@ -523,7 +519,6 @@ class GreatWork:
         
         return state, progress.stage_progress
 
-
 # =============================================================================
 # STAGE OPERATORS
 # =============================================================================
@@ -549,7 +544,6 @@ class NigredoOperator:
         
         return ElementalState.from_vector(v)
 
-
 class AlbedoOperator:
     """
     Albedo operation - purification and washing.
@@ -569,7 +563,6 @@ class AlbedoOperator:
         v = ElementalSimplex.project_to_simplex(v)
         
         return ElementalState.from_vector(v)
-
 
 class CitrinitasOperator:
     """
@@ -591,7 +584,6 @@ class CitrinitasOperator:
         
         return ElementalState.from_vector(v)
 
-
 class RubedoOperator:
     """
     Rubedo operation - final integration.
@@ -612,14 +604,12 @@ class RubedoOperator:
         
         return ElementalState.from_vector(v)
 
-
 STAGE_OPERATORS = {
     Stage.NIGREDO: NigredoOperator,
     Stage.ALBEDO: AlbedoOperator,
     Stage.CITRINITAS: CitrinitasOperator,
     Stage.RUBEDO: RubedoOperator
 }
-
 
 # =============================================================================
 # VALIDATION
@@ -675,7 +665,6 @@ def validate_stages() -> bool:
     assert len(result.trajectory) > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Stages Module...")

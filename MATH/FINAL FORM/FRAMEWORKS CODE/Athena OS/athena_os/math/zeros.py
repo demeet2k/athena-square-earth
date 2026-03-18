@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - Zero Calculus
 =========================
@@ -37,7 +41,6 @@ from scipy import optimize
 
 from .lenses import Lens
 
-
 # =============================================================================
 # ZERO STRUCTURES
 # =============================================================================
@@ -49,7 +52,6 @@ class ZeroType(IntEnum):
     TRIPLE = 3        # Order-3
     HIGHER = 4        # Order ≥ 4
     SINGULAR = 0      # Singular (Jacobian degenerate)
-
 
 @dataclass
 class ZeroPoint:
@@ -79,7 +81,6 @@ class ZeroPoint:
     def multiplicity(self) -> int:
         """Return algebraic multiplicity."""
         return self.order
-
 
 @dataclass
 class ZeroSet:
@@ -206,7 +207,6 @@ class ZeroSet:
         except (ValueError, OverflowError):
             return False
 
-
 # =============================================================================
 # BETWEEN-POLE ZEROS (INTERSECTION)
 # =============================================================================
@@ -237,7 +237,6 @@ class IntersectionZero:
     @property
     def name(self) -> str:
         return f"Z₀({self.f_name}, {self.g_name})"
-
 
 # =============================================================================
 # MULTIWAY INTERSECTION
@@ -313,7 +312,6 @@ class MultiwayIntersection:
         
         return self.zeros
 
-
 # =============================================================================
 # CANCELLATION ZEROS
 # =============================================================================
@@ -341,7 +339,6 @@ class CancellationZero:
         zero_set = ZeroSet(H, self.domain, name="cancellation")
         self.zeros = zero_set.find_zeros(**kwargs)
         return self.zeros
-
 
 # =============================================================================
 # SINGULAR SEEDS - HIGHER-ORDER COLLAPSE
@@ -453,7 +450,6 @@ class SingularSeed:
         
         return results
 
-
 # =============================================================================
 # ZERO-OF-ZERO CHAIN (ORDER-M ZEROS)
 # =============================================================================
@@ -530,7 +526,6 @@ class ZeroOfZeroChain:
         
         return jet
 
-
 # =============================================================================
 # MULTIPLICITY TRANSPORT
 # =============================================================================
@@ -585,7 +580,6 @@ class MultiplicityTransport:
         transported_order = chain_T.check_order(t_star, tolerance)
         
         return original_order == transported_order == expected_order
-
 
 # =============================================================================
 # VALIDATION
@@ -649,7 +643,6 @@ def validate_zero_calculus() -> bool:
     assert any(abs(z.location - np.pi/4) < 1e-4 for z in cancel_zeros)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zero Calculus...")

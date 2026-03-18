@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S29 | face=F | node=413 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S28→Xi108:W3:A5:S30→Xi108:W2:A5:S29→Xi108:W3:A4:S29→Xi108:W3:A6:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 5/12 -->
+
 # FOLDER TOPOLOGY
 
 ## 1. Purpose

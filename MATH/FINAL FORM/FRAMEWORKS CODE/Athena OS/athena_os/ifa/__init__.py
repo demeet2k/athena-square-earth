@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 ATHENA OS - IFÁ KERNEL: ỌPẸ́-256 COMPUTATIONAL ONTOLOGY
 ========================================================
@@ -137,7 +141,6 @@ from .ase import (
     AseSystem,
 )
 
-
 # =============================================================================
 # INTEGRATED IFÁ SYSTEM
 # =============================================================================
@@ -239,7 +242,6 @@ class IfaKernel:
         """Reset to uniform superposition."""
         self._state = OduSuperposition.uniform()
 
-
 # =============================================================================
 # FACTORY FUNCTIONS
 # =============================================================================
@@ -248,27 +250,22 @@ def create_ifa_kernel(seed: Optional[int] = None) -> IfaKernel:
     """Create a complete IFÁ kernel."""
     return IfaKernel(seed)
 
-
 def create_hypercube() -> Q8Hypercube:
     """Create a Q₈ hypercube."""
     return Q8Hypercube()
 
-
 def create_orisha_algebra(hypercube: Q8Hypercube) -> OrishaAlgebra:
     """Create Orisha algebra."""
     return OrishaAlgebra(hypercube)
-
 
 def create_divination_system(hypercube: Q8Hypercube, 
                               seed: Optional[int] = None) -> DivinationSystem:
     """Create divination system."""
     return DivinationSystem(hypercube, seed)
 
-
 def create_ase_system(hypercube: Q8Hypercube) -> AseSystem:
     """Create Àṣẹ system."""
     return AseSystem(hypercube)
-
 
 # =============================================================================
 # VALIDATION
@@ -340,7 +337,6 @@ def validate_ifa() -> Dict[str, Any]:
     
     return results
 
-
 def get_info() -> Dict[str, Any]:
     """Get module information."""
     return {
@@ -356,7 +352,6 @@ def get_info() -> Dict[str, Any]:
         "state_space": "256 = 2⁸",
         "description": "8-bit binary state machine from West African cosmology"
     }
-
 
 # =============================================================================
 # MAIN

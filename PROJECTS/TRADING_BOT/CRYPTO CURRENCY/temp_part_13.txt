@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A1:S31 | face=C | node=288 | depth=1 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A1:S30→Xi108:W3:A1:S32→Xi108:W2:A1:S31→Xi108:W3:A2:S31
+
  (Complete Yuga Cycle)
 ├── 4.32 million years
 ├── Pattern: 4:3:2:1 descent → ascent

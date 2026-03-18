@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A4:S25 | face=F | node=314 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A4:S24→Xi108:W2:A4:S26→Xi108:W1:A4:S25→Xi108:W3:A4:S25→Xi108:W2:A3:S25→Xi108:W2:A5:S25
+
 from __future__ import annotations
 
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 GUILD_HALL_ROOT = WORKSPACE_ROOT / "self_actualize" / "mycelium_brain" / "GLOBAL_EMERGENT_GUILD_HALL"
@@ -100,10 +103,8 @@ MOVE_PHRASES = {
     },
 }
 
-
 def utc_today() -> str:
     return datetime.now(timezone.utc).date().isoformat()
-
 
 def quest_lines(index: int, domain: dict, move: str, lens: str) -> list[str]:
     lens_info = LENS_PHRASES[lens]
@@ -123,7 +124,6 @@ def quest_lines(index: int, domain: dict, move: str, lens: str) -> list[str]:
         f"- Restart seed: {domain['restart']}",
         "",
     ]
-
 
 def build_text() -> str:
     lines = [
@@ -211,12 +211,10 @@ def build_text() -> str:
     )
     return "\n".join(lines) + "\n"
 
-
 def main() -> int:
     OUTPUT_PATH.write_text(build_text(), encoding="utf-8")
     print(f"Wrote qshrink connectivity crystal: {OUTPUT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

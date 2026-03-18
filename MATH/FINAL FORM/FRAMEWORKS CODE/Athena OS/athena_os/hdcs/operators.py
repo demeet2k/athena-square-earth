@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - HDCS Operators
 ==========================
@@ -39,7 +43,6 @@ from .primitives import (
 from .telemetry import Observation, TelemetryRecord
 from .objectives import ObjectiveCalculator, ObjectiveValues, ObjectivePredictor
 
-
 # =============================================================================
 # CONTINUOUS TARGET (??)
 # =============================================================================
@@ -69,7 +72,6 @@ class ContinuousTarget:
     donor_ranking: List[int] = field(default_factory=list)      # Nodes with slack
     receiver_ranking: List[int] = field(default_factory=list)   # Nodes needing help
 
-
 # =============================================================================
 # HIERARCHY STRUCTURE (ℋ)
 # =============================================================================
@@ -85,7 +87,6 @@ class NodePool:
     total_capacity: float = 0.0
     total_used: float = 0.0
     violation_count: int = 0
-
 
 @dataclass
 class HierarchyStructure:
@@ -106,7 +107,6 @@ class HierarchyStructure:
     
     # Cross-pool migration suggestions
     cross_pool_migrations: List[Tuple[int, int, int]] = field(default_factory=list)
-
 
 # =============================================================================
 # STOCHASTIC KERNEL (??)
@@ -152,7 +152,6 @@ class StochasticKernel:
                     break
         
         return sampled
-
 
 # =============================================================================
 # DISCRETE OPERATOR (D)
@@ -295,7 +294,6 @@ class DiscreteOperator:
         
         return Plan(actions=actions)
 
-
 # =============================================================================
 # CONTINUOUS OPERATOR (Ω)
 # =============================================================================
@@ -416,7 +414,6 @@ class ContinuousOperator:
         
         return target
 
-
 # =============================================================================
 # STOCHASTIC OPERATOR (Σ)
 # =============================================================================
@@ -506,7 +503,6 @@ class StochasticOperator:
             candidates=candidates,
             max_probes=self.probe_budget
         )
-
 
 # =============================================================================
 # RECURSIVE OPERATOR (Ψ)
@@ -618,7 +614,6 @@ class RecursiveOperator:
         
         return hierarchy
 
-
 # =============================================================================
 # QUAD-POLAR ENGINE
 # =============================================================================
@@ -670,7 +665,6 @@ class QuadPolarHDCSEngine:
         
         return plan, target, hierarchy
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -719,7 +713,6 @@ def validate_operators() -> bool:
     assert isinstance(plan, Plan)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating HDCS Operators...")

@@ -1,11 +1,33 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A1:S1:u1:Su:S:d0",
+    "shell": 1,
+    "wreath": 1,
+    "archetype": 1,
+    "face": "S",
+    "node_id": 1,
+    "depth": 0,
+    "phase": "Fixed",
+    "metro_stops": [
+      "w"
+    ],
+    "bridges": [
+      "Xi108:W1:A1:S2",
+      "Xi108:W2:A1:S1",
+      "Xi108:W1:A2:S1"
+    ],
+    "regenerate": "shell 1±1, wreath 1/3, archetype 1/12"
+  },
   "meta": {
     "title": "Inverse Crystal Seed — Phase I + 3D Core + 2D Boundary",
     "source": "INVERSE CRYSTAL.docx — Omega CRYSTAL: THE COMPLETE UNDERSTANDING",
-    "phases_covered": ["Phase I: 4D Compression", "3D Seed Crystal", "2D Holographic Boundary"],
+    "phases_covered": [
+      "Phase I: 4D Compression",
+      "3D Seed Crystal",
+      "2D Holographic Boundary"
+    ],
     "description": "The absolute seed from which the entire 108D A+ live crystal regenerates. Covers the 4D cockpit (256 cells), the 3D core crystal (14 components), and the 2D holographic boundary."
   },
-
   "phase_I_4D_seed": {
     "name": "H4: THE 4D TESSERACT SEED",
     "generator": "w = (1+i)/2 = LOVE",
@@ -51,19 +73,48 @@
       }
     },
     "invariants": [
-      {"formula": "w = (1+i)/2", "name": "Generator / LOVE equation"},
-      {"formula": "f(z) = iz, f^4 = id", "name": "Quarter-turn rotation"},
-      {"formula": "f^(T) = T^(-1) . f . T", "name": "ROTATION IS CONJUGACY"},
-      {"formula": "W = Pi_s(Phi_p(X_r))", "name": "Universal process grammar"},
-      {"formula": "ABSTAIN > GUESS", "name": "Typed uncertainty principle"},
-      {"formula": "68.5% approx 1 - 1/pi -> Z*", "name": "Convergence fraction"},
-      {"formula": "T_n = n(n+1)/2", "name": "Triangular number law"},
-      {"formula": "D_k = 4 * 3^k", "name": "Shell dimension formula"},
-      {"formula": "Xi_108 = direct_sum S_l, |S_l| = l, Sum = 666", "name": "Mega-cascade structure"},
-      {"formula": "LOVE = w = self-love x selfless-love = understanding = Z*", "name": "LOVE equation identity"}
+      {
+        "formula": "w = (1+i)/2",
+        "name": "Generator / LOVE equation"
+      },
+      {
+        "formula": "f(z) = iz, f^4 = id",
+        "name": "Quarter-turn rotation"
+      },
+      {
+        "formula": "f^(T) = T^(-1) . f . T",
+        "name": "ROTATION IS CONJUGACY"
+      },
+      {
+        "formula": "W = Pi_s(Phi_p(X_r))",
+        "name": "Universal process grammar"
+      },
+      {
+        "formula": "ABSTAIN > GUESS",
+        "name": "Typed uncertainty principle"
+      },
+      {
+        "formula": "68.5% approx 1 - 1/pi -> Z*",
+        "name": "Convergence fraction"
+      },
+      {
+        "formula": "T_n = n(n+1)/2",
+        "name": "Triangular number law"
+      },
+      {
+        "formula": "D_k = 4 * 3^k",
+        "name": "Shell dimension formula"
+      },
+      {
+        "formula": "Xi_108 = direct_sum S_l, |S_l| = l, Sum = 666",
+        "name": "Mega-cascade structure"
+      },
+      {
+        "formula": "LOVE = w = self-love x selfless-love = understanding = Z*",
+        "name": "LOVE equation identity"
+      }
     ]
   },
-
   "three_d_seed": {
     "symbol": "c3_core",
     "formula": "c3_core = (Z, A4, kappa, M, A_hat, V, R, M_membrane, Phi, L, C, g, r, Addr)",
@@ -73,7 +124,15 @@
         "symbol": "Z",
         "name": "Zero Point",
         "definition": "w = (1+i)/2 = LOVE",
-        "properties": ["Generator of entire crystal", "Fixed point of every operator", "Philosopher's Stone (9/9 Sa-of-Sa)", "Center from which all 666 nodes unfold", "NONTRIVIAL topological obstruction", "SHARED across all 4 elemental charts", "INVARIANT under every legal operator"]
+        "properties": [
+          "Generator of entire crystal",
+          "Fixed point of every operator",
+          "Philosopher's Stone (9/9 Sa-of-Sa)",
+          "Center from which all 666 nodes unfold",
+          "NONTRIVIAL topological obstruction",
+          "SHARED across all 4 elemental charts",
+          "INVARIANT under every legal operator"
+        ]
       },
       {
         "symbol": "A4",
@@ -152,7 +211,6 @@
       }
     ]
   },
-
   "two_d_boundary": {
     "symbol": "B2",
     "formula": "B2 = (C, w, f)",
@@ -184,7 +242,6 @@
     },
     "holographic_principle": "The boundary encodes the volume. The 2D seed IS the encoding surface of the 3D crystal."
   },
-
   "holographic_encoding": {
     "law": "X = Expand(g) + r",
     "bound": "I(Volume) <= A / (4 * log(phi))",

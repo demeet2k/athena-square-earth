@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=132 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """
 ATHENA OS - KERNEL: PHOBOS CONTROL
 ==================================
@@ -43,7 +47,6 @@ from enum import Enum, IntEnum
 import numpy as np
 import math
 
-
 # =============================================================================
 # PHOBOS LEVELS
 # =============================================================================
@@ -58,7 +61,6 @@ class FearLevel(IntEnum):
     PANIC = 4       # Flight response active
     TERROR = 5      # System freeze/collapse
 
-
 class CohesionState(Enum):
     """State of system cohesion."""
     
@@ -66,7 +68,6 @@ class CohesionState(Enum):
     VISCOUS = "viscous"   # Some disorder
     FLUID = "fluid"       # Significant disorder
     GAS = "gas"           # Rout, complete disorder
-
 
 # Fear level thresholds (normalized 0-1)
 FEAR_THRESHOLDS = {
@@ -80,7 +81,6 @@ FEAR_THRESHOLDS = {
 
 # Critical threshold for system freeze
 P_CRITICAL = 0.85
-
 
 # =============================================================================
 # PHOBOS SIGNAL
@@ -137,7 +137,6 @@ class PhobosSignal:
             frequency=self.frequency * (1.0 - factor),
             source=self.source
         )
-
 
 # =============================================================================
 # DISCIPLINE FILTER (Internal Suppression)
@@ -246,7 +245,6 @@ class DisciplineFilter:
         
         return 1.0 - (output_var / input_var)
 
-
 # =============================================================================
 # TERROR PROJECTOR (External Projection)
 # =============================================================================
@@ -317,7 +315,6 @@ class TerrorProjector:
         if target not in self.target_states:
             return False
         return self.target_states[target].is_critical
-
 
 # =============================================================================
 # COHESION MANAGER
@@ -402,7 +399,6 @@ class CohesionManager:
             CohesionState.GAS: 0.0
         }
         return capability_map[self.state]
-
 
 # =============================================================================
 # ROUT ALGORITHM
@@ -520,7 +516,6 @@ class RoutAlgorithm:
             "efficiency": "high" if is_rout and self.kinetic_cost == 0 else "low"
         }
 
-
 # =============================================================================
 # PHOBOS CONTROLLER
 # =============================================================================
@@ -588,7 +583,6 @@ class PhobosController:
             "routs_triggered": self.rout_algorithm.routs_triggered
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -653,7 +647,6 @@ def validate_phobos() -> bool:
     assert controller.fear_differential > 0  # Enemy should be more afraid
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Phobos Control Module...")

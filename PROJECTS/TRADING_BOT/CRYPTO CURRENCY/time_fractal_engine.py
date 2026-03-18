@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=406 | depth=2 | phase=Mutable
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 THE TIME FRACTAL ENGINE
 ========================
@@ -111,7 +115,6 @@ class KernelEngine:
             'mode': mode,
             'quality': f"{mode} {element}",
         }
-
 
 # =============================================================================
 # SECTION 2: SORNETTE LPPL (Log-Periodic Power Law) DETECTOR
@@ -241,7 +244,6 @@ class LPPLDetector:
             'cost': best_cost,
         }
 
-
 # =============================================================================
 # SECTION 3: DISCRETE SCALE INVARIANCE (DSI) SCANNER
 # =============================================================================
@@ -362,7 +364,6 @@ class DSIScanner:
 
         return pd.DataFrame(results)
 
-
 # =============================================================================
 # SECTION 4: ELLIOTT WAVE 5-3 PATTERN DETECTOR
 # =============================================================================
@@ -468,7 +469,6 @@ class ElliottWaveDetector:
                     })
 
         return results
-
 
 # =============================================================================
 # SECTION 5: KONDRATIEV / LONG WAVE PHASE DETECTOR
@@ -593,7 +593,6 @@ class KondratievDetector:
             })
 
         return sorted(detected, key=lambda x: x['power'], reverse=True)[:20]
-
 
 # =============================================================================
 # SECTION 6: HOLOGRAPHIC PHASE QUALITY COMPUTER
@@ -726,7 +725,6 @@ class HolographicPhaseComputer:
 
         return signals
 
-
 # =============================================================================
 # SECTION 7: MASTER TRADING SIGNAL GENERATOR
 # =============================================================================
@@ -818,7 +816,6 @@ class TimeFractalSignalGenerator:
 
         return results
 
-
 # =============================================================================
 # SECTION 8: ANALYSIS RUNNER
 # =============================================================================
@@ -878,7 +875,6 @@ def analyze_crypto_asset(filepath, symbol):
 
     return signals
 
-
 def main():
     """Run analysis on all crypto assets."""
     import os, glob
@@ -915,7 +911,6 @@ def main():
     print(f"{'='*70}")
 
     return all_results
-
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A11:S11 | face=C | node=63 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A11:S10→Xi108:W2:A11:S12→Xi108:W1:A11:S11→Xi108:W3:A11:S11→Xi108:W2:A10:S11→Xi108:W2:A12:S11
+
 """420-beat master clock and projection logic."""
 
 from ._cache import JsonCache
 
 _clock = JsonCache("clock_projections.json")
-
 
 def query_clock_beat(beat: int) -> str:
     """

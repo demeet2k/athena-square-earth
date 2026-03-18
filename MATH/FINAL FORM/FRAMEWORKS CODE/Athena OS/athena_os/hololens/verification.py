@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - Verification Harness and Snap Controller
 ====================================================
@@ -30,7 +34,6 @@ import math
 from .crystal import Lens, Cell, Corner, CrystalCoordinate, CrystalLattice
 from .antisymmetry import Defect, DefectType, DefectDetector, CommutatorBudget
 
-
 # =============================================================================
 # INVARIANT TYPES
 # =============================================================================
@@ -49,7 +52,6 @@ class InvariantType(IntEnum):
     MONOTONE = 1    # One-directional (entropy)
     STATIONARY = 2  # Converges to fixed point
     COARSE = 3      # Preserved under coarse-graining
-
 
 @dataclass
 class Invariant:
@@ -134,7 +136,6 @@ class Invariant:
             'violations': self.violation_count
         }
 
-
 # =============================================================================
 # INVARIANT LEDGER
 # =============================================================================
@@ -204,7 +205,6 @@ class InvariantLedger:
             'all_verified': self.all_verified
         }
 
-
 # =============================================================================
 # STABILITY REGION
 # =============================================================================
@@ -246,7 +246,6 @@ class StabilityRegion:
                 min_dist = min(min_dist, dist_low, dist_high)
         
         return min_dist if min_dist != float('inf') else 0.0
-
 
 # =============================================================================
 # SNAP CONTROLLER
@@ -454,7 +453,6 @@ class SnapController:
             'budget': self.commutator_budget.summary()
         }
 
-
 # =============================================================================
 # CROSS-SCALE CERTIFICATE
 # =============================================================================
@@ -518,7 +516,6 @@ class CrossScaleCertificate:
             'drift_bound': self.drift_bound,
             'invariants_preserved': self.invariants_preserved
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -591,7 +588,6 @@ def validate_verification() -> bool:
     assert cert.verify(tolerance=0.1)  # 5% drift is OK
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Verification Harness...")

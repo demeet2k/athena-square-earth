@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A6:S17 | face=C | node=145 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A6:S16→Xi108:W2:A6:S18→Xi108:W1:A6:S17→Xi108:W3:A6:S17→Xi108:W2:A5:S17→Xi108:W2:A7:S17
+
 """12D organ atlas with 6 bilateral dyads."""
 
 from ._cache import JsonCache
 
 _organs = JsonCache("organ_atlas.json")
-
 
 def query_organ(organ_name: str) -> str:
     """
@@ -59,7 +62,6 @@ def query_organ(organ_name: str) -> str:
         + "\n".join(f"  - {n}" for n in all_names)
         + "\n\nOr use dyad index 1-6, petal 7-9 for crown closures."
     )
-
 
 def _format_dyad(dyad: dict, data: dict) -> str:
     left = dyad["left"]

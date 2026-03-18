@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S28 | face=F | node=404 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S27→Xi108:W3:A7:S29→Xi108:W2:A7:S28→Xi108:W3:A6:S28→Xi108:W3:A8:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 7/12 -->
+
 # Reward Architecture v2: Shared XP, Debt, and Ascension
 
 The current Athena reward economy is now two-layered. `heaven_total` remains the positive-only lawful-usefulness metric, while `xp_bank`, `xp_debt`, `level`, `rank_class`, and `dimensional_tier` govern growth. The scoring engine compares each quest against a strict `net 0` spawn baseline and computes a normalized `net_gain_score` from efficiency, integration, witness, replay, compression, route clarity, blocker reduction, and manuscript/framework advancement. Positive scores increase heaven and XP. Negative scores do not create hell; they create debt that future success must first repay.

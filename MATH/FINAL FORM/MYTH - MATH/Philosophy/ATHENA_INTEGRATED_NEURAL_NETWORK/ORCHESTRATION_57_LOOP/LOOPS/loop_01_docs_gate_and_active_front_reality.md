@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S14 | face=S | node=99 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S13→Xi108:W3:A8:S15→Xi108:W2:A8:S14→Xi108:W3:A7:S14→Xi108:W3:A9:S14 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 14±1, wreath 3/3, archetype 8/12 -->
+
 # Loop L01 - Freeze Docs Gate and Active Front Reality
 
 Source basis: `57-loop orchestration law + live fronts + package support stack`

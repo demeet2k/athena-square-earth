@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=429 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 from __future__ import annotations
 
 import json
@@ -13,7 +17,6 @@ from .derive_bruno_stale_reference_sweep import (
     OUTPUT_JSON_PATH as REGISTRY_PATH,
     TOKEN_MAP,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -34,36 +37,29 @@ LOOP_STATE_PATH = SELF_ACTUALIZE_ROOT / "adventurer_loop_state.json"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_bruno_stale_reference_sweep"
 DERIVATION_VERSION = "2026-03-13.bruno-stale-reference-sweep.verify.v1"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def docs_gate_status() -> str:
     credentials = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
     token = WORKSPACE_ROOT / "Trading Bot" / "token.json"
     return "READY" if credentials.exists() and token.exists() else "BLOCKED"
 
-
 def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     try:
         return {"label": label, "status": "OK", "details": fn()}
     except Exception as exc:  # noqa: BLE001
         return {"label": label, "status": "FAIL", "details": str(exc)}
-
 
 def scan_occurrences() -> list[tuple[str, str]]:
     matches: list[tuple[str, str]] = []
@@ -76,7 +72,6 @@ def scan_occurrences() -> list[tuple[str, str]]:
                 matches.append((source_path, old_ref))
     return matches
 
-
 def verify_registry_coverage() -> dict[str, Any]:
     registry = load_json(REGISTRY_PATH)
     actual_pairs = scan_occurrences()
@@ -87,7 +82,6 @@ def verify_registry_coverage() -> dict[str, Any]:
         "scan_occurrence_count": len(actual_pairs),
     }
 
-
 def verify_live_meta_surfaces_clean() -> dict[str, Any]:
     failures: list[str] = []
     for path in META_SURFACES:
@@ -97,7 +91,6 @@ def verify_live_meta_surfaces_clean() -> dict[str, Any]:
             failures.append(f"{path.relative_to(WORKSPACE_ROOT).as_posix()} -> {hits}")
     ensure(not failures, f"stale live Bruno refs remain: {failures}")
     return {"clean_surfaces": [path.relative_to(WORKSPACE_ROOT).as_posix() for path in META_SURFACES]}
-
 
 def verify_reconciliation_surfaces_preserved() -> dict[str, Any]:
     b12_text = read_text(B12_TABLE_PATH)
@@ -112,7 +105,6 @@ def verify_reconciliation_surfaces_preserved() -> dict[str, Any]:
         "q08_receipt": Q08_RECEIPT_PATH.relative_to(WORKSPACE_ROOT).as_posix(),
     }
 
-
 def verify_historical_receipt_correction() -> dict[str, Any]:
     text = read_text(BRUNO_RECEIPT_PATH)
     ensure(CORRECTION_NOTE_MARKER in text, "historical Bruno activation receipt is missing the Q40 correction note")
@@ -120,7 +112,6 @@ def verify_historical_receipt_correction() -> dict[str, Any]:
     ensure("51_athena_the_archetype.md -> 54_athena_the_archetype.md" in text, "historical receipt correction note missing Athena mapping")
     ensure("179_the_magus.md -> 182_the_magus.md" in text, "historical receipt correction note missing Magus mapping")
     return {"receipt_path": BRUNO_RECEIPT_PATH.relative_to(WORKSPACE_ROOT).as_posix()}
-
 
 def verify_control_plane_sync() -> dict[str, Any]:
     quest_board = read_text(QUEST_BOARD_PATH)
@@ -146,7 +137,6 @@ def verify_control_plane_sync() -> dict[str, Any]:
         "primary_active_claim": agent_state["agents"][0]["active_claim"],
     }
 
-
 def verify_docs_gate_honesty() -> dict[str, Any]:
     registry = load_json(REGISTRY_PATH)
     status = docs_gate_status()
@@ -156,7 +146,6 @@ def verify_docs_gate_honesty() -> dict[str, Any]:
         token = WORKSPACE_ROOT / "Trading Bot" / "token.json"
         ensure(not (credentials.exists() and token.exists()), "docs gate says blocked but OAuth files exist")
     return {"docs_gate_status": status}
-
 
 def verify_payload() -> dict[str, Any]:
     checks = [
@@ -178,7 +167,6 @@ def verify_payload() -> dict[str, Any]:
         "failed_checks": [check["label"] for check in failed],
     }
 
-
 def main() -> int:
     payload = verify_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -187,7 +175,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

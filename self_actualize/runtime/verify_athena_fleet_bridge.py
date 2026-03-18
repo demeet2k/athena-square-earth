@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S27 | face=F | node=369 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A6:S26→Xi108:W2:A6:S28→Xi108:W1:A6:S27→Xi108:W3:A6:S27→Xi108:W2:A5:S27→Xi108:W2:A7:S27
+
 from __future__ import annotations
 
 import json
@@ -11,7 +15,6 @@ from .derive_athena_fleet_bridge_registry import (
     OUTPUT_JSON_PATH as REGISTRY_PATH,
     WORKSPACE_ROOT,
 )
-
 
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "athena_fleet_bridge_verification.json"
@@ -27,35 +30,28 @@ DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_athena_fleet_bridg
 NEXT_SEED_SUCCESS = "Q35"
 NEXT_SEED_FAIL = "FRONT-INT-ATHENA-FLEET-BRIDGE"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
 
-
 def load_registry() -> dict[str, Any]:
     return json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
-
 
 def load_record() -> dict[str, Any]:
     payload = load_registry()
     ensure(payload.get("records"), "bridge registry is empty")
     return payload["records"][0]
 
-
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     try:
@@ -63,14 +59,12 @@ def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     except Exception as exc:  # noqa: BLE001
         return {"label": label, "status": "FAIL", "details": str(exc)}
 
-
 def verify_root_basis() -> dict[str, Any]:
     record = load_record()
     root_basis = record["root_basis"]
     ensure(root_basis["exists"], "A16 is missing from ROOT_BASIS_MAP")
     ensure(root_basis["body_id"] == "A16", f"unexpected body id: {root_basis['body_id']}")
     return root_basis
-
 
 def verify_family_route_surfaces() -> dict[str, Any]:
     record = load_record()
@@ -85,7 +79,6 @@ def verify_family_route_surfaces() -> dict[str, Any]:
         "route_surface": route_surface["path"],
         "route_map_surface": route_map_surface["path"],
     }
-
 
 def verify_direct_edges_match_bridge_routes() -> dict[str, Any]:
     record = load_record()
@@ -105,7 +98,6 @@ def verify_direct_edges_match_bridge_routes() -> dict[str, Any]:
         matched[bridge_family_id] = expected_route
     return matched
 
-
 def verify_bridge_ledger_authority() -> dict[str, Any]:
     record = load_record()
     entries = {item["bridge_family_id"]: item for item in record["bridge_ledger_entries"]}
@@ -113,7 +105,6 @@ def verify_bridge_ledger_authority() -> dict[str, Any]:
         ensure(bridge_family_id in entries, f"{bridge_family_id} missing from bridge ledger")
         ensure(entries[bridge_family_id]["authority"] == "authoritative", f"{bridge_family_id} is not authoritative")
     return {item["bridge_family_id"]: item["primary_writeback"] for item in entries.values()}
-
 
 def verify_handoff_packets() -> dict[str, Any]:
     record = load_record()
@@ -125,7 +116,6 @@ def verify_handoff_packets() -> dict[str, Any]:
         "A16->A15": packets[("A16", "A15")]["route"],
     }
 
-
 def verify_cluster_receipt() -> dict[str, Any]:
     record = load_record()
     receipt = record["cluster_receipt"]
@@ -133,14 +123,12 @@ def verify_cluster_receipt() -> dict[str, Any]:
     ensure(CLUSTER_RECEIPT_PATH.exists(), "Athena FLEET cluster promotion receipt path is missing on disk")
     return receipt
 
-
 def verify_external_deficits() -> dict[str, Any]:
     record = load_record()
     deficits = {item["id"]: item for item in record["external_deficits"]}
     for deficit_id in ("LEG-C2", "LEG-C3", "LEG-C4"):
         ensure(deficit_id in deficits, f"missing external deficit {deficit_id}")
     return {deficit_id: deficits[deficit_id]["truth"] for deficit_id in sorted(deficits)}
-
 
 def verify_docs_gate_honesty() -> dict[str, Any]:
     record = load_record()
@@ -152,7 +140,6 @@ def verify_docs_gate_honesty() -> dict[str, Any]:
         token = WORKSPACE_ROOT / "Trading Bot" / "token.json"
         ensure(not (creds.exists() and token.exists()), "docs gate says blocked but OAuth files exist")
     return {"docs_gate_status": live_status}
-
 
 def build_payload() -> dict[str, Any]:
     checks = [
@@ -179,7 +166,6 @@ def build_payload() -> dict[str, Any]:
         "eligible_for_promotion": truth == "OK",
         "next_seed": NEXT_SEED_SUCCESS if truth == "OK" else NEXT_SEED_FAIL,
     }
-
 
 def render_graph_contraction(record: dict[str, Any], verification: dict[str, Any]) -> str:
     truth = verification["truth"]
@@ -235,7 +221,6 @@ def render_graph_contraction(record: dict[str, Any], verification: dict[str, Any
     )
     return "\n".join(lines)
 
-
 def render_receipt(record: dict[str, Any], verification: dict[str, Any]) -> str:
     truth = verification["truth"]
     lines = [
@@ -275,7 +260,6 @@ def render_receipt(record: dict[str, Any], verification: dict[str, Any]) -> str:
     )
     return "\n".join(lines)
 
-
 def main() -> int:
     record = load_record()
     payload = build_payload()
@@ -287,7 +271,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

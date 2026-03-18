@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=317 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 import json
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -47,28 +50,22 @@ PROTOCOL_MARKERS = ("protocol", "protocols", "charter", "laws", "constitution")
 LEDGER_MARKERS = ("ledger", "ledgers", "queue", "queues", "manifest", "manifests")
 VENDOR_MARKERS = ("node_modules", ".venv", "vendor", "third_party", "site-packages")
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def file_timestamp(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
 
-
 def normalize_path(value: str) -> str:
     return value.replace("\\", "/").lower()
-
 
 def pct(count: int, total: int) -> float:
     if total <= 0:
         return 0.0
     return round((count / total) * 100, 1)
-
 
 def classify_live_record(record: dict) -> str:
     relative_path = normalize_path(record.get("relative_path", ""))
@@ -91,7 +88,6 @@ def classify_live_record(record: dict) -> str:
         return "generated"
     return "source"
 
-
 def top_entries(counter: Counter[str], limit: int = 5) -> list[dict[str, int | str | float]]:
     total = sum(counter.values())
     items: list[dict[str, int | str | float]] = []
@@ -104,7 +100,6 @@ def top_entries(counter: Counter[str], limit: int = 5) -> list[dict[str, int | s
             }
         )
     return items
-
 
 def derive_semantic_mass_ledger() -> dict:
     atlas = load_json(CORPUS_ATLAS_PATH)
@@ -195,7 +190,6 @@ def derive_semantic_mass_ledger() -> dict:
         "body_profiles": body_profiles,
     }
 
-
 def render_markdown(payload: dict) -> str:
     role_lines = []
     for role in payload["roles"]:
@@ -246,7 +240,6 @@ This surface classifies Athena by semantic role instead of raw file count alone.
 - archive-backed mass remains a separate semantic reservoir rather than live routed source
 """
 
-
 def render_receipt(payload: dict) -> str:
     return f"""# Semantic Mass Ledger Receipt
 
@@ -271,7 +264,6 @@ def render_receipt(payload: dict) -> str:
 - semantic weighting should now be used alongside raw file count in future guild and swarm syntheses
 """
 
-
 def main() -> int:
     payload = derive_semantic_mass_ledger()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -281,7 +273,6 @@ def main() -> int:
     print(f"Wrote semantic mass ledger markdown: {OUTPUT_MARKDOWN_PATH}")
     print(f"Wrote semantic mass ledger receipt: {OUTPUT_RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

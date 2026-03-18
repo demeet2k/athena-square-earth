@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S14→Xi108:W2:A10:S16→Xi108:W1:A10:S15→Xi108:W3:A10:S15→Xi108:W2:A9:S15→Xi108:W2:A11:S15
+
 """
 ATHENA OS - Governance Atlas
 ============================
@@ -51,7 +55,6 @@ from enum import Enum, auto
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Set
 
-
 # =============================================================================
 # GOVERNANCE ELEMENTS
 # =============================================================================
@@ -86,7 +89,6 @@ class GovElement(Enum):
     @property
     def short(self) -> str:
         return self.name[0]
-
 
 # =============================================================================
 # GOVERNANCE ADDRESS
@@ -191,7 +193,6 @@ class GovAddress:
         }
         return meanings[self.refinement]
 
-
 # =============================================================================
 # GOVERNANCE ARCHETYPE CATALOG
 # =============================================================================
@@ -208,7 +209,6 @@ class GovArchetype:
     
     def address_pattern(self) -> Tuple[GovElement, GovElement]:
         return (self.primary, self.influence)
-
 
 GOV_ARCHETYPE_CATALOG = [
     # Fire clan (Enforcement)
@@ -252,7 +252,6 @@ GOV_ARCHETYPE_CATALOG = [
                 "Fundamental law, meta-rules", "Spec"),
 ]
 
-
 def get_gov_archetype(primary: GovElement, 
                      influence: GovElement) -> Optional[GovArchetype]:
     """Get archetype by elements."""
@@ -260,7 +259,6 @@ def get_gov_archetype(primary: GovElement,
         if arch.primary == primary and arch.influence == influence:
             return arch
     return None
-
 
 # =============================================================================
 # GOVERNANCE DOMAIN TAXONOMY
@@ -277,7 +275,6 @@ class GovDomain(Enum):
     MEDICAL = "medical"
     TECHNICAL = "technical"
 
-
 @dataclass
 class DomainMapping:
     """Mapping of governance address to specific domain concepts."""
@@ -289,7 +286,6 @@ class DomainMapping:
     
     def full_description(self) -> str:
         return f"{self.domain.value}/{self.concept}: {self.pcp_template}"
-
 
 # Example domain mappings
 DOMAIN_MAPPINGS = [
@@ -327,7 +323,6 @@ DOMAIN_MAPPINGS = [
         "Safety constraint verification"
     ),
 ]
-
 
 # =============================================================================
 # GOVERNANCE CLASSIFIER
@@ -407,7 +402,6 @@ class GovClassifier:
             "influence": f"{address.influence.symbol} {address.influence.domain}",
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -450,7 +444,6 @@ def validate_gov_atlas() -> bool:
     assert "archetype" in desc
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Governance Atlas...")

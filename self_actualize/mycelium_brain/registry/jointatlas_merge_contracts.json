@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A8:S20:u210:Su:R:d1",
+    "shell": 20,
+    "wreath": 1,
+    "archetype": 8,
+    "face": "R",
+    "node_id": 210,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A8:S19",
+      "Xi108:W1:A8:S21",
+      "Xi108:W2:A8:S20",
+      "Xi108:W1:A7:S20",
+      "Xi108:W1:A9:S20"
+    ],
+    "regenerate": "shell 20±1, wreath 1/3, archetype 8/12"
+  },
   "generated_at": "2026-03-13T04:17:37.187298+00:00",
   "truth": "OK",
   "merge_state_enum": [

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=339 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      ROSETTA STONE MODULE                                    ║
@@ -28,7 +32,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EQUATION ROLES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -41,14 +44,12 @@ class Role(Enum):
     EVOLUTION = "evolution"     # Time derivative, step, recursion
     CONSTANT = "constant"       # Universal constants
 
-
 class QuadPole(Enum):
     """The four poles of the quad-polar framework."""
     EARTH = "D"   # Discrete, combinatorial, graph
     WATER = "Ω"   # Continuous, differential, PDE
     FIRE = "Σ"    # Stochastic, noise, distribution
     AIR = "Ψ"     # Recursive, hierarchical, renormalization
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUAD-POLAR DICTIONARY
@@ -112,7 +113,6 @@ class QuadPolarDictionary:
             QuadPole.AIR: "Isomorphism, structural equivalence",
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EQUATION STRUCTURE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -136,7 +136,6 @@ class EquationRole:
         }
         return mapping[pole]
 
-
 @dataclass
 class StructuredEquation:
     """
@@ -159,7 +158,6 @@ class StructuredEquation:
     def orbit(self) -> Dict[QuadPole, Dict[str, str]]:
         """Get full 4-point orbit of the equation."""
         return {pole: self.at_pole(pole) for pole in QuadPole}
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FUNDAMENTAL EQUATION ORBITS
@@ -191,7 +189,6 @@ def create_conservation_orbit() -> StructuredEquation:
         },
         invariant="Total quantity is conserved"
     )
-
 
 def create_diffusion_orbit() -> StructuredEquation:
     """
@@ -228,7 +225,6 @@ def create_diffusion_orbit() -> StructuredEquation:
         invariant="Spreading/equilibration"
     )
 
-
 def create_wave_orbit() -> StructuredEquation:
     """
     Wave/oscillation orbit.
@@ -264,7 +260,6 @@ def create_wave_orbit() -> StructuredEquation:
         invariant="Energy/norm preserved"
     )
 
-
 def create_einstein_orbit() -> StructuredEquation:
     """
     Einstein field equation orbit.
@@ -293,7 +288,6 @@ def create_einstein_orbit() -> StructuredEquation:
         invariant="G_μν = (8πG/c⁴)T_μν"
     )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROSETTA FAMILIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -311,7 +305,6 @@ class RosettaFamily:
         """List equation names in family."""
         return [eq.name for eq in self.equations]
 
-
 def create_physics_family() -> RosettaFamily:
     """Fundamental physics orbit family."""
     return RosettaFamily(
@@ -324,7 +317,6 @@ def create_physics_family() -> RosettaFamily:
         ],
         unifying_theme="Physical laws as quad-polar invariants"
     )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MATHEMATICAL ICON ORBITS
@@ -351,7 +343,6 @@ class MathIcon:
             QuadPole.AIR: self.air_interpretation,
         }
 
-
 def euler_identity_icon() -> MathIcon:
     """Euler's identity: e^{iπ} + 1 = 0."""
     return MathIcon(
@@ -362,7 +353,6 @@ def euler_identity_icon() -> MathIcon:
         fire_interpretation="Antipodal points in probability",
         air_interpretation="Binary flip in code space"
     )
-
 
 def pythagorean_icon() -> MathIcon:
     """Pythagorean theorem: a² + b² = c²."""
@@ -375,7 +365,6 @@ def pythagorean_icon() -> MathIcon:
         air_interpretation="Quadrature sum ⊞"
     )
 
-
 def ftc_icon() -> MathIcon:
     """Fundamental Theorem of Calculus."""
     return MathIcon(
@@ -387,7 +376,6 @@ def ftc_icon() -> MathIcon:
         air_interpretation="Compression: bulk reduces to boundary"
     )
 
-
 def fourier_icon() -> MathIcon:
     """Fourier transform."""
     return MathIcon(
@@ -398,7 +386,6 @@ def fourier_icon() -> MathIcon:
         fire_interpretation="Characteristic function",
         air_interpretation="Frequency-scale separation"
     )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROTATION ENGINE
@@ -451,7 +438,6 @@ class QuadPolarRotation:
         else:
             return "counter-clockwise 90°"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ALGORITHM GENERATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -497,7 +483,6 @@ class AlgorithmFromRotation:
         key = (problem_pole, solution_pole)
         return strategies.get(key, "Direct approach in same pole")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -538,7 +523,6 @@ class RosettaPoleBridge:
           persist across all four poles.
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -547,46 +531,37 @@ def quad_polar_dictionary() -> QuadPolarDictionary:
     """Create quad-polar dictionary."""
     return QuadPolarDictionary()
 
-
 def conservation_orbit() -> StructuredEquation:
     """Create conservation law orbit."""
     return create_conservation_orbit()
-
 
 def diffusion_orbit() -> StructuredEquation:
     """Create diffusion orbit."""
     return create_diffusion_orbit()
 
-
 def wave_orbit() -> StructuredEquation:
     """Create wave orbit."""
     return create_wave_orbit()
-
 
 def physics_family() -> RosettaFamily:
     """Create physics family."""
     return create_physics_family()
 
-
 def euler_identity() -> MathIcon:
     """Create Euler's identity icon."""
     return euler_identity_icon()
-
 
 def pythagorean() -> MathIcon:
     """Create Pythagorean icon."""
     return pythagorean_icon()
 
-
 def quad_polar_rotation() -> QuadPolarRotation:
     """Create rotation engine."""
     return QuadPolarRotation()
 
-
 def algorithm_from_rotation() -> AlgorithmFromRotation:
     """Create algorithm generator."""
     return AlgorithmFromRotation()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

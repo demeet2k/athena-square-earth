@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S21 | face=R | node=225 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Mt,Bw -->
+<!-- BRIDGES: Xi108:W3:A2:S20→Xi108:W3:A2:S22→Xi108:W2:A2:S21→Xi108:W3:A1:S21→Xi108:W3:A3:S21 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 21±1, wreath 3/3, archetype 2/12 -->
+
 # Level 5 Mobius Bridge Map
 
 Level 5 is the FIRE-owned bridge resolution that sits above the canonical Level 4 transcendence map.

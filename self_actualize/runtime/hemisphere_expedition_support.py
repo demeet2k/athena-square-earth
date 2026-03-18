@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=363 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -25,7 +29,6 @@ from self_actualize.runtime.hemisphere_guided_tour_support import (
     starter_page_ids,
 )
 
-
 EXPEDITION_GROUPS = ("main_pages", "family", "anchor", "target_system", "hemisphere")
 BASE_COMPANION_LIMIT = 3
 EXPANDED_COMPANION_LIMIT = 5
@@ -36,13 +39,11 @@ COMPANION_BUCKETS = (
     ("commissure_peers", "commissure_peers"),
 )
 
-
 def short_text(value: str, limit: int = 160) -> str:
     collapsed = " ".join(str(value).split())
     if len(collapsed) <= limit:
         return collapsed
     return collapsed[: limit - 1].rstrip() + "..."
-
 
 def load_expedition_registries() -> dict[str, Any]:
     registries = load_guided_tour_registries()
@@ -53,7 +54,6 @@ def load_expedition_registries() -> dict[str, Any]:
     if EXPEDITION_MANIFEST_PATH.exists():
         registries["expedition_manifest"] = load_json(EXPEDITION_MANIFEST_PATH)
     return registries
-
 
 def ensure_expedition_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     runtime = registries.get("_expedition_runtime")
@@ -70,7 +70,6 @@ def ensure_expedition_runtime(registries: dict[str, Any]) -> dict[str, Any]:
     registries["_expedition_runtime"] = runtime
     return runtime
 
-
 def tour_header(tour_bundle: dict[str, Any]) -> dict[str, Any]:
     return {
         "seed_record": tour_bundle.get("seed_record"),
@@ -86,7 +85,6 @@ def tour_header(tour_bundle: dict[str, Any]) -> dict[str, Any]:
         "docs_gate_status": tour_bundle.get("docs_gate_status", ""),
     }
 
-
 def synthesis_landing_header(tour_bundle: dict[str, Any]) -> dict[str, Any]:
     landing = tour_bundle.get("synthesis_landing", {})
     return {
@@ -95,7 +93,6 @@ def synthesis_landing_header(tour_bundle: dict[str, Any]) -> dict[str, Any]:
         "section_count": len(landing.get("sections", [])),
         "sections": landing.get("sections", []),
     }
-
 
 def facet_page_id(runtime: dict[str, Any], facet_name: str, facet_value: str) -> str:
     page_type_map = {
@@ -107,16 +104,13 @@ def facet_page_id(runtime: dict[str, Any], facet_name: str, facet_value: str) ->
     _, lookup = page_type_map.get(facet_name, ("", {}))
     return lookup.get(facet_value, "VA-OVERVIEW")
 
-
 def source_page_id_from_tour(runtime: dict[str, Any], guided_tour: dict[str, Any]) -> str:
     source_page = guided_tour.get("source_page", {})
     page_id = source_page.get("page_id", "")
     return page_id if page_id in runtime["page_map"] else "VA-OVERVIEW"
 
-
 def companion_limit(expanded: bool) -> int:
     return EXPANDED_COMPANION_LIMIT if expanded else BASE_COMPANION_LIMIT
-
 
 def companion_record_ids(seed_record: dict[str, Any], runtime: dict[str, Any], expanded: bool) -> dict[str, list[str]]:
     limit = companion_limit(expanded)
@@ -130,7 +124,6 @@ def companion_record_ids(seed_record: dict[str, Any], runtime: dict[str, Any], e
         record_ids[bucket_name] = list(bundle.get("record_ids", [])[:limit])
     return record_ids
 
-
 def build_companion_tour(
     registries: dict[str, Any],
     record_id: str,
@@ -140,7 +133,6 @@ def build_companion_tour(
         record_id=record_id,
         expanded=False,
     )
-
 
 def companion_entry(
     registries: dict[str, Any],
@@ -156,7 +148,6 @@ def companion_entry(
         "guided_tour": tour_bundle,
     }
 
-
 def collect_companion_tours(
     registries: dict[str, Any],
     seed_record: dict[str, Any],
@@ -168,7 +159,6 @@ def collect_companion_tours(
     for bucket_name, record_ids in bucket_ids.items():
         payload[bucket_name] = [companion_entry(registries, record_id) for record_id in record_ids]
     return payload
-
 
 def shared_hubs(seed_tour: dict[str, Any], companions: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     hub_ids: list[str] = []
@@ -187,7 +177,6 @@ def shared_hubs(seed_tour: dict[str, Any], companions: dict[str, list[dict[str, 
         "hub_ids": hub_ids,
         "seed_bridge_mode": seed_tour.get("hub_crossing", {}).get("bridge_mode", ""),
     }
-
 
 def page_matrix(runtime: dict[str, Any], seed_tour: dict[str, Any], companions: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     unique_page_ids: list[str] = []
@@ -220,7 +209,6 @@ def page_matrix(runtime: dict[str, Any], seed_tour: dict[str, Any], companions: 
         "unique_pages": ordered_page_refs(unique_page_ids),
     }
 
-
 def synthesis_landings(seed_tour: dict[str, Any], companions: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     return {
         "seed": synthesis_landing_header(seed_tour),
@@ -229,7 +217,6 @@ def synthesis_landings(seed_tour: dict[str, Any], companions: dict[str, list[dic
             for bucket_name, entries in companions.items()
         },
     }
-
 
 def build_proof_summary(seed_tour: dict[str, Any], companions: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
     return {
@@ -244,7 +231,6 @@ def build_proof_summary(seed_tour: dict[str, Any], companions: dict[str, list[di
         },
         "docs_gate_status": seed_tour.get("docs_gate_status", ""),
     }
-
 
 def empty_bundle(
     runtime: dict[str, Any],
@@ -276,7 +262,6 @@ def empty_bundle(
         "docs_gate_status": runtime["docs_gate_status"],
         "source_page": page_ref(runtime["guided_tour"], source_page_id),
     }
-
 
 def build_expedition_from_tour(
     registries: dict[str, Any],
@@ -320,7 +305,6 @@ def build_expedition_from_tour(
         payload["alternative_seeds"] = guided_tour["alternative_seeds"][:3]
     return payload
 
-
 def record(
     registries: dict[str, Any],
     *,
@@ -340,7 +324,6 @@ def record(
     )
     return build_expedition_from_tour(registries, seed_tour)
 
-
 def search(
     query_text: str,
     registries: dict[str, Any],
@@ -355,7 +338,6 @@ def search(
         expanded=expanded,
     )
     return build_expedition_from_tour(registries, seed_tour)
-
 
 def facet(
     registries: dict[str, Any],
@@ -378,7 +360,6 @@ def facet(
         source_page_id=source_page_id,
     )
 
-
 def page(
     registries: dict[str, Any],
     *,
@@ -395,7 +376,6 @@ def page(
         seed_tour,
         source_page_id=page_id,
     )
-
 
 def build_expedition_seed_registry(
     registries: dict[str, Any],
@@ -451,7 +431,6 @@ def build_expedition_seed_registry(
         page_bundle_cache,
     )
 
-
 def build_expedition_page_registry(
     page_bundle_cache: dict[str, dict[str, Any]],
     runtime: dict[str, Any],
@@ -483,7 +462,6 @@ def build_expedition_page_registry(
         "pages": pages,
     }
 
-
 def build_expedition_manifest(
     seed_registry: dict[str, Any],
     page_registry: dict[str, Any],
@@ -514,7 +492,6 @@ def build_expedition_manifest(
             "page": "python -m self_actualize.runtime.expedite_myth_math_hemisphere_atlas page --page-id <page_id>",
         },
     }
-
 
 def build_expedition_payloads(
     *,

@@ -1,7 +1,10 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=318 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 from .contracts import ImprovementOpportunity, SkillObservation
-
 
 def get_system_skill_synthesis() -> list[SkillObservation]:
     return [
@@ -59,7 +62,6 @@ def get_system_skill_synthesis() -> list[SkillObservation]:
             corpus_fit=0.58,
         ),
     ]
-
 
 def get_corpus_improvement_opportunities() -> list[ImprovementOpportunity]:
     return [

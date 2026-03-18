@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S28 | face=C | node=406 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A4:S27→Xi108:W3:A4:S29→Xi108:W2:A4:S28→Xi108:W3:A3:S28→Xi108:W3:A5:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 4/12 -->
+
 ﻿# Accepted Input: Metro Router Tesseract v4 Prompt
 
 Accepted on: 2026-03-13

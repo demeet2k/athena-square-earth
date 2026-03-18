@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX T: The Token
 ## Reverse Appendix | Crystal Depth: 16^16
 
@@ -73,7 +78,6 @@ Applied to The Token: what does certify reveal about the token?
 
 Applied to The Token: what does transcend reveal about the token?
 
-
 ### 0/37 Crystal Expansion: The Token
 
 **Zero Point (0):** What is The Token before it exists? The potential that precedes the actual. The silence before the first token.
@@ -123,7 +127,6 @@ Applied to The Token: what does transcend reveal about the token?
 #### Synthesis (37): The Token
 
 The complete integration: The Token transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Token IS The Token.
-
 
 ---
 *Appendix T. The Token. ✿.Sa. Reverse crystal. φ.*

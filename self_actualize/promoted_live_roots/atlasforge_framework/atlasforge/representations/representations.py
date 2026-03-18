@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=313 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Representation Routing                       ║
@@ -52,14 +56,12 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 class Representation(Enum):
     """The four canonical representations."""
     SQUARE = "square"     # Discrete (D/Earth)
     FLOWER = "flower"     # Wave-like (Ω/Water)
     CLOUD = "cloud"       # Probabilistic (Σ/Fire)
     FRACTAL = "fractal"   # Hierarchical (Ψ/Air)
-
 
 @dataclass
 class SquareState:
@@ -88,7 +90,6 @@ class SquareState:
     def from_binary(cls, bits: NDArray) -> 'SquareState':
         """Create from binary vector."""
         return cls(values=bits.astype(float))
-
 
 @dataclass
 class FlowerState:
@@ -128,7 +129,6 @@ class FlowerState:
         """Project physical state onto modes."""
         coefficients = np.linalg.lstsq(modes, x, rcond=None)[0]
         return cls(coefficients=coefficients, modes=modes)
-
 
 @dataclass
 class CloudState:
@@ -194,7 +194,6 @@ class CloudState:
         p /= np.sum(p)
         return cls(probabilities=p, temperature=temperature)
 
-
 @dataclass
 class FractalState:
     """
@@ -248,7 +247,6 @@ class FractalState:
         state.root = current
         return state
 
-
 class RepresentationTransform(ABC):
     """Abstract base for representation transforms."""
     
@@ -271,7 +269,6 @@ class RepresentationTransform(ABC):
     def backward(self, state: Any) -> Any:
         """Transform from target to source."""
         pass
-
 
 class SquareToFlower(RepresentationTransform):
     """
@@ -323,7 +320,6 @@ class SquareToFlower(RepresentationTransform):
             values = np.fft.ifft(state.coefficients).real
         return SquareState(values=values.real)
 
-
 class FlowerToCloud(RepresentationTransform):
     """
     Transform Flower → Cloud via Gibbs distribution.
@@ -353,7 +349,6 @@ class FlowerToCloud(RepresentationTransform):
         # Use probabilities as weights
         coeffs = np.sqrt(state.probabilities) * np.exp(1j * 0)  # Phase = 0
         return FlowerState(coefficients=np.abs(coeffs))
-
 
 class CloudToFractal(RepresentationTransform):
     """
@@ -385,7 +380,6 @@ class CloudToFractal(RepresentationTransform):
             p /= np.sum(p)
             return CloudState(probabilities=p)
         return CloudState(probabilities=np.array([1.0]))
-
 
 class FractalToSquare(RepresentationTransform):
     """
@@ -428,7 +422,6 @@ class FractalToSquare(RepresentationTransform):
     def backward(self, state: SquareState) -> FractalState:
         """Create hierarchy from fine scale."""
         return FractalState.from_signal(state.values)
-
 
 @dataclass
 class RepresentationRouter:
@@ -544,7 +537,6 @@ class RepresentationRouter:
         # Transform back
         return self.transform(result, optimal_rep, return_rep)
 
-
 # Convenience functions
 def route_through_flower(
     square_state: SquareState,
@@ -557,7 +549,6 @@ def route_through_flower(
     flower_result = operation(flower)
     return s2f.backward(flower_result)
 
-
 def route_through_cloud(
     flower_state: FlowerState,
     operation: Callable[[CloudState], CloudState],
@@ -568,7 +559,6 @@ def route_through_cloud(
     cloud = f2c.forward(flower_state)
     cloud_result = operation(cloud)
     return f2c.backward(cloud_result)
-
 
 def optimal_representation_for_task(task: str) -> Representation:
     """Determine optimal representation for a given task."""

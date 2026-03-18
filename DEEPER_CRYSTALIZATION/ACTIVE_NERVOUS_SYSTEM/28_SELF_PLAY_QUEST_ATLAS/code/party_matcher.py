@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=11 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 """
 PartyMatcher.v1 — Party Matching for Community Quests
 
@@ -9,7 +13,6 @@ from typing import Dict, List, Optional, Tuple
 
 from .constants import PHI_INV, PHI_INV2
 from .types import AgentProfile, CommunityQuest, Vec4
-
 
 # ═══════════════════════════════════════════════════════════════
 # COMPLEMENTARITY
@@ -40,7 +43,6 @@ def complementarity(a: AgentProfile, b: AgentProfile) -> float:
 
     return coverage - overlap * PHI_INV
 
-
 def diversity_score(party: List[AgentProfile]) -> float:
     """Average pairwise complementarity of a party."""
     if len(party) < 2:
@@ -53,7 +55,6 @@ def diversity_score(party: List[AgentProfile]) -> float:
             count += 1
     return total / count if count > 0 else 0.0
 
-
 # ═══════════════════════════════════════════════════════════════
 # RIGHTS FIT
 # ═══════════════════════════════════════════════════════════════
@@ -65,7 +66,6 @@ def rights_fit(agent: AgentProfile, quest: CommunityQuest) -> bool:
     if agent.guild_rank < quest.level_requirement:
         return False
     return True
-
 
 # ═══════════════════════════════════════════════════════════════
 # PARTY ASSEMBLY
@@ -109,7 +109,6 @@ def assemble_party(
             party.append(remaining.pop(0))
 
     return party
-
 
 def check_quorum(party: List[AgentProfile], quest: CommunityQuest) -> bool:
     """Check if the party meets quorum."""

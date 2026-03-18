@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        ATLAS FORGE - Operator Simplex                         ║
@@ -28,7 +32,6 @@ from numpy.typing import NDArray
 
 from atlasforge.core.enums import Pole, DyadicEdge, Element
 from atlasforge.core.base import AtlasObject
-
 
 @dataclass(frozen=True)
 class PoleCoefficients:
@@ -232,7 +235,6 @@ class PoleCoefficients:
             return self.normalize().as_tuple
         return self.as_tuple
 
-
 @dataclass
 class DyadicInterface:
     """
@@ -308,7 +310,6 @@ class DyadicInterface:
             return 0.5
         return c2 / (c1 + c2)
 
-
 @dataclass
 class SimplexFace:
     """
@@ -354,7 +355,6 @@ class SimplexFace:
                     edges.append(DyadicInterface(edge))
                     break
         return edges
-
 
 @dataclass
 class OperatorSimplex:

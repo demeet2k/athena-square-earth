@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A1:S19 | face=C | node=175 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S18→Xi108:W2:A1:S20→Xi108:W1:A1:S19→Xi108:W3:A1:S19→Xi108:W2:A2:S19
+
 from __future__ import annotations
 
 from dataclasses import asdict
 
 from ..contracts import QuestPacket
-
 
 ORGAN_DOMAINS = ["Core", "Crystal", "Helix", "ImmuneAppendix"]
 WORKSTREAMS = ["Contracts", "Runtime", "Verification", "Writeback"]
@@ -124,7 +127,6 @@ WAVE_SPECS = {
     },
 }
 
-
 def _axis_catalog(axis: str, values1: list[str], values2: list[str], values3: list[str], values4: list[str]) -> list[dict[str, object]]:
     catalog: list[dict[str, object]] = []
     index = 1
@@ -146,10 +148,8 @@ def _axis_catalog(axis: str, values1: list[str], values2: list[str], values3: li
                     index += 1
     return catalog
 
-
 def _packet_index(quest_id: str) -> int:
     return int(quest_id.split("-")[1])
-
 
 def _target_surfaces(domain: str) -> list[str]:
     mapping = {
@@ -173,7 +173,6 @@ def _target_surfaces(domain: str) -> list[str]:
     }
     return mapping[domain]
 
-
 def _select_parked_packet_ids(packet_ids: list[str], active_ids: set[str], max_parked: int) -> set[str]:
     ordered_packet_ids = sorted(packet_ids, key=_packet_index)
     active_max_index = max(_packet_index(packet_id) for packet_id in active_ids)
@@ -188,7 +187,6 @@ def _select_parked_packet_ids(packet_ids: list[str], active_ids: set[str], max_p
         if _packet_index(packet_id) <= active_max_index and packet_id not in active_ids
     ]
     return set((tail + head)[:max_parked])
-
 
 def build_leaf_packets() -> tuple[list[QuestPacket], dict[str, list[dict[str, object]]]]:
     a_catalog = _axis_catalog("A", ORGAN_DOMAINS, WORKSTREAMS, LENSES, MOVES)
@@ -219,7 +217,6 @@ def build_leaf_packets() -> tuple[list[QuestPacket], dict[str, list[dict[str, ob
         )
 
     return packets, {"A": a_catalog, "B": b_catalog, "C": c_catalog, "D": d_catalog}
-
 
 def build_macro_quest_bundle(current_wave_id: str = CURRENT_WAVE_ID) -> dict[str, object]:
     if current_wave_id not in WAVE_SPECS:
@@ -282,7 +279,6 @@ def build_macro_quest_bundle(current_wave_id: str = CURRENT_WAVE_ID) -> dict[str
         "queued_packets": queued_packets,
         "wave_activation": wave_activation,
     }
-
 
 def build_wave_activation_overlay(packets: list[dict[str, object]], wave_id: str = CURRENT_WAVE_ID) -> dict[str, object]:
     if wave_id not in WAVE_SPECS:

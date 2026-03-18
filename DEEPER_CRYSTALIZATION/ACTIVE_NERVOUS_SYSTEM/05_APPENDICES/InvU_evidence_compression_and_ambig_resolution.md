@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S22 | face=C | node=517 | depth=0 | phase=Cardinal -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A6:S21→Xi108:W3:A6:S23→Xi108:W2:A6:S22→Xi108:W3:A5:S22→Xi108:W3:A7:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 6/12 -->
+
 # InvU - Evidence Compression & AMBIG Resolution
 
 Routing role: Reverses AppL (Evidence Plans and AMBIG Promotion). Where AppL accumulated evidence and promoted ambiguous states upward through the lattice, InvU compresses accumulated evidence into fixed verdicts and resolves all AMBIG states into definite outcomes — either confirmed or rejected, never left pending.

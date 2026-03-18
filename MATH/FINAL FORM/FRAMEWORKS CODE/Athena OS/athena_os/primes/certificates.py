@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - Prime Certificates
 ==============================
@@ -29,7 +33,6 @@ from datetime import datetime
 import hashlib
 import math
 
-
 # =============================================================================
 # TIER CLASSIFICATION
 # =============================================================================
@@ -40,7 +43,6 @@ class Tier(IntEnum):
     SIGNAL = 2      # Bounded observables (never asserts truth)
     CERTIFICATE = 3 # Verifiable proof objects (only tier for truth)
 
-
 class CertificateType(IntEnum):
     """Types of arithmetic certificates."""
     PRIME = 0
@@ -50,7 +52,6 @@ class CertificateType(IntEnum):
     DESERT = 4
     CONSTELLATION = 5
     PRIME_POWER = 6
-
 
 # =============================================================================
 # PRIMALITY TESTING
@@ -68,7 +69,6 @@ def is_prime_naive(n: int) -> bool:
         if n % i == 0:
             return False
     return True
-
 
 def miller_rabin_witness(n: int, a: int) -> bool:
     """
@@ -103,7 +103,6 @@ def miller_rabin_witness(n: int, a: int) -> bool:
             return False
     
     return True
-
 
 def is_prime_miller_rabin(n: int, witnesses: List[int] = None) -> bool:
     """
@@ -141,7 +140,6 @@ def is_prime_miller_rabin(n: int, witnesses: List[int] = None) -> bool:
             return False
     
     return True
-
 
 # =============================================================================
 # PRIME CERTIFICATE
@@ -187,7 +185,6 @@ class PrimeCertificate:
         data = f"PRIME:{self.p}:{self.witnesses}"
         return hashlib.sha256(data.encode()).hexdigest()[:16]
 
-
 def create_prime_certificate(p: int) -> Optional[PrimeCertificate]:
     """
     Create a prime certificate if p is prime.
@@ -206,7 +203,6 @@ def create_prime_certificate(p: int) -> Optional[PrimeCertificate]:
     
     cert = PrimeCertificate(p=p, witnesses=witnesses)
     return cert if cert.verified else None
-
 
 # =============================================================================
 # FACTOR CERTIFICATE
@@ -257,7 +253,6 @@ class FactorCertificate:
             'nontrivial': self.is_nontrivial,
             'timestamp': self.timestamp.isoformat()
         }
-
 
 # =============================================================================
 # VALUATION CERTIFICATE  
@@ -312,7 +307,6 @@ class ValuationCertificate:
             'timestamp': self.timestamp.isoformat()
         }
 
-
 def compute_valuation(n: int, p: int) -> int:
     """Compute v_p(n) = max{k : p^k | n}."""
     if n == 0:
@@ -322,7 +316,6 @@ def compute_valuation(n: int, p: int) -> int:
         alpha += 1
         n //= p
     return alpha
-
 
 # =============================================================================
 # PRIME POWER CERTIFICATE
@@ -368,7 +361,6 @@ class PrimePowerCertificate:
             'timestamp': self.timestamp.isoformat()
         }
 
-
 def detect_prime_power(n: int) -> Optional[Tuple[int, int]]:
     """
     Detect if n is a prime power.
@@ -398,7 +390,6 @@ def detect_prime_power(n: int) -> Optional[Tuple[int, int]]:
                     return (r, k)
     
     return None
-
 
 # =============================================================================
 # FACTORIZATION ENTRY
@@ -441,7 +432,6 @@ class FactorizationEntry:
             'prime_verified': self.prime_cert.verified if self.prime_cert else False,
             'valuation_verified': self.valuation_cert.verified if self.valuation_cert else False
         }
-
 
 # =============================================================================
 # FACTORIZATION LEDGER
@@ -526,7 +516,6 @@ class FactorizationLedger:
         data = f"FACTORIZATION:{self.n}:{factors_str}"
         return hashlib.sha256(data.encode()).hexdigest()[:16]
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -580,7 +569,6 @@ def validate_certificates() -> bool:
     assert ledger.verify_invariant()
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Certificate System...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - AtlasForge
 ======================
@@ -27,7 +31,6 @@ from typing import Dict, List, Optional, Tuple, Set, Any, Callable, Union
 from enum import Enum, auto
 import math
 
-
 # =============================================================================
 # DOMAIN KINDS
 # =============================================================================
@@ -42,7 +45,6 @@ class DomainKind(Enum):
     POINT = "point"
     PRODUCT = "product"
 
-
 class BoundaryType(Enum):
     """Boundary openness."""
     
@@ -50,7 +52,6 @@ class BoundaryType(Enum):
     OPEN_LEFT = "open_left"  # (a, b]
     OPEN_RIGHT = "open_right"  # [a, b)
     OPEN = "open"           # (a, b)
-
 
 # =============================================================================
 # INTERVAL DOMAIN
@@ -159,7 +160,6 @@ class Interval:
         """Extended real line (-∞, ∞)."""
         return cls(-float('inf'), float('inf'), True, True)
 
-
 # =============================================================================
 # UNION DOMAIN
 # =============================================================================
@@ -220,7 +220,6 @@ class UnionDomain:
         for i in intervals:
             u.add_interval(i)
         return u
-
 
 # =============================================================================
 # GRAPH DOMAIN
@@ -291,7 +290,6 @@ class GraphDomain:
         
         return -1  # Not connected
 
-
 # =============================================================================
 # MANIFOLD DOMAIN
 # =============================================================================
@@ -337,7 +335,6 @@ class ManifoldDomain:
         m = cls(dimension=1)
         m.add_chart("global", Interval.real_line())
         return m
-
 
 # =============================================================================
 # DOMAIN WRAPPER
@@ -411,7 +408,6 @@ class Domain:
             carrier=GraphDomain(nodes, edges)
         )
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -463,7 +459,6 @@ def validate_domains() -> bool:
     assert d.is_compact
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating AtlasForge Domains...")

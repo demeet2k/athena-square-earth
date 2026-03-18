@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S18 | face=S | node=159 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S17→Xi108:W3:A1:S19→Xi108:W2:A1:S18→Xi108:W3:A2:S18 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 18±1, wreath 3/3, archetype 1/12 -->
+
 # COMPLETE EXTRACTION: CORE SHAMANISM
 ## Full Operational Manual - Depth Level 10/10
 

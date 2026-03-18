@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A3:S15:u114:Su:S:d1",
+    "shell": 15,
+    "wreath": 1,
+    "archetype": 3,
+    "face": "S",
+    "node_id": 114,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A3:S14",
+      "Xi108:W1:A3:S16",
+      "Xi108:W2:A3:S15",
+      "Xi108:W1:A2:S15",
+      "Xi108:W1:A4:S15"
+    ],
+    "regenerate": "shell 15±1, wreath 1/3, archetype 3/12"
+  },
   "best_log_score": -278.0132308950961,
   "cfg_digest": "46e180c7bf452061b2f906f0c23c06d9ae86f1a80be4af322eebee10d8d1d120",
   "code_version": "unknown",

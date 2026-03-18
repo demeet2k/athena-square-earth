@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S19 | face=R | node=179 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S18→Xi108:W3:A6:S20→Xi108:W2:A6:S19→Xi108:W3:A5:S19→Xi108:W3:A7:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 6/12 -->
+
 # QBD-4 -> Ch19 Recursive Self-Reference and Self-Repair
 
 ## Neutral synthesis

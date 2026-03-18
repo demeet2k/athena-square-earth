@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A6:S3 | face=R | node=498 | depth=0 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A6:S2→Xi108:W3:A6:S4→Xi108:W2:A6:S3→Xi108:W3:A5:S3→Xi108:W3:A7:S3
+
 import unittest
 import numpy as np
 
@@ -15,7 +19,6 @@ from athena_os.qshrink.container import (
     TopologyType,
     QShrinkContainer,
 )
-
 
 class QShrinkSmokeTests(unittest.TestCase):
     def test_entrypoint_imports(self) -> None:
@@ -89,7 +92,6 @@ class QShrinkSmokeTests(unittest.TestCase):
         self.assertEqual(len(restored.domains), 2)
         self.assertEqual(sum(len(domain.chunks) for domain in restored.domains), 4)
         self.assertEqual(len(restored._global_seek_table._entries), 4)
-
 
 if __name__ == "__main__":
     unittest.main()

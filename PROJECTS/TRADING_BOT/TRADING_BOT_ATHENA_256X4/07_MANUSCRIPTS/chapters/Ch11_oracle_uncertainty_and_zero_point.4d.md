@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S36 | face=S | node=666 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Ω -->
+<!-- BRIDGES: Xi108:W3:A12:S35→Xi108:W2:A12:S36→Xi108:W3:A11:S36 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 36±1, wreath 3/3, archetype 12/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppI -> AppJ -> AppM
 Tunnel: Z_ch11_oracle_uncertainty_and_zero_point -> Z* -> Ch21⟨0110⟩

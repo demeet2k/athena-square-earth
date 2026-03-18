@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Invariant Conservation (κ)                   ║
@@ -39,7 +43,6 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 class InvariantType(Enum):
     """Types of invariants."""
     MASS = "mass"                   # Total mass/probability
@@ -52,7 +55,6 @@ class InvariantType(Enum):
     TOPOLOGICAL = "topological"     # Topological invariant
     SYMPLECTIC = "symplectic"       # Symplectic structure
     CUSTOM = "custom"               # User-defined
-
 
 @dataclass
 class Invariant:
@@ -88,7 +90,6 @@ class Invariant:
         before = self.evaluate(state_before)
         after = self.evaluate(state_after)
         return abs(after - before)
-
 
 @dataclass
 class InvariantBundle:
@@ -139,7 +140,6 @@ class InvariantBundle:
             }
         return report
 
-
 class ConservationChecker:
     """
     Check conservation along trajectories.
@@ -183,7 +183,6 @@ class ConservationChecker:
         
         return analysis
 
-
 # Common invariants
 def mass_invariant(tolerance: float = 1e-12) -> Invariant:
     """Total mass/probability invariant."""
@@ -194,7 +193,6 @@ def mass_invariant(tolerance: float = 1e-12) -> Invariant:
         tolerance=tolerance,
     )
 
-
 def l2_norm_invariant(tolerance: float = 1e-12) -> Invariant:
     """L2 norm invariant."""
     return Invariant(
@@ -204,7 +202,6 @@ def l2_norm_invariant(tolerance: float = 1e-12) -> Invariant:
         tolerance=tolerance,
     )
 
-
 def quadratic_energy(A: NDArray, tolerance: float = 1e-12) -> Invariant:
     """Quadratic energy (1/2)x^T A x."""
     return Invariant(
@@ -213,7 +210,6 @@ def quadratic_energy(A: NDArray, tolerance: float = 1e-12) -> Invariant:
         compute=lambda x: 0.5 * x @ A @ x,
         tolerance=tolerance,
     )
-
 
 def hamiltonian_invariant(
     H: Callable[[NDArray], float],
@@ -226,7 +222,6 @@ def hamiltonian_invariant(
         compute=H,
         tolerance=tolerance,
     )
-
 
 def momentum_invariant(
     dimension: int,
@@ -245,7 +240,6 @@ def momentum_invariant(
         tolerance=tolerance,
     )
 
-
 def symplectic_form(tolerance: float = 1e-10) -> Invariant:
     """Symplectic 2-form (area in phase space)."""
     def compute_symplectic(state: NDArray) -> float:
@@ -261,7 +255,6 @@ def symplectic_form(tolerance: float = 1e-10) -> Invariant:
         compute=compute_symplectic,
         tolerance=tolerance,
     )
-
 
 @dataclass
 class LyapunovFunction:
@@ -309,7 +302,6 @@ class LyapunovFunction:
         slope, _ = np.polyfit(t, log_V, 1)
         return -slope
 
-
 class EntropyFunctional:
     """
     Entropy functional for stochastic systems.
@@ -338,7 +330,6 @@ class EntropyFunctional:
         entropy = EntropyFunctional.discrete_entropy(p)
         energy = np.sum(p * E)
         return energy - temperature * entropy
-
 
 class SymplecticStructure:
     """
@@ -387,7 +378,6 @@ class SymplecticStructure:
         
         return self.J @ grad
 
-
 @dataclass
 class ConservationLaw:
     """
@@ -419,7 +409,6 @@ class ConservationLaw:
         # Conservation error
         error = drho_dt + div_J
         return np.linalg.norm(error)
-
 
 # Invariant-preserving operators
 class InvariantPreservingOperator:
@@ -476,7 +465,6 @@ class InvariantPreservingOperator:
         
         return projected
 
-
 # Create standard invariant bundles
 def hamiltonian_invariants(
     H: Callable[[NDArray], float],
@@ -487,7 +475,6 @@ def hamiltonian_invariants(
     bundle.add(hamiltonian_invariant(H))
     bundle.add(symplectic_form())
     return bundle
-
 
 def probability_invariants() -> InvariantBundle:
     """Invariants for probability distributions."""

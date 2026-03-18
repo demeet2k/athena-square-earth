@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S29 | face=C | node=408 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A7:S28→Xi108:W2:A7:S30→Xi108:W1:A7:S29→Xi108:W3:A7:S29→Xi108:W2:A6:S29→Xi108:W2:A8:S29
+
 """
 Agency & Micro-Gateway Architecture
 =====================================
@@ -13,7 +17,6 @@ Provides the Athena micro-gateway v2 specification:
 from ._cache import JsonCache
 
 _AGENCY = JsonCache("agency_gateway.json")
-
 
 def query_agency(component: str = "all") -> str:
     """
@@ -54,7 +57,6 @@ def query_agency(component: str = "all") -> str:
             "corridor, replay, bridge, fleet, pipeline"
         )
 
-
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
     lines = [
@@ -74,7 +76,6 @@ def _format_all(data: dict) -> str:
             else:
                 lines.append(f"- {s}")
     return "\n".join(lines)
-
 
 def _format_gateway(data: dict) -> str:
     gw = data.get("gateway", {})
@@ -98,7 +99,6 @@ def _format_gateway(data: dict) -> str:
                 lines.append(f"  - {c}")
     return "\n".join(lines)
 
-
 def _format_witness(data: dict) -> str:
     wb = data.get("witness_bundle", {})
     lines = [
@@ -112,7 +112,6 @@ def _format_witness(data: dict) -> str:
             lines.append(f"  - **{name}**: {desc}")
     lines.append(f"\n**Chain Property**: {wb.get('chain_property', 'tamper-evident hash chain')}")
     return "\n".join(lines)
-
 
 def _format_corridor(data: dict) -> str:
     cor = data.get("corridor_constraints", {})
@@ -131,7 +130,6 @@ def _format_corridor(data: dict) -> str:
     lines.append(f"\n**Violation**: {cor.get('violation_action', 'event rejected')}")
     return "\n".join(lines)
 
-
 def _format_replay(data: dict) -> str:
     rp = data.get("replay_protection", {})
     return (
@@ -141,7 +139,6 @@ def _format_replay(data: dict) -> str:
         f"**Duplicate Policy**: {rp.get('duplicate_policy', 'reject duplicate file hashes')}\n"
         f"**Audit**: {rp.get('audit', 'complete audit trail via hash chain')}"
     )
-
 
 def _format_bridge(data: dict) -> str:
     br = data.get("angel_agent_bridge", {})
@@ -160,7 +157,6 @@ def _format_bridge(data: dict) -> str:
             else:
                 lines.append(f"  - {m}")
     return "\n".join(lines)
-
 
 def _format_fleet(data: dict) -> str:
     fl = data.get("fleet_orchestration", {})
@@ -181,7 +177,6 @@ def _format_fleet(data: dict) -> str:
             else:
                 lines.append(f"  - {r}")
     return "\n".join(lines)
-
 
 def _format_pipeline(data: dict) -> str:
     stages = data.get("pipeline_stages", [])

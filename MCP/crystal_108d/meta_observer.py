@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S19 | face=S | node=175 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A5:S18→Xi108:W2:A5:S20→Xi108:W1:A5:S19→Xi108:W3:A5:S19→Xi108:W2:A4:S19→Xi108:W2:A6:S19
+
 """
 Meta Observer Swarm Protocol
 ==============================
@@ -14,7 +18,6 @@ Provides the 57-cycle meta-observation swarm synthesis directive:
 from ._cache import JsonCache
 
 _META_OBS = JsonCache("meta_observer_swarm.json")
-
 
 def query_meta_observer(component: str = "all") -> str:
     """
@@ -58,7 +61,6 @@ def query_meta_observer(component: str = "all") -> str:
             "elements, dimensions, ledger, swarm, rules, termination"
         )
 
-
 def _format_all(data: dict) -> str:
     lines = [
         "## Meta Observer Swarm Protocol\n",
@@ -69,7 +71,6 @@ def _format_all(data: dict) -> str:
         f"**Observation Dimensions**: {data['meta'].get('observation_dimensions', 12)}",
     ]
     return "\n".join(lines)
-
 
 def _format_identity(data: dict) -> str:
     ident = data.get("identity", {})
@@ -85,7 +86,6 @@ def _format_identity(data: dict) -> str:
             lines.append(f"  - {p}")
     return "\n".join(lines)
 
-
 def _format_phases(data: dict) -> str:
     phases = data.get("phases", [])
     lines = ["## Cycle Phases (A-F)\n"]
@@ -94,7 +94,6 @@ def _format_phases(data: dict) -> str:
         lines.append(p.get("description", ""))
         lines.append("")
     return "\n".join(lines)
-
 
 def _format_elements(data: dict) -> str:
     elems = data.get("four_element_synthesis", {})
@@ -110,7 +109,6 @@ def _format_elements(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_dimensions(data: dict) -> str:
     dims = data.get("twelve_dimensions", [])
     lines = ["## 12-Dimensional Observation Schema\n"]
@@ -120,7 +118,6 @@ def _format_dimensions(data: dict) -> str:
         else:
             lines.append(f"{i}. {d}")
     return "\n".join(lines)
-
 
 def _format_ledger(data: dict) -> str:
     ledger = data.get("observation_ledger", {})
@@ -133,7 +130,6 @@ def _format_ledger(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_swarm(data: dict) -> str:
     swarm = data.get("swarm_emission", {})
     lines = ["## Swarm Emission Protocol\n"]
@@ -144,7 +140,6 @@ def _format_swarm(data: dict) -> str:
     if "communication_medium" in swarm:
         lines.append(f"\n**Medium**: {swarm['communication_medium']}")
     return "\n".join(lines)
-
 
 def _format_rules(data: dict) -> str:
     rules = data.get("rules", [])
@@ -157,7 +152,6 @@ def _format_rules(data: dict) -> str:
             lines.append(f"- {r}")
         lines.append("")
     return "\n".join(lines)
-
 
 def _format_termination(data: dict) -> str:
     term = data.get("termination", {})

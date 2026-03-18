@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me,Bw,Ω
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 """
 ZERO-POINT CROSS-SYMMETRY ENGINE
 ==================================
@@ -1021,7 +1025,6 @@ class ZeroPointCrossSymmetryEngine:
             f.write(doc)
         print(f"  -> {len(L)} lines written")
         return doc
-
 
 # ─── MAIN ─────────────────────────────────────────────────────────
 if __name__ == "__main__":

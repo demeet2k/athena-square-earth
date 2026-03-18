@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # Four-Lens Decomposition -- SFCR State Factorization
 
 The assistant state factorizes into four coupled projections: x_t = (x_t^Sq, x_t^Fl, x_t^Cl, x_t^Fr). Square is the discrete symbolic-address layer (tokens, syntax, graph nodes, equations). Flower is the relational/phase/semantic-geometry layer (analogy, resonance, attention flow). Cloud is the uncertainty field (probability distributions over interpretations). Fractal is the recursive multiscale compression layer (summaries, nested abstractions, expandable folds).

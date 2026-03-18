@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=82 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - QUMRAN KERNEL: DEAD SEA SCROLLS COMPUTATIONAL FRAMEWORK
 ====================================================================
@@ -174,7 +178,6 @@ from .operators import (
     # Classes
     OperatorCalculus,
 )
-
 
 # =============================================================================
 # INTEGRATED QUMRAN SYSTEM
@@ -377,7 +380,6 @@ class QumranSystem:
             "roles_defined": len(self.role_graph.nodes)
         }
 
-
 # =============================================================================
 # FACTORY FUNCTIONS
 # =============================================================================
@@ -386,26 +388,21 @@ def create_qumran_system() -> QumranSystem:
     """Create a complete Qumran system."""
     return QumranSystem()
 
-
 def create_time_kernel() -> TimeKernel:
     """Create a time kernel."""
     return TimeKernel()
-
 
 def create_role_graph() -> RoleGraph:
     """Create a role graph."""
     return RoleGraph()
 
-
 def create_operator_calculus() -> OperatorCalculus:
     """Create an operator calculus system."""
     return OperatorCalculus()
 
-
 def create_path_automaton() -> BinaryPathAutomaton:
     """Create a binary path automaton."""
     return BinaryPathAutomaton()
-
 
 # =============================================================================
 # VALIDATION
@@ -468,7 +465,6 @@ def validate_all() -> Dict[str, Any]:
     
     return results
 
-
 def get_info() -> Dict[str, Any]:
     """Get module information."""
     return {
@@ -478,7 +474,6 @@ def get_info() -> Dict[str, Any]:
         "modules": ["time_kernel", "role_graph", "dualism", "operators"],
         "description": "364-day calendar, institutional automaton, Two Spirits doctrine, ritual operators"
     }
-
 
 # =============================================================================
 # MAIN

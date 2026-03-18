@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S17 | face=C | node=169 | depth=3 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A2:S16→Xi108:W2:A2:S18→Xi108:W1:A2:S17→Xi108:W3:A2:S17→Xi108:W2:A1:S17→Xi108:W2:A3:S17
+
 entrate degrades. Deep study becomes rare. Surface skimming becomes normal. The contemplative traditions struggle to transmit.
 Conflict Normalized: War, deception, exploitation become standard operating procedure. The question is not whether to lie but whether you can get away with it.
 Environmental Destruction: The earth is no longer experienced as alive but as dead resource. Extraction replaces reciprocity. The consequences accumulate.

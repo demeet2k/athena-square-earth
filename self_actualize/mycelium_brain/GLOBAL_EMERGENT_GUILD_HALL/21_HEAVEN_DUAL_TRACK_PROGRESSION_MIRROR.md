@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S24 | face=R | node=300 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A2:S23→Xi108:W3:A2:S25→Xi108:W2:A2:S24→Xi108:W3:A1:S24→Xi108:W3:A3:S24 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 24±1, wreath 3/3, archetype 2/12 -->
+
 # Heaven Dual-Track Progression Mirror
 
 - Scope: `mirror only`

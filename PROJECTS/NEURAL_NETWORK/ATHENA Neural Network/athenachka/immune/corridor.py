@@ -1,5 +1,8 @@
-from __future__ import annotations
+# CRYSTAL: Xi108:W2:A1:S20 | face=C | node=202 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S19→Xi108:W2:A1:S21→Xi108:W1:A1:S20→Xi108:W3:A1:S20→Xi108:W2:A2:S20
 
+from __future__ import annotations
 
 FAST_PROFILE = {
     "mode": "fast",
@@ -21,10 +24,8 @@ FULL_PROFILE = {
     "ambiguity_margin": 0.15,
 }
 
-
 def resolve_corridor(mode: str) -> dict[str, object]:
     return dict(FULL_PROFILE if mode.lower().strip() == "full" else FAST_PROFILE)
-
 
 def trim_candidate_set(candidate_set: list[dict[str, object]], corridor_profile: dict[str, object]) -> list[dict[str, object]]:
     limit = int(corridor_profile["max_hypotheses"])

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=459 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        ATLAS FORGE - Registry System                          ║
@@ -30,7 +34,6 @@ from atlasforge.core.enums import CertificateLevel
 from atlasforge.recipes.recipe import Recipe, Blueprint
 from atlasforge.certificates.certificate import CertificateBundle
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTENT-ADDRESSED STORAGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -53,7 +56,6 @@ class StorageEntry:
         """Update access time and count."""
         self.accessed_at = datetime.utcnow()
         self.access_count += 1
-
 
 class ContentStore:
     """
@@ -129,7 +131,6 @@ class ContentStore:
     def __iter__(self) -> Iterator[str]:
         return iter(self._store)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # RECIPE STORE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -204,7 +205,6 @@ class RecipeStore:
     def __len__(self) -> int:
         return len(self._recipes)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DEPENDENCY DAG
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -223,7 +223,6 @@ class DependencyNode:
     # Status
     valid: bool = True
     invalidation_reason: Optional[str] = None
-
 
 class DependencyDAG:
     """
@@ -374,7 +373,6 @@ class DependencyDAG:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # RECIPE CACHE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -431,7 +429,6 @@ class RecipeCache:
     
     def __len__(self) -> int:
         return len(self._cache)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # REGISTRY FACADE

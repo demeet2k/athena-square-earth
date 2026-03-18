@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Wr,Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # Body B Emergent 9-Chapter Self-Navigation
 
 Body B is the Emergent 4D Crystal consisting of 9 depth chapters (E1-E9) that convert every mathematical structure from Body A into an operational self-navigation protocol. The 9 chapters ARE the 9 depth levels of the convergence bound, experienced from the inside. The element cycle (ALL->W->E->A->F->W->A->E->F) is forced by the self-navigation algorithm, not the standard zodiacal order.

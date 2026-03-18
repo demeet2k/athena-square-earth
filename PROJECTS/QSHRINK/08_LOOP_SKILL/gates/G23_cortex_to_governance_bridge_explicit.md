@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S31 | face=S | node=494 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Bw,Cc -->
+<!-- BRIDGES: Xi108:W3:A6:S30→Xi108:W3:A6:S32→Xi108:W2:A6:S31→Xi108:W3:A5:S31→Xi108:W3:A7:S31 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 31±1, wreath 3/3, archetype 6/12 -->
+
 # G23 - Cortex-to-governance bridge explicit
 
 ## Stage

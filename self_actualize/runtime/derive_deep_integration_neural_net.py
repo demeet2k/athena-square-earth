@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 from collections import Counter, defaultdict
@@ -5,7 +9,6 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -21,7 +24,6 @@ OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "deep_integration_neural_net.json"
 RECEIPT_PATH = RECEIPTS_ROOT / "2026-03-09_deep_integration_neural_net.md"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_deep_integration_neural_net"
 
-
 @dataclass
 class FamilySpec:
     code: str
@@ -33,7 +35,6 @@ class FamilySpec:
     shadow: str
     primary_channel: str
     metro_role: str
-
 
 @dataclass
 class FamilySummary:
@@ -47,7 +48,6 @@ class FamilySummary:
     top_levels: list[dict[str, int]]
     sample_paths: list[str]
 
-
 @dataclass
 class PairSynthesis:
     source_code: str
@@ -59,7 +59,6 @@ class PairSynthesis:
     synthesis: str
     risk: str
 
-
 @dataclass
 class LensObservation:
     address: str
@@ -67,7 +66,6 @@ class LensObservation:
     family_name: str
     operation: str
     statement: str
-
 
 @dataclass
 class MetroLine:
@@ -78,7 +76,6 @@ class MetroLine:
     transfer_hubs: list[str]
     reading: str
 
-
 @dataclass
 class AppendixCell:
     letter: str
@@ -86,7 +83,6 @@ class AppendixCell:
     column: str
     title: str
     purpose: str
-
 
 @dataclass
 class DeepIntegrationArtifact:
@@ -104,7 +100,6 @@ class DeepIntegrationArtifact:
     metro_maps: dict[str, list[MetroLine]]
     appendices: list[AppendixCell]
     appendix_q_lines: list[MetroLine]
-
 
 FAMILY_SPECS = [
     FamilySpec(
@@ -376,14 +371,11 @@ APPENDIX_GRID = [
     ("P", "earth", "dance", "Living maintenance loop", "Define how the deep net stays current without recursive drift."),
 ]
 
-
 def now_utc() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def docs_gate_status() -> str:
     if not DOCS_GATE_PATH.exists():
@@ -394,7 +386,6 @@ def docs_gate_status() -> str:
     if "OK" in text:
         return "OK"
     return "UNKNOWN"
-
 
 def family_code_for_path(relative_path: str) -> str:
     rel = relative_path.replace("/", "\\")
@@ -443,7 +434,6 @@ def family_code_for_path(relative_path: str) -> str:
         return "F3"
     return "E4"
 
-
 def summarize_families(atlas: dict) -> tuple[list[FamilySummary], dict[str, list[dict]]]:
     grouped_records: dict[str, list[dict]] = defaultdict(list)
     for record in atlas["records"]:
@@ -473,7 +463,6 @@ def summarize_families(atlas: dict) -> tuple[list[FamilySummary], dict[str, list
         )
     return summaries, grouped_records
 
-
 def relation_kind(source: FamilySpec, target: FamilySpec) -> str:
     if source.code == target.code:
         return "self-tightening"
@@ -481,12 +470,10 @@ def relation_kind(source: FamilySpec, target: FamilySpec) -> str:
         return "same-element resonance"
     return PAIR_RELATIONS[frozenset({source.element, target.element})]
 
-
 def channel_law(source: FamilySpec, target: FamilySpec) -> str:
     if source.primary_channel == target.primary_channel:
         return source.primary_channel
     return f"{source.primary_channel} -> {target.primary_channel}"
-
 
 def pair_synthesis(source: FamilySpec, target: FamilySpec) -> PairSynthesis:
     relation = relation_kind(source, target)
@@ -506,14 +493,12 @@ def pair_synthesis(source: FamilySpec, target: FamilySpec) -> PairSynthesis:
         risk=risk,
     )
 
-
 def build_pairwise_matrix() -> list[PairSynthesis]:
     matrix: list[PairSynthesis] = []
     for source in FAMILY_SPECS:
         for target in FAMILY_SPECS:
             matrix.append(pair_synthesis(source, target))
     return matrix
-
 
 def build_lens_observations() -> dict[str, list[LensObservation]]:
     observations: dict[str, list[LensObservation]] = {}
@@ -538,7 +523,6 @@ def build_lens_observations() -> dict[str, list[LensObservation]]:
                 index += 1
         observations[element] = entries
     return observations
-
 
 def build_symmetry_syntheses() -> dict[str, list[dict[str, str]]]:
     singles = []
@@ -620,7 +604,6 @@ def build_symmetry_syntheses() -> dict[str, list[dict[str, str]]]:
         "zero_point": zero_point,
     }
 
-
 def build_metro_maps() -> dict[str, list[MetroLine]]:
     return {
         "lvl1": [
@@ -659,13 +642,11 @@ def build_metro_maps() -> dict[str, list[MetroLine]]:
         ],
     }
 
-
 def build_appendices() -> list[AppendixCell]:
     return [
         AppendixCell(letter=letter, row=row, column=column, title=title, purpose=purpose)
         for letter, row, column, title, purpose in APPENDIX_GRID
     ]
-
 
 def build_appendix_q_lines() -> list[MetroLine]:
     return [
@@ -675,7 +656,6 @@ def build_appendix_q_lines() -> list[MetroLine]:
         MetroLine("Living Spine", "appendix_q", "linear", ["M", "N", "O", "P"], ["N", "O"], "The earth row turns the structure into a maintainable living practice."),
         MetroLine("Diagonal Compression", "appendix_q", "circular", ["A", "F", "K", "P", "A"], ["F", "K"], "Key, lenses, contracts, and maintenance form the diagonal by which the appendix crystal stays operational."),
     ]
-
 
 def family_table_markdown(summaries: list[FamilySummary]) -> str:
     lines = [
@@ -688,7 +668,6 @@ def family_table_markdown(summaries: list[FamilySummary]) -> str:
             f"`{summary.primary_channel}` | {summary.metro_role} |"
         )
     return "\n".join(lines)
-
 
 def render_index(artifact: DeepIntegrationArtifact) -> str:
     return f"""# Deeper Integrated Neural Net Athena
@@ -734,7 +713,6 @@ This root compresses the full indexed corpus into 16 canonical family nuclei, th
 
 The whole body is treated here as one routed manuscript organism. Every document is touched through atlas classification, every family is given a lawful place, and every place is cross-synthesized before it is allowed to claim centrality.
 """
-
 
 def render_neutral_synthesis(artifact: DeepIntegrationArtifact) -> str:
     overview = [
@@ -787,7 +765,6 @@ def render_neutral_synthesis(artifact: DeepIntegrationArtifact) -> str:
     )
     return "\n".join(overview)
 
-
 def render_pairwise_matrix(artifact: DeepIntegrationArtifact) -> str:
     lines = [
         "# 16x16 Family Permutation Matrix",
@@ -810,7 +787,6 @@ def render_pairwise_matrix(artifact: DeepIntegrationArtifact) -> str:
     lines.append("The matrix zero point is not any one row. It is the fact that no family remains interpretable in isolation once the full lattice is visible.")
     return "\n".join(lines)
 
-
 def render_lens_doc(element: str, artifact: DeepIntegrationArtifact) -> str:
     descriptor = ELEMENT_DESCRIPTORS[element]
     lines = [
@@ -828,7 +804,6 @@ def render_lens_doc(element: str, artifact: DeepIntegrationArtifact) -> str:
         f"The {descriptor['title'].lower()} zero point is that the framework becomes legible only when {descriptor['reading']} are allowed to speak in their own right rather than being collapsed back into the neutral layer."
     )
     return "\n".join(lines)
-
 
 def render_symmetry_doc(artifact: DeepIntegrationArtifact) -> str:
     lines = [
@@ -854,7 +829,6 @@ def render_symmetry_doc(artifact: DeepIntegrationArtifact) -> str:
     for item in artifact.symmetry_syntheses["zero_point"]:
         lines.append(f"- `{item['name']}`: {item['reading']}")
     return "\n".join(lines)
-
 
 def render_metro_map(level: str, lines_data: list[MetroLine]) -> str:
     titles = {
@@ -890,7 +864,6 @@ def render_metro_map(level: str, lines_data: list[MetroLine]) -> str:
     )
     return "\n".join(lines)
 
-
 def render_appendix_skeleton(artifact: DeepIntegrationArtifact) -> str:
     lines = [
         "# Appendix Crystal Skeleton",
@@ -913,7 +886,6 @@ def render_appendix_skeleton(artifact: DeepIntegrationArtifact) -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def render_skill() -> str:
     return """---
@@ -972,7 +944,6 @@ Use this skill when the request is not about one chapter or one family, but abou
 - prefer replayable regeneration over ad hoc prose sprawl
 """
 
-
 def render_pipeline_reference() -> str:
     return """# Pipeline
 
@@ -1014,7 +985,6 @@ This pipeline regenerates the project-local deeper integrated neural net as a re
 The corpus currently contains thousands of indexed records. A faithful deeper integration pass should touch all of them, but touching them does not require pretending each file should become its own central hub. The family lattice preserves whole-body coverage while keeping the integration layer executable.
 """
 
-
 def render_crystal_pipeline_reference() -> str:
     return """# Integrated Neural Crystal Pipeline
 
@@ -1052,7 +1022,6 @@ The deeper integrated neural crystal is the human-readable execution shell of th
 - Keep the blocked Docs gate visible while credentials remain absent.
 - Prefer replayable foldered outputs over one huge thread-only prose slab.
 """
-
 
 def render_orchestrator_skill() -> str:
     return """---
@@ -1093,7 +1062,6 @@ Use this skill when the request touches the whole organism rather than one local
 - `../../00_ROOT/04_PIPELINE_AND_USAGE.md`
 """
 
-
 def render_element_skill(name: str, title: str, why: str, use_when: list[str], outputs: list[str]) -> str:
     use_lines = "\n".join(f"- {item}" for item in use_when)
     output_lines = "\n".join(f"- `{item}`" for item in outputs)
@@ -1122,7 +1090,6 @@ description: "{why}"
 - do not flatten the other three lenses; state what this lens sees and what it still misses
 - route to appendix support when the answer needs proof, replay, or deployment closure
 """
-
 
 def render_receipt(artifact: DeepIntegrationArtifact) -> str:
     return f"""# Deeper Integrated Neural Net Receipt
@@ -1155,7 +1122,6 @@ def render_receipt(artifact: DeepIntegrationArtifact) -> str:
 - metro structure, appendix structure, and skill structure are all coupled in one place
 """
 
-
 def build_artifact() -> DeepIntegrationArtifact:
     atlas = load_json(ATLAS_PATH)
     witness = load_json(WITNESS_PATH)
@@ -1176,7 +1142,6 @@ def build_artifact() -> DeepIntegrationArtifact:
         appendices=build_appendices(),
         appendix_q_lines=build_appendix_q_lines(),
     )
-
 
 def write_outputs(artifact: DeepIntegrationArtifact) -> None:
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
@@ -1320,7 +1285,6 @@ def write_outputs(artifact: DeepIntegrationArtifact) -> None:
 
     RECEIPT_PATH.write_text(render_receipt(artifact), encoding="utf-8")
 
-
 def main() -> int:
     artifact = build_artifact()
     write_outputs(artifact)
@@ -1328,7 +1292,6 @@ def main() -> int:
     print(f"Wrote deep integration root: {OUTPUT_ROOT}")
     print(f"Wrote deep integration receipt: {RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

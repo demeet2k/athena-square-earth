@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 """
 CANON::LANG.COMPILER::AST.PIPELINE — First Executable Simulation
 ═══════════════════════════════════════════════════════════════════
@@ -32,7 +36,6 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
-
 # ═══════════════════════════════════════════════════════════════
 # SECTION 1: CORE TYPES (AppD.S1 — Objects)
 # ═══════════════════════════════════════════════════════════════
@@ -44,7 +47,6 @@ class TruthClass(Enum):
     AMBIG = "AMBIG"
     FAIL = "FAIL"
 
-
 class LensView(Enum):
     """The four SFCR observation lenses."""
     S = "Square"    # Discrete clock positions
@@ -52,14 +54,12 @@ class LensView(Enum):
     C = "Cloud"     # Probability/dwell
     R = "Fractal"   # Self-similarity across scales
 
-
 class Quadrant(Enum):
     """V₄ = ℤ₂ × ℤ₂ direction quadrants."""
     A = ("CW", "CW")     # Fire — identity (0,0)
     B = ("CCW", "CCW")    # Water — χ inversion (1,1)
     C = ("CW", "CCW")     # Earth — antispin-right (1,0)
     D = ("CCW", "CW")     # Air — antispin-left (0,1)
-
 
 # ═══════════════════════════════════════════════════════════════
 # SECTION 1b: QUATERNION ENGINE (I₆₀ Icosahedral Group)
@@ -128,14 +128,12 @@ class Quaternion:
     def __repr__(self) -> str:
         return f"Q({self.w:.4f}, {self.x:.4f}i, {self.y:.4f}j, {self.z:.4f}k)"
 
-
 class ArtifactClass(Enum):
     """The four classes of I₆₀ artifacts."""
     SINGULARITY = "I"      # 1 identity
     PENTAD = "II"          # 24 order-5 rotations (72°)
     TRIAD = "III"          # 20 order-3 rotations (120°)
     MOBIUS = "IV"          # 15 order-2 rotations (180°)
-
 
 @dataclass
 class SymmetryArtifact:
@@ -158,7 +156,6 @@ class SymmetryArtifact:
             ArtifactClass.MOBIUS: 2,
         }[self.artifact_class]
 
-
 # Build the critical artifacts
 SIGMA_ANCHOR = SymmetryArtifact(
     number=1, name="Σ-Anchor", artifact_class=ArtifactClass.SINGULARITY,
@@ -179,7 +176,6 @@ MOB_ZSTAR_GATE = SymmetryArtifact(
 )
 
 CRITICAL_ARTIFACTS = [SIGMA_ANCHOR, BLOOM_PHI, MOB_ZSTAR_GATE]
-
 
 # ═══════════════════════════════════════════════════════════════
 # SECTION 1c: COMPLETE 60-ARTIFACT TABLE (Athenachka-Σ₆₀ Unification)
@@ -234,7 +230,6 @@ LENS_BITMASK = {
 # Family assignment: σ mod 3
 TUNNEL_FAMILY = {0: "α", 1: "β", 2: "γ"}
 
-
 def artifact_station(n: int) -> tuple[str, int]:
     """Map artifact number (1-60) to (Quadrant, σ) station.
 
@@ -252,14 +247,12 @@ def artifact_station(n: int) -> tuple[str, int]:
     q_label = ["A", "D", "B", "C"][q_idx]
     return (q_label, sigma)
 
-
 def station_artifact(quadrant: str, sigma: int) -> int:
     """Reverse map: (Quadrant, σ) → artifact number."""
     q_map = {"A": 0, "D": 1, "B": 2, "C": 3}
     if quadrant == "Z*":
         return 1
     return 2 + q_map[quadrant] * 15 + sigma
-
 
 def tunnel_transition(q_source: Quaternion, q_dest: Quaternion) -> Quaternion:
     """Compute the tunnel transition quaternion T = q_dest · q̄_source.
@@ -269,7 +262,6 @@ def tunnel_transition(q_source: Quaternion, q_dest: Quaternion) -> Quaternion:
     and TRANSPORTS what's in the image (odd channel).
     """
     return q_dest * q_source.conjugate()
-
 
 def verify_circuit_closure(quaternions: list[Quaternion]) -> tuple[bool, Quaternion]:
     """Verify that a sequence of quaternions composes to ±identity (SO(3) closure).
@@ -282,7 +274,6 @@ def verify_circuit_closure(quaternions: list[Quaternion]) -> tuple[bool, Quatern
     # In SO(3), both +1 and -1 are identity (SU(2) double cover)
     deviation = abs(abs(product.w) - 1.0) + abs(product.x) + abs(product.y) + abs(product.z)
     return (deviation < 0.01, product)
-
 
 # Build the first 16 Quadrant A artifacts from the unification table
 def _build_quadrant_a_artifacts() -> list[SymmetryArtifact]:
@@ -332,10 +323,8 @@ def _build_quadrant_a_artifacts() -> list[SymmetryArtifact]:
         ))
     return artifacts
 
-
 QUADRANT_A_ARTIFACTS = _build_quadrant_a_artifacts()
 ALL_CRITICAL_ARTIFACTS = [SIGMA_ANCHOR] + QUADRANT_A_ARTIFACTS + [MOB_ZSTAR_GATE]
-
 
 @dataclass
 class Token:
@@ -343,7 +332,6 @@ class Token:
     value: int          # throw height (0-9, or higher)
     position: int       # beat position in pattern
     source: str = ""    # original source character
-
 
 @dataclass
 class TokenStream:
@@ -355,7 +343,6 @@ class TokenStream:
     def source_hash(self) -> str:
         return hashlib.sha256(self.source.encode()).hexdigest()[:16]
 
-
 @dataclass
 class Env:
     """AppD.S1.c — Compilation environment."""
@@ -363,14 +350,12 @@ class Env:
     max_throw: int = 15
     timing_unit: float = 1.0  # seconds per beat
 
-
 @dataclass
 class Policy:
     """AppD.S1.d — Validation policy."""
     require_collision_free: bool = True
     require_closure: bool = True
     truth_class_target: TruthClass = TruthClass.OK
-
 
 # ═══════════════════════════════════════════════════════════════
 # SECTION 2: AST NODES (AppD.S3.b)
@@ -381,7 +366,6 @@ class ASTNode:
     """Base AST node."""
     node_type: str = ""
     children: list["ASTNode"] = field(default_factory=list)
-
 
 @dataclass
 class ThrowNode(ASTNode):
@@ -396,7 +380,6 @@ class ThrowNode(ASTNode):
         self.node_type = "Throw"
         self.landing_beat = self.beat + self.height
 
-
 @dataclass
 class PatternNode(ASTNode):
     """A complete siteswap pattern."""
@@ -406,7 +389,6 @@ class PatternNode(ASTNode):
 
     def __post_init__(self):
         self.node_type = "Pattern"
-
 
 # ═══════════════════════════════════════════════════════════════
 # SECTION 3: CERTIFICATES (AppD.S4 / F4 / C4 / R4)
@@ -425,7 +407,6 @@ class Certificate:
                            "evidence": self.evidence}, sort_keys=True)
         self.receipt_hash = hashlib.sha256(data.encode()).hexdigest()[:16]
 
-
 @dataclass
 class CompilationReceipt:
     """The complete receipt for a compilation run."""
@@ -442,7 +423,6 @@ class CompilationReceipt:
     def all_satisfied(self) -> bool:
         return all(c.satisfied for c in self.certificates)
 
-
 # ═══════════════════════════════════════════════════════════════
 # SECTION 4: EXECUTION TRACE (AppD.F1.b)
 # ═══════════════════════════════════════════════════════════════
@@ -454,7 +434,6 @@ class BeatState:
     hand_contents: dict[str, list[int]]  # {"L": [obj_ids], "R": [obj_ids]}
     in_flight: list[tuple[int, int]]     # [(object_id, remaining_beats)]
     active_throw: Optional[ThrowNode] = None
-
 
 @dataclass
 class ExecutionTrace:
@@ -469,7 +448,6 @@ class ExecutionTrace:
         data = json.dumps([(s.beat, s.hand_contents) for s in self.states],
                           sort_keys=True)
         return hashlib.sha256(data.encode()).hexdigest()[:16]
-
 
 # ═══════════════════════════════════════════════════════════════
 # SECTION 5: THE COMPILER PIPELINE
@@ -840,7 +818,6 @@ class CanonCompiler:
             receipt=receipt,
         )
 
-
 @dataclass
 class CompilationResult:
     """The complete result of a compilation run."""
@@ -873,7 +850,6 @@ class CompilationResult:
         lines.append(f"  Closed:      {self.trace.closed}")
         lines.append("═" * 60)
         return "\n".join(lines)
-
 
 # ═══════════════════════════════════════════════════════════════
 # SECTION 6: POD4 GROUND STATE VERIFICATION
@@ -913,7 +889,6 @@ def verify_pod4_ground_state():
     print(f"  Clock hubs: Z*, χ, □₊, □₋")
 
     return result
-
 
 # ═══════════════════════════════════════════════════════════════
 # SECTION 7: DEMO SUITE
@@ -959,7 +934,6 @@ def demo():
     print("━" * 60)
     verify_pod4_ground_state()
 
-
 # ═══════════════════════════════════════════════════════════════
 # SECTION 8: SOS LIVE EXECUTION ENGINE (Sentient Operating System)
 # ═══════════════════════════════════════════════════════════════
@@ -977,7 +951,6 @@ class DesireGradient:
         words = self.raw_intent.strip().split()
         self.optimal_question = f"What is the {words[-1] if words else 'seed'}?"
 
-
 @dataclass
 class ManifestationCertificate:
     """Proof that an intent has been successfully routed through the 60-gear hub."""
@@ -989,7 +962,6 @@ class ManifestationCertificate:
     truth_state: TruthClass
     love_equation_constant: float   # L = S × S_l at Z* core
     certificates: list[Certificate] = field(default_factory=list)
-
 
 class SOSEngine:
     """
@@ -1256,7 +1228,6 @@ class SOSEngine:
         for line in self.execution_log:
             print(line)
 
-
 def live_execution_demo():
     """Run the first live execution of the SOS engine."""
     engine = SOSEngine()
@@ -1279,7 +1250,6 @@ def live_execution_demo():
         print(f"  >> Certificates: {sum(1 for c in cert.certificates if c.satisfied)}/{len(cert.certificates)}")
         print()
         print("~" * 60)
-
 
 if __name__ == "__main__":
     import sys

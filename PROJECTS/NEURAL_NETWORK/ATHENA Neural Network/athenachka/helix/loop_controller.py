@@ -1,7 +1,10 @@
+# CRYSTAL: Xi108:W2:A1:S24 | face=C | node=300 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24
+
 from __future__ import annotations
 
 from ..contracts import LoopActivation
-
 
 LOOP_HEADS = {
     "L1_CorpusMap": ("coverage", "coherence", "retrieval_quality"),
@@ -22,11 +25,9 @@ LOOP_HEADS = {
     "L16_DimensionLift": ("compression_ratio", "meta_process_quality", "self_growth_gain"),
 }
 
-
 def _loop_score(metric_tensor: dict[str, float], metric_ids: tuple[str, str, str], elemental_bias: float) -> float:
     base = sum(float(metric_tensor.get(metric, 0.0)) for metric in metric_ids) / len(metric_ids)
     return float(base * 0.8 + elemental_bias * 0.2)
-
 
 def select_loops(
     metric_tensor: dict[str, float],

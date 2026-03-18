@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=309 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 import json
@@ -30,7 +34,6 @@ from self_actualize.runtime.qshrink_refine_common import (
     load_json,
     read_text,
 )
-
 
 NERVOUS_SYSTEM_ROOT = WORKSPACE_ROOT / "NERVOUS_SYSTEM"
 LEDGERS_ROOT = NERVOUS_SYSTEM_ROOT / "90_LEDGERS"
@@ -88,24 +91,19 @@ NEXT_SEED_DISPLAY = "none; do not invent QS64-25"
 AP6D_TEMPLE_UPTAKE = "AP6D-TQ01"
 AP6D_HALL_UPTAKE = "AP6D-H-WATER-Diagnose"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
-
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def upsert_marker_block(text: str, marker: str, block: str) -> str:
     start = f"<!-- {marker}:START -->"
@@ -115,7 +113,6 @@ def upsert_marker_block(text: str, marker: str, block: str) -> str:
         pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
         return pattern.sub(replacement, text, count=1)
     return text.rstrip() + "\n\n" + replacement + "\n"
-
 
 def prepend_numbered_entry(text: str, entry: str) -> str:
     numbers = [int(match.group(1)) for match in re.finditer(r"^(\d+)\.\s", text, re.M)]
@@ -127,7 +124,6 @@ def prepend_numbered_entry(text: str, entry: str) -> str:
     if marker not in text:
         return line + text
     return text.replace(marker, marker + line, 1)
-
 
 def prepend_requests_entry(text: str, entry: str) -> str:
     section_split = text.split("## This Pass\n\n", 1)
@@ -141,20 +137,16 @@ def prepend_requests_entry(text: str, entry: str) -> str:
         return text
     return head + "## This Pass\n\n" + line + tail
 
-
 def file_count(path: Path) -> int:
     return sum(1 for item in path.rglob("*") if item.is_file())
-
 
 def parse_int(readme_text: str, label: str) -> int | None:
     match = re.search(rf"{re.escape(label)}: `(\d+)`", readme_text)
     return int(match.group(1)) if match else None
 
-
 def parse_symmetry(readme_text: str) -> str | None:
     match = re.search(r"Symmetry syntheses: `([^`]+)`", readme_text)
     return match.group(1) if match else None
-
 
 def deep_root_counts() -> dict[str, Any]:
     readme = read_text(DEEP_ROOT_README_PATH)
@@ -169,7 +161,6 @@ def deep_root_counts() -> dict[str, Any]:
         "appendix_files": file_count(DEEP_ROOT / "08_APPENDIX_CRYSTAL"),
     }
 
-
 def q42_fields() -> dict[str, str]:
     return {
         "carried_witness": CURRENT_CARRIED_WITNESS,
@@ -179,7 +170,6 @@ def q42_fields() -> dict[str, str]:
         "reserve_frontier": RESERVE_FRONTIER,
         "blocked_overlay": BLOCKED_EXTERNAL_FRONT,
     }
-
 
 def root_to_body_rows() -> list[dict[str, str]]:
     return [
@@ -248,7 +238,6 @@ def root_to_body_rows() -> list[dict[str, str]]:
             "runtime_first_route": "reserve shelf -> manifest naming only until honest uptake",
         },
     ]
-
 
 def agent_note_specs() -> list[dict[str, Any]]:
     reassessment_window = (
@@ -387,10 +376,8 @@ def agent_note_specs() -> list[dict[str, Any]]:
         },
     ]
 
-
 def note_path_for(agent_title: str) -> Path:
     return AWAKENING_NOTES_DIR / (agent_title.lower().replace(" ", "_") + ".md")
-
 
 def render_note_template() -> str:
     return "\n".join(
@@ -422,7 +409,6 @@ def render_note_template() -> str:
             "",
         ]
     )
-
 
 def render_agent_note(note: dict[str, Any]) -> str:
     surfaces = "\n".join(f"- `{item}`" for item in note["support_surfaces"])
@@ -476,14 +462,12 @@ def render_agent_note(note: dict[str, Any]) -> str:
         ]
     )
 
-
 def render_notes_index(notes: list[dict[str, Any]]) -> str:
     lines = ["# AP6D Awakening Notes", ""]
     for note in notes:
         lines.append(f"- `{note['title']}` -> `{relative_string(note_path_for(note['title']))}`")
     lines.extend(["", f"- Template -> `{relative_string(AWAKENING_NOTE_TEMPLATE_PATH)}`", ""])
     return "\n".join(lines)
-
 
 def render_hall_notes_bundle(notes: list[dict[str, Any]]) -> str:
     lines = [
@@ -527,7 +511,6 @@ def render_hall_notes_bundle(notes: list[dict[str, Any]]) -> str:
     )
     return "\n".join(lines)
 
-
 def render_root_to_body_crosswalk(rows: list[dict[str, str]]) -> str:
     lines = [
         "# NEXT^[4^6] Root-To-Body Crosswalk",
@@ -541,7 +524,6 @@ def render_root_to_body_crosswalk(rows: list[dict[str, str]]) -> str:
         )
     lines.append("")
     return "\n".join(lines)
-
 
 def authority_matrix_payload() -> dict[str, Any]:
     return {
@@ -614,7 +596,6 @@ def authority_matrix_payload() -> dict[str, Any]:
         ],
     }
 
-
 def feeder_ledger_payload() -> dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -665,7 +646,6 @@ def feeder_ledger_payload() -> dict[str, Any]:
         ],
     }
 
-
 def drift_ledger_payload() -> dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -692,7 +672,6 @@ def drift_ledger_payload() -> dict[str, Any]:
         ],
         "packet_staleness_truth": "Hourly packet plurality remains mixed-freshness and must stay explicit on Hall/Temple restart surfaces.",
     }
-
 
 def render_charter(notes: list[dict[str, Any]]) -> str:
     steps = [
@@ -801,7 +780,6 @@ def render_charter(notes: list[dict[str, Any]]) -> str:
     )
     return "\n".join(lines)
 
-
 def appendix_lines() -> list[str]:
     appendix_map = [
         ("AppA", "addressing and grammar", "Earth route legality and AP6D contract field naming"),
@@ -826,7 +804,6 @@ def appendix_lines() -> list[str]:
         f"| `{code}` | {job} | {relation} |"
         for code, job, relation in appendix_map
     ]
-
 
 def render_metro_writeback_contract() -> str:
     return "\n".join(
@@ -865,7 +842,6 @@ def render_metro_writeback_contract() -> str:
             "",
         ]
     )
-
 
 def render_restart_packet(notes: list[dict[str, Any]]) -> str:
     note_targets = "\n".join(
@@ -916,7 +892,6 @@ def render_restart_packet(notes: list[dict[str, Any]]) -> str:
         ]
     )
 
-
 def runtime_verification_payload() -> dict[str, Any]:
     docs_gate = docs_gate_payload()
     checks = {
@@ -939,7 +914,6 @@ def runtime_verification_payload() -> dict[str, Any]:
     }
     return {"generated_at": utc_now(), "truth": "OK" if all(checks.values()) else "FAIL", "checks": checks}
 
-
 def deep_root_verification_payload() -> dict[str, Any]:
     counts = deep_root_counts()
     checks = {
@@ -954,7 +928,6 @@ def deep_root_verification_payload() -> dict[str, Any]:
         "appendix_q_exists": DEEP_ROOT_APPENDIX_Q_PATH.exists(),
     }
     return {"generated_at": utc_now(), "truth": "OK" if all(checks.values()) else "FAIL", "checks": checks, "counts": counts}
-
 
 def ap6d_verification_payload() -> dict[str, Any]:
     registry = load_json(AGENT_REGISTRY_PATH, {})
@@ -977,7 +950,6 @@ def ap6d_verification_payload() -> dict[str, Any]:
     }
     return {"generated_at": utc_now(), "truth": "OK" if all(checks.values()) else "FAIL", "checks": checks, "counts": counts}
 
-
 def awakening_verification_payload(notes: list[dict[str, Any]]) -> dict[str, Any]:
     checks = []
     for note in notes:
@@ -994,7 +966,6 @@ def awakening_verification_payload(notes: list[dict[str, Any]]) -> dict[str, Any
         )
     truth = "OK" if all(all(row.values()) for row in checks) else "FAIL"
     return {"generated_at": utc_now(), "truth": truth, "checks": checks}
-
 
 def render_final_integration_ledger(
     runtime_verification: dict[str, Any],
@@ -1048,7 +1019,6 @@ def render_final_integration_ledger(
         ]
     )
 
-
 def render_receipt() -> str:
     return "\n".join(
         [
@@ -1073,7 +1043,6 @@ def render_receipt() -> str:
             "",
         ]
     )
-
 
 def render_next_self_prompt() -> str:
     return "\n".join(
@@ -1102,7 +1071,6 @@ def render_next_self_prompt() -> str:
             "",
         ]
     )
-
 
 def render_qshrink_active_front() -> str:
     return "\n".join(
@@ -1146,7 +1114,6 @@ def render_qshrink_active_front() -> str:
         ]
     )
 
-
 def render_weakest_front_queue() -> str:
     return "\n".join(
         [
@@ -1189,7 +1156,6 @@ def render_weakest_front_queue() -> str:
         ]
     )
 
-
 def runtime_marker_block() -> str:
     return "\n".join(
         [
@@ -1209,7 +1175,6 @@ def runtime_marker_block() -> str:
         ]
     )
 
-
 def contract_marker_block() -> str:
     return "\n".join(
         [
@@ -1224,7 +1189,6 @@ def contract_marker_block() -> str:
         ]
     )
 
-
 def instruction_marker_block() -> str:
     return "\n".join(
         [
@@ -1236,7 +1200,6 @@ def instruction_marker_block() -> str:
             f"- consult the note bundle at `{relative_string(AP6D_HALL_NOTES_MD_PATH)}` and the template at `{relative_string(AWAKENING_NOTE_TEMPLATE_PATH)}`",
         ]
     )
-
 
 def apply_manifest_writebacks() -> None:
     marker = "NEXT_4_POW_6_RUNTIME_FIRST"
@@ -1250,7 +1213,6 @@ def apply_manifest_writebacks() -> None:
     write_text(NEXT_SELF_PROMPT_PATH, render_next_self_prompt())
     write_text(QSHRINK_ACTIVE_FRONT_PATH, render_qshrink_active_front())
     write_text(WEAKEST_FRONT_QUEUE_PATH, render_weakest_front_queue())
-
 
 def update_qshrink_jsons() -> None:
     network = load_json(QSHRINK_NETWORK_INTEGRATION_PATH, {})
@@ -1304,7 +1266,6 @@ def update_qshrink_jsons() -> None:
         }
     )
     write_json(QSHRINK_AGENT_TASK_MATRIX_PATH, task_matrix)
-
 
 def update_ap6d_jsons(notes: list[dict[str, Any]]) -> None:
     registry = load_json(AGENT_REGISTRY_PATH, {})
@@ -1374,7 +1335,6 @@ def update_ap6d_jsons(notes: list[dict[str, Any]]) -> None:
     write_json(AWAKENING_TRANSITION_NOTES_PATH, transition_notes)
     write_json(AWAKENING_AGENT_NOTES_JSON_PATH, agent_notes)
 
-
 def update_hall_boards() -> None:
     change_entry = (
         "NEXT^[4^6] runtime-first continuation is now landed: the authority matrix, feeder ledger, "
@@ -1394,7 +1354,6 @@ def update_hall_boards() -> None:
     )
     write_text(CHANGE_FEED_PATH, prepend_numbered_entry(read_text(CHANGE_FEED_PATH), change_entry))
     write_text(REQUESTS_BOARD_PATH, prepend_requests_entry(read_text(REQUESTS_BOARD_PATH), requests_entry))
-
 
 def main() -> int:
     notes = agent_note_specs()
@@ -1447,7 +1406,6 @@ def main() -> int:
     print(f"Wrote {RESTART_PACKET_PATH}")
     print(f"Wrote {RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

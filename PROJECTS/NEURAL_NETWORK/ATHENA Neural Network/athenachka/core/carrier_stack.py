@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S23 | face=C | node=255 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S22→Xi108:W2:A1:S24→Xi108:W1:A1:S23→Xi108:W3:A1:S23→Xi108:W2:A2:S23
+
 from __future__ import annotations
 
 import numpy as np
@@ -6,7 +10,6 @@ from scipy import ndimage
 from .attention_field import generate_attention
 from .hypothesis_compiler import generate_mask
 from .rank_encoder import compute_gradients, rank_transform
-
 
 def extract_hog_fast(
     mag: np.ndarray,
@@ -35,7 +38,6 @@ def extract_hog_fast(
 
     norm = np.sqrt(np.sum(hog**2) + 1e-8)
     return hog / norm
-
 
 def extract_polar(
     R: np.ndarray,
@@ -70,7 +72,6 @@ def extract_polar(
 
     return polar / (polar.sum() + 1e-8)
 
-
 def extract_topology(mask: np.ndarray) -> np.ndarray:
     """Topology features from mask."""
     features: list[float] = []
@@ -99,7 +100,6 @@ def extract_topology(mask: np.ndarray) -> np.ndarray:
 
     return np.array(features)
 
-
 def extract_structure(R: np.ndarray, mask: np.ndarray) -> np.ndarray:
     """Structural features."""
     features: list[float] = []
@@ -119,7 +119,6 @@ def extract_structure(R: np.ndarray, mask: np.ndarray) -> np.ndarray:
     features.append(mask.sum() / 784.0)
 
     return np.array(features)
-
 
 def extract_all_features(img: np.ndarray, mask: np.ndarray | None = None) -> np.ndarray:
     """Extract complete feature vector."""

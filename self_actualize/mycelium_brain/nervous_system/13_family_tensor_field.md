@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S20 | face=R | node=210 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S19→Xi108:W3:A8:S21→Xi108:W2:A8:S20→Xi108:W3:A7:S20→Xi108:W3:A9:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 8/12 -->
+
 # Family Tensor Field
 
 ## Purpose

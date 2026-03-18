@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=316 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      AQM FOUNDATION MODULE                                   ║
@@ -27,7 +31,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable, Union
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # VALUE SPACE: RIEMANN SPHERE
@@ -123,7 +126,6 @@ class RiemannSphere:
             return complex('inf')
         return (a * z + b) / denom
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # Q-NUMBERS: QUANTUM-EXTENDED NUMBERS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -134,7 +136,6 @@ class QNumberType(Enum):
     MIXED = "mixed"         # Density operator ρ
     CLASSICAL = "classical" # Delta function (classical limit)
     BOUNDARY = "boundary"   # Boundary state (jets at 0 or ∞)
-
 
 @dataclass
 class QNumber:
@@ -226,7 +227,6 @@ class QNumber:
         rho = self.coefficients.reshape(int(np.sqrt(len(self.coefficients))), -1)
         return np.real(np.trace(rho @ rho))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MEANING TRANSPORT: KOOPMAN-JACOBIAN UNITARIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -295,7 +295,6 @@ class MeaningTransport:
             return jac * psi(lam * v)
         return transported
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MEASUREMENT AND CLASSICAL SHADOW
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -306,7 +305,6 @@ class MeasurementType(Enum):
     MODULUS = "modulus"         # How far from origin?
     PHASE = "phase"             # What angle?
     BOUNDARY = "boundary"       # Near 0 or ∞?
-
 
 @dataclass
 class POVM:
@@ -330,7 +328,6 @@ class POVM:
             probs.append(max(0, p))  # Ensure non-negative
         probs = np.array(probs)
         return probs / probs.sum()  # Normalize
-
 
 @dataclass
 class ClassicalShadow:
@@ -367,7 +364,6 @@ class ClassicalShadow:
             information_loss=np.log(q.spread + 1)
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EQUIVALENCE AND NORMAL FORMS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -378,7 +374,6 @@ class EquivalenceType(Enum):
     GAUGE = "gauge"              # ρ₁ = U ρ₂ U* for some U_T
     MEASUREMENT = "measurement"  # Same probabilities for all POVMs
     SHADOW = "shadow"            # Same classical shadow
-
 
 @dataclass
 class QNumberNormalForm:
@@ -410,7 +405,6 @@ class QNumberNormalForm:
             hash_digest=h
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # 4⁴ CRYSTAL DISCIPLINE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -422,14 +416,12 @@ class CrystalLens(Enum):
     CLOUD = "☁"     # Probability/information
     FRACTAL = "⟂"   # Implementation/certificates
 
-
 class CrystalLayer(Enum):
     """Four layers per lens."""
     OBJECTS = "objects"
     OPERATORS = "operators"
     INVARIANTS = "invariants"
     CERTIFICATES = "certificates"
-
 
 @dataclass
 class CrystalAddress:
@@ -447,7 +439,6 @@ class CrystalAddress:
         lens_idx = list(CrystalLens).index(self.lens)
         layer_idx = list(CrystalLayer).index(self.layer)
         return f"⟨{self.chapter}{self.section}{lens_idx}{layer_idx}⟩₄"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CORRIDOR CONSTRAINTS
@@ -483,7 +474,6 @@ class CorridorConstraint:
     def corridor_error(self, q: QNumber) -> float:
         """Estimate error from treating Q-number classically."""
         return q.spread + (1 - q.purity())
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -535,7 +525,6 @@ class AQMFoundationPoleBridge:
           - Ψ: Hierarchical jets
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -544,42 +533,34 @@ def riemann_sphere() -> RiemannSphere:
     """Create Riemann sphere."""
     return RiemannSphere()
 
-
 def qnumber_classical(z: complex, sigma: float = 0.01) -> QNumber:
     """Create classical Q-number localized at z."""
     return QNumber.classical(z, sigma)
-
 
 def qnumber_pure(psi: NDArray) -> QNumber:
     """Create pure state Q-number."""
     return QNumber.pure(psi)
 
-
 def meaning_transport() -> MeaningTransport:
     """Create meaning transport."""
     return MeaningTransport()
-
 
 def classical_shadow(q: QNumber) -> ClassicalShadow:
     """Extract classical shadow from Q-number."""
     return ClassicalShadow.from_qnumber(q)
 
-
 def normal_form(q: QNumber) -> QNumberNormalForm:
     """Compute normal form of Q-number."""
     return QNumberNormalForm.compute(q)
-
 
 def corridor_constraint(max_spread: float = 0.1) -> CorridorConstraint:
     """Create corridor constraint."""
     return CorridorConstraint(max_spread=max_spread)
 
-
 def crystal_address(chapter: int, section: int, 
                     lens: CrystalLens, layer: CrystalLayer) -> CrystalAddress:
     """Create crystal address."""
     return CrystalAddress(chapter, section, lens, layer)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

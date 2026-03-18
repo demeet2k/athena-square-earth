@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S16 | face=S | node=136 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A4:S15→Xi108:W3:A4:S17→Xi108:W2:A4:S16→Xi108:W3:A3:S16→Xi108:W3:A5:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 4/12 -->
+
 # Row D04 - Neural Cross-Synthesis Packet
 
 This file is the canonical prose expansion of row `D04` inside the local `16 x 16` neural matrix. It covers all ordered outgoing syntheses from `Neural Cross-Synthesis Packet` to the fixed basis in strict `D01 -> D16` order, including the self-kernel.

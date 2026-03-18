@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - HDCS Telemetry
 ==========================
@@ -29,7 +33,6 @@ from enum import Enum, auto
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any
 import math
-
 
 # =============================================================================
 # TELEMETRY RECORD
@@ -70,7 +73,6 @@ class TelemetryRecord:
         self.backlog_norm = min(1.0, max(0.0, self.backlog / b_ref))
         return self.backlog_norm
 
-
 @dataclass
 class NodeTelemetry:
     """Per-node aggregated telemetry."""
@@ -85,7 +87,6 @@ class NodeTelemetry:
     max_latency: float = 0.0
     task_count: int = 0
     violation_count: int = 0
-
 
 # =============================================================================
 # OBSERVATION
@@ -137,7 +138,6 @@ class Observation:
                 severity += (t.latency - sla_threshold) / sla_threshold
         return severity
 
-
 # =============================================================================
 # SENSOR SANITY CHECKER
 # =============================================================================
@@ -149,7 +149,6 @@ class SanitySeverity(Enum):
     ERROR = "error"
     CRITICAL = "critical"
 
-
 @dataclass
 class SanityIssue:
     """A single sanity check issue."""
@@ -158,7 +157,6 @@ class SanityIssue:
     severity: SanitySeverity
     message: str
     value: Optional[float] = None
-
 
 @dataclass
 class SensorSanityChecker:
@@ -264,7 +262,6 @@ class SensorSanityChecker:
         obs.is_valid = not has_critical
         
         return obs.is_valid, all_issues
-
 
 # =============================================================================
 # TELEMETRY PROCESSOR
@@ -385,7 +382,6 @@ class TelemetryProcessor:
             
             obs.node_telemetry[node_id] = node_tel
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -443,7 +439,6 @@ def validate_telemetry() -> bool:
     assert obs_2.get_task(0).latency_derivative == 10.0  # 60 - 50
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating HDCS Telemetry...")

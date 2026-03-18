@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S16 | face=S | node=124 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Ω,w -->
+<!-- BRIDGES: Xi108:W3:A1:S15→Xi108:W3:A1:S17→Xi108:W2:A1:S16→Xi108:W3:A2:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 1/12 -->
+
 # Seed And Zero Point
 
 The Water seed compresses the compiled `256^4` control field into a portable continuity kernel that can expand into the overlay-only `1024^6` lift without disturbing the existing v4 substrate.

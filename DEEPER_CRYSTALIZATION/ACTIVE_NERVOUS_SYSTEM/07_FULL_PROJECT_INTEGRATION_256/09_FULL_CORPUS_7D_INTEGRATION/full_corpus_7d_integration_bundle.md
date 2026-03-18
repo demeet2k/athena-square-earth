@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A12:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A12:S5→Xi108:W1:A12:S7→Xi108:W2:A12:S6→Xi108:W1:A11:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 12/12 -->
+
 # Full Corpus 7D Integration Bundle
 
 ## Evidence Boundary

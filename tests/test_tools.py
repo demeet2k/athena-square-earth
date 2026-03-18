@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A5:S5 | face=F | node=509 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A5:S4→Xi108:W3:A5:S6→Xi108:W2:A5:S5→Xi108:W3:A4:S5→Xi108:W3:A6:S5
+
 """Smoke tests for all crystal_108d tools — each called with known-good inputs."""
 
 from crystal_108d.shells import query_shell, query_superphase, query_archetype, read_hologram_chapter
@@ -18,7 +22,6 @@ from crystal_108d.angel import query_angel
 from crystal_108d.brain import query_brain_network, compute_bridge_weight, route_brain
 from crystal_108d.live_cell import query_live_cell
 from crystal_108d.emergence import query_emergence
-
 
 class TestShellTools:
     def test_query_shell(self):
@@ -58,7 +61,6 @@ class TestShellTools:
         result = read_hologram_chapter(21)
         assert "Chapter 21" in result
 
-
 class TestDimensionTools:
     def test_resolve_3d(self):
         result = resolve_dimensional_body(3)
@@ -77,7 +79,6 @@ class TestDimensionTools:
         result = query_containment(12)
         assert "Weave" in result or "B_12" in result
 
-
 class TestOrganTool:
     def test_query_by_name(self):
         result = query_organ("Identity")
@@ -90,7 +91,6 @@ class TestOrganTool:
     def test_query_crown_closure(self):
         result = query_organ("7")
         assert "Crown" in result or "Petal" in result
-
 
 class TestNavigationTools:
     def test_navigate_by_shell(self):
@@ -105,12 +105,10 @@ class TestNavigationTools:
         result = navigate_108d(wreath="Su")
         assert "Sulfur" in result or "Su" in result
 
-
 class TestLiveLockTool:
     def test_compute(self):
         result = compute_live_lock("3", "5")
         assert "Lock" in result or "lock" in result.lower()
-
 
 class TestClockTool:
     def test_beat_0(self):
@@ -121,7 +119,6 @@ class TestClockTool:
         result = query_clock_beat(210)
         assert "Beat 210" in result
 
-
 class TestMovesTool:
     def test_list_primitives(self):
         result = check_route_legality("list")
@@ -131,7 +128,6 @@ class TestMovesTool:
         route = '[{"type": "STEP_SHELL", "from": 1, "to": 2, "delta": 1}]'
         result = check_route_legality(route)
         assert "Legality" in result or "Move" in result
-
 
 class TestMetroTool:
     def test_overview(self):
@@ -146,7 +142,6 @@ class TestMetroTool:
         result = query_metro_line("archetype_column", 1)
         assert "Archetype" in result or "Apex" in result
 
-
 class TestZPointTool:
     def test_hierarchy(self):
         result = resolve_z_point("all")
@@ -155,7 +150,6 @@ class TestZPointTool:
     def test_global(self):
         result = resolve_z_point("global")
         assert "Z*" in result or "Global" in result or "global" in result.lower()
-
 
 class TestConservationTool:
     def test_list_laws(self):
@@ -166,7 +160,6 @@ class TestConservationTool:
         motion = '{"shell_deltas": [1, -1], "zoom_deltas": [0], "wreath_rotations": [0], "face_shifts": [0], "mobius_flips": 0}'
         result = query_conservation(motion)
         assert "PASS" in result
-
 
 class TestOverlayTools:
     def test_overview(self):
@@ -181,7 +174,6 @@ class TestOverlayTools:
         result = query_sigma15(15)
         assert "SFCR" in result
 
-
 class TestTransportTool:
     def test_full_stack(self):
         result = query_transport_stack(0)
@@ -190,7 +182,6 @@ class TestTransportTool:
     def test_dimension_3(self):
         result = query_transport_stack(3)
         assert "3D" in result
-
 
 class TestMobiusLensTools:
     def test_overview(self):
@@ -237,7 +228,6 @@ class TestMobiusLensTools:
         result = query_sfcr_station("15")
         assert "SFCR" in result
 
-
 class TestStageCodeTool:
     def test_all(self):
         result = query_stage_code("all")
@@ -259,7 +249,6 @@ class TestStageCodeTool:
         result = query_stage_code("sigma60")
         assert "60" in result
 
-
 class TestAngelTool:
     def test_overview(self):
         result = query_angel("all")
@@ -280,7 +269,6 @@ class TestAngelTool:
     def test_modes(self):
         result = query_angel("modes")
         assert "committed" in result.lower() or "flowing" in result.lower()
-
 
 class TestBrainTools:
     def test_overview(self):
@@ -369,7 +357,6 @@ class TestBrainTools:
                 result = route_brain(s, t)
                 assert len(result) > 50
 
-
 class TestLiveCellTool:
     def test_all(self):
         result = query_live_cell("all")
@@ -411,7 +398,6 @@ class TestLiveCellTool:
         result = query_live_cell("nonsense")
         assert "Unknown" in result
 
-
 class TestEmergenceTool:
     def test_all(self):
         result = query_emergence("all")
@@ -449,7 +435,6 @@ class TestEmergenceTool:
         result = query_emergence("nonsense")
         assert "Unknown" in result
 
-
 # ── New tools (Hologram / Angel Geometry / Inverse Crystal) ──────────
 
 from crystal_108d.hologram_reading import query_hologram, query_hologram_rosetta
@@ -457,7 +442,6 @@ from crystal_108d.angel_geometry import query_angel_geometry, query_angel_conser
 from crystal_108d.inverse_seed import query_4d_seed, query_3d_crystal
 from crystal_108d.inverse_octave import query_octave_stage, query_crown_transform
 from crystal_108d.inverse_complete import query_projection_stack, query_weave_operator
-
 
 class TestHologramTools:
     def test_hologram_all(self):
@@ -528,7 +512,6 @@ class TestHologramTools:
         result = query_hologram_rosetta("voynich")
         assert "Voynich" in result
 
-
 class TestAngelGeometryTools:
     def test_geometry_all(self):
         result = query_angel_geometry("all")
@@ -587,7 +570,6 @@ class TestAngelGeometryTools:
         result = query_angel_conservation("potential")
         assert "potential" in result.lower() or "Phi" in result
 
-
 class TestInverseSeedTools:
     def test_4d_seed_all(self):
         result = query_4d_seed("all")
@@ -617,7 +599,6 @@ class TestInverseSeedTools:
         result = query_3d_crystal("encoding")
         assert "holographic" in result.lower() or "encoding" in result.lower()
 
-
 class TestInverseOctaveTools:
     def test_octave_all(self):
         result = query_octave_stage("all")
@@ -638,7 +619,6 @@ class TestInverseOctaveTools:
     def test_crown_step1(self):
         result = query_crown_transform("1")
         assert "Zero" in result or "tunnel" in result.lower() or "Z" in result
-
 
 class TestInverseCompleteTools:
     def test_projection_all(self):

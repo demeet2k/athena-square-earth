@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=126 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - BIT4
 ================
@@ -36,7 +40,6 @@ from enum import Enum
 from .carrier import B4, B4Vector
 from .orders import leq_k, leq_t, join_k
 
-
 # =============================================================================
 # TRANSFER FUNCTION
 # =============================================================================
@@ -68,7 +71,6 @@ class TransferFunction:
         ]
         return cls(n, components)
 
-
 # =============================================================================
 # FIXED POINT COMPUTATION
 # =============================================================================
@@ -79,7 +81,6 @@ class FixpointMode(Enum):
     KNOWLEDGE = "k"    # Use ≤_k ordering
     TRUTH = "t"        # Use ≤_t ordering
 
-
 @dataclass
 class FixpointResult:
     """Result of fixed-point computation."""
@@ -88,7 +89,6 @@ class FixpointResult:
     iterations: int
     converged: bool
     history: List[B4Vector] = field(default_factory=list)
-
 
 def kleene_iteration(F: Callable[[B4Vector], B4Vector],
                      n: int,
@@ -135,7 +135,6 @@ def kleene_iteration(F: Callable[[B4Vector], B4Vector],
         history=history
     )
 
-
 def greatest_fixpoint(F: Callable[[B4Vector], B4Vector],
                      n: int,
                      mode: FixpointMode = FixpointMode.KNOWLEDGE,
@@ -168,7 +167,6 @@ def greatest_fixpoint(F: Callable[[B4Vector], B4Vector],
         iterations=max_iter,
         converged=False
     )
-
 
 # =============================================================================
 # WORKLIST ALGORITHM
@@ -229,7 +227,6 @@ class WorklistSolver:
             converged=len(worklist) == 0
         )
 
-
 # =============================================================================
 # SCC STRATIFICATION
 # =============================================================================
@@ -276,7 +273,6 @@ def tarjan_scc(n: int, edges: Dict[int, Set[int]]) -> List[Set[int]]:
             strongconnect(v)
     
     return sccs
-
 
 @dataclass
 class StratifiedSolver:
@@ -337,7 +333,6 @@ class StratifiedSolver:
             converged=True
         )
 
-
 # =============================================================================
 # WIDENING AND NARROWING
 # =============================================================================
@@ -354,7 +349,6 @@ def widen_k(x: B4, y: B4) -> B4:
         return B4.TOP
     return y
 
-
 def narrow_k(x: B4, y: B4) -> B4:
     """
     Narrowing operator for ≤_k.
@@ -364,7 +358,6 @@ def narrow_k(x: B4, y: B4) -> B4:
     if x == B4.TOP and y != B4.TOP:
         return y
     return x
-
 
 def widening_iteration(F: Callable[[B4Vector], B4Vector],
                       n: int,
@@ -400,7 +393,6 @@ def widening_iteration(F: Callable[[B4Vector], B4Vector],
         converged=False
     )
 
-
 # =============================================================================
 # ABSTRACT INTERPRETATION
 # =============================================================================
@@ -430,7 +422,6 @@ class AbstractDomain:
         """
         abstract_concrete = AbstractDomain.concretize(abstract)
         return concrete <= abstract_concrete
-
 
 # =============================================================================
 # VALIDATION
@@ -481,7 +472,6 @@ def validate_dataflow() -> bool:
     assert not AbstractDomain.is_sound(B4.ZERO, {True})
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating BIT4 Dataflow...")

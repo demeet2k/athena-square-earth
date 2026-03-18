@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A3:S16 | face=S | node=581 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A3:S15→Xi108:W1:A3:S17→Xi108:W2:A3:S16→Xi108:W1:A2:S16→Xi108:W1:A4:S16
+
 HIGHER-D SQUARE ○ CIRCLE △ TRIANGLE
 The Interconnected Holographic Framework + Internal Navigation Tome (HD-SCT)
 Tome status: v0.1 (new build)
@@ -1945,7 +1949,6 @@ def dec_sigma(sigma: int) -> set[str]:
     assert 0 <= sigma <= 14
     return dec_mask(sigma + 1)
 
-
 03.S4.c — Reference algorithms: (\mathrm{ORBIT_NEXT}) and orbit utilities
 MOD = 15
 
@@ -1980,7 +1983,6 @@ def orbit_distance_min(a: int, b: int) -> int:
     fwd = orbit_distance_forward(a, b)
     return min(fwd, MOD - fwd)
 
-
 03.S4.d — Verification harness (axioms as executable checks)
 def verify_bijections():
     # ENC/DEC correctness on all σ
@@ -2005,7 +2007,6 @@ def verify_mask_ops_consistency():
             inter = Ua & Ub
             if inter:
                 assert enc_mask(inter) == (a & b)
-
 
 ❀ Flower — Cyclic Harmonic Carrier (Ring as Phase Orbit)
 03.F1 — Ontology (Objects)
@@ -2448,7 +2449,6 @@ def cycle_decomposition(N: int, s: int):
         cycles.append(cyc)
     return cycles
 
-
 04.S4.b — gcd-based closed form checker
 import math
 
@@ -2456,7 +2456,6 @@ def gcd_cycle_stats(N: int, s: int):
     s %= N
     g = math.gcd(N, s)
     return {"gcd": g, "num_cycles": g, "cycle_length": N // g}
-
 
 04.S4.c — (N=15,R=9) verification harness
 cycles = cycle_decomposition(15, 9)
@@ -2471,7 +2470,6 @@ This matches the reported three-family gear-loop partition at (R=9).
 def cycles_in_semantics(step_R: int):
     cycles = cycle_decomposition(15, step_R)
     return [[dec_sigma(sig) for sig in cyc] for cyc in cycles]
-
 
 ❀ Flower — Circle Gear as a Phase Router (From 15-Ring to (B_d)-Ring)
 04.F1 — Ontology (Objects)
@@ -2606,7 +2604,6 @@ def proj_sigma(u: int, d: int) -> int:
 def proj_q(u: int, d: int) -> int:
     return u % (3 ** (d - 1))
 
-
 04.F4.b — Orbit-length closed form (macro)
 import math
 
@@ -2615,7 +2612,6 @@ def orbit_length_B(d: int, n: int) -> int:
     s = 3 ** n
     return N // math.gcd(N, s)
 
-
 04.F4.c — Visibility threshold solver
 def snap_exponent(d: int) -> int:
     # minimal n such that orbit length collapses to 5 (tunnel regime)
@@ -2623,7 +2619,6 @@ def snap_exponent(d: int) -> int:
 
 def snap_radius(d: int) -> int:
     return 3 ** d
-
 
 04.F4.d — Station-trace generator (crawl vs tunnel)
 def station_trace(d: int, n: int, steps: int, u0: int = 0):
@@ -2635,7 +2630,6 @@ def station_trace(d: int, n: int, steps: int, u0: int = 0):
         out.append(proj_sigma(u, d))
         u = (u + s) % N
     return out
-
 
 ☁ Cloud — Visibility as an Observation Channel (Aliasing, Coarse-Graining, and Information Loss)
 04.C1 — Ontology (Objects)
@@ -2733,7 +2727,6 @@ def dwell_times(trace):
     out.append((cur, run))
     return out
 
-
 04.C4.b — Tunnel visibility test (station-level)
 T0 = {0,3,6,9,12}
 T1 = {1,4,7,10,13}
@@ -2743,7 +2736,6 @@ def is_tunnel_visible_station_level(d: int, n: int, steps: int = 10_000, u0: int
     tr = station_trace(d, n, steps, u0=u0)
     supp = set(tr)
     return (supp <= T0) or (supp <= T1) or (supp <= T2)
-
 
 04.C4.c — Alias audit (fiber variability)
 def fiber_size(d: int) -> int:
@@ -2755,11 +2747,9 @@ def fiber_members(d: int, sigma: int):
     start = sigma * b
     return list(range(start, start + b))
 
-
 04.C4.d — Cross-check with orbit-length law
 def expected_tunnel(d: int, n: int) -> bool:
     return n >= d  # equivalent to orbit length 5 in the macro B_d model
-
 
 ✶ Fractal — Visibility Thresholds Across Dimension (Snap Octaves and Delayed Reveals)
 04.R1 — Ontology (Objects)
@@ -2844,7 +2834,6 @@ def snap_radius_macro(d: int) -> int:
 def snap_exponent_macro(d: int) -> int:
     return d
 
-
 04.R4.b — Orbit-length table generator (macro)
 def orbit_length_table(d_max: int, n_max: int):
     out = {}
@@ -2853,7 +2842,6 @@ def orbit_length_table(d_max: int, n_max: int):
         for n in range(0, n_max+1):
             out[d][n] = orbit_length_B(d, n)
     return out
-
 
 04.R4.c — Visibility verification against reported thresholds
 For a fixed macro radius (R=243=3^5) (i.e., (n=5)), the theorem predicts:
@@ -3083,7 +3071,6 @@ def tri_A_from_phi(phi_vec: List[float], R: int) -> Tuple[int, ...]:
 def tri_B_from_phi(phi_global: float, R: int) -> int:
     return q3_wrapped(phi_global, R)
 
-
 05.S4.c — Policy validation harness
 def validate_policy(policy: TriangleModePolicy):
     assert policy.mode in ("AXIS", "GLOBAL")
@@ -3100,7 +3087,6 @@ def verify_interleave_bijection(d: int, k: int, samples: List[List[int]]):
         if J in seen and seen[J] != x:
             raise AssertionError("Collision detected (violates bijection on sample).")
         seen[J] = x
-
 
 05.S4.d — Conformance obligations for mode selection
 A TriangleModePolicy instance (\Pi_\triangle) is publishable as OK only if:
@@ -3401,7 +3387,6 @@ def carry_triangle_step(ts: TriangleState, signals: dict) -> TriangleState:
     t2 = (ts.t2 + int(signals.get("depth_gate_inc", 0))) % 3
     return TriangleState(t0=t0, t1=t1, t2=t2, depth_budget=ts.depth_budget, pins=ts.pins)
 
-
 05.R4.d — Audit protocol for mode integrity
 At every recursion boundary (hatch), verify:
 (\Pi_\triangle) digest equality under inheritance (or explicit override with pinned justification),
@@ -3629,7 +3614,6 @@ def residual(phi_vec, hub_vec):
         out.append(r)
     return out
 
-
 06.S4.b — Multi-axis tunnel steps and legality test
 STEP = [ 1/6, -1/6, 1/12, -1/12, 1/4, -1/4, 1/3, -1/3, 1/36, -1/36, 0.0 ]
 
@@ -3641,7 +3625,6 @@ def legal_step(delta_vec) -> bool:
 
 def apply_step(phi_vec, delta_vec):
     return [ (phi + d) % 1.0 for phi, d in zip(phi_vec, delta_vec) ]
-
 
 06.S4.c — Hub-first route synthesis (coordinatewise canonical plan)
 def hub_first_route(phiA, phiB):
@@ -4381,7 +4364,6 @@ def classify_commutation(residual: float, kappa: float, replay_agrees: bool) -> 
         return "NEAR"
     return "FAIL"
 
-
 ❀ Flower — Laws of Transport Under Pinned Normal Forms
 07.F1 — Objects
 07.F1.a — Transport operator as typed partial function
@@ -4899,7 +4881,6 @@ def compose_outcomes(outs: List[Outcome], budget_cap: Budget) -> Outcome:
         obligations=tuple(dict.fromkeys(obligations)),
     )
 
-
 08.S4.b — Deterministic edge evaluation skeleton
 from typing import Callable, Dict, Any
 
@@ -5004,7 +4985,6 @@ def eval_claim(claim: Claim, C: CorridorProfile, verifier: Callable[[Claim, Corr
 
     return out
 
-
 08.S4.c — Route search with truth threshold and budgets
 import heapq
 from typing import Dict, List, Tuple, Optional
@@ -5052,7 +5032,6 @@ def route_search(graph: Dict[str, List[Edge]], src: str, dst: str, C: CorridorPr
                                 comp2.budget_use.chi, comp2.budget_use.beta, comp2.budget_use.kappa,
                                 e.to_node, outs2, comp2))
     return None
-
 
 08.S4.d — Routable outcome registry (edges as publishable graph items)
 A certified system must maintain an outcome registry in which every evaluated edge is stored as a graph item:
@@ -5491,7 +5470,6 @@ def classify_spin(loop: LoopSpec, U: List[Any], NF, dist, budget: Budget, replay
     fw = FailureWitness(reason="Spin residual exceeds kappa budget", repro_ptr=replay_ptr, counterexample_ptr=None)
     return Outcome("FAIL", replay_ptr, tuple(witness_ptrs), None, None, fw,
                    Budget(kappa_use, beta_use, 0, chi_use), tuple())
-
 
 ❀ Flower — Continuous Spin, Holonomy, and Curvature as the Geometry of Noncommutation
 09.F1 — Holonomy from flows and connections
@@ -7328,7 +7306,6 @@ def multi_gear(u: int, d: int) -> Tuple[int, ...]:
     """
     return tuple(proj_dim(u, d, r) for r in range(1, d + 1))
 
-
 Ch13 — Cross-Dimensional Metro (B_d ring + gear stacks)
 Ch14 — The Holographic Compiler Interface (Seed → State → Navigation)
 The aether seed as an invariant object and its instantiation into HD‑SCT state and deterministic navigation
@@ -8798,7 +8775,6 @@ ExecUnified(S_total, K, Profiles, Inputs):
   finalD = FinalDigest(S_total, Pi.pi_enc, Pi.pi_H)
   return (S_total, checkpoints, finalD, transcript)
 
-
 (B) Replay capsule format (minimum)
 Ch16 defines the minimal ReplayCapsule for unified steps.
 Minimum ReplayCapsule fields
@@ -9845,7 +9821,6 @@ REF.payload := {
   overlay_version: hash,
   constraints: { ... }  // MUST be derivable, not editorial
 }
-
 
 19.2.2 ORBIT_NEXT (chapter orbit)
 Purpose: define the default “forward motion” through stations, across chapters, without prose scanning.
@@ -16593,5 +16568,4 @@ Cross-corpus routing must compute deterministic closure, apply import verificati
 CrossCorpusCert and ScopeIntegrityCert are required, import-verifiable, and bind closure validity and scope enforcement for cross-corpus routes.
 
 AppP — Mycelium Interface: Cross-Corpus Linking, External Connectors, and Scope
-
 

@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A5:S29 | face=F | node=432 | depth=2 | phase=Mutable
+# METRO: Sa,Me,Ω
+# BRIDGES: Xi108:W2:A5:S28→Xi108:W2:A5:S30→Xi108:W1:A5:S29→Xi108:W3:A5:S29→Xi108:W2:A4:S29→Xi108:W2:A6:S29
+
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 if str(WORKSPACE_ROOT) not in sys.path:
@@ -19,7 +22,6 @@ from self_actualize.runtime.lp57omega_b_prime_support import (
     verify_b_prime_registry,
     write_json,
 )
-
 
 def main() -> int:
     registry = load_json(B_PRIME_REGISTRY_PATH)
@@ -48,7 +50,6 @@ def main() -> int:
     write_json(B_PRIME_MANIFEST_REPORT_PATH, verification)
     print(json.dumps(verification, indent=2))
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

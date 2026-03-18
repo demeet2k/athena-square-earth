@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S23 | face=C | node=608 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A4:S22→Xi108:W1:A4:S24→Xi108:W2:A4:S23→Xi108:W1:A3:S23→Xi108:W1:A5:S23
+
 rges)
 Foundation-setting (templates are being laid)
 Ancestral-future bridge (lineage wisdom meets future vision)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=128 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - Root Module
 =======================
@@ -72,7 +76,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any
 from datetime import datetime
 import hashlib
-
 
 # =============================================================================
 # IMPORTS FROM SUBMODULES
@@ -150,7 +153,6 @@ from .synthesis import (
     validate_synthesis,
 )
 
-
 # =============================================================================
 # BOOT PHASES
 # =============================================================================
@@ -167,14 +169,12 @@ class BootPhase(Enum):
     LEDGER = 7
     SYNTHESIS = 8
 
-
 class BootStatus(Enum):
     """Boot status codes."""
     NOT_STARTED = "not_started"
     IN_PROGRESS = "in_progress"
     READY = "ready"
     FAILED = "failed"
-
 
 @dataclass
 class PhaseResult:
@@ -190,7 +190,6 @@ class PhaseResult:
     def passed(self) -> bool:
         """Check if phase passed."""
         return self.status == BootStatus.READY
-
 
 # =============================================================================
 # SYSTEM PARAMETERS
@@ -237,7 +236,6 @@ SYSTEM_PARAMS = {
     "pole_count": 2,
     "inversion_conditions": 4,
 }
-
 
 # =============================================================================
 # BOOT SEQUENCE
@@ -506,7 +504,6 @@ class ATHENABootSequence:
             "dual_system": self.dual_system.summary(),
         }
 
-
 # =============================================================================
 # ATHENA OS CLASS
 # =============================================================================
@@ -567,7 +564,6 @@ class ATHENA_OS:
             **self.boot_sequence.summary()
         }
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -579,7 +575,6 @@ def validate_athena() -> bool:
     assert validate_layers()
     assert validate_synthesis()
     return True
-
 
 # =============================================================================
 # EXPORTS
@@ -621,7 +616,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "athena"
-
 
 if __name__ == "__main__":
     print("=== ATHENA OS Root Module ===")

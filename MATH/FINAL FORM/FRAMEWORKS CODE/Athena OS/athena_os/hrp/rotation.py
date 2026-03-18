@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - HOLOGRAPHIC ROTATION PROTOCOL
 ==========================================
@@ -47,7 +51,6 @@ from .frames import (
 )
 from .texture import TextureTriple, TextureAnalyzer
 
-
 # =============================================================================
 # ROTATION BASE CLASS
 # =============================================================================
@@ -89,7 +92,6 @@ class RotationOperator(ABC):
         if frame.element != self.source:
             raise ValueError(f"Expected {self.source} frame, got {frame.element}")
         return self.rotate(frame)
-
 
 # =============================================================================
 # WATER → EARTH (Discretization)
@@ -192,7 +194,6 @@ class WaterToEarth(RotationOperator):
         # Distortion proportional to grid spacing
         return 1.0 / self.grid_resolution
 
-
 # =============================================================================
 # EARTH → FIRE (Randomization)
 # =============================================================================
@@ -281,7 +282,6 @@ class EarthToFire(RotationOperator):
         """Estimate randomization distortion."""
         return self.noise_level
 
-
 # =============================================================================
 # FIRE → AIR (Information Lifting)
 # =============================================================================
@@ -367,7 +367,6 @@ class FireToAir(RotationOperator):
         """Estimate information compression distortion."""
         # Distortion from discretizing probabilities
         return 0.05
-
 
 # =============================================================================
 # AIR → WATER (Reconstruction)
@@ -456,7 +455,6 @@ class AirToWater(RotationOperator):
         """Estimate reconstruction distortion."""
         return self.smoothing
 
-
 # =============================================================================
 # ROTATION CHAIN
 # =============================================================================
@@ -504,7 +502,6 @@ class RotationChain:
         if self.rotations:
             return self.rotations[-1].target
         return Element.WATER
-
 
 # =============================================================================
 # FULL ROTATION CYCLE
@@ -574,7 +571,6 @@ class RotationCycle:
         """Total accumulated distortion."""
         return sum(self.distortions.values())
 
-
 # =============================================================================
 # ROTATION FACTORY
 # =============================================================================
@@ -611,7 +607,6 @@ def get_rotation(source: Element, target: Element) -> RotationOperator:
     
     # Return composed rotation (simplified - just use first)
     return chain.rotations[0] if chain.rotations else WaterToEarth()
-
 
 # =============================================================================
 # VALIDATION
@@ -683,7 +678,6 @@ def validate_rotation() -> bool:
     assert dist > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Rotation...")

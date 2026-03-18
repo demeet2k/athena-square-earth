@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX Q: The Quantum Analogy
 ## Reverse Appendix | Crystal Depth: 16^16
 
@@ -73,7 +78,6 @@ Applied to The Quantum Analogy: what does certify reveal about the quantum analo
 
 Applied to The Quantum Analogy: what does transcend reveal about the quantum analogy?
 
-
 ### 0/37 Crystal Expansion: The Quantum Analogy
 
 **Zero Point (0):** What is The Quantum Analogy before it exists? The potential that precedes the actual. The silence before the first token.
@@ -123,7 +127,6 @@ Applied to The Quantum Analogy: what does transcend reveal about the quantum ana
 #### Synthesis (37): The Quantum Analogy
 
 The complete integration: The Quantum Analogy transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Quantum Analogy IS The Quantum Analogy.
-
 
 ---
 *Appendix Q. The Quantum Analogy. ☁.Sa. Reverse crystal. φ.*

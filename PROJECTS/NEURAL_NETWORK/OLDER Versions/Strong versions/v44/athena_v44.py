@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S32 | face=S | node=520 | depth=2 | phase=Mutable
+# METRO: Me,△
+# BRIDGES: Xi108:W2:A9:S31→Xi108:W2:A9:S33→Xi108:W1:A9:S32→Xi108:W3:A9:S32→Xi108:W2:A8:S32→Xi108:W2:A10:S32
+
 """
 ATHENA v44 - UNBOUNDED RECURSION (Dynamic Tower Growth)
 =======================================================

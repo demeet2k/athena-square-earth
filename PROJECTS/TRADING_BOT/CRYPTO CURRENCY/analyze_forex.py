@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=434 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 """
 Comprehensive Currency Fluctuation Analysis
 =============================================
@@ -28,7 +32,6 @@ DATA_DIR = os.path.join(OUTPUT_DIR, "forex_data")
 CHART_DIR = os.path.join(DATA_DIR, "charts")
 os.makedirs(CHART_DIR, exist_ok=True)
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -36,7 +39,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 CURRENCIES = {
     "EUR": "Euro", "GBP": "British Pound", "JPY": "Japanese Yen",
@@ -74,13 +76,11 @@ CRISIS_EVENTS = [
     ("2024-08-05", "JPY Carry Trade Unwind"),
 ]
 
-
 def load_master_data():
     path = os.path.join(DATA_DIR, "03_MASTER_USD_rates_all_currencies.csv")
     df = pd.read_csv(path)
     df["date"] = pd.to_datetime(df["date"])
     return df
-
 
 def load_currency_data(currency):
     path = os.path.join(DATA_DIR, f"USD_{currency}_history.csv")
@@ -89,7 +89,6 @@ def load_currency_data(currency):
     df = pd.read_csv(path)
     df["date"] = pd.to_datetime(df["date"])
     return df
-
 
 # ── 1. DECADE ANALYSIS ───────────────────────────────────────────────────────
 
@@ -142,7 +141,6 @@ def decade_analysis(master_df):
     log(f"  SAVED: 05_DECADE_ANALYSIS.csv ({len(df)} rows)")
     return df
 
-
 # ── 2. VOLATILITY REGIME ANALYSIS ────────────────────────────────────────────
 
 def volatility_regime_analysis(master_df):
@@ -189,7 +187,6 @@ def volatility_regime_analysis(master_df):
     df.to_csv(os.path.join(DATA_DIR, "06_VOLATILITY_REGIMES.csv"), index=False)
     log(f"  SAVED: 06_VOLATILITY_REGIMES.csv ({len(df)} rows)")
     return df
-
 
 # ── 3. CRISIS IMPACT ANALYSIS ────────────────────────────────────────────────
 
@@ -241,7 +238,6 @@ def crisis_impact_analysis(master_df):
     log(f"  SAVED: 07_CRISIS_IMPACT.csv ({len(df)} rows)")
     return df
 
-
 # ── 4. CURRENCY STRENGTH INDEX ───────────────────────────────────────────────
 
 def currency_strength_index(master_df):
@@ -265,7 +261,6 @@ def currency_strength_index(master_df):
     strength_df.to_csv(os.path.join(DATA_DIR, "08_CURRENCY_STRENGTH_INDEX.csv"), index=False)
     log(f"  SAVED: 08_CURRENCY_STRENGTH_INDEX.csv ({len(strength_df)} rows)")
     return strength_df
-
 
 # ── 5. ANNUAL PERFORMANCE TABLE ──────────────────────────────────────────────
 
@@ -298,7 +293,6 @@ def annual_performance(master_df):
     df.to_csv(os.path.join(DATA_DIR, "09_ANNUAL_PERFORMANCE.csv"), index=False)
     log(f"  SAVED: 09_ANNUAL_PERFORMANCE.csv ({len(df)} rows)")
     return df
-
 
 # ── 6. CHARTS ─────────────────────────────────────────────────────────────────
 
@@ -523,7 +517,6 @@ def generate_charts(master_df, strength_df):
             plt.close()
             log("  SAVED: 08_annual_heatmap.png")
 
-
 # ── 7. WRITTEN REPORT ────────────────────────────────────────────────────────
 
 def generate_report(master_df, decade_df, vol_df, crisis_df, annual_df):
@@ -700,7 +693,6 @@ def generate_report(master_df, decade_df, vol_df, crisis_df, annual_df):
     log(f"  SAVED: 10_ANALYSIS_REPORT.txt ({len(report)} lines)")
     return report_text
 
-
 # ── MAIN ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -729,7 +721,6 @@ def main():
     log("\n" + "=" * 70)
     log("ANALYSIS COMPLETE!")
     log("=" * 70)
-
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=314 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List
-
 
 @dataclass
 class StorageZoneRecord:
@@ -18,7 +21,6 @@ class StorageZoneRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class FabricRecord:
@@ -52,7 +54,6 @@ class FabricRecord:
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-
 @dataclass
 class FabricEdge:
     edge_id: str
@@ -65,7 +66,6 @@ class FabricEdge:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class ShortcutPlanRecord:
@@ -82,7 +82,6 @@ class ShortcutPlanRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class ExplorationPacketRecord:
@@ -103,7 +102,6 @@ class ExplorationPacketRecord:
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
-
 
 @dataclass
 class KnowledgeFabricDashboard:

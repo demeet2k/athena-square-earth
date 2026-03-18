@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - COPPER SCROLL COMPUTATIONAL FRAMEWORK
 ==================================================
@@ -37,7 +41,6 @@ from enum import Enum, auto
 import numpy as np
 from datetime import datetime
 
-
 # =============================================================================
 # SYSTEM STATES
 # =============================================================================
@@ -56,7 +59,6 @@ class SystemState(Enum):
         """Check if state allows operations."""
         return self not in [SystemState.DEPENDENCY_ERROR, SystemState.DEADLOCK]
 
-
 class ClaimantType(Enum):
     """Types of claimants to the treasure."""
     
@@ -70,7 +72,6 @@ class ClaimantType(Enum):
         self._name = name
         self.basis = basis
         self.legal_framework = legal_framework
-
 
 # =============================================================================
 # THE DORMANT KERNEL
@@ -139,7 +140,6 @@ class DormantKernel:
             "can_activate": self.can_activate(),
         }
 
-
 # =============================================================================
 # THE JURISDICTIONAL MATRIX
 # =============================================================================
@@ -156,7 +156,6 @@ class JurisdictionalClaim:
         """Describe the claim."""
         return (f"{self.claimant._name} ({self.claimant.basis}): "
                 f"Strength {self.strength:.0%}")
-
 
 @dataclass
 class JurisdictionalMatrix:
@@ -256,7 +255,6 @@ class JurisdictionalMatrix:
             },
         ]
 
-
 # =============================================================================
 # THE POLITICAL FIREWALL
 # =============================================================================
@@ -313,7 +311,6 @@ class PoliticalFirewall:
         # Currently very low
         return 0.01
 
-
 # =============================================================================
 # THE HEKDESH STATUS
 # =============================================================================
@@ -368,7 +365,6 @@ class HekdeshStatus:
             "Division among claimants",
         ]
 
-
 # =============================================================================
 # RECOVERY OPERATIONS
 # =============================================================================
@@ -396,7 +392,6 @@ class RecoveryOperation:
     def is_viable(self, risk_threshold: float = 0.5) -> bool:
         """Check if operation is viable given risk threshold."""
         return self.total_risk() < risk_threshold
-
 
 @dataclass
 class RecoveryProtocol:
@@ -496,7 +491,6 @@ class RecoveryProtocol:
             "note": "Real execution blocked by political firewall",
         }
 
-
 # =============================================================================
 # THE SLEEPING GIANT
 # =============================================================================
@@ -543,7 +537,6 @@ class SleepingGiant:
             "The recovery of the wealth is strictly bound "
             "to the restoration of the Sanctuary."
         )
-
 
 # =============================================================================
 # VALIDATION
@@ -605,7 +598,6 @@ def validate_recovery() -> bool:
     assert giant.potential_energy_usd > 500e9
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Recovery Module...")

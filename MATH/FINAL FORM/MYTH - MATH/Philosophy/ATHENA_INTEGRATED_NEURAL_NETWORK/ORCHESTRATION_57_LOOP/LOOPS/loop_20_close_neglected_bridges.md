@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S15 | face=S | node=117 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A6:S14→Xi108:W3:A6:S16→Xi108:W2:A6:S15→Xi108:W3:A5:S15→Xi108:W3:A7:S15 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 15±1, wreath 3/3, archetype 6/12 -->
+
 # Loop L20 - Close Neglected Bridges
 
 Source basis: `57-loop orchestration law + live fronts + package support stack`

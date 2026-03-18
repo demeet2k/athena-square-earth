@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=151 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - Zero-Point Computing
 ================================
@@ -34,7 +38,6 @@ import math
 
 from .agent import InternalState
 
-
 # =============================================================================
 # METRIC TYPES
 # =============================================================================
@@ -47,7 +50,6 @@ class MetricType(Enum):
     MANHATTAN = "manhattan"
     KAPPA = "kappa"           # κ-based metric
     FISHER = "fisher"         # Fisher-Rao metric
-
 
 @dataclass
 class Metric:
@@ -100,7 +102,6 @@ class Metric:
         For Euclidean: linear interpolation.
         """
         return [(1 - t) * a + t * b for a, b in zip(x, y)]
-
 
 # =============================================================================
 # CENTER COMPUTATION
@@ -194,7 +195,6 @@ class CenterFinder:
         
         return center
 
-
 # =============================================================================
 # STABILITY ANALYSIS
 # =============================================================================
@@ -207,7 +207,6 @@ class StabilityType(Enum):
     SADDLE = "saddle"                 # Mixed signs
     CENTER = "center"                  # Pure imaginary
     BIFURCATION = "bifurcation"       # Eigenvalue at imaginary axis
-
 
 @dataclass
 class Eigenvalue:
@@ -229,7 +228,6 @@ class Eigenvalue:
     @property
     def magnitude(self) -> float:
         return math.sqrt(self.real**2 + self.imag**2)
-
 
 @dataclass
 class StabilityAnalysis:
@@ -275,7 +273,6 @@ class StabilityAnalysis:
     def is_hyperbolic(self) -> bool:
         """Check if equilibrium is hyperbolic (no center eigenvalues)."""
         return self.center_dim == 0
-
 
 # =============================================================================
 # POTENTIAL FUNCTION
@@ -347,7 +344,6 @@ class Potential:
         """
         return [p for p in points if abs(self.value(p)) < tolerance]
 
-
 # =============================================================================
 # GRADIENT FLOW
 # =============================================================================
@@ -412,7 +408,6 @@ class GradientFlow:
         analysis.classify()
         
         return analysis
-
 
 # =============================================================================
 # ZERO-POINT DYNAMICS
@@ -491,7 +486,6 @@ class ZeroPointDynamics:
         
         return converged / n_samples
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -540,7 +534,6 @@ def validate_dynamics() -> bool:
     assert len(trajectory) > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zero-Point Dynamics Module...")

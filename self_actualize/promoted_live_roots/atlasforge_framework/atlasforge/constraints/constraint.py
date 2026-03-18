@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=459 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       ATLAS FORGE - Constraint System                         ║
@@ -17,7 +21,6 @@ from atlasforge.core.types import Interval
 from atlasforge.core.base import ContentAddressed
 from atlasforge.core.enums import ConstraintType, NormalFormType, ObligationType, CertificateLevel
 from atlasforge.lenses.chart import Chart
-
 
 @dataclass
 class Constraint(ContentAddressed):
@@ -54,7 +57,6 @@ class Constraint(ContentAddressed):
             'name': self.name,
             'domain': [self.domain.lo, self.domain.hi] if self.domain else None,
         }
-
 
 @dataclass
 class RootConstraint(Constraint):
@@ -102,7 +104,6 @@ class RootConstraint(Constraint):
             domain = Interval.closed(data['domain'][0], data['domain'][1])
         return cls(name=data.get('name', ''), domain=domain)
 
-
 @dataclass
 class FixedPointConstraint(Constraint):
     """Fixed point constraint: x = F(x)"""
@@ -145,7 +146,6 @@ class FixedPointConstraint(Constraint):
             domain = Interval.closed(data['domain'][0], data['domain'][1])
         return cls(name=data.get('name', ''), domain=domain)
 
-
 @dataclass
 class GeneratorConstraint(Constraint):
     """Generator constraint: find x where generator flow equilibrates."""
@@ -177,7 +177,6 @@ class GeneratorConstraint(Constraint):
     def from_dict(cls, data: Dict[str, Any]) -> 'GeneratorConstraint':
         return cls(name=data.get('name', ''), target_value=data.get('target_value', 0.0))
 
-
 @dataclass
 class EqualityConstraint(Constraint):
     """Equality constraint: f(x) = g(x)"""
@@ -203,7 +202,6 @@ class EqualityConstraint(Constraint):
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'EqualityConstraint':
         return cls(name=data.get('name', ''))
-
 
 @dataclass
 class VectorRootConstraint(Constraint):
@@ -255,7 +253,6 @@ class VectorRootConstraint(Constraint):
     def from_dict(cls, data: Dict[str, Any]) -> 'VectorRootConstraint':
         return cls(name=data.get('name', ''), dimension=data.get('dimension', 1))
 
-
 @dataclass
 class NormalForm(ContentAddressed):
     """Normalized constraint form for solvers."""
@@ -290,7 +287,6 @@ class NormalForm(ContentAddressed):
     def dH(self) -> Optional[Callable]:
         return self.functions.get('dH')
 
-
 @dataclass
 class ProofObligation(ContentAddressed):
     """A proof obligation that must be discharged."""
@@ -323,7 +319,6 @@ class ProofObligation(ContentAddressed):
     def discharge(self, certificate_hash: str):
         self.discharged = True
         self.discharging_certificate = certificate_hash
-
 
 @dataclass
 class ConstraintIR(ContentAddressed):

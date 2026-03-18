@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=90 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - VAJRAYANA BARDO KERNEL: YOGA MODULE
 ================================================
@@ -39,7 +43,6 @@ from enum import Enum
 import numpy as np
 import hashlib
 
-
 # =============================================================================
 # YIDAM DEFINITIONS
 # =============================================================================
@@ -51,7 +54,6 @@ class YidamClass(Enum):
     WRATHFUL = "wrathful"           # Fierce protectors
     SEMI_WRATHFUL = "semi_wrathful"  # Mixed aspect
 
-
 class YidamFamily(Enum):
     """Buddha family associations for Yidams."""
     
@@ -60,7 +62,6 @@ class YidamFamily(Enum):
     RATNA = "ratna"                  # Ratnasambhava family
     PADMA = "padma"                  # Amitabha family
     KARMA = "karma"                  # Amoghasiddhi family
-
 
 # =============================================================================
 # YIDAM CONFIGURATION
@@ -94,7 +95,6 @@ class YidamConfig:
     
     # Mantra
     mantra: str = ""
-
 
 # Predefined Yidams
 YIDAM_CONFIGS = {
@@ -155,7 +155,6 @@ YIDAM_CONFIGS = {
         mantra="OM TARE TUTTARE TURE SOHA"
     ),
 }
-
 
 # =============================================================================
 # YIDAM VIRTUAL MACHINE
@@ -298,7 +297,6 @@ class YidamVM:
             "operations": self.operations_performed
         }
 
-
 # =============================================================================
 # ILLUSION BODY (GYULU)
 # =============================================================================
@@ -355,7 +353,6 @@ class IllusionBody:
         """Repair integrity."""
         self.integrity = min(1.0, self.integrity + amount)
 
-
 # =============================================================================
 # PHOWA PROTOCOL
 # =============================================================================
@@ -370,7 +367,6 @@ class PhowaState(Enum):
     ROUTED = "routed"               # Successfully routed to destination
     FAILED = "failed"               # Ejection failed
 
-
 @dataclass
 class PhowaTarget:
     """Target destination for Phowa ejection."""
@@ -382,7 +378,6 @@ class PhowaTarget:
     # Access requirements
     requires_training: bool = True
     minimum_merit: float = 0.5
-
 
 # Predefined targets
 PHOWA_TARGETS = {
@@ -408,7 +403,6 @@ PHOWA_TARGETS = {
         minimum_merit=0.4
     ),
 }
-
 
 class PhowaProtocol:
     """
@@ -574,7 +568,6 @@ class PhowaProtocol:
         # Execute
         return self.execute()
 
-
 # =============================================================================
 # DREAM YOGA
 # =============================================================================
@@ -587,7 +580,6 @@ class DreamYogaState(Enum):
     DREAMING = "dreaming"
     LUCID = "lucid"
     DEEP_SLEEP = "deep_sleep"
-
 
 class DreamYoga:
     """
@@ -661,7 +653,6 @@ class DreamYoga:
             "bardo_readiness": self.lucidity_skill * 0.5
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -716,7 +707,6 @@ def validate_yoga() -> bool:
     assert result["sessions_completed"] == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Yoga Module...")

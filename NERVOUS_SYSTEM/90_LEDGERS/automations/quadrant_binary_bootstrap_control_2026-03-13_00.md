@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S11 | face=R | node=56 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S10→Xi108:W3:A5:S12→Xi108:W2:A5:S11→Xi108:W3:A4:S11→Xi108:W3:A6:S11 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 11±1, wreath 3/3, archetype 5/12 -->
+
 ﻿# Quadrant Binary Bootstrap Control Report
 
 - run timestamp: 2026-03-13 00:25:51 -07:00
@@ -29,5 +34,4 @@ C:/Users/dmitr/Documents/Athena Agent/NERVOUS_SYSTEM/90_LEDGERS/automations/quad
 
 ## restart seed
 Resume at docs gate check from cwd C:/Users/dmitr/Documents/Athena Agent; if gate clears, repeat bootstrap validations only and keep anchors/raw manuscripts untouched.
-
 

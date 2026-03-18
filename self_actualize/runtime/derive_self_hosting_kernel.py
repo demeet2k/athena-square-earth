@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=305 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -19,7 +23,6 @@ from self_actualize.runtime.self_hosting_contracts import (
     SelfSurfaceLink,
     SelfTransformPacket,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -139,25 +142,20 @@ SELF_BEARING_ROOTS = {
     "Athena FLEET",
 }
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def file_timestamp(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def parse_docs_gate(markdown: str) -> str:
     match = re.search(r"Command status: `([^`]+)`", markdown)
     if match:
         return match.group(1)
     return "UNKNOWN"
-
 
 def parse_live_directory_bodies(markdown: str) -> list[dict]:
     rows: list[dict] = []
@@ -185,24 +183,20 @@ def parse_live_directory_bodies(markdown: str) -> list[dict]:
         )
     return rows
 
-
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
     sep = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
 
-
 def witness_value(payload: dict, key: str) -> int:
     return int(payload["witnesses"][key]["value"])
-
 
 def role_count(payload: dict, role_name: str) -> int:
     for role in payload.get("roles", []):
         if role.get("role") == role_name:
             return int(role.get("count", 0))
     return 0
-
 
 def build_surface_links() -> list[SelfSurfaceLink]:
     surface_specs = [
@@ -315,7 +309,6 @@ def build_surface_links() -> list[SelfSurfaceLink]:
         )
         for surface_id, path, surface_class, witness_class, updates, note in surface_specs
     ]
-
 
 def build_self_model(
     docs_gate: str,
@@ -488,7 +481,6 @@ def build_self_model(
         surface_links=surface_links,
     )
 
-
 def build_self_state(
     docs_gate: str,
     station_dashboard: dict,
@@ -649,7 +641,6 @@ def build_self_state(
         route_context=route_context,
         truth_citations=truth_citations,
     )
-
 
 def build_self_contract(docs_gate: str, model: SelfModelRecord) -> SelfContractRecord:
     drift_threshold = 0.18
@@ -841,7 +832,6 @@ def build_self_contract(docs_gate: str, model: SelfModelRecord) -> SelfContractR
         rollback_corridor=rollback_corridor,
     )
 
-
 def build_self_lineage(
     docs_gate: str,
     contract: SelfContractRecord,
@@ -956,7 +946,6 @@ def build_self_lineage(
         },
     )
 
-
 def classify_runtime_scripts() -> dict:
     lane_map = {
         "self_observation": {
@@ -1043,7 +1032,6 @@ def classify_runtime_scripts() -> dict:
             "script_count": len(classifications),
         },
     }
-
 
 def build_transform_packets(
     docs_gate: str,
@@ -1182,7 +1170,6 @@ def build_transform_packets(
         )
     return sorted(packets, key=lambda item: item.dispatch_score, reverse=True)
 
-
 def build_dual_engine_queue(docs_gate: str, packets: list[SelfTransformPacket]) -> dict:
     targets = [
         DualEngineTarget(
@@ -1298,7 +1285,6 @@ def build_dual_engine_queue(docs_gate: str, packets: list[SelfTransformPacket]) 
         },
     }
 
-
 def build_dashboard(
     docs_gate: str,
     model: SelfModelRecord,
@@ -1348,7 +1334,6 @@ def build_dashboard(
             "bilateral_coverage_ok": station_dashboard["bilateral_coverage_ok"],
         },
     )
-
 
 def render_schema_markdown() -> str:
     return """# Self-Hosting Kernel Schema
@@ -1459,7 +1444,6 @@ failure_gates:
 3. A blocked external-memory gate must remain visibly blocked.
 """
 
-
 def render_overview_markdown(
     model: SelfModelRecord,
     state: SelfStateRecord,
@@ -1500,7 +1484,6 @@ Grand Central remains the transfer hall, while the self-hosting kernel becomes t
 `{state.current_config['core_mode']}` with publication return required through cortex, runtime mirror, and receipt surfaces.
 """
 
-
 def render_charter_markdown(
     model: SelfModelRecord,
     dashboard: SelfHostingKernelDashboard,
@@ -1534,7 +1517,6 @@ Athena may claim local-scope self-hosting only when it can:
 5. regenerate manuscript and runtime surfaces through one replayable dual engine
 6. land publication return into cortex, runtime mirror, and receipt surfaces together
 """
-
 
 def render_model_markdown(model: SelfModelRecord) -> str:
     capability_table = markdown_table(
@@ -1631,7 +1613,6 @@ Verdict: `OK`
 {unknown_lines}
 """
 
-
 def render_state_markdown(state: SelfStateRecord) -> str:
     witness_summary = state.current_config["witness_summary"]
     mode_table = markdown_table(
@@ -1701,7 +1682,6 @@ Kernel status: `{state.kernel_status}`
 
 {truth_lines}
 """
-
 
 def render_contract_markdown(contract: SelfContractRecord) -> str:
     identity_table = markdown_table(
@@ -1781,7 +1761,6 @@ Verdict: `OK`
   {drift['law']}
 """
 
-
 def render_lineage_markdown(lineage: SelfLineageRecord) -> str:
     entry_table = markdown_table(
         ["ID", "Time", "Branch", "Delta", "Summary", "Proof", "Tunnels"],
@@ -1847,7 +1826,6 @@ Verdict: `OK`
 {comparison_table}
 """
 
-
 def render_runtime_classification_markdown(payload: dict) -> str:
     lane_counts = payload["summary"]["lane_counts"]
     table = markdown_table(
@@ -1881,7 +1859,6 @@ Verdict: `OK`
 
 {table}
 """
-
 
 def render_queue_markdown(queue_payload: dict) -> str:
     packet_table = markdown_table(
@@ -1939,7 +1916,6 @@ Verdict: `OK`
 {target_table}
 """
 
-
 def render_dashboard_markdown(dashboard: SelfHostingKernelDashboard) -> str:
     packet_table = markdown_table(
         ["Packet", "Mode", "Dispatch", "Contract", "Status"],
@@ -1989,7 +1965,6 @@ Kernel status: `{dashboard.kernel_status}`
 {failure_lines}
 """
 
-
 def render_runtime_markdown(dashboard: SelfHostingKernelDashboard, queue_payload: dict) -> str:
     top_packet = dashboard.top_packets[0]
     return f"""# Self-Hosting Kernel Runtime
@@ -2019,7 +1994,6 @@ It keeps self-model, self-state, self-contract, lineage, packet scheduling, and 
 python -m self_actualize.runtime.derive_self_hosting_kernel
 ```
 """
-
 
 def render_readiness_markdown(
     dashboard: SelfHostingKernelDashboard,
@@ -2058,7 +2032,6 @@ Verdict: `{verdict}`
 - blocked targets: `{queue_payload['summary']['blocked_targets']}`
 """
 
-
 def render_receipt_markdown(dashboard: SelfHostingKernelDashboard) -> str:
     outputs = [
         SELF_MODEL_JSON_PATH,
@@ -2095,16 +2068,13 @@ def render_receipt_markdown(dashboard: SelfHostingKernelDashboard) -> str:
 {output_lines}
 """
 
-
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
-
 
 def main() -> int:
     docs_gate = parse_docs_gate(DOCS_GATE_PATH.read_text(encoding="utf-8"))
@@ -2199,7 +2169,6 @@ def main() -> int:
     print(f"Wrote {RUNTIME_CLASSIFICATION_JSON_PATH}")
     print(f"Wrote {SELF_DASHBOARD_JSON_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

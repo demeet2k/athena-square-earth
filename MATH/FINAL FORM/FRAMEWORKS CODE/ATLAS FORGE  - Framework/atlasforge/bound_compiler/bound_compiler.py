@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=144 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        BOUND OBJECT COMPILER MODULE                          ║
@@ -31,7 +35,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TAIL CLASSES AND ASSUMPTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -43,7 +46,6 @@ class TailClass(Enum):
     SUBEXPONENTIAL = "subexp"     # ψ₁ norm finite
     POLYNOMIAL = "polynomial"      # Finite moments up to some p
     HEAVY = "heavy"               # Only finite low moments
-
 
 @dataclass
 class Assumptions:
@@ -82,7 +84,6 @@ class Assumptions:
             if other.tail_class in [TailClass.BOUNDED, TailClass.SUBGAUSSIAN]:
                 return True
         return other.tail_class == self.tail_class
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOUND OBJECT (BO)
@@ -138,7 +139,6 @@ class BoundObject:
             self.derivation
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # INEQUALITY COMPILERS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -188,7 +188,6 @@ class ChebyshevBound:
             derivation=f"P(|S̄ₙ - μ| ≥ {t:.4f}) ≤ σ²/(n·t²) = {target_delta:.4f}"
         )
 
-
 @dataclass
 class HoeffdingBound:
     """
@@ -230,7 +229,6 @@ class HoeffdingBound:
             derivation=f"P(|S̄ₙ - μ| ≥ {t:.4f}) ≤ 2exp(-2n·t²/(b-a)²) = {target_delta:.4f}"
         )
 
-
 @dataclass
 class ChernoffBound:
     """
@@ -262,7 +260,6 @@ class ChernoffBound:
             name="Chernoff/Subgaussian",
             derivation=f"P(|S̄ₙ - μ| ≥ {t:.4f}) ≤ 2exp(-n·t²/(2σ²_sg)) = {target_delta:.4f}"
         )
-
 
 @dataclass 
 class BernsteinBound:
@@ -302,7 +299,6 @@ class BernsteinBound:
             name="Bernstein",
             derivation=f"P(|S̄ₙ - μ| ≥ {t:.4f}) ≤ {target_delta:.4f}"
         )
-
 
 @dataclass
 class BerryEsseenBound:
@@ -356,7 +352,6 @@ class BerryEsseenBound:
             name="CLT + Berry-Esseen",
             derivation=f"CLT: z_{1-α/2}·σ/√n = {t:.4f}, BE drift = {drift:.6f}"
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TOP-K BOUND SELECTION
@@ -424,7 +419,6 @@ class TopKBounds:
                 else:
                     results.append((b1.name, "≁", b2.name))
         return results
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOUND COMPILER
@@ -497,7 +491,6 @@ class BoundCompiler:
         
         return "\n".join(lines)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DOMINANCE PROOFS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -536,7 +529,6 @@ class DominanceProof:
             return "≻", proof
         else:
             return "incomparable", "No clear dominance"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -577,7 +569,6 @@ class BoundObjectPoleBridge:
         Dominance: B₁ ≺ B₂ iff U₁ ≤ U₂ under weaker assumptions
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -586,36 +577,29 @@ def bound_object(quantity: str, upper: float, delta: float, **kwargs) -> BoundOb
     """Create bound object."""
     return BoundObject(quantity, upper, delta, **kwargs)
 
-
 def chebyshev_bound(variance: float) -> ChebyshevBound:
     """Create Chebyshev bound compiler."""
     return ChebyshevBound(variance)
-
 
 def hoeffding_bound(lower: float, upper: float) -> HoeffdingBound:
     """Create Hoeffding bound compiler."""
     return HoeffdingBound(lower, upper)
 
-
 def chernoff_bound(sigma_sg: float) -> ChernoffBound:
     """Create Chernoff/subgaussian bound compiler."""
     return ChernoffBound(sigma_sg)
-
 
 def bernstein_bound(variance: float, b: float) -> BernsteinBound:
     """Create Bernstein bound compiler."""
     return BernsteinBound(variance, b)
 
-
 def bound_compiler() -> BoundCompiler:
     """Create bound compiler."""
     return BoundCompiler()
 
-
 def topk_bounds(k: int = 3) -> TopKBounds:
     """Create top-k bounds container."""
     return TopKBounds(k=k)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Dl -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # S04-S05 Pentadic Lift to 8D
 
 S04 installs a 7D control shell C_7 = OddShell_7(Xi_6) with W_7 = {Seed, Ignite, Translate, Bridge, Weave, Seal, Return} governing the 7-fold timing cycle of recursive reading. S05 performs the pentadic lift: Xi_8 = Weave_5(Xi_6+) with K_5^loc = Z_20. The 5 copies are the 5 levels of reading: Complete Immersion, Recursive Cross-Referencing, Expanding Research Horizon, Recursive Reflection, and Holding the Whole. 8D contains 5x3 = 15 embedded 4D cockpits = Sigma_15 observation modes. Phi (golden ratio) becomes structurally native at 8D.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=95 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """SQLite-backed index for the AtlasForge memory bank.
 
 The base :class:`~atlasforge.memory.store.MemoryStore` persists entries as JSON
@@ -23,15 +27,12 @@ import json
 import os
 import sqlite3
 
-
 def _norm_tag(tag: str) -> str:
     return (tag or "").strip().lower()
-
 
 def _tags_to_text(tags: Sequence[str]) -> str:
     # Space-separated tags for FTS.
     return " ".join(sorted({_norm_tag(t) for t in tags if _norm_tag(t)}))
-
 
 def _fts_query(q: str) -> str:
     """Convert a user query into an FTS MATCH expression.
@@ -45,14 +46,12 @@ def _fts_query(q: str) -> str:
         return ""
     return " ".join(f"{p}*" for p in parts)
 
-
 @dataclass
 class MemoryIndexHit:
     """A ranked search hit returned by the index."""
 
     entry_hash: str
     score: float
-
 
 class MemoryIndex:
     """SQLite-backed index for MemoryEntry JSON files."""

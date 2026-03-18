@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A9:S9 | face=S | node=45 | depth=0 | phase=Fixed
+# METRO: T
+# BRIDGES: Xi108:W1:A9:S8→Xi108:W1:A9:S10→Xi108:W2:A9:S9→Xi108:W1:A8:S9→Xi108:W1:A10:S9
+
 """
 Stage Code Table — Ω Lookup Appendix A0.
 Stage ladder from S3 seed through S12 crown to Ω and A+ absolute.
@@ -8,7 +12,6 @@ Source: MOBIUS LENSES.docx / Ω LOOKUP APPENDIX A0
 from ._cache import JsonCache
 
 _stages = JsonCache("stage_codes.json")
-
 
 def query_stage_code(code: str = "all") -> str:
     """Query a stage code (S3, S4, S4M, S5Σ, S6M, S8, S12, Ω, A+, etc.) or 'all' for the full ladder.

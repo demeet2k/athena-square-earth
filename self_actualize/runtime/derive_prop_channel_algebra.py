@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=369 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -16,10 +19,8 @@ OUTPUT_MARKDOWN_PATH = TEMPLE_ROOT / "CRYSTALS" / "02_PROP_CHANNEL_ALGEBRA.md"
 OUTPUT_RECEIPT_PATH = RECEIPTS_ROOT / "2026-03-09_prop_channel_algebra.md"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_prop_channel_algebra"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 @dataclass
 class CountProfile:
@@ -27,7 +28,6 @@ class CountProfile:
     physical_pattern: str
     channel_mode: str
     use_case: str
-
 
 @dataclass
 class PropChannelSpec:
@@ -45,7 +45,6 @@ class PropChannelSpec:
     count_profiles: list[CountProfile] = field(default_factory=list)
     formulas: list[str] = field(default_factory=list)
 
-
 @dataclass
 class VTGModeSpec:
     name: str
@@ -53,7 +52,6 @@ class VTGModeSpec:
     protocol: str
     use_when: str
     parameter: str
-
 
 @dataclass
 class PropChannelAlgebra:
@@ -70,7 +68,6 @@ class PropChannelAlgebra:
     vtg_modes: list[VTGModeSpec]
     selection_function: str
     heuristics: list[str]
-
 
 def build_props() -> list[PropChannelSpec]:
     return [
@@ -212,7 +209,6 @@ def build_props() -> list[PropChannelSpec]:
         ),
     ]
 
-
 def build_vtg_modes() -> list[VTGModeSpec]:
     return [
         VTGModeSpec(
@@ -252,7 +248,6 @@ def build_vtg_modes() -> list[VTGModeSpec]:
         ),
     ]
 
-
 def build_algebra() -> PropChannelAlgebra:
     props = build_props()
     if len(props) != 5:
@@ -291,7 +286,6 @@ def build_algebra() -> PropChannelAlgebra:
             "use staff sparingly for governance broadcasts that every agent must hear simultaneously",
         ],
     )
-
 
 def render_markdown(algebra: PropChannelAlgebra) -> str:
     prop_lines = []
@@ -368,7 +362,6 @@ This crystal formalizes Chapter 17 as typed communication-channel algebra rather
 {heuristic_lines}
 """
 
-
 def render_receipt(algebra: PropChannelAlgebra) -> str:
     return f"""# Prop Channel Algebra Receipt
 
@@ -394,7 +387,6 @@ def render_receipt(algebra: PropChannelAlgebra) -> str:
 - the next implementation frontier is to bind actual agent handoffs and board coordination surfaces to these channel types
 """
 
-
 def main() -> int:
     algebra = build_algebra()
     OUTPUT_JSON_PATH.write_text(json.dumps(asdict(algebra), indent=2), encoding="utf-8")
@@ -404,7 +396,6 @@ def main() -> int:
     print(f"Wrote prop channel algebra markdown: {OUTPUT_MARKDOWN_PATH}")
     print(f"Wrote prop channel algebra receipt: {OUTPUT_RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

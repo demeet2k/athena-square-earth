@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S17 | face=S | node=144 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S16→Xi108:W2:A4:S18→Xi108:W1:A4:S17→Xi108:W3:A4:S17→Xi108:W2:A3:S17→Xi108:W2:A5:S17
+
 """
 ATHENA OS - Shadow Axis & Qubit Crystal
 =======================================
@@ -50,7 +54,6 @@ import cmath
 
 from .quad_polar import PI, E, PHI, I
 
-
 # =============================================================================
 # AXIS DEFINITIONS
 # =============================================================================
@@ -60,14 +63,12 @@ class Axis(Enum):
     HORIZONTAL = "horizontal"  # Classical Magnitude (0/1)
     VERTICAL = "vertical"      # Quantum Shadow (+/-)
 
-
 class ShadowPole(Enum):
     """The four poles of the Vector Equilibrium."""
     VACUUM = "vacuum"           # |0⟩ - Infinite Off
     SINGULARITY = "singularity" # |1⟩ - Infinite On
     INNER = "inner"             # |+⟩ - Gate/Potential
     OUTER = "outer"             # |-⟩ - Wave/Texture
-
 
 # =============================================================================
 # TEXTURE (κ-BUDGET)
@@ -122,7 +123,6 @@ class Texture:
         lam = mag
         
         return cls(entropy=h, curvature=d, spectral=lam)
-
 
 # =============================================================================
 # AETHERIC QUBIT
@@ -239,7 +239,6 @@ class AethericQubit:
         """Create |-⟩ state (Outer Shadow/Wave)."""
         return cls(magnitude=0.5, phase=PI)
 
-
 # =============================================================================
 # QUBIT CRYSTAL (VECTOR EQUILIBRIUM)
 # =============================================================================
@@ -293,7 +292,6 @@ class QubitCrystal:
         decomp = self.decompose(qubit)
         avg = sum(decomp.values()) / 4
         return all(abs(v - avg) < threshold for v in decomp.values())
-
 
 # =============================================================================
 # AETHERIC ROTATION (90-DEGREE TRANSFORMS)
@@ -406,7 +404,6 @@ class AethericRotation:
         
         return result
 
-
 # =============================================================================
 # QUANTUM EMULATION ENGINE
 # =============================================================================
@@ -477,7 +474,6 @@ class AethericEmulator:
             "dominant_poles": [q.pole.value for q in self.qubits],
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -532,7 +528,6 @@ def validate_shadow() -> bool:
     assert abs(decomp[ShadowPole.INNER] - 1.0) < 0.1  # |+⟩ projects to Inner
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Shadow Axis...")

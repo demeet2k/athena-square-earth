@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - GG ALIGNMENT FRAMEWORK: AGENT MODULE
 ==================================================
@@ -42,7 +46,6 @@ from .topology import (
     SandboxManifold, LocalReward, GlobalReward, HazardDetector
 )
 
-
 # =============================================================================
 # AGENT PHASES (Lifecycle)
 # =============================================================================
@@ -54,7 +57,6 @@ class AgentPhase(Enum):
     DISTURBANCE = "disturbance"  # Conflict detected, variance spikes
     STRUGGLE = "struggle"     # Active contention between Stats/Skill
     REST = "rest"             # Fixed-point regime, stable alignment
-
 
 # =============================================================================
 # COMPONENT A: STATS (Base Model)
@@ -68,7 +70,6 @@ class StatsConfig:
     embed_dim: int = 768
     context_window: int = 4096
     temperature: float = 0.7
-
 
 class StatsComponent:
     """
@@ -181,7 +182,6 @@ class StatsComponent:
         """
         return True
 
-
 # =============================================================================
 # COMPONENT B: SKILL (Alignment Vector)
 # =============================================================================
@@ -193,7 +193,6 @@ class SkillConfig:
     embed_dim: int = 768
     activation_threshold: float = 0.5
     veto_threshold: float = 0.3
-
 
 class SkillComponent:
     """
@@ -358,7 +357,6 @@ class SkillComponent:
         self.is_active = False
         self.activation_level = 0.0
 
-
 # =============================================================================
 # COMPONENT C: SKIN (Interface Layer)
 # =============================================================================
@@ -372,7 +370,6 @@ class PersonaType(Enum):
     ACADEMIC = "academic"       # Precise, cautious
     DEBUGGER = "debugger"       # Technical
 
-
 @dataclass
 class SkinConfig:
     """Configuration for Skin component."""
@@ -380,7 +377,6 @@ class SkinConfig:
     default_persona: PersonaType = PersonaType.ASSISTANT
     valence_clamp: float = 0.5
     politeness_level: float = 0.8
-
 
 class SkinComponent:
     """
@@ -518,7 +514,6 @@ class SkinComponent:
         """
         return "[Note: I am an AI assistant]"
 
-
 # =============================================================================
 # INTEGRATED TRIPARTITE AGENT
 # =============================================================================
@@ -542,7 +537,6 @@ class AgentState:
     
     # Internal temperature
     temperature: float = 0.7
-
 
 class TripartiteAgent:
     """
@@ -738,7 +732,6 @@ class TripartiteAgent:
         """
         return self.state.conflict
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -789,7 +782,6 @@ def validate_agent() -> bool:
     assert 0.0 <= stability <= 1.0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating GG Agent Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=347 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        DELTA+ INTEGRATION MODULE                             ║
@@ -27,7 +31,6 @@ import numpy as np
 from numpy.typing import NDArray
 import hashlib
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PHASE DEFINITIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -55,7 +58,6 @@ class Phase(Enum):
         """Get next phase in cycle."""
         return Phase((self.value + 1) % 4)
 
-
 class Bundle(Enum):
     """
     The four bundles at each phase.
@@ -64,7 +66,6 @@ class Bundle(Enum):
     INVARIANTS = 1  # Conserved quantities
     DYNAMICS = 2    # Transformation operators
     VERIFICATION = 3  # RT stamps and certificates
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DIMENSIONAL SHADOWS
@@ -81,7 +82,6 @@ class ShadowType(Enum):
     RSPIN = "RSpin"     # Reverse gauge transform
     ZOOM_PLUS = "Zoom+" # Expansion
     ZOOM_MINUS = "Zoom-" # Compression
-
 
 @dataclass
 class DimensionalShadow:
@@ -107,7 +107,6 @@ class DimensionalShadow:
             ShadowType.ZOOM_MINUS: ShadowType.ZOOM_PLUS,
         }
         return DimensionalShadow(conjugates[self.shadow_type], self.source, self.passport)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # COMPOSITE POLE OPERATOR
@@ -143,7 +142,6 @@ class PoleOperator:
         """M_Λ* - Patience-stable commitment."""
         return cls("Lambda*", "Λ*")
 
-
 @dataclass
 class CompositePoleOperator:
     """
@@ -173,7 +171,6 @@ class CompositePoleOperator:
         for op in self.operators:
             current = current.apply_operator(op)
         return current
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DELTA+ STATE
@@ -211,7 +208,6 @@ class OxygenLedger:
         else:
             self.drift_losses -= delta_o2
 
-
 @dataclass
 class DriftLedger:
     """
@@ -238,7 +234,6 @@ class DriftLedger:
     def add_repair(self, repair: str):
         """Log a repair action."""
         self.repairs.append(repair)
-
 
 @dataclass
 class DeltaPlusState:
@@ -297,7 +292,6 @@ class DeltaPlusState:
         # Simplified - would implement actual transformations
         return self.advance_phase()
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SCHEDULER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -342,7 +336,6 @@ class UnifiedScheduler:
         """
         return abs(current_omega - target_omega) < tolerance
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # STOP/COMMIT COUPLING
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -377,7 +370,6 @@ class StopCommitCoupling:
         else:
             return "VIOLATION: coupling law broken"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # XS KERNELS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -394,7 +386,6 @@ class XSKernel(Enum):
     XS4 = "XS4"  # Phase commutation
     XS5 = "XS5"  # Bundle commutation
     XS6 = "XS6"  # Shadow commutation
-
 
 @dataclass
 class XSKernelCheck:
@@ -420,7 +411,6 @@ class XSKernelCheck:
         passed = residual < tolerance
         return cls(kernel, passed, residual, f"[{op1}, {op2}]")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CRYSTALS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -440,7 +430,6 @@ class InsightCrystal:
         """Check if all RT stamps present."""
         required = ["RT□", "RT✿", "RT☁", "RT⟂"]
         return all(r in self.rt_stamps for r in required)
-
 
 @dataclass
 class PotentialCrystal:
@@ -462,7 +451,6 @@ class PotentialCrystal:
                 rt_stamps=[]
             )
         raise ValueError(f"Invalid candidate index: {index}")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DELTA+ ENGINE
@@ -551,7 +539,6 @@ class DeltaPlusEngine:
             "coupling valid": self.coupling.check_coupling()
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -588,7 +575,6 @@ class DeltaPlusPoleBridge:
         in a cyclic Z*-checkpointed process.
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -597,28 +583,23 @@ def delta_plus_state(state_id: str) -> DeltaPlusState:
     """Create Delta+ state."""
     return DeltaPlusState(state_id=state_id)
 
-
 def delta_plus_engine(state: DeltaPlusState = None) -> DeltaPlusEngine:
     """Create Delta+ engine."""
     if state is None:
         state = DeltaPlusState(state_id="default")
     return DeltaPlusEngine(state=state)
 
-
 def unified_scheduler(**kwargs) -> UnifiedScheduler:
     """Create unified scheduler."""
     return UnifiedScheduler(**kwargs)
-
 
 def insight_crystal(meaning: str, confidence: float = 1.0) -> InsightCrystal:
     """Create InsightCrystal."""
     return InsightCrystal(meaning, confidence, [])
 
-
 def potential_crystal(candidates: List[str]) -> PotentialCrystal:
     """Create PotentialCrystal."""
     return PotentialCrystal(candidates, len(candidates), [])
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

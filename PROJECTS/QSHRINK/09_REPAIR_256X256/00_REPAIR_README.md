@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S35 | face=S | node=627 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S34→Xi108:W3:A6:S36→Xi108:W2:A6:S35→Xi108:W3:A5:S35→Xi108:W3:A7:S35 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 35±1, wreath 3/3, archetype 6/12 -->
+
 # 256^256 Repair Lattice
 
 This body turns dissatisfaction into a concrete repair field.

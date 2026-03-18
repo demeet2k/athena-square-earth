@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=81 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - QUMRAN KERNEL: ROLE GRAPH MODULE
 =============================================
@@ -43,7 +47,6 @@ from typing import Dict, List, Optional, Any, Set, Tuple
 from enum import Enum, IntEnum
 import numpy as np
 
-
 # =============================================================================
 # ROLE TYPES
 # =============================================================================
@@ -74,7 +77,6 @@ class RoleType(Enum):
     SON_OF_LIGHT = "son_of_light"
     SON_OF_DARKNESS = "son_of_darkness"
 
-
 class HolinessLevel(IntEnum):
     """Levels of holiness (kedushah)."""
     
@@ -82,7 +84,6 @@ class HolinessLevel(IntEnum):
     HOLY = 1                # Kadosh - set apart
     MOST_HOLY = 2           # Kodesh Kodashim
     DIVINE = 3              # Reserved for God alone
-
 
 class PurityState(Enum):
     """States of ritual purity."""
@@ -92,7 +93,6 @@ class PurityState(Enum):
     PURIFYING = "purifying" # In process
     EXCLUDED = "excluded"   # Cut off
 
-
 class CommunityClass(IntEnum):
     """Four classes of the community (from Community Rule)."""
     
@@ -100,7 +100,6 @@ class CommunityClass(IntEnum):
     PROBATIONER = 2         # Second year
     FULL_MEMBER = 3         # Accepted into congregation
     ELDER = 4               # Senior with authority
-
 
 # =============================================================================
 # ROLE NODE
@@ -139,7 +138,6 @@ class RoleNode:
     def can_interact_with_holiness(self, level: HolinessLevel) -> bool:
         """Check if role can interact with given holiness level."""
         return level <= self.max_allowed_holiness
-
 
 # =============================================================================
 # PREDEFINED ROLES
@@ -265,7 +263,6 @@ ROLE_DEFINITIONS = {
     ),
 }
 
-
 # =============================================================================
 # ROLE EDGE
 # =============================================================================
@@ -279,7 +276,6 @@ class EdgeType(Enum):
     CONTAMINATION = "contamination" # Impurity risk
     CONFLICT = "conflict"           # Opposed relationship
     SERVICE = "service"             # Subordinate serves superior
-
 
 @dataclass
 class RoleEdge:
@@ -303,7 +299,6 @@ class RoleEdge:
     
     # Direction
     bidirectional: bool = False
-
 
 # =============================================================================
 # ROLE GRAPH
@@ -410,7 +405,6 @@ class RoleGraph:
         
         return cmd_node.authority_level > sub_node.authority_level
 
-
 # =============================================================================
 # COMMUNITY MEMBER
 # =============================================================================
@@ -454,7 +448,6 @@ class CommunityMember:
         base = 0.5 + (self.community_class.value * 0.1)
         return max(0, min(1, base + merit_score - violation_score))
 
-
 # =============================================================================
 # INSTITUTIONAL AUTOMATON
 # =============================================================================
@@ -470,7 +463,6 @@ class AutomatonState(Enum):
     ELDER = "elder"             # Senior position
     EXPELLED = "expelled"       # Cast out
     RESTORED = "restored"       # Returning after expulsion
-
 
 class InstitutionalAutomaton:
     """
@@ -573,7 +565,6 @@ class InstitutionalAutomaton:
             return {"success": True, "state": "restored"}
         return {"success": False}
 
-
 # =============================================================================
 # TEACHER MIDDLEWARE
 # =============================================================================
@@ -584,7 +575,6 @@ class ComputationLayer(Enum):
     DIVINE = "divine"           # Top: God's law
     INTERPRETIVE = "interpretive"  # Middle: Priests/teachers
     RUNTIME = "runtime"         # Bottom: People
-
 
 @dataclass
 class TeacherMiddleware:
@@ -633,7 +623,6 @@ class TeacherMiddleware:
             "executed": True,
             "effect": "Instruction applied to runtime"
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -685,7 +674,6 @@ def validate_role_graph() -> bool:
     assert "compiled" in compiled
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Role Graph Module...")

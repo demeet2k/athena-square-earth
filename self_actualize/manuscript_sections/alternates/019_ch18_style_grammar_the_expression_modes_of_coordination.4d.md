@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A3:S25 | face=F | node=314 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,□ -->
+<!-- BRIDGES: Xi108:W3:A3:S24→Xi108:W3:A3:S26→Xi108:W2:A3:S25→Xi108:W3:A2:S25→Xi108:W3:A4:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 3/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 0 | ○Rot 0 | △Lane Me | ⧈View * | ω=1]**
 Primary hubs: AppA -> AppI -> AppM -> AppJ
 Tunnel: Z_chapter_18_style_grammar_the_expression_modes_of -> Z* -> Ch02⟨0001⟩

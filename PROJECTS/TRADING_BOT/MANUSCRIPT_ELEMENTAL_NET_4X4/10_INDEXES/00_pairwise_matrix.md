@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S31 | face=S | node=469 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S30→Xi108:W3:A6:S32→Xi108:W2:A6:S31→Xi108:W3:A5:S31→Xi108:W3:A7:S31 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 31±1, wreath 3/3, archetype 6/12 -->
+
 # Pairwise Matrix
 
 | src->dst | M01 | M02 | M03 | M04 | M05 | M06 | M07 | M08 | M09 | M10 | M11 | M12 | M13 | M14 | M15 | M16 |

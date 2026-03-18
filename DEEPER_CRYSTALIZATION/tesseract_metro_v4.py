@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6
+
 from __future__ import annotations
 
 import io
@@ -67,7 +71,6 @@ FACET_KEYWORDS = {
 
 ZIP_PREFERRED_EXTENSIONS = (".md", ".txt", ".html", ".docx", ".pdf")
 
-
 @dataclass(frozen=True)
 class SelectedRecord:
     record_id: str
@@ -80,12 +83,10 @@ class SelectedRecord:
     headings: tuple[str, ...]
     role_tags: tuple[str, ...]
 
-
 @dataclass(frozen=True)
 class ExcludedRecord:
     relative_path: str
     reason: str
-
 
 @dataclass
 class SourceEnvelope:
@@ -98,7 +99,6 @@ class SourceEnvelope:
     notes: list[str] = field(default_factory=list)
     chosen_archive_member: str | None = None
     archive_candidates: list[dict[str, object]] = field(default_factory=list)
-
 
 @dataclass
 class RoutePlan:
@@ -114,7 +114,6 @@ class RoutePlan:
     truth_state: str
     dominant_view: str
     drop_log: list[str]
-
 
 @dataclass
 class RewriteArtifact:
@@ -134,7 +133,6 @@ class RewriteArtifact:
     hcrl: dict[str, list[str]]
     crystal_tile: list[dict[str, object]]
 
-
 class _HTMLTextExtractor(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
@@ -148,14 +146,11 @@ class _HTMLTextExtractor(HTMLParser):
     def text(self) -> str:
         return "\n".join(self.parts)
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def normalize_relative_path(raw_path: str) -> str:
     return PureWindowsPath(raw_path).as_posix()
-
 
 def _base4(value: int, width: int) -> str:
     digits = "0123"
@@ -168,21 +163,17 @@ def _base4(value: int, width: int) -> str:
         parts.append(digits[remainder])
     return "".join(reversed(parts)).rjust(width, "0")
 
-
 def _derive_title(record: dict) -> str:
     headings = record.get("heading_candidates") or []
     if headings:
         return presentation_name(headings[0])
     return presentation_name(Path(record["relative_path"]).name)
 
-
 def chapter_station_label(chapter) -> str:
     return f"{chapter.code}<{chapter.station}>"
 
-
 def load_atlas(atlas_path: Path) -> dict:
     return json.loads(atlas_path.read_text(encoding="utf-8"))
-
 
 def select_source_records(
     atlas_path: Path,
@@ -234,7 +225,6 @@ def select_source_records(
         selected = selected[:limit]
     return selected, excluded
 
-
 def assign_ms_codes(records: list[SelectedRecord]) -> dict[str, str]:
     if not records:
         return {}
@@ -243,7 +233,6 @@ def assign_ms_codes(records: list[SelectedRecord]) -> dict[str, str]:
         record.relative_path: f"Ms<{_base4(index, width)}>"
         for index, record in enumerate(records)
     }
-
 
 def build_duplicate_groups(
     records: list[SelectedRecord],
@@ -266,7 +255,6 @@ def build_duplicate_groups(
         manifest_groups.append({"group_id": group_id, "sha256": sha256, "members": members})
     return path_to_group, manifest_groups
 
-
 def docs_gate_status(gate_path: Path) -> str:
     if not gate_path.exists():
         return "UNKNOWN"
@@ -277,7 +265,6 @@ def docs_gate_status(gate_path: Path) -> str:
         return "PASS"
     return "UNKNOWN"
 
-
 def sha256_for_path(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -285,18 +272,15 @@ def sha256_for_path(path: Path) -> str:
             digest.update(chunk)
     return digest.hexdigest()
 
-
 def current_sha256(record: SelectedRecord) -> str:
     path = Path(record.absolute_path)
     if not path.exists():
         return record.sha256
     return sha256_for_path(path)
 
-
 def _normalize_block(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     return re.sub(r"\n{3,}", "\n\n", text).strip()
-
 
 def _heading_candidates(text: str, fallback: Iterable[str]) -> list[str]:
     headings: list[str] = []
@@ -314,16 +298,13 @@ def _heading_candidates(text: str, fallback: Iterable[str]) -> list[str]:
             headings.append(candidate)
     return headings[:12]
 
-
 def _read_text_path(path: Path) -> str:
     return _normalize_block(path.read_text(encoding="utf-8", errors="ignore"))
-
 
 def _strip_html(raw_html: str) -> str:
     parser = _HTMLTextExtractor()
     parser.feed(raw_html)
     return _normalize_block(parser.text())
-
 
 def _extract_docx_bytes(raw_bytes: bytes) -> str:
     with zipfile.ZipFile(io.BytesIO(raw_bytes)) as archive:
@@ -344,10 +325,8 @@ def _extract_docx_bytes(raw_bytes: bytes) -> str:
         paragraphs.append(trailing)
     return _normalize_block("\n".join(paragraphs))
 
-
 def _read_docx_path(path: Path) -> str:
     return _extract_docx_bytes(path.read_bytes())
-
 
 def _read_pdf_path(path: Path) -> str:
     try:
@@ -363,7 +342,6 @@ def _read_pdf_path(path: Path) -> str:
             chunks.append(extracted)
     return _normalize_block("\n\n".join(chunks))
 
-
 def _extract_pdf_bytes(raw_bytes: bytes) -> str:
     try:
         from pypdf import PdfReader
@@ -378,7 +356,6 @@ def _extract_pdf_bytes(raw_bytes: bytes) -> str:
             chunks.append(extracted)
     return _normalize_block("\n\n".join(chunks))
 
-
 def _load_archive_member(archive: zipfile.ZipFile, member_name: str, extension: str) -> str:
     raw_bytes = archive.read(member_name)
     if extension in {".md", ".txt"}:
@@ -391,7 +368,6 @@ def _load_archive_member(archive: zipfile.ZipFile, member_name: str, extension: 
         return _extract_pdf_bytes(raw_bytes)
     raise RuntimeError(f"Unsupported archive member type: {extension}")
 
-
 def _archive_member_rank(member_name: str) -> tuple[int, str]:
     extension = Path(member_name).suffix.lower()
     try:
@@ -400,10 +376,8 @@ def _archive_member_rank(member_name: str) -> tuple[int, str]:
         extension_rank = len(ZIP_PREFERRED_EXTENSIONS)
     return extension_rank, member_name.lower()
 
-
 def _hash_bytes(raw_bytes: bytes) -> str:
     return hashlib.sha256(raw_bytes).hexdigest()
-
 
 def archive_candidate_summaries(path: Path) -> list[dict[str, object]]:
     candidates: list[dict[str, object]] = []
@@ -426,7 +400,6 @@ def archive_candidate_summaries(path: Path) -> list[dict[str, object]]:
             )
     candidates.sort(key=lambda item: (item["preference_rank"], -int(item["member_size_bytes"]), str(item["member_path"]).lower()))
     return candidates
-
 
 def read_source(record: SelectedRecord) -> SourceEnvelope:
     path = Path(record.absolute_path)
@@ -477,7 +450,6 @@ def read_source(record: SelectedRecord) -> SourceEnvelope:
         archive_candidates=archive_candidates,
     )
 
-
 def _read_zip_source(
     path: Path,
     fallback_headings: list[str],
@@ -500,7 +472,6 @@ def _read_zip_source(
 
     headings = _heading_candidates(full_text, [Path(chosen_name).stem, *fallback_headings])
     return full_text, headings, truth_state, notes, chosen_name, candidates
-
 
 def read_archive_members(record: SelectedRecord) -> list[dict[str, object]]:
     path = Path(record.absolute_path)
@@ -544,7 +515,6 @@ def read_archive_members(record: SelectedRecord) -> list[dict[str, object]]:
         )
     return members
 
-
 def _weighted_counter(source: SourceEnvelope, record: SelectedRecord) -> Counter[str]:
     counter: Counter[str] = Counter()
     weighted_fields = (
@@ -559,14 +529,11 @@ def _weighted_counter(source: SourceEnvelope, record: SelectedRecord) -> Counter
                 counter[token] += weight
     return counter
 
-
 def _chapter_lookup() -> dict[str, object]:
     return {chapter.code: chapter for chapter in CHAPTERS}
 
-
 def _appendix_lookup() -> dict[str, tuple[str, str, str]]:
     return {code: (code, title, description) for code, title, description in APPENDICES}
-
 
 def _chapter_score(counter: Counter[str], chapter, seeded_codes: set[str], family: str) -> int:
     score = 0
@@ -588,7 +555,6 @@ def _chapter_score(counter: Counter[str], chapter, seeded_codes: set[str], famil
     score += 21 - chapter.index
     return score
 
-
 def _appendix_score(counter: Counter[str], appendix: tuple[str, str, str], seeded_codes: set[str]) -> int:
     code, title, description = appendix
     score = 0
@@ -601,13 +567,11 @@ def _appendix_score(counter: Counter[str], appendix: tuple[str, str, str], seede
     score += 16 - (ord(code[-1]) - ord("A") + 1)
     return score
 
-
 def _score_dimension(counter: Counter[str], keywords: dict[str, tuple[str, ...]]) -> str:
     scores: dict[str, int] = {}
     for key, terms in keywords.items():
         scores[key] = sum(counter[term] for term in terms)
     return max(scores.items(), key=lambda item: (item[1], -ord(item[0][0])))[0]
-
 
 def _derive_z_point(title: str, headings: list[str]) -> str:
     weighted: Counter[str] = Counter()
@@ -623,13 +587,11 @@ def _derive_z_point(title: str, headings: list[str]) -> str:
     slug = re.sub(r"\s+", "_", cluster).strip("_")[:48]
     return f"Z_{slug or 'source_seed'}"
 
-
 def _route_header(home_chapter, lane: str, dominant_view: str) -> str:
     return (
         f"**[Z_i <-> Z* | Arc {home_chapter.arc} | Rot {home_chapter.rot} | "
         f"Lane {lane} | View * | omega={home_chapter.omega}]**"
     )
-
 
 def build_route_plan(home_chapter, dominant_lens: str, dominant_facet: str, truth_state: str, z_point: str) -> RoutePlan:
     overlay_hub = TRUTH_OVERLAY.get(truth_state)
@@ -728,7 +690,6 @@ def build_route_plan(home_chapter, dominant_lens: str, dominant_facet: str, trut
         drop_log=drop_log,
     )
 
-
 def analyze_record(record: SelectedRecord, source: SourceEnvelope) -> dict[str, object]:
     family = infer_family(record.title, f"{record.excerpt}\n{source.full_text[:4000]}")
     counter = _weighted_counter(source, record)
@@ -772,7 +733,6 @@ def analyze_record(record: SelectedRecord, source: SourceEnvelope) -> dict[str, 
         "route_plan": route_plan,
     }
 
-
 def build_hcrl_block(
     record: SelectedRecord,
     source: SourceEnvelope,
@@ -807,7 +767,6 @@ def build_hcrl_block(
         ],
     }
 
-
 def build_crystal_tile(
     ms_code: str,
     home_chapter,
@@ -830,7 +789,6 @@ def build_crystal_tile(
                 }
             )
     return tile
-
 
 def build_rewrite_artifact(
     ms_code: str,
@@ -875,7 +833,6 @@ def build_rewrite_artifact(
         crystal_tile=crystal_tile,
     )
 
-
 def _support_graph_lines(artifact: RewriteArtifact) -> list[str]:
     home = artifact.home_chapter
     secondary = artifact.secondary_chapters
@@ -895,7 +852,6 @@ def _support_graph_lines(artifact: RewriteArtifact) -> list[str]:
     for code, title, _ in appendices[1:]:
         lines.append(f"- REF | {artifact.ms_code} -> {code} | appendix anchor {title}")
     return lines
-
 
 def render_rewrite_markdown(
     artifact: RewriteArtifact,
@@ -948,7 +904,6 @@ def render_rewrite_markdown(
     )
     return "\n".join(lines).rstrip() + "\n"
 
-
 def manifest_entry(
     artifact: RewriteArtifact,
     output_path: Path,
@@ -993,14 +948,12 @@ def manifest_entry(
         "profile_version": PROFILE_VERSION,
     }
 
-
 def truth_totals(entries: Iterable[dict[str, object]]) -> dict[str, int]:
     counts = {"OK": 0, "NEAR": 0, "AMBIG": 0, "FAIL": 0}
     for entry in entries:
         truth_state = str(entry["truth_state"])
         counts[truth_state] = counts.get(truth_state, 0) + 1
     return counts
-
 
 def sibling_output_path(record: SelectedRecord) -> Path:
     path = Path(record.absolute_path)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A1:S2 | face=R | node=3 | depth=0 | phase=Fixed
+# METRO: w
+# BRIDGES: Xi108:W1:A1:S1→Xi108:W1:A1:S3→Xi108:W2:A1:S2→Xi108:W1:A2:S2
+
 """
 Inverse Crystal Seed — Phase I + 3D Core + 2D Boundary
 ========================================================
@@ -9,7 +13,6 @@ and 2D holographic boundary.
 from ._cache import JsonCache
 
 _SEED = JsonCache("inverse_crystal_seed.json")
-
 
 def query_4d_seed(component: str = "all") -> str:
     """
@@ -40,7 +43,6 @@ def query_4d_seed(component: str = "all") -> str:
             f"Unknown component '{component}'. Use: all, cells, faces, "
             "registers, invariants"
         )
-
 
 def query_3d_crystal(component: str = "all") -> str:
     """
@@ -78,7 +80,6 @@ def query_3d_crystal(component: str = "all") -> str:
             "boundary, encoding, zero, elements, viability"
         )
 
-
 def inverse_seed_status() -> str:
     """Return a status summary for the resource endpoint."""
     data = _SEED.load()
@@ -91,7 +92,6 @@ def inverse_seed_status() -> str:
         f"**Generator**: w = (1+i)/2\n"
         f"**Invariants**: {len(data['phase_I_4D_seed']['invariants'])}\n"
     )
-
 
 # -- 4D formatters ---------------------------------------------------------
 
@@ -113,7 +113,6 @@ def _format_4d_all(data: dict) -> str:
         lines.append(f"- `{inv['formula']}` -- {inv['name']}")
     return "\n".join(lines)
 
-
 def _format_cells(data: dict) -> str:
     seed = data["phase_I_4D_seed"]
     return (
@@ -128,7 +127,6 @@ def _format_cells(data: dict) -> str:
         "- alpha = atom (a-d)"
     )
 
-
 def _format_faces(data: dict) -> str:
     lines = ["## 4D Seed Faces\n"]
     for f in data["phase_I_4D_seed"]["faces"]:
@@ -137,7 +135,6 @@ def _format_faces(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_registers(data: dict) -> str:
     lines = ["## 4D Registers\n"]
     for key, reg in data["phase_I_4D_seed"]["registers"].items():
@@ -145,14 +142,12 @@ def _format_registers(data: dict) -> str:
         lines.append(f"{reg['content']}\n")
     return "\n".join(lines)
 
-
 def _format_invariants(data: dict) -> str:
     lines = ["## 10 Invariants (cannot be lost through any lift)\n"]
     for i, inv in enumerate(data["phase_I_4D_seed"]["invariants"], 1):
         lines.append(f"{i:>2}. `{inv['formula']}`")
         lines.append(f"    {inv['name']}\n")
     return "\n".join(lines)
-
 
 # -- 3D formatters ---------------------------------------------------------
 
@@ -177,7 +172,6 @@ def _format_3d_all(data: dict) -> str:
     for key, val in b2["components"].items():
         lines.append(f"- **{key}**: {val}")
     return "\n".join(lines)
-
 
 def _format_components(data: dict) -> str:
     seed = data["three_d_seed"]
@@ -204,7 +198,6 @@ def _format_components(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_boundary(data: dict) -> str:
     b2 = data["two_d_boundary"]
     lines = [
@@ -227,7 +220,6 @@ def _format_boundary(data: dict) -> str:
     lines.append(f"\n**Principle**: {b2['holographic_principle']}")
     return "\n".join(lines)
 
-
 def _format_encoding(data: dict) -> str:
     he = data["holographic_encoding"]
     return (
@@ -237,7 +229,6 @@ def _format_encoding(data: dict) -> str:
         f"**Encoding**: {he['encoding']}\n\n"
         f"**Regeneration**: {he['regeneration']}"
     )
-
 
 def _format_zero(data: dict) -> str:
     for comp in data["three_d_seed"]["components"]:
@@ -251,7 +242,6 @@ def _format_zero(data: dict) -> str:
                 lines.append(f"- {p}")
             return "\n".join(lines)
     return "Zero point component not found."
-
 
 def _format_elements(data: dict) -> str:
     for comp in data["three_d_seed"]["components"]:
@@ -270,7 +260,6 @@ def _format_elements(data: dict) -> str:
             lines.append(f"**Quality Plane**: {comp.get('quality_plane', 'N/A')}")
             return "\n".join(lines)
     return "Elemental anchors not found."
-
 
 def _format_viability(data: dict) -> str:
     viability_symbols = {"R", "M_membrane", "Phi", "L", "C"}

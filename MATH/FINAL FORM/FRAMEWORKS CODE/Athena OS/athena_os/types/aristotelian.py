@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - Aristotelian Type System
 ====================================
@@ -28,7 +32,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Set, TypeVar, Generic
 from abc import ABC, abstractmethod
 from datetime import datetime
-
 
 # =============================================================================
 # THE TEN CATEGORIES
@@ -105,7 +108,6 @@ class Category(IntEnum):
         """SUBSTANCE is primary; all others are secondary."""
         return self == Category.SUBSTANCE
 
-
 # =============================================================================
 # THE FOUR CAUSES
 # =============================================================================
@@ -142,7 +144,6 @@ class Cause(IntEnum):
             Cause.FINAL: "Honor the god (the purpose)"
         }[self]
 
-
 # =============================================================================
 # ACTUALITY AND POTENTIALITY
 # =============================================================================
@@ -158,7 +159,6 @@ class ActualityMode(IntEnum):
     POTENTIAL = 0    # Dynamis - capacity, possibility
     ACTUAL = 1       # Energeia - activity, being-at-work
     COMPLETE = 2     # Entelechia - complete actuality, fulfillment
-
 
 @dataclass
 class ActualityState:
@@ -217,7 +217,6 @@ class ActualityState:
             return 0.0
         return len(self.actualized) / len(self.potentials)
 
-
 # =============================================================================
 # CATEGORICAL PREDICATE
 # =============================================================================
@@ -252,7 +251,6 @@ class Predicate:
         if self.negated != other.negated:
             return False
         return self.value == other.value
-
 
 # =============================================================================
 # ENTITY (Substance Instance)
@@ -406,7 +404,6 @@ class Entity:
             lines.append(f"  Passion: {self.passion}")
         return '\n'.join(lines)
 
-
 # =============================================================================
 # SYLLOGISTIC INFERENCE
 # =============================================================================
@@ -460,7 +457,6 @@ class Syllogism:
     def is_valid(self) -> bool:
         """Check if the syllogism can derive a valid conclusion."""
         return self.derive_conclusion() is not None
-
 
 # =============================================================================
 # TYPE REGISTRY (Species and Genera)
@@ -536,7 +532,6 @@ class TypeRegistry:
         )
         return entity
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -569,7 +564,6 @@ def validate_aristotelian_system() -> bool:
     assert conclusion[0] == 'ALL'
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Aristotelian type system...")

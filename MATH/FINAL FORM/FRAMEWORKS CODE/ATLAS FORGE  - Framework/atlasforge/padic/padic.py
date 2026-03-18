@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       P-ADIC NUMBERS MODULE                                  ║
@@ -27,7 +31,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Iterator
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # P-ADIC INTEGER
@@ -163,7 +166,6 @@ class PadicInteger:
     def one(cls, p: int, precision: int = 20) -> 'PadicInteger':
         return cls([1] + [0] * (precision - 1), p, precision)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # P-ADIC RATIONAL
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -262,7 +264,6 @@ class PadicRational:
         
         return cls(unit, valuation)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HENSEL'S LEMMA
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -340,7 +341,6 @@ class HenselLifter:
                 roots.append(self.lift(a, precision))
         return roots
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ULTRAMETRIC SPACE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -392,7 +392,6 @@ class UltrametricSpace:
         """Points within radius of center."""
         return [i for i in range(len(self.points)) 
                if self.distance(center, i) <= radius]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PSI-POLE P-ADIC BRIDGE
@@ -464,7 +463,6 @@ class PsiPolePadicBridge:
         slope, _ = np.polyfit(ks, log_counts, 1)
         return slope / np.log(p)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -472,7 +470,6 @@ class PsiPolePadicBridge:
 def padic_int(n: int, p: int, precision: int = 20) -> PadicInteger:
     """Create p-adic integer from int."""
     return PadicInteger.from_int(n, p, precision)
-
 
 def padic_valuation(n: int, p: int) -> int:
     """Compute v_p(n)."""
@@ -484,18 +481,15 @@ def padic_valuation(n: int, p: int) -> int:
         v += 1
     return v
 
-
 def padic_norm(n: int, p: int) -> float:
     """Compute |n|_p."""
     v = padic_valuation(n, p)
     return p ** (-v) if v != float('inf') else 0.0
 
-
 def hensel_lift(poly_coeffs: List[int], p: int, 
                precision: int = 20) -> List[PadicInteger]:
     """Find p-adic roots via Hensel lifting."""
     return HenselLifter(poly_coeffs, p).all_padic_roots(precision)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

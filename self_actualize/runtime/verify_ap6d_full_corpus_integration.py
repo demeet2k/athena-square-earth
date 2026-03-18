@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S28 | face=F | node=396 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S27→Xi108:W2:A12:S29→Xi108:W1:A12:S28→Xi108:W3:A12:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import json
@@ -14,15 +18,12 @@ from .derive_ap6d_full_corpus_integration import (
     WAVE_JSON_PATH,
 )
 
-
 def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def main() -> int:
     wave = load(WAVE_JSON_PATH)
@@ -52,7 +53,6 @@ def main() -> int:
     print(f"Wrote verification: {VERIFY_JSON_PATH}")
     print("Truth: OK")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=337 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_ROOT = WORKSPACE_ROOT / "NERVOUS_SYSTEM" / "95_MANIFESTS"
@@ -22,26 +25,21 @@ ATLAS_PATH = MANIFEST_ROOT / "ATHENA_PRIME_6D_ATLAS_4096.json"
 DERIVATION_VERSION = "2026-03-13.ap6d.awakening-transition.lattice.verify.v1"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_ap6d_awakening_transition_system"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     try:
         return {"label": label, "status": "OK", "details": fn()}
     except Exception as exc:  # noqa: BLE001
         return {"label": label, "status": "FAIL", "details": str(exc)}
-
 
 def verify_note_completeness() -> dict[str, Any]:
     payload = load_json(AWAKENING_NOTES_PATH)
@@ -55,7 +53,6 @@ def verify_note_completeness() -> dict[str, Any]:
         ensure(bool(note["restart_seed"]), f"restart seed missing for {note['agent_id']}")
     return {"agent_ids": [note["agent_id"] for note in notes]}
 
-
 def verify_feeder_preservation() -> dict[str, Any]:
     payload = load_json(FEEDER_NOTES_PATH)
     notes = payload["notes"]
@@ -65,7 +62,6 @@ def verify_feeder_preservation() -> dict[str, Any]:
         ensure(note["preserved_as_shadow_feeder"], f"feeder preservation missing for {note['front_id']}")
     return {"front_ids": fronts}
 
-
 def verify_bridge_completeness() -> dict[str, Any]:
     payload = load_json(BRIDGE_LATTICE_PATH)
     records = payload["records"]
@@ -74,7 +70,6 @@ def verify_bridge_completeness() -> dict[str, Any]:
         ensure(record["hall_macro_parents"], f"hall macro parents missing for {record['bridge_id']}")
         ensure(record["appendix_support"], f"appendix support missing for {record['bridge_id']}")
     return {"bridge_ids": [record["bridge_id"] for record in records[:4]], "record_count": len(records)}
-
 
 def verify_count_law() -> dict[str, Any]:
     crosswalk = load_json(CROSSWALK_PATH)
@@ -88,7 +83,6 @@ def verify_count_law() -> dict[str, Any]:
     ensure(atlas["count_law"]["dormant_seats"] == 3072, "atlas dormant count drifted")
     return {"count_law": crosswalk["count_law"]}
 
-
 def verify_activation_law() -> dict[str, Any]:
     atlas = load_json(ATLAS_PATH)
     active = [seat for seat in atlas["seats"] if seat["activation_state"] == "ACTIVE"]
@@ -97,7 +91,6 @@ def verify_activation_law() -> dict[str, Any]:
     ensure(len(dormant) == 3072, "dormant seat count mismatch")
     return {"active": len(active), "dormant": len(dormant)}
 
-
 def verify_authority_precedence() -> dict[str, Any]:
     bridge = load_json(BRIDGE_LATTICE_PATH)
     registry = load_json(AGENT_REGISTRY_PATH)
@@ -105,13 +98,11 @@ def verify_authority_precedence() -> dict[str, Any]:
     ensure("AwakeningTransitionNote" in registry["contracts"], "registry missing transition contract")
     return {"deep_root_authority": bridge["deep_root_authority"]}
 
-
 def verify_path_drift_normalization() -> dict[str, Any]:
     crosswalk = load_json(CROSSWALK_PATH)
     reconciliations = crosswalk["path_drift_reconciliation"]
     ensure(all(item["live_exists"] for item in reconciliations), "one or more live path drift targets do not exist")
     return {"normalized_count": len(reconciliations)}
-
 
 def verify_payload() -> dict[str, Any]:
     checks = [
@@ -133,7 +124,6 @@ def verify_payload() -> dict[str, Any]:
         "failed_checks": [check["label"] for check in failed],
     }
 
-
 def main() -> int:
     payload = verify_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -142,7 +132,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

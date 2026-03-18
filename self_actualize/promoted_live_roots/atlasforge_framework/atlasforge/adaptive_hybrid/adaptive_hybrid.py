@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=382 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                   ADAPTIVE HYBRIDIZATION MODULE                              ║
@@ -24,7 +28,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PROBLEM SIGNATURES
@@ -74,7 +77,6 @@ class ProblemSignature:
         else:
             return ProblemClass.MIXED
 
-
 class ProblemClass(Enum):
     """Problem classification based on diagnostic."""
     STRUCTURED_SMOOTH = "Ψ + Ω + D"
@@ -83,7 +85,6 @@ class ProblemClass(Enum):
     UNSTRUCTURED_RUGGED = "Σ + D"
     CONVEX_LIKE = "Ω + D"
     MIXED = "4-pole equal"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE CONFIGURATIONS
@@ -171,7 +172,6 @@ class PoleWeights:
     def omega_d(cls) -> 'PoleWeights':
         """2-pole: Ω + D for nearly convex."""
         return cls(0.00, 0.70, 0.00, 0.30)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PROBLEM DIAGNOSTICS
@@ -321,7 +321,6 @@ class ProblemDiagnostics:
             'omega_recommendation': omega_recommendation
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ADAPTIVE HYBRID SOLVER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -335,7 +334,6 @@ class HybridResult:
     weights: PoleWeights
     diagnostics: Dict[str, Any]
     n_evaluations: int
-
 
 class AdaptiveHybridSolver:
     """
@@ -533,7 +531,6 @@ class AdaptiveHybridSolver:
             n_evaluations=self.n_evaluations
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EMPIRICAL RESULTS DATABASE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -545,7 +542,6 @@ class EmpiricalResult:
     winning_config: str
     improvement: float  # % over baseline
     key_insight: str
-
 
 EMPIRICAL_RESULTS = [
     EmpiricalResult(
@@ -579,7 +575,6 @@ EMPIRICAL_RESULTS = [
         "Strong spectral structure, few local optima"
     ),
 ]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -623,7 +618,6 @@ class AdaptiveHybridPoleBridge:
         
         return PoleWeights(psi, omega, sigma, d)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -632,25 +626,21 @@ def problem_signature(**kwargs) -> ProblemSignature:
     """Create problem signature."""
     return ProblemSignature(**kwargs)
 
-
 def pole_weights(psi: float = 0.25, omega: float = 0.25,
                  sigma: float = 0.25, d: float = 0.25) -> PoleWeights:
     """Create pole weights."""
     return PoleWeights(psi, omega, sigma, d)
-
 
 def adaptive_solver(objective: Callable, dimension: int,
                    Q: NDArray = None) -> AdaptiveHybridSolver:
     """Create adaptive hybrid solver."""
     return AdaptiveHybridSolver(objective, dimension, Q)
 
-
 def diagnose_problem(objective: Callable, dimension: int,
                     Q: NDArray = None) -> ProblemSignature:
     """Diagnose problem and return signature."""
     solver = AdaptiveHybridSolver(objective, dimension, Q)
     return solver.diagnose()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

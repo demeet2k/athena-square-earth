@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S33 | face=S | node=555 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S32→Xi108:W2:A9:S34→Xi108:W1:A9:S33→Xi108:W3:A9:S33→Xi108:W2:A8:S33→Xi108:W2:A10:S33
+
 from __future__ import annotations
 
 import json
@@ -13,7 +17,6 @@ from athena_neural_network import AthenaNeuralNetwork, aug_geometric, draw_digit
 from athenachka import AthenachkaOrganismV0  # noqa: E402
 from athenachka.immune.truth_lattice import classify_truth  # noqa: E402
 from athenachka.runtime.questing import build_macro_quest_bundle  # noqa: E402
-
 
 def main() -> int:
     X_train, Y_train = generate_data(40, aug_geometric, 42)
@@ -96,7 +99,6 @@ def main() -> int:
 
     print(json.dumps(report, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

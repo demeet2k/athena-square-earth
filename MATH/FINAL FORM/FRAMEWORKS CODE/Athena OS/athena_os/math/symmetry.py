@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - Symmetry Geometry
 =============================
@@ -32,7 +36,6 @@ import numpy as np
 
 from .lenses import Lens, LogLens, TrigPhaseLens, PHI
 
-
 # =============================================================================
 # DIHEDRAL GROUP D₄ - THE SYMMETRY ENGINE
 # =============================================================================
@@ -59,7 +62,6 @@ class DihedralElement(IntEnum):
     MIRROR_V = 5   # Vertical mirror
     MIRROR_D1 = 6  # Diagonal mirror (+ slope)
     MIRROR_D2 = 7  # Anti-diagonal mirror (- slope)
-
 
 @dataclass
 class D4Action:
@@ -137,7 +139,6 @@ class D4Action:
             return -np.pi / 2 - theta
         return theta
 
-
 # =============================================================================
 # SYMMETRY OPERATORS ON LENS SPACE
 # =============================================================================
@@ -180,13 +181,11 @@ class SymmetryOperator:
         """Get inverse operator."""
         return SymmetryOperator(self.lens, D4Action.inverse(self.element))
 
-
 def create_rotation_operator(lens: Lens) -> SymmetryOperator:
     """
     Create 90° rotation: R(x) = T⁻¹(T(x) + π/2)
     """
     return SymmetryOperator(lens, DihedralElement.ROT90)
-
 
 def create_negation_operator(lens: Lens) -> SymmetryOperator:
     """
@@ -194,20 +193,17 @@ def create_negation_operator(lens: Lens) -> SymmetryOperator:
     """
     return SymmetryOperator(lens, DihedralElement.ROT180)
 
-
 def create_mirror_operator(lens: Lens) -> SymmetryOperator:
     """
     Create mirror: S(x) = T⁻¹(-T(x))
     """
     return SymmetryOperator(lens, DihedralElement.MIRROR_H)
 
-
 def create_diagonal_operator(lens: Lens) -> SymmetryOperator:
     """
     Create diagonal swap: D(x) = T⁻¹(π/2 - T(x))
     """
     return SymmetryOperator(lens, DihedralElement.MIRROR_D1)
-
 
 # =============================================================================
 # POLES AND SHADOWS
@@ -219,7 +215,6 @@ class PoleType(IntEnum):
     ROTATED = 1    # 90° rotated shadow
     NEGATED = 2    # 180° rotated (anti-pole)
     COUNTER = 3    # 270° rotated shadow
-
 
 @dataclass
 class Pole:
@@ -306,7 +301,6 @@ class Pole:
         
         return results
 
-
 # =============================================================================
 # LATTICE ATLAS - ZERO SETS AND PREIMAGES
 # =============================================================================
@@ -317,7 +311,6 @@ class LatticeType(IntEnum):
     COS_ZEROS = 1      # cos t = 0: t ∈ π/2 + πℤ
     DIAGONAL_POS = 2   # sin t = cos t: t ∈ π/4 + πℤ
     DIAGONAL_NEG = 3   # sin t = -cos t: t ∈ -π/4 + πℤ
-
 
 @dataclass
 class Lattice:
@@ -361,7 +354,6 @@ class Lattice:
         k = (t - self.base) / self.period
         return abs(k - round(k)) < tolerance
 
-
 # Standard lattices
 SIN_ZERO_LATTICE = Lattice(
     base=0, period=np.pi, lattice_type=LatticeType.SIN_ZEROS,
@@ -382,7 +374,6 @@ DIAGONAL_NEG_LATTICE = Lattice(
     base=-np.pi/4, period=np.pi, lattice_type=LatticeType.DIAGONAL_NEG,
     name="diagonal_neg"  # sin t = -cos t
 )
-
 
 class LatticeAtlas:
     """
@@ -430,7 +421,6 @@ class LatticeAtlas:
             "diagonal_pos": DIAGONAL_POS_LATTICE.pullback(lens, n_terms),
             "diagonal_neg": DIAGONAL_NEG_LATTICE.pullback(lens, n_terms),
         }
-
 
 # =============================================================================
 # UNIFICATION BRIDGE: SCALE ↔ TRANSLATION ↔ ROTATION
@@ -498,7 +488,6 @@ class PhaseBridge:
         phase_b = np.log(b)
         return phase_a + phase_b, np.log(a * b)  # Should be equal
 
-
 # =============================================================================
 # PHI-INDEXED SYMMETRIES
 # =============================================================================
@@ -551,7 +540,6 @@ class PhiSymmetry:
         )
         return lattice.pullback(self.lens, n_terms)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -600,7 +588,6 @@ def validate_symmetry_geometry() -> bool:
     assert abs(orbit[1] - PHI * x) < 1e-10
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Symmetry Geometry...")

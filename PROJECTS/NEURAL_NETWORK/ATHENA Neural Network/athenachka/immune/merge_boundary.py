@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S19 | face=C | node=187 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A1:S18→Xi108:W2:A1:S20→Xi108:W1:A1:S19→Xi108:W3:A1:S19→Xi108:W2:A2:S19
+
 from __future__ import annotations
 
 from dataclasses import replace
@@ -17,7 +21,6 @@ from ..contracts import (
     WitnessPack,
     stable_hash,
 )
-
 
 TERMINAL_DESTINATIONS = {
     MergeState.DECIDED_COMMIT: MergeDestination.COMMIT,
@@ -63,36 +66,28 @@ ARTIFACT_REQUIREMENTS: dict[MergeState, list[str]] = {
 
 PACKET_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]*$")
 
-
 class MergeBoundaryError(ValueError):
     """Base error for merge boundary failures."""
-
 
 class MergeTransitionError(MergeBoundaryError):
     """Raised when a transition bypasses the lawful graph."""
 
-
 class MergeGuardError(MergeBoundaryError):
     """Raised when a transition guard is not satisfied."""
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def allowed_transitions(state: MergeState | None = None) -> dict[MergeState, tuple[MergeState, ...]] | tuple[MergeState, ...]:
     if state is None:
         return dict(TRANSITIONS)
     return TRANSITIONS[state]
 
-
 def destination_for_terminal_state(state: MergeState) -> MergeDestination | None:
     return TERMINAL_DESTINATIONS.get(state)
 
-
 def emit_required_artifacts(state: MergeState) -> list[str]:
     return list(ARTIFACT_REQUIREMENTS[state])
-
 
 def bootstrap_merge_attempt(committee_pack: CommitteePack, merge_id: str | None = None) -> MergeAttempt:
     if not committee_pack.committee_pack_id:
@@ -108,7 +103,6 @@ def bootstrap_merge_attempt(committee_pack: CommitteePack, merge_id: str | None 
         committee_pack=committee_pack,
         current_state=MergeState.PROPOSED,
     )
-
 
 def advance_merge_state(
     attempt: MergeAttempt,
@@ -167,7 +161,6 @@ def advance_merge_state(
     )
     return next_attempt, decision
 
-
 def build_merge_ledger_entry(
     *,
     decision: MergeDecision,
@@ -194,7 +187,6 @@ def build_merge_ledger_entry(
         continuation_seed_ref=continuation_seed.seed_id,
         timestamp=timestamp or utc_now(),
     )
-
 
 def _validate_transition(
     *,
@@ -297,7 +289,6 @@ def _validate_transition(
         return
 
     raise MergeTransitionError(f"unsupported target state: {target_state.value}")
-
 
 def _is_valid_packet_id(value: str) -> bool:
     return bool(value and PACKET_ID_PATTERN.match(value))

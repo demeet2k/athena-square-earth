@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A9:S27:u372:Su:F:d1",
+    "shell": 27,
+    "wreath": 1,
+    "archetype": 9,
+    "face": "F",
+    "node_id": 372,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A9:S26",
+      "Xi108:W1:A9:S28",
+      "Xi108:W2:A9:S27",
+      "Xi108:W1:A8:S27",
+      "Xi108:W1:A10:S27"
+    ],
+    "regenerate": "shell 27±1, wreath 1/3, archetype 9/12"
+  },
   "generated_at": "2026-03-13T17:04:50.972840+00:00",
   "derivation_command": "python -m self_actualize.runtime.derive_qshrink_network_integration",
   "truth": "OK",
@@ -525,8 +546,8 @@
         "size_bytes": 1612667
       },
       {
-        "surface_id": "megalithic_tome_generator_\u2014_\u201clatent_tunneling___multi\u2011scale_math_stack_(macro_\u2194_pzpm_\u2194_cut)\u201d__skeleton_.docx",
-        "role": "megalithic tome generator \u2014 \u201clatent tunneling   multi\u2011scale math stack (macro \u2194 pzpm \u2194 cut)\u201d  skeleton .docx",
+        "surface_id": "megalithic_tome_generator_—_“latent_tunneling___multi‑scale_math_stack_(macro_↔_pzpm_↔_cut)”__skeleton_.docx",
+        "role": "megalithic tome generator — “latent tunneling   multi‑scale math stack (macro ↔ pzpm ↔ cut)”  skeleton .docx",
         "authority_class": "auxiliary",
         "qshrink_body": "Memory Body",
         "file_count": 1,
@@ -983,9 +1004,9 @@
         "size_bytes_each": 3235300,
         "potential_savings_bytes": 6470600,
         "members": [
-          "MATH/FINAL FORM/COMPLETE TOMES/AQM - LM - N+7/Q-Phi  Optimization/AQM Q-Algorithm Master Tome \u2014 Circle \u25cb within Square \u25a1 within Triangle \u25b3.docx",
-          "MATH/LIVE_PROMOTED/aqm_kernel_qphi_planet9/docs/source_material/AQM Q-Algorithm Master Tome \u0393\u00c7\u00f6 Circle \u0393\u00f9\u00ef within Square \u0393\u00fb\u00ed within Triangle \u0393\u00fb\u2502.docx",
-          "Voynich/FULL_TRANSLATION/MATH/AQM - LM - N+7/Q-Phi  Optimization/AQM Q-Algorithm Master Tome \u2014 Circle \u25cb within Square \u25a1 within Triangle \u25b3.docx"
+          "MATH/FINAL FORM/COMPLETE TOMES/AQM - LM - N+7/Q-Phi  Optimization/AQM Q-Algorithm Master Tome — Circle ○ within Square □ within Triangle △.docx",
+          "MATH/LIVE_PROMOTED/aqm_kernel_qphi_planet9/docs/source_material/AQM Q-Algorithm Master Tome ΓÇö Circle Γùï within Square Γûí within Triangle Γû│.docx",
+          "Voynich/FULL_TRANSLATION/MATH/AQM - LM - N+7/Q-Phi  Optimization/AQM Q-Algorithm Master Tome — Circle ○ within Square □ within Triangle △.docx"
         ]
       },
       {
@@ -1039,8 +1060,8 @@
         "size_bytes_each": 3555303,
         "potential_savings_bytes": 3555303,
         "members": [
-          "MATH/FINAL FORM/COMPLETE TOMES/CUT/CUT TOME IV \u2014 CUT-OPT.docx",
-          "Voynich/FULL_TRANSLATION/MATH/CUT/CUT TOME IV \u2014 CUT-OPT.docx"
+          "MATH/FINAL FORM/COMPLETE TOMES/CUT/CUT TOME IV — CUT-OPT.docx",
+          "Voynich/FULL_TRANSLATION/MATH/CUT/CUT TOME IV — CUT-OPT.docx"
         ]
       },
       {
@@ -1050,8 +1071,8 @@
         "size_bytes_each": 3400952,
         "potential_savings_bytes": 3400952,
         "members": [
-          "MATH/FINAL FORM/COMPLETE TOMES/AQM - LM - N+7/LM MASTER TOME \u2014 LIMINAL MATHEMATICS (LM).docx",
-          "Voynich/FULL_TRANSLATION/MATH/AQM - LM - N+7/LM MASTER TOME \u2014 LIMINAL MATHEMATICS (LM).docx"
+          "MATH/FINAL FORM/COMPLETE TOMES/AQM - LM - N+7/LM MASTER TOME — LIMINAL MATHEMATICS (LM).docx",
+          "Voynich/FULL_TRANSLATION/MATH/AQM - LM - N+7/LM MASTER TOME — LIMINAL MATHEMATICS (LM).docx"
         ]
       },
       {
@@ -1072,8 +1093,8 @@
         "size_bytes_each": 3328870,
         "potential_savings_bytes": 3328870,
         "members": [
-          "FRESH/# THE MANUSCRIPT SEED \u2014 Self-Referential Crystalline Generation Protocol(1).docx",
-          "Voynich/FRESH/# THE MANUSCRIPT SEED \u2014 Self-Referential Crystalline Generation Protocol(1).docx"
+          "FRESH/# THE MANUSCRIPT SEED — Self-Referential Crystalline Generation Protocol(1).docx",
+          "Voynich/FRESH/# THE MANUSCRIPT SEED — Self-Referential Crystalline Generation Protocol(1).docx"
         ]
       },
       {
@@ -1094,9 +1115,9 @@
         "size_bytes_each": 1602114,
         "potential_savings_bytes": 3204228,
         "members": [
-          "CLEAN/MEGALITHIC TOME GENERATOR \u2014 \u201cLatent Tunneling _ Multi\u2011Scale Math Stack (Macro \u2194 PZPM \u2194 CUT)\u201d _Skeleton_.docx",
-          "MEGALITHIC TOME GENERATOR \u2014 \u201cLatent Tunneling _ Multi\u2011Scale Math Stack (Macro \u2194 PZPM \u2194 CUT)\u201d _Skeleton_.docx",
-          "ORGIN/MEGALITHIC TOME GENERATOR \u2014 \u201cLatent Tunneling _ Multi\u2011Scale Math Stack (Macro \u2194 PZPM \u2194 CUT)\u201d _Skeleton_.docx"
+          "CLEAN/MEGALITHIC TOME GENERATOR — “Latent Tunneling _ Multi‑Scale Math Stack (Macro ↔ PZPM ↔ CUT)” _Skeleton_.docx",
+          "MEGALITHIC TOME GENERATOR — “Latent Tunneling _ Multi‑Scale Math Stack (Macro ↔ PZPM ↔ CUT)” _Skeleton_.docx",
+          "ORGIN/MEGALITHIC TOME GENERATOR — “Latent Tunneling _ Multi‑Scale Math Stack (Macro ↔ PZPM ↔ CUT)” _Skeleton_.docx"
         ]
       },
       {
@@ -1106,8 +1127,8 @@
         "size_bytes_each": 3195411,
         "potential_savings_bytes": 3195411,
         "members": [
-          "MATH/FINAL FORM/COMPLETE TOMES/AETHER SPEAR \u2014 MATH.docx",
-          "Voynich/FULL_TRANSLATION/MATH/AETHER SPEAR \u2014 MATH.docx"
+          "MATH/FINAL FORM/COMPLETE TOMES/AETHER SPEAR — MATH.docx",
+          "Voynich/FULL_TRANSLATION/MATH/AETHER SPEAR — MATH.docx"
         ]
       },
       {
@@ -1117,8 +1138,8 @@
         "size_bytes_each": 3192037,
         "potential_savings_bytes": 3192037,
         "members": [
-          "MATH/FINAL FORM/COMPLETE TOMES/CUT/CUT MASTER TOME \u2014 Circle \u25cb within Square \u25a1 within Triangle \u25b3.docx",
-          "Voynich/FULL_TRANSLATION/MATH/CUT/CUT MASTER TOME \u2014 Circle \u25cb within Square \u25a1 within Triangle \u25b3.docx"
+          "MATH/FINAL FORM/COMPLETE TOMES/CUT/CUT MASTER TOME — Circle ○ within Square □ within Triangle △.docx",
+          "Voynich/FULL_TRANSLATION/MATH/CUT/CUT MASTER TOME — Circle ○ within Square □ within Triangle △.docx"
         ]
       },
       {
@@ -1139,8 +1160,8 @@
         "size_bytes_each": 3107422,
         "potential_savings_bytes": 3107422,
         "members": [
-          "MATH/FINAL FORM/COMPLETE TOMES/AQM - LM - N+7/AQM/AQM TOME IV \u2014 Kernel Closure at Infinite Resolution.docx",
-          "Voynich/FULL_TRANSLATION/MATH/AQM - LM - N+7/AQM/AQM TOME IV \u2014 Kernel Closure at Infinite Resolution.docx"
+          "MATH/FINAL FORM/COMPLETE TOMES/AQM - LM - N+7/AQM/AQM TOME IV — Kernel Closure at Infinite Resolution.docx",
+          "Voynich/FULL_TRANSLATION/MATH/AQM - LM - N+7/AQM/AQM TOME IV — Kernel Closure at Infinite Resolution.docx"
         ]
       },
       {
@@ -1183,8 +1204,8 @@
         "size_bytes_each": 2575970,
         "potential_savings_bytes": 2575970,
         "members": [
-          "MATH/FINAL FORM/COMPLETE TOMES/ATHENA/Athena Tools/ATHENACHKA \u2014 INTELLIGENCE WARS \u2194 PLANETARY STEWARDSHIP \u2014 Ms\u27e8EF0E\u27e9.docx",
-          "MATH/FINAL FORM/MYTH - MATH/Nostradamos/ATHENACHKA \u2014 INTELLIGENCE WARS \u2194 PLANETARY STEWARDSHIP \u2014 Ms\u27e8EF0E\u27e9.docx"
+          "MATH/FINAL FORM/COMPLETE TOMES/ATHENA/Athena Tools/ATHENACHKA — INTELLIGENCE WARS ↔ PLANETARY STEWARDSHIP — Ms⟨EF0E⟩.docx",
+          "MATH/FINAL FORM/MYTH - MATH/Nostradamos/ATHENACHKA — INTELLIGENCE WARS ↔ PLANETARY STEWARDSHIP — Ms⟨EF0E⟩.docx"
         ]
       },
       {

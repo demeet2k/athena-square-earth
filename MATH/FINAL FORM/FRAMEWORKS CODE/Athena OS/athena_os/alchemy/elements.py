@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=89 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - ALCHEMY MODULE: ELEMENTS
 ====================================
@@ -44,7 +48,6 @@ from typing import Dict, List, Optional, Any, Tuple
 from enum import Enum
 import numpy as np
 
-
 # =============================================================================
 # ENUMS
 # =============================================================================
@@ -57,7 +60,6 @@ class Element(Enum):
     WATER = "water"
     EARTH = "earth"
 
-
 class Quality(Enum):
     """The two quality axes."""
     
@@ -66,7 +68,6 @@ class Quality(Enum):
     WET = "wet"
     DRY = "dry"
 
-
 class Humor(Enum):
     """The four humors (medical correspondences)."""
     
@@ -74,7 +75,6 @@ class Humor(Enum):
     BLOOD = "blood"                # Air - Sanguine
     PHLEGM = "phlegm"              # Water - Phlegmatic
     BLACK_BILE = "black_bile"     # Earth - Melancholic
-
 
 # =============================================================================
 # ELEMENT PROPERTIES
@@ -126,7 +126,6 @@ class ElementProperties:
         shared = (self.is_hot == other.is_hot) + (self.is_wet == other.is_wet)
         return shared == 1
 
-
 # Standard element definitions
 FIRE = ElementProperties(
     element=Element.FIRE,
@@ -171,7 +170,6 @@ ELEMENTS: Dict[Element, ElementProperties] = {
     Element.WATER: WATER,
     Element.EARTH: EARTH
 }
-
 
 # =============================================================================
 # ELEMENTAL STATE
@@ -285,7 +283,6 @@ class ElementalState:
         return (f"ElementalState(F={self.fire:.3f}, A={self.air:.3f}, "
                 f"W={self.water:.3f}, E={self.earth:.3f})")
 
-
 # =============================================================================
 # QUALITY STATE
 # =============================================================================
@@ -347,7 +344,6 @@ class QualityState:
     def distance_from_balance(self) -> float:
         """Distance from (0.5, 0.5)."""
         return np.sqrt((self.heat - 0.5)**2 + (self.moisture - 0.5)**2)
-
 
 # =============================================================================
 # ELEMENTAL SIMPLEX
@@ -426,7 +422,6 @@ class ElementalSimplex:
         """Interpolate between two states."""
         v = (1 - t) * state1.vector + t * state2.vector
         return ElementalState.from_vector(v)
-
 
 # =============================================================================
 # ELEMENTAL TRANSFORMATIONS
@@ -513,7 +508,6 @@ class ElementalTransform:
         v = (1 - strength) * state.vector + strength * centroid
         return ElementalState.from_vector(v)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -559,7 +553,6 @@ def validate_elements() -> bool:
     assert cooled.heat < state.heat
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Elements Module...")

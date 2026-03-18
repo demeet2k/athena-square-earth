@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - Quantum Holography Computing (QHC)
 ==============================================
@@ -33,7 +37,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set, Any, Callable
 from enum import Enum, IntEnum, auto
 
-
 # =============================================================================
 # MODE WORD FIELDS
 # =============================================================================
@@ -45,14 +48,12 @@ class RepresentationMode(IntEnum):
     LOW_RANK = 2     # 10: Low-rank factorization
     ADAPTIVE = 3     # 11: Adaptive choice
 
-
 class TileRole(IntEnum):
     """Tile role/function (bits 2-3)."""
     STATE = 0        # 00: State data
     GATE = 1         # 01: Gate/operator
     NOISE = 2        # 10: Noise channel
     DIAGNOSTIC = 3   # 11: Diagnostic/probe
-
 
 class PrecisionLevel(IntEnum):
     """Precision/error discipline (bits 4-5)."""
@@ -61,14 +62,12 @@ class PrecisionLevel(IntEnum):
     LOW = 2          # 10: Low precision (ε < 1e-3)
     ADAPTIVE = 3     # 11: Adaptive precision
 
-
 class SemanticTag(IntEnum):
     """Semantic interpretation (bits 6-7)."""
     DEFAULT = 0      # 00: Default semantics
     DISCRETE = 1     # 01: Discrete/Earth
     CONTINUOUS = 2   # 10: Continuous/Water
     MIXED = 3        # 11: Mixed/adaptive
-
 
 # =============================================================================
 # MODE WORD
@@ -164,7 +163,6 @@ class ModeWord:
             precision=PrecisionLevel.LOW
         )
 
-
 # =============================================================================
 # POLICY
 # =============================================================================
@@ -245,7 +243,6 @@ class Policy:
         
         return policy
 
-
 # =============================================================================
 # MODE TRANSITION
 # =============================================================================
@@ -257,7 +254,6 @@ class ModeTransitionType(Enum):
     PRECISION_UP = "precision_up"
     PRECISION_DOWN = "precision_down"
     ROLE_CHANGE = "role_change"
-
 
 @dataclass
 class ModeTransition:
@@ -291,7 +287,6 @@ class ModeTransition:
             semantic=source.semantic
         )
         return cls(source, target, ModeTransitionType.DECOMPRESS, cost=0.5)
-
 
 # =============================================================================
 # CONTROL INTERFACE
@@ -387,7 +382,6 @@ class ControlInterface:
             "auto_compress": self.auto_compress
         }
 
-
 # =============================================================================
 # FIBRE SYMMETRY (Z₂×Z₂)
 # =============================================================================
@@ -436,7 +430,6 @@ class FibreState(Enum):
         else:
             return cls.MINUS_MINUS
 
-
 @dataclass
 class FibreDescriptor:
     """
@@ -456,7 +449,6 @@ class FibreDescriptor:
         """Get fibre state with largest weight."""
         max_idx = max(range(4), key=lambda i: self.fibre_weights[i])
         return FibreState(max_idx)
-
 
 # =============================================================================
 # VALIDATION
@@ -518,7 +510,6 @@ def validate_modewords() -> bool:
     assert fs.flip_2() == FibreState.PLUS_PLUS
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating QHC Mode Words Module...")

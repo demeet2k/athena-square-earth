@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S32 | face=F | node=3 | depth=1 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S31→Xi108:W3:A4:S33→Xi108:W2:A4:S32→Xi108:W3:A3:S32→Xi108:W3:A5:S32
+
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"

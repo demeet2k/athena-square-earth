@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S15 | face=S | node=114 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S14→Xi108:W3:A12:S16→Xi108:W2:A12:S15→Xi108:W3:A11:S15 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 15±1, wreath 3/3, archetype 12/12 -->
+
 # Synthesis 03 - Boundary Totalization
 
 Depth position: `03/16`

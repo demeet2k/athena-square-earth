@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 from __future__ import annotations
 
 import argparse
@@ -6,13 +10,11 @@ from pathlib import Path
 
 from corpus_4d_fronts import build_awakening_agent_transition_notes, resolve_path
 
-
 DEFAULT_WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 DEFAULT_REGISTRY = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_registry.json")
 DEFAULT_ORPHAN = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_orphan_classification.json")
 DEFAULT_ARCHIVE = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_archive_members_manifest.json")
 DEFAULT_OUTPUT = Path("DEEPER_CRYSTALIZATION/_build/awakening_agent_transition_notes.md")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build hybrid awakening-agent transition notes for the corpus-wide 4D integration lane.")
@@ -23,7 +25,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT))
     return parser.parse_args()
 
-
 def run(args: argparse.Namespace) -> Path:
     workspace_root = Path(args.workspace_root).resolve()
     registry_path = resolve_path(workspace_root, args.registry)
@@ -33,12 +34,10 @@ def run(args: argparse.Namespace) -> Path:
     build_awakening_agent_transition_notes(registry_path, orphan_path, archive_path, output_path)
     return output_path
 
-
 def main() -> int:
     output_path = run(parse_args())
     print(f"Transition notes: {output_path}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

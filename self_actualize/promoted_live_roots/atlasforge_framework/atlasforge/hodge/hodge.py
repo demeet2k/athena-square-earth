@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                          HODGE THEORY MODULE                                 ║
@@ -23,7 +27,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PURE HODGE STRUCTURES
@@ -69,7 +72,6 @@ class HodgeNumbers:
     def projective_space(cls, n: int) -> 'HodgeNumbers':
         """Hodge numbers of P^n: h^{p,p} = 1 for 0 ≤ p ≤ n."""
         return cls({(p, p): 1 for p in range(n + 1)})
-
 
 @dataclass
 class PureHodgeStructure:
@@ -117,7 +119,6 @@ class PureHodgeStructure:
     def tate(cls, n: int) -> 'PureHodgeStructure':
         """Tate Hodge structure ℤ(n)."""
         return cls(weight=-2*n, lattice_rank=1, hodge_filtration=[1, 0])
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MIXED HODGE STRUCTURES
@@ -167,7 +168,6 @@ class MixedHodgeStructure:
             total_dimension=2*g + n - 1
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PERIOD DOMAINS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -208,7 +208,6 @@ class PeriodDomain:
             weight=1
         )
 
-
 @dataclass
 class PeriodMap:
     """
@@ -229,7 +228,6 @@ class PeriodMap:
     def torelli_theorem(self) -> str:
         """Torelli: period map is injective (for curves)."""
         return f"Φ: {self.source_name} ↪ D / Γ is injective"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # VARIATIONS OF HODGE STRUCTURE
@@ -265,7 +263,6 @@ class VariationOfHodgeStructure:
         """VHS from universal curve over M_g."""
         return cls(base_name=f"M_{g}", weight=1, rank=2*g)
 
-
 @dataclass
 class HodgeBundle:
     """
@@ -283,7 +280,6 @@ class HodgeBundle:
     def chern_class(self) -> str:
         """First Chern class c_1(F^p)."""
         return f"c_1(F^{{{self.filtration_level}}})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DELIGNE COHOMOLOGY
@@ -316,7 +312,6 @@ class DeligneCohomology:
     def abel_jacobi_map(self) -> str:
         """Abel-Jacobi map from cycles to intermediate Jacobian."""
         return f"AJ: Z^p({self.variety_name})_hom → J^p({self.variety_name})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -371,7 +366,6 @@ class HodgePoleBridge:
   • D-pole: Local system H_ℤ (discrete)
   • Gateway: Period map Φ: S → D"""
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -380,33 +374,27 @@ def hodge_numbers(h_dict: Dict[Tuple[int, int], int]) -> HodgeNumbers:
     """Create Hodge numbers from dictionary."""
     return HodgeNumbers(h_dict)
 
-
 def pure_hodge(weight: int, rank: int, filtration: List[int]) -> PureHodgeStructure:
     """Create pure Hodge structure."""
     return PureHodgeStructure(weight, rank, filtration)
-
 
 def mixed_hodge(weight_filt: Dict[int, int], hodge_filt: Dict[int, int],
                 dim: int) -> MixedHodgeStructure:
     """Create mixed Hodge structure."""
     return MixedHodgeStructure(weight_filt, hodge_filt, dim)
 
-
 def period_domain(h_numbers: Dict[Tuple[int, int], int], 
                   weight: int) -> PeriodDomain:
     """Create period domain."""
     return PeriodDomain(h_numbers, weight)
 
-
 def vhs(base: str, weight: int, rank: int) -> VariationOfHodgeStructure:
     """Create variation of Hodge structure."""
     return VariationOfHodgeStructure(base, weight, rank)
 
-
 def deligne_cohomology(variety: str) -> DeligneCohomology:
     """Create Deligne cohomology object."""
     return DeligneCohomology(variety)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

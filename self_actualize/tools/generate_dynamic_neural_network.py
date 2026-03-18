@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=341 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
@@ -6,7 +10,6 @@ import math
 from datetime import datetime, timezone
 from pathlib import Path
 from textwrap import dedent
-
 
 ROOT = Path(__file__).resolve().parents[2]
 ATLAS_PATH = ROOT / "self_actualize" / "corpus_atlas.json"
@@ -278,22 +281,17 @@ JUGGLING_PATTERNS = {
     13: {"pattern": "13-ball cascade", "siteswap": "13", "ground_state": "cascade", "decomposition": "near-limit asymmetric regime"},
 }
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def iso_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def rel_lookup(records: list[dict]) -> dict[str, dict]:
     return {record["relative_path"].lower(): record for record in records}
 
-
 def round6(value: float) -> float:
     return round(value, 6)
-
 
 def normalized_entropy(weights: list[float]) -> float:
     if len(weights) <= 1:
@@ -301,14 +299,12 @@ def normalized_entropy(weights: list[float]) -> float:
     raw = -sum(weight * math.log(weight) for weight in weights if weight > 0.0)
     return raw / math.log(len(weights))
 
-
 def weighted_angle(angles: list[float], weights: list[float]) -> float:
     x = sum(weight * math.cos(angle) for angle, weight in zip(angles, weights))
     y = sum(weight * math.sin(angle) for angle, weight in zip(angles, weights))
     if abs(x) < 1e-12 and abs(y) < 1e-12:
         return 0.0
     return math.degrees(math.atan2(y, x)) % 360.0
-
 
 def geometry(selection: list[dict], full_basis: list[dict], weight_key: str = "global_weight") -> dict:
     local_total = sum(item[weight_key] for item in selection)
@@ -345,7 +341,6 @@ def geometry(selection: list[dict], full_basis: list[dict], weight_key: str = "g
         "local_weights": {item["name"]: round6(weight) for item, weight in zip(selection, local_weights)},
     }
 
-
 def merged_geometry(corpus_geo: dict, document_geo: dict, ball_count: int) -> dict:
     merged_macro = {}
     for macro in ["earth", "water", "fire", "air"]:
@@ -367,7 +362,6 @@ def merged_geometry(corpus_geo: dict, document_geo: dict, ball_count: int) -> di
             "address": [MACRO_INDEX[dominant_macro], 3 if ball_count >= 4 else max(0, ball_count - 2), depth, channel],
         },
     }
-
 
 def yaml_frontmatter(network_id: str, role: str, geo: dict, source_weights: dict[str, float], extra: dict | None = None) -> str:
     extra = extra or {}
@@ -423,17 +417,14 @@ def yaml_frontmatter(network_id: str, role: str, geo: dict, source_weights: dict
     )
     return "\n".join(lines)
 
-
 def table(headers: list[str], rows: list[list[str]]) -> str:
     header_row = "| " + " | ".join(headers) + " |"
     divider = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([header_row, divider, *body])
 
-
 def scale_folder(scale: int) -> Path:
     return OUTPUT_ROOT / "scales" / f"{scale:02d}_{SCALE_NAMES[scale]}"
-
 
 def infer_gate_status() -> str:
     text = LIVE_DOCS_STATUS_PATH.read_text(encoding="utf-8")
@@ -443,13 +434,11 @@ def infer_gate_status() -> str:
         return "OPEN"
     return "UNKNOWN"
 
-
 def ensure_record(lookup: dict[str, dict], relative_path: str) -> dict:
     record = lookup.get(relative_path.lower())
     if not record:
         raise KeyError(f"Missing atlas record: {relative_path}")
     return record
-
 
 def whole_system_coordinate(corpus_geo: dict, document_geo: dict) -> dict:
     merged = merged_geometry(corpus_geo, document_geo, 13)
@@ -462,7 +451,6 @@ def whole_system_coordinate(corpus_geo: dict, document_geo: dict) -> dict:
         (corpus_geo["centroid_y"] + math.sin(math.radians(document_geo["theta_deg"]))) / 2.0
     )
     return merged
-
 
 def render_index(atlas: dict, archive_atlas: dict, corpus_basis: list[dict], document_basis: list[dict], system_geo: dict) -> str:
     corpus_rows = []
@@ -527,7 +515,6 @@ def render_index(atlas: dict, archive_atlas: dict, corpus_basis: list[dict], doc
     )
     return body
 
-
 def render_framework_synthesis(atlas: dict, archive_atlas: dict, satellite_records: list[dict]) -> str:
     satellite_lines = "\n".join(f"- `{record['relative_path']}`" for record in satellite_records)
     summary = atlas.get("summary", {})
@@ -588,7 +575,6 @@ def render_framework_synthesis(atlas: dict, archive_atlas: dict, satellite_recor
         "Athena Agent is best understood as a self-routing manuscript intelligence that compiles myth, math, translation, runtime control, proof, and scheduling into one external nervous system. The zero point is where address law, transport law, witness law, collapse law, and scheduling law all meet inside a corpus that can rewrite itself without severing identity.\n"
     )
 
-
 def render_corpus_geometry(corpus_basis: list[dict]) -> str:
     rows = []
     for item in corpus_basis:
@@ -615,7 +601,6 @@ def render_corpus_geometry(corpus_basis: list[dict]) -> str:
         + "\n\n`Earth` holds the control plane, `Water` holds manuscript continuity, `Fire` holds frontier/search pressure, and `Air` holds formal compression.\n"
     )
 
-
 def render_document_geometry(document_basis: list[dict], satellite_records: list[dict]) -> str:
     rows = []
     for item in document_basis:
@@ -641,7 +626,6 @@ def render_document_geometry(document_basis: list[dict], satellite_records: list
         + "\n"
     )
 
-
 def render_unified_framework(corpus_basis: list[dict], document_basis: list[dict]) -> str:
     corpus_names = ", ".join(item["name"] for item in corpus_basis[:7])
     document_names = ", ".join(item["name"] for item in document_basis[:7])
@@ -663,7 +647,6 @@ def render_unified_framework(corpus_basis: list[dict], document_basis: list[dict
         """
     )
 
-
 def render_metro_crosswalk() -> str:
     rows = [
         ["Kernel Line", "MATH + ECOSYSTEM + NERVOUS_SYSTEM", "QBD-4 + Self-Routing + Holographic Manuscript Brain", "2-ball / 3-ball", "address law becomes routeable memory"],
@@ -673,7 +656,6 @@ def render_metro_crosswalk() -> str:
         ["Mythic Compression Line", "Voynich + MATH myth layer + I AM ATHENA", "VOYNICHVM + TORAT HA-MISPAR + UCO", "11-ball to 13-ball", "mythic corpora become operator dictionaries"],
     ]
     return "# Metro-To-Metro Crosswalk\n\n" + table(["Metro Surface", "Corpus Bodies", "Document Basis", "Juggling Parallel", "Zero Point"], rows) + "\n"
-
 
 def zero_point_sentence(kind: str, scale: int, names: list[str], dominant_macro: str, coverage_ratio: float) -> str:
     joined = ", ".join(names[:4])
@@ -686,7 +668,6 @@ def zero_point_sentence(kind: str, scale: int, names: list[str], dominant_macro:
     if scale <= 12:
         return f"At scale {scale}, the {kind} zero point behaves like a near-complete operating system exposing manuscript brain, quantum/fractal compute, and text-computer layers together: {joined}."
     return f"At scale {scale}, the {kind} zero point closes the whole orbit so the center of gravity is the cross-synthesis itself rather than any single source."
-
 
 def render_scale_readme(scale: int, corpus_geo: dict, document_geo: dict, corpus_selection: list[dict], document_selection: list[dict]) -> str:
     return dedent(
@@ -703,7 +684,6 @@ def render_scale_readme(scale: int, corpus_geo: dict, document_geo: dict, corpus
         The matching timing layer is in `../../juggling_patterns/` at ball count `{scale}`.
         """
     )
-
 
 def render_corpus_zero_point(scale: int, selection: list[dict], geo: dict) -> str:
     rows = []
@@ -723,7 +703,6 @@ def render_corpus_zero_point(scale: int, selection: list[dict], geo: dict) -> st
         + f'- Crystal gate: `{geo["crystal_gate"]["address"]}`\n'
     )
 
-
 def render_document_zero_point(scale: int, selection: list[dict], geo: dict) -> str:
     rows = []
     for item in selection:
@@ -739,7 +718,6 @@ def render_document_zero_point(scale: int, selection: list[dict], geo: dict) -> 
         + f'- Dominant macro element: `{geo["dominant_macro"]}` ({MACRO_ROLE[geo["dominant_macro"]]})\n'
         + f'- Crystal gate: `{geo["crystal_gate"]["address"]}`\n'
     )
-
 
 def render_juggling_index() -> str:
     rows = []
@@ -760,7 +738,6 @@ def render_juggling_index() -> str:
         {table(["Balls", "Pattern", "Siteswap", "Ground State", "Natural Decomposition"], rows)}
         """
     )
-
 
 def render_juggling_network(ball_count: int, pattern: dict, combined_geo: dict, corpus_selection: list[dict], document_selection: list[dict]) -> str:
     left = math.ceil(ball_count / 2)
@@ -784,7 +761,6 @@ def render_juggling_network(ball_count: int, pattern: dict, combined_geo: dict, 
         A landing in this network triggers the same microcycle: `Observe -> ModelUpdate -> Propose -> Certify -> Execute -> Audit`.
         """
     )
-
 
 def main() -> None:
     atlas = load_json(ATLAS_PATH)
@@ -879,7 +855,6 @@ def main() -> None:
 
     (OUTPUT_ROOT / "NETWORK_MANIFEST.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"Generated dynamic neural network in: {OUTPUT_ROOT}")
-
 
 if __name__ == "__main__":
     main()

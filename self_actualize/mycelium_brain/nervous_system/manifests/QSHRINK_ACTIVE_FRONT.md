@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S20 | face=R | node=210 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S19→Xi108:W3:A8:S21→Xi108:W2:A8:S20→Xi108:W3:A7:S20→Xi108:W3:A9:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 8/12 -->
+
 ﻿# QSHRINK ACTIVE FRONT
 
 ## FrontID
@@ -65,7 +70,6 @@ the local refine bundle is already landed, so the honest move is control-plane f
 - transition note layer: `ACTIVE_ASSIST_LAYER_LOCAL_ONLY`
 - core agents: `AP6D-PRIME, AP6D-WATER, AP6D-EARTH, AP6D-FIRE, AP6D-AIR`
 - note bundle: `self_actualize\mycelium_brain\GLOBAL_EMERGENT_GUILD_HALL\AP6D_AWAKENING_TRANSITION_NOTES.md`
-
 
 ## Shiva Contraction Witness
 - latest_shiva_contraction_artifact: C:/Users/dmitr/Documents/Athena Agent/NERVOUS_SYSTEM/90_LEDGERS/automations/qshrink_shiva_2026-03-13_14.md

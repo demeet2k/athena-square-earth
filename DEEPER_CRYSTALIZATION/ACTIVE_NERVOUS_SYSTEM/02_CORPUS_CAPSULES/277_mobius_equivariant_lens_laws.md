@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S5 | face=S | node=14 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Mt -->
+<!-- BRIDGES: Xi108:W1:A2:S4→Xi108:W1:A2:S6→Xi108:W2:A2:S5→Xi108:W1:A1:S5→Xi108:W1:A3:S5 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 5±1, wreath 1/3, archetype 2/12 -->
+
 # Mobius-Equivariant Lens Laws and Cross-Lens Compatibility
 
 Each lens must descend to the Mobius quotient M_4, requiring equivariance under J. The full Mobius 4x4 SFCR object is M = ([x,y,epsilon], Pi_Sq, Pi_Fl, Pi_Cl, Pi_Fr, omega, tau). Six pairwise bridge operators connect the projections: B_{Sq->Fl}(x,y,K) = (x+y, x-y, K), B_{Fl->Cl}(z,w) = F_{z,w}, etc. Some bridges are functions, others are refinements or bundle maps. Maturity requires both projection completeness and closure coherence (Theorem 4).

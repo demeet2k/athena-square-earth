@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - Quantum Holography Computing (QHC)
 ==============================================
@@ -31,7 +35,6 @@ from enum import Enum, auto
 import math
 import cmath
 from abc import ABC, abstractmethod
-
 
 # =============================================================================
 # QUBIT INDEX SET
@@ -83,7 +86,6 @@ class QubitIndexSet:
             QubitIndexSet(n=len(right), indices=right)
         )
 
-
 # =============================================================================
 # HILBERT SPACE
 # =============================================================================
@@ -128,7 +130,6 @@ class HilbertSpace:
     
     def __repr__(self) -> str:
         return f"ℋ({len(self.qubit_indices)}q, dim={self.dimension})"
-
 
 # =============================================================================
 # STATE VECTOR
@@ -217,7 +218,6 @@ class StateVector:
         amps[-1] = 1.0 / math.sqrt(2)  # |1...1⟩
         return cls(space, amps)
 
-
 # =============================================================================
 # TENSOR PRODUCT
 # =============================================================================
@@ -290,7 +290,6 @@ class TensorProduct:
             diagonal=traced
         )
 
-
 # =============================================================================
 # DENSITY MATRIX (SIMPLIFIED)
 # =============================================================================
@@ -332,7 +331,6 @@ class DensityMatrix:
     def from_state(cls, state: StateVector) -> 'DensityMatrix':
         """Create from pure state ρ = |ψ⟩⟨ψ|."""
         return cls(state.space, state.probabilities())
-
 
 # =============================================================================
 # LOCAL OPERATOR
@@ -440,7 +438,6 @@ class LocalOperator:
             name=f"P({theta:.2f})"
         )
 
-
 # =============================================================================
 # ENTANGLEMENT
 # =============================================================================
@@ -481,7 +478,6 @@ class EntanglementMetrics:
         # Simplified: check if entropy is near zero
         entropy = EntanglementMetrics.entanglement_entropy(state, partition)
         return entropy < tolerance
-
 
 # =============================================================================
 # VALIDATION
@@ -534,7 +530,6 @@ def validate_hilbert() -> bool:
     assert abs(rho.purity - 1.0) < 1e-10  # Pure state
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating QHC Hilbert Module...")

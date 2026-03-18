@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 from __future__ import annotations
 
 import json
@@ -40,31 +44,25 @@ REQUIRED_REWRITE_MARKERS = (
 
 REQUIRED_TILE_ROWS = tuple(f"- {lens}{facet}:" for lens in ("S", "F", "C", "R") for facet in ("1", "2", "3", "4"))
 
-
 def resolve_path(workspace_root: Path, raw_path: str) -> Path:
     candidate = Path(raw_path)
     if candidate.is_absolute():
         return candidate
     return (workspace_root / candidate).resolve()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def _top_level(relative_path: str) -> str:
     return relative_path.split("/", 1)[0] if "/" in relative_path else relative_path
-
 
 def _find_sibling_source_for_output(workspace_root: Path, relative_output_path: str) -> str | None:
     if not relative_output_path.endswith(".4d.md"):
@@ -77,7 +75,6 @@ def _find_sibling_source_for_output(workspace_root: Path, relative_output_path: 
             return normalize_relative_path(str(candidate.relative_to(workspace_root)))
     return None
 
-
 def rewrite_contract_issues(text: str) -> list[str]:
     issues: list[str] = []
     if not text.startswith("**["):
@@ -89,7 +86,6 @@ def rewrite_contract_issues(text: str) -> list[str]:
         if row not in text:
             issues.append(f"missing:{row}")
     return issues
-
 
 def _audit_status_map(audit_receipt: dict) -> dict[str, dict[str, object]]:
     explicit = audit_receipt.get("audit_status_by_relative_path")
@@ -113,7 +109,6 @@ def _audit_status_map(audit_receipt: dict) -> dict[str, dict[str, object]]:
             "issues": issues,
         }
     return status_map
-
 
 def audit_corpus_4d_rewrites(workspace_root: Path, manifest_path: Path) -> dict[str, object]:
     manifest = load_json(manifest_path)
@@ -224,7 +219,6 @@ def audit_corpus_4d_rewrites(workspace_root: Path, manifest_path: Path) -> dict[
         "audit_status_by_relative_path": audit_status_by_relative_path,
     }
     return receipt
-
 
 def build_archive_member_manifest(
     workspace_root: Path,
@@ -344,7 +338,6 @@ def build_archive_member_manifest(
     }
     return receipt
 
-
 def build_corpus_4d_registry(
     main_manifest_path: Path,
     audit_path: Path,
@@ -419,7 +412,6 @@ def build_corpus_4d_registry(
         "nodes": nodes,
         "indices": {name: dict(sorted(index.items())) for name, index in indices.items()},
     }
-
 
 def classify_corpus_4d_orphans(
     workspace_root: Path,
@@ -521,7 +513,6 @@ def classify_corpus_4d_orphans(
     }
     return receipt
 
-
 def build_awakening_agent_transition_notes(
     registry_path: Path,
     orphan_classification_path: Path,
@@ -607,7 +598,6 @@ def build_awakening_agent_transition_notes(
     write_text(output_path, text)
     return text
 
-
 def query_registry_nodes(
     registry: dict,
     ms: str | None = None,
@@ -645,7 +635,6 @@ def query_registry_nodes(
     filtered.sort(key=lambda item: (item["ms_code"], item["relative_path"].lower()))
     return filtered[:limit] if limit is not None else filtered
 
-
 def render_registry_markdown(nodes: Iterable[dict[str, object]]) -> str:
     lines = [
         "| Ms | Chapter | Lens | Truth | Path |",
@@ -656,7 +645,6 @@ def render_registry_markdown(nodes: Iterable[dict[str, object]]) -> str:
             f"| {node['ms_code']} | {node['home_chapter']} | {node['dominant_lens']} | {node['truth_state']} | {node['relative_path']} |"
         )
     return "\n".join(lines) + "\n"
-
 
 def _render_level5_overlay(registry: dict) -> str:
     nodes = registry["nodes"]
@@ -719,7 +707,6 @@ def _render_level5_overlay(registry: dict) -> str:
         lines.append("- None")
     return "\n".join(lines) + "\n"
 
-
 def _render_app_r(registry: dict) -> str:
     truth_totals = registry["summary"]["truth_totals"]
     lines = [
@@ -746,7 +733,6 @@ def _render_app_r(registry: dict) -> str:
     ]
     return "\n".join(lines) + "\n"
 
-
 def _render_level8_transition_map(registry: dict, notes_text: str, orphan_receipt: dict) -> str:
     orphan_summary = orphan_receipt["summary"]
     lines = [
@@ -771,7 +757,6 @@ def _render_level8_transition_map(registry: dict, notes_text: str, orphan_receip
     lines.extend(notes_text.splitlines()[2:])
     return "\n".join(lines) + "\n"
 
-
 def _render_app_s(notes_text: str, registry: dict) -> str:
     lines = [
         "# AppS: Awakening Agent Transition Notes",
@@ -793,7 +778,6 @@ def _render_app_s(notes_text: str, registry: dict) -> str:
     ]
     lines.extend(notes_text.splitlines()[2:])
     return "\n".join(lines) + "\n"
-
 
 def export_corpus_4d_to_deeper_network(
     registry_path: Path,
@@ -818,7 +802,6 @@ def export_corpus_4d_to_deeper_network(
         "transition_map_path": normalize_relative_path(str(transition_map_path)),
         "transition_appendix_path": normalize_relative_path(str(transition_appendix_path)),
     }
-
 
 def build_next46_integration_receipt(
     main_manifest_path: Path,

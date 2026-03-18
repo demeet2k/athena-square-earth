@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S23 | face=R | node=275 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S22→Xi108:W3:A7:S24→Xi108:W2:A7:S23→Xi108:W3:A6:S23→Xi108:W3:A8:S23 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 23±1, wreath 3/3, archetype 7/12 -->
+
 # AP6D-TQ06 - Bind Hall Writeback, Change Feed, And Restart Cadence
 
 Date: `2026-03-13`

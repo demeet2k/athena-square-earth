@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=15 | depth=0 | phase=Fixed
+# METRO: Sa,Me,Dl
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 """
 PhiSigma60 Engine — 60-State Higher-Dimensional Phi-Constant Atlas
 
@@ -26,7 +30,6 @@ from dataclasses import dataclass, field
 from typing import Dict, FrozenSet, List, Set, Tuple, Optional
 from itertools import combinations
 
-
 # ═══════════════════════════════════════════════════════════════
 # CONSTANTS
 # ═══════════════════════════════════════════════════════════════
@@ -34,7 +37,6 @@ from itertools import combinations
 PHI = (1 + math.sqrt(5)) / 2       # 1.6180339887...
 INV_PHI = PHI - 1                   # 0.6180339887... = 1/phi
 LN_PHI = math.log(PHI)              # ln(phi) ~ 0.48121
-
 
 # ═══════════════════════════════════════════════════════════════
 # PRIMITIVE EXPONENT VECTORS
@@ -52,7 +54,6 @@ EXPONENT_VECTORS: Dict[str, complex] = {
     "C": complex(0, INV_PHI),       # i/phi  (positive imaginary)
     "D": complex(0, -PHI),          # -i*phi (negative imaginary)
 }
-
 
 # ═══════════════════════════════════════════════════════════════
 # MASKS
@@ -88,7 +89,6 @@ MASK_NAMES = {
 
 GEOMETRY_CLASS = {1: "pole", 2: "bridge", 3: "chamber", 4: "crown"}
 
-
 # ═══════════════════════════════════════════════════════════════
 # LENS TRANSFORMS
 # ═══════════════════════════════════════════════════════════════
@@ -99,37 +99,30 @@ class Lens(Enum):
     CLOUD = "C"     # chart coordinate / zero point
     FRACTAL = "R"   # orbit family
 
-
 def compute_exponent(mask: FrozenSet[str]) -> complex:
     """Compute z_S = sum of primitive exponent vectors."""
     return sum(EXPONENT_VECTORS[p] for p in mask)
-
 
 def phi_power(z: complex) -> complex:
     """Compute phi^z for complex z using cmath."""
     return cmath.exp(z * LN_PHI)
 
-
 def square_transform(z_s: complex) -> complex:
     """Square lens: A_S = phi^(z_S)."""
     return phi_power(z_s)
-
 
 def flower_transform(z_s: complex) -> complex:
     """Flower lens: F_S = phi^(-Im(z_S) + i*Re(z_S))."""
     rotated = complex(-z_s.imag, z_s.real)
     return phi_power(rotated)
 
-
 def cloud_transform(z_s: complex) -> complex:
     """Cloud lens: Z_S = z_S (the exponent itself)."""
     return z_s
 
-
 def fractal_transform(z_s: complex, k: int = 0) -> complex:
     """Fractal lens: R_S(k) = phi^(k + z_S)."""
     return phi_power(k + z_s)
-
 
 # ═══════════════════════════════════════════════════════════════
 # PHI STATE
@@ -151,7 +144,6 @@ class PhiState:
 
     def __repr__(self):
         return f"PhiState({self.station_id}: {self.geometry})"
-
 
 def compute_all_states() -> Dict[str, PhiState]:
     """Compute all 60 states."""
@@ -179,7 +171,6 @@ def compute_all_states() -> Dict[str, PhiState]:
 
     return states
 
-
 # ═══════════════════════════════════════════════════════════════
 # METRO ADJACENCY
 # ═══════════════════════════════════════════════════════════════
@@ -197,7 +188,6 @@ def compute_mask_neighbors(mask: FrozenSet[str]) -> List[FrozenSet[str]]:
     for letter in all_letters - mask:
         neighbors.append(mask | {letter})
     return neighbors
-
 
 def build_adjacency() -> Dict[str, List[str]]:
     """Build full 60-node adjacency (inter-mask + intra-lens)."""
@@ -225,7 +215,6 @@ def build_adjacency() -> Dict[str, List[str]]:
             adj[sid] = neighbors
 
     return adj
-
 
 # ═══════════════════════════════════════════════════════════════
 # CLOSURE IDENTITY VERIFICATION
@@ -296,7 +285,6 @@ def verify_closures() -> List[Tuple[str, bool, float]]:
 
     return results
 
-
 # ═══════════════════════════════════════════════════════════════
 # CONNECTIVITY CHECK
 # ═══════════════════════════════════════════════════════════════
@@ -315,7 +303,6 @@ def check_connectivity(adj: Dict[str, List[str]]) -> Tuple[int, int]:
                 visited.add(neighbor)
                 queue.append(neighbor)
     return len(visited), len(adj)
-
 
 # ═══════════════════════════════════════════════════════════════
 # MAIN VERIFICATION
@@ -389,7 +376,6 @@ def main():
     print(f"  Closures: {sum(1 for _,p,_ in closures if p)}/{len(closures)} passed")
     print(f"  Metro: {total_edges} edges, {'connected' if reached==total else 'DISCONNECTED'}")
     print(f"{'=' * 70}")
-
 
 if __name__ == "__main__":
     main()

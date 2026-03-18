@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=400 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    CATEGORICAL TRANSLATION MODULE                            ║
@@ -33,7 +37,6 @@ from abc import ABC, abstractmethod
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CATEGORICAL PRIMITIVES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -41,11 +44,9 @@ from numpy.typing import NDArray
 T = TypeVar('T')
 S = TypeVar('S')
 
-
 class CategoryError(Exception):
     """Error in categorical operations."""
     pass
-
 
 @dataclass
 class CategoricalObject(ABC):
@@ -69,7 +70,6 @@ class CategoricalObject(ABC):
     def bandwidth(self) -> float:
         """Kernel bandwidth τ_κ = π/(2√κ)."""
         return np.pi / (2 * np.sqrt(self.kappa))
-
 
 @dataclass
 class Morphism(ABC):
@@ -98,7 +98,6 @@ class Morphism(ABC):
     def is_kernel_preserving(self) -> bool:
         """Check if morphism preserves kernel bandwidth."""
         return np.isclose(self.source.bandwidth, self.target.bandwidth)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOUNDARY REALIZATION CATEGORY
@@ -148,7 +147,6 @@ class BoundaryObject(CategoricalObject):
         p_minus_2 = np.sqrt(kappa * aspect)
         q_minus_2 = np.sqrt(kappa / aspect)
         return cls(p=p_minus_2 + 2, q=q_minus_2 + 2)
-
 
 @dataclass
 class BoundaryMorphism(Morphism):
@@ -203,7 +201,6 @@ class BoundaryMorphism(Morphism):
             return 1.0
         return kappa_new / kappa_old
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID CATEGORY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -236,7 +233,6 @@ class HybridObject(CategoricalObject):
     @property
     def total_dim(self) -> int:
         return self.discrete_dim + self.phase_dim
-
 
 @dataclass
 class HybridMorphism(Morphism):
@@ -280,7 +276,6 @@ class HybridMorphism(Morphism):
         # Simplified: check if maps preserve κ-ratio
         return abs(np.linalg.det(self.discrete_map) * 
                   np.linalg.det(self.phase_map) - 1)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SKF FUNCTOR
@@ -423,7 +418,6 @@ class SKFFunctor:
         
         return d_match and p_match
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NATURAL TRANSFORMATIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -476,7 +470,6 @@ class NaturalTransformation:
         # Check equality
         return left_path == right_path
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # KERNEL-PRESERVING CATEGORY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -522,7 +515,6 @@ class KernelPreservingCategory:
         forward = self.hom_set(source, target)
         backward = self.hom_set(target, source)
         return len(forward) > 0 and len(backward) > 0
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRANSLATION PIPELINE
@@ -618,7 +610,6 @@ class TranslationPipeline:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -627,11 +618,9 @@ def create_boundary_object(kappa: float, aspect: float = 1.0) -> BoundaryObject:
     """Create boundary object with given κ and aspect ratio."""
     return BoundaryObject.from_kappa(kappa, aspect)
 
-
 def create_skf_functor(dim: int = 4) -> SKFFunctor:
     """Create SKF functor with given dimension."""
     return SKFFunctor(default_dim=dim)
-
 
 def translate_to_hybrid(kappa: float) -> HybridObject:
     """Quick translation from κ to hybrid object."""
@@ -639,11 +628,9 @@ def translate_to_hybrid(kappa: float) -> HybridObject:
     boundary = pipeline.encode_constraint(kappa)
     return pipeline.to_hybrid(boundary)
 
-
 def verify_kernel_preservation(morphism: Morphism) -> bool:
     """Check if morphism preserves kernel bandwidth."""
     return morphism.is_kernel_preserving
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

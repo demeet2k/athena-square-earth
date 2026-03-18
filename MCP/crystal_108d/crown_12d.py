@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S24 | face=F | node=294 | depth=2 | phase=Cardinal
+# METRO: Cc
+# BRIDGES: Xi108:W2:A7:S23→Xi108:W2:A7:S25→Xi108:W1:A7:S24→Xi108:W3:A7:S24→Xi108:W2:A6:S24→Xi108:W2:A8:S24
+
 """
 12D Crown Architecture & RoundTripCertPack
 ===========================================
@@ -14,7 +18,6 @@ Provides the corrected 12D crown body specification:
 from ._cache import JsonCache
 
 _CROWN = JsonCache("crown_12d.json")
-
 
 def query_crown_12d(component: str = "all") -> str:
     """
@@ -52,7 +55,6 @@ def query_crown_12d(component: str = "all") -> str:
             "weave, unification, propagation, four_lens, structural"
         )
 
-
 def query_round_trip_cert(cert_class: str = "all") -> str:
     """
     Query the RoundTripCertPack_v0 specification.
@@ -87,7 +89,6 @@ def query_round_trip_cert(cert_class: str = "all") -> str:
             "law_equivalent, residualized, illegal, conservation, schema, tests"
         )
 
-
 # -- 12D Crown formatters ---------------------------------------------------
 
 def _format_all(data: dict) -> str:
@@ -107,7 +108,6 @@ def _format_all(data: dict) -> str:
         lines.append(f"  - {dim}: {count}")
     lines.append(f"\n**Unification**: {meta.get('unification', '12D = geometric crown ∩ operational full-body')}")
     return "\n".join(lines)
-
 
 def _format_containment(data: dict) -> str:
     cl = data.get("containment_law", {})
@@ -129,7 +129,6 @@ def _format_containment(data: dict) -> str:
     lines.append(f"**Base**: B₄ = W₂(B₃)")
     return "\n".join(lines)
 
-
 def _format_weave(data: dict) -> str:
     weave = data.get("weave_ladder", {})
     lines = [
@@ -150,7 +149,6 @@ def _format_weave(data: dict) -> str:
         lines.append(f"**9 weaves** = 12D = return-capable whole")
     return "\n".join(lines)
 
-
 def _format_unification(data: dict) -> str:
     unif = data.get("unification", {})
     return (
@@ -161,7 +159,6 @@ def _format_unification(data: dict) -> str:
         f"**10D**: {unif.get('ten_d', 'visible articulated order (penultimate)')}\n"
         f"**12D**: {unif.get('twelve_d', 'return-capable whole (crown)')}"
     )
-
 
 def _format_propagation(data: dict) -> str:
     prop = data.get("propagation", {})
@@ -174,7 +171,6 @@ def _format_propagation(data: dict) -> str:
         "```"
     )
 
-
 def _format_four_lens(data: dict) -> str:
     lens = data.get("four_lens", {})
     lines = ["## Four-Lens Rendering of 12D\n"]
@@ -185,7 +181,6 @@ def _format_four_lens(data: dict) -> str:
         lines.append(l.get("rendering", f"12D as {display} lens"))
         lines.append("")
     return "\n".join(lines)
-
 
 def _format_structural(data: dict) -> str:
     struct = data.get("structural_meaning", {})
@@ -204,7 +199,6 @@ def _format_structural(data: dict) -> str:
         else:
             lines.append(f"- {m}")
     return "\n".join(lines)
-
 
 # -- RoundTripCertPack formatters --------------------------------------------
 
@@ -227,7 +221,6 @@ def _format_cert_all(data: dict) -> str:
         "If the transform changed law but did not declare the loss, it is illegal."))
     return "\n".join(lines)
 
-
 def _format_cert_class(data: dict, class_name: str) -> str:
     classes = data.get("classes", {})
     desc = classes.get(class_name, f"Unknown class: {class_name}")
@@ -235,7 +228,6 @@ def _format_cert_class(data: dict, class_name: str) -> str:
         f"## Round-Trip Class: {class_name}\n\n"
         f"**Meaning**: {desc}"
     )
-
 
 def _format_conservation(data: dict) -> str:
     laws = data.get("conservation_laws", {})
@@ -247,14 +239,12 @@ def _format_conservation(data: dict) -> str:
                   "closure debts were either preserved or lawfully surfaced.")
     return "\n".join(lines)
 
-
 def _format_cert_schema(data: dict) -> str:
     schema = data.get("schema", {})
     lines = ["## RoundTripCertPack_v0 Schema\n"]
     for key, desc in schema.items():
         lines.append(f"- **{key}**: {desc}")
     return "\n".join(lines)
-
 
 def _format_cert_tests(data: dict) -> str:
     tests = data.get("illegal_loss_tests", [])

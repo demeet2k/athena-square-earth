@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A4:S17→Xi108:W2:A4:S19→Xi108:W1:A4:S18→Xi108:W3:A4:S18→Xi108:W2:A3:S18→Xi108:W2:A5:S18
+
 """
 ATHENA OS - Bilattice Logic: The Semantic Codomain V
 ====================================================
@@ -27,7 +31,6 @@ from enum import IntEnum, auto
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Set
 import numpy as np
-
 
 # =============================================================================
 # FOUR-VALUED TRUTH
@@ -77,7 +80,6 @@ class TruthValue(IntEnum):
     def is_underdetermined(self) -> bool:
         """Check if value is underdetermined (void)."""
         return self == TruthValue.UNDER
-
 
 # =============================================================================
 # BILATTICE OPERATIONS
@@ -254,7 +256,6 @@ class Bilattice:
         }
         return table[(a, b)]
 
-
 # =============================================================================
 # PARADOX OPERATOR
 # =============================================================================
@@ -286,7 +287,6 @@ class Evidence:
             return TruthValue.BOTH
         else:
             return TruthValue.UNDER
-
 
 class ParadoxOperator:
     """
@@ -333,7 +333,6 @@ class ParadoxOperator:
         """
         # In practice, this would transform the paradox
         return True
-
 
 # =============================================================================
 # SEMANTIC CODOMAIN V
@@ -404,7 +403,6 @@ class SemanticCodomain:
         """Count undetermined propositions."""
         return sum(1 for v in self.valuations.values() if v == TruthValue.UNDER)
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -466,7 +464,6 @@ def validate_bilattice() -> bool:
     assert V.paradox_op.total_tension > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Bilattice Logic...")

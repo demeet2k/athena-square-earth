@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A1:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A1:S2→Xi108:W1:A1:S4→Xi108:W2:A1:S3→Xi108:W1:A2:S3
+
 """
 LP-57Ω Quest Atlas Board Kernel
 ================================

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S19 | face=R | node=80 | depth=1 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S18→Xi108:W3:A4:S20→Xi108:W2:A4:S19→Xi108:W3:A3:S19→Xi108:W3:A5:S19
+
 rifier to reproduce the outcome.
 If any requirement fails, the navigation output must be typed (\mathrm{AMBIG}) or (\mathrm{FAIL}), never (\mathrm{OK}).
 

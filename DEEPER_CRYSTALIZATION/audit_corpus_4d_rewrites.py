@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=13 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 from __future__ import annotations
 
 import argparse
@@ -6,11 +10,9 @@ from pathlib import Path
 
 from corpus_4d_fronts import audit_corpus_4d_rewrites, resolve_path, write_json
 
-
 DEFAULT_WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 DEFAULT_MANIFEST = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_rewrites_manifest.json")
 DEFAULT_AUDIT = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_rewrites_audit.json")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Audit sibling Mycelium Metro v4 rewrite outputs.")
@@ -18,7 +20,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest", default=str(DEFAULT_MANIFEST))
     parser.add_argument("--audit-out", default=str(DEFAULT_AUDIT))
     return parser.parse_args()
-
 
 def run(args: argparse.Namespace) -> dict:
     workspace_root = Path(args.workspace_root).resolve()
@@ -28,7 +29,6 @@ def run(args: argparse.Namespace) -> dict:
     write_json(audit_path, receipt)
     return receipt
 
-
 def main() -> int:
     receipt = run(parse_args())
     print(f"Entries: {receipt['summary']['entry_count']}")
@@ -37,7 +37,6 @@ def main() -> int:
     print(f"Stale outputs: {receipt['summary']['stale_output_count']}")
     print(f"Contract failures: {receipt['summary']['contract_failure_count']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

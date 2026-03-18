@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - THE MATH OF ALCHEMY
 ================================
@@ -37,7 +41,6 @@ import numpy as np
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any, Union
 from enum import Enum, auto
-
 
 # =============================================================================
 # ELEMENT TYPES
@@ -96,7 +99,6 @@ class Element(Enum):
         }
         return opposites[self]
 
-
 class Quality(Enum):
     """The Four Qualities."""
     
@@ -109,7 +111,6 @@ class Quality(Enum):
         self._name = name
         self.h_component = h_component
         self.m_component = m_component
-
 
 # =============================================================================
 # ELEMENTAL STATE VECTOR
@@ -211,7 +212,6 @@ class ElementalState:
     def __rmul__(self, scalar: complex) -> 'ElementalState':
         return self * scalar
 
-
 # =============================================================================
 # QUALITY SPACE
 # =============================================================================
@@ -266,7 +266,6 @@ class QualityState:
         """Euclidean distance to another quality state."""
         return float(np.linalg.norm(self.vector - other.vector))
 
-
 # =============================================================================
 # QUALITY MAPPING
 # =============================================================================
@@ -304,7 +303,6 @@ class QualityMapping:
         """Get the quality coordinates for a pure element."""
         h, m = element.quality_coords
         return QualityState(heat=float(h), moisture=float(m))
-
 
 # =============================================================================
 # ELEMENTAL SIMPLEX
@@ -374,7 +372,6 @@ class ElementalSimplex:
             Element.EARTH: float(p[3]),
         }
 
-
 # =============================================================================
 # ELEMENTAL SYSTEM
 # =============================================================================
@@ -441,7 +438,6 @@ class ElementalSystem:
             "dominant": self.dominant_element.name,
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -501,7 +497,6 @@ def validate_elements() -> bool:
     assert "entropy" in summary
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Elements Module...")

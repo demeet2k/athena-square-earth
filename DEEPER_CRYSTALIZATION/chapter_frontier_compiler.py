@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed
+# METRO: Wr,Me
+# BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ from collections import defaultdict
 from pathlib import Path
 
 from nervous_system_core import CHAPTERS, normalize_lookup_text, presentation_name, utc_now, write_json, write_text
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 DEFAULT_LIMIT = 10
@@ -279,23 +282,18 @@ CH12_CELL_GROUPS = {
     },
 }
 
-
 def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def chapter_from_code(chapter_code: str):
     return next(chapter for chapter in CHAPTERS if chapter.code == chapter_code)
-
 
 def canonical_pair_key(src_id: str, dst_id: str) -> str:
     ordered = sorted((src_id, dst_id))
     return f"{ordered[0]}::{ordered[1]}"
 
-
 def chapter_config(chapter_code: str) -> dict:
     return CHAPTER_PACK_CONFIG[chapter_code]
-
 
 def generated_cell_groups(chapter_code: str) -> dict[str, dict]:
     config = chapter_config(chapter_code)
@@ -312,12 +310,10 @@ def generated_cell_groups(chapter_code: str) -> dict[str, dict]:
                 )
     return groups
 
-
 def cell_groups_for_chapter(chapter_code: str) -> dict[str, dict]:
     if chapter_code == TEMPLATE_CHAPTER_CODE:
         return CH12_CELL_GROUPS
     return generated_cell_groups(chapter_code)
-
 
 def chapter_paths(active_root: Path, self_actualize_root: Path, chapter_code: str) -> dict[str, Path]:
     config = chapter_config(chapter_code)
@@ -341,7 +337,6 @@ def chapter_paths(active_root: Path, self_actualize_root: Path, chapter_code: st
         "element_registry": active_root / "13_DEEPER_NEURAL_NET" / "09_RUNTIME" / "01_element_registry.json",
     }
 
-
 def record_blob(record: dict) -> str:
     parts = [
         record.get("name", ""),
@@ -352,7 +347,6 @@ def record_blob(record: dict) -> str:
         " ".join(record.get("appendices", [])),
     ]
     return normalize_lookup_text(" ".join(parts))
-
 
 def build_canonical_pair_map(pairs: list[dict], docs_by_id: dict[str, dict]) -> dict[str, dict]:
     canonical: dict[str, dict] = {}
@@ -384,7 +378,6 @@ def build_canonical_pair_map(pairs: list[dict], docs_by_id: dict[str, dict]) -> 
         }
     return canonical
 
-
 def load_runtime(active_root: Path) -> dict[str, object]:
     runtime_dir = active_root / "13_DEEPER_NEURAL_NET" / "09_RUNTIME"
     manifest = load_json(runtime_dir / "00_network_manifest.json")
@@ -403,7 +396,6 @@ def load_runtime(active_root: Path) -> dict[str, object]:
         "docs_by_id": docs_by_id,
         "canonical_pairs": canonical_pairs,
     }
-
 
 def parse_frontier_bundle(frontier_path: Path) -> list[dict]:
     if not frontier_path.exists():
@@ -453,7 +445,6 @@ def parse_frontier_bundle(frontier_path: Path) -> list[dict]:
         )
     return entries
 
-
 def resolve_bundle_entry_docs(bundle_entries: list[dict], docs_by_id: dict[str, dict]) -> dict[str, dict]:
     resolved: dict[str, dict] = {}
     normalized_docs = {
@@ -482,10 +473,8 @@ def resolve_bundle_entry_docs(bundle_entries: list[dict], docs_by_id: dict[str, 
         resolved[candidates[0][1]] = entry
     return resolved
 
-
 def chapter_source_ids(chapter_code: str, runtime: dict[str, object]) -> list[str]:
     return list(runtime["facet_index"]["facets"]["chapter"].get(chapter_code, []))
-
 
 def rank_frontier_sources(chapter_code: str, runtime: dict[str, object], bundle_doc_map: dict[str, dict], hubs: list[str]) -> list[dict]:
     docs_by_id = runtime["docs_by_id"]
@@ -533,7 +522,6 @@ def rank_frontier_sources(chapter_code: str, runtime: dict[str, object], bundle_
     ranked.sort(key=lambda item: (-item["rank_score"], item["display_name"], item["id"]))
     return ranked
 
-
 def rank_cross_family_routes(chapter_code: str, runtime: dict[str, object], source_ids: set[str], hubs: list[str], limit: int) -> list[dict]:
     routes: list[dict] = []
     for pair in runtime["canonical_pairs"].values():
@@ -549,7 +537,6 @@ def rank_cross_family_routes(chapter_code: str, runtime: dict[str, object], sour
     routes.sort(key=lambda item: (-item["route_score"], -item["score"], item["src_display_name"], item["dst_display_name"]))
     return routes[:limit]
 
-
 def rank_zero_point_routes(runtime: dict[str, object], source_ids: set[str], hubs: list[str], limit: int) -> list[dict]:
     routes: list[dict] = []
     for pair in runtime["zero_point_index"]["routes"]:
@@ -560,7 +547,6 @@ def rank_zero_point_routes(runtime: dict[str, object], source_ids: set[str], hub
     routes.sort(key=lambda item: (-item.get("convergence_score", item["score"]), -item["score"], item["src_display_name"], item["dst_display_name"]))
     return routes[:limit]
 
-
 def existing_manuscript_context(existing_draft_path: Path | None) -> dict:
     if existing_draft_path is None:
         return {"exists": False, "path": "(none)", "text": ""}
@@ -568,7 +554,6 @@ def existing_manuscript_context(existing_draft_path: Path | None) -> dict:
         return {"exists": False, "path": str(existing_draft_path), "text": ""}
     text = existing_draft_path.read_text(encoding="utf-8")
     return {"exists": True, "path": str(existing_draft_path), "text": text}
-
 
 def preferred_families_for_lens(lens: str) -> set[str]:
     mapping = {
@@ -578,7 +563,6 @@ def preferred_families_for_lens(lens: str) -> set[str]:
         "R": {"transport-and-runtime", "live-orchestration", "manuscript-architecture"},
     }
     return mapping[lens]
-
 
 def score_cell_sources(cell_keywords: list[str], lens: str, sources: list[dict], draft_text: str) -> tuple[list[dict], bool]:
     ranked: list[tuple[int, dict]] = []
@@ -597,7 +581,6 @@ def score_cell_sources(cell_keywords: list[str], lens: str, sources: list[dict],
     draft_hit = any(normalize_lookup_text(keyword) in normalize_lookup_text(draft_text) for keyword in cell_keywords) if draft_text else False
     return [item[1] for item in ranked[:3]], draft_hit
 
-
 def candidate_summary(chapter_code: str, facet_index: int, title: str, support_docs: list[dict], draft_hit: bool) -> str:
     support_names = ", ".join(doc["display_name"] for doc in support_docs[:2]) or "local chapter support pack"
     chapter = chapter_from_code(chapter_code)
@@ -613,10 +596,8 @@ def candidate_summary(chapter_code: str, facet_index: int, title: str, support_d
         return f"{base} Existing manuscript draft support is already present, and the strongest local witnesses are `{support_names}`."
     return f"{base} The strongest local witnesses are `{support_names}`."
 
-
 def open_summary(chapter_code: str, title: str, next_witness: str) -> str:
     return f"OPEN - current local evidence does not yet supply a direct witness-rich candidate for `{title}` in `{chapter_code}`. Next witness needed: {next_witness}."
-
 
 def build_cell_fill_map(chapter_code: str, sources: list[dict], existing_draft: dict) -> tuple[dict[str, dict], list[dict]]:
     cell_fill_map: dict[str, dict] = {}
@@ -654,7 +635,6 @@ def build_cell_fill_map(chapter_code: str, sources: list[dict], existing_draft: 
                     open_cells.append(entry)
     return cell_fill_map, open_cells
 
-
 def duplicate_warnings(frontier_sources: list[dict]) -> list[dict]:
     grouped: dict[str, list[dict]] = defaultdict(list)
     for source in frontier_sources:
@@ -672,7 +652,6 @@ def duplicate_warnings(frontier_sources: list[dict]) -> list[dict]:
         )
     return sorted(warnings, key=lambda item: item["display_name"])
 
-
 def witness_obligations(open_cells: list[dict], duplicate_groups: list[dict], chapter_code: str) -> list[str]:
     obligations = []
     if duplicate_groups:
@@ -687,7 +666,6 @@ def witness_obligations(open_cells: list[dict], duplicate_groups: list[dict], ch
     if not obligations:
         obligations.append("All current cells have candidate local witnesses; remaining work is promotion, ordering, and proof tightening.")
     return obligations
-
 
 def drafting_order(chapter_code: str, frontier_sources: list[dict], cross_family_routes: list[dict], open_cells: list[dict], existing_draft: dict) -> list[str]:
     chapter = chapter_from_code(chapter_code)
@@ -714,7 +692,6 @@ def drafting_order(chapter_code: str, frontier_sources: list[dict], cross_family
     else:
         steps.append("Close with a promotion ledger that marks which candidate cells are ready for proof tightening versus immediate drafting.")
     return steps
-
 
 def build_frontier_payload(
     active_root: Path,
@@ -801,7 +778,6 @@ def build_frontier_payload(
         },
     }
 
-
 def render_route_lines(routes: list[dict]) -> list[str]:
     if not routes:
         return ["- None"]
@@ -821,7 +797,6 @@ def render_route_lines(routes: list[dict]) -> list[str]:
             f"- `{src_label}` <-> `{dst_label}` score=`{route.get('route_score', route.get('convergence_score', route['score']))}` kind=`{route.get('kind', 'route')}` shared_chapters=`{', '.join(route['shared_chapters']) or 'none'}` shared_appendices=`{', '.join(route['shared_appendices']) or 'none'}`"
         )
     return lines
-
 
 def render_frontier_bundle_markdown(payload: dict, chapter_code: str) -> str:
     chapter = chapter_from_code(chapter_code)
@@ -871,7 +846,6 @@ def render_frontier_bundle_markdown(payload: dict, chapter_code: str) -> str:
         lines.append(f"{index}. {step}")
     return "\n".join(lines)
 
-
 def render_drafting_prep_markdown(payload: dict, chapter_code: str) -> str:
     chapter = chapter_from_code(chapter_code)
     lines = [
@@ -893,7 +867,6 @@ def render_drafting_prep_markdown(payload: dict, chapter_code: str) -> str:
     for cell in payload["results"]["open_cells"]:
         lines.append(f"- `{cell['cell_code']}` `{cell['title']}` -> {cell['summary']}")
     return "\n".join(lines)
-
 
 def render_chapter_tile_markdown(payload: dict, chapter_code: str) -> str:
     chapter = chapter_from_code(chapter_code)
@@ -934,7 +907,6 @@ def render_chapter_tile_markdown(payload: dict, chapter_code: str) -> str:
             lines.append("")
     return "\n".join(lines)
 
-
 def render_handoff_markdown(payload: dict, chapter_code: str) -> str:
     chapter = chapter_from_code(chapter_code)
     existing_path = payload["results"]["existing_manuscript_draft_path"]
@@ -972,7 +944,6 @@ def render_handoff_markdown(payload: dict, chapter_code: str) -> str:
         lines.append(f"- `{cell['cell_code']}` `{cell['title']}` -> {cell['next_witness']}")
     lines.extend(["", chapter.title])
     return "\n".join(lines)
-
 
 def write_chapter_pack_artifacts(active_root: Path, self_actualize_root: Path, payload: dict, chapter_code: str) -> dict:
     paths = chapter_paths(active_root, self_actualize_root, chapter_code)
@@ -1020,7 +991,6 @@ def write_chapter_pack_artifacts(active_root: Path, self_actualize_root: Path, p
         write_json(paths["network_manifest"], network_manifest)
 
     return manifest
-
 
 def compile_and_write_chapter_pack(
     active_root: Path,

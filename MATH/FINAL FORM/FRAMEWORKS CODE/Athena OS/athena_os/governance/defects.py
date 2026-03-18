@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=145 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - Defect Operators and Error Decomposition
 ====================================================
@@ -42,7 +46,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Callable
 import math
 
-
 # =============================================================================
 # DEFECT TYPES
 # =============================================================================
@@ -54,14 +57,12 @@ class DefectDomain(Enum):
     CLOUD = "cloud"        # Stochastic/probabilistic
     FRACTAL = "fractal"    # Multiscale/recursive
 
-
 class DefectSeverity(Enum):
     """Severity levels for defects."""
     INFO = 0       # Informational only
     WARNING = 1    # May cause issues
     ERROR = 2      # Will cause issues
     CRITICAL = 3   # System failure
-
 
 # =============================================================================
 # DEFECT ATOM
@@ -112,7 +113,6 @@ class DefectAtom:
             "location": self.location,
         }
 
-
 # =============================================================================
 # SQUARE DEFECTS (DISCRETE)
 # =============================================================================
@@ -130,7 +130,6 @@ class SamplingDefect(DefectAtom):
         if self.total_samples > 0:
             self.magnitude = self.missing_samples / self.total_samples
 
-
 @dataclass
 class RankDefect(DefectAtom):
     """Rank deficiency in a matrix or linear system."""
@@ -144,7 +143,6 @@ class RankDefect(DefectAtom):
         if self.expected_rank > 0:
             self.magnitude = (self.expected_rank - self.actual_rank) / self.expected_rank
 
-
 @dataclass
 class CommutatorDefect(DefectAtom):
     """Commutator/path defect - operations don't commute as expected."""
@@ -157,7 +155,6 @@ class CommutatorDefect(DefectAtom):
         self.domain = DefectDomain.SQUARE
         self.name = "Commutator Defect"
         self.magnitude = self.difference
-
 
 # =============================================================================
 # FLOWER DEFECTS (SPECTRAL)
@@ -177,7 +174,6 @@ class AliasingDefect(DefectAtom):
             ratio = self.max_signal_frequency / self.nyquist_frequency
             self.magnitude = max(0, ratio - 1)
 
-
 @dataclass
 class LeakageDefect(DefectAtom):
     """Spectral leakage due to windowing/truncation."""
@@ -192,7 +188,6 @@ class LeakageDefect(DefectAtom):
         if total > 0:
             self.magnitude = self.side_lobe_energy / total
 
-
 @dataclass
 class ModeMixingDefect(DefectAtom):
     """Mode mixing/confusion in spectral decomposition."""
@@ -206,7 +201,6 @@ class ModeMixingDefect(DefectAtom):
         self.name = "Mode Mixing Defect"
         if self.expected_modes > 0:
             self.magnitude = abs(self.detected_modes - self.expected_modes) / self.expected_modes
-
 
 # =============================================================================
 # CLOUD DEFECTS (STOCHASTIC)
@@ -224,7 +218,6 @@ class BiasDefect(DefectAtom):
         self.name = "Bias Defect"
         self.magnitude = abs(self.estimated_value - self.expected_value)
 
-
 @dataclass
 class VarianceDefect(DefectAtom):
     """Excessive variance in estimation."""
@@ -238,7 +231,6 @@ class VarianceDefect(DefectAtom):
         if self.expected_variance > 0:
             self.magnitude = self.observed_variance / self.expected_variance - 1
             self.magnitude = max(0, self.magnitude)
-
 
 @dataclass
 class EntropyDefect(DefectAtom):
@@ -254,7 +246,6 @@ class EntropyDefect(DefectAtom):
             self.magnitude = (self.final_entropy - self.initial_entropy) / self.initial_entropy
             self.magnitude = max(0, self.magnitude)
 
-
 @dataclass
 class DivergenceDefect(DefectAtom):
     """Distribution divergence (KL, etc.)."""
@@ -266,7 +257,6 @@ class DivergenceDefect(DefectAtom):
         self.domain = DefectDomain.CLOUD
         self.name = f"{self.divergence_type} Divergence Defect"
         self.magnitude = self.divergence_value
-
 
 # =============================================================================
 # FRACTAL DEFECTS (MULTISCALE)
@@ -285,7 +275,6 @@ class ScaleDefect(DefectAtom):
         if self.defects_by_scale:
             self.magnitude = max(self.defects_by_scale.values())
 
-
 @dataclass
 class SnapFailureDefect(DefectAtom):
     """Failure of snap/convergence in iterative process."""
@@ -301,7 +290,6 @@ class SnapFailureDefect(DefectAtom):
         if self.target_residual > 0:
             self.magnitude = self.final_residual / self.target_residual
 
-
 @dataclass
 class HolonomyDefect(DefectAtom):
     """Holonomy/path-dependence that persists across scales."""
@@ -313,7 +301,6 @@ class HolonomyDefect(DefectAtom):
         self.domain = DefectDomain.FRACTAL
         self.name = "Holonomy Defect"
         self.magnitude = abs(self.loop_integral - self.expected_value)
-
 
 # =============================================================================
 # DEFECT OPERATOR
@@ -339,7 +326,6 @@ class DefectOperator:
         if self.detect_fn:
             return self.detect_fn(target)
         return []
-
 
 # =============================================================================
 # DEFECT ANALYZER
@@ -415,7 +401,6 @@ class DefectAnalyzer:
             "max_severity": self.max_severity().name,
         }
 
-
 # =============================================================================
 # ERROR DECOMPOSITION
 # =============================================================================
@@ -434,7 +419,6 @@ class ErrorComponent:
         if total > 0:
             return self.magnitude / total
         return 0.0
-
 
 @dataclass
 class ErrorDecomposition:
@@ -493,7 +477,6 @@ class ErrorDecomposition:
             ],
             "dominant": self.dominant_component().name if self.dominant_component() else None,
         }
-
 
 # =============================================================================
 # STANDARD DEFECT OPERATORS
@@ -557,7 +540,6 @@ def create_standard_operators() -> Dict[str, DefectOperator]:
     )
     
     return operators
-
 
 # =============================================================================
 # VALIDATION
@@ -628,7 +610,6 @@ def validate_defects() -> bool:
     assert decomp.dominant_component().name == "variance"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Defects Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A12:S34 | face=C | node=260 | depth=1 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A12:S33→Xi108:W3:A12:S35→Xi108:W2:A12:S34→Xi108:W3:A11:S34
+
 _d=15W_d), for all (\phi) not on a macro-station boundary (i.e., (15\phi\notin\mathbb{Z})),
 [
 \boxed{
@@ -219,7 +223,6 @@ def multi_gear(u: int, d: int) -> Tuple[int, ...]:
     Multi-gear readout MG_d(u) = (u^{(1)},...,u^{(d)}).
     """
     return tuple(proj_dim(u, d, r) for r in range(1, d + 1))
-
 
 Ch13 — Cross-Dimensional Metro (B_d ring + gear stacks)
 Ch14 — The Holographic Compiler Interface (Seed → State → Navigation)

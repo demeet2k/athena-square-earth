@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A1:S4 | face=F | node=265 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A1:S3→Xi108:W3:A1:S5→Xi108:W2:A1:S4→Xi108:W3:A2:S4
+
 # Dockerfile.cuda
 #
 # CUDA container template for:

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - BIT4 Four-Valued Logic System
 ==========================================
@@ -15,7 +19,6 @@ from enum import IntEnum, auto
 from dataclasses import dataclass
 from typing import Tuple, Callable, Optional, Union
 import random
-
 
 class BIT4(IntEnum):
     """
@@ -67,7 +70,6 @@ class BIT4(IntEnum):
     def __repr__(self) -> str:
         return f"BIT4.{self.name}({self.symbol})"
 
-
 # =============================================================================
 # LATTICE OPERATIONS
 # =============================================================================
@@ -89,7 +91,6 @@ def knowledge_join(a: BIT4, b: BIT4) -> BIT4:
     # Conflicting definite values → BOTH
     return BIT4.BOTH
 
-
 def knowledge_meet(a: BIT4, b: BIT4) -> BIT4:
     """
     Knowledge meet (⊓ₖ): Find common information.
@@ -106,7 +107,6 @@ def knowledge_meet(a: BIT4, b: BIT4) -> BIT4:
     # Conflicting definite values → no common ground
     return BIT4.UNKNOWN
 
-
 def truth_join(a: BIT4, b: BIT4) -> BIT4:
     """
     Truth join (⊔ₜ): Logical OR in truth ordering.
@@ -120,7 +120,6 @@ def truth_join(a: BIT4, b: BIT4) -> BIT4:
         return BIT4.UNKNOWN
     return BIT4.FALSE
 
-
 def truth_meet(a: BIT4, b: BIT4) -> BIT4:
     """
     Truth meet (⊓ₜ): Logical AND in truth ordering.
@@ -132,7 +131,6 @@ def truth_meet(a: BIT4, b: BIT4) -> BIT4:
     if a == BIT4.BOTH or b == BIT4.BOTH:
         return BIT4.BOTH
     return BIT4.TRUE
-
 
 # =============================================================================
 # KLEIN-4 INVOLUTION OPERATORS
@@ -150,7 +148,6 @@ def negation(x: BIT4) -> BIT4:
         BIT4.BOTH: BIT4.BOTH
     }[x]
 
-
 def knowledge_complement(x: BIT4) -> BIT4:
     """
     Knowledge complement (κ): Flip knowledge level, preserve truth tendency.
@@ -166,7 +163,6 @@ def knowledge_complement(x: BIT4) -> BIT4:
         BIT4.BOTH: BIT4.UNKNOWN
     }[x]
 
-
 def conflation(x: BIT4) -> BIT4:
     """
     Conflation (∼): Combined negation and knowledge complement.
@@ -180,11 +176,9 @@ def conflation(x: BIT4) -> BIT4:
         BIT4.BOTH: BIT4.UNKNOWN
     }[x]
 
-
 def identity(x: BIT4) -> BIT4:
     """Identity operator (id): Returns input unchanged."""
     return x
-
 
 # Klein-4 group: {id, ¬, κ, ∼} with composition
 KLEIN4_OPERATORS = {
@@ -214,11 +208,9 @@ KLEIN4_COMPOSITION = {
     ('conflate', 'conflate'): 'id',
 }
 
-
 def compose_operators(op1: str, op2: str) -> str:
     """Compose two Klein-4 operators: (op1 ∘ op2)(x) = op1(op2(x))"""
     return KLEIN4_COMPOSITION[(op1, op2)]
-
 
 # =============================================================================
 # TWO-RAIL ENCODING (Classical ↔ BIT4)
@@ -266,7 +258,6 @@ class TwoRail:
     def __str__(self) -> str:
         return f"({int(self.truth_support)},{int(self.falsity_support)})"
 
-
 # =============================================================================
 # COLLAPSE POLICIES (BIT4 → Classical)
 # =============================================================================
@@ -277,7 +268,6 @@ class CollapsePolicy(IntEnum):
     PESSIMISTIC = auto()  # ⊥→0, ⊤→0 (assume worst case)
     RANDOM = auto()       # Random selection for indeterminate
     MAJORITY = auto()     # Context-dependent majority vote
-
 
 def collapse(x: BIT4, policy: CollapsePolicy = CollapsePolicy.OPTIMISTIC) -> bool:
     """
@@ -301,11 +291,9 @@ def collapse(x: BIT4, policy: CollapsePolicy = CollapsePolicy.OPTIMISTIC) -> boo
     else:  # MAJORITY - default to optimistic
         return x == BIT4.BOTH
 
-
 def superpose(classical: bool) -> BIT4:
     """Lift classical bit into BIT4 (definite state)."""
     return BIT4.TRUE if classical else BIT4.FALSE
-
 
 # =============================================================================
 # BIT4 ARITHMETIC
@@ -315,31 +303,25 @@ def bit4_and(a: BIT4, b: BIT4) -> BIT4:
     """Four-valued AND operation."""
     return truth_meet(a, b)
 
-
 def bit4_or(a: BIT4, b: BIT4) -> BIT4:
     """Four-valued OR operation."""
     return truth_join(a, b)
-
 
 def bit4_not(x: BIT4) -> BIT4:
     """Four-valued NOT operation."""
     return negation(x)
 
-
 def bit4_xor(a: BIT4, b: BIT4) -> BIT4:
     """Four-valued XOR: True iff exactly one is True."""
     return bit4_and(bit4_or(a, b), bit4_not(bit4_and(a, b)))
-
 
 def bit4_implies(a: BIT4, b: BIT4) -> BIT4:
     """Four-valued implication: a → b ≡ ¬a ∨ b"""
     return bit4_or(bit4_not(a), b)
 
-
 def bit4_equiv(a: BIT4, b: BIT4) -> BIT4:
     """Four-valued equivalence: a ↔ b ≡ (a → b) ∧ (b → a)"""
     return bit4_and(bit4_implies(a, b), bit4_implies(b, a))
-
 
 # =============================================================================
 # KNOWLEDGE ORDERING COMPARISONS
@@ -353,12 +335,10 @@ def leq_knowledge(a: BIT4, b: BIT4) -> bool:
         return True
     return a == b
 
-
 def leq_truth(a: BIT4, b: BIT4) -> bool:
     """Truth ordering: a ≤ₜ b iff a is at most as true as b."""
     truth_order = {BIT4.FALSE: 0, BIT4.UNKNOWN: 1, BIT4.BOTH: 2, BIT4.TRUE: 3}
     return truth_order[a] <= truth_order[b]
-
 
 # =============================================================================
 # BIT4 WORD (Multi-bit register)
@@ -431,7 +411,6 @@ class BIT4Word:
     def __repr__(self) -> str:
         return f"BIT4Word({str(self)})"
 
-
 # =============================================================================
 # SEMANTIC STATE (derived from Klein-4)
 # =============================================================================
@@ -446,7 +425,6 @@ class SemanticState(IntEnum):
     VOLATILE = 2  # (1,0) - κ: Unstable, knowledge-level change
     DYNAMIC = 3   # (1,1) - ∼: Active transformation
 
-
 def get_semantic_state(stability: bool, determinacy: bool) -> SemanticState:
     """
     Derive semantic state from stability and determinacy flags.
@@ -456,7 +434,6 @@ def get_semantic_state(stability: bool, determinacy: bool) -> SemanticState:
     """
     return SemanticState((int(not stability) << 1) | int(not determinacy))
 
-
 def state_to_operator(state: SemanticState) -> Callable[[BIT4], BIT4]:
     """Map semantic state to its corresponding Klein-4 operator."""
     return {
@@ -465,7 +442,6 @@ def state_to_operator(state: SemanticState) -> Callable[[BIT4], BIT4]:
         SemanticState.VOLATILE: knowledge_complement,
         SemanticState.DYNAMIC: conflation
     }[state]
-
 
 # =============================================================================
 # VALIDATION AND TESTING
@@ -497,7 +473,6 @@ def validate_klein4_group() -> bool:
     
     return True
 
-
 def validate_lattice_properties() -> bool:
     """Verify BIT4 forms a bounded distributive lattice."""
     values = list(BIT4)
@@ -520,7 +495,6 @@ def validate_lattice_properties() -> bool:
                 f"Absorption failed: {a}, {b}"
     
     return True
-
 
 if __name__ == "__main__":
     # Run validation

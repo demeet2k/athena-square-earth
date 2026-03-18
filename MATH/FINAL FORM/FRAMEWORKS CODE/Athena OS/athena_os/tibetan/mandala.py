@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=97 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - TIBETAN: MANDALA MODULE
 ====================================
@@ -33,7 +37,6 @@ from typing import Dict, List, Set, Optional, Tuple, Callable, Any, Union
 from enum import Enum, auto
 import numpy as np
 
-
 # =============================================================================
 # BUDDHA FAMILIES
 # =============================================================================
@@ -47,7 +50,6 @@ class BuddhaFamily(Enum):
     AMITABHA = "amitabha"             # West - Infinite Light
     AMOGHASIDDHI = "amoghasiddhi"     # North - Unfailing Success
 
-
 class Direction(Enum):
     """Cardinal directions in the mandala."""
     
@@ -56,7 +58,6 @@ class Direction(Enum):
     SOUTH = "south"
     WEST = "west"
     NORTH = "north"
-
 
 class Poison(Enum):
     """The Five Poisons (Error Modes)."""
@@ -67,7 +68,6 @@ class Poison(Enum):
     DESIRE = "desire"             # Attraction
     ENVY = "envy"                 # Comparison
 
-
 class Wisdom(Enum):
     """The Five Wisdoms (Rectified States)."""
     
@@ -76,7 +76,6 @@ class Wisdom(Enum):
     EQUALITY = "equality"                 # Equalizing wisdom
     DISCRIMINATING = "discriminating"     # Discriminating wisdom
     ALL_ACCOMPLISHING = "all_accomplishing"  # All-accomplishing wisdom
-
 
 # =============================================================================
 # DHYANI BUDDHA
@@ -120,7 +119,6 @@ class DhyaniBuddha:
         # Unitary transformation preserves magnitude
         wisdom_intensity = poison_intensity
         return self.wisdom, wisdom_intensity
-
 
 def create_five_buddhas() -> Dict[BuddhaFamily, DhyaniBuddha]:
     """Create the Five Dhyani Buddhas."""
@@ -182,9 +180,7 @@ def create_five_buddhas() -> Dict[BuddhaFamily, DhyaniBuddha]:
         ),
     }
 
-
 FIVE_BUDDHAS = create_five_buddhas()
-
 
 # =============================================================================
 # MANDALA SPACE
@@ -226,7 +222,6 @@ class MandalaPoint:
             return Direction.WEST
         else:
             return Direction.SOUTH
-
 
 class Mandala:
     """
@@ -354,7 +349,6 @@ class Mandala:
     def entropy(self) -> float:
         return self._entropy
 
-
 # =============================================================================
 # FIVE WISDOMS ERROR CORRECTION
 # =============================================================================
@@ -452,7 +446,6 @@ class FiveWisdomsECC:
             "n_corrections": len(corrections)
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -522,7 +515,6 @@ def validate_mandala() -> bool:
     assert "corrections" in full
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Tibetan Mandala Module...")

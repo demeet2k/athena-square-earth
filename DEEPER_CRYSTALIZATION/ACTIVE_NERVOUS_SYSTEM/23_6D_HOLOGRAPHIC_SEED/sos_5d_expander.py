@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Sa,Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 """
 SOS::5D_EXPANDER — 5-Dimensional Manuscript Expansion Engine
 =============================================================
@@ -41,7 +45,6 @@ from canon_compiler import (
     LensView, Quadrant, USE_OPERATIONS, LENS_BITMASK, TUNNEL_FAMILY,
 )
 
-
 # =====================================================================
 # SECTION 1: MANUSCRIPT ARCHITECTURE
 # =====================================================================
@@ -53,7 +56,6 @@ class UnitKind(Enum):
     METRO_NUCLEUS = "E10"
     REVERSE_APPENDIX = "Rev"
 
-
 @dataclass
 class ManuscriptUnit:
     """A single addressable unit in the manuscript lattice."""
@@ -62,7 +64,6 @@ class ManuscriptUnit:
     kind: UnitKind
     index: int          # ordinal within kind (0-based)
     binary_addr: str    # base-2 address from chapter numbering
-
 
 # --- 21 Chapters ---
 CHAPTERS: list[ManuscriptUnit] = [
@@ -144,7 +145,6 @@ REVERSE_APPENDICES: list[ManuscriptUnit] = [
 ]
 
 ALL_UNITS: list[ManuscriptUnit] = CHAPTERS + APPENDICES + EMERGENT + REVERSE_APPENDICES
-
 
 # =====================================================================
 # SECTION 2: 60-ARTIFACT ROUTING SYSTEM
@@ -258,10 +258,8 @@ def _build_full_60_artifacts() -> list[SymmetryArtifact]:
 
     return artifacts
 
-
 ARTIFACTS_60 = _build_full_60_artifacts()
 ARTIFACT_BY_NUMBER = {a.number: a for a in ARTIFACTS_60}
-
 
 def assign_artifact(unit: ManuscriptUnit) -> SymmetryArtifact:
     """Assign a quaternion artifact to a manuscript unit via hash routing.
@@ -274,7 +272,6 @@ def assign_artifact(unit: ManuscriptUnit) -> SymmetryArtifact:
     artifact_idx = (h % 60)
     return ARTIFACTS_60[artifact_idx]
 
-
 # =====================================================================
 # SECTION 3: ELEMENTAL LENS TRANSFORMS
 # =====================================================================
@@ -284,7 +281,6 @@ class Element(Enum):
     WATER = auto()   # memory, coherence, resonance
     EARTH = auto()   # structure, embodiment, stability
     AIR = auto()     # abstraction, topology, communication
-
 
 @dataclass
 class LensTransform:
@@ -299,7 +295,6 @@ class LensTransform:
         """Generate the witness signature for a unit under this lens."""
         raw = f"{self.element.name}:{unit.code}:{unit.title}"
         return hashlib.sha256(raw.encode()).hexdigest()[:12]
-
 
 LENS_FIRE = LensTransform(
     Element.FIRE, ("ignition", "emergence", "differentiation"),
@@ -329,7 +324,6 @@ LENS_TRIADS = [
     (LENS_FIRE, LENS_EARTH, LENS_AIR),
     (LENS_WATER, LENS_EARTH, LENS_AIR),
 ]
-
 
 # =====================================================================
 # SECTION 4: SACRED GEOMETRY MAPPING
@@ -398,7 +392,6 @@ def sacred_figure(unit: ManuscriptUnit) -> str:
         ))
     return "Unknown"
 
-
 # =====================================================================
 # SECTION 5: TUNNELING PATHS
 # =====================================================================
@@ -411,7 +404,6 @@ class Tunnel:
     tunnel_type: str     # "Ch-Ch", "Ch-App", "App-App", etc.
     quaternion: Quaternion  # transition operator
     gamma_weight: float  # corridor weighting (0-1)
-
 
 def _ch_ch_tunnels() -> list[Tunnel]:
     """Chapter-to-chapter tunnels: each chapter connects to its binary neighbor."""
@@ -434,7 +426,6 @@ def _ch_ch_tunnels() -> list[Tunnel]:
             tunnels.append(Tunnel(src.code, tgt.code, "Ch-Ch", t_q, 0.618))
     return tunnels
 
-
 def _ch_app_tunnels() -> list[Tunnel]:
     """Chapter-to-appendix tunnels: map chapter index mod 16 to appendix."""
     tunnels = []
@@ -446,7 +437,6 @@ def _ch_app_tunnels() -> list[Tunnel]:
         t_q = tunnel_transition(q_ch, q_app)
         tunnels.append(Tunnel(ch.code, app.code, "Ch-App", t_q, 0.8))
     return tunnels
-
 
 def _app_app_tunnels() -> list[Tunnel]:
     """Appendix-to-appendix: sequential ring plus cross-links."""
@@ -467,7 +457,6 @@ def _app_app_tunnels() -> list[Tunnel]:
                                   tunnel_transition(q_s, q_m), 0.5))
     return tunnels
 
-
 def _legacy_emergent_tunnels() -> list[Tunnel]:
     """Legacy (chapters/appendices) to Emergent tunnels."""
     tunnels = []
@@ -482,7 +471,6 @@ def _legacy_emergent_tunnels() -> list[Tunnel]:
             tunnels.append(Tunnel(ch.code, em.code, "Legacy-Em",
                                   tunnel_transition(q_ch, q_em), 0.7))
     return tunnels
-
 
 def _emergent_reverse_tunnels() -> list[Tunnel]:
     """Emergent to reverse-appendix tunnels."""
@@ -502,7 +490,6 @@ def _emergent_reverse_tunnels() -> list[Tunnel]:
         tunnels.append(Tunnel(em.code, rev2.code, "Em-Rev",
                               tunnel_transition(q_em, q_rev2), 0.4))
     return tunnels
-
 
 def _mobius_bridge_tunnels() -> list[Tunnel]:
     """Mobius bridge tunnels: Q ingress (forward), O return (backward).
@@ -528,7 +515,6 @@ def _mobius_bridge_tunnels() -> list[Tunnel]:
                               mob.quaternion.conjugate(), 0.382))
     return tunnels
 
-
 def build_all_tunnels() -> list[Tunnel]:
     """Build the complete tunneling matrix."""
     return (
@@ -539,7 +525,6 @@ def build_all_tunnels() -> list[Tunnel]:
         _emergent_reverse_tunnels() +
         _mobius_bridge_tunnels()
     )
-
 
 # =====================================================================
 # SECTION 6: MYCELIUM NETWORK
@@ -552,7 +537,6 @@ class MyceliumRail:
     rail_type: str   # "Legacy" or "CLOUD"
     color: str
     sigma_path: list[int]  # sigma stations this rail visits
-
 
 LEGACY_RAILS = [
     MyceliumRail("Su", "Legacy", "GOLD", [0, 3, 6, 9, 12]),
@@ -580,7 +564,6 @@ ALL_RAILS = LEGACY_RAILS + CLOUD_RAILS
 # Gamma corridor: the privileged cycle through sigma space
 GAMMA_CORRIDOR = [2, 11, 5, 14, 8, 2]  # sigma=2 -> 11 -> 5 -> 14 -> 8 -> 2
 
-
 def assign_rails(unit: ManuscriptUnit) -> list[str]:
     """Determine which mycelium rails serve a given manuscript unit.
 
@@ -599,7 +582,6 @@ def assign_rails(unit: ManuscriptUnit) -> list[str]:
         rails.append("GAMMA")
     return rails
 
-
 # =====================================================================
 # SECTION 7: SYNTHESIS ENGINE (10-Stage Pipeline)
 # =====================================================================
@@ -612,7 +594,6 @@ class SynthesisStage:
     witness_hash: str
     lens_config: str
     payload: dict
-
 
 @dataclass
 class ExpansionDocument:
@@ -639,12 +620,10 @@ class ExpansionDocument:
         ]
         return "\n".join(lines)
 
-
 def _hash_witness(*parts: str) -> str:
     """Compute a witness hash from concatenated parts."""
     raw = ":".join(parts)
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
-
 
 def _stage_0_baseline(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage:
     """Stage 0: Legacy Neutral Baseline. Captures the unit before any lens is applied."""
@@ -655,7 +634,6 @@ def _stage_0_baseline(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage
         payload={"unit": unit.code, "content_hash": content_hash,
                  "mode": "neutral", "truth_class": "OK"},
     )
-
 
 def _stage_1_single_lens(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage:
     """Stage 1: Single-Lens Witnesses. Apply each of FIRE, WATER, EARTH, AIR independently."""
@@ -669,7 +647,6 @@ def _stage_1_single_lens(unit: ManuscriptUnit, content_hash: str) -> SynthesisSt
         witness_hash=combined, lens_config="F|W|E|A",
         payload={"witnesses": witnesses, "count": 4},
     )
-
 
 def _stage_2_pairwise(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage:
     """Stage 2: Pairwise Symmetries. Combine lenses in all 6 pairs."""
@@ -686,7 +663,6 @@ def _stage_2_pairwise(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage
         payload={"pairs": pairs, "count": 6},
     )
 
-
 def _stage_3_triadic(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage:
     """Stage 3: Triadic Symmetries. Combine lenses in all 4 triads."""
     triads = {}
@@ -701,7 +677,6 @@ def _stage_3_triadic(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage:
         payload={"triads": triads, "count": 4},
     )
 
-
 def _stage_4_total(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage:
     """Stage 4: Four-Way Total Synthesis. All four lenses simultaneously."""
     all_w = [lens.witness(unit) for lens in ALL_LENSES]
@@ -714,7 +689,6 @@ def _stage_4_total(unit: ManuscriptUnit, content_hash: str) -> SynthesisStage:
         witness_hash=total_hash, lens_config="FWEA",
         payload={"sigma_mask": sigma_mask, "combined_witness": total_hash},
     )
-
 
 def _stage_5_zero_point(unit: ManuscriptUnit, content_hash: str,
                          prev_hash: str) -> SynthesisStage:
@@ -731,7 +705,6 @@ def _stage_5_zero_point(unit: ManuscriptUnit, content_hash: str,
                  "deviation": round(deviation, 6), "stable": deviation < 2.0},
     )
 
-
 def _stage_6_meta_observation(unit: ManuscriptUnit, content_hash: str,
                                prev_stages: list[SynthesisStage]) -> SynthesisStage:
     """Stage 6: 5D Meta-Observation. Observes the synthesis process itself."""
@@ -745,7 +718,6 @@ def _stage_6_meta_observation(unit: ManuscriptUnit, content_hash: str,
                  "coherence_ratio": round(coherence, 4),
                  "meta_dimension": 5},
     )
-
 
 def _stage_7_manifestation(unit: ManuscriptUnit, content_hash: str,
                             meta_hash: str) -> SynthesisStage:
@@ -780,7 +752,6 @@ def _stage_7_manifestation(unit: ManuscriptUnit, content_hash: str,
         },
     )
 
-
 def _stage_8_omega_anchoring(unit: ManuscriptUnit, content_hash: str,
                               replay_kernel: str) -> SynthesisStage:
     """Stage 8: Omega Anchoring.
@@ -804,7 +775,6 @@ def _stage_8_omega_anchoring(unit: ManuscriptUnit, content_hash: str,
             "reverse_addr": reverse_addr,
         },
     )
-
 
 def _stage_9_re_expansion(unit: ManuscriptUnit, content_hash: str,
                            omega_hash: str) -> SynthesisStage:
@@ -844,7 +814,6 @@ def _stage_9_re_expansion(unit: ManuscriptUnit, content_hash: str,
         },
     )
 
-
 def run_synthesis_pipeline(unit: ManuscriptUnit,
                            content_hash: str) -> list[SynthesisStage]:
     """Execute the full 10-stage synthesis pipeline for a single manuscript unit."""
@@ -882,7 +851,6 @@ def run_synthesis_pipeline(unit: ManuscriptUnit,
 
     return stages
 
-
 # =====================================================================
 # SECTION 8: EXPANSION FUNCTIONS
 # =====================================================================
@@ -907,7 +875,6 @@ def _compute_5d_coordinate(unit: ManuscriptUnit, artifact: SymmetryArtifact,
     geo = sacred_figure(unit)
     d4 = int(hashlib.sha256(geo.encode()).hexdigest(), 16) % 21
     return (d0, d1, d2, d3, d4)
-
 
 def expand_manuscript_5d(chapter_code: str, title: str,
                          content_hash: str) -> ExpansionDocument:
@@ -976,7 +943,6 @@ def expand_manuscript_5d(chapter_code: str, title: str,
         coordinate_5d=coord,
     )
 
-
 # =====================================================================
 # SECTION 9: MASTER MANIFEST GENERATOR
 # =====================================================================
@@ -1033,7 +999,6 @@ class MasterManifest:
             lines.append(f"    {p}")
         lines.append("=" * 72)
         return "\n".join(lines)
-
 
 def generate_master_5d_manifest() -> MasterManifest:
     """Generate the complete 5D manifest for all manuscript units.
@@ -1095,7 +1060,6 @@ def generate_master_5d_manifest() -> MasterManifest:
         total_tunnels=len(all_tunnels),
         total_stages=total_stages,
     )
-
 
 # =====================================================================
 # SECTION 10: MAIN EXECUTION

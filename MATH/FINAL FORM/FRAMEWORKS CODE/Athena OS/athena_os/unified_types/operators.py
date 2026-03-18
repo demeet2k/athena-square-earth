@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS — UNIFIED OPERATOR ALGEBRA
 ====================================
@@ -40,7 +44,6 @@ from .core import (
     ZResult, Constants, Operator, LambdaOperator, T, R
 )
 
-
 # =============================================================================
 # OPERATOR CATEGORIES
 # =============================================================================
@@ -72,7 +75,6 @@ class OperatorCategory(Enum):
     # Quantum (Superposition, Entanglement)
     QUANTUM = "quantum"
 
-
 class OperatorDomain(Enum):
     """Domains operators can act on."""
     
@@ -83,7 +85,6 @@ class OperatorDomain(Enum):
     FUNCTION = "function"    # Functions
     STATE = "state"          # State vectors
     CRYSTAL = "crystal"      # Crystal addresses
-
 
 # =============================================================================
 # BASE OPERATOR CLASS
@@ -161,7 +162,6 @@ class BaseOperator(ABC, Generic[T, R]):
             witness={"input": str(input_val)[:50], "output": str(output_val)[:50]}
         )
 
-
 @dataclass
 class ComposedOperator(BaseOperator):
     """Composition of two operators."""
@@ -181,7 +181,6 @@ class ComposedOperator(BaseOperator):
             return result
         return self.first.apply(result.value)
 
-
 @dataclass
 class AdjointOperator(BaseOperator):
     """Adjoint (inverse/dual) of an operator."""
@@ -198,7 +197,6 @@ class AdjointOperator(BaseOperator):
         # Subclasses should override for proper adjoint
         return ZResult.zero(f"Adjoint of {self.original.name} not implemented")
 
-
 @dataclass
 class IdentityOperator(BaseOperator):
     """Identity operator: I(x) = x."""
@@ -209,7 +207,6 @@ class IdentityOperator(BaseOperator):
     
     def apply(self, x: Any) -> ZResult:
         return ZResult.ok(x)
-
 
 # =============================================================================
 # ELEMENTAL OPERATORS
@@ -246,7 +243,6 @@ class ElementalOperator(BaseOperator):
         else:
             return ZResult.near(x, f"No elemental transform for {type(x)}")
 
-
 _ELEMENT_SYMBOLS = {
     Element.FIRE: "🜂",
     Element.AIR: "🜁",
@@ -271,7 +267,6 @@ _ELEMENT_PHASES = {
     Element.AETHER: math.pi / 4,        # 45° - synthesis
 }
 
-
 # =============================================================================
 # ALCHEMICAL OPERATORS (TRIA PRIMA)
 # =============================================================================
@@ -281,7 +276,6 @@ class TriaPrima(Enum):
     SULFUR = "sulfur"   # Soul, consciousness, expansion
     MERCURY = "mercury" # Spirit, transformation, mediation
     SALT = "salt"       # Body, fixation, crystallization
-
 
 @dataclass
 class AlchemicalOperator(BaseOperator):
@@ -326,13 +320,11 @@ class AlchemicalOperator(BaseOperator):
         
         return ZResult.near(x, f"No alchemical transform for {type(x)}")
 
-
 _TRIA_SYMBOLS = {
     TriaPrima.SULFUR: "🜍",
     TriaPrima.MERCURY: "☿",
     TriaPrima.SALT: "🜔",
 }
-
 
 # =============================================================================
 # LENS OPERATORS (MATHEMATICAL)
@@ -386,14 +378,12 @@ class LensOperator(BaseOperator):
         
         return ZResult.near(x, f"No lens transform for {type(x)}")
 
-
 _LENS_SYMBOLS = {
     Lens.SQUARE: "□",
     Lens.FLOWER: "✿",
     Lens.CLOUD: "☁",
     Lens.FRACTAL: "❄",
 }
-
 
 # =============================================================================
 # BIT4 OPERATORS (LOGICAL)
@@ -422,14 +412,12 @@ class B4Operator(BaseOperator):
             return ZResult.ok(self.op.apply(x))
         return ZResult.zero(f"B4Operator requires B4 input, got {type(x)}")
 
-
 _K4_SYMBOLS = {
     Klein4Op.I: "I",
     Klein4Op.R: "R",
     Klein4Op.S: "S",
     Klein4Op.C: "C",
 }
-
 
 # =============================================================================
 # CAUSAL OPERATORS (ARISTOTELIAN)
@@ -441,7 +429,6 @@ class Cause(Enum):
     FORMAL = "formal"       # What makes it what it is
     EFFICIENT = "efficient" # What brought it about
     FINAL = "final"         # What it's for
-
 
 @dataclass 
 class CausalOperator(BaseOperator):
@@ -492,14 +479,12 @@ class CausalOperator(BaseOperator):
         
         return ZResult.zero(f"No causal extraction for {self.cause}")
 
-
 _CAUSE_SYMBOLS = {
     Cause.MATERIAL: "ὕλη",
     Cause.FORMAL: "εἶδος",
     Cause.EFFICIENT: "κίνησις",
     Cause.FINAL: "τέλος",
 }
-
 
 # =============================================================================
 # OPERATOR ALGEBRA
@@ -588,7 +573,6 @@ class OperatorAlgebra:
         """Apply operators in parallel to tuple."""
         return ParallelOperator(list(operators))
 
-
 @dataclass
 class ParallelOperator(BaseOperator):
     """Apply multiple operators in parallel to a tuple."""
@@ -612,7 +596,6 @@ class ParallelOperator(BaseOperator):
             results.append(result.value)
         
         return ZResult.ok(tuple(results))
-
 
 # =============================================================================
 # TRADITION OPERATOR MAPPINGS
@@ -683,7 +666,6 @@ class TraditionOperators:
         tradition_map = mappings.get(tradition.lower(), {})
         return tradition_map.get(name)
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -714,7 +696,6 @@ __all__ = [
     # Algebra
     'OperatorAlgebra', 'TraditionOperators',
 ]
-
 
 # =============================================================================
 # VERIFICATION

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S17→Xi108:W2:A7:S19→Xi108:W1:A7:S18→Xi108:W3:A7:S18→Xi108:W2:A6:S18→Xi108:W2:A8:S18
+
 """
 ATHENA OS - Hierarchical Memory System
 ======================================
@@ -20,7 +24,6 @@ import hashlib
 import copy
 
 from .bit4 import BIT4, BIT4Word
-
 
 # =============================================================================
 # MEMORY LAYERS
@@ -52,7 +55,6 @@ class MemoryLayer(IntEnum):
             MemoryLayer.ACCIDENTAL: "Instance state, runtime variables",
             MemoryLayer.POTENTIAL: "Unactualized possibilities, futures"
         }[self]
-
 
 # =============================================================================
 # MEMORY CELL
@@ -165,7 +167,6 @@ class MemoryCell(Generic[T]):
         val_str = str(self.value)[:20] if self.value else "∅"
         return f"[{self.address:04x}]{lock_icon} {self.layer.name:10} = {val_str}"
 
-
 # =============================================================================
 # MEMORY SEGMENT
 # =============================================================================
@@ -233,7 +234,6 @@ class MemorySegment:
     def __str__(self) -> str:
         used, total = self.usage()
         return f"Segment[{self.name}] @ {self.base_address:04x}-{self.end_address:04x} ({self.layer.name}) {used}/{total}"
-
 
 # =============================================================================
 # MEMORY MANAGER
@@ -508,7 +508,6 @@ class MemoryManager:
             lines.append(f"  {seg.layer.name:10} {used:5}/{total:5} ({pct:5.1f}%)")
         return '\n'.join(lines)
 
-
 # =============================================================================
 # MEMORY OPERATIONS
 # =============================================================================
@@ -542,7 +541,6 @@ def copy_between_layers(mm: MemoryManager,
         return mm.allocate_potential("copy", value)
     
     return None
-
 
 # =============================================================================
 # VALIDATION
@@ -582,7 +580,6 @@ def validate_memory_hierarchy() -> bool:
     assert ema_addr is not None, "Emanation should work"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating memory hierarchy...")

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S27 | face=F | node=366 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S26→Xi108:W3:A5:S28→Xi108:W2:A5:S27→Xi108:W3:A4:S27→Xi108:W3:A6:S27 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 27±1, wreath 3/3, archetype 5/12 -->
+
 # SWARM WAVE 0 MANIFEST
 
 run_id: FUTURE-SKILL-SWARM-WAVE-0

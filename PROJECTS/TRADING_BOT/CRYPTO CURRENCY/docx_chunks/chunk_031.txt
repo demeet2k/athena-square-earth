@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A2:S13 | face=R | node=238 | depth=3 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A2:S12→Xi108:W3:A2:S14→Xi108:W2:A2:S13→Xi108:W3:A1:S13→Xi108:W3:A3:S13
+
 mit to:
 the exact pins used,
 the revocation receipts applied,

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=380 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import json
@@ -16,7 +20,6 @@ from zoneinfo import ZoneInfo
 from self_actualize.runtime.derive_qshrink_ap6d_full_corpus_integration import (
     ROOT_CLASSIFICATION,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -99,31 +102,25 @@ MAX_HEADING_NODES = 12
 MAX_SEGMENT_LINES = 200
 MAX_SEGMENT_PARAGRAPHS = 20
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
-
 
 def slugify(value: str) -> str:
     lowered = value.lower()
     lowered = re.sub(r"[^a-z0-9]+", "-", lowered)
     lowered = lowered.strip("-")
     return lowered or "unknown"
-
 
 def unique_list(values: list[str]) -> list[str]:
     ordered: list[str] = []
@@ -135,7 +132,6 @@ def unique_list(values: list[str]) -> list[str]:
         ordered.append(value)
     return ordered
 
-
 def parse_iso(value: str) -> datetime | None:
     if not value:
         return None
@@ -145,18 +141,15 @@ def parse_iso(value: str) -> datetime | None:
         return None
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
-
 def dt_to_utc_iso(dt: datetime | None) -> str:
     if dt is None:
         return ""
     return dt.astimezone(timezone.utc).isoformat()
 
-
 def dt_to_local_iso(dt: datetime | None) -> str:
     if dt is None:
         return ""
     return dt.astimezone(LOCAL_TZ).isoformat()
-
 
 def parse_docs_gate_status() -> dict[str, Any]:
     text = DOCS_GATE_PATH.read_text(encoding="utf-8", errors="ignore")
@@ -173,13 +166,11 @@ def parse_docs_gate_status() -> dict[str, Any]:
         "checked_at": utc_now(),
     }
 
-
 def split_archive_locator(locator: str) -> tuple[Path, str] | None:
     if "::" not in locator:
         return None
     outer, inner = locator.split("::", 1)
     return Path(outer), inner
-
 
 def file_stat_bundle(locator: str, fallback_modified_at: str) -> dict[str, Any]:
     parsed = split_archive_locator(locator)
@@ -217,7 +208,6 @@ def file_stat_bundle(locator: str, fallback_modified_at: str) -> dict[str, Any]:
         "utc_timestamp": dt_to_utc_iso(modified_dt),
     }
 
-
 def julian_date(dt: datetime) -> float:
     utc_dt = dt.astimezone(timezone.utc)
     year = utc_dt.year
@@ -238,10 +228,8 @@ def julian_date(dt: datetime) -> float:
         + hour / 24.0
     )
 
-
 def wrap_degrees(value: float) -> float:
     return value % 360.0
-
 
 def gmst_hours(jd: float) -> float:
     t = (jd - 2451545.0) / 36525.0
@@ -253,10 +241,8 @@ def gmst_hours(jd: float) -> float:
     )
     return wrap_degrees(gmst) / 15.0
 
-
 def sidereal_time_hours(jd: float, longitude_deg: float) -> float:
     return (gmst_hours(jd) + longitude_deg / 15.0) % 24.0
-
 
 def solar_longitude_deg(jd: float) -> float:
     n = jd - 2451545.0
@@ -264,7 +250,6 @@ def solar_longitude_deg(jd: float) -> float:
     g = wrap_degrees(357.528 + 0.9856003 * n)
     g_rad = math.radians(g)
     return wrap_degrees(l + 1.915 * math.sin(g_rad) + 0.020 * math.sin(2 * g_rad))
-
 
 def lunar_longitude_deg(jd: float) -> float:
     d = jd - 2451545.0
@@ -285,7 +270,6 @@ def lunar_longitude_deg(jd: float) -> float:
     )
     return wrap_degrees(longitude)
 
-
 ZODIAC_SIGNS = [
     "Aries",
     "Taurus",
@@ -301,7 +285,6 @@ ZODIAC_SIGNS = [
     "Pisces",
 ]
 
-
 def zodiac_position(longitude: float) -> dict[str, Any]:
     sign_index = int(longitude // 30) % 12
     degree = longitude % 30.0
@@ -309,7 +292,6 @@ def zodiac_position(longitude: float) -> dict[str, Any]:
         "sign": ZODIAC_SIGNS[sign_index],
         "degree": round(degree, 3),
     }
-
 
 def lunar_phase_name(phase_angle: float) -> str:
     if phase_angle < 22.5 or phase_angle >= 337.5:
@@ -327,7 +309,6 @@ def lunar_phase_name(phase_angle: float) -> str:
     if phase_angle < 292.5:
         return "Last Quarter"
     return "Waning Crescent"
-
 
 def astro_overlay(timestamp_iso: str) -> dict[str, Any]:
     dt = parse_iso(timestamp_iso)
@@ -362,7 +343,6 @@ def astro_overlay(timestamp_iso: str) -> dict[str, Any]:
         "precessional_frame": "tropical_structural",
     }
 
-
 def load_support_maps() -> dict[str, Any]:
     live_atlas = load_json(CORPUS_ATLAS_PATH)
     archive_atlas = load_json(ARCHIVE_ATLAS_PATH)
@@ -389,7 +369,6 @@ def load_support_maps() -> dict[str, Any]:
             row["record_id"]: row for row in awakening_stage.get("record_assignments", [])
         },
     }
-
 
 LAYER_REGISTRY = [
     {"layer_id": "L1", "name": "Metro", "description": "Discrete transfer-optimized routing graph."},
@@ -502,14 +481,12 @@ HIDDEN_CANDIDATES = [
     {"candidate_id": "C6", "name": "Frontier Liminal Distributor", "evidence_states": [222, 235, 247, 255], "adjacent_explicit_nodes": ["L0", "ZL", "A0", "MS"], "confidence": "low-medium", "disposition": "frontier"},
 ]
 
-
 def decode_byte(byte: int) -> tuple[int, int, int, int]:
     q0 = byte % 4
     q1 = (byte // 4) % 4
     q2 = (byte // 16) % 4
     q3 = (byte // 64) % 4
     return q0, q1, q2, q3
-
 
 def toroidal_neighbors(byte: int) -> list[int]:
     q = list(decode_byte(byte))
@@ -521,7 +498,6 @@ def toroidal_neighbors(byte: int) -> list[int]:
             neighbors.append(candidate[0] + 4 * candidate[1] + 16 * candidate[2] + 64 * candidate[3])
     return sorted(set(neighbors))
 
-
 def gate_score(entry: dict[str, Any], byte: int) -> float:
     q0, q1, q2, q3 = decode_byte(byte)
     hits = 0
@@ -531,10 +507,8 @@ def gate_score(entry: dict[str, Any], byte: int) -> float:
     hits += 1 if q3 in entry["q3"] else 0
     return hits / 4.0
 
-
 def active_route_ids(byte: int) -> list[str]:
     return [route_id for route_id, entry in ROUTE_GATE_BOOK.items() if gate_score(entry, byte) >= 0.5]
-
 
 def active_tunnel_ids(byte: int) -> list[str]:
     q0, q1, q2, q3 = decode_byte(byte)
@@ -553,7 +527,6 @@ def active_tunnel_ids(byte: int) -> list[str]:
         active.append("T-BC")
     return unique_list(active)
 
-
 def precision_class_for_record(record: dict[str, Any], stat_bundle: dict[str, Any]) -> str:
     if stat_bundle["timestamp_precision"] == "exact":
         return "exact"
@@ -562,7 +535,6 @@ def precision_class_for_record(record: dict[str, Any], stat_bundle: dict[str, An
     if record.get("modified_at"):
         return "near-exact"
     return "unresolved"
-
 
 def read_text_file(path: Path) -> str | None:
     try:
@@ -574,7 +546,6 @@ def read_text_file(path: Path) -> str | None:
             return None
     except OSError:
         return None
-
 
 def read_docx_paragraphs(path: Path) -> list[str]:
     paragraphs: list[str] = []
@@ -591,7 +562,6 @@ def read_docx_paragraphs(path: Path) -> list[str]:
         if joined:
             paragraphs.append(joined)
     return paragraphs
-
 
 def read_pdf_segments(path: Path) -> list[str]:
     for module_name in ("pypdf", "PyPDF2"):
@@ -610,7 +580,6 @@ def read_pdf_segments(path: Path) -> list[str]:
         except Exception:
             return []
     return []
-
 
 def heading_line_indices(lines: list[str], heading_candidates: list[str]) -> list[int]:
     candidates = [candidate.strip().lstrip("#").strip() for candidate in heading_candidates if candidate.strip()]
@@ -631,7 +600,6 @@ def heading_line_indices(lines: list[str], heading_candidates: list[str]) -> lis
         if len(indices) >= MAX_HEADING_NODES:
             break
     return sorted(set(indices))
-
 
 def infer_band(record: dict[str, Any]) -> str:
     rel = record.get("relative_path", "").lower()
@@ -657,7 +625,6 @@ def infer_band(record: dict[str, Any]) -> str:
         return "route_spec"
     return "document"
 
-
 def infer_source_type(record: dict[str, Any], atlas_record: dict[str, Any] | None) -> str:
     if atlas_record:
         evidence = atlas_record.get("evidence", {})
@@ -669,7 +636,6 @@ def infer_source_type(record: dict[str, Any], atlas_record: dict[str, Any] | Non
         return str(record["kind"])
     return "unknown"
 
-
 def infer_body_class(top_level: str) -> str:
     classification = ROOT_CLASSIFICATION.get(top_level)
     if classification:
@@ -678,7 +644,6 @@ def infer_body_class(top_level: str) -> str:
         return "Hidden Support Body"
     return "Auxiliary Body"
 
-
 def confidence_class(score: float) -> str:
     if score >= 0.8:
         return "high"
@@ -686,10 +651,8 @@ def confidence_class(score: float) -> str:
         return "medium"
     return "low"
 
-
 def scalar_bucket(value: float, buckets: int = 10) -> int:
     return max(0, min(buckets - 1, int(value * buckets)))
-
 
 def file_exists_and_small(locator: str) -> bool:
     parsed = split_archive_locator(locator)
@@ -697,7 +660,6 @@ def file_exists_and_small(locator: str) -> bool:
         return False
     path = Path(locator)
     return path.exists() and path.is_file() and path.stat().st_size <= EXACT_TEXT_SIZE_LIMIT
-
 
 def extract_node_segments(record: dict[str, Any]) -> list[dict[str, Any]]:
     node_segments: list[dict[str, Any]] = []
@@ -744,7 +706,6 @@ def extract_node_segments(record: dict[str, Any]) -> list[dict[str, Any]]:
             node_segments.append({"node_name": heading[:120], "node_class": "bounded_surrogate", "locator_type": "surrogate_index", "segment_index": index, "precision": "bounded"})
     return node_segments
 
-
 def dimensional_stratum_from_record(record: dict[str, Any], atlas_record: dict[str, Any] | None) -> str:
     bindings = (atlas_record or {}).get("dimensional_bindings", {})
     d6 = bindings.get("d6_overlay", {})
@@ -756,7 +717,6 @@ def dimensional_stratum_from_record(record: dict[str, Any], atlas_record: dict[s
     if bindings.get("d4_native", {}).get("active"):
         return "D1"
     return "D0"
-
 
 def zero_aether_polarity(record: dict[str, Any]) -> str:
     math_route = (record.get("hemisphere_routes") or {}).get("MATH", {})
@@ -777,7 +737,6 @@ def zero_aether_polarity(record: dict[str, Any]) -> str:
         return "Z+"
     return "balanced"
 
-
 def witness_state(record: dict[str, Any], governance_row: dict[str, Any] | None) -> str:
     route_packets = record.get("hemisphere_routes", {})
     proof_states = {
@@ -795,7 +754,6 @@ def witness_state(record: dict[str, Any], governance_row: dict[str, Any] | None)
     if "NEAR" in proof_states or "AMBIG" in proof_states:
         return "witness"
     return "none"
-
 
 def build_coordinate_standard(top_levels: list[str], families: list[str], bands: list[str], stages: list[str]) -> dict[str, Any]:
     macro_values = ["HSigma", "Document", "Node", "Route", "Nexus", "Tunnel", "ReadingRoute", *top_levels]
@@ -830,12 +788,10 @@ def build_coordinate_standard(top_levels: list[str], families: list[str], bands:
         "ordinal_tables": ordinal_tables,
     }
 
-
 def coordinate_for_entity(*, coordinate_standard: dict[str, Any], l0: str, l1: str, l2: str, l3: str, l4: int, l5: str, l6: str, l7: str, l8: str, l9: str, l10: str, l11: int) -> tuple[str, list[int]]:
     tables = coordinate_standard["ordinal_tables"]
     vector = [tables["L0"].get(l0, 0), tables["L1"].get(l1, 0), tables["L2"].get(l2, 0), tables["L3"].get(l3, 0), l4, tables["L5"].get(l5, 0), tables["L6"].get(l6, 0), tables["L7"].get(l7, 0), tables["L8"].get(l8, 0), tables["L9"].get(l9, 0), tables["L10"].get(l10, 0), l11]
     return "LM::" + "::".join(str(value) for value in vector), vector
-
 
 def build_hologram_back_pointer(*, entity_type: str, host_layers: list[str], incident_routes: list[str], dimensional_span: list[str], timing_rule: str, nearest_hubs: list[str], regeneration_links: list[str]) -> dict[str, Any]:
     return {
@@ -847,7 +803,6 @@ def build_hologram_back_pointer(*, entity_type: str, host_layers: list[str], inc
         "nearest_hubs": nearest_hubs,
         "regeneration_links": regeneration_links,
     }
-
 
 def liminal_time_bridge(*, utc_timestamp: str, precision_class: str, jd: float | None, orbit_phase_index: int, revision_depth: int, dimensional_stratum: str, route_recurrence_index: int, zero_aether_polarity: str) -> dict[str, Any]:
     lti = f"LTI::{orbit_phase_index:03d}::{revision_depth}::{dimensional_stratum}::{route_recurrence_index}::{zero_aether_polarity}"
@@ -863,7 +818,6 @@ def liminal_time_bridge(*, utc_timestamp: str, precision_class: str, jd: float |
         "route_recurrence_index": route_recurrence_index,
         "zero_aether_polarity": zero_aether_polarity,
     }
-
 
 def host_layers_for_record(record: dict[str, Any], governance_row: dict[str, Any] | None) -> list[str]:
     layers: list[str] = []
@@ -893,7 +847,6 @@ def host_layers_for_record(record: dict[str, Any], governance_row: dict[str, Any
         layers.append("SeedRegeneration")
     layers.append("Liminal")
     return unique_list(layers)
-
 
 def class_nexus_reach(byte: int, start_id: str) -> dict[str, Any]:
     active_routes = set(active_route_ids(byte))
@@ -941,7 +894,6 @@ def class_nexus_reach(byte: int, start_id: str) -> dict[str, Any]:
         "full_layers": full_layers,
         "depth2_layers": depth2_layers,
     }
-
 
 def build_hsigma_mindsweeper() -> dict[str, Any]:
     rows = sorted(NEXUS_CLASS_BOOK)
@@ -1039,7 +991,6 @@ def build_hsigma_mindsweeper() -> dict[str, Any]:
         "row_stats": row_stats,
         "cells": final_cells,
     }
-
 
 def build_document_records(support: dict[str, Any], coordinate_standard: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     documents: list[dict[str, Any]] = []
@@ -1196,7 +1147,6 @@ def build_document_records(support: dict[str, Any], coordinate_standard: dict[st
         document_record["child_nodes"] = child_node_ids
     return documents, nodes
 
-
 def build_instance_routes(documents: list[dict[str, Any]], support: dict[str, Any], coordinate_standard: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     routes: list[dict[str, Any]] = []
     tunnel_records: list[dict[str, Any]] = []
@@ -1275,7 +1225,6 @@ def build_instance_routes(documents: list[dict[str, Any]], support: dict[str, An
         routes.append({"route_id": f"CLASS-{route_id}", "route_name": gate["name"], "route_type": "class_route", "origin_node": "N-Z0", "destination_node": "N-SC", "intermediate_nodes": [], "route_coordinate": {"symbolic": route_symbolic, "vector": route_vector}, "dimensional_span": ["D3"] if route_id in {"R7", "R9", "R10"} else ["D0"], "route_length_class": "class", "shortest_path_status": False, "deepest_path_status": False, "local_time_span": [], "liminal_time_span": [], "astrological_time_span": [], "bridge_conditions": {"gate_book": route_id}, "replay_conditions": {}, "witness_conditions": {}, "proof_conditions": {}, "notes_on_use": f"HSigma class route family {route_id}"})
     return routes, tunnel_records, [{"station_id": station} for station in sorted(station_ids)]
 
-
 def build_nexus_records(documents: list[dict[str, Any]], routes: list[dict[str, Any]], station_rows: list[dict[str, Any]], coordinate_standard: dict[str, Any]) -> list[dict[str, Any]]:
     nexus_records: list[dict[str, Any]] = []
     route_by_dest = defaultdict(list)
@@ -1320,7 +1269,6 @@ def build_nexus_records(documents: list[dict[str, Any]], routes: list[dict[str, 
         nexus_records.append({"nexus_id": nexus_id, "nexus_name": row["station_id"], "exact_coordinate": {"symbolic": symbolic, "vector": vector}, "formation_timestamps": [], "incoming_routes": unique_list(route_by_dest[nexus_id]), "outgoing_routes": unique_list(route_by_origin[nexus_id]), "crossing_bands": [], "transfer_types": ["station"], "dimensional_role": "D1", "zero_aether_relation": "balanced", "priority": len(route_by_dest[nexus_id]), "traffic_density": len(route_by_dest[nexus_id]), "unresolved_conflicts": [], "structural_importance": "station", "evidence_basis": {}})
     return nexus_records
 
-
 def build_reading_routes(coordinate_standard: dict[str, Any]) -> list[dict[str, Any]]:
     specs = [
         ("READ-shortest-structural", "shortest structural route", ["N-MT", "N-MS", "N-NN"]),
@@ -1344,7 +1292,6 @@ def build_reading_routes(coordinate_standard: dict[str, Any]) -> list[dict[str, 
         symbolic, vector = coordinate_for_entity(coordinate_standard=coordinate_standard, l0="ReadingRoute", l1="hologram", l2="reading_route", l3="global", l4=index, l5="MULTI", l6="hub", l7="UNSPECIFIED", l8="D4" if "proof" in name or "regeneration" in name else "D1", l9="balanced", l10="proof" if "proof" in name else "witness", l11=index % 10)
         reading_routes.append({"route_id": route_id, "route_name": name, "origin_node": path[0], "destination_node": path[-1], "intermediate_nodes": path[1:-1], "route_coordinate": {"symbolic": symbolic, "vector": vector}, "notes": f"canonical reading route: {name}"})
     return reading_routes
-
 
 def build_hsigma_overlay(mindsweeper: dict[str, Any]) -> dict[str, Any]:
     visible_core = {
@@ -1402,7 +1349,6 @@ def build_hsigma_overlay(mindsweeper: dict[str, Any]) -> dict[str, Any]:
         },
     }
 
-
 def build_body_family_classification(documents: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "family_counts": dict(sorted(Counter(document["corpus_family"] for document in documents).items())),
@@ -1410,7 +1356,6 @@ def build_body_family_classification(documents: list[dict[str, Any]]) -> dict[st
         "source_type_counts": dict(sorted(Counter(document["source_type"] for document in documents).items())),
         "band_counts": dict(sorted(Counter(infer_band({"relative_path": document["relative_path"], "title": document["canonical_title"]}) for document in documents).items())),
     }
-
 
 def build_duplicate_and_mirror_annexes(support: dict[str, Any], documents: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     duplicates: list[dict[str, Any]] = []
@@ -1429,7 +1374,6 @@ def build_duplicate_and_mirror_annexes(support: dict[str, Any], documents: list[
         mirrors.append({"surface_id": row.get("surface_id", ""), "relative_path": row.get("relative_path", ""), "top_level": row.get("top_level", ""), "surface_role": row.get("surface_role", ""), "authority_class": row.get("authority_class", ""), "duplicate_group": row.get("duplicate_group", ""), "canonical_match_document_id": canonical_sha_to_doc.get(row.get("sha256", ""), ""), "reason": "present in raw QSHRINK atlas but not promoted into canonical authority layer"})
     return duplicates, mirrors
 
-
 def build_gap_register(support: dict[str, Any], documents: list[dict[str, Any]], mirrors: list[dict[str, Any]]) -> list[dict[str, Any]]:
     missing_local_addr = sum(1 for document in documents if not document["runtime_route_fields"]["local_addr"])
     missing_global_addr = sum(1 for document in documents if not document["runtime_route_fields"]["global_addr"])
@@ -1443,7 +1387,6 @@ def build_gap_register(support: dict[str, Any], documents: list[dict[str, Any]],
         {"gap_id": "GAP-mirror-overflow", "class": "mirror_pressure", "status": "present", "evidence": {"mirror_annex_count": len(mirrors), "raw_qshrink_record_count": len(support["raw_qshrink"].get("records", []))}, "impact": "raw mirror visibility preserved in annex without inflating canonical primary count"},
     ]
 
-
 def build_conflict_registry(documents: list[dict[str, Any]], duplicates: list[dict[str, Any]], gap_register: list[dict[str, Any]]) -> dict[str, Any]:
     alias_counter = Counter(document["canonical_title"] for document in documents)
     title_collisions = [{"canonical_title": title, "count": count} for title, count in alias_counter.items() if count > 1]
@@ -1455,7 +1398,6 @@ def build_conflict_registry(documents: list[dict[str, Any]], duplicates: list[di
         "unresolved_frontiers": ["proof anchors remain frontier until replay and witness closure stabilize", "mobius return hinges remain frontier until return geometry is witnessed", "seed placement and local zero-to-aether pairing remain partially bounded"],
         "gaps": gap_register,
     }
-
 
 def build_proof_registry(documents: list[dict[str, Any]], routes: list[dict[str, Any]]) -> dict[str, Any]:
     replay_documents = [document["document_id"] for document in documents if document["replay_role"] != "none"]
@@ -1476,12 +1418,10 @@ def build_proof_registry(documents: list[dict[str, Any]], routes: list[dict[str,
         "sample_proof_documents": proof_documents[:50],
     }
 
-
 def build_ledger_events(documents: list[dict[str, Any]], routes: list[dict[str, Any]], nexuses: list[dict[str, Any]], tunnels: list[dict[str, Any]]) -> list[dict[str, Any]]:
     now = utc_now()
     event_specs = [("A1", "Square", "survey canonical records"), ("A1", "Flower", "cluster families and aliases"), ("A1", "Cloud", "log visibility frontier and identity uncertainty"), ("A1", "Fractal", "compress census into ledger-ready organism map"), ("A2", "Square", "assign time bundles and exact filesystem evidence"), ("A2", "Flower", "bridge local time, UTC, and astro layers"), ("A2", "Cloud", "preserve bounded timestamp uncertainty"), ("A2", "Fractal", "emit liminal time bridge"), ("A3", "Square", "write document, node, route, nexus, and tunnel entries"), ("A3", "Flower", "weave upstream and downstream connectivity"), ("A3", "Cloud", "record unresolved route and tunnel pressure"), ("A3", "Fractal", "compile named reading routes and proof edges"), ("A4", "Square", "deduplicate canonical versus annex surfaces"), ("A4", "Flower", "compress topology into HSigma overlay"), ("A4", "Cloud", "retain unresolved frontiers without false promotion"), ("A4", "Fractal", "render final machine bundle and markdown companion")]
     return [{"event_id": f"LEDGER-EVENT-{index:03d}", "agent_id": agent_id, "crystal_face": face, "source_entities": {"document_count": len(documents), "route_count": len(routes), "nexus_count": len(nexuses), "tunnel_count": len(tunnels)}, "action_taken": action, "timestamp_bundle": {"utc_timestamp": now, "local_timestamp": dt_to_local_iso(parse_iso(now))}, "coordinate_bundle": {"macro": "HSigma", "resolution_band": "corpus"}, "reason": "Athenachka master ledger derivation", "effect_on_map": action, "effect_on_routes": "maintained", "effect_on_compression": "preserved distinctions while compressing annex pressure", "effect_on_clarity": "increased", "unresolved_followups": [], "confidence": "high"} for index, (agent_id, face, action) in enumerate(event_specs, start=1)]
-
 
 def build_timestamp_standard() -> dict[str, Any]:
     return {
@@ -1491,7 +1431,6 @@ def build_timestamp_standard() -> dict[str, Any]:
         "astro_policy": {"mode": "Core computed", "truth_policy": "structural calendar layer, not scientific proof", "source_path": str(ASTRO_SCHEDULER_PATH)},
     }
 
-
 def build_time_bridge_standard() -> dict[str, Any]:
     return {
         "function_name": "LiminalTimeIndex",
@@ -1499,14 +1438,12 @@ def build_time_bridge_standard() -> dict[str, Any]:
         "inputs": ["utc_timestamp", "local_timestamp", "precision_class", "julian_date", "sidereal_position", "corpus_orbit_phase", "revision_depth", "dimensional_stratum", "route_recurrence_index", "zero_aether_polarity"],
     }
 
-
 def build_data_model() -> dict[str, Any]:
     return {
         "record_classes": ["document_record", "node_record", "route_record", "nexus_record", "tunnel_record", "ledger_event_record"],
         "schema_notes": ["all primary entities carry liminal_coordinate_symbolic and liminal_coordinate_vector", "all primary entities carry hologram_back_pointer", "HSigma overlay is additive and does not replace instance-level truth"],
         "runtime_contract_sources": [str(TESSERACT_HEADER_SCHEMA_PATH), str(TCOORD_SCHEMA_PATH), str(ROUTE_PLAN_SCHEMA_PATH)],
     }
-
 
 def build_scope_section(support: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -1518,7 +1455,6 @@ def build_scope_section(support: dict[str, Any]) -> dict[str, Any]:
         "counts": {"live_atlas_record_count": support["live_atlas"]["record_count"], "archive_atlas_record_count": support["archive_atlas"]["record_count"], "authority_record_count": support["authority"]["record_count"], "route_coverage_record_count": support["route_coverage"]["record_count"], "route_coverage_route_count": support["route_coverage"]["route_count"], "legacy_witness_record_count": LEGACY_WITNESS_RECORD_COUNT, "raw_qshrink_record_count": len(support["raw_qshrink"].get("records", []))},
     }
 
-
 def build_agent_architecture() -> dict[str, Any]:
     return {
         "A1": {"name": "Surveyor and Synthesizer", "faces": ["Square", "Flower", "Cloud", "Fractal"], "resolution_bands": [1, 2, 3, 4, 5, 6]},
@@ -1527,14 +1463,12 @@ def build_agent_architecture() -> dict[str, Any]:
         "A4": {"name": "Pruner, Compressor, and Verifier", "faces": ["Square", "Flower", "Cloud", "Fractal"], "resolution_bands": [1, 2, 3, 4, 5, 6]},
     }
 
-
 def build_thesis() -> dict[str, Any]:
     return {
         "thesis": "The current lawful snapshot is instance-primary and class-exhaustive in overlay.",
         "hologram_equation": "HSigma = visible instance ledger + class overlay + frontier preservation + regeneration-safe compression",
         "anti_hallucination_law": "unseen local attachments remain frontier and are never promoted without evidence",
     }
-
 
 def markdown_table(headers: list[str], rows: list[list[Any]]) -> str:
     def clean(value: Any) -> str:
@@ -1545,7 +1479,6 @@ def markdown_table(headers: list[str], rows: list[list[Any]]) -> str:
     divider_line = "| " + " | ".join(["---"] * len(headers)) + " |"
     row_lines = ["| " + " | ".join(clean(value) for value in row) + " |" for row in rows]
     return "\n".join([header_line, divider_line, *row_lines])
-
 
 def render_markdown(bundle: dict[str, Any]) -> str:
     documents = bundle["documents"]
@@ -1560,7 +1493,6 @@ def render_markdown(bundle: dict[str, Any]) -> str:
     verification = bundle["verification"]
     lines = ["# ATHENACHKA MASTER LEDGER", "", "PART I - MASTER LEDGER THESIS", "", bundle["thesis"]["thesis"], "", f"Hologram equation: `{bundle['thesis']['hologram_equation']}`", "", "PART II - CORPUS INGESTION AND SCOPE BOUNDARY", "", markdown_table(["Field", "Value"], [["Docs gate", bundle["scope"]["docs_gate_status"]], ["Scope policy", bundle["scope"]["scope_policy"]], ["Live atlas", bundle["scope"]["counts"]["live_atlas_record_count"]], ["Archive atlas", bundle["scope"]["counts"]["archive_atlas_record_count"]], ["Authority records", bundle["scope"]["counts"]["authority_record_count"]], ["Legacy witness count", bundle["scope"]["counts"]["legacy_witness_record_count"]]]), "", bundle["scope"]["scope_correction"], "", "PART III - FOUR-AGENT NESTED CRYSTAL ARCHITECTURE", "", markdown_table(["Agent", "Name", "Faces", "Bands"], [[agent_id, entry["name"], ", ".join(entry["faces"]), ", ".join(str(item) for item in entry["resolution_bands"])] for agent_id, entry in bundle["agent_architecture"].items()]), "", "PART IV - LIMINAL COORDINATE STANDARD", "", markdown_table(["Axis", "Meaning"], [[item["axis"], item["name"]] for item in bundle["coordinate_standard"]["axes"]]), "", "PART V - CHRONO-TEMPORAL + ASTROLOGICAL TIMESTAMP STANDARD", "", markdown_table(["Field", "Value"], [["Timezone", bundle["timestamp_standard"]["local_timezone"]], ["Astro mode", bundle["timestamp_standard"]["astro_policy"]["mode"]], ["Truth policy", bundle["timestamp_standard"]["astro_policy"]["truth_policy"]], ["Docs gate", bundle["scope"]["docs_gate_status"]]]), "", "PART VI - LIMINAL TIME BRIDGE FUNCTION", "", f"`{bundle['time_bridge']['formula']}`", "", "PART VII - MASTER LEDGER DATA MODEL", "", markdown_table(["Record class"], [[item] for item in bundle["data_model"]["record_classes"]]), "", "PART VIII - TOTAL DOCUMENT CENSUS", "", markdown_table(["Metric", "Count"], [["Documents", len(documents)], ["Nodes", len(bundle["nodes"])], ["Routes", len(routes)], ["Nexuses", len(nexuses)], ["Tunnels", len(tunnels)]]), "", markdown_table(["Document ID", "Path", "Family", "Body class", "Precision"], [[doc["document_id"], doc["relative_path"], doc["corpus_family"], doc["body_class"], doc["timestamp_precision"]] for doc in documents[:250]]), "", "Full document registry remains exhaustive in the JSON `documents` array.", "", "PART IX - TOTAL BODY / FAMILY CLASSIFICATION", "", markdown_table(["Family", "Count"], [[key, value] for key, value in body_class["family_counts"].items()]), "", markdown_table(["Body class", "Count"], [[key, value] for key, value in body_class["body_class_counts"].items()]), "", "PART X - TOTAL CHAPTER / APPENDIX / EMERGENT / REVERSE FIELD REGISTRY", "", markdown_table(["Band", "Count"], [[key, value] for key, value in body_class["band_counts"].items()]), "", "PART XI - TOTAL ROUTE REGISTRY", "", markdown_table(["Metric", "Count"], [["Instance routes", sum(1 for item in routes if item["route_type"] == "instance_route")], ["Class routes", sum(1 for item in routes if item["route_type"] == "class_route")], ["Reading routes", len(reading_routes)]]), "", markdown_table(["Route ID", "Type", "Origin", "Destination", "Length"], [[route["route_id"], route["route_type"], route["origin_node"], route["destination_node"], route["route_length_class"]] for route in routes[:250]]), "", "PART XII - TOTAL NEXUS / HUB / TRANSFER REGISTRY", "", markdown_table(["Nexus ID", "Name", "Importance", "Priority", "Traffic"], [[nexus["nexus_id"], nexus["nexus_name"], nexus["structural_importance"], nexus["priority"], nexus["traffic_density"]] for nexus in nexuses[:250]]), "", "PART XIII - TOTAL TUNNEL / BRIDGE / MOBIUS / RETURN REGISTRY", "", markdown_table(["Tunnel ID", "Type", "Entrance", "Exit", "Certainty"], [[tunnel["tunnel_id"], tunnel["tunnel_type"], tunnel["entrance_node"], tunnel["exit_node"], tunnel["certainty"]] for tunnel in tunnels[:250]]), "", "PART XIV - CANONICAL READING ROUTES", "", markdown_table(["Route ID", "Name", "Origin", "Destination", "Intermediates"], [[route["route_id"], route["route_name"], route["origin_node"], route["destination_node"], ", ".join(route["intermediate_nodes"])] for route in reading_routes]), "", "PART XV - ZERO-POINT / AETHER-POINT / DIMENSIONAL STRATUM MAP", "", markdown_table(["HSigma metric", "Value"], [["Layer families", hsigma["visible_core_manifest"]["layer_family_count"]], ["Route families", hsigma["visible_core_manifest"]["route_family_count"]], ["Seated nexus classes", hsigma["visible_core_manifest"]["seated_explicit_nexus_count"]], ["Frontier nexus classes", hsigma["visible_core_manifest"]["frontier_explicit_nexus_count"]], ["Inferred nexus classes", hsigma["visible_core_manifest"]["inferred_latent_nexus_count"]], ["Tunnel classes", hsigma["visible_core_manifest"]["tunnel_class_count"]], ["Timing states", hsigma["visible_core_manifest"]["timing_state_count"]], ["Mindsweeper cells", hsigma["visible_core_manifest"]["mindsweeper_cell_count"]]]), "", "PART XVI - WITNESS / REPLAY / PROOF-CARRYING REGISTRY", "", markdown_table(["Field", "Value"], [["Replay documents", proof["replay_document_count"]], ["Witness documents", proof["witness_document_count"]], ["Proof documents", proof["proof_document_count"]], ["Route proof states", json.dumps(proof["route_proof_distribution"], sort_keys=True)]]), "", "PART XVII - CONFLICTS / DUPLICATES / ALIASES / UNRESOLVED FRONTIERS", "", markdown_table(["Field", "Value"], [["Duplicate annex count", conflict["duplicate_count"]], ["Title collision count", conflict["title_collision_count"]], ["Gap count", len(conflict["gaps"])]]), "", "PART XVIII - COMPRESSED FINAL TOPOLOGY OF THE WHOLE ORGANISM", "", markdown_table(["Field", "Value"], [["Visibility mode", hsigma["compressed_save_state"]["visibility_mode"]], ["Explicit rows", len(hsigma["compressed_save_state"]["explicit_nexus_rows"])], ["Frontier rows", len(hsigma["compressed_save_state"]["frontier_nexus_rows"])], ["Inferred rows", len(hsigma["compressed_save_state"]["inferred_nexus_rows"])]]), "", "PART XIX - REGENERATION SEED OF THE FULL LEDGER", "", f"Seed string: `{hsigma['regeneration_seed']['seed_string']}`", "", markdown_table(["Step"], [[item] for item in hsigma["regeneration_seed"]["procedure"]]), "", "PART XX - FINAL INTERNAL INTEGRITY VERDICT", "", markdown_table(["Check", "Result"], [[key, value] for key, value in verification["checks"].items()]), "", f"Verdict: `{verification['verdict']}`", ""]
     return "\n".join(lines)
-
 
 def build_verification(bundle: dict[str, Any]) -> dict[str, Any]:
     documents = bundle["documents"]
@@ -1583,7 +1515,6 @@ def build_verification(bundle: dict[str, Any]) -> dict[str, Any]:
         "mirror_annex_not_promoted": all(row["relative_path"].lower() not in {doc["relative_path"].lower() for doc in documents} for row in bundle["mirror_annex"]),
     }
     return {"generated_at": utc_now(), "checks": checks, "verdict": "PASS" if all(checks.values()) else "NEAR"}
-
 
 def main() -> int:
     support = load_support_maps()
@@ -1648,7 +1579,6 @@ def main() -> int:
     print(f"Tunnels: {len(tunnels)}")
     print(f"Docs gate: {support['docs_gate']['status']}")
     return 0 if bundle["verification"]["verdict"] == "PASS" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

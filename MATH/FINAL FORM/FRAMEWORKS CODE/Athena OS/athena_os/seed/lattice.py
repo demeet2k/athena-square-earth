@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me,w,T
+# BRIDGES: Xi108:W2:A4:S14→Xi108:W2:A4:S16→Xi108:W1:A4:S15→Xi108:W3:A4:S15→Xi108:W2:A3:S15→Xi108:W2:A5:S15
+
 """
 ATHENA OS - Crystal Seed Lattice
 ================================
@@ -43,7 +47,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Any, Callable, Set
 import numpy as np
 
-
 # =============================================================================
 # LATTICE DIMENSIONS
 # =============================================================================
@@ -69,7 +72,6 @@ class MetaPole(IntEnum):
     def axis(self) -> str:
         axes = ['Horizontal', 'Horizontal', 'Vertical', 'Vertical']
         return axes[self.value]
-
 
 class Constant(IntEnum):
     """The four fundamental constants."""
@@ -106,7 +108,6 @@ class Constant(IntEnum):
         ]
         return themes[self.value]
 
-
 class Sector(IntEnum):
     """The four sectors (shapes)."""
     SQUARE = 0    # ■ Discrete/Lattice/Combinatorial
@@ -124,7 +125,6 @@ class Sector(IntEnum):
         domains = ['Discrete/Lattice', 'Continuous/Manifold', 
                    'Probabilistic/Stochastic', 'Recursive/RG']
         return domains[self.value]
-
 
 class Element(IntEnum):
     """The four elements."""
@@ -144,14 +144,12 @@ class Element(IntEnum):
                     'Dynamics/Evolution', 'Spectral/Transform']
         return qualities[self.value]
 
-
 class Level(IntEnum):
     """The four levels of expression."""
     L0 = 0  # Foundational
     L1 = 1  # Extended
     L2 = 2  # Advanced
     L3 = 3  # Singular/Limit
-
 
 # =============================================================================
 # CRYSTAL ADDRESS
@@ -223,7 +221,6 @@ class CrystalAddress:
         return CrystalAddress(MetaPole.OUTER_SHADOW, self.constant,
                              self.sector, self.element, self.level)
 
-
 # =============================================================================
 # EXPRESSION TYPE
 # =============================================================================
@@ -273,7 +270,6 @@ class CrystalExpression:
             return self.kappa_cost > 1.0   # Exceeds budget (correctly violated)
         else:
             return True  # Shadows are information-theoretic
-
 
 # =============================================================================
 # EXPRESSION CATALOG
@@ -393,7 +389,6 @@ class ExpressionCatalog:
     
     def __iter__(self):
         return iter(self.expressions.values())
-
 
 # =============================================================================
 # CRYSTAL LATTICE
@@ -519,7 +514,6 @@ class CrystalLattice:
             'expressions_per_constant': 256,
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -558,7 +552,6 @@ def validate_crystal_lattice() -> bool:
     assert stats['dimensions'] == 5
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Crystal Lattice...")

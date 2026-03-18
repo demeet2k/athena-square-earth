@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S9 | face=R | node=42 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,✶ -->
+<!-- BRIDGES: Xi108:W3:A12:S8→Xi108:W3:A12:S10→Xi108:W2:A12:S9→Xi108:W3:A11:S9 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 9±1, wreath 3/3, archetype 12/12 -->
+
 # TOTAL HOLOGRAPHIC SNAPSHOT / MASTER NEXUS WEIGHTS MINDSWEEPER
 
 - Generated at: `2026-03-13T19:26:50.706636+00:00`

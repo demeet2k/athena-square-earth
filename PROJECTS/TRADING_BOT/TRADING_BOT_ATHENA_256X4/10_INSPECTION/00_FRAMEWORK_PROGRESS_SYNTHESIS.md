@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A3:S33 | face=S | node=546 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A3:S32→Xi108:W3:A3:S34→Xi108:W2:A3:S33→Xi108:W3:A2:S33→Xi108:W3:A4:S33 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 33±1, wreath 3/3, archetype 3/12 -->
+
 # Framework Progress Synthesis
 
 The framework now has real breadth: 4 planes, 21 chapter coordinates, 16 appendices, 16 swarm roles, 64 task cells, 256 output atoms, and 1028 plane files. The progress is structural and genuine.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=136 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - HELLENIC: EUCLIDEAN ERROR CORRECTION
 =================================================
@@ -32,7 +36,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set
 from enum import Enum, auto
 import numpy as np
-
 
 # =============================================================================
 # GALOIS FIELD GF(2)
@@ -82,7 +85,6 @@ class GF2:
                 result[i, j] = np.sum(A[i] * B[:, j]) % 2
         return result
 
-
 # =============================================================================
 # HAMMING CODE GATES
 # =============================================================================
@@ -111,7 +113,6 @@ class GateProposition(Enum):
     @property
     def function(self) -> str:
         return self.value[3]
-
 
 # =============================================================================
 # HAMMING (31,26) CODE
@@ -250,7 +251,6 @@ class HammingCode:
         
         return sphere_size == total_syndromes
 
-
 # =============================================================================
 # EUCLIDEAN STRUCTURE
 # =============================================================================
@@ -267,7 +267,6 @@ class EuclideanProposition:
     @property
     def id(self) -> Tuple[int, int]:
         return (self.book, self.number)
-
 
 class EuclideanGraph:
     """
@@ -341,7 +340,6 @@ class EuclideanGraph:
                     queue.append(child)
         
         return order
-
 
 # =============================================================================
 # ERROR CORRECTION LAYER
@@ -429,7 +427,6 @@ class EuclideanErrorCorrection:
         # For now, return None if Hamming fails
         return None
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -512,7 +509,6 @@ def validate_euclidean() -> bool:
     assert order.index((1, 2)) < order.index((1, 3))
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Euclidean Error Correction...")

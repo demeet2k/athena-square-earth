@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A4:S27 | face=F | node=378 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S26→Xi108:W2:A4:S28→Xi108:W1:A4:S27→Xi108:W3:A4:S27→Xi108:W2:A3:S27→Xi108:W2:A5:S27
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -32,22 +35,17 @@ EXPECTED_QUEUE = "P3 ORGIN"
 EXPECTED_RESERVE = "Q45"
 EXPECTED_BLOCKED = "Q02"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
-
 def has_all(text: str, *needles: str) -> bool:
     return all(needle in text for needle in needles)
-
 
 def build_checks() -> dict[str, bool]:
     matrix = load_json(AGENT_MATRIX_PATH)
@@ -156,7 +154,6 @@ def build_checks() -> dict[str, bool]:
         "docs_gate_honest": (not credentials_path.exists()) and (not token_path.exists()),
     }
 
-
 def main() -> int:
     checks = build_checks()
     failed = [name for name, ok in checks.items() if not ok]
@@ -180,7 +177,6 @@ def main() -> int:
     print(f"Wrote {OUTPUT_PATH}")
     print(f"Truth: {payload['truth']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

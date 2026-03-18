@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=310 | depth=2 | phase=Mutable
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import sys
@@ -8,14 +12,12 @@ import pandas as pd
 from .config import AthenaBotConfig
 from .models import FractalState
 
-
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from time_fractal_engine import HolographicPhaseComputer, KernelEngine  # noqa: E402
 from trading_bot_signals import FractalScorer, RiskManager, SignalAggregator  # noqa: E402
-
 
 class FractalCore:
     def __init__(

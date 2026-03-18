@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A3:S36 | face=S | node=654 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A3:S35→Xi108:W2:A3:S36→Xi108:W3:A2:S36→Xi108:W3:A4:S36 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 36±1, wreath 3/3, archetype 3/12 -->
+
 # Live Body Modality Tensor
 
 Higher-dimensional routing requires more than body counts. The swarm must also know what kind of material dominates each body.

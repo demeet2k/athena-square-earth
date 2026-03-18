@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS — HOLOGRAPHIC METRO COORDINATES
 ==========================================
@@ -47,7 +51,6 @@ from ..unified_types import (
     HolographicAddress
 )
 
-
 # =============================================================================
 # METRO LINE DEFINITIONS
 # =============================================================================
@@ -77,7 +80,6 @@ class MetroLine(Enum):
     def domain(self) -> str:
         return self.value[2]
 
-
 # =============================================================================
 # PACKAGE COORDINATE DEFINITIONS
 # =============================================================================
@@ -104,7 +106,6 @@ class PackageCoordinate:
     def index(self) -> int:
         return self.holographic.index
 
-
 # =============================================================================
 # THE COMPLETE COORDINATE MAP
 # =============================================================================
@@ -125,7 +126,6 @@ def _q(c: str, s: str, e: str, l: int, p: str) -> QHCRegime:
     poles = {'Ae': QHCPole.AETHER, 'An': QHCPole.ANIMA,
              'In': QHCPole.INNER, 'Ou': QHCPole.OUTER}
     return QHCRegime(constants[c], shapes[s], elements[e], QHCLevel(l), poles[p])
-
 
 # =============================================================================
 # 🔴 RED LINE — CORE ARCHITECTURE
@@ -717,7 +717,6 @@ COSMIC_LINE_PACKAGES = [
     ),
 ]
 
-
 # =============================================================================
 # COMPLETE COORDINATE MAP
 # =============================================================================
@@ -737,7 +736,6 @@ ALL_PACKAGES: List[PackageCoordinate] = (
 
 PACKAGE_MAP: Dict[str, PackageCoordinate] = {p.name: p for p in ALL_PACKAGES}
 
-
 # =============================================================================
 # LOOKUP FUNCTIONS
 # =============================================================================
@@ -746,16 +744,13 @@ def get_package_coordinate(name: str) -> Optional[PackageCoordinate]:
     """Get coordinate for package by name."""
     return PACKAGE_MAP.get(name)
 
-
 def get_packages_by_metro(line: MetroLine) -> List[PackageCoordinate]:
     """Get all packages on a metro line."""
     return [p for p in ALL_PACKAGES if p.metro_line == line]
 
-
 def get_packages_by_lens(lens: Lens) -> List[PackageCoordinate]:
     """Get all packages using a lens."""
     return [p for p in ALL_PACKAGES if p.crystal.lens == lens]
-
 
 def get_package_at_index(index: int) -> Optional[PackageCoordinate]:
     """Find package nearest to holographic index."""
@@ -767,7 +762,6 @@ def get_package_at_index(index: int) -> Optional[PackageCoordinate]:
             min_dist = dist
             closest = p
     return closest
-
 
 # =============================================================================
 # VISUALIZATION
@@ -799,7 +793,6 @@ def print_metro_map() -> str:
     lines.append("╚" + "═" * 100 + "╝")
     return "\n".join(lines)
 
-
 def print_coordinate_table() -> str:
     """Generate compact coordinate table."""
     lines = []
@@ -811,7 +804,6 @@ def print_coordinate_table() -> str:
         lines.append(f"| {p.name:19} | {p.metro_line.emoji} | {crystal:7} | {p.regime.code:10} | {p.index:5} | {p.lines:5} |")
     
     return "\n".join(lines)
-
 
 # =============================================================================
 # EXPORTS
@@ -827,7 +819,6 @@ __all__ = [
     'get_package_coordinate', 'get_packages_by_metro', 'get_packages_by_lens',
     'get_package_at_index', 'print_metro_map', 'print_coordinate_table',
 ]
-
 
 # =============================================================================
 # MAIN

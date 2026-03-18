@@ -1,14 +1,16 @@
+# CRYSTAL: Xi108:W2:A1:S24 | face=C | node=294 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24
+
 from __future__ import annotations
 
 import numpy as np
 from scipy.special import softmax as scipy_softmax
 
-
 def fuse_experts(classifier_probs: np.ndarray, mdl_probs: np.ndarray) -> np.ndarray:
     """Product-of-experts style fusion."""
     fused = classifier_probs * mdl_probs
     return fused / (fused.sum() + 1e-10)
-
 
 def compute_hypothesis_quality(R: np.ndarray, mask: np.ndarray) -> float:
     """Edge-weighted hypothesis quality score."""
@@ -16,7 +18,6 @@ def compute_hypothesis_quality(R: np.ndarray, mask: np.ndarray) -> float:
 
     mag, _ = compute_gradients(R)
     return float((mag * mask).sum() / (mask.sum() + 1e-8))
-
 
 def collapse_hypotheses(results: list[dict[str, np.ndarray | float]]) -> tuple[int, np.ndarray, float]:
     """Amplitude collapse across hypothesis results."""

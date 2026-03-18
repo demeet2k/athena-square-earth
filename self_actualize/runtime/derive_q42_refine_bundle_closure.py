@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S29 | face=F | node=423 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S28→Xi108:W2:A12:S30→Xi108:W1:A12:S29→Xi108:W3:A12:S29→Xi108:W2:A11:S29
+
 from __future__ import annotations
 
 import json
@@ -33,7 +37,6 @@ from self_actualize.runtime.qshrink_refine_common import (
     write_json,
 )
 
-
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_q42_refine_bundle_closure"
 ACTIVE_LOCAL_SUBFRONT = PASS_IDS["fractal"]
 NEXT_HALL_SEED = None
@@ -47,15 +50,12 @@ REGISTRY_ROOT = MYCELIUM_ROOT / "registry"
 REGISTRY_DASHBOARD_PATH = REGISTRY_ROOT / "q42_refine_bundle_dashboard.json"
 REGISTRY_VERIFICATION_PATH = REGISTRY_ROOT / "q42_refine_bundle_verification.json"
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
-
 
 def replace_block(text: str, start_marker: str, end_marker: str, replacement: str) -> str:
     start = text.find(start_marker)
@@ -65,7 +65,6 @@ def replace_block(text: str, start_marker: str, end_marker: str, replacement: st
     if end == -1:
         raise ValueError(f"End marker not found after {start_marker}: {end_marker}")
     return text[:start] + replacement.rstrip() + "\n\n" + text[end:]
-
 
 def surface_markers(text: str) -> dict[str, bool]:
     lower_text = text.lower()
@@ -81,7 +80,6 @@ def surface_markers(text: str) -> dict[str, bool]:
         "qs64_25_raw": "QS64-25" in text,
         "qs64_25_guard": "do not invent qs64-25" in lower_text,
     }
-
 
 def collect_drift_baseline() -> dict:
     surfaces = {
@@ -128,7 +126,6 @@ def collect_drift_baseline() -> dict:
         "closed_bundle_sources": closed_bundle_sources,
         "summary": "The March 13, 2026 drift is real when some live surfaces still present QS64-21..23 as current or next while other generator-owned surfaces already present QS64-24 as the closed Hall-local bundle.",
     }
-
 
 def render_quest_board_q42() -> str:
     targets = [
@@ -190,7 +187,6 @@ def render_quest_board_q42() -> str:
         ]
     )
 
-
 def render_active_queue_q42() -> str:
     return "\n".join(
         [
@@ -229,7 +225,6 @@ def render_active_queue_q42() -> str:
         ]
     )
 
-
 def render_next_prompt() -> str:
     return "\n".join(
         [
@@ -258,7 +253,6 @@ def render_next_prompt() -> str:
             "",
         ]
     )
-
 
 def render_temple_state() -> str:
     return "\n".join(
@@ -354,7 +348,6 @@ def render_temple_state() -> str:
         ]
     )
 
-
 def render_receipt() -> str:
     return "\n".join(
         [
@@ -377,7 +370,6 @@ def render_receipt() -> str:
             "",
         ]
     )
-
 
 def build_dashboard(baseline: dict) -> dict:
     task_matrix = load_json(QSHRINK_AGENT_TASK_MATRIX_PATH, {})
@@ -426,7 +418,6 @@ def build_dashboard(baseline: dict) -> dict:
         "canonical_bundle_truth": canonical_bundle.get("truth", task_matrix.get("truth", "NEAR")),
     }
 
-
 def verify_text_surface(path: Path) -> dict:
     text = read_text(path)
     markers = surface_markers(text)
@@ -442,7 +433,6 @@ def verify_text_surface(path: Path) -> dict:
             and (not markers["qs64_25_raw"] or markers["qs64_25_guard"])
         ),
     }
-
 
 def build_verification() -> dict:
     task_matrix = load_json(QSHRINK_AGENT_TASK_MATRIX_PATH, {})
@@ -490,7 +480,6 @@ def build_verification() -> dict:
         },
     }
 
-
 def prepend_change_feed_entry(text: str, entry: str) -> str:
     match = re.search(r"^\s*(\d+)\.\s", text, re.M)
     next_number = int(match.group(1)) + 1 if match else 1
@@ -501,7 +490,6 @@ def prepend_change_feed_entry(text: str, entry: str) -> str:
     if marker not in text:
         raise ValueError("Change feed marker not found")
     return text.replace(marker, marker + block, 1)
-
 
 def prepend_requests_this_pass(text: str, entry: str) -> str:
     section_split = text.split("## This Pass\n\n", 1)
@@ -514,7 +502,6 @@ def prepend_requests_this_pass(text: str, entry: str) -> str:
     if line in tail:
         return text
     return head + "## This Pass\n\n" + line + tail
-
 
 def main() -> int:
     baseline = collect_drift_baseline()
@@ -580,7 +567,6 @@ def main() -> int:
     print(f"Wrote {DASHBOARD_PATH}")
     print(f"Wrote {VERIFICATION_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

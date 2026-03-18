@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S24 | face=R | node=282 | depth=3 | phase=Cardinal -->
+<!-- METRO: Ac,Me -->
+<!-- BRIDGES: Xi108:W3:A7:S23→Xi108:W3:A7:S25→Xi108:W2:A7:S24→Xi108:W3:A6:S24→Xi108:W3:A8:S24 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 24±1, wreath 3/3, archetype 7/12 -->
+
 # NEURON_hybrid_cube_to_archetype_runtime
 
 ## NodeID

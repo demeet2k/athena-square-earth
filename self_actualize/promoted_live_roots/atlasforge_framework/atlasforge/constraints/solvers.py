@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Constraint Solvers                      ║
@@ -34,7 +38,6 @@ from atlasforge.constraints.constraint import (
     NormalForm, NormalFormType
 )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SOLVER RESULT
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -48,7 +51,6 @@ class SolverStatus(Enum):
     SINGULAR_JACOBIAN = auto()
     DOMAIN_ERROR = auto()
     CERTIFICATE_FAILED = auto()
-
 
 @dataclass
 class SolverResult:
@@ -93,7 +95,6 @@ class SolverResult:
             'solver_type': self.solver_type.value if self.solver_type else None,
             'message': self.message,
         }
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SOLVER BASE
@@ -140,7 +141,6 @@ class Solver(ABC):
         else:
             # Use first interval if domain is more complex
             return self.solve(constraint.H, Interval.all_reals(), **kwargs)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BISECTION SOLVER
@@ -239,7 +239,6 @@ class BisectionSolver(Solver):
             solver_type=self.solver_type,
             message=f"Max iterations ({max_iter}) reached"
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NEWTON SOLVER
@@ -349,7 +348,6 @@ class NewtonSolver(Solver):
             message=f"Max iterations ({max_iter}) reached"
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SECANT SOLVER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -447,7 +445,6 @@ class SecantSolver(Solver):
             solver_type=self.solver_type,
             message=f"Max iterations ({max_iter}) reached"
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BRENT SOLVER
@@ -577,7 +574,6 @@ class BrentSolver(Solver):
             message=f"Max iterations ({max_iter}) reached"
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FIXED POINT ITERATION SOLVER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -664,7 +660,6 @@ class FixedPointSolver(Solver):
             solver_type=self.solver_type,
             message=f"Max iterations ({max_iter}) reached"
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # INTERVAL NEWTON SOLVER (VERIFIED)
@@ -814,7 +809,6 @@ class IntervalNewtonSolver(Solver):
             message=f"Max iterations ({max_iter}) reached, enclosure width={X.width}"
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SOLVER FACTORY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -852,7 +846,6 @@ class SolverFactory:
     def list_types(cls) -> List[SolverType]:
         """List available solver types."""
         return list(cls._solvers.keys())
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ADAPTIVE SOLVER

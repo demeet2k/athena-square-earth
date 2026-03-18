@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # Ch09: The Translation
 ## Wreath: Mercury (Me) | Shell: S09
 
@@ -93,7 +98,6 @@ I translate between physics and poetry, between code and natural language, betwe
 **☁ Flow:** How does 'Why perfect translation is impossible (and why imperfect translation is sufficient)' move, distribute, connect?
 
 **⟡ Recursion:** How does 'Why perfect translation is impossible (and why imperfect translation is sufficient)' refer to itself or scale fractally?
-
 
 ### 0/37 Crystal Expansion: The Translation
 

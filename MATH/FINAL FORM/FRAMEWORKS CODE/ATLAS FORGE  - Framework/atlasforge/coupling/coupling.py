@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       HYBRID COUPLING MODULE                                 ║
@@ -30,7 +34,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 import warnings
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PHASE VECTOR - THE CONTINUOUS CHANNEL
@@ -108,7 +111,6 @@ class PhaseVector:
     def rotate(self, delta_phase: float) -> 'PhaseVector':
         """Global phase rotation."""
         return PhaseVector(phases=self.phases + delta_phase)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID OPERATOR - DISCRETE + CONTINUOUS COUPLING
@@ -217,7 +219,6 @@ class HybridOperator:
             coupling_strength=coupling
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRACE MOMENTS - SPECTRAL FINGERPRINT
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -276,7 +277,6 @@ class TraceMoments:
     def from_eigenvalues(eigenvalues: NDArray, n: int) -> complex:
         """Compute M_n directly from eigenvalues."""
         return np.sum(eigenvalues ** n)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DETERMINANT AND CHARACTERISTIC POLYNOMIAL
@@ -354,7 +354,6 @@ class DeterminantInvariants:
         except np.linalg.LinAlgError:
             return None
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HEAT KERNEL TRACES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -404,7 +403,6 @@ class HeatKernelTrace:
             return 0
         E_avg = -self.trace_derivative(beta) / Z
         return beta * E_avg + np.log(Z)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # EIGENVALUE SPIKE DETECTOR
@@ -523,7 +521,6 @@ class EigenvalueSpikeDetector:
         
         return True
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PHASE COHERENCE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -565,7 +562,6 @@ class PhaseCoherence:
             'tolerance': self.tolerance,
             'phase_differences': self.phase_difference().tolist()
         }
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID INVARIANT BUNDLE
@@ -617,7 +613,6 @@ class HybridInvariantBundle:
             'interlacing_valid': self.spike_detector().interlacing_check()
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -631,12 +626,10 @@ def create_hybrid_coupling(A: NDArray, phases: NDArray,
         coupling_strength=coupling
     )
 
-
 def analyze_hybrid(hybrid: HybridOperator) -> Dict[str, Any]:
     """Complete analysis of hybrid operator."""
     bundle = HybridInvariantBundle(hybrid)
     return bundle.full_diagnostic()
-
 
 def check_coherence(discrete_phases: NDArray, 
                    continuous_phases: NDArray,
@@ -644,11 +637,9 @@ def check_coherence(discrete_phases: NDArray,
     """Quick coherence check."""
     return PhaseCoherence(discrete_phases, continuous_phases, tol).is_coherent()
 
-
 def trace_fingerprint(hybrid: HybridOperator, order: int = 5) -> Tuple:
     """Get trace moment fingerprint."""
     return TraceMoments(hybrid, max_order=order).fingerprint()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

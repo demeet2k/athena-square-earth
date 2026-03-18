@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W3:A9:S15 | face=F | node=411 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A9:S14→Xi108:W3:A9:S16→Xi108:W2:A9:S15→Xi108:W3:A8:S15→Xi108:W3:A10:S15
+
 """Test that the MCP server registers all expected tools and resources."""
 
 import importlib.util
 import sys
 from pathlib import Path
-
 
 def _load_server():
     """Load the MCP server module without calling mcp.run()."""
@@ -13,7 +16,6 @@ def _load_server():
     mod.__name__ = "athena_mcp_server"  # prevent if __name__ == "__main__"
     spec.loader.exec_module(mod)
     return mod
-
 
 class TestRegistration:
     def setup_method(self):

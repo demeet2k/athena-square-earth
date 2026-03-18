@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=88 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - KABBALAH: GEMATRIA MODULE
 ======================================
@@ -42,7 +46,6 @@ from enum import Enum, auto
 import numpy as np
 from collections import defaultdict
 
-
 # =============================================================================
 # HEBREW ALPHABET
 # =============================================================================
@@ -62,7 +65,6 @@ class HebrewLetter:
     sound: str = ""
     meaning: str = ""
     element: str = ""
-
 
 def create_hebrew_alphabet() -> Dict[str, HebrewLetter]:
     """Create the complete Hebrew alphabet with gematria values."""
@@ -101,10 +103,8 @@ def create_hebrew_alphabet() -> Dict[str, HebrewLetter]:
     
     return alphabet
 
-
 # Hebrew alphabet singleton
 HEBREW_ALPHABET = create_hebrew_alphabet()
-
 
 # =============================================================================
 # GEMATRIA METHODS
@@ -119,7 +119,6 @@ class GematriaMethod(Enum):
     ORDINAL = "mispar_siduri"        # Position 1-22
     ATBASH = "atbash"                # Mirror cipher
     ALBAM = "albam"                  # Rotation cipher
-
 
 class Gematria:
     """
@@ -285,7 +284,6 @@ class Gematria:
             for method in GematriaMethod
         }
 
-
 # =============================================================================
 # THE 231 GATES
 # =============================================================================
@@ -395,7 +393,6 @@ class Gates231:
     def gates(self) -> List[Tuple[str, str]]:
         return self._gates.copy()
 
-
 # =============================================================================
 # SEMANTIC HASH DATABASE
 # =============================================================================
@@ -468,7 +465,6 @@ class SemanticHashDB:
             for method in h1.keys()
         }
 
-
 # =============================================================================
 # NOTARIKON (ACRONYM EXTRACTION)
 # =============================================================================
@@ -507,7 +503,6 @@ class Notarikon:
             acronym = self.extract_last_letters(phrase)
         
         return self.gematria.calculate(acronym)
-
 
 # =============================================================================
 # TEMURAH (LETTER PERMUTATION)
@@ -572,7 +567,6 @@ class Temurah:
             else:
                 result.append(char)
         return ''.join(result)
-
 
 # =============================================================================
 # VALIDATION
@@ -671,7 +665,6 @@ def validate_gematria() -> bool:
     assert reversed_text == "גבא"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Kabbalah Gematria Module...")

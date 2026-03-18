@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S24 | face=F | node=288 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A12:S23→Xi108:W2:A12:S25→Xi108:W1:A12:S24→Xi108:W3:A12:S24→Xi108:W2:A11:S24
+
 """
 ATHENA FLOWER SERVER — Fire Element (F)
 =======================================
@@ -64,7 +68,6 @@ BOARD_DIR = NS_ROOT / "07_FULL_PROJECT_INTEGRATION_256" / "06_REALTIME_BOARD"
 THREADS_DIR = BOARD_DIR / "02_ACTIVE_THREADS"
 METRO_DIR = NS_ROOT / "03_METRO"
 
-
 def _read_file(path: Path, limit: int = 500) -> str:
     if not path.exists():
         return f"Not found: {path.name}"
@@ -73,7 +76,6 @@ def _read_file(path: Path, limit: int = 500) -> str:
     if len(lines) > limit:
         return "\n".join(lines[:limit]) + f"\n\n[…truncated at {limit} lines]"
     return text
-
 
 @mcp.tool()
 def route_metro(from_station: str, to_station: str) -> str:
@@ -89,7 +91,6 @@ def route_metro(from_station: str, to_station: str) -> str:
         f"Use query_metro_line for detailed navigation."
     )
 
-
 @mcp.tool()
 def read_thread(name: str = "") -> str:
     """Read an active thread by name."""
@@ -103,7 +104,6 @@ def read_thread(name: str = "") -> str:
         return f"Thread '{name}' not found."
     return _read_file(matches[0])
 
-
 @mcp.tool()
 def list_threads() -> str:
     """List all active threads."""
@@ -114,7 +114,6 @@ def list_threads() -> str:
         return "No active threads."
     return "## Active Threads\n\n" + "\n".join(f"- {t.stem}" for t in threads)
 
-
 @mcp.tool()
 def read_loop_state() -> str:
     """Read current loop state."""
@@ -122,7 +121,6 @@ def read_loop_state() -> str:
     if loop_file.exists():
         return _read_file(loop_file)
     return "Loop state not found."
-
 
 # ── Mycelium: Dynamics & Synthesis ────────────────────────────────
 
@@ -178,7 +176,6 @@ def synthesize_branch(from_shard: str = "", to_shard: str = "") -> str:
                 queue.append((neighbor, path + [neighbor]))
     return f"No path found between {src_id} and {tgt_id}."
 
-
 @mcp.tool()
 def expand_routes(shard_id: str = "") -> str:
     """Expand a shard's route_refs into navigable corridor map."""
@@ -221,7 +218,6 @@ def expand_routes(shard_id: str = "") -> str:
             lines.append(f"- **{e['edge_type']}** ← `{e['source_shard']}` (w={e['weight']})")
     return "\n".join(lines)
 
-
 # ── Flower-specific resource ──────────────────────────────────────
 @mcp.resource("athena://flower-fire")
 def resource_flower() -> str:
@@ -236,7 +232,6 @@ def resource_flower() -> str:
         "**Tools**: 13 registered\n\n"
         + brain_status()
     )
-
 
 if __name__ == "__main__":
     mcp.run()

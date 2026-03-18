@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S29 | face=F | node=431 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S28→Xi108:W3:A9:S30→Xi108:W2:A9:S29→Xi108:W3:A8:S29→Xi108:W3:A10:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 9/12 -->
+
 # Ch11⟨0022⟩ — Quantum Spring: Emergent Symbiotic Agency
 
 **[Arc 3 | Rot 0 | Lane Me | omega = 10]**

@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 from __future__ import annotations
 
 import argparse
@@ -19,7 +23,6 @@ from nervous_system_core import (
     write_text,
 )
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent
 ACTIVE_ROOT = PROJECT_ROOT / "ACTIVE_NERVOUS_SYSTEM"
 NETWORK_ROOT = PROJECT_ROOT / "ACTIVE_NERVOUS_SYSTEM" / "13_DEEPER_NEURAL_NET"
@@ -27,10 +30,8 @@ RUNTIME_DIR = NETWORK_ROOT / "09_RUNTIME"
 QUERY_LAST_DIR = NETWORK_ROOT / "10_QUERY" / "last"
 DEFAULT_LIMIT = 10
 
-
 def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def network_paths() -> dict[str, Path]:
     return {
@@ -43,7 +44,6 @@ def network_paths() -> dict[str, Path]:
         "zero_point_index": RUNTIME_DIR / "06_zero_point_index.json",
     }
 
-
 def plan_runtime_paths() -> dict[str, Path]:
     paths = plan_paths(ACTIVE_ROOT)
     return {
@@ -53,7 +53,6 @@ def plan_runtime_paths() -> dict[str, Path]:
         "execution_tiers_markdown": paths["execution_tiers"],
         "dependency_routes_markdown": paths["dependency_routes"],
     }
-
 
 def relation_kind(src: dict, dst: dict) -> str:
     same_element = src["element"] == dst["element"]
@@ -66,11 +65,9 @@ def relation_kind(src: dict, dst: dict) -> str:
         return "cross_element_same_family"
     return "cross_element_cross_family"
 
-
 def canonical_pair_key(src_id: str, dst_id: str) -> str:
     ordered = sorted((src_id, dst_id))
     return f"{ordered[0]}::{ordered[1]}"
-
 
 def canonical_pair_card(pair: dict, docs_by_id: dict[str, dict]) -> dict:
     src_id, dst_id = sorted((pair["src"], pair["dst"]))
@@ -95,7 +92,6 @@ def canonical_pair_card(pair: dict, docs_by_id: dict[str, dict]) -> dict:
         "dst_display_name": presentation_name(dst["display_name"]),
     }
 
-
 def build_canonical_pair_map(pairs: list[dict], docs_by_id: dict[str, dict]) -> dict[str, dict]:
     canonical: dict[str, dict] = {}
     for pair in pairs:
@@ -106,7 +102,6 @@ def build_canonical_pair_map(pairs: list[dict], docs_by_id: dict[str, dict]) -> 
         if existing is None or pair["score"] > existing["score"]:
             canonical[key] = canonical_pair_card(pair, docs_by_id)
     return canonical
-
 
 def load_runtime() -> dict[str, object]:
     paths = network_paths()
@@ -132,7 +127,6 @@ def load_runtime() -> dict[str, object]:
         "canonical_pair_map": canonical_map,
     }
 
-
 def compact_doc_card(document: dict) -> dict:
     return {
         "id": document["id"],
@@ -148,18 +142,15 @@ def compact_doc_card(document: dict) -> dict:
         "relative_path": document["relative_path"],
     }
 
-
 def ambiguity_candidates(ids: list[str], docs_by_id: dict[str, dict]) -> list[dict]:
     ordered = sorted(ids, key=lambda item: (presentation_name(docs_by_id[item]["display_name"]), item))
     return [compact_doc_card(docs_by_id[item]) for item in ordered[:12]]
-
 
 def maybe_doc_id(value: str) -> str | None:
     match = re.fullmatch(r"doc(\d{1,4})", value.strip().lower())
     if not match:
         return None
     return f"DOC{int(match.group(1)):04d}"
-
 
 def resolve_document_ref(ref: str, runtime: dict[str, object]) -> dict:
     query_index = runtime["query_index"]
@@ -207,7 +198,6 @@ def resolve_document_ref(ref: str, runtime: dict[str, object]) -> dict:
 
     return {"status": "not_found", "candidates": []}
 
-
 def split_pair_sections(pairs: list[dict], limit: int) -> dict[str, list[dict]]:
     overall = pairs[:limit]
     cross_element = [pair for pair in pairs if pair["src_element"] != pair["dst_element"]][:limit]
@@ -218,14 +208,12 @@ def split_pair_sections(pairs: list[dict], limit: int) -> dict[str, list[dict]]:
         "cross_family": cross_family,
     }
 
-
 def pair_endpoint_label(pair: dict, side: str) -> str:
     label = pair[f"{side}_display_name"]
     other_side = "dst" if side == "src" else "src"
     if label == pair[f"{other_side}_display_name"]:
         return f"{label} [{pair[f'{side}_id']}]"
     return label
-
 
 def pair_label_disambiguators(pairs: list[dict]) -> dict[str, set[str]]:
     mapping: dict[str, set[str]] = {}
@@ -235,14 +223,12 @@ def pair_label_disambiguators(pairs: list[dict]) -> dict[str, set[str]]:
             mapping.setdefault(label, set()).add(pair[f"{side}_id"])
     return mapping
 
-
 def render_pair_endpoint_label(pair: dict, side: str, duplicate_labels: dict[str, set[str]]) -> str:
     label = pair_endpoint_label(pair, side)
     display_name = pair[f"{side}_display_name"]
     if len(duplicate_labels.get(display_name, set())) > 1:
         return f"{display_name} [{pair[f'{side}_id']}]"
     return label
-
 
 def build_doc_payload(ref: str, runtime: dict[str, object], limit: int) -> dict:
     resolved = resolve_document_ref(ref, runtime)
@@ -294,7 +280,6 @@ def build_doc_payload(ref: str, runtime: dict[str, object], limit: int) -> dict:
     }
     return payload
 
-
 def build_neighbors_payload(ref: str, mode: str, runtime: dict[str, object], limit: int) -> dict:
     payload = build_doc_payload(ref, runtime, limit)
     if payload["summary"]["status"] != "resolved":
@@ -328,7 +313,6 @@ def build_neighbors_payload(ref: str, mode: str, runtime: dict[str, object], lim
         "live_docs_blocked": payload["live_docs_blocked"],
         "manifest_refs": payload["manifest_refs"],
     }
-
 
 def build_pair_payload(src_ref: str, dst_ref: str, runtime: dict[str, object]) -> dict:
     src_resolved = resolve_document_ref(src_ref, runtime)
@@ -375,7 +359,6 @@ def build_pair_payload(src_ref: str, dst_ref: str, runtime: dict[str, object]) -
         "manifest_refs": {name: str(path) for name, path in runtime["paths"].items()},
     }
 
-
 def resolve_facet_value(facet: str, value: str, facet_entries: dict[str, list[str]]) -> str | None:
     if value in facet_entries:
         return value
@@ -387,7 +370,6 @@ def resolve_facet_value(facet: str, value: str, facet_entries: dict[str, list[st
         if normalize_lookup_text(entry) == normalized:
             return entry
     return None
-
 
 def build_slice_payload(facet: str, value: str, runtime: dict[str, object], limit: int) -> dict:
     facet_entries = runtime["facet_index"]["facets"][facet]
@@ -440,7 +422,6 @@ def build_slice_payload(facet: str, value: str, runtime: dict[str, object], limi
         "manifest_refs": {name: str(path) for name, path in runtime["paths"].items()},
     }
 
-
 def build_zero_point_payload(runtime: dict[str, object], limit: int) -> dict:
     routes = runtime["zero_point_index"]["routes"]
     sections = split_pair_sections(routes, limit)
@@ -469,7 +450,6 @@ def build_zero_point_payload(runtime: dict[str, object], limit: int) -> dict:
         "manifest_refs": {name: str(path) for name, path in runtime["paths"].items()},
     }
 
-
 def build_chapter_pack_payload(chapter_code: str, runtime: dict[str, object], limit: int) -> dict:
     build_root = PROJECT_ROOT / "_build"
     self_actualize_root = PROJECT_ROOT.parent / "self_actualize"
@@ -483,13 +463,11 @@ def build_chapter_pack_payload(chapter_code: str, runtime: dict[str, object], li
         limit=limit,
     )
 
-
 def load_plan_grid_payload() -> tuple[dict, dict[str, Path]]:
     paths = plan_runtime_paths()
     if not paths["plan_grid_json"].exists():
         raise FileNotFoundError(paths["plan_grid_json"])
     return load_json(paths["plan_grid_json"]), paths
-
 
 def filter_plan_cells(
     cells: list[dict],
@@ -511,13 +489,11 @@ def filter_plan_cells(
         filtered.append(cell)
     return filtered
 
-
 def build_filtered_execution_tiers(cells: list[dict]) -> dict[str, list[str]]:
     tiers = {"P0": [], "P1": [], "P2": [], "P3": []}
     for cell in cells:
         tiers.setdefault(cell["priority"], []).append(cell["cell_id"])
     return {tier: sorted(entries) for tier, entries in tiers.items() if entries}
-
 
 def build_plan_grid_payload(
     grid_name: str,
@@ -613,7 +589,6 @@ def build_plan_grid_payload(
         },
     }
 
-
 def render_pair_lines(pairs: list[dict]) -> list[str]:
     if not pairs:
         return ["- None"]
@@ -626,7 +601,6 @@ def render_pair_lines(pairs: list[dict]) -> list[str]:
             f"- `{render_pair_endpoint_label(pair, 'src', duplicate_labels)}` <-> `{render_pair_endpoint_label(pair, 'dst', duplicate_labels)}` score=`{pair_score}` kind=`{pair_kind}` shared_chapters=`{', '.join(pair['shared_chapters']) or 'none'}` shared_appendices=`{', '.join(pair['shared_appendices']) or 'none'}`"
         )
     return lines
-
 
 def render_markdown(payload: dict) -> str:
     lines = [
@@ -867,7 +841,6 @@ def render_markdown(payload: dict) -> str:
 
     return "\n".join(lines + ["No results."])
 
-
 def deterministic_output_stem(args: argparse.Namespace) -> str:
     if args.command == "doc":
         return f"doc_{slugify(args.ref)}"
@@ -893,13 +866,11 @@ def deterministic_output_stem(args: argparse.Namespace) -> str:
         return "_".join(parts)
     return f"zero_point_{args.limit}"
 
-
 def write_outputs(args: argparse.Namespace, payload: dict, markdown: str) -> None:
     stem = deterministic_output_stem(args)
     QUERY_LAST_DIR.mkdir(parents=True, exist_ok=True)
     write_text(QUERY_LAST_DIR / f"{stem}.md", markdown)
     write_json(QUERY_LAST_DIR / f"{stem}.json", payload)
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Query the deeper integrated neural net.")
@@ -969,7 +940,6 @@ def parse_args() -> argparse.Namespace:
                 break
     return args
 
-
 def main() -> int:
     args = parse_args()
     runtime = load_runtime()
@@ -1006,7 +976,6 @@ def main() -> int:
     else:
         sys.stdout.buffer.write((markdown + "\n").encode("utf-8"))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

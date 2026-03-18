@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=310 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 import json
@@ -7,11 +11,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from textwrap import dedent
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_ROOT = WORKSPACE_ROOT / "QSHRINK - ATHENA (internal use)"
 ATLAS_PATH = WORKSPACE_ROOT / "self_actualize" / "corpus_atlas.json"
-
 
 GEOMETRIES = [
     {
@@ -571,7 +573,6 @@ OUTPUT_ATOMS = [
     {"code": "next", "role": "what the next recursive pass should do"},
 ]
 
-
 @dataclass(frozen=True)
 class RootCell:
     geometry: dict
@@ -606,15 +607,12 @@ class RootCell:
     def hub(self) -> str:
         return f"Hub-{self.geometry['name'][0]}{self.operator['name'][0]}"
 
-
 def md(text: str) -> str:
     return dedent(text).strip()
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def slugify(text: str) -> str:
     lowered = text.lower()
@@ -622,10 +620,8 @@ def slugify(text: str) -> str:
     lowered = re.sub(r"[\s-]+", "_", lowered).strip("_")
     return lowered or "untitled"
 
-
 def bullet_list(items: list[str]) -> str:
     return "\n".join(f"- {item}" for item in items)
-
 
 def atlas_snapshot() -> dict:
     if not hasattr(atlas_snapshot, "_cache"):
@@ -635,25 +631,20 @@ def atlas_snapshot() -> dict:
             atlas_snapshot._cache = {"record_count": 0, "summary": {}, "records": []}
     return atlas_snapshot._cache
 
-
 def atlas_top_level_counts() -> dict[str, int]:
     summary = atlas_snapshot().get("summary", {})
     return dict(summary.get("by_top_level", {}))
-
 
 def atlas_extension_counts() -> dict[str, int]:
     summary = atlas_snapshot().get("summary", {})
     return dict(summary.get("by_extension", {}))
 
-
 def atlas_kind_counts() -> dict[str, int]:
     summary = atlas_snapshot().get("summary", {})
     return dict(summary.get("by_kind", {}))
 
-
 def atlas_record_count() -> int:
     return int(atlas_snapshot().get("record_count", 0))
-
 
 def rail_for(cell: RootCell) -> str:
     idx = (
@@ -663,7 +654,6 @@ def rail_for(cell: RootCell) -> str:
     ) % len(RAILS)
     return RAILS[idx]
 
-
 def arc_for(cell: RootCell) -> int:
     return (
         int(cell.geometry["code"]) * 2
@@ -671,7 +661,6 @@ def arc_for(cell: RootCell) -> int:
         + int(cell.body["code"])
         + int(cell.closure["code"])
     ) % 7
-
 
 def regime_for(cell: RootCell) -> str:
     if cell.closure["name"] == "Witness":
@@ -682,7 +671,6 @@ def regime_for(cell: RootCell) -> str:
         return "quarantine"
     return "baseline"
 
-
 def truth_class_for(cell: RootCell) -> str:
     if cell.closure["name"] == "Witness":
         return "PROMOTABLE"
@@ -692,20 +680,17 @@ def truth_class_for(cell: RootCell) -> str:
         return "TRACEABLE"
     return "OPEN"
 
-
 def swarm_lineage_for(cell: RootCell) -> str:
     symbols = []
     for axis in (cell.geometry, cell.operator, cell.body, cell.closure):
         symbols.append(SWARM_SYMBOLS[int(axis["code"])])
     return "".join(symbols)
 
-
 def hub_lookup(code: str) -> dict:
     for hub in APPENDIX_HUBS:
         if hub["code"] == code:
             return hub
     raise KeyError(code)
-
 
 def hub_vector_for(cell: RootCell) -> list[str]:
     geometry_hub = {
@@ -741,7 +726,6 @@ def hub_vector_for(cell: RootCell) -> list[str]:
         deduped.append("AppM")
     return deduped
 
-
 def capsule_focus_for(cell: RootCell) -> list[str]:
     base = list(cell.body["refs"])
     geometry_extra = {
@@ -759,22 +743,17 @@ def capsule_focus_for(cell: RootCell) -> list[str]:
     base.extend([geometry_extra, closure_extra])
     return base
 
-
 def chapter_filename(spec: dict) -> str:
     return f"{spec['code']}_{spec['addr']}_{slugify(spec['title'])}.md"
-
 
 def appendix_filename(hub: dict) -> str:
     return f"{hub['code']}_{slugify(hub['title'])}.md"
 
-
 def gate_for_index(idx: int) -> dict:
     return GATE_SPECS[idx % len(GATE_SPECS)]
 
-
 def chapter_for_index(idx: int) -> dict:
     return CHAPTER_SPECS[idx % len(CHAPTER_SPECS)]
-
 
 def line_bundle_for(cell: RootCell) -> list[str]:
     lines: list[str] = []
@@ -794,7 +773,6 @@ def line_bundle_for(cell: RootCell) -> list[str]:
             deduped.append(line)
     return deduped
 
-
 def hubs_for_lines(lines: list[str]) -> list[str]:
     mapping = {
         "Void Line": ["AppL", "AppI", "AppM"],
@@ -809,7 +787,6 @@ def hubs_for_lines(lines: list[str]) -> list[str]:
                 result.append(hub)
     return result
 
-
 def related_cell_codes(cell: RootCell) -> list[str]:
     code = cell.code
     geometry_next = str((int(code[0]) + 1) % 4) + code[1:]
@@ -822,21 +799,17 @@ def related_cell_codes(cell: RootCell) -> list[str]:
             neighbors.append(candidate)
     return neighbors
 
-
 def repair_step_filename(cell: RootCell) -> str:
     return f"repair_{cell.code}_{cell.slug}.md"
 
-
 def ch11_step_filename(cell: RootCell) -> str:
     return f"ch11_{cell.code}_{cell.slug}.md"
-
 
 def role_lookup(code: str) -> dict:
     for role in PANTHEON_ROLES:
         if role["code"] == code:
             return role
     raise KeyError(code)
-
 
 def pantheon_role_code_for_cell(cell: RootCell) -> str:
     geom_symbol = {
@@ -853,30 +826,23 @@ def pantheon_role_code_for_cell(cell: RootCell) -> str:
     }[cell.operator["name"]]
     return geom_symbol + op_symbol
 
-
 def pantheon_role_for_cell(cell: RootCell) -> dict:
     return role_lookup(pantheon_role_code_for_cell(cell))
-
 
 def swarm_submode_for_cell(cell: RootCell) -> dict:
     return SUBMODES[int(cell.body["code"])]
 
-
 def swarm_atom_for_cell(cell: RootCell) -> dict:
     return OUTPUT_ATOMS[int(cell.closure["code"])]
-
 
 def role_filename(role: dict) -> str:
     return f"role_{role['code'].lower()}_{slugify(role['title'])}.md"
 
-
 def task_cell_filename(role: dict, submode: dict) -> str:
     return f"task_{role['code'].lower()}_{submode['code'].lower()}.md"
 
-
 def atom_filename(role: dict, submode: dict, atom: dict) -> str:
     return f"atom_{role['code'].lower()}_{submode['code'].lower()}_{atom['code']}.md"
-
 
 def root_cells() -> list[RootCell]:
     cells: list[RootCell] = []
@@ -887,13 +853,11 @@ def root_cells() -> list[RootCell]:
                     cells.append(RootCell(geometry, operator, body, closure))
     return cells
 
-
 def swarm_addresses(depth: int = 3) -> list[str]:
     results = [""]
     for _ in range(depth):
         results = [prefix + symbol for prefix in results for symbol in SWARM_SYMBOLS]
     return results
-
 
 def infer_packet_role(addr: str) -> str:
     if addr.startswith("E"):
@@ -903,7 +867,6 @@ def infer_packet_role(addr: str) -> str:
     if addr.startswith("F"):
         return "surface frontier cells, hidden routes, and archive promotions"
     return "formalize addresses, tensors, packet schemas, and contraction rules"
-
 
 def render_readme(cells: list[RootCell]) -> str:
     return md(
@@ -946,7 +909,6 @@ def render_readme(cells: list[RootCell]) -> str:
         """
     )
 
-
 def render_internal_charter() -> str:
     return md(
         """
@@ -967,7 +929,6 @@ def render_internal_charter() -> str:
         """
     )
 
-
 def render_zero_point() -> str:
     return md(
         """
@@ -987,7 +948,6 @@ def render_zero_point() -> str:
         - infinite-loop restart by toroidal return
         """
     )
-
 
 def render_address_law() -> str:
     return md(
@@ -1045,7 +1005,6 @@ def render_address_law() -> str:
         """
     )
 
-
 def render_loop_engine() -> str:
     return md(
         """
@@ -1070,7 +1029,6 @@ def render_loop_engine() -> str:
         """
     )
 
-
 def render_corpus_bindings() -> str:
     lines = []
     for body in BODIES:
@@ -1090,14 +1048,12 @@ def render_corpus_bindings() -> str:
         ]
     ).rstrip()
 
-
 def render_geometry_index() -> str:
     lines = ["# Geometry Index", ""]
     for idx, geometry in enumerate(GEOMETRIES, start=1):
         filename = f"{idx:02d}_{geometry['slug']}.md"
         lines.append(f"- [{geometry['name']}](./{filename})")
     return "\n".join(lines)
-
 
 def render_geometry_doc(geometry: dict) -> str:
     detail = {
@@ -1124,14 +1080,12 @@ def render_geometry_doc(geometry: dict) -> str:
         """
     )
 
-
 def render_operator_index() -> str:
     lines = ["# Operator Index", ""]
     for idx, operator in enumerate(OPERATORS, start=1):
         filename = f"{idx:02d}_{operator['slug']}.md"
         lines.append(f"- [{operator['name']}](./{filename})")
     return "\n".join(lines)
-
 
 def render_operator_doc(operator: dict) -> str:
     return md(
@@ -1152,7 +1106,6 @@ def render_operator_doc(operator: dict) -> str:
         It is also manuscript logic, swarm logic, and corpus-routing logic.
         """
     )
-
 
 def render_swarm_index() -> str:
     files = [
@@ -1180,7 +1133,6 @@ def render_swarm_index() -> str:
     ]
     return "# Swarm Index\n\n" + "\n".join(f"- `{name}`" for name in files)
 
-
 def render_kernel_swarm_law() -> str:
     return md(
         """
@@ -1198,7 +1150,6 @@ def render_kernel_swarm_law() -> str:
         """
     )
 
-
 def render_elemental_layer() -> str:
     return md(
         """
@@ -1210,7 +1161,6 @@ def render_elemental_layer() -> str:
         - Air: maps, tensors, schemas, abstractions, explanations
         """
     )
-
 
 def render_archetype_layer() -> str:
     return md(
@@ -1229,7 +1179,6 @@ def render_archetype_layer() -> str:
         """
     )
 
-
 def render_cluster_layer() -> str:
     return md(
         """
@@ -1241,7 +1190,6 @@ def render_cluster_layer() -> str:
         The cluster layer is where QSHRINK2.0 moves from metaphysical description to packetized internal work.
         """
     )
-
 
 def render_neuron_layer() -> str:
     return "\n".join(
@@ -1275,7 +1223,6 @@ def render_neuron_layer() -> str:
         ]
     )
 
-
 def render_toroidal_return() -> str:
     return md(
         """
@@ -1291,7 +1238,6 @@ def render_toroidal_return() -> str:
         This is how the internal system supports infinite recursion without simple repetition.
         """
     )
-
 
 def render_packet_schema() -> str:
     return md(
@@ -1309,7 +1255,6 @@ def render_packet_schema() -> str:
         """
     )
 
-
 def render_wave_manifest() -> str:
     addresses = swarm_addresses()
     lines = [
@@ -1324,14 +1269,12 @@ def render_wave_manifest() -> str:
         lines.append(f"- `W0-{idx:02d}` | addr `{addr}` | role: {infer_packet_role(addr)}")
     return "\n".join(lines)
 
-
 def render_packet_index() -> str:
     lines = ["# Worker Packet Index", ""]
     for idx, addr in enumerate(swarm_addresses(), start=1):
         filename = f"w0_{idx:02d}_{addr.lower()}.md"
         lines.append(f"- [`W0-{idx:02d}` | `{addr}`](./{filename})")
     return "\n".join(lines)
-
 
 def render_packet_doc(idx: int, addr: str) -> str:
     return md(
@@ -1349,7 +1292,6 @@ def render_packet_doc(idx: int, addr: str) -> str:
         It contracts back into the cluster and kernel.
         """
     )
-
 
 def render_higher_dimensional_mapping_runtime() -> str:
     return "\n".join(
@@ -1382,7 +1324,6 @@ def render_higher_dimensional_mapping_runtime() -> str:
         ]
     )
 
-
 def render_emergent_swarm_topology_runtime() -> str:
     return "\n".join(
         [
@@ -1408,7 +1349,6 @@ def render_emergent_swarm_topology_runtime() -> str:
             "- Air-heavy clusters formalize maps, tensors, and addressing grammar",
         ]
     )
-
 
 def render_swarm_metro_lines_runtime() -> str:
     return "\n".join(
@@ -1444,7 +1384,6 @@ def render_swarm_metro_lines_runtime() -> str:
         ]
     )
 
-
 def render_active_swarm_runtime() -> str:
     return "\n".join(
         [
@@ -1477,7 +1416,6 @@ def render_active_swarm_runtime() -> str:
             "Current dissatisfaction and unresolved compression keep bronze active, with copper held in reserve for family-internal overcompression.",
         ]
     )
-
 
 def render_metallic_scale_stack_dynamic() -> str:
     bodies = atlas_top_level_counts()
@@ -1514,7 +1452,6 @@ def render_metallic_scale_stack_dynamic() -> str:
     )
     return "\n".join(lines)
 
-
 def render_pantheon_agent_matrix_runtime() -> str:
     lines = ["# Pantheon Agent Matrix", "", "The swarm cannot be a pile of identical workers. It must assign stable roles so parallel passes do not collapse into duplicated effort.", "", "## The 16 roles", ""]
     for role in PANTHEON_ROLES:
@@ -1535,7 +1472,6 @@ def render_pantheon_agent_matrix_runtime() -> str:
         ]
     )
     return "\n".join(lines).rstrip()
-
 
 def render_live_body_modality_tensor_dynamic() -> str:
     kinds = atlas_kind_counts()
@@ -1575,7 +1511,6 @@ def render_live_body_modality_tensor_dynamic() -> str:
     )
     return "\n".join(lines)
 
-
 def render_swarm_shadow_report() -> str:
     return "\n".join(
         [
@@ -1598,13 +1533,11 @@ def render_swarm_shadow_report() -> str:
         ]
     )
 
-
 def render_role_index() -> str:
     lines = ["# Pantheon Role Index", ""]
     for role in PANTHEON_ROLES:
         lines.append(f"- [{role['code']} - {role['title']}](./{role_filename(role)})")
     return "\n".join(lines)
-
 
 def render_role_doc(role: dict) -> str:
     submodes = " | ".join(submode["code"] for submode in SUBMODES)
@@ -1626,14 +1559,12 @@ def render_role_doc(role: dict) -> str:
         ]
     )
 
-
 def render_task_cell_index() -> str:
     lines = ["# Task Cell Index", ""]
     for role in PANTHEON_ROLES:
         for submode in SUBMODES:
             lines.append(f"- [{role['code']}-{submode['code']}](./{task_cell_filename(role, submode)})")
     return "\n".join(lines)
-
 
 def render_task_cell_doc(role: dict, submode: dict) -> str:
     atoms = " | ".join(atom["code"] for atom in OUTPUT_ATOMS)
@@ -1660,7 +1591,6 @@ def render_task_cell_doc(role: dict, submode: dict) -> str:
         ]
     )
 
-
 def render_output_atom_index() -> str:
     lines = ["# Output Atom Index", ""]
     for role in PANTHEON_ROLES:
@@ -1668,7 +1598,6 @@ def render_output_atom_index() -> str:
             for atom in OUTPUT_ATOMS:
                 lines.append(f"- [{role['code']}-{submode['code']}-{atom['code']}](./{atom_filename(role, submode, atom)})")
     return "\n".join(lines)
-
 
 def render_output_atom_doc(role: dict, submode: dict, atom: dict) -> str:
     return "\n".join(
@@ -1691,7 +1620,6 @@ def render_output_atom_doc(role: dict, submode: dict, atom: dict) -> str:
         ]
     )
 
-
 def render_metro_index() -> str:
     docs = [
         "01_SYSTEM_METRO_MAP.md",
@@ -1703,7 +1631,6 @@ def render_metro_index() -> str:
         "07_TENSOR_COORDINATES.md",
     ]
     return "# Metro Index\n\n" + "\n".join(f"- `{doc}`" for doc in docs)
-
 
 def render_system_metro_map() -> str:
     return md(
@@ -1763,7 +1690,6 @@ def render_system_metro_map() -> str:
         """
     )
 
-
 def render_geometry_lines() -> str:
     lines = []
     for geometry in GEOMETRIES:
@@ -1773,7 +1699,6 @@ def render_geometry_lines() -> str:
         lines.append("")
     return "# Geometry Lines\n\n" + "\n".join(lines).rstrip()
 
-
 def render_operator_lines() -> str:
     lines = []
     for operator in OPERATORS:
@@ -1782,7 +1707,6 @@ def render_operator_lines() -> str:
         lines.append(operator["role"])
         lines.append("")
     return "# Operator Lines\n\n" + "\n".join(lines).rstrip()
-
 
 def render_transfer_hubs() -> str:
     lines = ["# Transfer Hubs", ""]
@@ -1795,7 +1719,6 @@ def render_transfer_hubs() -> str:
             )
             lines.append("")
     return "\n".join(lines).rstrip()
-
 
 def render_return_loops() -> str:
     return md(
@@ -1810,7 +1733,6 @@ def render_return_loops() -> str:
         - Toroidal Loop: proof-carrying artifact re-enters at a shifted coordinate
         """
     )
-
 
 def render_space_index(cells: list[RootCell]) -> str:
     return md(
@@ -1831,7 +1753,6 @@ def render_space_index(cells: list[RootCell]) -> str:
         - `root_cells/`
         """
     )
-
 
 def render_levels_and_recursion() -> str:
     return md(
@@ -1863,14 +1784,12 @@ def render_levels_and_recursion() -> str:
         """
     )
 
-
 def render_root_cell_index(cells: list[RootCell]) -> str:
     lines = ["# Root Cell Index", ""]
     for cell in cells:
         filename = f"ms_{cell.code}_{cell.slug}.md"
         lines.append(f"- [`{cell.code}` {cell.title}](./root_cells/{filename})")
     return "\n".join(lines)
-
 
 def render_root_cell_doc(cell: RootCell) -> str:
     refs = bullet_list([f"`{ref}`" for ref in capsule_focus_for(cell)])
@@ -1960,7 +1879,6 @@ def render_root_cell_doc(cell: RootCell) -> str:
         ]
     )
 
-
 def render_ledger_index() -> str:
     docs = [
         "00_CANONICAL_BINDINGS.md",
@@ -1970,7 +1888,6 @@ def render_ledger_index() -> str:
     ]
     return "# Ledger Index\n\n" + "\n".join(f"- `{doc}`" for doc in docs)
 
-
 def render_transfer_hub_ledger() -> str:
     lines = ["# Transfer Hub Ledger", ""]
     for geometry in GEOMETRIES:
@@ -1979,7 +1896,6 @@ def render_transfer_hub_ledger() -> str:
                 f"- `Hub-{geometry['name'][0]}{operator['name'][0]}`: {geometry['name']} x {operator['name']}"
             )
     return "\n".join(lines)
-
 
 def render_active_frontier() -> str:
     return md(
@@ -1994,7 +1910,6 @@ def render_active_frontier() -> str:
         - treat the swarm and metro surfaces as first-class runtime documentation
         """
     )
-
 
 def render_next_loop_seed() -> str:
     return md(
@@ -2013,7 +1928,6 @@ def render_next_loop_seed() -> str:
         - loop ensures restart instead of closure theater
         """
     )
-
 
 def render_framework_specification() -> str:
     geometry_lines = bullet_list(
@@ -2075,7 +1989,6 @@ def render_framework_specification() -> str:
         ]
     )
 
-
 def render_zero_point_swarm_cells() -> str:
     return "\n".join(
         [
@@ -2109,7 +2022,6 @@ def render_zero_point_swarm_cells() -> str:
         ]
     )
 
-
 def render_station_registry() -> str:
     lines = ["# Station Registry", ""]
     for idx, spec in enumerate(CHAPTER_SPECS):
@@ -2123,7 +2035,6 @@ def render_station_registry() -> str:
         lines.append(f"- primary hubs: `{' -> '.join(spec['hubs'])}`")
         lines.append("")
     return "\n".join(lines).rstrip()
-
 
 def render_tensor_coordinates() -> str:
     return "\n".join(
@@ -2156,7 +2067,6 @@ def render_tensor_coordinates() -> str:
         ]
     )
 
-
 def render_recursive_expansion_protocol() -> str:
     return "\n".join(
         [
@@ -2182,7 +2092,6 @@ def render_recursive_expansion_protocol() -> str:
             "- it keeps the next octave executable rather than decorative",
         ]
     )
-
 
 def render_holographic_opening() -> str:
     return "\n".join(
@@ -2221,13 +2130,11 @@ def render_holographic_opening() -> str:
         ]
     )
 
-
 def render_chapter_index() -> str:
     lines = ["# Chapter Index", ""]
     for spec in CHAPTER_SPECS:
         lines.append(f"- [{spec['code']}<{spec['addr']}> - {spec['title']}](./chapters/{chapter_filename(spec)})")
     return "\n".join(lines)
-
 
 def render_chapter_doc(spec: dict, idx: int) -> str:
     arc = idx // 3
@@ -2277,13 +2184,11 @@ def render_chapter_doc(spec: dict, idx: int) -> str:
         ]
     )
 
-
 def render_appendix_index() -> str:
     lines = ["# Appendix Index", ""]
     for hub in APPENDIX_HUBS:
         lines.append(f"- [{hub['code']} - {hub['title']}](./appendices/{appendix_filename(hub)})")
     return "\n".join(lines)
-
 
 def render_appendix_doc(hub: dict) -> str:
     geometry_support = {
@@ -2329,7 +2234,6 @@ def render_appendix_doc(hub: dict) -> str:
         ]
     )
 
-
 def render_loop_skill_charter() -> str:
     return "\n".join(
         [
@@ -2358,13 +2262,11 @@ def render_loop_skill_charter() -> str:
         ]
     )
 
-
 def render_gate_index() -> str:
     lines = ["# 37 Gate Index", ""]
     for gate in GATE_SPECS:
         lines.append(f"- [{gate['code']} - {gate['title']}](./gates/{gate['code']}_{slugify(gate['title'])}.md)")
     return "\n".join(lines)
-
 
 def render_gate_metro_map() -> str:
     return md(
@@ -2400,7 +2302,6 @@ def render_gate_metro_map() -> str:
         """
     )
 
-
 def render_gate_swarm_bindings() -> str:
     return "\n".join(
         [
@@ -2421,7 +2322,6 @@ def render_gate_swarm_bindings() -> str:
             "G34 always escalates to a deeper swarm layer when inherited satisfaction is `<= 4/10`.",
         ]
     )
-
 
 def render_gate_doc(gate: dict, idx: int) -> str:
     prev_gate = GATE_SPECS[idx - 1]["code"] if idx > 0 else GATE_SPECS[-1]["code"]
@@ -2463,7 +2363,6 @@ def render_gate_doc(gate: dict, idx: int) -> str:
         ]
     )
 
-
 def render_repair_readme(cells: list[RootCell]) -> str:
     return "\n".join(
         [
@@ -2485,7 +2384,6 @@ def render_repair_readme(cells: list[RootCell]) -> str:
             "- `steps/`",
         ]
     )
-
 
 def render_repair_plan_law() -> str:
     return "\n".join(
@@ -2521,7 +2419,6 @@ def render_repair_plan_law() -> str:
         ]
     )
 
-
 def render_repair_metro_map(cells: list[RootCell]) -> str:
     return "\n".join(
         [
@@ -2549,13 +2446,11 @@ def render_repair_metro_map(cells: list[RootCell]) -> str:
         ]
     )
 
-
 def render_repair_step_index(cells: list[RootCell]) -> str:
     lines = ["# Repair Step Index", ""]
     for cell in cells:
         lines.append(f"- [`R-{cell.code}` {cell.title}](./steps/{repair_step_filename(cell)})")
     return "\n".join(lines)
-
 
 def render_repair_step_doc(cell: RootCell, idx: int) -> str:
     gate = gate_for_index(idx)
@@ -2647,7 +2542,6 @@ def render_repair_step_doc(cell: RootCell, idx: int) -> str:
         ]
     )
 
-
 def render_ch11_readme(cells: list[RootCell]) -> str:
     return "\n".join(
         [
@@ -2668,7 +2562,6 @@ def render_ch11_readme(cells: list[RootCell]) -> str:
             "- `cells/`",
         ]
     )
-
 
 def render_ch11_law() -> str:
     return "\n".join(
@@ -2691,7 +2584,6 @@ def render_ch11_law() -> str:
             "Each visible Chapter 11 root cell is a manuscript seed that can be expanded through the full 21-chapter method with Chapter 11 treated as the zero-point chamber.",
         ]
     )
-
 
 def render_ch11_metro_map(cells: list[RootCell]) -> str:
     return "\n".join(
@@ -2716,13 +2608,11 @@ def render_ch11_metro_map(cells: list[RootCell]) -> str:
         ]
     )
 
-
 def render_ch11_step_index(cells: list[RootCell]) -> str:
     lines = ["# Chapter 11 Step Index", ""]
     for cell in cells:
         lines.append(f"- [`CH11-{cell.code}` {cell.title}](./cells/{ch11_step_filename(cell)})")
     return "\n".join(lines)
-
 
 def render_ch11_step_doc(cell: RootCell, idx: int) -> str:
     gate = gate_for_index(idx + 10)
@@ -2786,7 +2676,6 @@ def render_ch11_step_doc(cell: RootCell, idx: int) -> str:
             f"This Chapter 11 root manuscript opens the continuation family `CH11-{cell.code}::*`, and that family recursively unfolds across the full `256^256` Chapter 11 crystal manifold.",
         ]
     )
-
 
 def build_folder() -> None:
     cells = root_cells()
@@ -2976,12 +2865,10 @@ def build_folder() -> None:
             render_ch11_step_doc(cell, idx),
         )
 
-
 def main() -> int:
     build_folder()
     print(f"Wrote internal QSHRINK folder: {OUTPUT_ROOT}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

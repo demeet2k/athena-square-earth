@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A7:S23 | face=R | node=238 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A7:S22→Xi108:W3:A7:S24→Xi108:W2:A7:S23→Xi108:W3:A6:S23→Xi108:W3:A8:S23
+
 from __future__ import annotations
 
 import tempfile
@@ -8,13 +12,11 @@ from self_actualize.runtime import command_membrane as cm
 from self_actualize.runtime import swarm_board
 from self_actualize.runtime.command_spine_adapter import CommandMembraneConfig
 
-
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     import json
 
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-
 
 def build_test_lattice() -> dict[str, object]:
     seats = []
@@ -49,7 +51,6 @@ def build_test_lattice() -> dict[str, object]:
             }
         )
     return {"seat_count": 1024, "seats": seats}
-
 
 class CommandMembraneFacadeTests(unittest.TestCase):
     def make_service(self):
@@ -132,7 +133,6 @@ class CommandMembraneFacadeTests(unittest.TestCase):
         self.assertTrue(
             any(edge.get("grade") in {"route", "capillary", "vein"} or edge.get("classification") in {"route", "capillary", "vein"} for edge in reinforce_payload["edges"])
         )
-
 
 if __name__ == "__main__":
     unittest.main()

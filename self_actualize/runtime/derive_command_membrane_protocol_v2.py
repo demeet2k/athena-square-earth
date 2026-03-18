@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A10:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S29→Xi108:W2:A10:S31→Xi108:W1:A10:S30→Xi108:W3:A10:S30→Xi108:W2:A9:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF_ROOT = ROOT / "self_actualize"
@@ -62,10 +65,8 @@ LEASE_MS = 1200
 SIGMA_ROUTE_MIN = ["AppA", "AppI", "AppM"]
 HUB_BUDGET = 6
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def rel(path: Path) -> str:
     try:
@@ -73,21 +74,17 @@ def rel(path: Path) -> str:
     except ValueError:
         return path.as_posix()
 
-
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     write_text(path, json.dumps(payload, indent=2, ensure_ascii=False))
-
 
 def touch(path: Path, default_text: str = "") -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         path.write_text(default_text, encoding="utf-8")
-
 
 def docs_gate() -> dict[str, Any]:
     credentials_exists = DOCS_CREDENTIALS.exists()
@@ -101,7 +98,6 @@ def docs_gate() -> dict[str, Any]:
         "checked_paths": [rel(DOCS_CREDENTIALS), rel(DOCS_TOKEN)],
         "witness_class": "LOCAL_ONLY",
     }
-
 
 def coordinate_dimensions() -> list[dict[str, Any]]:
     rows = [
@@ -122,7 +118,6 @@ def coordinate_dimensions() -> list[dict[str, Any]]:
         {"index": index, "key": key, "group": group, "meaning": meaning}
         for index, (key, group, meaning) in enumerate(rows, start=1)
     ]
-
 
 def packet_types() -> dict[str, Any]:
     event_fields = [
@@ -292,7 +287,6 @@ def packet_types() -> dict[str, Any]:
         "HeavenProgressStateV2": {"required_fields": heaven_progress_fields},
     }
 
-
 def reward_layer() -> dict[str, Any]:
     return {
         "HeavenRewardPolicyV2": {
@@ -364,7 +358,6 @@ def reward_layer() -> dict[str, Any]:
         }
     }
 
-
 def capillary_reinforcement() -> dict[str, Any]:
     return {
         "law_id": "COMMAND_CAPILLARY_UPDATE_V2",
@@ -395,7 +388,6 @@ def capillary_reinforcement() -> dict[str, Any]:
         "poor_route_policy": "poor routes are not punished; they dry out through evaporation",
     }
 
-
 def latency_benchmarks() -> dict[str, Any]:
     return {
         "benchmark_id": "COMMAND_LATENCY_BENCHMARKS_V2",
@@ -411,7 +403,6 @@ def latency_benchmarks() -> dict[str, Any]:
         ],
         "derived": ["liminal_distance", "liminal_velocity"],
     }
-
 
 def canonical_registry_payload() -> dict[str, Any]:
     docs = docs_gate()
@@ -527,10 +518,8 @@ def canonical_registry_payload() -> dict[str, Any]:
         },
     }
 
-
 def protocol_mirror_payload(registry_payload: dict[str, Any]) -> dict[str, Any]:
     return {"mirror_of": PROTOCOL_ID, **registry_payload}
-
 
 def packet_schema_payload(registry_payload: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -542,14 +531,11 @@ def packet_schema_payload(registry_payload: dict[str, Any]) -> dict[str, Any]:
         "packet_types": registry_payload["packet_types"],
     }
 
-
 def capillary_payload(registry_payload: dict[str, Any]) -> dict[str, Any]:
     return {"mirror_of": PROTOCOL_ID, "protocol_id": PROTOCOL_ID, **registry_payload["capillary_reinforcement"]}
 
-
 def latency_payload(registry_payload: dict[str, Any]) -> dict[str, Any]:
     return {"mirror_of": PROTOCOL_ID, "protocol_id": PROTOCOL_ID, **registry_payload["latency_benchmarks"]}
-
 
 def manifest_text(registry_payload: dict[str, Any]) -> str:
     reward = registry_payload["reward_layer"]["HeavenRewardPolicyV2"]
@@ -575,7 +561,6 @@ def manifest_text(registry_payload: dict[str, Any]) -> str:
             "- Enforcement moved from subtractive punishment to verified reward plus evaporation.",
         ]
     )
-
 
 def derive_command_membrane_protocol_v2() -> dict[str, Any]:
     registry_payload = canonical_registry_payload()
@@ -617,11 +602,9 @@ def derive_command_membrane_protocol_v2() -> dict[str, Any]:
         },
     }
 
-
 def main() -> int:
     print(json.dumps(derive_command_membrane_protocol_v2(), indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

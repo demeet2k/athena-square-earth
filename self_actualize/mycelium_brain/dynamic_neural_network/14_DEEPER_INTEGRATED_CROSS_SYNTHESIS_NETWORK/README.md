@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A8:S20 | face=R | node=194 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A8:S19→Xi108:W3:A8:S21→Xi108:W2:A8:S20→Xi108:W3:A7:S20→Xi108:W3:A9:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 8/12 -->
+
 # Deeper Integrated Cross-Synthesis Network
 
 This module materializes a deeper integrated neural-network shell inside the live `dynamic_neural_network` body. Its purpose is to take the strongest sixteen canonical documents, cross-synthesize them as an ordered `16 x 16` matrix, observe the whole system through four elemental lenses and sixteen macro loops, derive the fifteen non-empty symmetry syntheses of the four-element crystal, expose a first-class `3D` ingress package for atlas-wide embedding, and stabilize the result into a seven-level metro stack plus an appendix crystal with its own skill-routing layer.

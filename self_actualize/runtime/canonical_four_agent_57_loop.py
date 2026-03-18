@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=318 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 import json
@@ -166,31 +170,24 @@ COMMAND_MARKER_PAIRS = [
     ("<!-- COMMAND_MEMBRANE_NEXT_PROMPT:START -->", "<!-- COMMAND_MEMBRANE_NEXT_PROMPT:END -->"),
 ]
 
-
 def now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
-
 def text(path: Path) -> str:
     return path.read_text(encoding="utf-8-sig") if path.exists() else ""
-
 
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def dump(path: Path, payload: dict[str, Any]) -> None:
     write(path, json.dumps(payload, indent=2))
 
-
 def dump_nd(path: Path, rows: list[dict[str, Any]]) -> None:
     write(path, "\n".join(json.dumps(row, sort_keys=True) for row in rows))
-
 
 def patch(text_in: str, marker: str, body: str) -> str:
     start = f"<!-- {marker}:START -->"
@@ -199,10 +196,8 @@ def patch(text_in: str, marker: str, body: str) -> str:
     pat = re.compile(re.escape(start) + r".*?" + re.escape(end), re.DOTALL)
     return pat.sub(block, text_in, count=1) if pat.search(text_in) else ((text_in.rstrip() + "\n\n") if text_in.strip() else "") + block + "\n"
 
-
 def patch_file(path: Path, marker: str, body: str) -> None:
     write(path, patch(text(path), marker, body))
-
 
 def preserve_command_blocks(existing_text: str, base_text: str) -> str:
     merged = base_text.rstrip()
@@ -216,7 +211,6 @@ def preserve_command_blocks(existing_text: str, base_text: str) -> str:
             merged += "\n\n" + block
     return merged.rstrip() + "\n"
 
-
 def gate() -> dict[str, Any]:
     cred = ROOT / "Trading Bot" / "credentials.json"
     token = ROOT / "Trading Bot" / "token.json"
@@ -226,7 +220,6 @@ def gate() -> dict[str, Any]:
         "reason": DOCS_GATE_EXPECTED if blocked else "open",
         "checked_paths": [rel(cred), rel(token)],
     }
-
 
 def progress() -> dict[str, Any]:
     defaults = {
@@ -248,7 +241,6 @@ def progress() -> dict[str, Any]:
         payload.setdefault(key, value)
     return payload
 
-
 def digits(value: int, width: int = 6) -> list[int]:
     out = [0] * width
     for idx in range(width - 1, -1, -1):
@@ -256,20 +248,16 @@ def digits(value: int, width: int = 6) -> list[int]:
         value //= 4
     return out
 
-
 def shared_addr(index: int) -> str:
     labs = ["A", "B", "C", "D", "E", "F"]
     return ".".join(f"{lab}{digit + 1}" for lab, digit in zip(labs, digits(index, 6)))
 
-
 def lineage(index: int) -> str:
     return ".".join(LINEAGE[digit] for digit in digits(index, 6))
-
 
 def tag(loop_id: str, master_id: str, index: int, role_tag: str) -> str:
     branch = "".join(str(d + 1) for d in digits(index, 6))
     return f"{loop_id}.{master_id}.D{(index % 6) + 1}.B{branch}.{role_tag}"
-
 
 def cstamp(loop_id: str, master_id: str, family: str, frontier: str, index: int, h: str, q: str, active: bool) -> dict[str, str]:
     ds = digits(index, 6)
@@ -288,10 +276,8 @@ def cstamp(loop_id: str, master_id: str, family: str, frontier: str, index: int,
         "OmegaS": "Q41-TQ06" if active else "NEXT-SEED",
     }
 
-
 def cstr(coord: dict[str, str]) -> str:
     return "|".join(f"{key}={coord[key]}" for key in COORDINATE_SYMBOLS)
-
 
 def refs(loop_number: int) -> dict[str, str]:
     base = ARTROOT / f"L{loop_number:02d}"
@@ -304,7 +290,6 @@ def refs(loop_number: int) -> dict[str, str]:
         "restart_seed_ref": rel(base / "restart_seed.json"),
     }
 
-
 def legacy(loop_number: int) -> dict[str, str]:
     suffix = f"{loop_number:02d}"
     return {
@@ -315,10 +300,8 @@ def legacy(loop_number: int) -> dict[str, str]:
         "loop_completion_receipt": rel(SELF / f"loop_completion_receipt_loop_{suffix}.json"),
     }
 
-
 def status(loop_number: int) -> str:
     return "COMPLETED" if loop_number <= COMPLETED_LOOP_ID else "ACTIVE" if loop_number == ACTIVE_LOOP_ID else "PLANNED"
-
 
 def sig(loop_status: str) -> str:
     return "CONFIRMED" if loop_status == "COMPLETED" else "MATCHED" if loop_status == "ACTIVE" else "WEAK"
@@ -358,7 +341,6 @@ def loops() -> list[dict[str, Any]]:
         rows.append(row)
     return rows
 
-
 def mkq(zone: str, prefix: str, loop: dict[str, Any], title: str, why_now: str, lane: str, master_id: str, index: int, hierarchy: str) -> dict[str, Any]:
     surfaces = [rel(STATE_JSON), rel(PACKETS_JSON)]
     if zone == "Hall":
@@ -386,7 +368,6 @@ def mkq(zone: str, prefix: str, loop: dict[str, Any], title: str, why_now: str, 
         "coordinate_stamp": cstamp(loop["loop_id"], master_id, loop["focus_family"], loop["frontier_type"], index, hierarchy, zone.upper(), True),
         "restart_seed": NEXT_SEED,
     }
-
 
 def quest_bundle(active_loop: dict[str, Any]) -> dict[str, Any]:
     progress_state = progress()
@@ -630,10 +611,8 @@ def quest_bundle(active_loop: dict[str, Any]) -> dict[str, Any]:
         "active_front_overrides": progress_state.get("active_fronts", {}),
     }
 
-
 def truth_for_loop_status(loop_status: str) -> str:
     return "OK" if loop_status == "COMPLETED" else "NEAR" if loop_status == "ACTIVE" else "AMBIG"
-
 
 def economy_summary(
     reward_operator_registry_payload: dict[str, Any],
@@ -662,7 +641,6 @@ def economy_summary(
         "aggregate_xp_loss": aggregate["aggregate_xp_loss"],
         "current_phi_efficiency_loop": aggregate["current_loop_id"],
     }
-
 
 def build_reward_economy(
     rows: list[dict[str, Any]],
@@ -970,7 +948,6 @@ def build_state(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "loops": rows,
     }
 
-
 def agent_state(active: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": now(),
@@ -999,7 +976,6 @@ def agent_state(active: dict[str, Any]) -> dict[str, Any]:
         ],
     }
 
-
 def lattice(active: dict[str, Any]) -> dict[str, Any]:
     rows = []
     for index in range(SHARED_INDEXED):
@@ -1020,7 +996,6 @@ def lattice(active: dict[str, Any]) -> dict[str, Any]:
             }
         )
     return {"generated_at": now(), "protocol_id": PROTOCOL_ID, "contract": "shared-4096-preserved-with-virtual-4096-namespaces", "total_seats": SHARED_INDEXED, "active_seats": SHARED_ACTIVE, "dormant_seats": SHARED_DORMANT, "rows": rows}
-
 
 def seat_registry(active: dict[str, Any]) -> dict[str, Any]:
     rows = []
@@ -1118,7 +1093,6 @@ def packets(rows: list[dict[str, Any]], active: dict[str, Any]) -> dict[str, Any
             )
     return {"generated_at": now(), "protocol_id": PROTOCOL_ID, "row_count": len(out), "rows": out}
 
-
 def ledger(rows: list[dict[str, Any]]) -> dict[str, Any]:
     out = []
     for loop in rows:
@@ -1158,7 +1132,6 @@ def ledger(rows: list[dict[str, Any]]) -> dict[str, Any]:
             )
     return {"generated_at": now(), "protocol_id": PROTOCOL_ID, "docs_gate_status": gate()["state"], "row_count": len(out), "rows": out}
 
-
 def coords(rows: list[dict[str, Any]], bundle: dict[str, Any]) -> dict[str, Any]:
     out = []
     for loop in rows:
@@ -1168,14 +1141,11 @@ def coords(rows: list[dict[str, Any]], bundle: dict[str, Any]) -> dict[str, Any]
         out.append({"record_id": packet["quest_id"], "record_type": packet["zone"].lower(), "coordinate_stamp": packet["coordinate_stamp"], "lookup_address": f"LP57::{packet['quest_id']}::{cstr(packet['coordinate_stamp'])}"})
     return {"generated_at": now(), "protocol_id": PROTOCOL_ID, "docs_gate_status": gate()["state"], "record_count": len(out), "rows": out}
 
-
 def emissions(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {"generated_at": now(), "protocol_id": PROTOCOL_ID, "rows": [{"loop_id": loop["loop_id"], "hall_cap": HALL_CAP, "temple_cap": TEMPLE_CAP, "runtime_cap": RUNTIME_CAP, "prune_cap": PRUNE_CAP, "quest_packet_ref": loop["quest_packet_ref"], "receipt_ref": loop["receipt_ref"], "restart_seed_ref": loop["restart_seed_ref"]} for loop in rows]}
 
-
 def deltas(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {"generated_at": now(), "protocol_id": PROTOCOL_ID, "rows": [{"loop_id": loop["loop_id"], "compression_target": loop["compression_target"], "pruning_objective": loop["pruning_objective"], "expected_mapping_gain": loop["expected_mapping_gain"], "receipt_ref": loop["receipt_ref"]} for loop in rows]}
-
 
 def feeds(active: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
     objective_keys = {"A1": "synthesis_objective", "A2": "planning_objective", "A3": "implementation_objective", "A4": "pruning_objective"}
@@ -1213,13 +1183,11 @@ def artifact_files(loop: dict[str, Any], bundle: dict[str, Any]) -> None:
     dump(ROOT / legacy_paths["compression_receipt"], {"packet_type": "CompressionReceipt", "loop_id": loop["loop_id"], "source": loop["compression_bundle_ref"]})
     dump(ROOT / legacy_paths["loop_completion_receipt"], {"packet_type": "LoopCompletionReceipt", "loop_id": loop["loop_id"], "source": loop["receipt_ref"]})
 
-
 def table(headers: list[str], rows: list[list[str]]) -> str:
     line1 = "| " + " | ".join(headers) + " |"
     line2 = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([line1, line2, *body])
-
 
 def surfaces(state: dict[str, Any], bundle: dict[str, Any], receipts: dict[str, Any]) -> None:
     active = state["loops"][ACTIVE_LOOP_ID - 1]
@@ -1477,7 +1445,6 @@ def verify_payload(
         "checks": checks,
     }
 
-
 def generate_bundle() -> dict[str, Any]:
     rows = loops()
     active = rows[ACTIVE_LOOP_ID - 1]
@@ -1584,13 +1551,11 @@ def generate_bundle() -> dict[str, Any]:
         "verification_truth": verification["truth"],
     }
 
-
 def apply_hsigma_canonical_overrides() -> None:
     # Legacy HΣ refreshes are preserved only as manual historical tools.
     # The live LP-57Omega generator must not rewrite canonical v2 surfaces
     # back to stale wrapper-only states after generation.
     return None
-
 
 def write_canonical_four_agent_57_loop(source_id: str) -> dict[str, Any]:
     from self_actualize.runtime.lp57_omega_v2_canonical_runtime import (
@@ -1599,7 +1564,6 @@ def write_canonical_four_agent_57_loop(source_id: str) -> dict[str, Any]:
 
     return write_v2(source_id)
 
-
 def verify_canonical_four_agent_57_loop() -> dict[str, Any]:
     from self_actualize.runtime.lp57_omega_v2_canonical_runtime import (
         verify_canonical_four_agent_57_loop as verify_v2,
@@ -1607,12 +1571,10 @@ def verify_canonical_four_agent_57_loop() -> dict[str, Any]:
 
     return verify_v2()
 
-
 def main() -> int:
     result = write_canonical_four_agent_57_loop("canonical_four_agent_57_loop")
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

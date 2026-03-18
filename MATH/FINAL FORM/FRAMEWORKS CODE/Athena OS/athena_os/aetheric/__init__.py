@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S14→Xi108:W2:A5:S16→Xi108:W1:A5:S15→Xi108:W3:A5:S15→Xi108:W2:A4:S15→Xi108:W2:A6:S15
+
 """
 ATHENA OS - AETHERIC META-HYBRID CALCULUS
 =========================================
@@ -84,7 +88,6 @@ from .operators import (
     validate_operators,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -95,7 +98,6 @@ def validate_aetheric() -> bool:
     assert validate_operators()
     return True
 
-
 # =============================================================================
 # CONVENIENCE FUNCTIONS
 # =============================================================================
@@ -104,29 +106,24 @@ def create_crystal() -> OperationCrystal:
     """Create a new 256-operation crystal."""
     return OperationCrystal()
 
-
 def create_operator(constant: FundamentalConstant,
                     N: int = 8, M: int = 16, L: int = 4) -> MetaHybridOperator:
     """Create meta-hybrid operator for a constant."""
     return MetaHybridOperator(constant, N, M, L)
 
-
 def create_full_system(N: int = 4, M: int = 8, L: int = 2) -> FullHybridSystem:
     """Create full coupled hybrid system."""
     return FullHybridSystem(N, M, L)
-
 
 def create_state(constant: FundamentalConstant,
                  N: int = 8, M: int = 16, L: int = 4) -> HybridState:
     """Create hybrid state for a constant."""
     return HybridState(constant, N, M, L)
 
-
 def compute_texture(state: HybridState) -> float:
     """Compute texture functional for a state."""
     T = TextureFunctional()
     return T.compute(state)
-
 
 # =============================================================================
 # DEMO
@@ -200,7 +197,6 @@ def demo():
     print("✓ AETHERIC META-HYBRID CALCULUS OPERATIONAL")
     print("=" * 70)
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -237,7 +233,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "aetheric"
-
 
 if __name__ == "__main__":
     print("Validating Aetheric module...")

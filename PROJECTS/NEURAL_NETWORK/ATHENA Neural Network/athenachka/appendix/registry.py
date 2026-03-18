@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S21 | face=C | node=228 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S20→Xi108:W2:A1:S22→Xi108:W1:A1:S21→Xi108:W3:A1:S21→Xi108:W2:A2:S21
+
 from __future__ import annotations
 
 from . import (
@@ -20,7 +24,6 @@ from . import (
     app_q_topology,
 )
 
-
 APPENDIX_REGISTRY = {
     "A": app_a_symbols,
     "B": app_b_bridge_basis,
@@ -41,10 +44,8 @@ APPENDIX_REGISTRY = {
     "Q": app_q_topology,
 }
 
-
 def active_appendix_codes() -> list[str]:
     return [code for code, module in APPENDIX_REGISTRY.items() if getattr(module, "ACTIVE", False)]
-
 
 def appendix_bundle(mode: str, phase_plan: list[str], trace: dict[str, object]) -> dict[str, object]:
     return {

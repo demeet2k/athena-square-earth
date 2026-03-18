@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A4:S34 | face=S | node=565 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S33→Xi108:W2:A4:S35→Xi108:W1:A4:S34→Xi108:W3:A4:S34→Xi108:W2:A3:S34→Xi108:W2:A5:S34
+
 """Build a four-element manuscript synthesis network from the Memory Docs corpus."""
 
 from __future__ import annotations
@@ -13,7 +17,6 @@ from dataclasses import dataclass
 from itertools import combinations
 from pathlib import Path
 import xml.etree.ElementTree as ET
-
 
 DOC_NS = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
 OUTPUT_DIRNAME = "MANUSCRIPT_ELEMENTAL_NET_4X4"
@@ -146,7 +149,6 @@ STOPWORDS = {
     "your",
 }
 
-
 @dataclass(frozen=True)
 class Manuscript:
     doc_id: str
@@ -161,7 +163,6 @@ class Manuscript:
     motifs: tuple[str, ...]
     stations: tuple[str, ...]
     role: str
-
 
 CORPUS: list[Manuscript] = [
     Manuscript(
@@ -404,7 +405,6 @@ CORPUS: list[Manuscript] = [
     ),
 ]
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -419,7 +419,6 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
-
 def extract_docx_paragraphs(path: Path) -> list[str]:
     with zipfile.ZipFile(path) as zf:
         xml = zf.read("word/document.xml")
@@ -431,7 +430,6 @@ def extract_docx_paragraphs(path: Path) -> list[str]:
         if merged:
             paragraphs.append(merged)
     return paragraphs
-
 
 def find_best_headings(paragraphs: list[str], limit: int = 8) -> list[str]:
     headings: list[str] = []
@@ -447,34 +445,27 @@ def find_best_headings(paragraphs: list[str], limit: int = 8) -> list[str]:
             break
     return headings
 
-
 def top_keywords(text: str, limit: int = 12) -> list[str]:
     tokens = re.findall(r"[A-Za-z][A-Za-z-]{2,}", text.lower())
     counts = Counter(token for token in tokens if token not in STOPWORDS)
     return [token for token, _ in counts.most_common(limit)]
 
-
 def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
-
 
 def write(path: Path, content: str) -> None:
     ensure_dir(path.parent)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def short_preview(paragraphs: list[str], limit: int = 3, chars: int = 520) -> str:
     preview = " | ".join(paragraphs[:limit]).strip()
     return preview[:chars]
 
-
 def md_link(rel_path: str, label: str) -> str:
     return f"[{label}]({rel_path.replace(' ', '%20')})"
 
-
 def subset_name(items: tuple[str, ...]) -> str:
     return "-".join(items)
-
 
 def build_corpus_metadata(workspace_root: Path) -> dict[str, dict]:
     metadata: dict[str, dict] = {}
@@ -493,7 +484,6 @@ def build_corpus_metadata(workspace_root: Path) -> dict[str, dict]:
             "preview": short_preview(paragraphs),
         }
     return metadata
-
 
 def build_readme(primary_docs: list[Manuscript], aux_docs: list[Manuscript]) -> str:
     return textwrap.dedent(
@@ -534,7 +524,6 @@ def build_readme(primary_docs: list[Manuscript], aux_docs: list[Manuscript]) -> 
         - Zero point: the irreducible compression of the full system.
         """
     ).strip()
-
 
 def build_corpus_canon(
     primary_docs: list[Manuscript], aux_docs: list[Manuscript], metadata: dict[str, dict]
@@ -581,7 +570,6 @@ def build_corpus_canon(
         The auxiliary overlay remains important, but it is routed as a lens over the lattice instead of occupying one of the 16 crystal slots.
         """
     ).strip()
-
 
 def build_execution_model() -> str:
     return textwrap.dedent(
@@ -643,7 +631,6 @@ def build_execution_model() -> str:
         """
     ).strip()
 
-
 def build_elemental_assignments(primary_docs: list[Manuscript], aux_docs: list[Manuscript]) -> str:
     by_element: dict[str, list[str]] = defaultdict(list)
     by_mode: dict[str, list[str]] = defaultdict(list)
@@ -669,7 +656,6 @@ def build_elemental_assignments(primary_docs: list[Manuscript], aux_docs: list[M
     return "\n\n".join(
         ["# Elemental Assignments", *element_sections, *mode_sections]
     )
-
 
 def build_source_extract(manuscript: Manuscript, meta: dict) -> str:
     headings = "\n".join(f"- {item}" for item in meta["headings"]) or "- No short headings detected."
@@ -700,7 +686,6 @@ def build_source_extract(manuscript: Manuscript, meta: dict) -> str:
         """
     ).strip()
 
-
 def suggested_links(manuscript: Manuscript, primary_docs: list[Manuscript]) -> list[Manuscript]:
     ranked: list[tuple[int, Manuscript]] = []
     for other in primary_docs:
@@ -715,7 +700,6 @@ def suggested_links(manuscript: Manuscript, primary_docs: list[Manuscript]) -> l
         ranked.append((score, other))
     ranked.sort(key=lambda item: (-item[0], item[1].doc_id))
     return [item[1] for item in ranked[:4]]
-
 
 def build_individual_synthesis(
     manuscript: Manuscript, meta: dict, primary_docs: list[Manuscript]
@@ -778,7 +762,6 @@ def build_individual_synthesis(
         """
     ).strip()
 
-
 def pair_relation(a: Manuscript, b: Manuscript) -> tuple[str, str, str]:
     shared_motifs = sorted(set(a.motifs) & set(b.motifs))
     shared = ", ".join(shared_motifs) if shared_motifs else "no direct motif overlap"
@@ -796,7 +779,6 @@ def pair_relation(a: Manuscript, b: Manuscript) -> tuple[str, str, str]:
         "so the bridge must keep motion and law from drifting apart."
     )
     return shared, bridge, tension
-
 
 def build_pair_doc(a: Manuscript, b: Manuscript, output_rel: str, source_rel: str) -> str:
     shared, bridge, tension = pair_relation(a, b)
@@ -838,7 +820,6 @@ def build_pair_doc(a: Manuscript, b: Manuscript, output_rel: str, source_rel: st
         """
     ).strip()
 
-
 def observation_line(manuscript: Manuscript, element: str, mode: str) -> str:
     shared_elements = "native" if element in manuscript.elements else "translated"
     shared_modes = "native" if mode in manuscript.modes else "projected"
@@ -847,7 +828,6 @@ def observation_line(manuscript: Manuscript, element: str, mode: str) -> str:
         f"{manuscript.title} as a {shared_elements}/{shared_modes} contribution: "
         f"{manuscript.summary}"
     )
-
 
 def build_element_lens(element: str, primary_docs: list[Manuscript]) -> str:
     docs = [item for item in primary_docs if element in item.elements]
@@ -868,7 +848,6 @@ def build_element_lens(element: str, primary_docs: list[Manuscript]) -> str:
         """
     ).strip()
 
-
 def build_64_observations(primary_docs: list[Manuscript], element: str | None = None) -> str:
     lines = []
     for manuscript in primary_docs:
@@ -881,7 +860,6 @@ def build_64_observations(primary_docs: list[Manuscript], element: str | None = 
                 lines.append(observation_line(manuscript, element, mode))
     title = "Neutral 64 Observations" if element is None else f"{element.title()} 64 Observations"
     return f"# {title}\n\n" + "\n".join(lines)
-
 
 def symmetry_docs(primary_docs: list[Manuscript]) -> dict[str, str]:
     docs: dict[str, str] = {}
@@ -917,7 +895,6 @@ def symmetry_docs(primary_docs: list[Manuscript]) -> dict[str, str]:
             order += 1
     return docs
 
-
 def mermaid_level_1(primary_docs: list[Manuscript]) -> str:
     doc_nodes = []
     edges = []
@@ -939,7 +916,6 @@ def mermaid_level_1(primary_docs: list[Manuscript]) -> str:
         ]
     )
 
-
 def mermaid_level_2(primary_docs: list[Manuscript]) -> str:
     lines = ["```mermaid", "flowchart LR"]
     for mode in MODES:
@@ -953,7 +929,6 @@ def mermaid_level_2(primary_docs: list[Manuscript]) -> str:
             lines.append(f"{element.upper()} --> {manuscript.doc_id}")
     lines.append("```")
     return "\n".join(dict.fromkeys(lines))
-
 
 def mermaid_level_3(primary_docs: list[Manuscript]) -> str:
     lines = ["```mermaid", "flowchart LR", 'ZERO["Zero Point"]']
@@ -970,7 +945,6 @@ def mermaid_level_3(primary_docs: list[Manuscript]) -> str:
         lines.append(f"{key} --> ZERO")
     lines.append("```")
     return "\n".join(dict.fromkeys(lines))
-
 
 def mermaid_level_4() -> str:
     return "\n".join(
@@ -989,7 +963,6 @@ def mermaid_level_4() -> str:
             "```",
         ]
     )
-
 
 def build_metro_maps(primary_docs: list[Manuscript]) -> dict[str, str]:
     return {
@@ -1031,7 +1004,6 @@ def build_metro_maps(primary_docs: list[Manuscript]) -> dict[str, str]:
         ).strip(),
     }
 
-
 def appendix_slots() -> list[tuple[str, str, str]]:
     slots = []
     index = 0
@@ -1040,7 +1012,6 @@ def appendix_slots() -> list[tuple[str, str, str]]:
             slots.append((APPENDIX_LETTERS[index], element, mode))
             index += 1
     return slots
-
 
 def build_appendix_doc(letter: str, element: str, mode: str, primary_docs: list[Manuscript]) -> str:
     feeders = [item for item in primary_docs if element in item.elements or mode in item.modes]
@@ -1066,7 +1037,6 @@ def build_appendix_doc(letter: str, element: str, mode: str, primary_docs: list[
         "- Zero-point residue"
     )
 
-
 def build_appendix_q() -> str:
     lines = ["# Appendix Q: Integrated Appendix Metro Map", ""]
     for letter, element, mode in appendix_slots():
@@ -1083,7 +1053,6 @@ def build_appendix_q() -> str:
         ]
     )
     return "\n".join(lines)
-
 
 def build_zero_point(primary_docs: list[Manuscript]) -> str:
     doc_lines = "\n".join(
@@ -1115,7 +1084,6 @@ def build_zero_point(primary_docs: list[Manuscript]) -> str:
         """
     ).strip()
 
-
 def build_auxiliary_doc(manuscript: Manuscript, meta: dict, primary_docs: list[Manuscript]) -> str:
     carriers = [
         item for item in primary_docs
@@ -1138,7 +1106,6 @@ def build_auxiliary_doc(manuscript: Manuscript, meta: dict, primary_docs: list[M
         f"{carrier_lines}"
     )
 
-
 def build_pairwise_matrix(primary_docs: list[Manuscript]) -> str:
     headers = ["src->dst"] + [doc.doc_id for doc in primary_docs]
     rows = ["| " + " | ".join(headers) + " |", "| " + " | ".join(["---"] * len(headers)) + " |"]
@@ -1150,7 +1117,6 @@ def build_pairwise_matrix(primary_docs: list[Manuscript]) -> str:
             cells.append(md_link(rel, f"{row_doc.doc_id}->{col_doc.doc_id}"))
         rows.append("| " + " | ".join(cells) + " |")
     return "# Pairwise Matrix\n\n" + "\n".join(rows)
-
 
 def build_index_json(primary_docs: list[Manuscript], aux_docs: list[Manuscript], metadata: dict[str, dict]) -> str:
     payload = {
@@ -1176,7 +1142,6 @@ def build_index_json(primary_docs: list[Manuscript], aux_docs: list[Manuscript],
             }
         )
     return json.dumps(payload, indent=2)
-
 
 def write_outputs(build_root: Path, metadata: dict[str, dict]) -> None:
     primary_docs = [item for item in CORPUS if item.primary]
@@ -1299,7 +1264,6 @@ def write_outputs(build_root: Path, metadata: dict[str, dict]) -> None:
         ).strip(),
     )
 
-
 def main() -> int:
     args = parse_args()
     workspace_root = Path(args.workspace_root).resolve()
@@ -1308,7 +1272,6 @@ def main() -> int:
     write_outputs(build_root, metadata)
     print(f"Built manuscript elemental net at {build_root}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

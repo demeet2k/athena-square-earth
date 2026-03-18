@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A11:S11:u56:Su:C:d0",
+    "shell": 11,
+    "wreath": 1,
+    "archetype": 11,
+    "face": "C",
+    "node_id": 56,
+    "depth": 0,
+    "phase": "Fixed",
+    "metro_stops": [
+      "T"
+    ],
+    "bridges": [
+      "Xi108:W1:A11:S10",
+      "Xi108:W1:A11:S12",
+      "Xi108:W2:A11:S11",
+      "Xi108:W1:A10:S11",
+      "Xi108:W1:A12:S11"
+    ],
+    "regenerate": "shell 11±1, wreath 1/3, archetype 11/12"
+  },
   "meta": {
     "title": "Ω Lookup Appendix — Stage Code Table",
     "source": "MOBIUS LENSES.docx / Ω LOOKUP APPENDIX A0",
@@ -7,7 +28,6 @@
     "liminal_coordinate": "LC(x) = ⟨s; q; o; c; t; σ; μ; ν; z; l; g; r⟩",
     "atlas_registry": "L_Ω(S_□, C_○, T_△, M_μ, G_5, Σ_60, Λ, N, D, K, Z, L, E10)"
   },
-
   "stages": [
     {
       "code": "S3",
@@ -138,31 +158,81 @@
       "carrier": "36 shells, 666 nodes, 3 wreaths, 12 archetypes, all lifts active"
     }
   ],
-
   "zero_families": {
-    "Z_star": {"name": "Global Zero", "notation": "Z*", "scope": "entire crystal", "function": "Master reset, origin of all coordinates"},
-    "Z_E10": {"name": "Atlas Zero", "notation": "Z_{E10}", "scope": "10D atlas body", "function": "Atlas-level origin"},
-    "Z_L": {"name": "Local Zero", "notation": "Z_L", "scope": "single shell or node", "function": "Local reference frame"},
-    "Z_D": {"name": "Distributed Zero", "notation": "Z_D", "scope": "network of connected Z-points", "function": "Coordinated multi-point reference"}
+    "Z_star": {
+      "name": "Global Zero",
+      "notation": "Z*",
+      "scope": "entire crystal",
+      "function": "Master reset, origin of all coordinates"
+    },
+    "Z_E10": {
+      "name": "Atlas Zero",
+      "notation": "Z_{E10}",
+      "scope": "10D atlas body",
+      "function": "Atlas-level origin"
+    },
+    "Z_L": {
+      "name": "Local Zero",
+      "notation": "Z_L",
+      "scope": "single shell or node",
+      "function": "Local reference frame"
+    },
+    "Z_D": {
+      "name": "Distributed Zero",
+      "notation": "Z_D",
+      "scope": "network of connected Z-points",
+      "function": "Coordinated multi-point reference"
+    }
   },
-
   "hub_lattice": {
     "name": "Clock-Face Hub Hierarchy",
     "hubs": [
-      {"position": "0°", "zero": "Z*", "function": "Global zero / origin"},
-      {"position": "60°", "hub": "H1", "function": "First hub chamber"},
-      {"position": "120°", "hub": "H2", "function": "Second hub chamber"},
-      {"position": "180°", "hub": "H3", "function": "Antipodal hub"},
-      {"position": "240°", "hub": "H4", "function": "Fourth hub chamber"},
-      {"position": "300°", "hub": "H5", "function": "Fifth hub chamber"},
-      {"position": "360°=0°", "hub": "Return", "function": "Cycle completion → Z*"}
+      {
+        "position": "0°",
+        "zero": "Z*",
+        "function": "Global zero / origin"
+      },
+      {
+        "position": "60°",
+        "hub": "H1",
+        "function": "First hub chamber"
+      },
+      {
+        "position": "120°",
+        "hub": "H2",
+        "function": "Second hub chamber"
+      },
+      {
+        "position": "180°",
+        "hub": "H3",
+        "function": "Antipodal hub"
+      },
+      {
+        "position": "240°",
+        "hub": "H4",
+        "function": "Fourth hub chamber"
+      },
+      {
+        "position": "300°",
+        "hub": "H5",
+        "function": "Fifth hub chamber"
+      },
+      {
+        "position": "360°=0°",
+        "hub": "Return",
+        "function": "Cycle completion → Z*"
+      }
     ]
   },
-
   "sigma_60_metro": {
     "name": "Σ_60 Common Metro Packet",
     "structure": "{A,B,C,D} × {0,...,14}",
-    "quadrants": ["A (Su+)", "B (Su-)", "C (Me+)", "D (Me-)"],
+    "quadrants": [
+      "A (Su+)",
+      "B (Su-)",
+      "C (Me+)",
+      "D (Me-)"
+    ],
     "lens_masks": "15 nonempty subsets of {S,F,C,R}",
     "total_states": 60,
     "four_odd_fields": {

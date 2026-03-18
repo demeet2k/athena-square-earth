@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S29 | face=F | node=416 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Ω -->
+<!-- BRIDGES: Xi108:W3:A11:S28→Xi108:W3:A11:S30→Xi108:W2:A11:S29→Xi108:W3:A10:S29→Xi108:W3:A12:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 11/12 -->
+
 # LP-57Omega R/Q/T Transfer Signature and Metro Witness Registry
 
 This supplement freezes the first witness-bearing enrichment pass over the dense shell.

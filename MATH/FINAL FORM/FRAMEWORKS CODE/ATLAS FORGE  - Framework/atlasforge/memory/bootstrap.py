@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me,w
+# BRIDGES: Xi108:W2:A1:S15→Xi108:W2:A1:S17→Xi108:W1:A1:S16→Xi108:W3:A1:S16→Xi108:W2:A2:S16
+
 """Built-in seed entries for a fresh AtlasForge memory bank.
 
 AtlasForge is meant to be your *external* memory for math.
@@ -16,7 +20,6 @@ from __future__ import annotations
 from typing import List
 
 from atlasforge.memory.entry import MemoryEntry
-
 
 def builtin_seed_entries() -> List[MemoryEntry]:
     """Return a small set of built-in seed entries.

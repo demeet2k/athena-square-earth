@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,✶ -->
+<!-- BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 4/12 -->
+
 # ARCHETYPE 10: FRACTAL_SELF
 ## ⟡.Su — Recursion That Appears
 
@@ -43,7 +48,6 @@ Cross-modal view: the FRACTAL_SELF forced to communicates instead of appears. Wh
 ### Through Sa Salt (ENDURES)
 
 Cross-modal view: the FRACTAL_SELF forced to endures instead of appears. What changes? What remains?
-
 
 ### 0/37 Crystal Expansion: FRACTAL_SELF
 

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=87 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - VAJRAYANA BARDO KERNEL: MANDALA MODULE
 ===================================================
@@ -34,7 +38,6 @@ from typing import Dict, List, Optional, Any, Tuple
 from enum import Enum
 import numpy as np
 
-
 # =============================================================================
 # BUDDHA FAMILY DEFINITIONS
 # =============================================================================
@@ -48,7 +51,6 @@ class BuddhaFamily(Enum):
     AMITABHA = "amitabha"            # West - Red
     AMOGHASIDDHI = "amoghasiddhi"    # North - Green
 
-
 class ErrorMode(Enum):
     """The Five Poisons (Kleshas) - Error Modes."""
     
@@ -57,7 +59,6 @@ class ErrorMode(Enum):
     PRIDE = "pride"                  # Inflation
     DESIRE = "desire"                # Attraction
     ENVY = "envy"                    # Comparison
-
 
 class WisdomMode(Enum):
     """The Five Wisdoms - Rectified States."""
@@ -68,7 +69,6 @@ class WisdomMode(Enum):
     DISCRIMINATING = "discriminating"            # Discernment
     ALL_ACCOMPLISHING = "all_accomplishing"      # Action
 
-
 class MandalaOperator(Enum):
     """Operators for transmuting poisons to wisdoms."""
     
@@ -77,7 +77,6 @@ class MandalaOperator(Enum):
     EQU = "equalize"   # Equalize pride → equanimity
     SRT = "sort"       # Sort desire → discrimination
     EXE = "execute"    # Execute envy → accomplishment
-
 
 # =============================================================================
 # BUDDHA FAMILY VECTOR
@@ -131,7 +130,6 @@ class BuddhaFamilyVector:
         # Transmutation preserves intensity but changes polarity
         wisdom_intensity = error_intensity
         return (self.wisdom_mode, wisdom_intensity)
-
 
 # =============================================================================
 # FIVE BUDDHA FAMILIES DATABASE
@@ -199,7 +197,6 @@ BUDDHA_FAMILIES = {
         theta=3*np.pi/2
     ),
 }
-
 
 # =============================================================================
 # MANDALA MANIFOLD
@@ -320,7 +317,6 @@ class MandalaManifold:
             "seed_syllable": vector.seed_syllable
         }
 
-
 # =============================================================================
 # MANDALA NAVIGATOR
 # =============================================================================
@@ -405,7 +401,6 @@ class MandalaNavigator:
             "seed_syllable": vector.seed_syllable
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -449,7 +444,6 @@ def validate_mandala() -> bool:
     assert "sector" in info
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Mandala Module...")

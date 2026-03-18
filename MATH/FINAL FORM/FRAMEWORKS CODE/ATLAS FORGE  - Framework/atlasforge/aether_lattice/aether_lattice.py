@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    AETHER LATTICE MODULE (Λ-LOGOS)                           ║
@@ -27,7 +31,6 @@ import numpy as np
 from numpy.typing import NDArray
 import hashlib
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE FOUR POLES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -41,7 +44,6 @@ class MathPole(Enum):
     THETA = "Θ"   # Fire: Wave, Root, Vector
     LAMBDA = "Λ"  # Air: Lattice, Square, Outcome
 
-
 class MathLens(Enum):
     """
     The four lenses for viewing each pole.
@@ -50,7 +52,6 @@ class MathLens(Enum):
     FLOWER = "✿"   # Cyclic, phase, rotation
     CLOUD = "☁"    # Probabilistic, uncertain
     FRACTAL = "❋"  # Recursive, self-similar
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CRYSTAL ADDRESS SYSTEM
@@ -82,7 +83,6 @@ class CrystalCoordinate:
         depth = int(parts[3]) if len(parts) > 3 else 0
         return cls(pole, lens, layer, depth)
 
-
 @dataclass
 class CrystalTile:
     """
@@ -105,7 +105,6 @@ class CrystalTile:
         return all([self.objects, self.operators, 
                    self.invariants, self.algorithms])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE 16 CORE BOOKS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -126,7 +125,6 @@ class CoreBook:
         pole_idx = list(MathPole).index(self.pole)
         lens_idx = list(MathLens).index(self.lens)
         return pole_idx * 4 + lens_idx + 1
-
 
 def get_16_books() -> List[CoreBook]:
     """
@@ -175,7 +173,6 @@ def get_16_books() -> List[CoreBook]:
     ]
     return books
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # Λ-LOGOS: THE AETHER LATTICE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -198,7 +195,6 @@ class BornProjector:
         """Project amplitude vector to probability distribution."""
         return np.abs(amplitudes) ** 2
 
-
 @dataclass
 class Quantizer:
     """
@@ -220,7 +216,6 @@ class Quantizer:
         """Convert discrete level back to continuous (center of bin)."""
         return x_min + (k + 0.5) * (x_max - x_min) / self.levels
 
-
 @dataclass
 class ModularWrapper:
     """
@@ -240,7 +235,6 @@ class ModularWrapper:
         if wrapped >= self.N // 2:
             wrapped -= self.N
         return wrapped
-
 
 @dataclass
 class Crystallizer:
@@ -287,7 +281,6 @@ class Crystallizer:
             result[i] = self.wrapper.wrap(level)
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ADDRESS SPACE AND BIT LATTICE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -317,7 +310,6 @@ class AddressSpace:
         d1 = abs(b - a)
         d2 = self.size - d1
         return min(d1, d2)
-
 
 @dataclass
 class BitLattice:
@@ -352,7 +344,6 @@ class BitLattice:
             multiplier *= self.dimensions[i]
         return index
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LOGIC GATES AND STATE MACHINES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -366,7 +357,6 @@ class LogicGate(Enum):
     NAND = "NAND"
     NOR = "NOR"
     XNOR = "XNOR"
-
 
 @dataclass
 class GateNetwork:
@@ -407,7 +397,6 @@ class GateNetwork:
             state[output] = self.evaluate_gate(gate_type, input_values)
         return state
 
-
 @dataclass
 class StateMachine:
     """
@@ -439,7 +428,6 @@ class StateMachine:
         for symbol in input_string:
             self.step(symbol)
         return self.current_state in self.accepting_states
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ENTROPY AND INFORMATION
@@ -490,7 +478,6 @@ class DiscreteEntropy:
         
         return H_X + H_Y - H_XY
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE FIVE META-BOOKS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -503,7 +490,6 @@ class MetaBook:
     number: int
     title: str
     description: str
-
 
 def get_meta_books() -> List[MetaBook]:
     """
@@ -521,7 +507,6 @@ def get_meta_books() -> List[MetaBook]:
         MetaBook(21, "The Atlas",
                 "Master index: every entity has exactly one address"),
     ]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIVERSAL TREATISE STRUCTURE
@@ -567,7 +552,6 @@ class UniversalTreatise:
             total = len(relevant_tiles) if relevant_tiles else 1
             report[key] = complete / total
         return report
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -652,7 +636,6 @@ class AetherLatticePoleBridge:
         Framework Ψ ↔ all•Fractal (recursive)
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -662,21 +645,17 @@ def crystal_coordinate(pole: MathPole, lens: MathLens,
     """Create crystal coordinate."""
     return CrystalCoordinate(pole, lens, layer, depth)
 
-
 def crystallizer(N: int) -> Crystallizer:
     """Create crystallizer."""
     return Crystallizer(N)
-
 
 def address_space(size: int) -> AddressSpace:
     """Create address space."""
     return AddressSpace(size)
 
-
 def bit_lattice(*dimensions: int) -> BitLattice:
     """Create bit lattice."""
     return BitLattice(dimensions)
-
 
 def state_machine(states: Set[str], alphabet: Set[str],
                   transitions: Dict[Tuple[str, str], str],
@@ -684,16 +663,13 @@ def state_machine(states: Set[str], alphabet: Set[str],
     """Create state machine."""
     return StateMachine(states, alphabet, transitions, initial, accepting)
 
-
 def universal_treatise() -> UniversalTreatise:
     """Create universal treatise."""
     return UniversalTreatise()
 
-
 def shannon_entropy(probs: NDArray) -> float:
     """Compute Shannon entropy."""
     return DiscreteEntropy.shannon(probs)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

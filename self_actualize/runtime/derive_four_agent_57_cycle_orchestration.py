@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=341 | depth=2 | phase=Mutable
+# METRO: Wr,Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 import json
@@ -20,7 +24,6 @@ from self_actualize.runtime.qshrink_refine_common import (
     load_json,
     read_text,
 )
-
 
 NERVOUS_SYSTEM_ROOT = WORKSPACE_ROOT / "NERVOUS_SYSTEM"
 MANIFESTS95_ROOT = NERVOUS_SYSTEM_ROOT / "95_MANIFESTS"
@@ -252,24 +255,19 @@ LOOP_DEFINITIONS = [
     ("Wave 7", 57, "Athena Prime", "Archive the completed 57th loop into receipts and reopen only the highest-yield unblocked next wave.", "PLANNED"),
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
-
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def upsert_marker_block(text: str, marker: str, block: str) -> str:
     start = f"<!-- {marker}:START -->"
@@ -279,7 +277,6 @@ def upsert_marker_block(text: str, marker: str, block: str) -> str:
         pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
         return pattern.sub(replacement, text, count=1)
     return text.rstrip() + "\n\n" + replacement + "\n"
-
 
 def prepend_numbered_entry(text: str, entry: str, header: str) -> str:
     if entry in text:
@@ -292,7 +289,6 @@ def prepend_numbered_entry(text: str, entry: str, header: str) -> str:
     next_number = max(numbers) + 1 if numbers else 1
     return prefix + header + f"{next_number}. {entry}\n" + suffix
 
-
 def base4_code(index: int, width: int) -> str:
     value = ""
     current = index
@@ -301,10 +297,8 @@ def base4_code(index: int, width: int) -> str:
         current //= 4
     return value.zfill(width)
 
-
 def path_exists(path: Path) -> bool:
     return path.exists()
-
 
 def live_state() -> dict[str, Any]:
     docs_gate = docs_gate_payload()
@@ -321,7 +315,6 @@ def live_state() -> dict[str, Any]:
         "awakening_notes_exists": path_exists(AWAKENING_NOTES_JSON_PATH),
         "ap6d_wave57_exists": path_exists(AP6D_WAVE57_PATH),
     }
-
 
 def current_spine_fields(state: dict[str, Any]) -> dict[str, Any]:
     next4_state = state["next4_state"]
@@ -350,7 +343,6 @@ def current_spine_fields(state: dict[str, Any]) -> dict[str, Any]:
         "docs_gate_status": state["docs_gate"]["status"],
         "docs_gate_truth": state["docs_gate"]["truth"],
     }
-
 
 def master_registry(spine: dict[str, Any], current_owner: str = "FA57-FIRE") -> list[dict[str, Any]]:
     handoff_targets = {
@@ -392,7 +384,6 @@ def master_registry(spine: dict[str, Any], current_owner: str = "FA57-FIRE") -> 
         )
     return rows
 
-
 def hall_quest_id(agent_id: str) -> str:
     return {
         "FA57-FIRE": "FA57-Q-FIRE-RESEARCH",
@@ -400,7 +391,6 @@ def hall_quest_id(agent_id: str) -> str:
         "FA57-AIR": "FA57-Q-AIR-WORKER",
         "FA57-EARTH": "FA57-Q-EARTH-PRUNER",
     }[agent_id]
-
 
 def temple_mirror_id(agent_id: str) -> str:
     return {
@@ -411,10 +401,8 @@ def temple_mirror_id(agent_id: str) -> str:
         "FA57-EARTH": "T57-EARTH-PRUNE-RETURN",
     }[agent_id]
 
-
 def phase_sequence_ids() -> list[str]:
     return [item["phase"] for item in PHASE_SEQUENCE]
-
 
 def phase_metadata(phase_id: str) -> dict[str, Any]:
     for item in PHASE_SEQUENCE:
@@ -422,13 +410,11 @@ def phase_metadata(phase_id: str) -> dict[str, Any]:
             return item
     return PHASE_SEQUENCE[0]
 
-
 def owner_phase(owner: str) -> dict[str, Any]:
     for item in PHASE_SEQUENCE:
         if item["owner"] == owner:
             return item
     return PHASE_SEQUENCE[0]
-
 
 def cycle_artifact_paths(loop_id: str) -> dict[str, Path]:
     loop_root = ARTIFACTS_ROOT / loop_id
@@ -442,17 +428,14 @@ def cycle_artifact_paths(loop_id: str) -> dict[str, Path]:
         "restart_seed": loop_root / "prime_restart_seed.md",
     }
 
-
 def cycle_artifact_bundle(loop_id: str) -> dict[str, str]:
     return {
         key: relative_string(path)
         for key, path in cycle_artifact_paths(loop_id).items()
     }
 
-
 def artifact_completion_map(loop_id: str) -> dict[str, bool]:
     return {key: path.exists() for key, path in cycle_artifact_paths(loop_id).items()}
-
 
 def current_owner_status(agent_id: str, current_owner: str) -> str:
     if agent_id == "FA57-PRIME":
@@ -460,7 +443,6 @@ def current_owner_status(agent_id: str, current_owner: str) -> str:
     if agent_id == current_owner:
         return "ACTIVE"
     return "READY"
-
 
 def generate_packet_atlas(
     spine: dict[str, Any],
@@ -540,7 +522,6 @@ def generate_packet_atlas(
         },
     }
 
-
 def receipt_index() -> dict[str, Any]:
     entries = []
     for wave, step, primary_agent, deliverable, status in LOOP_DEFINITIONS:
@@ -572,7 +553,6 @@ def receipt_index() -> dict[str, Any]:
         "orchestration_receipt": relative_string(RECEIPT_PATH),
         "entries": entries,
     }
-
 
 def loop_state(spine: dict[str, Any], registry_rows: list[dict[str, Any]], packet_atlas: dict[str, Any]) -> dict[str, Any]:
     current_phase = "FIRE_RESEARCH_SYNTHESIS"
@@ -620,7 +600,6 @@ def loop_state(spine: dict[str, Any], registry_rows: list[dict[str, Any]], packe
         },
         "current_restart_seed": "FA57-L01 -> FA57-WATER -> planner quest pack",
     }
-
 
 def render_charter(spine: dict[str, Any], registry_rows: list[dict[str, Any]]) -> str:
     lines = [
@@ -705,7 +684,6 @@ def render_charter(spine: dict[str, Any], registry_rows: list[dict[str, Any]]) -
         ]
     )
     return "\n".join(lines)
-
 
 def render_hall_macro_section(spine: dict[str, Any], state: dict[str, Any]) -> str:
     current_owner = state["current_cycle_owner"]
@@ -803,7 +781,6 @@ def render_hall_macro_section(spine: dict[str, Any], state: dict[str, Any]) -> s
         ]
     )
 
-
 def render_temple_mirror_section(state: dict[str, Any]) -> str:
     current_owner = state["current_cycle_owner"]
     prime_status = "ACTIVE" if current_owner == "FA57-PRIME" else "OPEN"
@@ -847,7 +824,6 @@ def render_temple_mirror_section(state: dict[str, Any]) -> str:
         ]
     )
 
-
 def render_active_run_block(spine: dict[str, Any], state: dict[str, Any]) -> str:
     return "\n".join(
         [
@@ -871,7 +847,6 @@ def render_active_run_block(spine: dict[str, Any], state: dict[str, Any]) -> str
         ]
     )
 
-
 def render_build_queue_block(spine: dict[str, Any], state: dict[str, Any]) -> str:
     return "\n".join(
         [
@@ -894,7 +869,6 @@ def render_build_queue_block(spine: dict[str, Any], state: dict[str, Any]) -> st
         ]
     )
 
-
 def render_active_queue_block(spine: dict[str, Any], state: dict[str, Any]) -> str:
     return "\n".join(
         [
@@ -910,7 +884,6 @@ def render_active_queue_block(spine: dict[str, Any], state: dict[str, Any]) -> s
             "- restart order: `Fire -> Water -> Air -> Earth -> Athena Prime`",
         ]
     )
-
 
 def render_next_self_prompt_block(spine: dict[str, Any], state: dict[str, Any]) -> str:
     return "\n".join(
@@ -936,7 +909,6 @@ def render_next_self_prompt_block(spine: dict[str, Any], state: dict[str, Any]) 
             "- end each loop-family pass with one artifact-backed move, one writeback, one awakening-note touchpoint, and one restart seed",
         ]
     )
-
 
 def render_receipt(spine: dict[str, Any], registry_rows: list[dict[str, Any]], packet_atlas: dict[str, Any]) -> str:
     return "\n".join(
@@ -979,7 +951,6 @@ def render_receipt(spine: dict[str, Any], registry_rows: list[dict[str, Any]], p
             "",
         ]
     )
-
 
 def build_verification(
     spine: dict[str, Any],
@@ -1026,7 +997,6 @@ def build_verification(
         "live_spine": spine,
     }
 
-
 def update_control_surfaces(spine: dict[str, Any], current_state: dict[str, Any]) -> None:
     write_text(
         ACTIVE_RUN_PATH,
@@ -1072,7 +1042,6 @@ def update_control_surfaces(spine: dict[str, Any], current_state: dict[str, Any]
         prepend_numbered_entry(read_text(REQUESTS_BOARD_PATH), request_entry, "## This Pass\n\n"),
     )
 
-
 def main() -> None:
     state = live_state()
     spine = current_spine_fields(state)
@@ -1106,7 +1075,6 @@ def main() -> None:
     print(f"Wrote {RECEIPT_INDEX_PATH}")
     print(f"Wrote {VERIFICATION_PATH}")
     print(f"Wrote {RECEIPT_PATH}")
-
 
 if __name__ == "__main__":
     main()

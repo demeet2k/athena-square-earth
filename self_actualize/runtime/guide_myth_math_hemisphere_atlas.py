@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import argparse
@@ -11,7 +15,6 @@ from self_actualize.runtime.hemisphere_guided_tour_support import (
     record,
     search,
 )
-
 
 def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--query", default="")
@@ -28,7 +31,6 @@ def add_search_filters(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--route-mode", dest="route_mode")
     parser.add_argument("--proof-state", dest="proof_state")
     parser.add_argument("--top-level", dest="top_level")
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Guide canonical Myth/MATH atlas tours.")
@@ -122,7 +124,6 @@ def main() -> int:
 
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

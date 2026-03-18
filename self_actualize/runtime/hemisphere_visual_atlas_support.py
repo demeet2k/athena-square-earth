@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=320 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import os
@@ -26,7 +30,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     utc_now,
 )
 
-
 VISUAL_ATLAS_SUBDIR = Path("visual_atlas")
 SOURCE_REGISTRY_NAMES = [
     "record_registry",
@@ -47,10 +50,8 @@ FIXED_PAGE_SPECS = [
     ("VA-COVERAGE", "Atlas Coverage Receipt", Path("38_atlas_coverage_receipt.md"), "coverage"),
 ]
 
-
 def safe_text(value: Any) -> str:
     return str(value).replace("|", "\\|").replace("\n", " ").strip()
-
 
 def short_text(value: str, limit: int = 72) -> str:
     collapsed = " ".join(value.split())
@@ -58,34 +59,27 @@ def short_text(value: str, limit: int = 72) -> str:
         return collapsed
     return collapsed[: limit - 1].rstrip() + "..."
 
-
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     header = "| " + " | ".join(headers) + " |"
     separator = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(safe_text(cell) for cell in row) + " |" for row in rows]
     return "\n".join([header, separator, *body])
 
-
 def rel_link(current_rel: Path, target_rel: Path, label: str) -> str:
     relative = os.path.relpath(target_rel, start=current_rel.parent if current_rel.parent != Path(".") else Path("."))
     return f"[{label}]({relative.replace(os.sep, '/')})"
 
-
 def mermaid_block(lines: list[str]) -> str:
     return "```mermaid\nflowchart LR\n" + "\n".join(lines) + "\n```"
-
 
 def node_id(prefix: str, value: str) -> str:
     return f"{prefix}-{slugify(value)}"
 
-
 def route_lookup(record: dict[str, Any], hemisphere: str) -> dict[str, Any]:
     return record.get("hemisphere_routes", {}).get(hemisphere, {})
 
-
 def opposite_hemisphere(hemisphere: str) -> str:
     return "MYTH" if hemisphere == "MATH" else "MATH"
-
 
 def build_seed_group_lookup(seed_registry: dict[str, Any]) -> dict[str, list[str]]:
     lookup: dict[str, list[str]] = defaultdict(list)
@@ -96,7 +90,6 @@ def build_seed_group_lookup(seed_registry: dict[str, Any]) -> dict[str, list[str
                 lookup[record_id].append(group_name)
     return {record_id: sorted(groups) for record_id, groups in lookup.items()}
 
-
 def output_paths() -> list[str]:
     return [
         str(VISUAL_ATLAS_NODE_REGISTRY_PATH),
@@ -105,7 +98,6 @@ def output_paths() -> list[str]:
         str(VISUAL_ATLAS_RECORD_LOCATOR_REGISTRY_PATH),
         str(VISUAL_ATLAS_MANIFEST_PATH),
     ]
-
 
 def command_block(record_id: str | None = None, family: str | None = None) -> str:
     if record_id:
@@ -127,7 +119,6 @@ def command_block(record_id: str | None = None, family: str | None = None) -> st
         f"{synth_line}\n"
         "```"
     )
-
 
 def register_page(
     pages: list[dict[str, Any]],
@@ -157,7 +148,6 @@ def register_page(
             "source_registries": SOURCE_REGISTRY_NAMES,
         }
     )
-
 
 def build_visual_atlas_payloads(
     *,

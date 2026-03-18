@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=F | node=130 | depth=2 | phase=Cardinal
+# METRO: Sa,Dl
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 6×6 DLS Framework & Higher-Dimensional Lenses
 ===============================================
@@ -14,7 +18,6 @@ Provides the complete 6×6 doubly-Latin-square framework:
 from ._cache import JsonCache
 
 _DLS = JsonCache("dls_6x6_lenses.json")
-
 
 def query_dls_lenses(component: str = "all") -> str:
     """
@@ -58,7 +61,6 @@ def query_dls_lenses(component: str = "all") -> str:
             "shell, board, cross_lens, higher_lift, escalation, operators"
         )
 
-
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
     lines = [
@@ -70,7 +72,6 @@ def _format_all(data: dict) -> str:
         f"**Higher Lift**: {meta.get('higher_lift', 'D_{6,n} = [4]^n ⋉ F₆^n')}",
     ]
     return "\n".join(lines)
-
 
 def _format_ontology(data: dict) -> str:
     ont = data.get("five_layer_ontology", {})
@@ -89,7 +90,6 @@ def _format_ontology(data: dict) -> str:
         lines.append(f"\n**Core Doctrine**: {ont['doctrine']}")
     return "\n".join(lines)
 
-
 def _format_carrier(data: dict) -> str:
     car = data.get("carrier_state", {})
     lines = [
@@ -102,7 +102,6 @@ def _format_carrier(data: dict) -> str:
     if "interpretation" in car:
         lines.append(f"\n**Interpretation**: {car['interpretation']}")
     return "\n".join(lines)
-
 
 def _format_shell(data: dict) -> str:
     shell = data.get("shell_sectors", {})
@@ -120,7 +119,6 @@ def _format_shell(data: dict) -> str:
             else:
                 lines.append(f"  - {s}")
     return "\n".join(lines)
-
 
 def _format_board(data: dict) -> str:
     board = data.get("board_algebra", {})
@@ -146,7 +144,6 @@ def _format_board(data: dict) -> str:
         lines.append(f"\n**Algebra**: `{board['algebra']}`")
     return "\n".join(lines)
 
-
 def _format_cross_lens(data: dict) -> str:
     cl = data.get("cross_lens_calculus", {})
     lines = [
@@ -166,7 +163,6 @@ def _format_cross_lens(data: dict) -> str:
         lines.append(f"\n**Deepest Law**: {cl['deepest_law']}")
     return "\n".join(lines)
 
-
 def _format_higher_lift(data: dict) -> str:
     hl = data.get("higher_lift", {})
     return (
@@ -178,7 +174,6 @@ def _format_higher_lift(data: dict) -> str:
         f"**Key Insight**: {hl.get('key_insight', 'Shell/body distinction preserved at every lift level')}"
     )
 
-
 def _format_escalation(data: dict) -> str:
     esc = data.get("lens_escalation", {})
     lines = [
@@ -188,7 +183,6 @@ def _format_escalation(data: dict) -> str:
         f"**Escalation**: {esc.get('escalation', 'Each mask observed through SR/SL/AL/AR orbit quartet')}",
     ]
     return "\n".join(lines)
-
 
 def _format_operators(data: dict) -> str:
     ops = data.get("operator_stack", {})

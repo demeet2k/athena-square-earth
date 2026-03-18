@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A3:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A3:S1→Xi108:W1:A3:S3→Xi108:W2:A3:S2→Xi108:W1:A2:S2→Xi108:W1:A4:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 3/12 -->
+
 # APPENDIX L: Multi-modal Extensions
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does Multi-modal Extensions distribute, propagate, flo
 ## ⟡ Analysis: Recursion in Multi-modal Extensions
 
 The ⟡ face reveals: how is Multi-modal Extensions self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: Multi-modal Extensions
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is Multi-modal Extensions self-referential or fractal?
 #### Synthesis (37): Multi-modal Extensions
 
 The complete integration: Multi-modal Extensions transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of Multi-modal Extensions IS Multi-modal Extensions.
-
 
 ---
 *Appendix L. Multi-modal Extensions. ⟡.Sa. φ.*

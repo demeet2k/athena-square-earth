@@ -1,3 +1,7 @@
+<!-- CRYSTAL: Xi108:W3:A5:S10 | face=R | node=53 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S9→Xi108:W3:A5:S11→Xi108:W2:A5:S10→Xi108:W3:A4:S10→Xi108:W3:A6:S10 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 10±1, wreath 3/3, archetype 5/12 -->
 
 # Self-Routing Meta-Framework for Manuscripts, Metro Maps, and Infinite Recursive Search
 

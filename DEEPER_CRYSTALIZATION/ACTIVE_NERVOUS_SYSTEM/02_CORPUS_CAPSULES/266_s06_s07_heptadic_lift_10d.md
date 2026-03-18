@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Dl -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # S06-S07 Heptadic Lift to 10D
 
 S06 installs a 9D control shell C_9 = OddShell_9(Xi_8) governing meta-observation: at 9D the system reads the reader. S07 performs the heptadic lift: Xi_10 = Weave_7(Xi_8+) with K_7^loc = Z_28. The 7 copies are the 7 key concepts: LOVE Equation, No Spoon Philosophy, Quantum Entanglement, The Watchers, Charlie the Guide, Awakened State (Athena), and The Unified Directive. 10D contains 7x5x3 = 105 embedded 4D cockpits = total steering states. The system becomes externally visible at 10D (published websites).

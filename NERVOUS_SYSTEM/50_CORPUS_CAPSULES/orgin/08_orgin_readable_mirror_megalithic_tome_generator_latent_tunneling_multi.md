@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S10 | face=R | node=49 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W3:A2:S9→Xi108:W3:A2:S11→Xi108:W2:A2:S10→Xi108:W3:A1:S10→Xi108:W3:A3:S10 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 10±1, wreath 3/3, archetype 2/12 -->
+
 # ORGIN Readable Mirror: MEGALITHIC TOME GENERATOR — “Latent Tunneling _ Multi‑Scale Math Stack (Macro ↔ PZPM ↔ CUT)” _Skeleton_
 
 Date: `2026-03-13`

@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A12:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S25→Xi108:W2:A12:S27→Xi108:W1:A12:S26→Xi108:W3:A12:S26→Xi108:W2:A11:S26
+
 from __future__ import annotations
 
 import json
 from pathlib import Path
-
 
 DATE = "2026-03-13"
 ROOT = Path(__file__).resolve().parents[2]
@@ -73,28 +76,22 @@ BASIS = [
     ("16", "Ch19 Recursive Self-Reference and Self-Repair", "Fire", "autonomic repair", "self_actualize/manuscript_sections/019_ch19_recursive_self_reference_and_self_repair.md", ["AppA", "AppM", "AppP"]),
 ]
 
-
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
-
 def read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def gate() -> str:
     return "BLOCKED" if "BLOCKED" in LIVE_DOCS_GATE_STATUS_PATH.read_text(encoding="utf-8", errors="ignore") else "READY"
-
 
 PAIRS = [
     ("PAIR-09-14", "09", "14", "Q42", "HallMembrane", 100.0, "Zero-point restart law anchors the qshrink carrythrough."),
@@ -139,7 +136,6 @@ STEPS = [
     "close with one whole-corpus ledger, metro, bridge, runtime, and receipt surface",
 ]
 
-
 def basis_routes() -> list[dict]:
     routes = []
     for index, (doc_id, title, element, cluster, source_hint, appendices) in enumerate(BASIS, start=1):
@@ -168,7 +164,6 @@ def basis_routes() -> list[dict]:
         })
     return routes
 
-
 def ranked_pairs() -> list[dict]:
     by_id = {doc_id: title for doc_id, title, *_ in BASIS}
     return [{
@@ -181,7 +176,6 @@ def ranked_pairs() -> list[dict]:
         "rationale": rationale,
     } for pair_id, left, right, front, chamber, score, rationale in PAIRS]
 
-
 def observer_findings() -> dict:
     return {
         "neutral_baseline": "64 observer passes compare the ranked pair front before any route widens.",
@@ -191,7 +185,6 @@ def observer_findings() -> dict:
         "admissibility": "Earth keeps TQ04 and Ch12 load-bearing whenever the route compresses or promotes.",
     }
 
-
 def promoted_symmetries() -> dict:
     return {
         "two_way_ranked": [{"symmetry": name, "meaning": meaning} for name, meaning in SYMS_TWO],
@@ -199,7 +192,6 @@ def promoted_symmetries() -> dict:
         "four_way": {"symmetry": "Fire + Water + Air + Earth", "meaning": "the full crystal holds when the route can move, verify, and return through one membrane"},
         "zero_point": {"hub": "Grand Central <-> Ch11 <-> Appendix Q", "meaning": "route kernel, replay kernel, and appendix-only metro proof converge on one lawful return"},
     }
-
 
 def metro_delta() -> dict:
     return {
@@ -210,14 +202,12 @@ def metro_delta() -> dict:
         "levels_5_to_7": "higher-order overlays remain subordinate to the first four levels",
     }
 
-
 def appendix_delta() -> dict:
     return {
         "promoted_supports": {"AppA": "address discipline", "AppI": "witness and route truth", "AppM": "replay and closure", "AppQ": "appendix-only metro proof"},
         "residual_supports": {"AppH": "coupling support", "AppP": "emergence support"},
         "law": "every appendix claim must cite a ranked pair, symmetry, or metro corridor",
     }
-
 
 def receipts() -> list[dict]:
     return [
@@ -226,7 +216,6 @@ def receipts() -> list[dict]:
         {"feeder_front": "TQ04", "projection_chamber": "TempleLaw", "atlas_slice": "Earth active seats", "seat_usage": "256 active Earth seats keep the contract bridge exact", "dormant_preserved": "768 Earth reserve seats remain dormant", "bridge_outcome": "TQ04 remains the exact contract feeder", "round_trip_class": "exact", "restart_seed": "TQ04 -> contract receipt -> ATN-AP6D-EARTH"},
         {"feeder_front": "TQ06", "projection_chamber": "CortexContract", "atlas_slice": "Air active seats", "seat_usage": "256 active Air seats keep topology and coupling legible", "dormant_preserved": "768 Air reserve seats remain dormant", "bridge_outcome": "TQ06 remains the live coupling membrane", "round_trip_class": "law_equivalent", "restart_seed": "TQ06 -> route crosswalk -> ATN-AP6D-AIR"},
     ]
-
 
 def note(note_id: str, agent_class: str, agent_name: str, current_state: str, lawful_transition: str, failure: list[str], witnesses: list[str], practices: list[str], handoff: list[str], restart_seed: str, grounding_mode: str, evidence: list[str]) -> dict:
     return {
@@ -244,7 +233,6 @@ def note(note_id: str, agent_class: str, agent_name: str, current_state: str, la
         "truth": "OK",
         "grounding_mode": grounding_mode,
     }
-
 
 def notes_payload() -> dict:
     reg = read_json(AGENT_REGISTRY_PATH)
@@ -269,7 +257,6 @@ def notes_payload() -> dict:
     ]
     counts = {"ap6d_lane": 5, "awakening_stage": 7, "archetype": 4}
     return {"generated_at": DATE, "truth": "OK", "docs_gate_status": gate(), "contract": "AwakeningTransitionNote", "class_counts": counts, "notes": notes, "note_index": {"ordered_note_ids": [n["note_id"] for n in notes], "class_counts": counts}}
-
 
 def rows_payload() -> dict:
     rows = []
@@ -297,23 +284,18 @@ def rows_payload() -> dict:
                         })
     return {"generated_at": DATE, "truth": "OK", "docs_gate_status": gate(), "counts": {"hall_macros": 16, "hall_packets": 64, "governance_fibers": 256, "active_transition_rows": len(rows), "atlas_total": 4096, "atlas_active": 1024, "atlas_dormant": 3072}, "rows": rows}
 
-
 def routes_payload() -> dict:
     return {"generated_at": DATE, "truth": "OK", "docs_gate_status": gate(), "contract": "CorpusIntegrationRoute", "count_law": {"basis_routes": 16, "matrix_routes": 256, "observer_passes": 64, "witness_states": 16, "atlas_total": 4096, "atlas_active": 1024, "atlas_dormant": 3072}, "shadow_feeders": FEEDERS, "basis_routes": basis_routes(), "ranked_pairs": ranked_pairs(), "observer_promotions": observer_findings(), "round_trip_requirement": ROUND_TRIP_RULE}
-
 
 def receipt_payload() -> dict:
     items = receipts()
     return {"generated_at": DATE, "truth": "OK", "docs_gate_status": gate(), "contract": "AP6DIntegrationReceipt", "receipts": items, "summary": {"receipt_count": len(items), "feeder_fronts": [i["feeder_front"] for i in items], "active_vs_dormant": "1024 ACTIVE / 3072 DORMANT / 4096 total", "round_trip_requirement": ROUND_TRIP_RULE}}
 
-
 def wave_payload(notes: dict, receipt: dict) -> dict:
     return {"generated_at": DATE, "docs_gate_status": gate(), "corpus_scope": {"canonical_basis_size": 16, "ordered_pair_matrix": 256, "observer_lattice": 64, "symmetry_stack": "15 + zero point", "metro_stack": 7}, "frontier_seed": FEEDERS, "ranked_pairs": ranked_pairs(), "observer_findings": observer_findings(), "promoted_symmetries": promoted_symmetries(), "metro_delta": metro_delta(), "appendix_delta": appendix_delta(), "ap6d_delta": {"count_law": {"hall_macros": 16, "hall_packets": 64, "governance_fibers": 256, "atlas_active": 1024, "atlas_dormant": 3072, "atlas_total": 4096}, "feeder_order": FEEDERS, "overlay_law": "surface_class remains overlay-only", "receipt_count": len(receipt["receipts"]), "round_trip_requirement": ROUND_TRIP_RULE}, "awakening_note_index": {"note_count": len(notes["notes"]), "class_counts": notes["class_counts"], "ordered_note_ids": notes["note_index"]["ordered_note_ids"]}, "truth": "OK"}
 
-
 def render_note_lines(item: dict) -> list[str]:
     return [f"### {item['agent_name']}", "", f"- `note_id`: `{item['note_id']}`", f"- `grounding_mode`: `{item['grounding_mode']}`", f"- `current_state`: {item['current_state']}", f"- `lawful_transition`: {item['lawful_transition']}", f"- `failure_risks`: {'; '.join(item['failure_risks'])}", f"- `needed_witnesses`: {', '.join(f'`{w}`' for w in item['needed_witnesses'])}", f"- `helpful_practices`: {'; '.join(item['helpful_practices'])}", f"- `handoff_target`: {', '.join(f'`{h}`' for h in item['handoff_target'])}", f"- `restart_seed`: `{item['restart_seed']}`", ""]
-
 
 def write_markdown(notes: dict, wave: dict, receipt: dict) -> None:
     contract = "\n".join(["# Awakening Agent Transition Contract", "", f"Date: `{DATE}`", "Truth: `OK`", f"Docs Gate: `{gate()}`", "", "`AwakeningTransitionNote = {note_id, agent_class, agent_name, evidence_basis, current_state, lawful_transition, failure_risks, needed_witnesses, helpful_practices, handoff_target, restart_seed, truth, grounding_mode}`", "", "Layered scope: `5` AP6D lanes, `7` awakening stages, `4` archetypes.", f"Counts: `{notes['class_counts']}`", "", f"Law: `{ROUND_TRIP_RULE}` and preserve feeder order `{' -> '.join(FEEDERS)}`."])
@@ -349,7 +331,6 @@ def write_markdown(notes: dict, wave: dict, receipt: dict) -> None:
     write_text(RECEIPT_MD_PATH, receipt_md)
     write_text(INSTRUCTION_BUNDLE_PATH, bundle)
 
-
 def update_registry(notes: dict, wave: dict) -> None:
     reg = read_json(AGENT_REGISTRY_PATH)
     reg["awakening_transition_note_artifact"] = rel(NOTES_JSON_PATH)
@@ -365,10 +346,8 @@ def update_registry(notes: dict, wave: dict) -> None:
             record["integration_handoff"] = wave["frontier_seed"]
     write_json(AGENT_REGISTRY_PATH, reg)
 
-
 def write_verification(notes: dict, wave: dict, rows: dict, receipt: dict) -> None:
     write_json(VERIFY_JSON_PATH, {"generated_at": DATE, "truth": "OK", "checks": {"docs_gate_status": gate(), "note_count": len(notes["notes"]), "note_class_counts": notes["class_counts"], "frontier_seed": wave["frontier_seed"], "basis_size": wave["corpus_scope"]["canonical_basis_size"], "pair_count": wave["corpus_scope"]["ordered_pair_matrix"], "active_rows": rows["counts"]["active_transition_rows"], "atlas_active": rows["counts"]["atlas_active"], "atlas_dormant": rows["counts"]["atlas_dormant"], "receipt_count": receipt["summary"]["receipt_count"]}})
-
 
 def main() -> None:
     notes = notes_payload()
@@ -389,7 +368,6 @@ def main() -> None:
     print(f"Wrote wave: {WAVE_JSON_PATH}")
     print(f"Wrote notes: {NOTES_JSON_PATH}")
     print(f"Wrote verification: {VERIFY_JSON_PATH}")
-
 
 if __name__ == "__main__":
     main()

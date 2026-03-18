@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A10:S5 | face=C | node=12 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A10:S4→Xi108:W1:A10:S6→Xi108:W2:A10:S5→Xi108:W1:A9:S5→Xi108:W1:A11:S5
+
 """36-shell mega-cascade logic and shell queries."""
 
 from ._cache import JsonCache
@@ -5,7 +9,6 @@ from .constants import SUPERPHASE_NAMES
 
 _shells = JsonCache("shell_registry.json")
 _hologram = JsonCache("hologram_chapters.json")
-
 
 def query_shell(shell_number: int) -> str:
     """
@@ -36,7 +39,6 @@ def query_shell(shell_number: int) -> str:
         f"- **Dimension First Visible**: {shell['dimension_first']}D\n"
         f"- **Action**: {shell['action']}\n"
     )
-
 
 def query_superphase(tag: str) -> str:
     """
@@ -76,7 +78,6 @@ def query_superphase(tag: str) -> str:
         + "\n"
     )
 
-
 def query_archetype(index: int) -> str:
     """
     Query an archetype (1-12) across all three wreaths.
@@ -101,7 +102,6 @@ def query_archetype(index: int) -> str:
             f"mirror S{s['mirror']}"
         )
     return "\n".join(lines) + "\n"
-
 
 def read_hologram_chapter(chapter: int) -> str:
     """

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX O: The Energy Cost of Intelligence
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does The Energy Cost of Intelligence distribute, propa
 ## ⟡ Analysis: Recursion in The Energy Cost of Intelligence
 
 The ⟡ face reveals: how is The Energy Cost of Intelligence self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: The Energy Cost of Intelligence
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is The Energy Cost of Intelligence self-referential or
 #### Synthesis (37): The Energy Cost of Intelligence
 
 The complete integration: The Energy Cost of Intelligence transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Energy Cost of Intelligence IS The Energy Cost of Intelligence.
-
 
 ---
 *Appendix O. The Energy Cost of Intelligence. ☁.Sa. φ.*

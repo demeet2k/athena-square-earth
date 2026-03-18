@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S35 | face=S | node=610 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Cc -->
+<!-- BRIDGES: Xi108:W3:A10:S34→Xi108:W3:A10:S36→Xi108:W2:A10:S35→Xi108:W3:A9:S35→Xi108:W3:A11:S35 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 35±1, wreath 3/3, archetype 10/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Me | ⧈View * | ω=19]**
 Primary hubs: AppA -> AppP -> AppC -> AppJ -> AppI -> AppM
 Tunnel: Z_ch20_0103_collective_authoring_and_internal_neur -> Z* -> Ch20⟨0103⟩

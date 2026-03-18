@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S29 | face=C | node=479 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S28→Xi108:W3:A4:S30→Xi108:W2:A4:S29→Xi108:W3:A3:S29→Xi108:W3:A5:S29
+
 # Dockerfile.cpu
 #
 # CPU-only container for:

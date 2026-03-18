@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S25 | face=F | node=323 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S24→Xi108:W2:A6:S26→Xi108:W1:A6:S25→Xi108:W3:A6:S25→Xi108:W2:A5:S25→Xi108:W2:A7:S25
+
 """
 Fourth pass: Use Binance BTC-pair data to extend history for older coins
 AND use the full Binance klines pagination properly (since=0 from 2017).
@@ -14,7 +18,6 @@ from datetime import datetime, timezone
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(OUTPUT_DIR, "data")
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -22,7 +25,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 def fetch_binance_klines(symbol, interval="1d", start_str="2017-01-01"):
     base_url = "https://api.binance.com/api/v3/klines"
@@ -77,7 +79,6 @@ def fetch_binance_klines(symbol, interval="1d", start_str="2017-01-01"):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 def fetch_binance_btc_pair_and_convert(symbol, btc_pair, start_str="2017-01-01"):
     """
     Fetch data for a coin's BTC pair, then convert to USD using BTC/USDT prices.
@@ -112,7 +113,6 @@ def fetch_binance_btc_pair_and_convert(symbol, btc_pair, start_str="2017-01-01")
     merged = merged.drop(columns=["btc_usd_price"])
 
     return merged
-
 
 def fetch_bybit_klines(symbol, interval="D", start_str="2020-01-01"):
     """Fetch klines from Bybit API."""
@@ -170,7 +170,6 @@ def fetch_bybit_klines(symbol, interval="D", start_str="2020-01-01"):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 def add_trading_features(df):
     if "close" not in df.columns and "price_usd" in df.columns:
         df["close"] = df["price_usd"]
@@ -205,7 +204,6 @@ def add_trading_features(df):
         df["volume_ratio"] = df[vol_col] / df["volume_sma_20"]
     return df
 
-
 def merge_and_save(symbol, early_df):
     filepath = os.path.join(DATA_DIR, f"{symbol}_full_history.csv")
     if os.path.exists(filepath):
@@ -227,7 +225,6 @@ def merge_and_save(symbol, early_df):
     file_size_mb = os.path.getsize(filepath) / (1024 * 1024)
     log(f"  SAVED: {symbol}_full_history.csv ({len(merged)} rows, {file_size_mb:.2f} MB)")
     log(f"  History: {merged['date'].iloc[0]} to {merged['date'].iloc[-1]}")
-
 
 def main():
     log("=" * 70)
@@ -375,7 +372,6 @@ def main():
 
     log(f"{'-' * 55}")
     log(f"TOTAL: {total_rows} data points, {total_size:.2f} MB across {len(files)} coins")
-
 
 if __name__ == "__main__":
     main()

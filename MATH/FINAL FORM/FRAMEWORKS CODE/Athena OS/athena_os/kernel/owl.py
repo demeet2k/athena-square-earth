@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S17 | face=S | node=145 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S16→Xi108:W2:A1:S18→Xi108:W1:A1:S17→Xi108:W3:A1:S17→Xi108:W2:A2:S17
+
 """
 ATHENA OS - KERNEL: OWL ALGORITHM
 =================================
@@ -45,7 +49,6 @@ import numpy as np
 import math
 from collections import defaultdict
 
-
 # =============================================================================
 # LIGHT LEVELS / SNR
 # =============================================================================
@@ -59,7 +62,6 @@ class LightLevel(Enum):
     DARK = "dark"           # Weak signal, SNR 0.3-1
     PITCH = "pitch"         # Minimal signal, SNR < 0.3
 
-
 def snr_to_level(snr: float) -> LightLevel:
     """Convert SNR to light level."""
     if snr > 10:
@@ -72,7 +74,6 @@ def snr_to_level(snr: float) -> LightLevel:
         return LightLevel.DARK
     else:
         return LightLevel.PITCH
-
 
 # =============================================================================
 # OBSERVATION
@@ -116,7 +117,6 @@ class Observation:
             timestamp=self.timestamp,
             source=self.source
         )
-
 
 # =============================================================================
 # HIGH-GAIN SENSOR
@@ -199,7 +199,6 @@ class HighGainSensor:
                 source="detected"
             )
         return None
-
 
 # =============================================================================
 # BAYESIAN REASONER
@@ -289,7 +288,6 @@ class BayesianReasoner:
             return 1.0
         
         return 1.0 - (self.entropy() / max_entropy)
-
 
 # =============================================================================
 # HIDDEN VARIABLE EXTRACTOR
@@ -388,7 +386,6 @@ class HiddenVariableExtractor:
         """Confidence in hidden state estimate."""
         return float(np.max(self.hidden_probs))
 
-
 # =============================================================================
 # PATTERN DETECTOR
 # =============================================================================
@@ -485,7 +482,6 @@ class PatternDetector:
             return (True, 1.0 - freq * 10)
         
         return (False, 0.0)
-
 
 # =============================================================================
 # OWL ALGORITHM
@@ -591,7 +587,6 @@ class OwlAlgorithm:
             "anomalies_detected": self.pattern_detector.anomalies_detected
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -658,7 +653,6 @@ def validate_owl() -> bool:
     assert analysis["observations_processed"] == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Owl Algorithm Module...")

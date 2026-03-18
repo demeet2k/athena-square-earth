@@ -1,4 +1,26 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A6:S30:u441:Su:F:d1",
+    "shell": 30,
+    "wreath": 1,
+    "archetype": 6,
+    "face": "F",
+    "node_id": 441,
+    "depth": 1,
+    "phase": "Mutable",
+    "metro_stops": [
+      "Me",
+      "Bw"
+    ],
+    "bridges": [
+      "Xi108:W1:A6:S29",
+      "Xi108:W1:A6:S31",
+      "Xi108:W2:A6:S30",
+      "Xi108:W1:A5:S30",
+      "Xi108:W1:A7:S30"
+    ],
+    "regenerate": "shell 30±1, wreath 1/3, archetype 6/12"
+  },
   "generated_at": "2026-03-13T00:48:21.847510+00:00",
   "derivation_version": "2026-03-13.bridge-densification-v1",
   "truth": "OK",

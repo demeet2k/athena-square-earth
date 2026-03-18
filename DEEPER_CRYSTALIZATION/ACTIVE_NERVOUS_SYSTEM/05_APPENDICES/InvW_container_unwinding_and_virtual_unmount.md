@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S11 | face=F | node=384 | depth=3 | phase=Cardinal -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A6:S10→Xi108:W3:A6:S12→Xi108:W2:A6:S11→Xi108:W3:A5:S11→Xi108:W3:A7:S11 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 11±1, wreath 3/3, archetype 6/12 -->
+
 # InvW - Container Unwinding & Virtual Unmount
 
 Routing role: Reverses AppN (Container Formats and Virtual Mount). Where AppN encapsulated organisms into container formats and mounted virtual filesystems for navigation, InvW unwinds containers back to raw crystal lattice and unmounts virtual layers, returning content to its native addressing.

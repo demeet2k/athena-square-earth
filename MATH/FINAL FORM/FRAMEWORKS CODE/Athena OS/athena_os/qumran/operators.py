@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S14 | face=S | node=95 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S13→Xi108:W2:A1:S15→Xi108:W1:A1:S14→Xi108:W3:A1:S14→Xi108:W2:A2:S14
+
 """
 ATHENA OS - QUMRAN KERNEL: OPERATORS MODULE
 ============================================
@@ -48,7 +52,6 @@ from typing import Dict, List, Optional, Any, Callable
 from enum import Enum
 import numpy as np
 
-
 # =============================================================================
 # OPERATOR TYPES
 # =============================================================================
@@ -64,7 +67,6 @@ class OperatorType(Enum):
     SACRIFICE = "sacrifice"         # S - offering
     OATH = "oath"                   # O - binding
 
-
 class PurificationType(Enum):
     """Types of purification rituals."""
     
@@ -74,7 +76,6 @@ class PurificationType(Enum):
     SPRINKLING = "sprinkling"   # Water sprinkling
     ASH_WATER = "ash_water"     # Red heifer ashes
 
-
 class ImpurityLevel(Enum):
     """Levels of ritual impurity."""
     
@@ -83,7 +84,6 @@ class ImpurityLevel(Enum):
     MODERATE = "moderate"       # Day-long impurity
     SEVERE = "severe"           # Week-long impurity
     CORPSE = "corpse"          # Corpse contamination (7 days)
-
 
 # =============================================================================
 # STATE VECTOR
@@ -127,7 +127,6 @@ class IndividualState:
                 0 <= self.standing <= 1 and
                 -1 <= self.allegiance <= 1)
 
-
 @dataclass
 class CommunityState:
     """
@@ -148,7 +147,6 @@ class CommunityState:
     def to_vector(self) -> np.ndarray:
         """Convert to numpy array."""
         return np.array([self.cohesion, self.sanctity, self.protection, self.blessing])
-
 
 # =============================================================================
 # BASE OPERATOR
@@ -201,7 +199,6 @@ class RitualOperator:
             return False
         return True
 
-
 # =============================================================================
 # PURIFICATION OPERATORS
 # =============================================================================
@@ -252,7 +249,6 @@ def create_purification_operator(level: PurificationType) -> RitualOperator:
             operator_type=OperatorType.PURIFICATION,
             matrix=np.eye(4)
         )
-
 
 # =============================================================================
 # BLESSING OPERATORS
@@ -310,7 +306,6 @@ def create_blessing_operator(blessing_type: str) -> RitualOperator:
             matrix=np.eye(4)
         )
 
-
 # =============================================================================
 # CURSE OPERATORS
 # =============================================================================
@@ -351,7 +346,6 @@ def create_curse_operator(curse_type: str) -> RitualOperator:
             matrix=np.eye(4) * 0.9
         )
 
-
 # =============================================================================
 # EXORCISM OPERATORS
 # =============================================================================
@@ -374,7 +368,6 @@ def create_exorcism_operator() -> RitualOperator:
         requires_purity=True,
         duration_days=1
     )
-
 
 # =============================================================================
 # LITURGY OPERATORS
@@ -415,7 +408,6 @@ def create_liturgy_operator(liturgy_type: str) -> RitualOperator:
             operator_type=OperatorType.LITURGY,
             matrix=np.eye(4)
         )
-
 
 # =============================================================================
 # OPERATOR CALCULUS
@@ -525,7 +517,6 @@ class OperatorCalculus:
                 if op.operator_type == operator_type
             ]
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -569,7 +560,6 @@ def validate_operators() -> bool:
     assert composed.shape == (4, 4)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Operators Module...")

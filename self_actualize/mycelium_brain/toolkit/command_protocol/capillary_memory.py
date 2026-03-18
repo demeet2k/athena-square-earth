@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A5:S23 | face=R | node=272 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S22→Xi108:W2:A5:S24→Xi108:W1:A5:S23→Xi108:W3:A5:S23→Xi108:W2:A4:S23→Xi108:W2:A6:S23
+
 from __future__ import annotations
 
 from datetime import UTC, datetime
 from typing import Any
 
 from .ledger_writer import capillary_memory_path, read_json, write_json
-
 
 DEFAULT_MEMORY = {
     "version": "command-protocol.v1",
@@ -23,16 +26,13 @@ DEFAULT_MEMORY = {
     "edges": {}
 }
 
-
 def load_memory() -> dict[str, Any]:
     memory = read_json(capillary_memory_path(), DEFAULT_MEMORY)
     memory.setdefault("edges", {})
     return memory
 
-
 def save_memory(memory: dict[str, Any]) -> None:
     write_json(capillary_memory_path(), memory)
-
 
 def classify_edge(strength: float, thresholds: dict[str, float]) -> str:
     if strength >= thresholds["vein"]:
@@ -40,7 +40,6 @@ def classify_edge(strength: float, thresholds: dict[str, float]) -> str:
     if strength >= thresholds["capillary"]:
         return "capillary"
     return "ephemeral"
-
 
 def reinforce_edge(
     *,

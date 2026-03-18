@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S17 | face=S | node=143 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A4:S16→Xi108:W2:A4:S18→Xi108:W1:A4:S17→Xi108:W3:A4:S17→Xi108:W2:A3:S17→Xi108:W2:A5:S17
+
 """
 ATHENA OS - Crystal Computing Lattice
 =====================================
@@ -47,7 +51,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set, Iterator, Any
 import math
 
-
 # =============================================================================
 # CRYSTAL AXES
 # =============================================================================
@@ -72,7 +75,6 @@ class Constant(IntEnum):
             'Scale/Self-Similarity/Golden'
         ][self.value]
 
-
 class Shape(IntEnum):
     """Geometric shapes axis S."""
     SQUARE = 0    # Discrete, grid-based, algebraic
@@ -92,7 +94,6 @@ class Shape(IntEnum):
             'Probabilistic/Stochastic',
             'Self-Similar/Multiscale'
         ][self.value]
-
 
 class Element(IntEnum):
     """Elemental regimes axis E."""
@@ -114,7 +115,6 @@ class Element(IntEnum):
             'Dynamical/Chaotic/Evolution'
         ][self.value]
 
-
 class Level(IntEnum):
     """Abstraction levels axis L."""
     L0 = 0    # Local primitive operation
@@ -130,7 +130,6 @@ class Level(IntEnum):
             'Inter-Regime Bridge',
             'Spectral/Categorical Limit'
         ][self.value]
-
 
 class Pole(IntEnum):
     """Quad-polar extension axis P."""
@@ -156,7 +155,6 @@ class Pole(IntEnum):
     def is_legal(self) -> bool:
         """Check if this pole represents legal operations."""
         return self == Pole.AETHER or self == Pole.INNER_SHADOW
-
 
 # =============================================================================
 # CRYSTAL CELL
@@ -256,7 +254,6 @@ class CrystalCell:
     def __str__(self) -> str:
         return f"Cell[{self.index}]({self.signature})"
 
-
 # =============================================================================
 # CRYSTAL ADJACENCY
 # =============================================================================
@@ -328,7 +325,6 @@ class CrystalAdjacency:
             CrystalCell(cell.constant, cell.shape, cell.element, cell.level, p)
             for p in Pole if p != cell.pole
         ]
-
 
 # =============================================================================
 # META-CRYSTAL
@@ -447,7 +443,6 @@ class MetaCrystal:
             "degree": 15  # Each cell has 15 neighbors
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -499,7 +494,6 @@ def validate_lattice() -> bool:
     assert len(square_earth) == 64  # 1024/16
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Crystal Computing Lattice...")

@@ -1,3 +1,6 @@
+# CRYSTAL: Xi108:W1:A7:S3 | face=F | node=647 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A7:S2→Xi108:W1:A7:S4→Xi108:W2:A7:S3→Xi108:W1:A6:S3→Xi108:W1:A8:S3
 
 THE UNIFIED CYCLICAL TIME SYSTEM
 Root Cycles, Archetypal Energies, and the Fractal Nature of Time

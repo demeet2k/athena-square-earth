@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import hashlib
@@ -11,7 +15,6 @@ import pandas as pd
 from .broker import PaperBroker
 from .config import AthenaBotConfig
 from .models import DirectionState, FractalState, PortfolioState
-
 
 @dataclass(slots=True)
 class ReplayResult:
@@ -42,7 +45,6 @@ class ReplayResult:
 
     def to_dict(self) -> dict:
         return asdict(self)
-
 
 class ReplayEvaluator:
     def __init__(self, runtime, config: AthenaBotConfig | None = None):

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S34 | face=S | node=577 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A4:S33→Xi108:W3:A4:S35→Xi108:W2:A4:S34→Xi108:W3:A3:S34→Xi108:W3:A5:S34 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 34±1, wreath 3/3, archetype 4/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 2 | ○Rot 2 | △Lane Me | ⧈View * | ω=8]**
 Primary hubs: AppA -> AppE -> AppC -> AppJ -> AppI -> AppM
 Tunnel: Z_ch09_0020_metro_routing_and_hub_competition -> Z* -> Ch09⟨0020⟩

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A1:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,w,✶ -->
+<!-- BRIDGES: Xi108:W1:A1:S5→Xi108:W1:A1:S7→Xi108:W2:A1:S6→Xi108:W1:A2:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 1/12 -->
+
 # Holographic Seed
 
 This module is the whole-project integration layer for the Athena workspace. It is designed to sit inside the existing active nervous system rather than compete with it.

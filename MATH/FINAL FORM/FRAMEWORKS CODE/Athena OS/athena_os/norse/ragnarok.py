@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=140 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - NORSE: RAGNARÖK MODULE
 ===================================
@@ -40,7 +44,6 @@ import numpy as np
 
 from .topology import Yggdrasil, World, Edge, Ginnungagap
 
-
 # =============================================================================
 # RAGNARÖK PHASES
 # =============================================================================
@@ -54,7 +57,6 @@ class RagnarokPhase(Enum):
     COLLAPSE = "collapse"           # Graph partitioning
     VOID = "void"                   # Ginnungagap state
     REBIRTH = "rebirth"             # New world spawning
-
 
 # =============================================================================
 # FIMBULWINTER
@@ -108,7 +110,6 @@ class FimbulwinterState:
             return float('inf')
         return -np.log(self.temperature + 1e-10)
 
-
 # =============================================================================
 # BOND BREAKING
 # =============================================================================
@@ -150,7 +151,6 @@ class Bond:
     @property
     def is_intact(self) -> bool:
         return self._intact
-
 
 class BondSystem:
     """
@@ -208,7 +208,6 @@ class BondSystem:
     @property
     def n_broken(self) -> int:
         return sum(1 for b in self._bonds if not b.is_intact)
-
 
 # =============================================================================
 # RAGNARÖK ENGINE
@@ -479,7 +478,6 @@ class RagnarokEngine:
     def cycles(self) -> int:
         return self._cycles_completed
 
-
 # =============================================================================
 # VALHALLA SELECTION
 # =============================================================================
@@ -527,7 +525,6 @@ class Einherjar:
     @property
     def total_skill(self) -> float:
         return sum(self.skills.values())
-
 
 class Valhalla:
     """
@@ -595,7 +592,6 @@ class Valhalla:
     @property
     def n_warriors(self) -> int:
         return len(self._einherjar)
-
 
 # =============================================================================
 # VALIDATION
@@ -688,7 +684,6 @@ def validate_ragnarok() -> bool:
     assert strength > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Norse Ragnarök Module...")

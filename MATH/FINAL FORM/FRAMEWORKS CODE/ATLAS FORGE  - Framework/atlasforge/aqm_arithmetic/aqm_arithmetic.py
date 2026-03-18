@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=83 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      AQM ARITHMETIC MODULE                                   ║
@@ -28,7 +32,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CPTP CHANNELS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -39,7 +42,6 @@ class ChannelType(Enum):
     CP = "cp"               # Completely positive (may lose trace)
     INSTRUMENT = "instrument"  # Channel with classical output
     UNITARY = "unitary"     # Special case: unitary evolution
-
 
 @dataclass
 class ArithmeticChannel:
@@ -96,7 +98,6 @@ class ArithmeticChannel:
             kraus_operators=new_kraus
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # STINESPRING DILATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -136,7 +137,6 @@ class StinespringDilation:
             name="Stinespring",
             kraus_operators=kraus_ops
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # RADON-NIKODYM FACTORS
@@ -195,7 +195,6 @@ class RadonNikodymFactor:
             return float('inf')
         return abs(w)**(-4)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOUNDARY JET CALCULUS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -204,7 +203,6 @@ class BoundaryPole(Enum):
     """Boundary poles on Riemann sphere."""
     NEAR = "0"      # z = 0
     FAR = "∞"       # z = ∞
-
 
 class IndeterminateForm(Enum):
     """Classical indeterminate forms."""
@@ -215,7 +213,6 @@ class IndeterminateForm(Enum):
     ZERO_TO_ZERO = "0^0"
     ONE_TO_INF = "1^∞"
     INF_TO_ZERO = "∞^0"
-
 
 @dataclass
 class BoundaryJet:
@@ -253,7 +250,6 @@ class BoundaryJet:
             coefficients=list(reversed(self.coefficients)),
             jet_depth=self.jet_depth
         )
-
 
 @dataclass
 class JetCalculus:
@@ -350,7 +346,6 @@ class JetCalculus:
         # Unresolved after max iterations
         return complex('nan'), iterations
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRANSCENDENTAL INSTRUMENTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -374,7 +369,6 @@ class BranchRegister:
             sheet_index=self.sheet_index + delta,
             cut_convention=self.cut_convention
         )
-
 
 @dataclass
 class LogInstrument:
@@ -401,7 +395,6 @@ class LogInstrument:
         result = principal + 2j * np.pi * branch.sheet_index
         return result, branch
 
-
 @dataclass
 class ExpInstrument:
     """
@@ -415,7 +408,6 @@ class ExpInstrument:
     def apply(self, w: complex) -> complex:
         """Apply exponential."""
         return np.exp(w)
-
 
 @dataclass
 class PowerInstrument:
@@ -437,7 +429,6 @@ class PowerInstrument:
         result = exp_inst.apply(self.exponent * log_z)
         
         return result, branch_out
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # BULK + BOUNDARY DECOMPOSITION
@@ -472,7 +463,6 @@ class BulkBoundaryDecomposition:
         # Both should be CPTP and partition the domain
         return (self.bulk.is_trace_preserving() and 
                 self.boundary.is_trace_preserving())
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ALGEBRAIC LAWS WITH CERTIFICATES
@@ -518,7 +508,6 @@ class AlgebraicLaw:
             certificate_type="DistributivityCert"
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MONOIDAL STRUCTURE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -556,7 +545,6 @@ class AQMMonoidalCategory:
             channel_type=ChannelType.UNITARY,
             kraus_operators=[np.eye(dim)]
         )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -613,7 +601,6 @@ class AQMArithmeticPoleBridge:
           Ψ: Hierarchical branch structure
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -622,37 +609,30 @@ def arithmetic_channel(name: str, kraus: List[NDArray] = None) -> ArithmeticChan
     """Create arithmetic channel."""
     return ArithmeticChannel(name=name, kraus_operators=kraus or [])
 
-
 def boundary_jet(pole: BoundaryPole, order: int, 
                  leading: complex) -> BoundaryJet:
     """Create boundary jet."""
     return BoundaryJet(pole=pole, order=order, leading_coefficient=leading)
 
-
 def jet_calculus() -> JetCalculus:
     """Create jet calculus."""
     return JetCalculus()
-
 
 def branch_register(k: int = 0) -> BranchRegister:
     """Create branch register."""
     return BranchRegister(sheet_index=k)
 
-
 def log_instrument() -> LogInstrument:
     """Create log instrument."""
     return LogInstrument()
-
 
 def exp_instrument() -> ExpInstrument:
     """Create exp instrument."""
     return ExpInstrument()
 
-
 def power_instrument(alpha: complex) -> PowerInstrument:
     """Create power instrument."""
     return PowerInstrument(exponent=alpha)
-
 
 def algebraic_law(name: str) -> AlgebraicLaw:
     """Get standard algebraic law."""
@@ -662,7 +642,6 @@ def algebraic_law(name: str) -> AlgebraicLaw:
         "distributivity": AlgebraicLaw.distributivity(),
     }
     return laws.get(name, AlgebraicLaw(name, "", [], ""))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me,□
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - Bio Metro Map (Hubs + Routes + Addressing)
 ======================================================
@@ -30,7 +34,6 @@ import numpy as np
 
 from .aether import BioPillar, BioState
 from .clans import BioAddress, BioArchetype, ARCHETYPES, get_archetype
-
 
 # =============================================================================
 # BIO HUBS
@@ -81,7 +84,6 @@ class BioHub(IntEnum):
         }
         return descriptions[self]
 
-
 # =============================================================================
 # BIO METRO LINES
 # =============================================================================
@@ -104,7 +106,6 @@ class BioMetroLine:
     
     def contains_hub(self, hub: BioHub) -> bool:
         return hub in self.hubs
-
 
 # Standard metro lines
 LINE_IMMUNE = BioMetroLine(
@@ -170,7 +171,6 @@ METRO_LINES: List[BioMetroLine] = [
     LINE_GENETIC, LINE_STRUCTURAL, LINE_EVOLUTIONARY, LINE_LIFE_CYCLE
 ]
 
-
 # =============================================================================
 # BIO METRO MAP
 # =============================================================================
@@ -230,10 +230,8 @@ class BioMetroMap:
         """Get all lines passing through a hub."""
         return [line for line in METRO_LINES if line.contains_hub(hub)]
 
-
 # Global metro map instance
 BIO_METRO = BioMetroMap()
-
 
 # =============================================================================
 # PHENOMENON ROUTER
@@ -259,7 +257,6 @@ class PhenomenonRoute:
     def __str__(self) -> str:
         route_str = " → ".join(h.name.split('_')[0] for h in self.hub_route)
         return f"{self.phenomenon}: T[{self.address}] via {route_str}"
-
 
 class BioRouter:
     """
@@ -390,10 +387,8 @@ class BioRouter:
         """List all known phenomena."""
         return list(self.known_routes.keys())
 
-
 # Global router instance
 BIO_ROUTER = BioRouter()
-
 
 # =============================================================================
 # VALIDATION
@@ -431,7 +426,6 @@ def validate_metro() -> bool:
     assert quick.address.primary == BioPillar.FIRE
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Bio Metro Map...")

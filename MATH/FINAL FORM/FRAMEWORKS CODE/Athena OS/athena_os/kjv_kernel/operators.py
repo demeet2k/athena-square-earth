@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - KJV BIBLE COMPUTATIONAL FRAMEWORK
 ==============================================
@@ -33,7 +37,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
-
 # =============================================================================
 # SHALL/WILL OPERATORS
 # =============================================================================
@@ -50,7 +53,6 @@ class ModalType(Enum):
     def __init__(self, category: str, description: str):
         self.category = category
         self._description = description
-
 
 @dataclass
 class ShallOperator:
@@ -120,7 +122,6 @@ class ShallOperator:
             "difference": "SHALL is certitude; WILL is intention",
         }
 
-
 @dataclass
 class WillOperator:
     """
@@ -146,7 +147,6 @@ class WillOperator:
             "future": "Simple future tense (later development)",
         }
 
-
 # =============================================================================
 # THEE/YE PROTOCOL
 # =============================================================================
@@ -161,7 +161,6 @@ class PronounNumber(Enum):
         self.count = count
         self._description = description
 
-
 class PronounCase(Enum):
     """Pronoun case."""
     
@@ -172,7 +171,6 @@ class PronounCase(Enum):
     def __init__(self, function: str, description: str):
         self.function = function
         self._description = description
-
 
 @dataclass
 class SecondPersonPronoun:
@@ -189,7 +187,6 @@ class SecondPersonPronoun:
         """Modern English equivalent (all collapsed to 'you')."""
         return "you"
 
-
 # The KJV second person pronoun system
 SECOND_PERSON_PRONOUNS = [
     SecondPersonPronoun("thou", PronounNumber.SINGULAR, PronounCase.NOMINATIVE),
@@ -200,7 +197,6 @@ SECOND_PERSON_PRONOUNS = [
     SecondPersonPronoun("you", PronounNumber.PLURAL, PronounCase.OBJECTIVE),
     SecondPersonPronoun("your", PronounNumber.PLURAL, PronounCase.POSSESSIVE),
 ]
-
 
 @dataclass
 class TheeYeProtocol:
@@ -261,7 +257,6 @@ class TheeYeProtocol:
                 "The KJV preserves this distinction; modern versions lose it."
             ),
         }
-
 
 # =============================================================================
 # ITALICS PROTOCOL
@@ -352,7 +347,6 @@ class ItalicsProtocol:
             ],
         }
 
-
 # =============================================================================
 # UNIFIED OPERATORS SYSTEM
 # =============================================================================
@@ -423,7 +417,6 @@ class OperatorsSystem:
             },
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -474,7 +467,6 @@ def validate_operators() -> bool:
     assert "italics" in summary
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Operators Module...")

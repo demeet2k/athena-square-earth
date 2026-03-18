@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S25 | face=C | node=317 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S24→Xi108:W3:A9:S26→Xi108:W2:A9:S25→Xi108:W3:A8:S25→Xi108:W3:A10:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 9/12 -->
+
 ﻿# Accepted Input: Legacy to Emergent Tesseract Prompt
 
 Accepted on: 2026-03-13

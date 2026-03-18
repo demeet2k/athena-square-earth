@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=306 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 Second pass: Fetch missing coins and extend history for existing ones.
 - Uses Binance alternative pairs (BTC pairs) for coins without USDT pairs
@@ -17,7 +21,6 @@ OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(OUTPUT_DIR, "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -25,7 +28,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 # ── Binance Klines (reusable) ──────────────────────────────────────────────────
 
@@ -90,7 +92,6 @@ def fetch_binance_klines(symbol, interval="1d", start_str="2017-01-01"):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 # ── CoinGecko with aggressive retry ───────────────────────────────────────────
 
 def fetch_coingecko_history_retry(coin_id, max_retries=5, initial_delay=30):
@@ -134,7 +135,6 @@ def fetch_coingecko_history_retry(coin_id, max_retries=5, initial_delay=30):
 
     return None
 
-
 def _parse_coingecko_response(data):
     prices = data.get("prices", [])
     market_caps = data.get("market_caps", [])
@@ -156,7 +156,6 @@ def _parse_coingecko_response(data):
     df = df.drop_duplicates(subset=["date"], keep="last")
     df = df.sort_values("date").reset_index(drop=True)
     return df
-
 
 # ── CoinCap API (free, no key) ────────────────────────────────────────────────
 
@@ -216,7 +215,6 @@ def fetch_coincap_history(asset_id, interval="d1"):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 # ── Trading indicators ────────────────────────────────────────────────────────
 
 def add_trading_features(df):
@@ -264,7 +262,6 @@ def add_trading_features(df):
         df["volume_ratio"] = df["volume"] / df["volume_sma_20"]
 
     return df
-
 
 # ── MISSING COINS ──────────────────────────────────────────────────────────────
 
@@ -320,7 +317,6 @@ EXTEND_COINS = [
      "actual_start": "2020-04-10"},
 ]
 
-
 def process_missing_coins():
     log("=" * 70)
     log("PHASE 1: FETCHING MISSING COINS")
@@ -373,7 +369,6 @@ def process_missing_coins():
             log(f"  WARNING: Could not obtain data for {symbol}")
 
         time.sleep(2)
-
 
 def extend_existing_coins():
     log("\n" + "=" * 70)
@@ -431,7 +426,6 @@ def extend_existing_coins():
 
         time.sleep(3)
 
-
 def update_summary():
     log("\n" + "=" * 70)
     log("UPDATING SUMMARY")
@@ -476,7 +470,6 @@ def update_summary():
 
     log(f"{'-' * 60}")
     log(f"TOTAL: {total_rows} data points, {total_size:.2f} MB across {len(summary_rows)} coins")
-
 
 if __name__ == "__main__":
     process_missing_coins()

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=413 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ from typing import Any, Callable
 
 from . import swarm_board
 from .derive_skill_cohesion_registry import LIVE_ROUTER_PATH
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -32,29 +35,23 @@ DERIVATION_COMMAND = "python -m self_actualize.runtime.verify_skill_cohesion"
 NEXT_SEED_SUCCESS = "FRONT-INT-ATHENA-FLEET-BRIDGE"
 NEXT_SEED_FAIL = "FRONT-INT-SKILL-COHESION"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
 
-
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def load_registry() -> dict[str, Any]:
     return json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
-
 
 def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     try:
@@ -62,14 +59,12 @@ def run_check(label: str, fn: Callable[[], dict[str, Any]]) -> dict[str, Any]:
     except Exception as exc:  # noqa: BLE001
         return {"label": label, "status": "FAIL", "details": str(exc)}
 
-
 def verify_live_router_exists() -> dict[str, Any]:
     payload = load_registry()
     records = payload["records"]
     matches = [record for record in records if record["classification"] == "live_authority" and record["path"].endswith("09_SKILLS/00_SKILL_ROUTER.md")]
     ensure(matches, "live router record is missing")
     return {"live_router_path": matches[0]["path"]}
-
 
 def verify_authority_exclusivity() -> dict[str, Any]:
     payload = load_registry()
@@ -79,14 +74,12 @@ def verify_authority_exclusivity() -> dict[str, Any]:
     ensure(root_families == ["live_deep_root"], f"live authority families drifted: {root_families}")
     return {"live_authority_count": len(live_records), "root_families": root_families}
 
-
 def verify_historical_redirects() -> dict[str, Any]:
     payload = load_registry()
     historical = [record for record in payload["records"] if record["classification"] == "historical_mirror"]
     missing = [record["path"] for record in historical if not (record["boundary_notice_present"] and record["redirect_present"])]
     ensure(not missing, f"historical mirrors missing notice or redirect: {missing}")
     return {"historical_count": len(historical)}
-
 
 def verify_family_local_boundaries() -> dict[str, Any]:
     payload = load_registry()
@@ -95,13 +88,11 @@ def verify_family_local_boundaries() -> dict[str, Any]:
     ensure(not missing, f"family-local skills missing boundary or redirect: {missing}")
     return {"family_local_count": len(family_local)}
 
-
 def verify_pruning_skill_exists() -> dict[str, Any]:
     payload = load_registry()
     matches = [record for record in payload["records"] if record["path"].endswith("09_SKILLS/cohesion-pruning-governor/SKILL.md")]
     ensure(matches, "cohesion-pruning-governor is missing")
     return {"path": matches[0]["path"]}
-
 
 def verify_docs_gate_honesty() -> dict[str, Any]:
     registry = load_registry()
@@ -114,13 +105,11 @@ def verify_docs_gate_honesty() -> dict[str, Any]:
         ensure(not (creds.exists() and token.exists()), "docs gate says blocked but OAuth files exist")
     return {"docs_gate_status": live_status}
 
-
 def verify_no_rogue_live_authorities() -> dict[str, Any]:
     payload = load_registry()
     rogue = [record for record in payload["records"] if record["classification"] == "prunable_bloat" and record["overclaims_live_authority"]]
     ensure(not rogue, f"rogue whole-corpus authorities found: {[record['path'] for record in rogue]}")
     return {"prunable_bloat_count": len([record for record in payload["records"] if record["classification"] == "prunable_bloat"])}
-
 
 def render_ledger(registry: dict[str, Any], verification: dict[str, Any]) -> str:
     summary = registry["summary"]
@@ -195,7 +184,6 @@ def render_ledger(registry: dict[str, Any], verification: dict[str, Any]) -> str
     )
     return "\n".join(lines)
 
-
 def render_receipt(registry: dict[str, Any], verification: dict[str, Any]) -> str:
     summary = registry["summary"]
     truth = verification["truth"]
@@ -250,7 +238,6 @@ def render_receipt(registry: dict[str, Any], verification: dict[str, Any]) -> st
     )
     return "\n".join(lines)
 
-
 def build_payload() -> dict[str, Any]:
     checks = [
         run_check("live_router_exists", verify_live_router_exists),
@@ -273,7 +260,6 @@ def build_payload() -> dict[str, Any]:
         "next_seed": NEXT_SEED_SUCCESS if truth == "OK" else NEXT_SEED_FAIL,
     }
 
-
 def main() -> int:
     registry = load_registry()
     payload = build_payload()
@@ -285,7 +271,6 @@ def main() -> int:
     for check in payload["checks"]:
         print(f"- {check['label']}: {check['status']}")
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

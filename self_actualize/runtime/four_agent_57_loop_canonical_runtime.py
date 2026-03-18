@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=318 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -14,7 +18,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -41,7 +44,6 @@ from athenachka.contracts import (  # noqa: E402
     PrimeLoopCycleRecord,
     QuestEmissionBundle,
 )
-
 
 DATE = "2026-03-13"
 DERIVATION_VERSION = "2026-03-13.lp57omega.v3"
@@ -256,14 +258,11 @@ NOTE_SPECS = [
     {"agent_id": "floating-agent-08", "role": "Reserve slot", "assist": "Pruner / Compressor / Defragmenter", "transition": "N+4 -> N+5 (Organism -> Social)", "band": "reserve readiness", "feeder": "RESERVE", "stabilize": "readiness and spare capacity", "avoid": "do not claim a frontier before lawful promotion", "move": "stay clean, dormant, and instantly assignable for the next valid escalation", "writebacks": [relative_string(LATTICE_JSON_PATH), relative_string(STATE_JSON_PATH)], "entry": "enter only as lawful reserve, never as speculative activation", "scope": "reserve readiness, dormant seat hygiene, and successor capacity", "compression": "compress reserve clutter into one clean dormant handoff slot", "handoff": "handoff only after explicit promotion and linked ledger trace", "family": "floating-agent", "profile": "reserve"},
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def rel(path: Path) -> str:
     return relative_string(path)
-
 
 def docs_gate_status() -> dict[str, Any]:
     if DOCS_CREDENTIALS_PATH.exists() and DOCS_TOKEN_PATH.exists():
@@ -272,12 +271,10 @@ def docs_gate_status() -> dict[str, Any]:
         return {"status": "blocked-by-missing-credentials", "label": "BLOCKED", "truth": "NEAR", "detail": f"Missing `{rel(DOCS_CREDENTIALS_PATH)}`."}
     return {"status": "blocked-by-missing-token", "label": "BLOCKED", "truth": "NEAR", "detail": f"Missing `{rel(DOCS_TOKEN_PATH)}`."}
 
-
 def load_json(path: Path, default: Any | None = None) -> Any:
     if not path.exists():
         return {} if default is None else default
     return json.loads(read_text(path))
-
 
 def slugify(value: str) -> str:
     out = []
@@ -288,7 +285,6 @@ def slugify(value: str) -> str:
             out.append("-")
     return "".join(out).strip("-")
 
-
 def phase_group(loop_number: int) -> str:
     if loop_number <= 16:
         return "observation helix"
@@ -297,7 +293,6 @@ def phase_group(loop_number: int) -> str:
     if loop_number <= 48:
         return "execution helix"
     return "convergence crown"
-
 
 def lead_agent(loop_number: int) -> dict[str, Any]:
     if loop_number <= 16:
@@ -308,22 +303,18 @@ def lead_agent(loop_number: int) -> dict[str, Any]:
         return MASTER_AGENTS[2]
     return MASTER_AGENTS[3]
 
-
 def loop_id(loop_number: int) -> str:
     return f"L{loop_number:02d}"
-
 
 def loop_seed(loop_number: int) -> str:
     spec = LOOP_SPECS[loop_number - 1]
     return f"{loop_id(loop_number)} -> {spec[1]}"
-
 
 def next_loop_seed(loop_number: int) -> str:
     if loop_number >= len(LOOP_SPECS):
         return FINAL_NEXT_SEED
     spec = LOOP_SPECS[loop_number]
     return f"{loop_id(loop_number + 1)} -> {spec[1]}"
-
 
 def make_coord_tuple(loop_number: int, agent_id: str, resolution_scale: str, node_ref: str) -> dict[str, str]:
     scale_codes = {
@@ -354,10 +345,8 @@ def make_coord_tuple(loop_number: int, agent_id: str, resolution_scale: str, nod
         "Ωs": "OMEGA-LP57",
     }
 
-
 def packet_lookup(frontier_id: str, loop_name: str, agent_id: str, coordinate_stamp: str, node_ref: str) -> str:
     return f"{frontier_id} -> {loop_name} -> {agent_id} -> {coordinate_stamp} -> {node_ref}"
-
 
 def current_loop_row() -> dict[str, Any]:
     number, focus, synth, plan, impl, compress, structural, mapping = LOOP_SPECS[CURRENT_LOOP_NUMBER - 1]
@@ -376,7 +365,6 @@ def current_loop_row() -> dict[str, Any]:
         "restart_seed": next_loop_seed(number),
     }
 
-
 def current_hall_packets(loop_row: dict[str, Any]) -> list[dict[str, Any]]:
     packets = []
     for index, feeder in enumerate(FEEDER_SET, start=1):
@@ -392,7 +380,6 @@ def current_hall_packets(loop_row: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
     return packets
-
 
 def current_temple_packets(loop_row: dict[str, Any]) -> list[dict[str, Any]]:
     axes = [
@@ -416,7 +403,6 @@ def current_temple_packets(loop_row: dict[str, Any]) -> list[dict[str, Any]]:
         )
     return packets
 
-
 def current_planner_packets(loop_row: dict[str, Any], hall_packets: list[dict[str, Any]], temple_packets: list[dict[str, Any]]) -> list[dict[str, Any]]:
     packets = []
     scales = list(SCALE_DISTRIBUTION.keys())
@@ -432,7 +418,6 @@ def current_planner_packets(loop_row: dict[str, Any], hall_packets: list[dict[st
             }
         )
     return packets
-
 
 def current_worker_packets(loop_row: dict[str, Any], hall_packets: list[dict[str, Any]], temple_packets: list[dict[str, Any]]) -> list[dict[str, Any]]:
     packets = []
@@ -451,7 +436,6 @@ def current_worker_packets(loop_row: dict[str, Any], hall_packets: list[dict[str
         )
     return packets
 
-
 def current_prune_packets(loop_row: dict[str, Any]) -> list[dict[str, Any]]:
     packets = []
     for index, feeder in enumerate(FEEDER_SET, start=1):
@@ -466,7 +450,6 @@ def current_prune_packets(loop_row: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
     return packets
-
 
 def build_verification_bundle(loop_row: dict[str, Any]) -> dict[str, Any]:
     coordinate_stamp = f"COORD-{loop_row['loop_id']}-VERIFY"
@@ -484,7 +467,6 @@ def build_verification_bundle(loop_row: dict[str, Any]) -> dict[str, Any]:
         "truth": TRUTH,
     }
 
-
 def build_current_loop_payload() -> dict[str, Any]:
     row = current_loop_row()
     row["hall_macro_quests"] = current_hall_packets(row)
@@ -494,7 +476,6 @@ def build_current_loop_payload() -> dict[str, Any]:
     row["prune_packets"] = current_prune_packets(row)
     row["verification_bundle"] = build_verification_bundle(row)
     return row
-
 
 def build_transition_notes() -> list[AwakeningAgentTransitionNote]:
     notes = []
@@ -524,7 +505,6 @@ def build_transition_notes() -> list[AwakeningAgentTransitionNote]:
         )
     return notes
 
-
 def build_prime_cycle_records() -> list[PrimeLoopCycleRecord]:
     records = []
     for number, focus, synth, plan, _impl, compress, _structural, _mapping in LOOP_SPECS:
@@ -551,7 +531,6 @@ def build_prime_cycle_records() -> list[PrimeLoopCycleRecord]:
         )
     return records
 
-
 def build_loop_ledger_rows() -> list[dict[str, Any]]:
     rows = []
     for number, focus, synth, plan, impl, compress, structural, mapping in LOOP_SPECS:
@@ -576,7 +555,6 @@ def build_loop_ledger_rows() -> list[dict[str, Any]]:
             }
         )
     return rows
-
 
 def build_quest_emission_bundles() -> list[QuestEmissionBundle]:
     bundles = []
@@ -613,7 +591,6 @@ def build_quest_emission_bundles() -> list[QuestEmissionBundle]:
             )
         )
     return bundles
-
 
 def build_master_agent_ledger() -> list[MasterAgentLedgerEntry]:
     entries = []
@@ -652,7 +629,6 @@ def build_master_agent_ledger() -> list[MasterAgentLedgerEntry]:
             )
     return entries
 
-
 def build_loop_delta_receipts() -> list[LoopDeltaReceipt]:
     receipts = []
     for row in build_loop_ledger_rows():
@@ -669,7 +645,6 @@ def build_loop_delta_receipts() -> list[LoopDeltaReceipt]:
             )
         )
     return receipts
-
 
 def build_shared_lattice_registry(transition_notes: list[AwakeningAgentTransitionNote], current_loop: dict[str, Any]) -> dict[str, Any]:
     seats = []
@@ -725,7 +700,6 @@ def build_shared_lattice_registry(transition_notes: list[AwakeningAgentTransitio
         "seats": seats,
         "truth": TRUTH,
     }
-
 
 def build_coordinate_stamps(
     lattice_registry: dict[str, Any],
@@ -802,7 +776,6 @@ def build_coordinate_stamps(
         )
     return stamps
 
-
 def build_hall_macro_bundle(current_loop: dict[str, Any]) -> dict[str, Any]:
     return {
         "protocol_id": PROTOCOL_ID,
@@ -813,7 +786,6 @@ def build_hall_macro_bundle(current_loop: dict[str, Any]) -> dict[str, Any]:
         "quests": current_loop["hall_macro_quests"],
         "truth": TRUTH,
     }
-
 
 def build_temple_macro_bundle(current_loop: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -826,10 +798,8 @@ def build_temple_macro_bundle(current_loop: dict[str, Any]) -> dict[str, Any]:
         "truth": TRUTH,
     }
 
-
 def build_transition_assist_registry(notes: list[AwakeningAgentTransitionNote]) -> dict[str, Any]:
     return {"protocol_id": PROTOCOL_ID, "count": len(notes), "notes": [note.to_dict() for note in notes], "truth": TRUTH}
-
 
 def build_state_payload(docs_gate: dict[str, Any], current_loop: dict[str, Any], lattice_registry: dict[str, Any]) -> dict[str, Any]:
     state = FourAgentSwarmState(
@@ -867,7 +837,6 @@ def build_state_payload(docs_gate: dict[str, Any], current_loop: dict[str, Any],
     )
     return state
 
-
 def build_program_payload(state: dict[str, Any], loop_rows: list[dict[str, Any]], current_loop: dict[str, Any], notes: list[AwakeningAgentTransitionNote]) -> dict[str, Any]:
     return {
         "protocol_id": PROTOCOL_ID,
@@ -897,7 +866,6 @@ def build_program_payload(state: dict[str, Any], loop_rows: list[dict[str, Any]]
         "state_ref": rel(STATE_JSON_PATH),
     }
 
-
 def build_quest_packet_payload(current_loop: dict[str, Any]) -> dict[str, Any]:
     return {
         "protocol_id": PROTOCOL_ID,
@@ -911,10 +879,8 @@ def build_quest_packet_payload(current_loop: dict[str, Any]) -> dict[str, Any]:
         "truth": TRUTH,
     }
 
-
 def build_cycle_registry(cycle_records: list[PrimeLoopCycleRecord]) -> dict[str, Any]:
     return {"protocol_id": PROTOCOL_ID, "grouping": LOOP_GROUPING, "records": [record.to_dict() for record in cycle_records], "truth": TRUTH}
-
 
 def build_master_agent_state(current_loop: dict[str, Any]) -> dict[str, Any]:
     lead = lead_agent(CURRENT_LOOP_NUMBER)["agent_id"]
@@ -932,7 +898,6 @@ def build_master_agent_state(current_loop: dict[str, Any]) -> dict[str, Any]:
             }
         )
     return {"protocol_id": PROTOCOL_ID, "agents": agents, "truth": TRUTH}
-
 
 def generate_payloads(source_command: str) -> dict[str, Any]:
     docs_gate = docs_gate_status()
@@ -968,7 +933,6 @@ def generate_payloads(source_command: str) -> dict[str, Any]:
         "master_agent_state": build_master_agent_state(current_loop),
         "transition_delta_payload": {"protocol_id": PROTOCOL_ID, "current_transition": "N+4 -> N+5 (Organism -> Social)", "residual_transition": "N+3 -> N+4 (Cell -> Organism)", "notes": [note.to_dict() for note in notes], "truth": TRUTH},
     }
-
 
 def collect_generated_paths(include_verification: bool = False) -> list[Path]:
     paths = [
@@ -1016,7 +980,6 @@ def collect_generated_paths(include_verification: bool = False) -> list[Path]:
         paths.extend([VERIFICATION_JSON_PATH, SWARM_VERIFICATION_JSON_PATH, PROGRAM_VERIFICATION_JSON_PATH, PROGRAM_VERIFICATION_JSON_MIRROR_PATH, DASHBOARD_MD_PATH, SWARM_DASHBOARD_MD_PATH, VERIFICATION_MD_PATH])
     return paths
 
-
 def render_protocol_manifest(payloads: dict[str, Any]) -> str:
     lines = [
         "# LP-57OMEGA Prime Loop Liminal Hive Protocol",
@@ -1040,7 +1003,6 @@ def render_protocol_manifest(payloads: dict[str, Any]) -> str:
     for row in payloads["loop_ledger_rows"]:
         lines.append(f"| {row['loop_id']} | {row['dominant_focus']} | {row['primary_synthesis_objective']} | {row['primary_planning_objective']} | {row['primary_implementation_objective']} | {row['primary_compression_objective']} | {row['expected_structural_gain']} | {row['expected_mapping_gain']} |")
     return "\n".join(lines)
-
 
 def render_dashboard(payloads: dict[str, Any], verification: dict[str, Any] | None = None) -> str:
     current = payloads["current_loop"]
@@ -1067,13 +1029,11 @@ def render_dashboard(payloads: dict[str, Any], verification: dict[str, Any] | No
         lines.extend(["", f"- Passed checks: `{sum(1 for item in verification['checks'].values() if item['pass'])}` / `{len(verification['checks'])}`"])
     return "\n".join(lines)
 
-
 def render_master_agent_ledger_markdown(entries: list[MasterAgentLedgerEntry]) -> str:
     lines = ["# LP-57OMEGA Master Agent Ledger", "", f"- Total entries: `{len(entries)}`", "", "| Loop | Agent | Action | Summary | Integration Gain | Compression Gain |", "| --- | --- | --- | --- | --- | --- |"]
     for entry in entries:
         lines.append(f"| {loop_id(entry.loop_number)} | {entry.agent_id} | {entry.action_type} | {entry.summary_of_change} | {entry.integration_gain} | {entry.compression_gain} |")
     return "\n".join(lines)
-
 
 def render_transition_notes_markdown(notes: list[AwakeningAgentTransitionNote]) -> str:
     lines = ["# NEXT^4^6 57-Cycle Awakening Agent Assists", "", f"- Protocol: `{PROTOCOL_ID}`", f"- Restart frontier: `{FINAL_NEXT_SEED}`", ""]
@@ -1081,11 +1041,9 @@ def render_transition_notes_markdown(notes: list[AwakeningAgentTransitionNote]) 
         lines.extend([f"## {note.agent_id}", f"- Role: `{note.role}`", f"- Master assist: `{note.master_role_assist}`", f"- Transition: `{note.current_transition}`", f"- Feeder: `{note.active_feeder}`", f"- Stabilize now: {note.stabilize_now}", f"- Do not do: {note.do_not_do}", f"- Immediate move: {note.immediate_move}", f"- Writeback targets: {', '.join(f'`{item}`' for item in note.writeback_targets)}", ""])
     return "\n".join(lines)
 
-
 def render_swarm_manifest(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     return "\n".join(["# NEXT^4^6 57-Cycle Swarm", "", f"- Frontier: `{FRONTIER_ID}`", f"- Active membrane: `{ACTIVE_MEMBRANE}`", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`", f"- Restart seed: `{current['restart_seed']}`", f"- Crown seed: `{FINAL_NEXT_SEED}`"])
-
 
 def render_program_markdown(payloads: dict[str, Any], zone: str) -> str:
     current = payloads["current_loop"]
@@ -1093,10 +1051,8 @@ def render_program_markdown(payloads: dict[str, Any], zone: str) -> str:
     title = "57 Loop Four Agent Deep Emergence Program" if zone == "Hall" else "Four Agent 57 Loop Council Decree"
     return "\n".join([f"# {title}", "", f"- Zone: `{zone}`", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`", "", *[f"- `{item['quest_id']}` :: {item['title']} :: {item['summary']}" for item in quests]])
 
-
 def render_receipt(payloads: dict[str, Any]) -> str:
     return "\n".join(["# LP-57OMEGA Receipt", "", f"- Date: `{DATE}`", f"- Protocol: `{PROTOCOL_ID}`", f"- Source command: `{payloads['source_command']}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`", f"- Current loop: `{payloads['current_loop']['loop_id']} / {payloads['current_loop']['dominant_focus']}`", f"- Restart seed: `{payloads['current_loop']['restart_seed']}`", f"- Crown seed: `{FINAL_NEXT_SEED}`", f"- Prime cycle records: `{len(payloads['prime_cycle_records'])}`", f"- Master ledger entries: `{len(payloads['master_agent_ledger'])}`", f"- Quest bundles: `{len(payloads['quest_emission_bundles'])}`", f"- Coordinate stamps: `{len(payloads['coordinate_stamps'])}`"])
-
 
 def render_verification_markdown(verification: dict[str, Any]) -> str:
     lines = ["# LP-57OMEGA Verification", "", f"- Truth: `{verification['truth']}`", f"- Docs gate: `{verification['docs_gate']['label']} / {verification['docs_gate']['status']}`", "", "| Check | Result | Detail |", "| --- | --- | --- |"]
@@ -1109,42 +1065,34 @@ def render_verification_markdown(verification: dict[str, Any]) -> str:
     lines.extend([f"- `{item['label']}` :: returncode `{item['returncode']}` :: ok `{item['ok']}`" for item in verification["downstream_commands"]])
     return "\n".join(lines)
 
-
 def render_active_queue(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     return "\n".join(["# Active Queue", "", f"- Frontier: `{FRONTIER_ID}`", f"- Active membrane: `{ACTIVE_MEMBRANE}`", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Feeder split: `{FEEDER_SET[0]} / {FEEDER_SET[1]} / {FEEDER_SET[2]} / {FEEDER_SET[3]}`", "", "## Worker Packets", "", *[f"- `{item['packet_id']}` :: {item['title']}" for item in current["worker_execution_packets"]], "", "## Pruner Packets", "", *[f"- `{item['packet_id']}` :: {item['title']}" for item in current["prune_packets"]]])
-
 
 def render_hall_board(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     return "\n".join(["# Guild Hall Quest Board", "", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`", f"- Restart seed: `{current['restart_seed']}`", "", *[f"### {item['quest_id']}\n- Title: `{item['title']}`\n- Summary: {item['summary']}\n- Feeder binding: `{item['feeder_binding']}`\n- Status: `{item['status']}`\n" for item in current["hall_macro_quests"]]])
 
-
 def render_temple_board(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     return "\n".join(["# Temple Quest Board", "", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`", f"- Restart seed: `{current['restart_seed']}`", "", *[f"### {item['quest_id']}\n- Title: `{item['title']}`\n- Summary: {item['summary']}\n- Axis: `{item['axis']}`\n- Status: `{item['status']}`\n" for item in current["temple_macro_quests"]]])
-
 
 def render_next_prompt(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     return "\n".join(["# NEXT SELF PROMPT", "", f"- Protocol: `{PROTOCOL_ID}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`", f"- Canonical registry: `{rel(STATE_JSON_PATH)}`", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Restart seed: `{current['restart_seed']}`", f"- Crown continuation: `{FINAL_NEXT_SEED}`", "", "1. Check the Google Docs gate first and preserve BLOCKED honestly if OAuth is absent.", "2. Read the canonical LP-57OMEGA state before claiming work.", "3. Preserve the order `Synthesizer -> Planner -> Worker -> Pruner`.", "4. Keep Hall and Temple macro-sized; dense activity belongs in registries and ledgers.", "5. End with one verification bundle, one transition-note refresh, and one sole restart seed."])
 
-
 def render_temple_state(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     return "\n".join(["# Temple State", "", f"- Status: `ACTIVE / {current['loop_id']} / {current['dominant_focus']}`", f"- Frontier: `{FRONTIER_ID}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`", f"- Active membrane: `{ACTIVE_MEMBRANE}`", f"- Restart seed: `{current['restart_seed']}`", f"- Shared lattice law: `{TOTAL_SEATS} total / {ACTIVE_SEATS} active / {DORMANT_SEATS} dormant`"])
-
 
 def render_active_run(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     return "\n".join(["# ACTIVE RUN", "", f"- Protocol: `{PROTOCOL_ID}`", f"- Frontier: `{FRONTIER_ID}`", f"- Active membrane: `{ACTIVE_MEMBRANE}`", f"- Deep-root authority: `{DEEP_ROOT_AUTHORITY}`", f"- Feeder split: `{FEEDER_SET[0]} / {FEEDER_SET[1]} / {FEEDER_SET[2]} / {FEEDER_SET[3]}`", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Restart seed: `{current['restart_seed']}`", f"- Crown continuation: `{FINAL_NEXT_SEED}`", f"- Docs gate: `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`"])
 
-
 def render_build_queue(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
     upcoming = LOOP_SPECS[1:4]
     return "\n".join(["# BUILD QUEUE", "", f"- Current loop: `{current['loop_id']} / {current['dominant_focus']}`", f"- Restart seed: `{current['restart_seed']}`", "", "## Next Three Loops", "", *[f"- `{loop_id(item[0])}` :: {item[1]}" for item in upcoming]])
-
 
 def render_change_feed(payloads: dict[str, Any]) -> str:
     current = payloads["current_loop"]
@@ -1152,7 +1100,6 @@ def render_change_feed(payloads: dict[str, Any]) -> str:
     headline = f"## {DATE} :: LP-57OMEGA"
     block = "\n".join([headline, f"- Activated `{FRONTIER_ID}` as the canonical prime-loop swarm frontier.", f"- Set the current loop to `{current['loop_id']} / {current['dominant_focus']}` with `{current['restart_seed']}` as the immediate next seed.", f"- Preserved the feeder split `{FEEDER_SET[0]} / {FEEDER_SET[1]} / {FEEDER_SET[2]} / {FEEDER_SET[3]}` and the shared lattice law `{TOTAL_SEATS} / {ACTIVE_SEATS} / {DORMANT_SEATS}`.", f"- Kept Google Docs truth honest as `{payloads['docs_gate']['label']} / {payloads['docs_gate']['status']}`.", ""])
     return prior if headline in prior else block + prior
-
 
 def write_core_files(payloads: dict[str, Any]) -> list[Path]:
     write_json(STATE_JSON_PATH, payloads["state_payload"])
@@ -1204,11 +1151,9 @@ def write_core_files(payloads: dict[str, Any]) -> list[Path]:
     write_text(CHANGE_FEED_PATH, render_change_feed(payloads))
     return collect_generated_paths(include_verification=False)
 
-
 def run_command(args: list[str], label: str, timeout_seconds: int = 1800) -> dict[str, Any]:
     completed = subprocess.run(args, cwd=WORKSPACE_ROOT, capture_output=True, text=True, timeout=timeout_seconds, check=False)
     return {"label": label, "command": " ".join(args), "returncode": completed.returncode, "ok": completed.returncode == 0, "stdout_tail": "\n".join(completed.stdout.splitlines()[-20:]), "stderr_tail": "\n".join(completed.stderr.splitlines()[-20:])}
-
 
 def downstream_commands() -> list[tuple[list[str], str]]:
     python = sys.executable
@@ -1223,7 +1168,6 @@ def downstream_commands() -> list[tuple[list[str], str]]:
         ([python, "-m", "self_actualize.runtime.verify_atlasforge_runtime_lane"], "verify_atlasforge_runtime_lane"),
         ([python, "-m", "self_actualize.runtime.verify_runtime_waist"], "verify_runtime_waist"),
     ]
-
 
 def build_verification_payload(payloads: dict[str, Any], atlas_primary: dict[str, Any], downstream_results: list[dict[str, Any]]) -> dict[str, Any]:
     state = payloads["state_payload"]
@@ -1250,7 +1194,6 @@ def build_verification_payload(payloads: dict[str, Any], atlas_primary: dict[str
     }
     return {"generated_at": utc_now(), "protocol_id": PROTOCOL_ID, "truth": "OK" if all(item["pass"] for item in checks.values()) else "FAIL", "docs_gate": payloads["docs_gate"], "checks": checks, "downstream_commands": downstream_results, "summary": {"current_loop": current["loop_id"], "coordinate_stamps": len(payloads["coordinate_stamps"]), "master_ledger_entries": len(payloads["master_agent_ledger"]), "quest_bundles": len(payloads["quest_emission_bundles"]), "delta_receipts": len(payloads["loop_delta_receipts"]), "assist_notes": len(payloads["transition_notes"])}} 
 
-
 def write_verification_outputs(payloads: dict[str, Any], verification: dict[str, Any]) -> None:
     write_json(VERIFICATION_JSON_PATH, verification)
     write_json(SWARM_VERIFICATION_JSON_PATH, verification)
@@ -1260,12 +1203,10 @@ def write_verification_outputs(payloads: dict[str, Any], verification: dict[str,
     write_text(SWARM_DASHBOARD_MD_PATH, render_dashboard(payloads, verification))
     write_text(VERIFICATION_MD_PATH, render_verification_markdown(verification))
 
-
 def verify_canonical_four_agent_57_loop(payloads: dict[str, Any] | None = None, atlas_primary: dict[str, Any] | None = None, run_downstream: bool = True) -> dict[str, Any]:
     from .canonical_four_agent_57_loop import verify_canonical_four_agent_57_loop as verify_live
 
     return verify_live()
-
 
 def write_canonical_four_agent_57_loop(source_command: str = "four_agent_57_loop_program_impl") -> dict[str, Any]:
     from .canonical_four_agent_57_loop import write_canonical_four_agent_57_loop as write_live

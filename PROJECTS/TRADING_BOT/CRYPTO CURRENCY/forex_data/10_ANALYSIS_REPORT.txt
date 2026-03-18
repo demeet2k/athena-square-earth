@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W3:A10:S33 | face=F | node=423 | depth=3 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A10:S32→Xi108:W3:A10:S34→Xi108:W2:A10:S33→Xi108:W3:A9:S33→Xi108:W3:A11:S33
+
 ================================================================================
 COMPREHENSIVE CURRENCY FLUCTUATION ANALYSIS REPORT
 20 Major World Currencies | 1999-2026 (26+ Years)
 Generated: 2026-02-09 20:36
 ================================================================================
-
 
 1. OVERVIEW
 ----------------------------------------
@@ -15,7 +18,6 @@ Data points per currency: ~6,700-6,940 daily observations
 All rates expressed as USD/XXX (units of foreign currency per 1 USD)
 Positive total change = currency WEAKENED vs USD
 Negative total change = currency STRENGTHENED vs USD
-
 
 2. TOTAL PERIOD PERFORMANCE (1999-2026)
 ----------------------------------------
@@ -46,7 +48,6 @@ Currencies that WEAKENED vs USD:
 Most VOLATILE: TRY (21.2% annualized)
 Most STABLE:   USD (0.0% annualized)
 
-
 3. DECADE-BY-DECADE ANALYSIS
 ----------------------------------------
 
@@ -74,7 +75,6 @@ Most STABLE:   USD (0.0% annualized)
     Strongest: MXN (-12.9%)
     Weakest:   TRY (+491.7%)
     Most Volatile: TRY (18.8%)
-
 
 4. MAJOR CRISIS EVENTS & CURRENCY IMPACT
 ----------------------------------------
@@ -189,7 +189,6 @@ Most STABLE:   USD (0.0% annualized)
       Most weakened: MXN (+7.8%)
       Most strengthened: JPY (-5.7%)
 
-
 5. VOLATILITY REGIME ANALYSIS
 ----------------------------------------
 
@@ -213,7 +212,6 @@ Currency volatility ranking (highest to lowest):
    SGD: Avg   4.9%  Max   10.7%  Extreme days:  299  (14.4% high/extreme)
    CNY: Avg   2.4%  Max    9.1%  Extreme days:  202  (14.5% high/extreme)
    HKD: Avg   0.6%  Max    4.0%  Extreme days:  434  (10.3% high/extreme)
-
 
 6. KEY OBSERVATIONS
 ----------------------------------------
@@ -248,7 +246,6 @@ Currency volatility ranking (highest to lowest):
   RATE DIVERGENCE ERA (2022-2024): Aggressive Fed tightening drove broad USD
     strength, with JPY particularly affected due to BOJ's yield curve control.
 
-
 7. OUTPUT FILES
 ----------------------------------------
 
@@ -277,7 +274,6 @@ Currency volatility ranking (highest to lowest):
     06_correlation_heatmap.png        - Correlation heatmap
     07_rolling_volatility.png         - Rolling volatility chart
     08_annual_heatmap.png             - Annual performance heatmap
-
 
 ================================================================================
 END OF REPORT

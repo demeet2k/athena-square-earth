@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S12 | face=R | node=78 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S11→Xi108:W3:A12:S13→Xi108:W2:A12:S12→Xi108:W3:A11:S12 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 12±1, wreath 3/3, archetype 12/12 -->
+
 # AppB - Canon Laws, Equivalence Budgets, Normal Forms
 
 Routing role: Equivalence rules, commutation budgets, normal-form contracts, and law stabilization.

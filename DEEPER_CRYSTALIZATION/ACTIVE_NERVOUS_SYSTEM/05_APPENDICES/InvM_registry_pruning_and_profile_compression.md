@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A6:S17 | face=S | node=94 | depth=2 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W2:A6:S16→Xi108:W2:A6:S18→Xi108:W1:A6:S17→Xi108:W3:A6:S17→Xi108:W2:A5:S17→Xi108:W2:A7:S17 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 17±1, wreath 2/3, archetype 6/12 -->
+
 # InvM - Registry Pruning & Profile Compression
 
 Routing role: Reverses AppD (Registry, Profiles, Version IDs). Where AppD maintained a living registry of entities with their profiles (attributes, capabilities, version histories), InvM prunes the registry to its essential entries, compresses profiles to their minimal descriptors, and collapses version histories to their latest-valid snapshots. The fat registry becomes a lean seed manifest.

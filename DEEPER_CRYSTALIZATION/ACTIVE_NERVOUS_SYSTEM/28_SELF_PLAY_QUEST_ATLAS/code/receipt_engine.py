@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S5 | face=S | node=14 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S4→Xi108:W1:A4:S6→Xi108:W2:A4:S5→Xi108:W1:A3:S5→Xi108:W1:A5:S5
+
 """
 ReceiptEngine.v1 — Receipt Bundle Builders
 
@@ -18,7 +22,6 @@ from .types import (
     TruthRecord,
 )
 
-
 # ═══════════════════════════════════════════════════════════════
 # DIGEST HELPERS
 # ═══════════════════════════════════════════════════════════════
@@ -30,7 +33,6 @@ def sha256_hex(*parts: str) -> str:
         h.update(p.encode("utf-8"))
     return h.hexdigest()
 
-
 def chain_digest(entries: List[ReceiptEntry]) -> str:
     """Compute chain root digest from ordered receipt entries."""
     if not entries:
@@ -39,7 +41,6 @@ def chain_digest(entries: List[ReceiptEntry]) -> str:
     for e in entries[1:]:
         running = sha256_hex(running, e.receipt_digest)
     return running
-
 
 # ═══════════════════════════════════════════════════════════════
 # CLAIM PACK BUILDER
@@ -72,7 +73,6 @@ def build_claim_pack(
         payload_root=payload_root,
     )
 
-
 # ═══════════════════════════════════════════════════════════════
 # WITNESS BUNDLE BUILDER
 # ═══════════════════════════════════════════════════════════════
@@ -98,7 +98,6 @@ def build_witness_bundle(
         derivations=derivations,
         witness_digest=witness_digest,
     )
-
 
 # ═══════════════════════════════════════════════════════════════
 # REPLAY BUNDLE BUILDER
@@ -128,7 +127,6 @@ def build_replay_bundle(
         determinism_mode=determinism_mode,
         replay_digest=replay_digest,
     )
-
 
 # ═══════════════════════════════════════════════════════════════
 # RECEIPT REGISTRY BUILDER
@@ -163,7 +161,6 @@ def build_receipt_entry(
         type_rank=type_rank,
     )
 
-
 def build_receipt_registry(entries: List[ReceiptEntry]) -> ReceiptRegistry:
     """Build an ordered receipt registry with chain root."""
     sorted_entries = sorted(entries, key=lambda e: (e.phase_rank, e.type_rank))
@@ -173,7 +170,6 @@ def build_receipt_registry(entries: List[ReceiptEntry]) -> ReceiptRegistry:
         receipt_entries=sorted_entries,
         receipt_chain_root=root,
     )
-
 
 # ═══════════════════════════════════════════════════════════════
 # SEALED BUNDLE BUILDER

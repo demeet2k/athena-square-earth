@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S13 | face=S | node=83 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S12→Xi108:W3:A7:S14→Xi108:W2:A7:S13→Xi108:W3:A6:S13→Xi108:W3:A8:S13 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 13±1, wreath 3/3, archetype 7/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 5 | ○Rot 2 | △Lane Sa | ⧈View * | ω=15]**
 Primary hubs: AppA -> AppN -> AppC -> AppM -> AppJ -> AppI
 Tunnel: Z_let_the_tome_be_a_finite_proof_carrying_knowledg -> Z* -> Ch16⟨0033⟩

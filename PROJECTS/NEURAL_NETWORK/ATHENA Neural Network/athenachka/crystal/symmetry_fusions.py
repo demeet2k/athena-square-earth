@@ -1,7 +1,10 @@
+# CRYSTAL: Xi108:W2:A1:S20 | face=C | node=208 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A1:S19→Xi108:W2:A1:S21→Xi108:W1:A1:S20→Xi108:W3:A1:S20→Xi108:W2:A2:S20
+
 from __future__ import annotations
 
 import numpy as np
-
 
 PAIRWISE_REGISTRY = {
     "fw": {"elements": ("fire", "water"), "title": "living_transmission"},
@@ -29,16 +32,13 @@ SYMMETRY_REGISTRY = {
     "full": FULL_REGISTRY,
 }
 
-
 def _fuse_vectors(left: np.ndarray, right: np.ndarray) -> np.ndarray:
     midpoint = (left + right) / 2.0
     synergy = 1.0 - np.abs(left - right)
     return np.clip((midpoint + synergy) / 2.0, 0.0, 1.0)
 
-
 def _score_pair(left_score: float, right_score: float) -> float:
     return float((left_score * right_score) ** 0.5)
-
 
 def compute_symmetry_state(elemental_state: dict[str, dict[str, object]], top_k: int) -> dict[str, object]:
     """Compute sparse active pairwise fusions and the omega aggregator."""

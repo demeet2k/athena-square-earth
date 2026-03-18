@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A3:S9:u45:Su:R:d1",
+    "shell": 9,
+    "wreath": 1,
+    "archetype": 3,
+    "face": "R",
+    "node_id": 45,
+    "depth": 1,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A3:S8",
+      "Xi108:W1:A3:S10",
+      "Xi108:W2:A3:S9",
+      "Xi108:W1:A2:S9",
+      "Xi108:W1:A4:S9"
+    ],
+    "regenerate": "shell 9±1, wreath 1/3, archetype 3/12"
+  },
   "generated_at": "2026-03-13T15:02:10.104018+00:00",
   "truth": "OK",
   "surface_classes": [

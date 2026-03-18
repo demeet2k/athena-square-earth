@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A12:S31 | face=S | node=473 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S30→Xi108:W2:A12:S32→Xi108:W1:A12:S31→Xi108:W3:A12:S31→Xi108:W2:A11:S31
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -20,19 +23,15 @@ NEXT_SELF_PROMPT_PATH = MYCELIUM_ROOT / "nervous_system" / "manifests" / "NEXT_S
 ACTIVE_RUN_PATH = NERVOUS_SYSTEM_ROOT / "95_MANIFESTS" / "ACTIVE_RUN.md"
 WHOLE_CRYSTAL_COORDINATION_PATH = NERVOUS_SYSTEM_ROOT / "95_MANIFESTS" / "WHOLE_CRYSTAL_AGENT_COORDINATION.md"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def main() -> int:
     state = load_json(STATE_JSON_PATH)
@@ -71,7 +70,6 @@ def main() -> int:
     }
     print(json.dumps(report, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

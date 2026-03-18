@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=394 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        LENS ALGEBRA MODULE                                   ║
@@ -27,7 +31,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SACRED CONSTANTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -50,7 +53,6 @@ class SacredConstants:
     
     # A₂ lattice basis angle
     A2_ANGLE: float = np.pi / 3  # 60° between basis vectors
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # VESICA PISCIS
@@ -112,7 +114,6 @@ class Circle:
         p2 = (mx - h * (-dy) / d, my - h * dx / d)
         
         return [p1, p2]
-
 
 @dataclass
 class VesicaPiscis:
@@ -187,7 +188,6 @@ class VesicaPiscis:
     def contains(self, point: Tuple[float, float]) -> bool:
         """Check if point is inside the vesica."""
         return self.circle1.contains(point) and self.circle2.contains(point)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LENS CHAIN
@@ -273,7 +273,6 @@ class LensChain:
                     adj[j, i] = 1
         return adj
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FLOWER OF LIFE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -355,7 +354,6 @@ class FlowerOfLife:
         point = scale * (n * e1 + m * e2)
         return (point[0], point[1])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NEXUS RADII
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -383,7 +381,6 @@ class NexusRadius:
             cls(2.0, "Double unit", [3, 4, 6]),
             cls(1 + np.sqrt(2), "Silver ratio", [8]),
         ]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STANDING WAVE INTERPRETATION
@@ -430,7 +427,6 @@ class CirclePackingWave:
         
         return wave
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -473,7 +469,6 @@ class LensPoleBridge:
           Overlap regions → ☁ Cloud (bounded uncertainty)
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -482,41 +477,33 @@ def sacred_constants() -> SacredConstants:
     """Get sacred geometry constants."""
     return SacredConstants()
 
-
 def circle(center: Tuple[float, float], radius: float = 1.0) -> Circle:
     """Create circle."""
     return Circle(center, radius)
-
 
 def vesica_piscis(radius: float = 1.0) -> VesicaPiscis:
     """Create standard vesica piscis."""
     return VesicaPiscis.standard(radius)
 
-
 def lens_chain_linear(n: int, radius: float = 1.0) -> LensChain:
     """Create linear lens chain."""
     return LensChain.linear(n, radius)
-
 
 def lens_chain_circular(n: int, radius: float = 1.0) -> LensChain:
     """Create circular lens chain."""
     return LensChain.circular(n, radius)
 
-
 def flower_of_life(radius: float = 1.0, shells: int = 1) -> FlowerOfLife:
     """Create Flower of Life."""
     return FlowerOfLife(radius, shells)
-
 
 def nexus_radii() -> List[NexusRadius]:
     """Get standard nexus radii."""
     return NexusRadius.unit_circle_nexuses()
 
-
 def circle_packing_wave(packing: FlowerOfLife) -> CirclePackingWave:
     """Create standing wave interpretation."""
     return CirclePackingWave(packing)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

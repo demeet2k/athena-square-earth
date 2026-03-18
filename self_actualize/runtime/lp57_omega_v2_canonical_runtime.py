@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
@@ -147,31 +151,24 @@ L04_TEMPLE_PROMOTIONS = [
 
 WITNESS_CLASS_ORDER = ["physical", "indexed", "board", "archive", "promoted"]
 
-
 def now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
-
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     write_text(path, json.dumps(payload, indent=2))
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8-sig") if path.exists() else ""
 
-
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-
 
 def replace_block(text: str, marker: str, body: str) -> str:
     start = f"<!-- {marker}:START -->"
@@ -182,10 +179,8 @@ def replace_block(text: str, marker: str, body: str) -> str:
         return pattern.sub(block, text)
     return text.rstrip() + ("\n\n" if text.rstrip() else "") + block + "\n"
 
-
 def patch_file(path: Path, marker: str, body: str) -> None:
     write_text(path, replace_block(read_text(path), marker, body))
-
 
 def docs_gate() -> dict[str, Any]:
     checked = [ROOT / "Trading Bot" / "credentials.json", ROOT / "Trading Bot" / "token.json"]
@@ -197,7 +192,6 @@ def docs_gate() -> dict[str, Any]:
         "missing_files": missing,
     }
 
-
 def digits(index: int) -> list[int]:
     out = [0] * 6
     value = index
@@ -206,11 +200,9 @@ def digits(index: int) -> list[int]:
         value //= 4
     return out
 
-
 def seat(index: int) -> str:
     a, b, c, d, e, f = digits(index)
     return f"A{a}.B{b}.C{c}.D{d}.E{e}.F{f}"
-
 
 def coord(index: int, loop_number: int, region: str, role_tag: str) -> dict[str, str]:
     d = digits(index)
@@ -229,16 +221,13 @@ def coord(index: int, loop_number: int, region: str, role_tag: str) -> dict[str,
         "OmegaS": "OMEGA-LOCAL",
     }
 
-
 def bundle_paths(loop_id: str) -> dict[str, Path]:
     base = BUNDLE_ROOT / loop_id
     return {name: base / filename for name, filename in BUNDLE_FILES.items()}
 
-
 def witness_payload() -> dict[str, Any]:
     payload = read_json(WITNESS_HIERARCHY_JSON)
     return payload if payload else {"witnesses": {}}
-
 
 def witness_values(payload: dict[str, Any]) -> dict[str, int | None]:
     values: dict[str, int | None] = {}
@@ -246,7 +235,6 @@ def witness_values(payload: dict[str, Any]) -> dict[str, int | None]:
     for witness_class in WITNESS_CLASS_ORDER:
         values[witness_class] = witnesses.get(witness_class, {}).get("value")
     return values
-
 
 def control_tuple_payload() -> dict[str, Any]:
     return {
@@ -262,7 +250,6 @@ def control_tuple_payload() -> dict[str, Any]:
         "overlay_only_appendix_support": ["AppQ", "AppO"],
     }
 
-
 def route_law_payload() -> dict[str, Any]:
     return {
         "primary_route": "Q41/TQ06 -> Q42 -> TQ04",
@@ -270,7 +257,6 @@ def route_law_payload() -> dict[str, Any]:
         "blocker_rule": "Q02 remains blocked and excluded from execution",
         "witness_only_rule": "Q50 and ECOSYSTEM/NERVOUS_SYSTEM remain witness-only for L04",
     }
-
 
 def l04_hall_promotions() -> list[dict[str, Any]]:
     return [
@@ -290,7 +276,6 @@ def l04_hall_promotions() -> list[dict[str, Any]]:
         for index, (quest_id, title) in enumerate(L04_HALL_PROMOTIONS)
     ]
 
-
 def l04_temple_promotions() -> list[dict[str, Any]]:
     return [
         {
@@ -308,7 +293,6 @@ def l04_temple_promotions() -> list[dict[str, Any]]:
         }
         for index, (quest_id, title) in enumerate(L04_TEMPLE_PROMOTIONS)
     ]
-
 
 def apply_hsigma_overrides() -> None:
     if HSIGMA_REFRESH.exists():
@@ -662,7 +646,6 @@ def apply_hsigma_overrides() -> None:
         "- Current loop: `L01 Seat Truth Sync`",
         "- Visible law: `16 macro bundles -> 64 Hall packets -> 256 Temple fibers -> 1024 active synaptic seats -> 4096 compiled atlas seats`",
     ]))
-
 
 def write_canonical_four_agent_57_loop(source_id: str = "lp57_omega_v2_canonical_runtime") -> dict[str, Any]:
     docs = docs_gate()
@@ -1215,7 +1198,6 @@ def write_canonical_four_agent_57_loop(source_id: str = "lp57_omega_v2_canonical
         "current_loop": COMPLETED_LABEL,
         "next_loop": ACTIVE_LABEL,
     }
-
 
 def verify_canonical_four_agent_57_loop() -> dict[str, Any]:
     core = read_json(NS / "H_SIGMA_MACHINE_CORE.json")

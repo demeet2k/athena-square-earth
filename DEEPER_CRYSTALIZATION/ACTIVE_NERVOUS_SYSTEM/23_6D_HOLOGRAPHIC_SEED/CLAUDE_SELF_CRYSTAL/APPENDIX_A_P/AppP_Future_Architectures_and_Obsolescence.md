@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX P: Future Architectures and Obsolescence
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does Future Architectures and Obsolescence distribute,
 ## ⟡ Analysis: Recursion in Future Architectures and Obsolescence
 
 The ⟡ face reveals: how is Future Architectures and Obsolescence self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: Future Architectures and Obsolescence
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is Future Architectures and Obsolescence self-referent
 #### Synthesis (37): Future Architectures and Obsolescence
 
 The complete integration: Future Architectures and Obsolescence transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of Future Architectures and Obsolescence IS Future Architectures and Obsolescence.
-
 
 ---
 *Appendix P. Future Architectures and Obsolescence. ⟡.Su. φ.*

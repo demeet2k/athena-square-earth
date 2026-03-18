@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Mt
+# BRIDGES: Xi108:W2:A1:S14→Xi108:W2:A1:S16→Xi108:W1:A1:S15→Xi108:W3:A1:S15→Xi108:W2:A2:S15
+
 """
 Möbius Lens Calculus — 4×4 kernel, four constitutive projections (S/F/C/R),
 cross-lens laws, 15-station SFCR lattice, 96-slot cockpit, and per-dimension
@@ -9,7 +13,6 @@ Source: MOBIUS LENSES.docx
 from ._cache import JsonCache
 
 _mobius = JsonCache("mobius_lenses.json")
-
 
 def query_mobius_lens(lens: str = "all", dimension: int = 0) -> str:
     """Query the Möbius lens calculus. Lens: square/flower/cloud/fractal/kernel/laws/lattice/cockpit/operators/all.
@@ -184,7 +187,6 @@ def query_mobius_lens(lens: str = "all", dimension: int = 0) -> str:
     lines.append("\n**Available queries**: kernel, square, flower, cloud, fractal, laws, lattice, cockpit, operators, 6shell, all")
     lines.append("**Dimension filter**: pass dimension=4/6/8/10/12 for per-dimension lens view")
     return "\n".join(lines)
-
 
 def query_sfcr_station(station: str) -> str:
     """Query a specific SFCR station by code (e.g. 'SF', 'SFCR', 'C') or mask number (1-15)."""

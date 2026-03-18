@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S16 | face=S | node=136 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A4:S15→Xi108:W3:A4:S17→Xi108:W2:A4:S16→Xi108:W3:A3:S16→Xi108:W3:A5:S16 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 16±1, wreath 3/3, archetype 4/12 -->
+
 # API reference (high level)
 
 This is a **human-written** reference to the most important call points. For implementation details, read the source — the code is intentionally small and direct.

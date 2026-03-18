@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=314 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -33,7 +37,6 @@ from .corpus_integration_contracts import (
     stable_hash,
 )
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 REGISTRY_ROOT = SELF_ACTUALIZE_ROOT / "mycelium_brain" / "registry"
@@ -65,23 +68,18 @@ DASHBOARD_PATH = REGISTRY_ROOT / "corpus_integration_dashboard.json"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_corpus_integration_wave"
 DERIVATION_VERSION = "2026-03-13.corpus-integration-wave.v1"
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
-
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
-
 def rel(path: Path) -> str:
     return path.relative_to(WORKSPACE_ROOT).as_posix()
-
 
 def object_shape_registry() -> dict[str, list[str]]:
     return {
@@ -139,7 +137,6 @@ def object_shape_registry() -> dict[str, list[str]]:
             "blocked_reasons",
         ],
     }
-
 
 def build_agent_profiles() -> list[AwakeningAgentProfile]:
     profiles: list[AwakeningAgentProfile] = [
@@ -247,7 +244,6 @@ def build_agent_profiles() -> list[AwakeningAgentProfile]:
         )
     return profiles
 
-
 def build_transition_notes(profiles: list[AwakeningAgentProfile]) -> list[TransitionSupportNote]:
     note_targets = {"base": rel(CURRENT_PACKET_PATH), "pillar": rel(QUEUE_PATH), "archetype": rel(GUIDE_PATH), "guild_role": rel(FRONTIER_PATH)}
     escalation_targets = {"base": "guildmaster", "pillar": "elemental_pod_leads", "archetype": "controller_auditors", "guild_role": "guildmaster"}
@@ -268,7 +264,6 @@ def build_transition_notes(profiles: list[AwakeningAgentProfile]) -> list[Transi
         )
     return notes
 
-
 def build_region_assignments() -> list[RegionLaneAssignment]:
     return [
         RegionLaneAssignment("self_actualize", RegionClass.LIVE_AUTHORITY, "base_agent", "offline_replay", ReceiptClass.REPLAY, rel(CURRENT_PACKET_PATH), "thin-waist runtime and atlas control plane"),
@@ -284,7 +279,6 @@ def build_region_assignments() -> list[RegionLaneAssignment]:
         RegionLaneAssignment("CLEAN", RegionClass.RESIDUAL, "archetype_water_air", "offline_replay", ReceiptClass.PROMOTION, "CLEAN", "residual integration row for clean staging witnesses awaiting contraction"),
         RegionLaneAssignment("NERVOUS_SYSTEM", RegionClass.MIRROR, "pillar_earth", "offline_replay", ReceiptClass.REPLAY, "NERVOUS_SYSTEM", "mirror and writeback body for canonical control-plane and manifest surfaces"),
     ]
-
 
 def build_observability_surface(lane: str) -> ObservabilitySurface:
     probes = [
@@ -328,7 +322,6 @@ def build_observability_surface(lane: str) -> ObservabilitySurface:
             failure_threshold="1 miss",
         ),
     )
-
 
 def build_deployment_profiles() -> list[DeploymentProfile]:
     profile_notes = {
@@ -377,7 +370,6 @@ def build_deployment_profiles() -> list[DeploymentProfile]:
         )
     return profiles
 
-
 def integration_result_for_case(
     *,
     result_id: str,
@@ -418,7 +410,6 @@ def integration_result_for_case(
         monitor_decision=MonitorDecision.SUSTAIN if not blocked else MonitorDecision.BLOCK,
         blocked_reasons=blocked,
     )
-
 
 def build_payloads() -> dict[str, Any]:
     docs_gate = swarm_board.docs_gate_status()
@@ -693,7 +684,6 @@ def build_payloads() -> dict[str, Any]:
     }
     return {"surface": surface_payload, "agents": agent_payload, "policy": lane_policy_payload, "dashboard": dashboard_payload}
 
-
 def derive_corpus_integration_wave() -> dict[str, Any]:
     payloads = build_payloads()
     write_json(SURFACE_REGISTRY_PATH, payloads["surface"])
@@ -701,7 +691,6 @@ def derive_corpus_integration_wave() -> dict[str, Any]:
     write_json(LANE_POLICY_PATH, payloads["policy"])
     write_json(DASHBOARD_PATH, payloads["dashboard"])
     return payloads
-
 
 def main() -> None:
     payloads = derive_corpus_integration_wave()
@@ -714,7 +703,6 @@ def main() -> None:
         "surface_hash": payloads["surface"]["surface_hash"],
     }
     print(json.dumps(summary, indent=2, sort_keys=True))
-
 
 if __name__ == "__main__":
     main()

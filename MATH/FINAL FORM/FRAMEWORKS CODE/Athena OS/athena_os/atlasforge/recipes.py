@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=82 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - AtlasForge
 ======================
@@ -34,7 +38,6 @@ import time
 from .domains import Domain
 from .constraints import ConstraintIR, Constraint
 
-
 # =============================================================================
 # CERTIFICATE TYPES
 # =============================================================================
@@ -52,7 +55,6 @@ class CertificateType(Enum):
     INTERVAL_NEWTON = "interval_newton"  # Newton certificate
     MONOTONE = "monotone"           # Monotonicity
 
-
 class CertificateLevel(Enum):
     """Certificate verification levels."""
     
@@ -61,7 +63,6 @@ class CertificateLevel(Enum):
     LEVEL_2 = 2  # Verified under assumptions
     LEVEL_3 = 3  # Verified with interval arithmetic
     LEVEL_4 = 4  # Formally proven
-
 
 # =============================================================================
 # CERTIFICATE
@@ -130,7 +131,6 @@ class Certificate:
             evidence={"a": a, "b": b, "f(a)": fa, "f(b)": fb}
         )
 
-
 # =============================================================================
 # PROOFPACK
 # =============================================================================
@@ -194,7 +194,6 @@ class ProofPack:
             "certificates": [c.to_dict() for c in self.certificates]
         }
 
-
 # =============================================================================
 # SOLVE PLAN
 # =============================================================================
@@ -207,7 +206,6 @@ class SolveStrategy(Enum):
     ITERATION = "iteration"
     INTERVAL_NEWTON = "interval_newton"
     BRACKETING = "bracketing"
-
 
 @dataclass
 class SolvePlan:
@@ -251,7 +249,6 @@ class SolvePlan:
             "initial_bracket": self.initial_bracket
         }
 
-
 # =============================================================================
 # REPLAY LOG
 # =============================================================================
@@ -265,7 +262,6 @@ class ReplayStep:
     inputs: Dict[str, Any]
     outputs: Dict[str, Any]
     timestamp: float = field(default_factory=time.time)
-
 
 @dataclass
 class ReplayLog:
@@ -310,7 +306,6 @@ class ReplayLog:
             ]
         }
 
-
 # =============================================================================
 # RECIPE OUTPUT
 # =============================================================================
@@ -344,7 +339,6 @@ class RecipeOutput:
             result["count"] = len(self.enumeration) if self.enumeration else 0
         
         return result
-
 
 # =============================================================================
 # RECIPE
@@ -440,7 +434,6 @@ class Recipe:
             "created_at": self.created_at
         }
 
-
 # =============================================================================
 # RECIPE BUILDER
 # =============================================================================
@@ -506,7 +499,6 @@ class RecipeBuilder:
         )
         
         return recipe
-
 
 # =============================================================================
 # VALIDATION
@@ -581,7 +573,6 @@ def validate_recipes() -> bool:
     assert recipe.is_verified
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating AtlasForge Recipes...")

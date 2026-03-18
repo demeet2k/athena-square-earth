@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S13 | face=S | node=88 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S12→Xi108:W3:A7:S14→Xi108:W2:A7:S13→Xi108:W3:A6:S13→Xi108:W3:A8:S13 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 13±1, wreath 3/3, archetype 7/12 -->
+
 # Document Basis - 16 x 16
 
 This file fixes the current chapter-centric sixteen-surface basis for the package. Every row, symmetry, metro, appendix, elemental, and zero-point artifact depends on this order remaining stable unless an explicit resize is requested.

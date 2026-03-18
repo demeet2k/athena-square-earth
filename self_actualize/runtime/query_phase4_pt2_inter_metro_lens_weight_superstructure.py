@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 import argparse
@@ -16,14 +20,11 @@ from self_actualize.runtime.phase4_pt2_query_engine import (
     route,
 )
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 
-
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_registries() -> Dict[str, Any]:
     keys = [
@@ -43,7 +44,6 @@ def load_registries() -> Dict[str, Any]:
         "dashboard",
     ]
     return {key: load_json(SELF_ACTUALIZE_ROOT / f"phase4_pt2_{key}.json") if key != "dashboard" else load_json(SELF_ACTUALIZE_ROOT / "phase4_pt2_dashboard.json") for key in keys}
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Query Phase 4 Pt 2 inter-metro and lens-weight registries.")
@@ -102,7 +102,6 @@ def main() -> int:
 
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

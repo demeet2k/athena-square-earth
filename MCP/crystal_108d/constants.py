@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A9:S13 | face=S | node=562 | depth=3 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A9:S12→Xi108:W3:A9:S14→Xi108:W2:A9:S13→Xi108:W3:A8:S13→Xi108:W3:A10:S13
+
 """
 Shared constants for the crystal_108d package.
 Centralises values that were previously duplicated across modules.

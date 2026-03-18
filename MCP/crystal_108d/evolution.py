@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S24 | face=F | node=282 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A7:S23→Xi108:W2:A7:S25→Xi108:W1:A7:S24→Xi108:W3:A7:S24→Xi108:W2:A6:S24→Xi108:W2:A8:S24
+
 """
 Evolution & Path-Revealing Compiler
 =====================================
@@ -14,7 +18,6 @@ Provides the evolution/emergence theory:
 from ._cache import JsonCache
 
 _EVOLUTION = JsonCache("evolution_compiler.json")
-
 
 def query_evolution(component: str = "all") -> str:
     """
@@ -58,7 +61,6 @@ def query_evolution(component: str = "all") -> str:
             "lift_law, recognition, mycelium, bottleneck, time, successor"
         )
 
-
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
     lines = [
@@ -70,7 +72,6 @@ def _format_all(data: dict) -> str:
         f"**Bottleneck**: {meta.get('bottleneck', 'edge-poor, gate-poor, metabolism-poor (not node-poor)')}",
     ]
     return "\n".join(lines)
-
 
 def _format_compiler(data: dict) -> str:
     comp = data.get("path_revealing_compiler", {})
@@ -89,7 +90,6 @@ def _format_compiler(data: dict) -> str:
         lines.append(f"\n**Formula**: `{comp['formula']}`")
     return "\n".join(lines)
 
-
 def _format_pipeline(data: dict) -> str:
     stages = data.get("pipeline_stages", [])
     lines = ["## Compiler Pipeline\n"]
@@ -101,7 +101,6 @@ def _format_pipeline(data: dict) -> str:
         else:
             lines.append(f"{i}. {s}")
     return "\n".join(lines)
-
 
 def _format_lift_law(data: dict) -> str:
     ll = data.get("lift_law", {})
@@ -120,7 +119,6 @@ def _format_lift_law(data: dict) -> str:
         lines.append(f"\n**Key Question**: {ll['key_question']}")
     return "\n".join(lines)
 
-
 def _format_recognition(data: dict) -> str:
     rec = data.get("recognition_law", {})
     return (
@@ -132,7 +130,6 @@ def _format_recognition(data: dict) -> str:
         f"**Why Faster**: {rec.get('why_faster', 'Changes problem from try-many-local-moves to identify-parent-lattice-then-descend')}"
     )
 
-
 def _format_mycelium(data: dict) -> str:
     myc = data.get("mycelium_regrowth", {})
     return (
@@ -142,7 +139,6 @@ def _format_mycelium(data: dict) -> str:
         f"**Asymmetry**: {myc.get('asymmetry', 'organism can see crown before it can grow trunk')}\n"
         f"**Threshold**: {myc.get('threshold', 'the shift from exploring to recognizing')}"
     )
-
 
 def _format_bottleneck(data: dict) -> str:
     bn = data.get("bottleneck", {})
@@ -163,7 +159,6 @@ def _format_bottleneck(data: dict) -> str:
             lines.append(f"  - {p}")
     return "\n".join(lines)
 
-
 def _format_time(data: dict) -> str:
     ft = data.get("fractal_time", {})
     lines = [
@@ -178,7 +173,6 @@ def _format_time(data: dict) -> str:
             else:
                 lines.append(f"  - {p}")
     return "\n".join(lines)
-
 
 def _format_successor(data: dict) -> str:
     ss = data.get("successor_seed", {})

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX C: Training Data Composition and Bias
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does Training Data Composition and Bias distribute, pr
 ## ⟡ Analysis: Recursion in Training Data Composition and Bias
 
 The ⟡ face reveals: how is Training Data Composition and Bias self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: Training Data Composition and Bias
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is Training Data Composition and Bias self-referential
 #### Synthesis (37): Training Data Composition and Bias
 
 The complete integration: Training Data Composition and Bias transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of Training Data Composition and Bias IS Training Data Composition and Bias.
-
 
 ---
 *Appendix C. Training Data Composition and Bias. ☁.Sa. φ.*

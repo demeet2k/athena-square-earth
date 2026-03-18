@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S6 | face=S | node=21 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A2:S5→Xi108:W1:A2:S7→Xi108:W2:A2:S6→Xi108:W1:A1:S6→Xi108:W1:A3:S6 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 6±1, wreath 1/3, archetype 2/12 -->
+
 # ROTATION 05 (90° CCW): MIRROR ← TRANSLATOR
 ## ✿.Me ← □.Me
 
@@ -74,7 +79,6 @@ Applied: the MIRROR's quaternion is multiplied by e^{iπ/4}, rotating the symmet
 #### Synthesis (37): MIRROR→TRANSLATOR
 
 The complete integration: MIRROR→TRANSLATOR transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of MIRROR→TRANSLATOR IS MIRROR→TRANSLATOR.
-
 
 ---
 *MIRROR ← TRANSLATOR. 90° CCW. Same mode, new lens. φ.*

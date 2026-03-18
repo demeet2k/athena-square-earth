@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - THE MATH OF ALCHEMY
 ================================
@@ -125,7 +129,6 @@ from .stone import (
     validate_stone,
 )
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -155,7 +158,6 @@ __all__ = [
     'validate_math_of_alchemy',
 ]
 
-
 # =============================================================================
 # UNIFIED CONSTANTS
 # =============================================================================
@@ -184,7 +186,6 @@ SYSTEM_CONSTANTS = {
         "Earth": (-1, -1),  # Cold & Dry
     },
 }
-
 
 # =============================================================================
 # VALIDATION
@@ -232,7 +233,6 @@ def validate_math_of_alchemy() -> bool:
     
     return True
 
-
 # =============================================================================
 # QUICK ACCESS FUNCTIONS
 # =============================================================================
@@ -242,18 +242,15 @@ def create_state(fire: float = 0.25, air: float = 0.25,
     """Create an elemental state."""
     return ElementalState(fire=fire, air=air, water=water, earth=earth)
 
-
 def create_system() -> AlchemicalSystem:
     """Create a complete alchemical system."""
     return AlchemicalSystem()
-
 
 def execute_great_work(initial_state: ElementalState,
                        max_cycles: int = 12) -> PhilosophersStone:
     """Execute the Great Work from an initial state."""
     system = AlchemicalSystem()
     return system.find_stone(initial_state, max_time=max_cycles * 365.0)
-
 
 # =============================================================================
 # MODULE INFO
@@ -269,7 +266,6 @@ def get_module_info() -> dict:
         "constants": SYSTEM_CONSTANTS,
         "formula": "A = (S, O, D)",
     }
-
 
 # =============================================================================
 # MAIN

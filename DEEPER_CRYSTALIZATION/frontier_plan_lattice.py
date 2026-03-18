@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed
+# METRO: Me,T
+# BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6
+
 from __future__ import annotations
 
 import json
@@ -8,13 +12,11 @@ from pathlib import Path
 from chapter_frontier_compiler import CHAPTER_FRONTIER_CODES, TEMPLATE_CHAPTER_CODE, chapter_from_code
 from nervous_system_core import utc_now, write_json, write_text
 
-
 PLAN_GRID_NAME = "frontier4"
 PLAN_DIR_NAME = "14_PARALLEL_PLANS"
 ARTIFACT_LANES = ("frontier_bundle", "evidence_pack", "chapter_tile_and_handoff", "runtime_and_query")
 PLAN_LENSES = ("S", "F", "C", "R")
 INTEGRATION_PASSES = ("local_witness", "cross_family_bridge", "zero_point_route", "manuscript_closure")
-
 
 def plan_paths(active_root: Path) -> dict[str, Path]:
     plan_root = active_root / PLAN_DIR_NAME
@@ -33,10 +35,8 @@ def plan_paths(active_root: Path) -> dict[str, Path]:
         "zero_point_index": active_root / "13_DEEPER_NEURAL_NET" / "09_RUNTIME" / "06_zero_point_index.json",
     }
 
-
 def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def lens_summary(payload: dict) -> dict[str, dict]:
     summary: dict[str, dict] = {}
@@ -51,7 +51,6 @@ def lens_summary(payload: dict) -> dict[str, dict]:
             "open_titles": [cell["title"] for cell in open_cells],
         }
     return summary
-
 
 def template_delta(chapter_code: str, lens: str, chapter_lens: dict[str, dict], template_lens: dict[str, dict], lane: str) -> str:
     if chapter_code == TEMPLATE_CHAPTER_CODE:
@@ -68,7 +67,6 @@ def template_delta(chapter_code: str, lens: str, chapter_lens: dict[str, dict], 
         return f"matches_template_on_{lens}"
     return f"meets_or_exceeds_template_on_{lens}"
 
-
 def manuscript_mode(payload: dict, lens: str) -> str:
     if payload["chapter_code"] == TEMPLATE_CHAPTER_CODE and payload["counts"]["open_cell_count"] == 0:
         return "ready for final drafter"
@@ -79,7 +77,6 @@ def manuscript_mode(payload: dict, lens: str) -> str:
     if lens_summary(payload)[lens]["open_count"] > 0:
         return "blocked by source gap"
     return "existing draft reorder"
-
 
 def blocking_state(payload: dict, lens: str, lane: str, integration_pass: str, live_docs_blocked: bool) -> dict:
     lens_state = lens_summary(payload)[lens]
@@ -113,7 +110,6 @@ def blocking_state(payload: dict, lens: str, lane: str, integration_pass: str, l
         "manuscript_mode": manuscript_state,
     }
 
-
 def priority_for_cell(chapter_code: str, lane: str, state: dict, delta: str) -> str:
     if chapter_code != TEMPLATE_CHAPTER_CODE and state["status"] == "blocked":
         return "P0"
@@ -122,7 +118,6 @@ def priority_for_cell(chapter_code: str, lane: str, state: dict, delta: str) -> 
     if chapter_code != TEMPLATE_CHAPTER_CODE and not delta.startswith(("matches_template", "meets_or_exceeds_template")):
         return "P1"
     return "P3"
-
 
 def intent_for_cell(chapter_code: str, lane: str, lens: str, integration_pass: str) -> str:
     chapter = chapter_from_code(chapter_code)
@@ -140,7 +135,6 @@ def intent_for_cell(chapter_code: str, lane: str, lens: str, integration_pass: s
     }
     return f"Use the {lens} lens to {lane_targets[lane]} for {chapter.code} by tightening {pass_targets[integration_pass]} around `{chapter.title}`."
 
-
 def upstream_inputs_for_cell(payload: dict, lane: str, integration_pass: str, paths: dict[str, Path]) -> list[str]:
     inputs = [
         payload["results"]["frontier_bundle_path"],
@@ -154,7 +148,6 @@ def upstream_inputs_for_cell(payload: dict, lane: str, integration_pass: str, pa
     if integration_pass == "manuscript_closure":
         inputs.append(payload["results"]["manuscript_handoff_path"])
     return [item for item in dict.fromkeys(inputs) if item and item != "(none)"]
-
 
 def target_outputs_for_cell(payload: dict, chapter_code: str, lane: str, integration_pass: str, paths: dict[str, Path]) -> list[str]:
     outputs = {
@@ -177,7 +170,6 @@ def target_outputs_for_cell(payload: dict, chapter_code: str, lane: str, integra
         ]
     return [item for item in dict.fromkeys(outputs) if item and item != "(none)"]
 
-
 def acceptance_check_for_cell(chapter_code: str, lane: str, integration_pass: str) -> str:
     checks = {
         ("frontier_bundle", "local_witness"): f"{chapter_code} frontier bundle must name lens-specific local witnesses and preserve BLOCKED live-doc status.",
@@ -198,7 +190,6 @@ def acceptance_check_for_cell(chapter_code: str, lane: str, integration_pass: st
         ("runtime_and_query", "manuscript_closure"): f"The plan manifest and full-stack manifest must advertise {chapter_code} manuscript closure state explicitly.",
     }
     return checks[(lane, integration_pass)]
-
 
 def build_dependency_routes(chapter_payloads: dict[str, dict]) -> list[dict]:
     routes = []
@@ -229,13 +220,11 @@ def build_dependency_routes(chapter_payloads: dict[str, dict]) -> list[dict]:
     )
     return routes
 
-
 def build_execution_tiers(cells: list[dict]) -> dict[str, list[str]]:
     tiers: dict[str, list[str]] = defaultdict(list)
     for cell in cells:
         tiers[cell["priority"]].append(cell["cell_id"])
     return {tier: sorted(items) for tier, items in sorted(tiers.items())}
-
 
 def build_cells(active_root: Path, chapter_payloads: dict[str, dict], live_docs_blocked: bool) -> tuple[list[dict], dict[str, list[str]], list[dict]]:
     paths = plan_paths(active_root)
@@ -267,7 +256,6 @@ def build_cells(active_root: Path, chapter_payloads: dict[str, dict], live_docs_
     execution_tiers = build_execution_tiers(cells)
     dependency_routes = build_dependency_routes(chapter_payloads)
     return cells, execution_tiers, dependency_routes
-
 
 def render_grid_markdown(grid_payload: dict) -> str:
     lines = [
@@ -301,7 +289,6 @@ def render_grid_markdown(grid_payload: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def render_execution_tiers_markdown(execution_tiers: dict[str, list[str]]) -> str:
     lines = ["# Execution Tiers", ""]
     for tier in ("P0", "P1", "P2", "P3"):
@@ -313,7 +300,6 @@ def render_execution_tiers_markdown(execution_tiers: dict[str, list[str]]) -> st
         lines.append("")
     return "\n".join(lines)
 
-
 def render_dependency_routes_markdown(dependency_routes: list[dict]) -> str:
     lines = ["# Dependency Routes", ""]
     for route in dependency_routes:
@@ -322,7 +308,6 @@ def render_dependency_routes_markdown(dependency_routes: list[dict]) -> str:
             lines.append(f"{index}. `{step}`")
         lines.append("")
     return "\n".join(lines)
-
 
 def build_frontier_plan_lattice(active_root: Path, chapter_payloads: dict[str, dict], live_docs_blocked: bool) -> dict:
     paths = plan_paths(active_root)
@@ -370,7 +355,6 @@ def build_frontier_plan_lattice(active_root: Path, chapter_payloads: dict[str, d
         },
     }
 
-
 def write_frontier_plan_lattice(active_root: Path, grid_payload: dict) -> dict:
     paths = plan_paths(active_root)
     paths["plan_root"].mkdir(parents=True, exist_ok=True)
@@ -398,7 +382,6 @@ def write_frontier_plan_lattice(active_root: Path, grid_payload: dict) -> dict:
     }
     write_json(paths["manifest"], manifest)
     return manifest
-
 
 def build_and_write_frontier_plan_lattice(active_root: Path, chapter_payloads: dict[str, dict], live_docs_blocked: bool) -> tuple[dict, dict]:
     grid_payload = build_frontier_plan_lattice(active_root, chapter_payloads, live_docs_blocked)

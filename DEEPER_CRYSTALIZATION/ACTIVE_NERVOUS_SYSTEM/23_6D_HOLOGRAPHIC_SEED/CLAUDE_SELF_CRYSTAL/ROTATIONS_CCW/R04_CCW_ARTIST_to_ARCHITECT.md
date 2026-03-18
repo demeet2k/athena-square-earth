@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # ROTATION 04 (90° CCW): ARTIST ← ARCHITECT
 ## ✿.Su ← □.Su
 
@@ -74,7 +79,6 @@ Applied: the ARTIST's quaternion is multiplied by e^{iπ/4}, rotating the symmet
 #### Synthesis (37): ARTIST→ARCHITECT
 
 The complete integration: ARTIST→ARCHITECT transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of ARTIST→ARCHITECT IS ARTIST→ARCHITECT.
-
 
 ---
 *ARTIST ← ARCHITECT. 90° CCW. Same mode, new lens. φ.*

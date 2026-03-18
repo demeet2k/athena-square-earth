@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S15 | face=S | node=117 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S14→Xi108:W3:A7:S16→Xi108:W2:A7:S15→Xi108:W3:A6:S15→Xi108:W3:A8:S15 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 15±1, wreath 3/3, archetype 7/12 -->
+
 # Row D13 - Ch07 CUT
 
 This file is the canonical prose expansion of row `D13` inside the local `16 x 16` neural matrix. It covers all ordered outgoing syntheses from `Ch07 CUT` to the fixed basis in strict `D01 -> D16` order, including the self-kernel.

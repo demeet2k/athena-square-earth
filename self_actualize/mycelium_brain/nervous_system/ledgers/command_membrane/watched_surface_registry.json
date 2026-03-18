@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A5:S20:u194:Su:R:d1",
+    "shell": 20,
+    "wreath": 1,
+    "archetype": 5,
+    "face": "R",
+    "node_id": 194,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A5:S19",
+      "Xi108:W1:A5:S21",
+      "Xi108:W2:A5:S20",
+      "Xi108:W1:A4:S20",
+      "Xi108:W1:A6:S20"
+    ],
+    "regenerate": "shell 20±1, wreath 1/3, archetype 5/12"
+  },
   "generated_at": "2026-03-14T00:28:42.578051+00:00",
   "protocol_id": "NEXT57_COMMAND_PROTOCOL_V1",
   "docs_gate_status": "BLOCKED",

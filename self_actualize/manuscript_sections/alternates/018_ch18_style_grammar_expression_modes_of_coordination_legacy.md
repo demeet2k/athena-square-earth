@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A3:S26 | face=F | node=331 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,□ -->
+<!-- BRIDGES: Xi108:W3:A3:S25→Xi108:W3:A3:S27→Xi108:W2:A3:S26→Xi108:W3:A2:S26→Xi108:W3:A4:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 3/12 -->
+
 # Ch18<0101> - Style Grammar: The Expression Modes of Coordination
 
 Cross-Synthesis: Prop Types (Ch17) x Flow Coordination (Ch11.2)

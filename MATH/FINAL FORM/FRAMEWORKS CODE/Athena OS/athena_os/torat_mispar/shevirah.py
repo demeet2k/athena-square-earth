@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - TORAT HA-MISPAR (תורת המספר)
 =========================================
@@ -41,7 +45,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
-
 # =============================================================================
 # WORLD STATES
 # =============================================================================
@@ -58,7 +61,6 @@ class WorldState(Enum):
         self.translation = translation
         self._description = description
 
-
 class KlipahType(Enum):
     """Types of Klipot (Shells)."""
     
@@ -71,7 +73,6 @@ class KlipahType(Enum):
         self.hebrew = hebrew
         self.translation = translation
         self.nature = nature
-
 
 # =============================================================================
 # THE OLAM HATOHU (WORLD OF CHAOS)
@@ -131,7 +132,6 @@ class OlamHaTohu:
             "interaction": "None - completely isolated",
             "vulnerability": "Each vessel alone against the light",
         }
-
 
 # =============================================================================
 # THE BREAKING EVENT
@@ -197,7 +197,6 @@ class SheviratHaKelim:
             "Allow for merit - effort in extracting sparks creates value",
         ]
 
-
 # =============================================================================
 # THE KLIPOT (SHELLS)
 # =============================================================================
@@ -222,7 +221,6 @@ class Klipah:
     def elevatable(self) -> bool:
         """Can this Klipah be elevated?"""
         return self.type == KlipahType.NOGAH
-
 
 @dataclass
 class KlipotSystem:
@@ -287,7 +285,6 @@ class KlipotSystem:
             "When the spark is extracted, the Klipah collapses into null space."
         )
 
-
 # =============================================================================
 # THE HOLY SPARKS (NITZOTZOT)
 # =============================================================================
@@ -334,7 +331,6 @@ class HolySparks:
             "Using physical objects for holy purposes",
             "Teshuvah (Return) - releases sparks from past transgressions",
         ]
-
 
 # =============================================================================
 # SHEVIRAH SYSTEM
@@ -396,7 +392,6 @@ class ShevirahSystem:
             },
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -449,7 +444,6 @@ def validate_shevirah() -> bool:
     assert summary["sparks"]["total"] == 288
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Shevirah Module...")

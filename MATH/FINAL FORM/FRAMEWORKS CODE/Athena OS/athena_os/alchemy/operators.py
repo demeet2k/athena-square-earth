@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=150 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - ALCHEMY MODULE: OPERATORS
 =====================================
@@ -53,7 +57,6 @@ import numpy as np
 
 from .elements import ElementalState, Element, ElementalSimplex
 
-
 # =============================================================================
 # OPERATOR TYPES
 # =============================================================================
@@ -68,7 +71,6 @@ class OperatorType(Enum):
     DISSOLUTION = "dissolution"
     COAGULATION = "coagulation"
 
-
 class Planet(Enum):
     """The seven classical planets."""
     
@@ -79,7 +81,6 @@ class Planet(Enum):
     MARS = "mars"
     JUPITER = "jupiter"
     SATURN = "saturn"
-
 
 class ZodiacSign(Enum):
     """The twelve zodiac signs."""
@@ -96,7 +97,6 @@ class ZodiacSign(Enum):
     CAPRICORN = "capricorn"
     AQUARIUS = "aquarius"
     PISCES = "pisces"
-
 
 # =============================================================================
 # BASE OPERATOR
@@ -144,7 +144,6 @@ class AlchemicalOperator:
     
     def __call__(self, state: ElementalState) -> ElementalState:
         return self.apply(state)
-
 
 # =============================================================================
 # TRIA PRIMA
@@ -195,7 +194,6 @@ class Sulfur(AlchemicalOperator):
         v = ElementalSimplex.project_to_simplex(v)
         return ElementalState.from_vector(v)
 
-
 class Mercury(AlchemicalOperator):
     """
     Mercury (ℳ) - The Fluid Principle.
@@ -224,7 +222,6 @@ class Mercury(AlchemicalOperator):
         centroid = np.array([0.25, 0.25, 0.25, 0.25])
         v = (1 - self.intensity) * state.vector + self.intensity * centroid
         return ElementalState.from_vector(v)
-
 
 class Salt(AlchemicalOperator):
     """
@@ -268,7 +265,6 @@ class Salt(AlchemicalOperator):
         
         v = ElementalSimplex.project_to_simplex(v)
         return ElementalState.from_vector(v)
-
 
 # =============================================================================
 # PLANETARY OPERATORS
@@ -332,7 +328,6 @@ class PlanetaryOperator(AlchemicalOperator):
         
         self.matrix = m
 
-
 def create_planetary_operators() -> Dict[Planet, PlanetaryOperator]:
     """Create all planetary operators."""
     return {
@@ -344,7 +339,6 @@ def create_planetary_operators() -> Dict[Planet, PlanetaryOperator]:
         )
         for planet in Planet
     }
-
 
 # =============================================================================
 # ZODIACAL OPERATORS
@@ -395,7 +389,6 @@ class ZodiacalOperator(AlchemicalOperator):
         v = ElementalSimplex.project_to_simplex(v)
         return ElementalState.from_vector(v)
 
-
 # =============================================================================
 # SPECIAL OPERATORS
 # =============================================================================
@@ -422,7 +415,6 @@ class GreenLion(AlchemicalOperator):
         v = (1 - self.intensity) * state.vector + self.intensity * uniform
         return ElementalState.from_vector(v)
 
-
 class Dragon(AlchemicalOperator):
     """
     The Dragon - Entropy and chaos operator.
@@ -445,7 +437,6 @@ class Dragon(AlchemicalOperator):
         v = ElementalSimplex.project_to_simplex(v)
         return ElementalState.from_vector(v)
 
-
 class Phoenix(AlchemicalOperator):
     """
     The Phoenix - Regeneration from death.
@@ -467,7 +458,6 @@ class Phoenix(AlchemicalOperator):
         target_vec = ElementalState.pure(self.target).vector
         v = (1 - self.intensity) * state.vector + self.intensity * target_vec
         return ElementalState.from_vector(v)
-
 
 class Quintessence(AlchemicalOperator):
     """
@@ -516,7 +506,6 @@ class Quintessence(AlchemicalOperator):
         v = (1 - effective_intensity) * state.vector + effective_intensity * balanced
         
         return ElementalState.from_vector(v)
-
 
 # =============================================================================
 # OPERATOR ALGEBRA
@@ -598,7 +587,6 @@ class OperatorAlgebra:
         
         return current  # Return last state even if not converged
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -661,7 +649,6 @@ def validate_operators() -> bool:
     assert ElementalSimplex.is_valid(result)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Operators Module...")

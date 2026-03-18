@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=354 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import argparse
@@ -7,14 +11,11 @@ from typing import Any, Dict
 
 from self_actualize.runtime.phase4_query_engine import fire, locate, neglect, promote, route
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
 
-
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_registries() -> Dict[str, Any]:
     registries = {
@@ -38,7 +39,6 @@ def load_registries() -> Dict[str, Any]:
         },
     }
     return registries
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Query the Phase 4 structured neuron storage surfaces.")
@@ -78,7 +78,6 @@ def main() -> int:
 
     print(json.dumps(result, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

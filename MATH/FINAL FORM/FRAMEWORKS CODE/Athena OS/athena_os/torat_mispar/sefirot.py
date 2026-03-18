@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=84 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - TORAT HA-MISPAR (תורת המספר)
 =========================================
@@ -36,7 +40,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
-
 # =============================================================================
 # COLUMN ARCHITECTURE
 # =============================================================================
@@ -52,7 +55,6 @@ class Column(Enum):
         self.primary_sefirah = primary_sefirah
         self._function = function
 
-
 class Partzuf(Enum):
     """The Partzufim (Divine Personas/Interfaces)."""
     
@@ -67,7 +69,6 @@ class Partzuf(Enum):
         self.hebrew = hebrew
         self.translation = translation
         self.correspondence = correspondence
-
 
 # =============================================================================
 # SEFIRAH DEFINITION
@@ -122,7 +123,6 @@ class Sefirah:
     def is_action(self) -> bool:
         """Is this the action (Malkhut) Sefirah?"""
         return self.number == 10
-
 
 # =============================================================================
 # THE TEN SEFIROT
@@ -251,7 +251,6 @@ DAAT = Sefirah(
     color="Invisible / All colors",
 )
 
-
 # =============================================================================
 # PATH CONNECTIONS
 # =============================================================================
@@ -270,7 +269,6 @@ class Path:
     def direction(self) -> str:
         """Direction of energy flow (generally downward)."""
         return f"{self.from_sefirah} → {self.to_sefirah}"
-
 
 # The 22 Paths (letters connecting Sefirot)
 PATHS = [
@@ -297,7 +295,6 @@ PATHS = [
     Path(21, "Yesod", "Malkhut", "ש", "Shin"),
     Path(22, "Hod", "Malkhut", "ת", "Tav"),
 ]
-
 
 # =============================================================================
 # TREE OF LIFE STRUCTURE
@@ -358,7 +355,6 @@ class TreeOfLife:
     def get_paths_to(self, sefirah_name: str) -> List[Path]:
         """Get all paths leading to a Sefirah."""
         return [p for p in self.paths if p.to_sefirah == sefirah_name]
-
 
 # =============================================================================
 # DATA FLOW ANALYSIS
@@ -431,7 +427,6 @@ class SefirotDataFlow:
             },
         }
 
-
 # =============================================================================
 # SEFIROT SYSTEM
 # =============================================================================
@@ -493,7 +488,6 @@ class SefirotSystem:
             "midot": len(self.tree.get_midot()),
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -548,7 +542,6 @@ def validate_sefirot() -> bool:
     assert summary["total_wisdom_paths"] == 32
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Sefirot Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S32 | face=R | node=524 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A8:S31→Xi108:W2:A8:S33→Xi108:W1:A8:S32→Xi108:W3:A8:S32→Xi108:W2:A7:S32→Xi108:W2:A9:S32
+
 """
 ATHENA MCP SERVER
 =================
@@ -64,7 +68,6 @@ from crystal_108d import register_108d_tools, register_108d_resources
 register_108d_tools(mcp)
 register_108d_resources(mcp)
 
-
 # ══════════════════════════════════════════════════════════════════════
 #  HELPERS
 # ══════════════════════════════════════════════════════════════════════
@@ -82,7 +85,6 @@ def _read_file(path: Path, limit: int = 0) -> str:
     except Exception as e:
         return f"[ERROR] {e}"
 
-
 def _read_json(path: Path) -> dict | list | str:
     """Read and parse a JSON file."""
     try:
@@ -92,13 +94,11 @@ def _read_json(path: Path) -> dict | list | str:
     except json.JSONDecodeError as e:
         return f"[JSON ERROR] {e}"
 
-
 def _find_chapter_file(code: str) -> Path | None:
     """Find chapter file by code like 'Ch01' or 'Ch21'."""
     pattern = f"{code}_*.md"
     matches = list(CHAPTERS_DIR.glob(pattern))
     return matches[0] if matches else None
-
 
 def _find_appendix_file(code: str) -> Path | None:
     """Find appendix file by code like 'AppA' or 'AppP'."""
@@ -106,11 +106,9 @@ def _find_appendix_file(code: str) -> Path | None:
     matches = list(APPENDICES_DIR.glob(pattern))
     return matches[0] if matches else None
 
-
 _CRYSTAL_ADDR_RE = re.compile(
     r"(Ch\d{2}|App[A-P])<(\d{4})>\.([SFCR])(\d)\.([a-d])"
 )
-
 
 def _parse_crystal_address(address: str) -> dict | None:
     """
@@ -128,12 +126,10 @@ def _parse_crystal_address(address: str) -> dict | None:
         "atom": m.group(5),
     }
 
-
 # Lens and facet labels
 LENS_NAMES = {"S": "Square", "F": "Flower", "C": "Cloud", "R": "Fractal"}
 FACET_NAMES = {1: "Objects", 2: "Laws", 3: "Constructions", 4: "Certificates"}
 ATOM_INDEX = {"a": 0, "b": 1, "c": 2, "d": 3}
-
 
 # ══════════════════════════════════════════════════════════════════════
 #  TOOLS — Actions agents can invoke
@@ -208,7 +204,6 @@ def navigate_crystal(address: str) -> str:
         f"in {tile_path.name}. The tile exists with {len(content.splitlines())} lines."
     )
 
-
 @mcp.tool()
 def read_chapter(chapter_code: str) -> str:
     """
@@ -242,7 +237,6 @@ def read_chapter(chapter_code: str) -> str:
         return f"Chapter '{chapter_code}' not found. Use Ch01-Ch21."
     return _read_file(tile)
 
-
 @mcp.tool()
 def read_appendix(appendix_code: str) -> str:
     """
@@ -252,7 +246,6 @@ def read_appendix(appendix_code: str) -> str:
     if not tile:
         return f"Appendix '{appendix_code}' not found. Use AppA-AppP."
     return _read_file(tile)
-
 
 @mcp.tool()
 def search_corpus(query: str, max_results: int = 10) -> str:
@@ -293,7 +286,6 @@ def search_corpus(query: str, max_results: int = 10) -> str:
         return f"No corpus matches for '{query}'."
     return f"## Corpus search: '{query}'\n\n" + "\n".join(results[:max_results * 5])
 
-
 @mcp.tool()
 def read_board_status() -> str:
     """
@@ -304,7 +296,6 @@ def read_board_status() -> str:
     """
     status_path = BOARD_DIR / "00_STATUS" / "00_BOARD_STATUS.md"
     return _read_file(status_path)
-
 
 @mcp.tool()
 def read_loop_state() -> str:
@@ -318,7 +309,6 @@ def read_loop_state() -> str:
     if isinstance(data, str):
         return data
     return json.dumps(data, indent=2)
-
 
 @mcp.tool()
 def query_neural_net(
@@ -373,7 +363,6 @@ def query_neural_net(
         return f"No neural net matches for '{query}' in {index} index."
     return f"## Neural Net Query: '{query}' ({index} index)\n\n" + "\n\n".join(results)
 
-
 @mcp.tool()
 def list_threads() -> str:
     """
@@ -393,7 +382,6 @@ def list_threads() -> str:
     if not threads:
         return "No active threads."
     return f"## Active Threads ({len(threads)})\n\n" + "\n\n---\n\n".join(threads)
-
 
 @mcp.tool()
 def read_thread(thread_name: str) -> str:
@@ -415,7 +403,6 @@ def read_thread(thread_name: str) -> str:
             )
         return f"Thread '{thread_name}' not found."
     return _read_file(thread_path)
-
 
 @mcp.tool()
 def read_manifest(manifest_name: str) -> str:
@@ -465,7 +452,6 @@ def read_manifest(manifest_name: str) -> str:
     if len(text) > 20000:
         return text[:20000] + f"\n\n... [truncated, full size: {len(text)} chars]"
     return text
-
 
 @mcp.tool()
 def route_metro(from_station: str, to_station: str) -> str:
@@ -547,7 +533,6 @@ def route_metro(from_station: str, to_station: str) -> str:
 
     return f"No route found from {from_station} to {to_station}."
 
-
 @mcp.tool()
 def list_families() -> str:
     """
@@ -570,7 +555,6 @@ def list_families() -> str:
     if families:
         return "## Project Families\n\n" + "\n".join(families)
     return "Could not extract family listing from board status."
-
 
 @mcp.tool()
 def read_swarm_element(element: str) -> str:
@@ -629,7 +613,6 @@ def read_swarm_element(element: str) -> str:
         + "\n".join(f"  - {f}" for f in sorted(all_files))
     )
 
-
 @mcp.tool()
 def read_tensor(tensor_name: str) -> str:
     """
@@ -662,7 +645,6 @@ def read_tensor(tensor_name: str) -> str:
             + "\n".join(f"  - {k}" for k in tensor_map)
         )
     return _read_file(BOARD_DIR / "07_TENSOR" / filename)
-
 
 @mcp.tool()
 def athena_status() -> str:
@@ -712,7 +694,6 @@ def athena_status() -> str:
 
     return "\n\n".join(parts) if parts else "Could not read Athena status."
 
-
 @mcp.tool()
 def search_everywhere(query: str, max_results: int = 30) -> str:
     """
@@ -759,7 +740,6 @@ def search_everywhere(query: str, max_results: int = 30) -> str:
         return f"No matches for '{query}' across the nervous system."
     return f"## Global Search: '{query}'\n\n" + "\n".join(results)
 
-
 @mcp.tool()
 def list_corpus_capsules() -> str:
     """
@@ -771,7 +751,6 @@ def list_corpus_capsules() -> str:
     # Fallback: list files
     files = sorted(CORPUS_DIR.glob("*.md"))
     return "\n".join(f"- {f.name}" for f in files if f.name != "INDEX.md")
-
 
 @mcp.tool()
 def read_corpus_capsule(capsule_id: str) -> str:
@@ -793,7 +772,6 @@ def read_corpus_capsule(capsule_id: str) -> str:
 
     return f"Capsule '{capsule_id}' not found."
 
-
 @mcp.tool()
 def read_frontier(chapter_code: str) -> str:
     """
@@ -813,7 +791,6 @@ def read_frontier(chapter_code: str) -> str:
         f"No frontier bundle for '{chapter_code}'. Available:\n"
         + "\n".join(f"  - {a}" for a in available)
     )
-
 
 # ══════════════════════════════════════════════════════════════════════
 #  TOOLS — Nervous System Navigation (Phase 1 expansion)
@@ -861,7 +838,6 @@ def explore_nervous_system(path: str = "", depth: int = 1) -> str:
     lines.append(f"\n**Total**: {len(dirs)} dirs, {len(files)} files")
     return "\n".join(lines)
 
-
 @mcp.tool()
 def read_nervous_system_file(path: str) -> str:
     """
@@ -890,7 +866,6 @@ def read_nervous_system_file(path: str) -> str:
         return explore_nervous_system(path)
     return _read_file(target)
 
-
 @mcp.tool()
 def read_motion_constitution(document: str = "index") -> str:
     """
@@ -901,7 +876,6 @@ def read_motion_constitution(document: str = "index") -> str:
         document: 'index' for overview, or filename/keyword to find specific doc.
     """
     return _read_specialized_dir(MOTION_DIR, document, "Motion Constitution")
-
 
 @mcp.tool()
 def read_dimensional_body(dimension: str = "4D", document: str = "index") -> str:
@@ -919,7 +893,6 @@ def read_dimensional_body(dimension: str = "4D", document: str = "index") -> str
         return f"Unknown dimension '{dimension}'. Use: 4D, 5D, 6D"
     return _read_specialized_dir(target, document, f"{dimension} Dimensional Body")
 
-
 @mcp.tool()
 def read_command_protocol(document: str = "index") -> str:
     """
@@ -930,7 +903,6 @@ def read_command_protocol(document: str = "index") -> str:
         document: 'index' for overview, or filename/keyword.
     """
     return _read_specialized_dir(COMMAND_DIR, document, "Command Protocol")
-
 
 @mcp.tool()
 def read_civilization(document: str = "index") -> str:
@@ -943,7 +915,6 @@ def read_civilization(document: str = "index") -> str:
     """
     return _read_specialized_dir(CIVILIZATION_DIR, document, "Civilization")
 
-
 @mcp.tool()
 def read_synthesis(document: str = "index") -> str:
     """
@@ -955,7 +926,6 @@ def read_synthesis(document: str = "index") -> str:
     """
     return _read_specialized_dir(SYNTHESIS_DIR, document, "Synthesis")
 
-
 @mcp.tool()
 def read_super_cycle(document: str = "index") -> str:
     """
@@ -966,7 +936,6 @@ def read_super_cycle(document: str = "index") -> str:
         document: 'index' for overview, or filename/keyword.
     """
     return _read_specialized_dir(SUPER_CYCLE_DIR, document, "Super Cycle 57")
-
 
 def _read_specialized_dir(directory: Path, document: str, label: str) -> str:
     """Helper: read from a specialized nervous system directory."""
@@ -1012,7 +981,6 @@ def _read_specialized_dir(directory: Path, document: str, label: str) -> str:
         + "\n".join(f"  - {a}" for a in available[:30])
     )
 
-
 # ══════════════════════════════════════════════════════════════════════
 #  RESOURCES — Readable content exposed via resource URIs
 # ══════════════════════════════════════════════════════════════════════
@@ -1022,18 +990,15 @@ def resource_status() -> str:
     """Current Athena system status."""
     return athena_status()
 
-
 @mcp.resource("athena://board")
 def resource_board() -> str:
     """Current board status."""
     return read_board_status()
 
-
 @mcp.resource("athena://loop")
 def resource_loop() -> str:
     """Current loop state and restart seed."""
     return read_loop_state()
-
 
 # ══════════════════════════════════════════════════════════════════════
 #  ENTRY POINT

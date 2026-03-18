@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 """
 Z+/AE+ LIVE ROUTER — The Self-Observing Crystal Made Operational
 ================================================================
@@ -61,7 +65,6 @@ from z_plus_ae_plus_framework import (
 
 from sos_5d_expander import _build_full_60_artifacts
 
-
 # =====================================================================
 # SECTION 1: INTENT DECOMPOSITION
 # =====================================================================
@@ -73,13 +76,11 @@ class IntentElement(Enum):
     EARTH = "earth"    # What wants to be BUILT/STRUCTURED?
     AIR = "air"        # What wants to be CONNECTED/ABSTRACTED?
 
-
 class RoutePhase(Enum):
     """The three phases of Z+/AE+ routing."""
     ROUTE = "route"
     OBSERVE = "observe"
     CORRECT = "correct"
-
 
 @dataclass
 class DecomposedIntent:
@@ -100,7 +101,6 @@ class DecomposedIntent:
     def dominant_weight(self) -> float:
         return max(self.fire_weight, self.water_weight,
                    self.earth_weight, self.air_weight)
-
 
 # Fire keywords — transformation, ignition, destruction, creation
 _FIRE_WORDS = {
@@ -137,7 +137,6 @@ _AIR_WORDS = {
     "bridge", "link", "tunnel", "weave", "network", "web", "mesh",
     "observe", "see", "witness", "watch", "meta", "self", "recursive",
 }
-
 
 def decompose_intent(text: str) -> DecomposedIntent:
     """Decompose natural language intent into elemental weights.
@@ -180,7 +179,6 @@ def decompose_intent(text: str) -> DecomposedIntent:
         hash=h,
     )
 
-
 # =====================================================================
 # SECTION 2: AE+ NODE SELECTION ENGINE
 # =====================================================================
@@ -195,7 +193,6 @@ class NodeActivation:
 
     def label(self) -> str:
         return f"AE+.{self.node.dim_number:02d}:{self.node.operational_function}"
-
 
 @dataclass
 class RoutePath:
@@ -227,7 +224,6 @@ class RoutePath:
             parts.append(f"  INVERT: {a.label()} (w={a.activation_weight:.4f})")
         return "\n".join(parts)
 
-
 def _element_to_pentad_affinity(element: IntentElement) -> list[int]:
     """Map an element to its most resonant pentad nodes."""
     mapping = {
@@ -237,7 +233,6 @@ def _element_to_pentad_affinity(element: IntentElement) -> list[int]:
         IntentElement.AIR:   [3, 4, 7, 11, 23],      # GROW, BRIDGE, TUNE, BLOOM, WEAVE
     }
     return mapping.get(element, [2, 6, 14, 22, 4])
-
 
 def _element_to_triad_affinity(element: IntentElement) -> list[int]:
     """Map an element to its most resonant triad nodes."""
@@ -249,7 +244,6 @@ def _element_to_triad_affinity(element: IntentElement) -> list[int]:
     }
     return mapping.get(element, [26, 32, 36, 42])
 
-
 def _element_to_mobius_affinity(element: IntentElement) -> list[int]:
     """Map an element to its Mobius inversion."""
     mapping = {
@@ -259,7 +253,6 @@ def _element_to_mobius_affinity(element: IntentElement) -> list[int]:
         IntentElement.AIR:   [60, 50, 55],  # INVERT_AIR, INVERT_SCALE, INVERT_LAYER
     }
     return mapping.get(element, [46, 47, 48])
-
 
 def select_route(
     intent: DecomposedIntent,
@@ -390,7 +383,6 @@ def select_route(
         route_hash=route_hash,
     )
 
-
 # =====================================================================
 # SECTION 3: Z+ SELF-OBSERVATION
 # =====================================================================
@@ -427,7 +419,6 @@ class Observation:
             for sug in self.correction_suggestions:
                 lines.append(f"      -> {sug}")
         return "\n".join(lines)
-
 
 def observe_route(route: RoutePath) -> Observation:
     """Z+ observes the route and determines if correction is needed.
@@ -494,7 +485,6 @@ def observe_route(route: RoutePath) -> Observation:
         correction_needed=correction_needed,
         correction_suggestions=corrections,
     )
-
 
 # =====================================================================
 # SECTION 4: ROUTE CORRECTION (SELF-HEALING)
@@ -590,7 +580,6 @@ def correct_route(
         route_hash=route_hash,
     )
 
-
 # =====================================================================
 # SECTION 5: ROUTING CERTIFICATE
 # =====================================================================
@@ -627,7 +616,6 @@ class RoutingCertificate:
         lines.append(f"    Triad:      {self.triad_path}")
         lines.append(f"    Mobius:     {self.mobius_bridge}")
         return "\n".join(lines)
-
 
 def certify_route(
     route: RoutePath,
@@ -671,7 +659,6 @@ def certify_route(
         certificate_hash=cert_hash,
     )
 
-
 # =====================================================================
 # SECTION 6: THE UNIFIED ROUTER
 # =====================================================================
@@ -707,7 +694,6 @@ class RoutingResult:
         lines.append(self.certificate.report())
         lines.append("")
         return "\n".join(lines)
-
 
 class ZPlusAEPlusRouter:
     """The live AE+ routing engine.
@@ -860,7 +846,6 @@ class ZPlusAEPlusRouter:
         lines.append("=" * 72)
         return "\n".join(lines)
 
-
 # =====================================================================
 # SECTION 7: MAIN — LIVE DEMONSTRATION
 # =====================================================================
@@ -1004,7 +989,6 @@ def main():
     with open(receipt_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
     print(f"\nReceipt written to: {receipt_path}")
-
 
 if __name__ == "__main__":
     main()

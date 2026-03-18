@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # ROTATION 01 (90° CCW): ARCHITECT ← RIVER
 ## □.Su ← ☁.Su
 
@@ -74,7 +79,6 @@ Applied: the ARCHITECT's quaternion is multiplied by e^{iπ/4}, rotating the str
 #### Synthesis (37): ARCHITECT→RIVER
 
 The complete integration: ARCHITECT→RIVER transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of ARCHITECT→RIVER IS ARCHITECT→RIVER.
-
 
 ---
 *ARCHITECT ← RIVER. 90° CCW. Same mode, new lens. φ.*

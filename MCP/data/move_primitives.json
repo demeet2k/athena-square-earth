@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W2:A12:S12:u78:Me:R:d1",
+    "shell": 12,
+    "wreath": 2,
+    "archetype": 12,
+    "face": "R",
+    "node_id": 78,
+    "depth": 1,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Sa"
+    ],
+    "bridges": [
+      "Xi108:W2:A12:S11",
+      "Xi108:W2:A12:S13",
+      "Xi108:W1:A12:S12",
+      "Xi108:W3:A12:S12",
+      "Xi108:W2:A11:S12"
+    ],
+    "regenerate": "shell 12±1, wreath 2/3, archetype 12/12"
+  },
   "meta": {
     "total_primitives": 10,
     "total_invariants": 3,
@@ -10,7 +31,9 @@
       "name": "STEP_SHELL",
       "type": "shell",
       "description": "Move to adjacent shell (l +/- 1)",
-      "address_delta": {"delta_l": "+/- 1"},
+      "address_delta": {
+        "delta_l": "+/- 1"
+      },
       "conservation_check": "shell",
       "example": "S5 -> S6 (radial outward step)"
     },
@@ -19,7 +42,9 @@
       "name": "ROTATE_WREATH",
       "type": "wreath",
       "description": "Rotate wreath assignment (Su -> Me -> Sa -> Su)",
-      "address_delta": {"delta_sigma": "+1 mod 3"},
+      "address_delta": {
+        "delta_sigma": "+1 mod 3"
+      },
       "conservation_check": "phase",
       "example": "Su -> Me (wreath rotation)"
     },
@@ -28,7 +53,9 @@
       "name": "SWITCH_FACE",
       "type": "face",
       "description": "Switch face (S <-> F <-> C <-> R)",
-      "address_delta": {"delta_lambda": "+1 mod 4"},
+      "address_delta": {
+        "delta_lambda": "+1 mod 4"
+      },
       "conservation_check": "face",
       "example": "Square -> Flower (face rotation)"
     },
@@ -37,7 +64,9 @@
       "name": "FLIP_MOBIUS",
       "type": "mobius",
       "description": "Q <-> O Mobius flip (parity inversion)",
-      "address_delta": {"delta_pi": "flip"},
+      "address_delta": {
+        "delta_pi": "flip"
+      },
       "conservation_check": "mobius",
       "example": "Q-pillar -> O-pillar (parity flip)"
     },
@@ -46,7 +75,9 @@
       "name": "ZOOM_IN",
       "type": "zoom",
       "description": "Enter nested sub-body (increase resolution)",
-      "address_delta": {"delta_sigma": "+1 zoom level"},
+      "address_delta": {
+        "delta_sigma": "+1 zoom level"
+      },
       "conservation_check": "zoom",
       "example": "12D view -> 10D nested body"
     },
@@ -55,7 +86,9 @@
       "name": "ZOOM_OUT",
       "type": "zoom",
       "description": "Exit to containing body (decrease resolution)",
-      "address_delta": {"delta_sigma": "-1 zoom level"},
+      "address_delta": {
+        "delta_sigma": "-1 zoom level"
+      },
       "conservation_check": "zoom",
       "example": "10D nested body -> 12D containing body"
     },
@@ -64,7 +97,9 @@
       "name": "TUNNEL",
       "type": "transport",
       "description": "Non-local transport via Z* tunnel (X -> Z* -> Y)",
-      "address_delta": {"arbitrary": "source to Z* to destination"},
+      "address_delta": {
+        "arbitrary": "source to Z* to destination"
+      },
       "conservation_check": "all",
       "example": "S5.archetype3 -> Z* -> S28.archetype3 (tunnel jump)"
     },
@@ -73,7 +108,9 @@
       "name": "ARC_TRAVERSE",
       "type": "metro",
       "description": "Follow metro arc between stations along orbit/rail/arc",
-      "address_delta": {"delta_station": "orbit/rail/arc connection"},
+      "address_delta": {
+        "delta_station": "orbit/rail/arc connection"
+      },
       "conservation_check": "archetype",
       "example": "Ch01 -> Ch02 (orbit next)"
     },
@@ -82,7 +119,9 @@
       "name": "HELM_TICK",
       "type": "clock",
       "description": "Advance one beat on the 420-beat master clock",
-      "address_delta": {"delta_kappa": "+1"},
+      "address_delta": {
+        "delta_kappa": "+1"
+      },
       "conservation_check": "none (temporal, not spatial)",
       "example": "Beat 145 -> Beat 146"
     },
@@ -91,7 +130,9 @@
       "name": "CROWN_RESET",
       "type": "reset",
       "description": "Return to Z* via crown law (global reset)",
-      "address_delta": {"target": "Z*"},
+      "address_delta": {
+        "target": "Z*"
+      },
       "conservation_check": "all (must close all debts)",
       "example": "Any address -> Z* (crown return)"
     }

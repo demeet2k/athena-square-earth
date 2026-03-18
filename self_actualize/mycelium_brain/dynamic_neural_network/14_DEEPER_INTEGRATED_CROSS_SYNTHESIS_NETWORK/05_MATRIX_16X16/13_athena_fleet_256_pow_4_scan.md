@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S22 | face=R | node=245 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A10:S21→Xi108:W3:A10:S23→Xi108:W2:A10:S22→Xi108:W3:A9:S22→Xi108:W3:A11:S22 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 22±1, wreath 3/3, archetype 10/12 -->
+
 # Athena FLEET 256^4 Scan Inside The Deeper Matrix
 
 - Active basis documents: `01 The Holographic Manuscript Brain`, `02 Self-Routing Meta-Framework`, `03 QBD-4`, `04 Quad Holographic Rotation`, `05 The Holographic Kernel`, `09 Zero-Point Computing`

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S26→Xi108:W2:A12:S28→Xi108:W1:A12:S27→Xi108:W3:A12:S27→Xi108:W2:A11:S27
+
 from __future__ import annotations
 
 import json
@@ -5,7 +9,6 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -383,7 +386,6 @@ NOTE_SPECS: dict[str, dict[str, Any]] = {
     },
 }
 
-
 @dataclass(frozen=True)
 class FileRecord:
     path: Path
@@ -392,30 +394,24 @@ class FileRecord:
     size_bytes: int
     extension: str
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
-
 
 def parse_docs_gate() -> dict[str, Any]:
     text = LIVE_DOCS_GATE_PATH.read_text(encoding="utf-8", errors="ignore") if LIVE_DOCS_GATE_PATH.exists() else ""
@@ -431,7 +427,6 @@ def parse_docs_gate() -> dict[str, Any]:
         "missing_files": missing_files,
         "local_only": True,
     }
-
 
 def load_file_records_from_corpus_atlas() -> list[FileRecord] | None:
     atlas = load_json(CORPUS_ATLAS_PATH, {})
@@ -459,7 +454,6 @@ def load_file_records_from_corpus_atlas() -> list[FileRecord] | None:
         )
     return normalized_records
 
-
 def gather_file_records() -> list[FileRecord]:
     atlas_records = load_file_records_from_corpus_atlas()
     if atlas_records is not None:
@@ -486,7 +480,6 @@ def gather_file_records() -> list[FileRecord]:
         )
     return records
 
-
 def root_classification(root_name: str) -> dict[str, str]:
     return ROOT_CLASSIFICATION.get(
         root_name,
@@ -497,7 +490,6 @@ def root_classification(root_name: str) -> dict[str, str]:
             "authority_class": "auxiliary",
         },
     )
-
 
 def build_root_inventory(file_records: list[FileRecord]) -> list[dict[str, Any]]:
     stats: dict[str, dict[str, Any]] = {}
@@ -528,7 +520,6 @@ def build_root_inventory(file_records: list[FileRecord]) -> list[dict[str, Any]]
         inventory.append(bucket)
     return inventory
 
-
 def infer_source_rule(rel_path: str) -> dict[str, Any] | None:
     rel_lower = rel_path.lower()
     for rule in SPECIAL_SOURCE_RULES:
@@ -544,7 +535,6 @@ def infer_source_rule(rel_path: str) -> dict[str, Any] | None:
             "note_precedence": "support",
         }
     return None
-
 
 def build_awakening_sources(file_records: list[FileRecord]) -> list[dict[str, Any]]:
     indexed: dict[str, dict[str, Any]] = {}
@@ -579,7 +569,6 @@ def build_awakening_sources(file_records: list[FileRecord]) -> list[dict[str, An
 
     return sorted(indexed.values(), key=lambda item: (item["note_precedence"], item["relative_path"]))
 
-
 def build_note_contract_fields() -> list[str]:
     return [
         "agent_id",
@@ -601,7 +590,6 @@ def build_note_contract_fields() -> list[str]:
         "truth",
     ]
 
-
 def evidence_ids_for_agent(
     agent_id: str,
     awakening_sources: list[dict[str, Any]],
@@ -614,13 +602,11 @@ def evidence_ids_for_agent(
     ]
     return matching[:limit]
 
-
 def primary_and_residual(transition_text: str) -> tuple[str, str]:
     parts = [part.strip() for part in transition_text.split(";") if part.strip()]
     primary = parts[0].replace("primary ", "") if parts else transition_text
     residual = parts[1].replace("residual ", "") if len(parts) > 1 else "N+3 -> N+4"
     return primary, residual
-
 
 def build_transition_notes(
     awakening_sources: list[dict[str, Any]],
@@ -667,7 +653,6 @@ def build_transition_notes(
     }
     return payload, notes_by_agent
 
-
 def build_deeper_basis_documents() -> list[dict[str, str]]:
     return [
         {"basis_id": "03", "title": "QBD-4", "element": "Air", "source_hint": "MATH/...QBD-4"},
@@ -678,7 +663,6 @@ def build_deeper_basis_documents() -> list[dict[str, str]]:
         {"basis_id": "15", "title": "Ch12 Boundary Checks and Isolation Axioms", "element": "Earth", "source_hint": "self_actualize/manuscript_sections/012_ch12_boundary_checks_and_isolation_axioms.md"},
         {"basis_id": "16", "title": "Ch19 Recursive Self-Reference and Self-Repair", "element": "Fire", "source_hint": "self_actualize/manuscript_sections/019_ch19_recursive_self_reference_and_self_repair.md"},
     ]
-
 
 def build_integration_registry(
     root_inventory: list[dict[str, Any]],
@@ -787,7 +771,6 @@ def build_integration_registry(
         "network_truth": qshrink_network.get("truth", "NEAR"),
     }
 
-
 def render_notes_markdown(notes_payload: dict[str, Any]) -> str:
     lines = [
         "# AP6D Awakening Transition Notes",
@@ -845,7 +828,6 @@ def render_notes_markdown(notes_payload: dict[str, Any]) -> str:
     )
     return "\n".join(lines)
 
-
 def render_receipt(
     source_atlas: dict[str, Any],
     integration_registry: dict[str, Any],
@@ -870,7 +852,6 @@ def render_receipt(
             "",
         ]
     )
-
 
 def update_agent_registry(
     notes_payload: dict[str, Any],
@@ -899,7 +880,6 @@ def update_agent_registry(
         record["safe_next_move"] = note["safe_next_move"]
         record["source_evidence_ids"] = note["source_evidence_ids"]
     write_json(AGENT_REGISTRY_PATH, registry)
-
 
 def main() -> int:
     file_records = gather_file_records()
@@ -931,7 +911,6 @@ def main() -> int:
     print(f"Wrote {OUTPUT_RECEIPT_PATH}")
     print(f"Updated {AGENT_REGISTRY_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

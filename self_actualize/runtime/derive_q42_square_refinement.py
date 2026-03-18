@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S27 | face=F | node=375 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S26→Xi108:W2:A4:S28→Xi108:W1:A4:S27→Xi108:W3:A4:S27→Xi108:W2:A3:S27→Xi108:W2:A5:S27
+
 from __future__ import annotations
 
 import json
@@ -24,7 +28,6 @@ from self_actualize.runtime.derive_phase5_atlas_truth_and_capsule_metabolism imp
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 ATHENA_FLEET_ROOT = WORKSPACE_ROOT / "Athena FLEET"
@@ -75,16 +78,13 @@ PRIOR_PASS = "QS64-20 Connectivity-Diagnose-Fractal"
 ACTIVE_SUBFRONT = "QS64-21 Connectivity-Refine-Square"
 NEXT_SEED = "QS64-22 Connectivity-Refine-Flower"
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def later_qshrink_state_present() -> bool:
     matrix = load_json(QSHRINK_AGENT_MATRIX_PATH)
     active_local_subfront = matrix.get("active_local_subfront") or matrix.get("active_subfront")
     return bool(active_local_subfront) and active_local_subfront != ACTIVE_SUBFRONT
-
 
 def build_pressure_order() -> list[dict[str, str]]:
     return [
@@ -92,7 +92,6 @@ def build_pressure_order() -> list[dict[str, str]]:
         {"id": "P2", "body": "Athena OS runtime", "state": "PROMOTED_CURRENT", "truth": "OK", "meaning": "promoted current carrier"},
         {"id": "P3", "body": "ORGIN", "state": "QUEUE_VISIBLE", "truth": "NEAR", "meaning": "queue-visible next seed lane"},
     ]
-
 
 def build_payload(
     baseline: dict[str, Any],
@@ -163,7 +162,6 @@ def build_payload(
         "verification_results": verifications,
     }
 
-
 def build_verification_payload(payload: dict[str, Any], verifications: list[dict[str, Any]]) -> dict[str, Any]:
     checked_paths = [
         QSHRINK_ACTIVE_FRONT_PATH,
@@ -200,7 +198,6 @@ def build_verification_payload(payload: dict[str, Any], verifications: list[dict
         "checks": checks,
     }
 
-
 def ecosystem_square_markdown(payload: dict[str, Any]) -> str:
     return (
         "# QSHRINK Core Corridor Square Refinement\n\n"
@@ -217,7 +214,6 @@ def ecosystem_square_markdown(payload: dict[str, Any]) -> str:
         "- `P3 ORGIN` remains the queue-visible next seed lane.\n"
     )
 
-
 def capsule_square_markdown(payload: dict[str, Any]) -> str:
     return (
         "# QSHRINK Core Corridor Square Refinement\n\n"
@@ -229,7 +225,6 @@ def capsule_square_markdown(payload: dict[str, Any]) -> str:
         "`QSHRINK -> Athena FLEET -> Athena OS runtime carrier -> Hall replay return`\n\n"
         "ORGIN stays queue-visible behind the carrier, and the Trading Bot / Docs rail stays explicitly external.\n"
     )
-
 
 def overview_markdown(payload: dict[str, Any]) -> str:
     counts = payload["post_counts"]
@@ -244,7 +239,6 @@ def overview_markdown(payload: dict[str, Any]) -> str:
         f"- archive witness: `{counts.get('witness_archive', 0)}`\n"
         f"- generated indexed shell: `{counts.get('generated_indexed_shell', 0)}`\n"
     )
-
 
 def ledger_markdown(payload: dict[str, Any]) -> str:
     baseline = payload["baseline_counts"]
@@ -267,7 +261,6 @@ def ledger_markdown(payload: dict[str, Any]) -> str:
         + "\n"
     )
 
-
 def runtime_markdown(payload: dict[str, Any]) -> str:
     return (
         "# Phase 7 Q42 Square Refinement Runtime\n\n"
@@ -275,7 +268,6 @@ def runtime_markdown(payload: dict[str, Any]) -> str:
         f"Active subfront: `{ACTIVE_SUBFRONT}`\n"
         f"Next seed: `{NEXT_SEED}`\n"
     )
-
 
 def receipt_markdown(payload: dict[str, Any]) -> str:
     return (
@@ -288,7 +280,6 @@ def receipt_markdown(payload: dict[str, Any]) -> str:
         "Landed one dedicated square orchestrator, one ecosystem square witness, one capsule square witness, one normalized live-state overlay, and one verification bundle.\n"
     )
 
-
 def write_outputs(payload: dict[str, Any], verification_payload: dict[str, Any]) -> None:
     write_json(PHASE7_PAYLOAD_PATH, payload)
     write_json(PHASE7_VERIFICATION_PATH, verification_payload)
@@ -298,7 +289,6 @@ def write_outputs(payload: dict[str, Any], verification_payload: dict[str, Any])
     write_text(PHASE7_LEDGER_PATH, ledger_markdown(payload))
     write_text(PHASE7_RUNTIME_MD_PATH, runtime_markdown(payload))
     write_text(PHASE7_RECEIPT_PATH, receipt_markdown(payload))
-
 
 def verification_modules() -> list[dict[str, Any]]:
     modules = [
@@ -310,7 +300,6 @@ def verification_modules() -> list[dict[str, Any]]:
     results = [run_module(module) for module in modules]
     ensure_all_ok(results, "Verification chain")
     return results
-
 
 def atlas_paths() -> list[Path]:
     return [
@@ -346,7 +335,6 @@ def atlas_paths() -> list[Path]:
         KNOWLEDGE_FABRIC_DASHBOARD_PATH,
         KNOWLEDGE_FABRIC_RECORDS_PATH,
     ]
-
 
 def main() -> int:
     if later_qshrink_state_present():
@@ -389,7 +377,6 @@ def main() -> int:
     refresh_corpus_atlas(atlas_paths())
     print(json.dumps(payload, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

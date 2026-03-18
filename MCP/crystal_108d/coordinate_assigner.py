@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A7:S17 | face=S | node=588 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A7:S16→Xi108:W1:A7:S18→Xi108:W2:A7:S17→Xi108:W1:A6:S17→Xi108:W1:A8:S17
+
 """
 Crystal coordinate assignment engine for the Athena mycelium graph.
 
@@ -33,7 +37,6 @@ from .constants import (
 _graph = JsonCache("mycelium_graph.json")
 _shells_reg = JsonCache("shell_registry.json")
 _coord_cache: dict | None = None          # populated on first assign_all call
-
 
 # ---------------------------------------------------------------------------
 # CrystalCoordinate dataclass
@@ -72,7 +75,6 @@ class CrystalCoordinate:
             f":u{self.node_id}:{sp}:{self.face}:d{self.depth}"
         )
 
-
 # ---------------------------------------------------------------------------
 # Deterministic hash helper
 # ---------------------------------------------------------------------------
@@ -80,7 +82,6 @@ class CrystalCoordinate:
 def _stable_hash(s: str) -> int:
     """Return a deterministic positive integer from a string."""
     return int(hashlib.sha256(s.encode("utf-8")).hexdigest(), 16)
-
 
 # ---------------------------------------------------------------------------
 # Shell assignment (1-36)  based on family / directory depth
@@ -133,7 +134,6 @@ for _band, _families in _SHELL_BAND_FAMILIES.items():
     for _fam in _families:
         _FAMILY_TO_BAND[_fam] = _band
 
-
 def _assign_shell(shard: dict) -> int:
     """Determine shell 1-36 from shard family and payload path."""
     family = shard.get("family", "misc")
@@ -143,7 +143,6 @@ def _assign_shell(shard: dict) -> int:
     band_start = band * 6 + 1                    # 1, 7, 13, 19, 25, 31
     offset = _stable_hash(shard["shard_id"]) % 6
     return band_start + offset
-
 
 # ---------------------------------------------------------------------------
 # Wreath assignment (1-3)  based on content modality
@@ -175,7 +174,6 @@ _SALT_FAMILIES = frozenset({
     "accepted", "ecosystem", "voynich_eva", "memory",
 })
 
-
 def _assign_wreath(shard: dict) -> int:
     """Determine wreath 1-3 (Sulfur/Mercury/Salt)."""
     family = shard.get("family", "")
@@ -188,7 +186,6 @@ def _assign_wreath(shard: dict) -> int:
     # Fall back to medium
     medium = shard.get("medium", "doc")
     return _MEDIUM_WREATH.get(medium, 3)
-
 
 # ---------------------------------------------------------------------------
 # Archetype assignment (1-12)  keyword match against family/summary
@@ -209,7 +206,6 @@ _ARCHETYPE_KEYWORDS: dict[int, tuple[str, ...]] = {
     12: ("bundle", "dodecad", "complete", "total", "full"),
 }
 
-
 def _assign_archetype(shard: dict) -> int:
     """Determine archetype 1-12 from family + summary keywords."""
     text = (shard.get("family", "") + " " + shard.get("summary", "")).lower()
@@ -225,13 +221,11 @@ def _assign_archetype(shard: dict) -> int:
         best_arch = (_stable_hash(shard["shard_id"]) % 12) + 1
     return best_arch
 
-
 # ---------------------------------------------------------------------------
 # Face assignment (S/F/C/R)
 # ---------------------------------------------------------------------------
 
 _FACE_INDEX = ("S", "F", "C", "R")
-
 
 def _assign_face(shard: dict) -> str:
     """Use explicit lens field when present; otherwise derive from seed_vector."""
@@ -247,13 +241,11 @@ def _assign_face(shard: dict) -> str:
     # Fall back to hash
     return _FACE_INDEX[_stable_hash(shard["shard_id"]) % 4]
 
-
 # ---------------------------------------------------------------------------
 # Depth, phase, metro stops
 # ---------------------------------------------------------------------------
 
 _PHASE_CYCLE = ("Fixed", "Cardinal", "Mutable")
-
 
 def _assign_depth(shard: dict) -> int:
     """Depth 0-3.  Deeper = more core/structural."""
@@ -267,11 +259,9 @@ def _assign_depth(shard: dict) -> int:
         return 2
     return 3
 
-
 def _assign_phase(shell: int) -> str:
     """Phase follows the 3-wreath cycle: shells 1-12 Fixed, 13-24 Cardinal, 25-36 Mutable."""
     return _PHASE_CYCLE[(shell - 1) // 12]
-
 
 def _assign_metro_stops(shard: dict) -> tuple:
     """Derive metro-line memberships from shard tags and family."""
@@ -314,7 +304,6 @@ def _assign_metro_stops(shard: dict) -> tuple:
 
     return tuple(stops) if stops else ("Sa",)
 
-
 # ---------------------------------------------------------------------------
 # Node ID assignment (1-666, deterministic)
 # ---------------------------------------------------------------------------
@@ -330,7 +319,6 @@ def _assign_node_id(shard_id: str, shell: int) -> int:
     cumulative_before = shell * (shell - 1) // 2
     local_offset = _stable_hash(shard_id) % local_capacity
     return cumulative_before + local_offset + 1   # 1-indexed
-
 
 # ---------------------------------------------------------------------------
 # Master assignment function
@@ -356,7 +344,6 @@ def assign_coordinate(shard: dict) -> CrystalCoordinate:
         phase=phase,
         metro_stops=metro_stops,
     )
-
 
 def assign_all_coordinates(
     graph_path: str | Path | None = None,
@@ -393,7 +380,6 @@ def assign_all_coordinates(
     _coord_cache = result
     return result
 
-
 # ---------------------------------------------------------------------------
 # File generation
 # ---------------------------------------------------------------------------
@@ -419,7 +405,6 @@ def _build_shell_topology(coords: dict[str, dict]) -> list[dict]:
         })
     return topo
 
-
 def _build_wreath_bodies(coords: dict[str, dict]) -> list[dict]:
     """Per-wreath summary."""
     wreaths: dict[int, list[dict]] = defaultdict(list)
@@ -438,7 +423,6 @@ def _build_wreath_bodies(coords: dict[str, dict]) -> list[dict]:
         })
     return bodies
 
-
 def _build_metro_intersections(coords: dict[str, dict]) -> dict[str, int]:
     """Count shards per metro line."""
     counts: dict[str, int] = defaultdict(int)
@@ -446,7 +430,6 @@ def _build_metro_intersections(coords: dict[str, dict]) -> dict[str, int]:
         for stop in coord["metro_stops"]:
             counts[stop] += 1
     return dict(sorted(counts.items(), key=lambda kv: -kv[1]))
-
 
 def generate_coordinate_file(
     graph_path: str | Path | None = None,
@@ -493,7 +476,6 @@ def generate_coordinate_file(
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return out
-
 
 # ---------------------------------------------------------------------------
 # MCP tool function
@@ -579,7 +561,6 @@ def query_coordinates(component: str = "all") -> str:
         "archetype:<N> | neighbors:<node_id> | route:A->B"
     )
 
-
 # ---------------------------------------------------------------------------
 # Query helpers
 # ---------------------------------------------------------------------------
@@ -620,7 +601,6 @@ def _overview(coords: dict[str, dict]) -> str:
 
     return "\n".join(lines) + "\n"
 
-
 def _stats(coords: dict[str, dict]) -> str:
     shell_counts: dict[int, int] = defaultdict(int)
     arch_counts: dict[int, int] = defaultdict(int)
@@ -660,7 +640,6 @@ def _stats(coords: dict[str, dict]) -> str:
 
     return "\n".join(lines) + "\n"
 
-
 def _query_shard_coord(coords: dict[str, dict], path: str) -> str:
     # Try exact match first, then substring
     if path in coords:
@@ -679,7 +658,6 @@ def _query_shard_coord(coords: dict[str, dict], path: str) -> str:
         lines.append(_format_coord(k, v))
     return "\n".join(lines)
 
-
 def _format_coord(path: str, c: dict) -> str:
     sp = ("Sulfur", "Mercury", "Salt")[c["wreath"] - 1]
     arch_name = ARCHETYPE_NAMES[c["archetype"] - 1] if 1 <= c["archetype"] <= 12 else "?"
@@ -692,7 +670,6 @@ def _format_coord(path: str, c: dict) -> str:
         f"  Metro: {', '.join(c['metro_stops']) if c['metro_stops'] else 'none'}\n"
     )
 
-
 def _query_shell(coords: dict[str, dict], n: int) -> str:
     if n < 1 or n > TOTAL_SHELLS:
         return f"Shell must be 1-{TOTAL_SHELLS}. Got {n}."
@@ -704,7 +681,6 @@ def _query_shell(coords: dict[str, dict], n: int) -> str:
     if len(matches) > 50:
         lines.append(f"\n... and {len(matches) - 50} more.")
     return "\n".join(lines) + "\n"
-
 
 def _query_wreath(coords: dict[str, dict], n: int) -> str:
     if n < 1 or n > TOTAL_WREATHS:
@@ -720,7 +696,6 @@ def _query_wreath(coords: dict[str, dict], n: int) -> str:
         lines.append(f"- Shell {s:>2}: {by_shell[s]} shards")
     return "\n".join(lines) + "\n"
 
-
 def _query_archetype(coords: dict[str, dict], n: int) -> str:
     if n < 1 or n > 12:
         return f"Archetype must be 1-12. Got {n}."
@@ -733,7 +708,6 @@ def _query_archetype(coords: dict[str, dict], n: int) -> str:
     if len(matches) > 50:
         lines.append(f"\n... and {len(matches) - 50} more.")
     return "\n".join(lines) + "\n"
-
 
 def _query_neighbors(coords: dict[str, dict], nid: int) -> str:
     """Find shards adjacent to a node: same shell +/-1, same wreath, same archetype."""
@@ -771,7 +745,6 @@ def _query_neighbors(coords: dict[str, dict], nid: int) -> str:
     if len(neighbors) > 30:
         lines.append(f"\n... and {len(neighbors) - 30} more.")
     return "\n".join(lines) + "\n"
-
 
 def _route(coords: dict[str, dict], a: int, b: int) -> str:
     """Compute a shortest path between two node IDs via shell adjacency.

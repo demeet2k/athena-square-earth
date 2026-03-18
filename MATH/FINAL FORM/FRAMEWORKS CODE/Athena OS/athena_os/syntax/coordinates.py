@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S17 | face=S | node=153 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S16→Xi108:W2:A4:S18→Xi108:W1:A4:S17→Xi108:W3:A4:S17→Xi108:W2:A3:S17→Xi108:W2:A5:S17
+
 """
 ATHENA OS - SYNTAX CRYSTAL COORDINATES
 ======================================
@@ -39,7 +43,6 @@ from enum import Enum, auto
 import itertools
 
 from .core import Pole, RepLevel, Direction, LensFamily, Artifact
-
 
 # =============================================================================
 # COORDINATE TUPLE
@@ -153,7 +156,6 @@ class CrystalCoord:
         """Check if an artifact belongs at this coordinate."""
         return artifact.pole == self.pole and artifact.rep_level == self.rep_level
 
-
 # =============================================================================
 # CELL CONTENTS
 # =============================================================================
@@ -214,7 +216,6 @@ class CellContent:
         """Add an example to this cell."""
         if example_id not in self.examples:
             self.examples.append(example_id)
-
 
 # =============================================================================
 # CRYSTAL INDEX (256-CELL ATLAS)
@@ -353,7 +354,6 @@ class CrystalIndex:
             "by_representation": rep_counts
         }
 
-
 # =============================================================================
 # COORDINATE UTILITIES
 # =============================================================================
@@ -365,7 +365,6 @@ def all_coordinates() -> Iterator[CrystalCoord]:
             for d in Direction:
                 for r in RepLevel:
                     yield CrystalCoord(p, l, d, r)
-
 
 def coordinates_for_artifact(artifact: Artifact) -> List[CrystalCoord]:
     """
@@ -379,7 +378,6 @@ def coordinates_for_artifact(artifact: Artifact) -> List[CrystalCoord]:
             results.append(coord)
     return results
 
-
 def dual_pairs() -> Iterator[Tuple[CrystalCoord, CrystalCoord]]:
     """Generate all 128 dual coordinate pairs."""
     seen = set()
@@ -391,7 +389,6 @@ def dual_pairs() -> Iterator[Tuple[CrystalCoord, CrystalCoord]]:
         if pair_key not in seen:
             seen.add(pair_key)
             yield coord, dual
-
 
 # =============================================================================
 # VALIDATION
@@ -456,7 +453,6 @@ def validate_coordinates() -> bool:
     assert len(pairs) == 128
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating SYNTAX coordinates...")

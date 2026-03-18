@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S27 | face=F | node=360 | depth=2 | phase=Mutable
+# METRO: Me,Cc,Ω
+# BRIDGES: Xi108:W2:A10:S26→Xi108:W2:A10:S28→Xi108:W1:A10:S27→Xi108:W3:A10:S27→Xi108:W2:A9:S27→Xi108:W2:A11:S27
+
 from __future__ import annotations
 
 import hashlib
@@ -54,30 +58,24 @@ ROLE_BY_MASTER = {
     for agent in MASTER_AGENTS
 }
 
-
 def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding='utf-8'))
 
-
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + '\n', encoding='utf-8')
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def parse_iso(value: str) -> datetime:
     return datetime.fromisoformat(value.replace('Z', '+00:00'))
-
 
 def rel(path: Path | str) -> str:
     candidate = Path(path)
@@ -85,7 +83,6 @@ def rel(path: Path | str) -> str:
         return str(candidate.resolve().relative_to(ROOT))
     except Exception:
         return str(candidate)
-
 
 def patch_markdown(text: str, marker: str, body: str) -> str:
     start = f'<!-- {marker}:START -->'
@@ -100,11 +97,9 @@ def patch_markdown(text: str, marker: str, body: str) -> str:
         prefix += '\n\n'
     return f'{prefix}{block}\n'
 
-
 def patch_markdown_file(path: Path, marker: str, body: str) -> None:
     existing = path.read_text(encoding='utf-8') if path.exists() else ''
     write_text(path, patch_markdown(existing, marker, body))
-
 
 def _normalize_change_type(change_type: str) -> str:
     value = str(change_type or 'updated').strip().lower()
@@ -116,7 +111,6 @@ def _normalize_change_type(change_type: str) -> str:
         return 'renamed'
     return 'updated'
 
-
 def _state_hash(path: Path) -> str:
     if not path.exists():
         return 'MISSING'
@@ -126,7 +120,6 @@ def _state_hash(path: Path) -> str:
         stat = path.stat()
         payload = f'{path}:{stat.st_size}:{stat.st_mtime_ns}'.encode('utf-8')
     return hashlib.sha256(payload).hexdigest()[:16].upper()
-
 
 def _coord12(priority: float, queue_pressure: float, detected_ts: str) -> tuple[dict[str, Any], list[float]]:
     detected = parse_iso(detected_ts)
@@ -150,7 +143,6 @@ def _coord12(priority: float, queue_pressure: float, detected_ts: str) -> tuple[
     vector = [round(day_fraction, 6), round(orbital, 6), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, round(queue_pressure, 6), round(priority, 6), round(novelty, 6), 0.0]
     return coord12, vector
 
-
 def _liminal_delta(state: dict[str, Any], vector12: list[float], detected_ts: str) -> tuple[dict[str, float], float, float, float]:
     previous_vector = state.get('last_coord12_vector') or [0.0] * 12
     if len(previous_vector) != 12:
@@ -164,7 +156,6 @@ def _liminal_delta(state: dict[str, Any], vector12: list[float], detected_ts: st
     payload = {'DeltaTau': round(delta_tau, 6), 'DeltaEarth': round(earth_delta_ms, 3), 'LiminalVelocity': liminal_velocity}
     return payload, round(delta_tau, 6), round(earth_delta_ms, 3), liminal_velocity
 
-
 def _recent_event_payloads(service: Any, limit: int | None = 50) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for path in sorted(service.config.event_root.glob('EVT-*.json'), key=lambda item: item.name, reverse=True):
@@ -173,10 +164,8 @@ def _recent_event_payloads(service: Any, limit: int | None = 50) -> list[dict[st
             break
     return rows
 
-
 def _queue_pressure(service: Any) -> float:
     return round(min(1.0, len(service.load_leases().get('active', {})) / max(float(service.config.topk), 1.0)), 6)
-
 
 def _active_candidates(service: Any) -> list[dict[str, Any]]:
     active = service.load_leases().get('active', {})
@@ -189,19 +178,16 @@ def _active_candidates(service: Any) -> list[dict[str, Any]]:
         rows.append({'ant_id': ant_id, 'master_agent_id': master_agent_id, 'role_tag': agent['role_tag'], 'role': agent['role'], 'activation_state': 'ACTIVE', 'blocked': False, 'leased': leased, 'load': 1.0 if leased else 0.0})
     return rows
 
-
 def _goal_match_score(packet: Any, candidate: dict[str, Any]) -> float:
     master = str(candidate.get('master_agent_id', ''))
     if packet.seed_mode == 'B-dominant':
         return {'A4': 0.95, 'A3': 0.85, 'A2': 0.65, 'A1': 0.40}.get(master, 0.4)
     return {'A3': 1.0, 'A2': 0.75, 'A4': 0.6, 'A1': 0.45}.get(master, 0.4)
 
-
 def _capillary_score(service: Any, candidate: dict[str, Any]) -> float:
     ant_id = str(candidate.get('ant_id', ''))
     strengths = [float(edge.get('edge_strength', edge.get('strength', 0.0))) for edge in service.load_edges().get('edges', {}).values() if str(edge.get('to_node', edge.get('dst', ''))) == ant_id]
     return round(max(strengths, default=0.25), 6)
-
 
 def _write_live_writeback_surfaces(service: Any, protocol: dict[str, Any], capillary: dict[str, Any]) -> None:
     hall_body = '\n'.join(['## LP57-H-COMMAND-MEMBRANE', '', f'- Quest id: `{COMMAND_HALL_QUEST_ID}`', '- Goal: practical command intake, lawful worker claim, and receipt-backed closure.', '- Scouts detect, Routers select, Workers claim, Archivists commit and reinforce.', f'- Route policy: `{COMMAND_ROUTE_POLICY}`', f'- Public cap: `Hall {protocol["public_caps"]["hall"]}`'])
@@ -219,10 +205,8 @@ def _write_live_writeback_surfaces(service: Any, protocol: dict[str, Any], capil
     patch_markdown_file(GUILDMASTER_README_PATH, MARKER_GUILDMASTER, guildmaster_body)
     patch_markdown_file(LP57_PROTOCOL_PATH, MARKER_LP57_PROTOCOL, lp57_body)
 
-
 def _command_membrane_v1_write_live_writeback_surfaces(service: Any, protocol: dict[str, Any], capillary: dict[str, Any]) -> None:
     _write_live_writeback_surfaces(service, protocol, capillary)
-
 
 def _command_membrane_v1_ensure_protocol_artifacts(service: Any) -> dict[str, Any]:
     docs_gate = service.docs_gate_status()
@@ -244,7 +228,6 @@ def _command_membrane_v1_ensure_protocol_artifacts(service: Any) -> dict[str, An
     write_text(service.config.protocol_v1_manifest_path, '# COMMAND Membrane Protocol V1\n\n- Local-only and subordinate to LP-57O.\n')
     _write_live_writeback_surfaces(service, protocol, capillary)
     return {'protocol': service.config.protocol_json_path, 'schema': service.config.packet_schema_json_path, 'reward': service.config.reward_law_json_path, 'capillary': service.config.capillary_law_json_path, 'latency': service.config.latency_benchmark_json_path}
-
 
 def _command_membrane_v1_emit_change(service: Any, source_path: Path, change_type: str, detected_ts: str, confidence: float = 0.98, parent_event_id: str = 'ROOT', state: dict[str, Any] | None = None, source_ids: Any = None) -> CommandEventPacketV2 | None:
     del source_ids
@@ -280,7 +263,6 @@ def _command_membrane_v1_emit_change(service: Any, source_path: Path, change_typ
     service.save_state(mutable_state)
     return packet
 
-
 def _command_membrane_v1_score_candidate(service: Any, packet: Any, candidate: dict[str, Any]) -> dict[str, Any]:
     queue_pressure = _queue_pressure(service)
     goal_score = round(_goal_match_score(packet, candidate), 6)
@@ -291,7 +273,6 @@ def _command_membrane_v1_score_candidate(service: Any, packet: Any, candidate: d
     routing_penalty = round((1.5 if candidate.get('leased') else 0.0) + (5.0 if candidate.get('blocked') else 0.0) + min(0.75, float(candidate.get('load', 0.0)) * 0.25) + (0.10 * queue_pressure), 6)
     total = round(goal_score + salience_score + pheromone_score + coordinate_score - routing_penalty, 6)
     return {**candidate, 'goal_score': goal_score, 'salience_score': salience_score, 'pheromone_score': pheromone_score, 'coordinate_score': coordinate_score, 'capillary_strength': capillary_strength, 'queue_pressure': queue_pressure, 'routing_penalty': routing_penalty, 'score': total}
-
 
 def _command_membrane_v1_route_event(service: Any, event_id: str, state: dict[str, Any] | None = None) -> dict[str, Any]:
     service.release_expired_leases()
@@ -316,7 +297,6 @@ def _command_membrane_v1_route_event(service: Any, event_id: str, state: dict[st
         service.save_state(state)
     return asdict(decision)
 
-
 def _command_membrane_v1_release_expired_leases(service: Any) -> None:
     leases = service.load_leases()
     active = leases.get('active', {})
@@ -335,10 +315,8 @@ def _command_membrane_v1_release_expired_leases(service: Any) -> None:
     if expired:
         service.save_leases(leases)
 
-
 def _command_membrane_v1_packet_to_summary(service: Any, packet: Any) -> dict[str, Any]:
     return {'event_id': packet.event_id, 'source_path': packet.source_path, 'source_folder': packet.source_folder, 'event_kind': packet.event_kind or packet.change_type, 'status': packet.status, 'goal': packet.goal, 'priority': packet.priority, 'earth_ts': packet.earth_ts, 'liminal_ts': packet.liminal_ts, 'front_ref': packet.front_ref, 'seed_mode': packet.seed_mode, 'dual_reference': packet.dual_reference, 'route_targets': packet.route_targets, 'linked_quests': packet.linked_quests, 'latency_state': packet.latency_state}
-
 
 def _command_membrane_v1_strongest_capillaries(service: Any) -> list[dict[str, Any]]:
     rows = []
@@ -347,12 +325,10 @@ def _command_membrane_v1_strongest_capillaries(service: Any) -> list[dict[str, A
     rows.sort(key=lambda item: (-item['edge_strength'], item['edge_id']))
     return rows[:5]
 
-
 def _command_membrane_v1_source_health(service: Any) -> dict[str, Any]:
     events = _recent_event_payloads(service, limit=None)
     latest = events[0] if events else {}
     return {'rows': [{'source_id': 'command_root', 'source_class': 'command-folder', 'absolute_path': str(service.config.command_surface_root), 'watch_root': str(service.config.command_surface_root), 'native_watch_available': True, 'degraded_mode': False, 'event_count': len(events), 'backlog_count': sum(1 for row in events if row.get('status') != 'committed'), 'active_claim_count': len(service.load_leases().get('active', {})), 'last_event_id': latest.get('event_id', ''), 'last_event_ts': latest.get('earth_ts_utc', latest.get('earth_ts', '')), 'last_status': latest.get('status', ''), 'docs_gate_status': service.docs_gate_status()['state']}]} 
-
 
 def _command_membrane_v1_metrics(service: Any) -> dict[str, Any]:
     events = _recent_event_payloads(service, limit=None)
@@ -361,7 +337,6 @@ def _command_membrane_v1_metrics(service: Any) -> dict[str, Any]:
         values = [float((event.get('latency_state') or {}).get(key, 0.0)) for event in committed]
         return round(sum(values) / len(values), 3) if values else 0.0
     return {'event_count': len(events), 'committed_event_count': len(committed), 'routed_event_count': sum(1 for event in events if event.get('route_state')), 'claimed_event_count': sum(1 for event in events if event.get('claim_state')), 'active_leases': len(service.load_leases().get('active', {})), 'edge_count': len(service.load_edges().get('edges', {})), 'average_detection_latency_ms': avg('detect_latency_ms'), 'average_awareness_latency_ms': avg('awareness_latency_ms'), 'average_claim_latency_ms': avg('claim_latency_ms'), 'average_resolution_latency_ms': avg('resolution_latency_ms'), 'average_commit_latency_ms': avg('commit_latency_ms'), 'average_t_sugar_ms': avg('t_sugar_ms')}
-
 
 def _command_membrane_v1_public_state(service: Any, event_id: str | None = None) -> dict[str, Any]:
     recent_events = _recent_event_payloads(service, limit=12)

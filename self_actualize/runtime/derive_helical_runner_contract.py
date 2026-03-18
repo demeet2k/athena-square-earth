@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -65,18 +68,14 @@ METRIC_VALUES = {
 
 LOWER_IS_BETTER = {"contradiction_pressure", "compression_ratio"}
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
-
 
 def later_qshrink_state_present() -> bool:
     if not QSHRINK_AGENT_MATRIX_PATH.exists():
@@ -87,16 +86,13 @@ def later_qshrink_state_present() -> bool:
         matrix.get("hall_local_bundle_closed")
     )
 
-
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def docs_gate_payload() -> dict:
     credentials_path = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
@@ -116,7 +112,6 @@ def docs_gate_payload() -> dict:
         "surface_excerpt": excerpt,
     }
 
-
 def build_schema_refs() -> list[dict]:
     refs = []
     for label, path in SCHEMA_REFS:
@@ -128,7 +123,6 @@ def build_schema_refs() -> list[dict]:
             }
         )
     return refs
-
 
 def build_metric_tensor_audit() -> list[dict]:
     audit = []
@@ -146,7 +140,6 @@ def build_metric_tensor_audit() -> list[dict]:
             }
         )
     return audit
-
 
 def build_role_tensor_slice() -> dict[str, str]:
     return {
@@ -167,7 +160,6 @@ def build_role_tensor_slice() -> dict[str, str]:
         "R15": "meta-observation of cadence drift",
         "R16": "blocked-Docs honesty audit",
     }
-
 
 def build_phase_machine_walk() -> list[dict]:
     restart_seed = "Q42 -> QS64-21 Connectivity-Refine-Square"
@@ -317,7 +309,6 @@ def build_phase_machine_walk() -> list[dict]:
         },
     ]
 
-
 def build_sparse_activation_example() -> dict:
     return {
         "dominant_loop": "L07 Registry, schema, and contract synthesis",
@@ -348,7 +339,6 @@ def build_sparse_activation_example() -> dict:
             "verdict": "OK",
         },
     }
-
 
 def build_contract() -> dict:
     docs_gate = docs_gate_payload()
@@ -397,7 +387,6 @@ def build_contract() -> dict:
             "TQ06 remains the active cadence membrane and is not replaced by TQ04.",
         ],
     }
-
 
 def render_manifest(contract: dict) -> str:
     schema_lines = "\n".join(
@@ -496,7 +485,6 @@ Phase walk:
 - note: {contract['lift_quality_gate']['note']}
 """
 
-
 def main() -> int:
     if later_qshrink_state_present():
         print(
@@ -510,7 +498,6 @@ def main() -> int:
     print(f"Wrote {CONTRACT_JSON_PATH}")
     print(f"Wrote {MANIFEST_MD_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Dl,✶ -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # Fractal Lens -- Recursive Base-4 Lift Law
 
 The Fractal lens is the exact recursive germ of the seed. For base-4 digit expansions r = (r_{m-1}...r_0)_4 and c = (c_{m-1}...c_0)_4, the lift law is: L_{4^m}(r,c) - 1 = sum_{t=0}^{m-1} 4^t * l_4(r_t, c_t). The digit in position t is exactly l_4(r_t, c_t). Fractal is not "self-similarity" as metaphor but exact recursive executability: address ladder, state word, generation law, and replay law.

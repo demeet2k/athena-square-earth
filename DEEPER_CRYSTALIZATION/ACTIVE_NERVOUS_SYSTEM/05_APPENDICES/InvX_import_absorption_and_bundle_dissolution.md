@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S8 | face=C | node=61 | depth=2 | phase=Fixed -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A11:S7→Xi108:W3:A11:S9→Xi108:W2:A11:S8→Xi108:W3:A10:S8→Xi108:W3:A12:S8 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 8±1, wreath 3/3, archetype 11/12 -->
+
 # InvX - Import Absorption & Bundle Dissolution
 
 Routing role: Reverses AppO (Publication Import/Export Bundles). Where AppO packaged internal structures into exportable bundles and published them outward, InvX absorbs imports back into the organism and dissolves bundles into their constituent shards. This is the compression of publication — external form returns to internal substance.

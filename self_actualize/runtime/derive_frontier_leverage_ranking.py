@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=400 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -21,18 +24,14 @@ OUTPUT_MARKDOWN_PATH = GUILD_HALL_ROOT / "10_FRONTIER_LEVERAGE_RANKING.md"
 OUTPUT_RECEIPT_PATH = RECEIPTS_ROOT / "2026-03-09_q25_semantic_witness_archive_leverage_ranking.md"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_frontier_leverage_ranking"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def file_timestamp(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
-
 
 def quest_status_map(path: Path) -> dict[str, str]:
     statuses: dict[str, str] = {}
@@ -44,14 +43,11 @@ def quest_status_map(path: Path) -> dict[str, str]:
             statuses[quest_id] = raw_state
     return statuses
 
-
 def body_index(payload: dict) -> dict[str, dict]:
     return {entry["body"]: entry for entry in payload.get("body_profiles", [])}
 
-
 def role_index(payload: dict) -> dict[str, dict]:
     return {entry["role"]: entry for entry in payload.get("roles", [])}
-
 
 def frontier_profiles(semantic_mass: dict, witness_hierarchy: dict, quest_statuses: dict[str, str]) -> tuple[list[dict], list[dict]]:
     bodies = body_index(semantic_mass)
@@ -224,7 +220,6 @@ def frontier_profiles(semantic_mass: dict, witness_hierarchy: dict, quest_status
     ]
     return quest_frontiers, unassigned_fronts
 
-
 def score_frontier(frontier: dict) -> dict:
     leverage_score = (
         frontier["source_or_archive_lift"]
@@ -236,7 +231,6 @@ def score_frontier(frontier: dict) -> dict:
     ranked = dict(frontier)
     ranked["leverage_score"] = leverage_score
     return ranked
-
 
 def derive_frontier_leverage_ranking() -> dict:
     semantic_mass = load_json(SEMANTIC_MASS_PATH)
@@ -292,7 +286,6 @@ def derive_frontier_leverage_ranking() -> dict:
         "recommended_next_seed": executable[0]["id"] if executable else None,
     }
 
-
 def render_frontier_line(frontier: dict, ordinal: int) -> str:
     factors = (
         f"lift={frontier['source_or_archive_lift']}, "
@@ -308,7 +301,6 @@ def render_frontier_line(frontier: dict, ordinal: int) -> str:
         f"   shape: {factors}\n"
         f"   why-now: {frontier['pressure_note']}"
     )
-
 
 def render_markdown(payload: dict) -> str:
     blocked_lines = "\n".join(
@@ -410,7 +402,6 @@ After:
 `{payload['recommended_next_seed']}`
 """
 
-
 def render_receipt(payload: dict) -> str:
     evidence = payload["current_evidence"]
     executable = payload["executable_frontiers"][0]
@@ -452,7 +443,6 @@ def render_receipt(payload: dict) -> str:
 - the next honest frontier is to bind `Trading Bot` into the truth corridor while preserving the blocked Docs limb honestly
 """
 
-
 def main() -> int:
     payload = derive_frontier_leverage_ranking()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -462,7 +452,6 @@ def main() -> int:
     print(f"Wrote frontier leverage ranking markdown: {OUTPUT_MARKDOWN_PATH}")
     print(f"Wrote frontier leverage ranking receipt: {OUTPUT_RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

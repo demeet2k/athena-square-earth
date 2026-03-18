@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, is_dataclass
@@ -5,7 +9,6 @@ from enum import Enum
 import hashlib
 import json
 from typing import Any
-
 
 class ClaimClass(str, Enum):
     EXPLANATORY = "explanatory"
@@ -15,18 +18,15 @@ class ClaimClass(str, Enum):
     FEDERATION_CLAIM = "federation_claim"
     RHETORICAL = "rhetorical"
 
-
 class RegisterName(str, Enum):
     MINIMAL = "minimal"
     DIPLOMATIC = "diplomatic"
     RHETORICAL = "rhetorical"
 
-
 class RenderMode(str, Enum):
     MINIMAL = "minimal"
     DIPLOMATIC = "diplomatic"
     PREVIEW_ONLY = "preview_only"
-
 
 class AudienceType(str, Enum):
     INTERNAL_RESEARCH = "internal_research"
@@ -34,11 +34,9 @@ class AudienceType(str, Enum):
     PUBLIC_READER = "public_reader"
     FEDERATION_PARTNER = "federation_partner"
 
-
 class ValidationStatus(str, Enum):
     PASS = "PASS"
     FAIL = "FAIL"
-
 
 OBJECT_FAMILY = [
     "SemanticEmbassySurface",
@@ -72,7 +70,6 @@ AUDIENCE_REGISTER_POLICY = {
     AudienceType.FEDERATION_PARTNER: [RegisterName.DIPLOMATIC],
 }
 
-
 def serialize(value: Any) -> Any:
     if isinstance(value, Enum):
         return value.value
@@ -84,14 +81,11 @@ def serialize(value: Any) -> Any:
         return [serialize(item) for item in value]
     return value
 
-
 def stable_json(value: Any) -> str:
     return json.dumps(serialize(value), indent=2, sort_keys=True)
 
-
 def stable_hash(value: Any) -> str:
     return hashlib.sha256(stable_json(value).encode("utf-8")).hexdigest()
-
 
 @dataclass
 class ClaimSurface:
@@ -103,7 +97,6 @@ class ClaimSurface:
     forbidden_claims: list[str]
     replay_refs: list[str]
 
-
 @dataclass
 class AudienceProfile:
     audience_type: AudienceType
@@ -113,14 +106,12 @@ class AudienceProfile:
     trust_sensitivity: str
     allowed_registers: list[RegisterName]
 
-
 @dataclass
 class RegisterProfile:
     name: RegisterName
     public_allowed: bool
     rhetorical_enabled: bool
     description: str
-
 
 @dataclass
 class InterfaceContract:
@@ -131,7 +122,6 @@ class InterfaceContract:
     required_replay_refs: int
     safe_wording_required: bool
 
-
 @dataclass
 class MessageEnvelope:
     envelope_id: str
@@ -139,7 +129,6 @@ class MessageEnvelope:
     audience_type: AudienceType
     register: RegisterName
     replay_surface: str
-
 
 @dataclass
 class TranslationSurface:
@@ -150,7 +139,6 @@ class TranslationSurface:
     federation_terms: list[str]
     export_refs: list[str]
 
-
 @dataclass
 class DomainPack:
     domain_name: str
@@ -158,7 +146,6 @@ class DomainPack:
     blocked_terms: list[str]
     benchmark_safe_names: list[str]
     federation_safe_terms: list[str]
-
 
 @dataclass
 class ReleaseBundle:
@@ -169,7 +156,6 @@ class ReleaseBundle:
     signed_by: str
     allowed_claim_classes: list[ClaimClass]
 
-
 @dataclass
 class SafeWordingBundle:
     bundle_id: str
@@ -179,7 +165,6 @@ class SafeWordingBundle:
     federation_safe_names: list[str]
     downgrade_replacements: dict[str, str]
 
-
 @dataclass
 class KairosAssessment:
     receptivity: str
@@ -187,7 +172,6 @@ class KairosAssessment:
     timing_window: str
     recommended_action: str
     rationale: str
-
 
 @dataclass
 class RhetoricalPreview:
@@ -197,7 +181,6 @@ class RhetoricalPreview:
     catharsis_mode: str
     style_register: str
     preview_only: bool
-
 
 @dataclass
 class SemanticExportValidatorResult:
@@ -209,7 +192,6 @@ class SemanticExportValidatorResult:
     claim_ceiling_proof: str
     normalized_hash: str
 
-
 @dataclass
 class AudienceFacingBundle:
     bundle_id: str
@@ -219,7 +201,6 @@ class AudienceFacingBundle:
     wording: str
     emitted: bool
     validator_status: ValidationStatus
-
 
 @dataclass
 class SemanticEmbassySurface:
@@ -241,10 +222,8 @@ class SemanticEmbassySurface:
     validator_result: SemanticExportValidatorResult
     audience_facing_bundle: AudienceFacingBundle
 
-
 def render_mode_for_claim_class(claim_class: ClaimClass) -> RenderMode:
     return RENDER_POLICY_MAP[claim_class]
-
 
 def apply_safe_wording(raw_text: str, safe_wording_bundle: SafeWordingBundle) -> tuple[str, list[str]]:
     wording = raw_text
@@ -254,7 +233,6 @@ def apply_safe_wording(raw_text: str, safe_wording_bundle: SafeWordingBundle) ->
             wording = wording.replace(source, replacement)
             downgraded.append(f"{source} -> {replacement}")
     return wording, downgraded
-
 
 def validate_semantic_export(
     claim_surface: ClaimSurface,

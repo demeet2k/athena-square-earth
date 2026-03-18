@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S6 | face=S | node=21 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S5→Xi108:W1:A4:S7→Xi108:W2:A4:S6→Xi108:W1:A3:S6→Xi108:W1:A5:S6
+
 """
 RouteCompiler.v1 — Deterministic Route Compilation
 
@@ -15,7 +19,6 @@ from .constants import (
 from .types import (
     Truth4, Candidate, RouteTicket,
 )
-
 
 # ═══════════════════════════════════════════════════════════════
 # ROUTE COMPILATION
@@ -113,7 +116,6 @@ def compile_route(candidate: Candidate) -> RouteTicket:
         overlay=overlay_label,
     )
 
-
 # ═══════════════════════════════════════════════════════════════
 # HELPERS
 # ═══════════════════════════════════════════════════════════════
@@ -126,7 +128,6 @@ def _dominant_element(v) -> Optional[str]:
         return None
     return best
 
-
 def _determine_mode(truth: Truth4, publish: bool) -> str:
     """Determine route mode string."""
     if truth == Truth4.FAIL:
@@ -138,7 +139,6 @@ def _determine_mode(truth: Truth4, publish: bool) -> str:
     if truth == Truth4.NEAR:
         return "upgrade"
     return "standard"
-
 
 def validate_route(ticket: RouteTicket) -> List[str]:
     """Return list of validation errors (empty = valid)."""

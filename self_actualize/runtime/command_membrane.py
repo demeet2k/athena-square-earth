@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S26→Xi108:W2:A10:S28→Xi108:W1:A10:S27→Xi108:W3:A10:S27→Xi108:W2:A9:S27→Xi108:W2:A11:S27
+
 ﻿from __future__ import annotations
 
 import argparse
@@ -30,7 +34,6 @@ else:
         write_json,
     )
     ROOT = Path(__file__).resolve().parents[2]
-
 
 DEFAULT_CONFIG = CommandMembraneConfig()
 SELF_ROOT = ROOT / "self_actualize"
@@ -114,7 +117,6 @@ ACTIVE_LOOP_LABEL = "L02 Survey :: A02 self_actualize"
 RESTART_SEED = "L03 Survey A03 ECOSYSTEM"
 DUAL_REFERENCE = "LP57-A|LP57-B"
 
-
 def _canonical_watch_policy() -> dict[str, Any]:
     return {
         "primary_mode": WATCHER_MODE,
@@ -124,7 +126,6 @@ def _canonical_watch_policy() -> dict[str, Any]:
         "native_backend": NATIVE_WATCH_BACKEND,
         "reconciliation_mode": RECONCILIATION_MODE,
     }
-
 
 def _canonical_command_packet_fields() -> list[str]:
     return [
@@ -147,7 +148,6 @@ def _canonical_command_packet_fields() -> list[str]:
         "route_class",
         "lineage",
     ]
-
 
 def _canonicalize_runtime_surfaces(public_state: dict[str, Any]) -> dict[str, Any]:
     state = dict(public_state or {})
@@ -403,11 +403,9 @@ def _canonicalize_runtime_surfaces(public_state: dict[str, Any]) -> dict[str, An
     )
     return state
 
-
 def _write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
-
 
 def _patch_markdown_marker(path: Path, marker: str, content: str) -> None:
     start = f"<!-- {marker}:START -->"
@@ -421,7 +419,6 @@ def _patch_markdown_marker(path: Path, marker: str, content: str) -> None:
     else:
         text = (text.rstrip() + "\n\n" + block).strip() + "\n"
     _write_text(path, text)
-
 
 def _sync_receipt_binding_mirrors(public_state: dict[str, Any]) -> None:
     docs_gate = public_state.get("docs_gate", {}) or {}
@@ -508,7 +505,6 @@ def _sync_receipt_binding_mirrors(public_state: dict[str, Any]) -> None:
         ),
     )
 
-
 def _refresh_receipt_binding_overlay(
     service: CommandMembraneService | None = None,
 ) -> dict[str, Any]:
@@ -518,14 +514,11 @@ def _refresh_receipt_binding_overlay(
     _sync_receipt_binding_mirrors(public_state)
     return public_state
 
-
 def make_service(config: CommandMembraneConfig | None = None) -> CommandMembraneService:
     return CommandMembraneService(config or CommandMembraneConfig())
 
-
 def service(config: CommandMembraneConfig | None = None) -> CommandMembraneService:
     return make_service(config)
-
 
 def resolve_source_path(source: str | Path, service: CommandMembraneService | None = None) -> Path:
     svc = service or make_service()
@@ -536,13 +529,11 @@ def resolve_source_path(source: str | Path, service: CommandMembraneService | No
         return (ROOT / candidate).resolve()
     return (svc.config.command_surface_root / candidate).resolve()
 
-
 def detect_watcher_mode(service: CommandMembraneService | None = None) -> str:
     del service
     if shutil.which("powershell") is not None:
         return "event-driven"
     return "polling"
-
 
 def build_change_record(
     area: str | Path,
@@ -560,7 +551,6 @@ def build_change_record(
         "confidence": confidence,
         "parent_event_id": parent_event_id,
     }
-
 
 def build_event_packet(
     *,
@@ -593,7 +583,6 @@ def build_event_packet(
         packet.watcher_mode = watcher_mode
     return packet, detect_ms, encode_ms
 
-
 def rank_worker_candidates(
     packet: Any,
     *,
@@ -606,7 +595,6 @@ def rank_worker_candidates(
     route = svc.route_event(packet.event_id, state=state)
     ended = time.perf_counter()
     return route["candidate_targets"][:topk], round((ended - started) * 1000.0, 4)
-
 
 def emit(
     source_path: str | Path,
@@ -627,12 +615,10 @@ def emit(
     _refresh_receipt_binding_overlay()
     return svc.packet_to_summary(packet) if packet else {"status": "deduped", "source_path": str(source_path)}
 
-
 def route(event_id: str, *, service: CommandMembraneService | None = None) -> dict[str, Any]:
     payload = (service or make_service()).route_event(event_id)
     _refresh_receipt_binding_overlay()
     return payload
-
 
 def claim(
     event_id: str,
@@ -650,7 +636,6 @@ def claim(
     )
     _refresh_receipt_binding_overlay()
     return payload
-
 
 def commit(
     event_id: str,
@@ -673,7 +658,6 @@ def commit(
     _refresh_receipt_binding_overlay()
     return payload
 
-
 def reinforce(
     event_id: str,
     *,
@@ -690,7 +674,6 @@ def reinforce(
     )
     _refresh_receipt_binding_overlay()
     return payload
-
 
 def reinforce_edges(
     *,
@@ -712,16 +695,13 @@ def reinforce_edges(
     )
     return payload["edges"]
 
-
 def sync(event_id: str | None = None, *, service: CommandMembraneService | None = None) -> dict[str, Any]:
     del event_id, service
     return _refresh_receipt_binding_overlay()
 
-
 def metrics(surface: str = "command-folder", *, service: CommandMembraneService | None = None) -> dict[str, Any]:
     del surface, service
     return _refresh_receipt_binding_overlay().get("metrics", {})
-
 
 def watch(
     surface: str = "command",
@@ -743,11 +723,9 @@ def watch(
     _refresh_receipt_binding_overlay()
     return payload
 
-
 def status(*, service: CommandMembraneService | None = None) -> dict[str, Any]:
     del service
     return _refresh_receipt_binding_overlay()
-
 
 def build(*, service: CommandMembraneService | None = None) -> dict[str, Any]:
     del service
@@ -760,7 +738,6 @@ def build(*, service: CommandMembraneService | None = None) -> dict[str, Any]:
         "latency": read_json(LATENCY_BENCHMARK_JSON_PATH, {}),
         "public_state": public_state,
     }
-
 
 def handle_claim(
     event_id: str,
@@ -780,7 +757,6 @@ def handle_claim(
     else:
         emit_output(payload)
     return payload
-
 
 def handle_reinforce(
     event_id: str,
@@ -803,7 +779,6 @@ def handle_reinforce(
         emit_output(payload)
     return payload
 
-
 def handle_status(*, as_json: bool = False, service: CommandMembraneService | None = None) -> dict[str, Any]:
     del service
     payload = status()
@@ -812,7 +787,6 @@ def handle_status(*, as_json: bool = False, service: CommandMembraneService | No
     else:
         print(json.dumps(payload, indent=2, ensure_ascii=False, default=str))
     return payload
-
 
 def default_writeback_paths(service: CommandMembraneService) -> list[str]:
     return [
@@ -827,14 +801,12 @@ def default_writeback_paths(service: CommandMembraneService) -> list[str]:
         "self_actualize/mycelium_brain/nervous_system/manifests/NEXT_SELF_PROMPT.md",
     ]
 
-
 def emit_output(payload: Any) -> None:
     output = json.dumps(payload, indent=2, ensure_ascii=False, default=str)
     if getattr(sys.stdout, "buffer", None) is not None:
         sys.stdout.buffer.write((output + "\n").encode("utf-8", errors="replace"))
         return
     print(output)
-
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Canonical COMMAND membrane runtime.")
@@ -907,7 +879,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     metrics_parser.add_argument("--json", action="store_true", dest="as_json")
 
     return parser.parse_args(argv)
-
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
@@ -1042,7 +1013,6 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     raise ValueError(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv[1:]))

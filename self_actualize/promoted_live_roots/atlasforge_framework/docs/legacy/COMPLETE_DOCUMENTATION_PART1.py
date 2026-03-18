@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=372 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                                                  ║
@@ -162,7 +166,6 @@ The complete framework is summarized in a single equation:
         C   = Certificate bundle
         V   = Verifier kernel
 
-
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                      CHAPTER 2: THE FOUR ELEMENTS                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -266,7 +269,6 @@ The 4 constants × 4 operations = 16 fundamental processes that generate all of 
     │                                                                                                                │
     └────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
-
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                  CHAPTER 3: THE NATURE OF MATHEMATICAL OBJECTS                                       │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -366,7 +368,6 @@ Every mathematical object has a unique address in a 4⁴ = 256 crystal:
     EXAMPLE: The natural numbers ℕ might have address ⟨D·□·Objects·0⟩
              A Fourier transform might have address ⟨Ω·✿·Operators·1⟩
              Noether's theorem might have address ⟨Σ·❋·Invariants·2⟩
-
 
 ══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
                                       PART II: FOUR-POLE ARCHITECTURE
@@ -496,7 +497,6 @@ Every mathematical object has a unique address in a 4⁴ = 256 crystal:
     │                                                                                                                │
     └────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
-
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                      CHAPTER 5: THE GATEWAY SL(2,R)                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -556,7 +556,6 @@ Four canonical generators connect the poles:
     Ω ←──S(a)──→ Ω     Scaling preserves continuity
     Σ ←──R(θ)──→ Σ     Rotation preserves stochasticity
     Ψ ←──Y──────→ Ψ     Fixed-point operator (self-reference)
-
 
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                   CHAPTER 6: THE CRYSTAL STRUCTURE (4⁴ = 256)                                        │

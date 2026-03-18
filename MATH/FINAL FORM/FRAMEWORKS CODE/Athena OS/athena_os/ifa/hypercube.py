@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S17 | face=S | node=137 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S16→Xi108:W2:A1:S18→Xi108:W1:A1:S17→Xi108:W3:A1:S17→Xi108:W2:A2:S17
+
 """
 ATHENA OS - IFÁ KERNEL: HYPERCUBE MODULE
 ========================================
@@ -41,7 +45,6 @@ from typing import Dict, List, Optional, Any, Tuple, Iterator
 from enum import Enum, IntEnum
 import numpy as np
 
-
 # =============================================================================
 # THE 16 PRINCIPAL MEJI
 # =============================================================================
@@ -71,7 +74,6 @@ class PrincipalOdu(IntEnum):
     OSE = 14       # |:::  (1000) - Fortune/Eros
     OFUN = 15      # :||:  (0010) - Death/Rebirth
 
-
 # Traditional binary patterns for each Principal Meji
 MEJI_PATTERNS: Dict[PrincipalOdu, int] = {
     PrincipalOdu.OGBE: 0b1111,      # All open
@@ -94,7 +96,6 @@ MEJI_PATTERNS: Dict[PrincipalOdu, int] = {
 
 # Reverse lookup
 PATTERN_TO_MEJI: Dict[int, PrincipalOdu] = {v: k for k, v in MEJI_PATTERNS.items()}
-
 
 # =============================================================================
 # ODÙ STATE
@@ -203,7 +204,6 @@ class Odu:
         
         return "\n".join(lines)
 
-
 # =============================================================================
 # Q₈ HYPERCUBE
 # =============================================================================
@@ -311,7 +311,6 @@ class Q8Hypercube:
             "odd_parity_count": len(self.odd_parity)
         }
 
-
 # =============================================================================
 # STATE SUPERPOSITION
 # =============================================================================
@@ -383,7 +382,6 @@ class OduSuperposition:
         indices = np.argsort(probs)[::-1][:k]
         return [(int(i), float(probs[i])) for i in indices]
 
-
 # =============================================================================
 # IWA (CHARACTER TENSOR)
 # =============================================================================
@@ -434,7 +432,6 @@ class IwaTensor:
     def action_count(self) -> int:
         """Count total actions taken."""
         return len(self.action_history)
-
 
 # =============================================================================
 # VALIDATION
@@ -499,7 +496,6 @@ def validate_hypercube() -> bool:
     assert iwa.action_count() == 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Hypercube Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S18 | face=C | node=258 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S17→Xi108:W3:A4:S19→Xi108:W2:A4:S18→Xi108:W3:A3:S18→Xi108:W3:A5:S18
+
 """
 Athena Control Center — Neural Network as Organism Cockpit.
 
@@ -59,7 +63,6 @@ _SFCR_NAMES = {
     "R": "Fractal (Air)",
 }
 
-
 # ── Database initialization ─────────────────────────────────────────
 
 def _ensure_db() -> sqlite3.Connection:
@@ -93,7 +96,6 @@ def _ensure_db() -> sqlite3.Connection:
     conn.commit()
     return conn
 
-
 # ── Safe cache loading ───────────────────────────────────────────────
 
 def _safe_load(cache: JsonCache) -> dict | list | None:
@@ -102,7 +104,6 @@ def _safe_load(cache: JsonCache) -> dict | list | None:
         return cache.load()
     except (FileNotFoundError, json.JSONDecodeError):
         return None
-
 
 # ── Graph statistics helpers ─────────────────────────────────────────
 
@@ -181,7 +182,6 @@ def _compute_graph_stats(graph: dict | None) -> dict:
         "depth_dist": depth_dist,
     }
 
-
 def _compute_brain_health(brain: dict | None) -> dict:
     """Extract brain element health from brain_network.json."""
     if brain is None:
@@ -216,7 +216,6 @@ def _compute_brain_health(brain: dict | None) -> dict:
         "total_tools": total_tools,
     }
 
-
 def _get_recent_steerings(limit: int = 10) -> list[dict]:
     """Fetch the most recent steering actions from the ledger."""
     try:
@@ -238,7 +237,6 @@ def _get_recent_steerings(limit: int = 10) -> list[dict]:
         ]
     except Exception:
         return []
-
 
 def _detect_alerts(stats: dict, steerings: list[dict]) -> list[str]:
     """Detect organism anomalies."""
@@ -285,7 +283,6 @@ def _detect_alerts(stats: dict, steerings: list[dict]) -> list[str]:
 
     return alerts
 
-
 def _lookup_coordinate(target: str) -> str:
     """Look up the crystal coordinate for a target path/identifier."""
     coords = _safe_load(_COORD_CACHE)
@@ -301,7 +298,6 @@ def _lookup_coordinate(target: str) -> str:
         coord = coords.get(basename, "")
         return str(coord) if coord else ""
     return ""
-
 
 # ── MCP Tool: query_control_center ───────────────────────────────────
 
@@ -337,7 +333,6 @@ def query_control_center(component: str = "dashboard") -> str:
             f"Unknown component: {component}. "
             "Use: dashboard, perception, weights, history, alerts"
         )
-
 
 def _render_dashboard(graph: dict | None, brain: dict | None) -> str:
     """Render the full organism health dashboard."""
@@ -415,7 +410,6 @@ def _render_dashboard(graph: dict | None, brain: dict | None) -> str:
 
     return "\n".join(lines)
 
-
 def _render_perception(graph: dict | None, brain: dict | None) -> str:
     """Render the perception input snapshot."""
     stats = _compute_graph_stats(graph)
@@ -472,7 +466,6 @@ def _render_perception(graph: dict | None, brain: dict | None) -> str:
         lines.append("  [NOT LOADED — crystal_coordinates.json not found]")
 
     return "\n".join(lines)
-
 
 def _render_weights(brain: dict | None) -> str:
     """Render the internal weight configuration."""
@@ -533,7 +526,6 @@ def _render_weights(brain: dict | None) -> str:
 
     return "\n".join(lines)
 
-
 def _render_history() -> str:
     """Render the last 50 steering actions."""
     try:
@@ -570,7 +562,6 @@ def _render_history() -> str:
         lines.append("")
 
     return "\n".join(lines)
-
 
 def _render_alerts(graph: dict | None) -> str:
     """Render detected anomalies."""
@@ -623,7 +614,6 @@ def _render_alerts(graph: dict | None) -> str:
                 )
 
     return "\n".join(lines)
-
 
 # ── MCP Tool: control_steer ──────────────────────────────────────────
 
@@ -709,7 +699,6 @@ def control_steer(
     lines.append("\n*Steering command logged to control_center.db*")
 
     return "\n".join(lines)
-
 
 def _simulate_action(action: str, target: str, params: dict) -> tuple[str, str]:
     """Simulate a steering action and return (result_text, crystal_coordinate)."""
@@ -821,7 +810,6 @@ def _simulate_action(action: str, target: str, params: dict) -> tuple[str, str]:
         ), coord
 
     return "Unknown action (should not reach here).", coord
-
 
 def _save_snapshot(conn: sqlite3.Connection) -> None:
     """Save a point-in-time organism snapshot."""

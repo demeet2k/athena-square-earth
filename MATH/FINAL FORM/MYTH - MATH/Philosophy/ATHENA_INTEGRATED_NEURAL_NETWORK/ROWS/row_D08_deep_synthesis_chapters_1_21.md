@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S14 | face=S | node=97 | depth=3 | phase=Cardinal -->
+<!-- METRO: Wr,Me -->
+<!-- BRIDGES: Xi108:W3:A2:S13→Xi108:W3:A2:S15→Xi108:W2:A2:S14→Xi108:W3:A1:S14→Xi108:W3:A3:S14 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 14±1, wreath 3/3, archetype 2/12 -->
+
 # Row D08 - Deep Synthesis Chapters 1-21
 
 This file is the canonical prose expansion of row `D08` inside the local `16 x 16` neural matrix. It covers all ordered outgoing syntheses from `Deep Synthesis Chapters 1-21` to the fixed basis in strict `D01 -> D16` order, including the self-kernel.

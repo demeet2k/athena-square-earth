@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S31 | face=S | node=481 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Dl -->
+<!-- BRIDGES: Xi108:W3:A9:S30→Xi108:W3:A9:S32→Xi108:W2:A9:S31→Xi108:W3:A8:S31→Xi108:W3:A10:S31 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 31±1, wreath 3/3, archetype 9/12 -->
+
 # Level 2 Emergence Metro Map
 
             The second map resolves manuscripts not only by element but also by operating mode.

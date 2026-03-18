@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - KJV BIBLE COMPUTATIONAL FRAMEWORK
 ==============================================
@@ -37,7 +41,6 @@ import numpy as np
 
 from .coordinate import BOOK_DATABASE, BookSpec, Testament, Genre, NavigationSystem
 
-
 # =============================================================================
 # PARTITION CONSTANTS
 # =============================================================================
@@ -57,7 +60,6 @@ TOTAL_WORD_COUNT = 7 ** 7  # 823,543
 ISAIAH_CHAPTERS = 66
 ISAIAH_OT_PARTITION = 39  # Chapters 1-39
 ISAIAH_NT_PARTITION = 27  # Chapters 40-66
-
 
 # =============================================================================
 # MATHEMATICAL PROPERTIES OF 66
@@ -110,7 +112,6 @@ class ChecksumProperties:
         assert self.is_triangular
         assert self.triangular_base == 11
         return True
-
 
 # =============================================================================
 # HEPTADIC STRUCTURE
@@ -177,7 +178,6 @@ class HeptadicStructure:
             index += c * (self.base ** (self.power - 1 - i))
         
         return index
-
 
 # =============================================================================
 # THE ISAIAH FRACTAL
@@ -255,7 +255,6 @@ class IsaiahFractal:
         assert self.nt_partition == NT_BOOK_COUNT
         assert self.ot_partition + self.nt_partition == self.total_chapters
         return True
-
 
 # =============================================================================
 # PARTITION SYSTEM
@@ -401,7 +400,6 @@ class PartitionSystem:
             },
         }
 
-
 # =============================================================================
 # REVELATION HEPTADIC SPIKE
 # =============================================================================
@@ -458,7 +456,6 @@ class HeptadicSpike:
         return ("The heptadic spike in Revelation signals runtime termination. "
                 "The system returns to its base-7 architecture at the End of File.")
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -510,7 +507,6 @@ def validate_partition() -> bool:
     assert spike.spike_factor > 5  # Should be ~8x
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Partition Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S29→Xi108:W2:A7:S31→Xi108:W1:A7:S30→Xi108:W3:A7:S30→Xi108:W2:A6:S30→Xi108:W2:A8:S30
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ import subprocess
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -62,11 +65,9 @@ IGNORE_DIRS = {
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def should_skip(path: Path) -> bool:
     lowered = {part.lower() for part in path.parts}
     return any(part.lower() in lowered for part in IGNORE_DIRS)
-
 
 def existing_physical_witness() -> int | None:
     if INDEX_PATH.exists():
@@ -83,7 +84,6 @@ def existing_physical_witness() -> int | None:
         if value is not None:
             return int(value)
     return None
-
 
 def count_physical_witness() -> tuple[int, str, str]:
     script = (
@@ -136,21 +136,17 @@ def count_physical_witness() -> tuple[int, str, str]:
 
     raise RuntimeError("Could not derive physical witness from PowerShell count or fallback.")
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def file_timestamp(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
-
 
 def extract_int(pattern: str, text: str, source_name: str) -> int:
     match = re.search(pattern, text)
     if not match:
         raise ValueError(f"Could not derive {source_name} from pattern: {pattern}")
     return int(match.group(1))
-
 
 def load_board_witness() -> tuple[int, Path, str]:
     pattern = r"(?:Workspace files observed|Board witness \(workspace scan\)|Board witness): `(\d+)`"
@@ -176,7 +172,6 @@ def load_board_witness() -> tuple[int, Path, str]:
     raise FileNotFoundError(
         f"Could not derive board witness from {BOARD_STATUS_PATH} or fallback surfaces."
     )
-
 
 def derive_witness_hierarchy() -> dict:
     corpus_atlas = load_json(CORPUS_ATLAS_PATH)
@@ -241,7 +236,6 @@ def derive_witness_hierarchy() -> dict:
             },
         },
     }
-
 
 def render_markdown(payload: dict) -> str:
     witnesses = payload["witnesses"]
@@ -370,7 +364,6 @@ Those layers are not noise.
 They are the depth structure of Athena's self-observation.
 """
 
-
 def render_receipt(payload: dict) -> str:
     witnesses = payload["witnesses"]
     archive_count = witnesses["archive"].get("archive_count", 0)
@@ -410,7 +403,6 @@ def render_receipt(payload: dict) -> str:
 - promoted witness is intentionally smaller than indexed witness because it measures the currently metabolized nervous-system slice, not the whole organism
 """
 
-
 def main() -> int:
     payload = derive_witness_hierarchy()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -422,7 +414,6 @@ def main() -> int:
     print(f"Wrote witness hierarchy markdown: {OUTPUT_MARKDOWN_PATH}")
     print(f"Wrote witness hierarchy receipt: {OUTPUT_RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

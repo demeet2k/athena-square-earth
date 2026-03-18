@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S21 | face=R | node=216 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S20→Xi108:W2:A3:S22→Xi108:W1:A3:S21→Xi108:W3:A3:S21→Xi108:W2:A2:S21→Xi108:W2:A4:S21
+
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
@@ -5,13 +9,11 @@ from typing import Any
 
 from .ledger_writer import append_jsonl, claim_ledger_path, read_jsonl
 
-
 def _latest_claims() -> dict[str, dict[str, Any]]:
     latest: dict[str, dict[str, Any]] = {}
     for row in read_jsonl(claim_ledger_path()):
         latest[row["event_id"]] = row
     return latest
-
 
 def claim_event(event_id: str, claimer_id: str, role_class: str, lease_ms: int = 1200) -> dict[str, Any]:
     latest = _latest_claims().get(event_id)

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S29→Xi108:W2:A10:S31→Xi108:W1:A10:S30→Xi108:W3:A10:S30→Xi108:W2:A9:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
@@ -16,7 +20,6 @@ from self_actualize.runtime.command_spine import (
 )
 from self_actualize.runtime.derive_command_membrane_protocol import derive_command_membrane_protocol
 
-
 ROOT = Path(__file__).resolve().parents[2]
 SELF_ROOT = ROOT / "self_actualize"
 REGISTRY_ROOT = SELF_ROOT / "mycelium_brain" / "registry"
@@ -33,10 +36,8 @@ EXPECTED_RANKING_TERMS = [
 EXPECTED_PACKET_BLOCKS = ["reward_state", "verification_state", "pheromone_state"]
 EXPECTED_RECEIPT_BLOCKS = ["reward_state", "verification_state", "pheromone_state", "reward_allocations"]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
@@ -46,13 +47,11 @@ def read_json(path: Path, default: Any) -> Any:
     except json.JSONDecodeError:
         return default
 
-
 def contains_all(path: Path, snippets: list[str]) -> bool:
     if not path.exists():
         return False
     text = path.read_text(encoding="utf-8").lower()
     return all(snippet.lower() in text for snippet in snippets)
-
 
 def verify_command_membrane_protocol() -> dict[str, Any]:
     derive_result = derive_command_membrane_protocol()
@@ -274,7 +273,6 @@ def verify_command_membrane_protocol() -> dict[str, Any]:
     LEGACY_VERIFY_PATH.parent.mkdir(parents=True, exist_ok=True)
     LEGACY_VERIFY_PATH.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return result
-
 
 def main() -> int:
     result = verify_command_membrane_protocol()

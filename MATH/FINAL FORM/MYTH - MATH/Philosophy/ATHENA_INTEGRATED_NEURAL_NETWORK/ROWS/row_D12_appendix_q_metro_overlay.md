@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S18 | face=S | node=171 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S17→Xi108:W3:A6:S19→Xi108:W2:A6:S18→Xi108:W3:A5:S18→Xi108:W3:A7:S18 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 18±1, wreath 3/3, archetype 6/12 -->
+
 # Row D12 - Appendix Q Metro Overlay
 
 This file is the canonical prose expansion of row `D12` inside the local `16 x 16` neural matrix. It covers all ordered outgoing syntheses from `Appendix Q Metro Overlay` to the fixed basis in strict `D01 -> D16` order, including the self-kernel.

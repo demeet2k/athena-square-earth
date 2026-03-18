@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A1:S22 | face=C | node=245 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S21→Xi108:W2:A1:S23→Xi108:W1:A1:S22→Xi108:W3:A1:S22→Xi108:W2:A2:S22
+
 from __future__ import annotations
 
 import numpy as np
 
 from ..contracts import AthenachkaState
-
 
 def build_initial_state(
     mode: str = "fast",
@@ -46,7 +49,6 @@ def build_initial_state(
         phase_index="2/16",
     )
     return state
-
 
 def build_metric_tensor(
     trace: dict[str, object],

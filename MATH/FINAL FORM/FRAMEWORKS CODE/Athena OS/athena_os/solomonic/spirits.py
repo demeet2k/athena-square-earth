@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=136 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - KEY OF SOLOMON COMPUTATIONAL FRAMEWORK
 ===================================================
@@ -37,7 +41,6 @@ import numpy as np
 # Import from temporal
 from .temporal import Planet
 
-
 # =============================================================================
 # SPIRIT STATES
 # =============================================================================
@@ -73,7 +76,6 @@ class SpiritState(Enum):
                        SpiritState.BOUND, SpiritState.TASKED, 
                        SpiritState.RELEASED]
 
-
 class SpiritClass(Enum):
     """Classes of spirits by hierarchy."""
     
@@ -87,7 +89,6 @@ class SpiritClass(Enum):
         self.rank = rank
         self.authority_level = authority_level
         self._description = description
-
 
 class FunctionDomain(Enum):
     """Domains of spirit function/expertise."""
@@ -106,7 +107,6 @@ class FunctionDomain(Enum):
     def __init__(self, category: str, description: str):
         self.category = category
         self._description = description
-
 
 # =============================================================================
 # SPIRIT SPECIFICATION
@@ -150,7 +150,6 @@ class SpiritSpec:
     def requires_authority(self, operator_authority: int) -> bool:
         """Check if operator has sufficient authority."""
         return operator_authority >= self.authority_required
-
 
 # =============================================================================
 # SPIRIT STATE MACHINE
@@ -379,7 +378,6 @@ class Spirit:
             "escalation_count": self.escalation_count,
         }
 
-
 # =============================================================================
 # SPIRIT REGISTRY
 # =============================================================================
@@ -469,7 +467,6 @@ SAMPLE_SPIRITS = [
     ),
 ]
 
-
 @dataclass
 class SpiritRegistry:
     """
@@ -525,7 +522,6 @@ class SpiritRegistry:
             if not spirit.state.is_safe:
                 return False
         return True
-
 
 # =============================================================================
 # VALIDATION
@@ -599,7 +595,6 @@ def validate_spirits() -> bool:
     assert registry.check_safety_invariant()
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Spirits Module...")

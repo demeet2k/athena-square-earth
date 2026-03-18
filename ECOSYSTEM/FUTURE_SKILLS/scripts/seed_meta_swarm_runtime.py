@@ -1,12 +1,14 @@
+# CRYSTAL: Xi108:W3:A6:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me,w
+# BRIDGES: Xi108:W3:A6:S29→Xi108:W3:A6:S31→Xi108:W2:A6:S30→Xi108:W3:A5:S30→Xi108:W3:A7:S30
+
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "future_skill_frontier.json"
-
 
 def slugify(text: str) -> str:
     cleaned = []
@@ -20,17 +22,14 @@ def slugify(text: str) -> str:
         slug = slug.replace("__", "_")
     return slug.strip("_")
 
-
 def write_if_missing(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
         return
     path.write_text(content, encoding="utf-8")
 
-
 def load_manifest() -> dict:
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-
 
 def ganglion_doc(family: dict) -> str:
     family_name = family["family"]
@@ -64,7 +63,6 @@ def ganglion_doc(family: dict) -> str:
 - family outputs must contract into cortex-facing artifacts
 - unresolved contradictions must go to ledgers, not vanish
 """
-
 
 def neuron_docs() -> dict[str, str]:
     return {
@@ -179,7 +177,6 @@ Translate NSCoord into packet class and truth-typed execution surfaces.
 """
     }
 
-
 def swarm_doc(skills: list[dict], families: list[dict]) -> str:
     lines = [
         "# SWARM_2026-03-09_future_skill_meta_swarm",
@@ -206,7 +203,6 @@ def swarm_doc(skills: list[dict], families: list[dict]) -> str:
         "- cortex writeback artifacts",
     ])
     return "\n".join(lines) + "\n"
-
 
 def wave_doc(skills: list[dict]) -> str:
     lines = [
@@ -236,7 +232,6 @@ def wave_doc(skills: list[dict]) -> str:
         "- family ganglia should deepen from seed notes into live queues and receipts",
     ])
     return "\n".join(lines) + "\n"
-
 
 def packet_docs(skills: list[dict]) -> dict[str, str]:
     return {
@@ -310,7 +305,6 @@ The future skill frontier now occupies both the root 256 lattice and the higher-
 """,
     }
 
-
 def session_doc() -> str:
     return """# SESSION_2026-03-09_future_skill_meta_swarm
 
@@ -328,7 +322,6 @@ def session_doc() -> str:
 3. read `self_actualize/mycelium_brain/nervous_system/10_deeper_emergent_neural_swarm.md`
 4. claim the next family pod or hypermap front
 """
-
 
 def main() -> None:
     manifest = load_manifest()
@@ -367,7 +360,6 @@ def main() -> None:
         session_doc(),
     )
     print(f"Seeded meta-swarm runtime surfaces for {len(families)} families and {len(swarm_skills)} skills.")
-
 
 if __name__ == "__main__":
     main()

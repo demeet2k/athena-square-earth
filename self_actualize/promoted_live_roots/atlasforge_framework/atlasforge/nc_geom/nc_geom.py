@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=301 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    NONCOMMUTATIVE GEOMETRY MODULE                            ║
@@ -22,7 +26,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NONCOMMUTATIVE ALGEBRAS
@@ -63,7 +66,6 @@ class NoncommutativeAlgebra:
         """NC torus A_θ: UV = e^{2πiθ} VU."""
         return cls(f"A_θ (θ={theta:.4f})", is_unital=True, is_star_algebra=True)
 
-
 @dataclass
 class CStarAlgebra(NoncommutativeAlgebra):
     """
@@ -89,7 +91,6 @@ class CStarAlgebra(NoncommutativeAlgebra):
         """B(H) - bounded operators on Hilbert space."""
         return cls(f"B({H})", is_commutative=False)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECTRAL TRIPLES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -101,7 +102,6 @@ class SpectralTripleType(Enum):
     PRODUCT = "Product geometry"
     QUANTUM = "Quantum group"
     ALMOST_COMMUTATIVE = "Almost commutative (Standard Model)"
-
 
 @dataclass
 class SpectralTriple:
@@ -179,7 +179,6 @@ class SpectralTriple:
             is_real=True
         )
 
-
 @dataclass
 class RealStructure:
     """
@@ -218,7 +217,6 @@ class RealStructure:
         e, ep, epp = signs_table[n % 8]
         return cls(e, ep, epp, n % 8)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CYCLIC COHOMOLOGY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -243,7 +241,6 @@ class HochschildComplex:
     def hochschild_cohomology(self, n: int) -> str:
         """HH^n(A, A) = ker b / im b."""
         return f"HH^{n}({self.algebra.name})"
-
 
 @dataclass
 class CyclicCohomology:
@@ -272,7 +269,6 @@ class CyclicCohomology:
         """Chern character ch: K_*(A) → HP^*(A)."""
         return f"ch: K_*({self.algebra.name}) → HP^*({self.algebra.name})"
 
-
 @dataclass
 class ConnesIndex:
     """
@@ -293,7 +289,6 @@ class ConnesIndex:
     def residue_formula(self) -> str:
         """Residue at spectral dimension."""
         return "Res_{s=0} Tr(a |D|^{-s}) = Wres(a)"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MOYAL PRODUCT AND DEFORMATION QUANTIZATION
@@ -332,7 +327,6 @@ class MoyalProduct:
             theta[n+i, i] = -1.0
         return cls(theta, hbar)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUANTUM GROUPS AND HOPF ALGEBRAS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -370,7 +364,6 @@ class HopfAlgebra:
         """U(g) with Δ(X) = X ⊗ 1 + 1 ⊗ X."""
         return cls(f"U({g})")
 
-
 @dataclass
 class QuantumGroup:
     """
@@ -400,7 +393,6 @@ class QuantumGroup:
     def sl2(cls, q: complex = None) -> 'QuantumGroup':
         """U_q(sl_2)."""
         return cls("sl_2", q or np.exp(1j * np.pi / 3))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -452,7 +444,6 @@ class NCGeomPoleBridge:
         """
         return "Gateway ↔ Index: ⟨[D], [e]⟩ = Ind(D_e)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -461,33 +452,27 @@ def nc_algebra(name: str) -> NoncommutativeAlgebra:
     """Create noncommutative algebra."""
     return NoncommutativeAlgebra(name)
 
-
 def spectral_triple(alg: NoncommutativeAlgebra, 
                     triple_type: SpectralTripleType = SpectralTripleType.COMMUTATIVE
                    ) -> SpectralTriple:
     """Create spectral triple."""
     return SpectralTriple(alg, triple_type=triple_type)
 
-
 def cyclic_cohomology(alg: NoncommutativeAlgebra) -> CyclicCohomology:
     """Create cyclic cohomology."""
     return CyclicCohomology(alg)
-
 
 def moyal_product(n: int, hbar: float = 1.0) -> MoyalProduct:
     """Create canonical Moyal product."""
     return MoyalProduct.canonical(n, hbar)
 
-
 def quantum_group(g: str, q: complex = None) -> QuantumGroup:
     """Create quantum group."""
     return QuantumGroup(g, q or np.exp(1j * np.pi / 3))
 
-
 def hopf_algebra(name: str) -> HopfAlgebra:
     """Create Hopf algebra."""
     return HopfAlgebra(name)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

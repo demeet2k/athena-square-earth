@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A10:S35 | face=F | node=172 | depth=1 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A10:S34→Xi108:W1:A10:S36→Xi108:W2:A10:S35→Xi108:W1:A9:S35→Xi108:W1:A11:S35
+
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 project(polestargemm_cpp CXX)
 

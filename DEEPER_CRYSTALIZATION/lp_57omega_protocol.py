@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed
+# METRO: Me,Ω
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 from __future__ import annotations
 
 import hashlib
@@ -13,7 +17,6 @@ if str(WORKSPACE_ROOT) not in sys.path:
     sys.path.insert(0, str(WORKSPACE_ROOT))
 
 from self_actualize.runtime.hemisphere_dense_65_shell_support import DENSE_65_CANONICAL_SEED_TABLE
-
 
 PROTOCOL_ID = "LP-57OMEGA"
 PROTOCOL_DISPLAY_NAME = "LP-57Omega"
@@ -335,10 +338,8 @@ DENSE_SHELL_RAW_BLOCK = """
 65/65) T33 | hide=A | triad={C,B,D} | anti+={A,B,C,D} -> {A,B,C,D} -> {A,B,C,D} | anti-={A,B,C,D} -> {A,B,C,D} -> {A,B,C,D}
 """.strip()
 
-
 def protocol_agent_id(loop_index: int, master_id: str, nested_depth: int, branch_path: str, role_tag: str) -> str:
     return f"L{loop_index:02d}.{master_id}.D{nested_depth}.B{branch_path}.{role_tag}"
-
 
 def seat_addr_6d(master_id: str, target: str, chosen_action: str) -> str:
     spec = MASTER_AGENT_SPECS[master_id]
@@ -353,7 +354,6 @@ def seat_addr_6d(master_id: str, target: str, chosen_action: str) -> str:
             f"F{PRIORITY_INDEX.get(chosen_action, 3)}",
         ]
     )
-
 
 def coordinate_stamp(
     *,
@@ -387,7 +387,6 @@ def coordinate_stamp(
         "Hs": spec["hierarchy"],
         "Omega_s": f"{pass_id}:{state}",
     }
-
 
 def seeded_ledger_entry(
     *,
@@ -443,7 +442,6 @@ def seeded_ledger_entry(
         "timestamp_internal": timestamp_internal,
     }
 
-
 def parse_set_literal(raw: str) -> list[str]:
     text = raw.strip()
     if text.startswith("{") and text.endswith("}"):
@@ -452,23 +450,19 @@ def parse_set_literal(raw: str) -> list[str]:
         return []
     return [item.strip() for item in text.split(",") if item.strip()]
 
-
 def format_set(symbols: list[str] | None) -> str:
     if not symbols:
         return "{}"
     return "{" + ",".join(symbols) + "}"
 
-
 def parse_orbit_sequence(raw: str) -> list[list[str]]:
     return [parse_set_literal(part.strip()) for part in raw.split("->")]
-
 
 def first_missing_pole(symbols: list[str]) -> str:
     for pole in POLE_RING_ORDER:
         if pole not in symbols:
             return pole
     return "A"
-
 
 def shell_coordinate_stamp(record: dict[str, Any]) -> dict[str, str]:
     record_type = record["record_type"]
@@ -510,7 +504,6 @@ def shell_coordinate_stamp(record: dict[str, Any]) -> dict[str, str]:
         "Hs": f"record:{record['record_id']}",
         "Omega_s": f"{SHELL_TRUTH}:{state}",
     }
-
 
 def parse_shell_records() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = [
@@ -637,11 +630,9 @@ def parse_shell_records() -> list[dict[str, Any]]:
     records[0]["coordinate_stamp"] = shell_coordinate_stamp(records[0])
     return records
 
-
 SHELL_RECORDS = parse_shell_records()
 SHELL_RECORD_INDEX = {record["record_id"]: record for record in SHELL_RECORDS}
 SHELL_RESERVED_RECORD = SHELL_RECORD_INDEX["H00"]
-
 
 def ae_signature_token(symbols: list[str]) -> str:
     if not symbols:
@@ -649,27 +640,21 @@ def ae_signature_token(symbols: list[str]) -> str:
     parts = [ELEMENT_INITIAL[symbol] for symbol in symbols if symbol in ELEMENT_INITIAL]
     return "AE[" + "+".join(parts) + "]"
 
-
 def stable_json_dumps(payload: Any) -> str:
     return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-
 
 def stable_hash(*parts: Any) -> str:
     canonical = stable_json_dumps(list(parts))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
-
 def bundle_id(record: dict[str, Any]) -> str:
     return f"B{record['mu']}"
-
 
 def binding_phase(record_type: str, binding_key: str) -> str:
     return FLOWER_PHASE_BIN[f"{record_type}.{binding_key}"]
 
-
 def transfer_binding_spec(record_id: str) -> dict[str, Any]:
     return TRANSFER_BINDING_SPECS[record_id]
-
 
 def build_aether_coordinate(record: dict[str, Any], binding_key: str) -> dict[str, Any]:
     spec = transfer_binding_spec(record["record_id"])
@@ -684,11 +669,9 @@ def build_aether_coordinate(record: dict[str, Any], binding_key: str) -> dict[st
         coordinate["HiddenPole"] = spec["hidden_pole"]
     return coordinate
 
-
 def serialize_aether_coordinate(ae: dict[str, Any]) -> str:
     hidden = f":h={ae['HiddenPole']}" if "HiddenPole" in ae else ""
     return f"AE=({ae['Lens']},{ae['Phase']},{ae['Bundle']}{hidden};{ae['Slot']})"
-
 
 def build_witness_ptr(*, binding_id: str, location: str, z_value: str, checkpoint: str, route_id: str) -> dict[str, Any]:
     return {
@@ -700,7 +683,6 @@ def build_witness_ptr(*, binding_id: str, location: str, z_value: str, checkpoin
         "Collector": WITNESS_COLLECTOR,
         "VersionPins": WITNESS_VERSION_PINS,
     }
-
 
 def build_replay_ptr(
     *,
@@ -730,7 +712,6 @@ def build_replay_ptr(
         "EnvPin": REPLAY_ENV_PIN,
         "Hash": stable_hash(binding_id, location, REPLAY_ENV_PIN),
     }
-
 
 def build_phase_binding(record: dict[str, Any], binding_key: str) -> dict[str, Any]:
     spec = transfer_binding_spec(record["record_id"])
@@ -766,11 +747,9 @@ def build_phase_binding(record: dict[str, Any], binding_key: str) -> dict[str, A
         "route_path": route_path,
     }
 
-
 def phase_bindings_for_record(record: dict[str, Any]) -> list[dict[str, Any]]:
     spec = transfer_binding_spec(record["record_id"])
     return [build_phase_binding(record, binding_key) for binding_key in spec["bindings"]]
-
 
 def z_transfer_signature(record: dict[str, Any], phase_bindings: list[dict[str, Any]] | None = None) -> str:
     bindings = phase_bindings or phase_bindings_for_record(record)
@@ -779,11 +758,9 @@ def z_transfer_signature(record: dict[str, Any], phase_bindings: list[dict[str, 
     )
     return f"Z-shell[{record['record_id']}] :: {binding_summary}"
 
-
 def aether_transfer_signature(record: dict[str, Any], phase_bindings: list[dict[str, Any]] | None = None) -> str:
     bindings = phase_bindings or phase_bindings_for_record(record)
     return " | ".join(binding["Location"] for binding in bindings)
-
 
 def orbit_mechanics_ref(record: dict[str, Any]) -> str:
     if record["record_type"] == "R":
@@ -791,7 +768,6 @@ def orbit_mechanics_ref(record: dict[str, Any]) -> str:
     if record["record_type"] == "Q":
         return "ACTIVE_NERVOUS_SYSTEM/03_METRO/00_core_metro_map.md :: Ch08<0013> synchronization calculus and lawful circulation"
     return "ACTIVE_NERVOUS_SYSTEM/04_CHAPTERS/Ch11_0022_void_book_and_restart_token_tunneling.md :: Aether versus Void transport, restart continuity, and lawful reset by capsule"
-
 
 def prior_metro_route_witness(record: dict[str, Any]) -> str:
     base = orbit_mechanics_ref(record)
@@ -801,12 +777,10 @@ def prior_metro_route_witness(record: dict[str, Any]) -> str:
         return f"{base} :: route-class=order-4 spin orbit / full-ring circulation"
     return f"{base} :: route-class=order-3 rail rotation / hidden-pole antispin lock"
 
-
 def packaging_status(record: dict[str, Any]) -> str:
     if record["record_type"] == "T":
         return BASE3_ANTISPIN_LOCK
     return "corpus-grounded order-4 ring law"
-
 
 def build_enriched_transfer_records() -> list[dict[str, Any]]:
     enriched: list[dict[str, Any]] = []
@@ -834,10 +808,8 @@ def build_enriched_transfer_records() -> list[dict[str, Any]]:
         )
     return enriched
 
-
 ENRICHED_TRANSFER_RECORDS = build_enriched_transfer_records()
 ENRICHED_TRANSFER_INDEX = {record["record_id"]: record for record in ENRICHED_TRANSFER_RECORDS}
-
 
 def shell_record_reference(loop_index: int, target: str, chosen_action: str) -> dict[str, Any]:
     family = TARGET_RECORD_FAMILY[target]
@@ -861,7 +833,6 @@ def shell_record_reference(loop_index: int, target: str, chosen_action: str) -> 
         payload["phase_bindings"] = ENRICHED_TRANSFER_INDEX[record["record_id"]]["phase_bindings"]
     return payload
 
-
 def shell_counts() -> dict[str, int]:
     counts = {
         "total": len(SHELL_RECORDS),
@@ -872,7 +843,6 @@ def shell_counts() -> dict[str, int]:
     for record_type in ["P", "S", "R", "Q", "T"]:
         counts[record_type] = len([record for record in SHELL_RECORDS if record["record_type"] == record_type])
     return counts
-
 
 def shell_registry_payload() -> dict[str, Any]:
     return {
@@ -887,7 +857,6 @@ def shell_registry_payload() -> dict[str, Any]:
         "counts": shell_counts(),
         "records": SHELL_RECORDS,
     }
-
 
 __all__ = [
     "ACTION_SEQUENCE",

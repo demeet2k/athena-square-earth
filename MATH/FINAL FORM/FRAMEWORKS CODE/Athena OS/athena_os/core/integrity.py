@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - Error Correction and Integrity
 ==========================================
@@ -20,7 +24,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Tuple, Optional, Dict
 import math
-
 
 # =============================================================================
 # HAMMING CODE CONSTANTS
@@ -49,7 +52,6 @@ class HammingConstants:
     def syndrome_positions(cls, syndrome: int) -> int:
         """Convert syndrome to error position (0 = no error)."""
         return syndrome  # Syndrome directly indicates error position
-
 
 # =============================================================================
 # HAMMING ENCODER/DECODER
@@ -160,7 +162,6 @@ class HammingCode:
             return codeword ^ (1 << (position - 1))
         return codeword
 
-
 # =============================================================================
 # INTEGRITY CHECKSUMS
 # =============================================================================
@@ -236,7 +237,6 @@ class IntegrityChecksums:
             actual[1] == expected[1] and
             abs(actual[2] - expected[2]) < tolerance
         )
-
 
 # =============================================================================
 # PYTHAGOREAN COMMA (Spiral Structure Proof)
@@ -314,7 +314,6 @@ class PythagoreanComma:
             f"Eternal return is mathematically impossible."
         )
 
-
 # =============================================================================
 # FLUX QUANTIZATION AND DIMENSION CHECKSUM
 # =============================================================================
@@ -363,7 +362,6 @@ class SpacetimeConstants:
     def wave_product(cls) -> int:
         """k × k' = 17 × 103 = 1751."""
         return cls.WAVE_K1 * cls.WAVE_K2
-
 
 # =============================================================================
 # ERROR CORRECTION WRAPPER
@@ -461,7 +459,6 @@ class ProtectedWord:
             f"  Geometric: {self.geometric:.6f}"
         )
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -492,7 +489,6 @@ def validate_hamming_code() -> bool:
     
     return True
 
-
 def validate_checksums() -> bool:
     """Validate integrity checksum properties."""
     # Triangular(17) = 153
@@ -507,7 +503,6 @@ def validate_checksums() -> bool:
     
     return True
 
-
 def validate_comma() -> bool:
     """Validate Pythagorean comma properties."""
     assert PythagoreanComma.verify_non_closure()
@@ -519,7 +514,6 @@ def validate_comma() -> bool:
     
     return True
 
-
 def validate_spacetime() -> bool:
     """Validate spacetime constants."""
     assert SpacetimeConstants.verify_dimensional_checksum()
@@ -528,7 +522,6 @@ def validate_spacetime() -> bool:
     assert SpacetimeConstants.wave_product() == 1751
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Hamming code...")

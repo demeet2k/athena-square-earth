@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=459 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -17,7 +21,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -89,13 +92,11 @@ SLICE_PHASES: List[Tuple[str, str, str]] = [
     ("03", "target-pair writeback", "Land the promoted pair into the target cell as the primary writeback target."),
 ]
 
-
 def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
     sep = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
-
 
 def unique(items: Iterable[str]) -> List[str]:
     ordered: List[str] = []
@@ -104,14 +105,11 @@ def unique(items: Iterable[str]) -> List[str]:
             ordered.append(item)
     return ordered
 
-
 def normalize_path(path: str) -> str:
     return path.replace("/", "\\")
 
-
 def path_exists(relative_path: str) -> bool:
     return (WORKSPACE_ROOT / relative_path.replace("\\", "/")).exists()
-
 
 def to_relative_path(path: str) -> str:
     normalized = normalize_path(path)
@@ -119,7 +117,6 @@ def to_relative_path(path: str) -> str:
     if candidate.is_absolute():
         return relative_string(candidate)
     return normalized
-
 
 def load_docs_gate() -> Dict[str, str]:
     status = "blocked-by-missing-credentials"
@@ -137,20 +134,16 @@ def load_docs_gate() -> Dict[str, str]:
         "fallback_mode": "mirrored-live-docs" if status == "open" else "local-first-truth-corridor",
     }
 
-
 def load_runtime_truth(path: Path) -> str:
     if not path.exists():
         return "UNKNOWN"
     return load_json(path).get("truth", "UNKNOWN")
 
-
 def family_slug(pairwise_family_id: str) -> str:
     return pairwise_family_id.lower().replace("-", "_")
 
-
 def family_stem(pairwise_family_id: str) -> str:
     return pairwise_family_id.replace("-", "_")
-
 
 def pair_surface_from_record(record: Dict[str, Any]) -> str:
     for path in record.get("source_paths", []):
@@ -160,15 +153,12 @@ def pair_surface_from_record(record: Dict[str, Any]) -> str:
     fallback = record.get("source_paths", [""])
     return to_relative_path(fallback[0]) if fallback else ""
 
-
 def pair_label(record: Dict[str, Any]) -> str:
     return record.get("pair_title", record.get("pair_id", ""))
-
 
 def pair_block(marker: str, heading: str, lines: List[str]) -> str:
     body = "\n".join(lines)
     return f"<!-- {marker}:START -->\n## {heading}\n\n{body}\n<!-- {marker}:END -->"
-
 
 def upsert_marked_block(path: Path, marker: str, block: str) -> None:
     start = f"<!-- {marker}:START -->"
@@ -185,7 +175,6 @@ def upsert_marked_block(path: Path, marker: str, block: str) -> None:
         else:
             new_text = block.rstrip() + "\n"
     write_text(path, new_text)
-
 
 def render_family_summary(
     family: DeepPairwiseFamilyContractRecord,
@@ -244,7 +233,6 @@ Weave: `{family.weave_id}`
 `{family.restart_seed}`
 """
 
-
 def render_slice_doc(
     family: DeepPairwiseFamilyContractRecord,
     slice_record: DeepPairwiseSliceContractRecord,
@@ -283,7 +271,6 @@ Family: `{family.pairwise_family_id}`
 
 {slice_record.note}
 """
-
 
 def render_route(
     family: DeepPairwiseFamilyContractRecord,
@@ -338,7 +325,6 @@ Truth: `OK`
 `{family.restart_seed}`
 """
 
-
 def render_replay(
     family: DeepPairwiseFamilyContractRecord,
     packets: List[SynapticHandoffPacketRecord],
@@ -367,7 +353,6 @@ Truth: `OK`
 {markdown_table(["Packet", "Phase", "Source", "Target", "Route"], rows)}
 """
 
-
 def render_verify(
     family: DeepPairwiseFamilyContractRecord,
     checks: Dict[str, bool],
@@ -382,7 +367,6 @@ Truth: `{"OK" if all(checks.values()) else "FAIL"}`
 
 {markdown_table(["Check", "Result"], rows)}
 """
-
 
 def render_family_receipt(
     family: DeepPairwiseFamilyContractRecord,
@@ -410,7 +394,6 @@ def render_family_receipt(
 `{family.replay_surface}`
 """
 
-
 def render_manifest(outputs: Dict[str, str], docs_gate: Dict[str, str]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# DEEP PAIRWISE WEAVE MANIFEST
@@ -431,7 +414,6 @@ Derivation: `{DERIVATION_COMMAND}`
 
 {output_lines}
 """
-
 
 def render_ledger(
     families: List[DeepPairwiseFamilyContractRecord],
@@ -454,7 +436,6 @@ def render_ledger(
         ["Family", "Weave", "Source Pair", "Target Pair", "Metro", "Appendix Stack", "Primary Writeback"],
         rows or [["-", "-", "-", "-", "-", "-", "-"]],
     )
-
 
 def render_dashboard(dashboard: Dict[str, Any]) -> str:
     count_rows = [[name, str(count)] for name, count in sorted(dashboard["counts"].items())]
@@ -484,7 +465,6 @@ Docs gate: `{dashboard['docs_gate']['status']}`
 `{dashboard['next_restart_seed']}`
 """
 
-
 def render_verification(verification: Dict[str, Any]) -> str:
     rows = [[name, str(value)] for name, value in verification["checks"].items()]
     unresolved = "\n".join(f"- {item}" for item in verification["unresolved"]) or "- none"
@@ -509,7 +489,6 @@ Docs gate: `{verification['docs_gate']['status']}`
 {unresolved}
 """
 
-
 def render_runtime(outputs: Dict[str, str], verification: Dict[str, Any]) -> str:
     output_lines = "\n".join(f"- `{label}`: `{path}`" for label, path in outputs.items())
     return f"""# 31 DEEP PAIRWISE WEAVE RUNTIME
@@ -533,7 +512,6 @@ Docs gate: `{verification['docs_gate']['status']}`
 `{verification['next_restart_seed']}`
 """
 
-
 def render_wave_receipt(
     families: List[DeepPairwiseFamilyContractRecord],
     verification: Dict[str, Any],
@@ -556,7 +534,6 @@ def render_wave_receipt(
 
 `{verification['next_restart_seed']}`
 """
-
 
 def render_whole_crystal_bridge_ledger(
     direct_bridge_families: List[Dict[str, Any]],
@@ -632,7 +609,6 @@ def render_whole_crystal_bridge_ledger(
         )
     )
 
-
 def build_family_checks(
     family: DeepPairwiseFamilyContractRecord,
     slices: List[DeepPairwiseSliceContractRecord],
@@ -653,7 +629,6 @@ def build_family_checks(
         "source_backlink": family.pairwise_family_id in source_pair_text and "source-pair replay" in source_pair_text,
         "target_writeback": family.pairwise_family_id in target_pair_text and "primary writeback target" in target_pair_text,
     }
-
 
 def build_verification(
     families: List[DeepPairwiseFamilyContractRecord],
@@ -781,7 +756,6 @@ def build_verification(
         "next_restart_seed": "source-pair replay -> GCW-GCZ transit -> target-pair writeback -> verify -> seed-next-pair",
     }
 
-
 def build_dashboard(
     families: List[DeepPairwiseFamilyContractRecord],
     slices: List[DeepPairwiseSliceContractRecord],
@@ -805,7 +779,6 @@ def build_dashboard(
         "verifier_truth": verification["runtime_lanes"],
         "next_restart_seed": verification["next_restart_seed"],
     }
-
 
 def main() -> int:
     docs_gate = load_docs_gate()
@@ -1172,7 +1145,6 @@ def main() -> int:
     print(f"Docs gate: {docs_gate['status']}")
     print(f"Truth: {verification['truth']}")
     return 0 if verification["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=305 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -30,7 +34,6 @@ from self_actualize.runtime.phase4_query_engine import (
     score_pair_for_objective,
     shorten,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -184,29 +187,23 @@ RECEIPT_MD_PATH = (
     MYCELIUM_BRAIN_ROOT / "receipts" / "2026-03-12_phase4_structured_neuron_storage.md"
 )
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_json(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
-
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def parse_docs_gate(markdown: str) -> str:
     match = re.search(r"Command status: `([^`]+)`", markdown)
     return match.group(1) if match else "UNKNOWN"
-
 
 def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     head = "| " + " | ".join(headers) + " |"
@@ -214,10 +211,8 @@ def markdown_table(headers: List[str], rows: List[List[str]]) -> str:
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([head, sep, *body])
 
-
 def clamp(value: float, lower: float, upper: float) -> float:
     return max(lower, min(upper, value))
-
 
 def parse_root_basis(markdown: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     bodies: List[Dict[str, Any]] = []
@@ -258,7 +253,6 @@ def parse_root_basis(markdown: str) -> Tuple[List[Dict[str, Any]], List[Dict[str
                 )
     return bodies, anchors
 
-
 def parse_canonical_sources(markdown: str) -> List[Dict[str, str]]:
     pattern = re.compile(
         r"- `(?P<index>\d{2})` (?P<title>.+?) \[(?P<element>\w+)\]: "
@@ -271,7 +265,6 @@ def parse_canonical_sources(markdown: str) -> List[Dict[str, str]]:
             sources.append(match.groupdict())
     return sources
 
-
 def parse_list_block(lines: List[str], start: int, prefix: str) -> Tuple[List[str], int]:
     items: List[str] = []
     index = start + 1
@@ -279,7 +272,6 @@ def parse_list_block(lines: List[str], start: int, prefix: str) -> Tuple[List[st
         items.append(lines[index][len(prefix) :].strip())
         index += 1
     return items, index
-
 
 def parse_neuron_library(markdown: str) -> List[Dict[str, Any]]:
     records: List[Dict[str, Any]] = []
@@ -340,14 +332,12 @@ def parse_neuron_library(markdown: str) -> List[Dict[str, Any]]:
             records.append(record)
     return records
 
-
 def hemisphere_from_element(element: str) -> str:
     if element in {"Air", "Earth"}:
         return "left"
     if element in {"Fire", "Water"}:
         return "right"
     return "bilateral"
-
 
 def tract_code(tract: str) -> str:
     return {
@@ -356,7 +346,6 @@ def tract_code(tract: str) -> str:
         "chamber": "GCC",
         "replay": "GCP",
     }.get(tract, "GCT")
-
 
 def determine_kernel_tract(body_tract: str, title: str, cluster: str) -> str:
     key = re.sub(r"[^a-z0-9]+", " ", f"{title} {cluster}".lower())
@@ -368,7 +357,6 @@ def determine_kernel_tract(body_tract: str, title: str, cluster: str) -> str:
         return "relation"
     return body_tract
 
-
 def determine_pair_tract(row: Dict[str, Any], col: Dict[str, Any], relation: str, title: str) -> str:
     key = re.sub(r"[^a-z0-9]+", " ", f"{relation} {title}".lower())
     if any(token in key for token in ["boundary", "quarantine", "contradiction", "proof"]):
@@ -378,7 +366,6 @@ def determine_pair_tract(row: Dict[str, Any], col: Dict[str, Any], relation: str
     if row["hemisphere_bias"] == col["hemisphere_bias"] == "left":
         return "GCA"
     return "GCT"
-
 
 def determine_pair_dock(row: Dict[str, Any], col: Dict[str, Any], relation: str, tract: str) -> str:
     key = re.sub(
@@ -393,7 +380,6 @@ def determine_pair_dock(row: Dict[str, Any], col: Dict[str, Any], relation: str,
     if tract == "GCP":
         return "GCP"
     return "GCW"
-
 
 def determine_pair_lines(row: Dict[str, Any], col: Dict[str, Any], relation: str, dock: str) -> List[str]:
     lines: List[str] = []
@@ -416,7 +402,6 @@ def determine_pair_lines(row: Dict[str, Any], col: Dict[str, Any], relation: str
     if not lines:
         lines.append("Transit")
     return sorted(set(lines))
-
 
 def compute_charge_seed(
     row: Dict[str, Any],
@@ -456,7 +441,6 @@ def compute_charge_seed(
         "imagination": round(clamp(imagination, 0.0, 0.99), 3),
     }
 
-
 def parse_pair_markdown(path: Path) -> Dict[str, Any]:
     markdown = path.read_text(encoding="utf-8")
     title_match = re.search(r"^#\s+(.+)$", markdown, flags=re.MULTILINE)
@@ -484,7 +468,6 @@ def parse_pair_markdown(path: Path) -> Dict[str, Any]:
         "neutral_summary": neutral_summary,
         "loop_gates": loop_gates,
     }
-
 
 def build_body_registry(
     body_rows: List[Dict[str, Any]],
@@ -619,7 +602,6 @@ def build_body_registry(
         },
     }
 
-
 def build_kernel_registry(
     sources: List[Dict[str, str]],
     body_registry: Dict[str, Any],
@@ -677,7 +659,6 @@ def build_kernel_registry(
         "summary": {"kernel_count": len(kernels)},
     }
 
-
 def body_metric_table(body_registry: Dict[str, Any]) -> Dict[str, Dict[str, float]]:
     bodies = body_registry["bodies"]
     max_indexed = max(body["indexed_count"] for body in bodies)
@@ -701,7 +682,6 @@ def body_metric_table(body_registry: Dict[str, Any]) -> Dict[str, Dict[str, floa
             "witness_gap": witness_gap,
         }
     return metrics
-
 
 def build_pair_registry(
     kernel_registry: Dict[str, Any],
@@ -840,7 +820,6 @@ def build_pair_registry(
         },
     }
 
-
 def build_node_registry(
     body_registry: Dict[str, Any],
     kernel_registry: Dict[str, Any],
@@ -945,7 +924,6 @@ def build_node_registry(
         },
     }
 
-
 def build_shortcut_registry(docs_gate: str) -> Dict[str, Any]:
     shortcut_specs = [
         ("SC-01", "WitnessFirst", "direct support exists", ["root basis", "canonical sources", "pair witness"], "score explicit witnesses before synthesis claims", "ABSTAIN", "ranked witnesses", "starts from direct support before synthesis"),
@@ -986,7 +964,6 @@ def build_shortcut_registry(docs_gate: str) -> Dict[str, Any]:
         "summary": {"shortcut_count": len(shortcuts)},
     }
 
-
 def build_query_registry(
     body_registry: Dict[str, Any],
     shortcut_registry: Dict[str, Any],
@@ -1024,7 +1001,6 @@ def build_query_registry(
         "queries": [record.to_dict() for record in records],
         "summary": {"query_mode_count": len(records)},
     }
-
 
 def build_neglect_registry(
     body_registry: Dict[str, Any],
@@ -1111,7 +1087,6 @@ def build_neglect_registry(
         },
     }
 
-
 def best_cross_hemisphere_neighbor(
     body: Dict[str, Any],
     body_lookup: Dict[str, Dict[str, Any]],
@@ -1128,7 +1103,6 @@ def best_cross_hemisphere_neighbor(
         if candidate["body_id"] != body["body_id"] and candidate["hemisphere_bias"] in desired
     ]
     return sorted(options, key=lambda item: (-item["indexed_count"], item["body_id"]))[0]
-
 
 def build_weave_registry(
     body_registry: Dict[str, Any],
@@ -1290,7 +1264,6 @@ def build_weave_registry(
         "summary": {"candidate_count": len(candidates)},
     }
 
-
 def build_wave_registry(
     pair_registry: Dict[str, Any],
     docs_gate: str,
@@ -1341,7 +1314,6 @@ def build_wave_registry(
         "summary": {"wave_count": len(waves), "objective_count": len(objectives)},
     }
 
-
 def build_replay_receipt(
     action_id: str,
     mode: str,
@@ -1382,7 +1354,6 @@ def build_replay_receipt(
         witness_basis=result.get("witness_basis", []),
         generated_at=utc_now(),
     )
-
 
 def build_replay_registry(
     registries: Dict[str, Any],
@@ -1447,7 +1418,6 @@ def build_replay_registry(
         "summary": {"receipt_count": len(receipts)},
     }
 
-
 def build_dashboard(registries: Dict[str, Any], docs_gate: str) -> Dict[str, Any]:
     top_neglects = sorted(
         registries["neglect_registry"]["signals"],
@@ -1508,7 +1478,6 @@ def build_dashboard(registries: Dict[str, Any], docs_gate: str) -> Dict[str, Any
     )
     return dashboard.to_dict()
 
-
 def render_storage_schema_markdown(shortcut_registry: Dict[str, Any]) -> str:
     interface_rows = [
         ["`BodyRegistry`", "`90_LEDGERS` + `95_MANIFESTS`", "body id, root, role, indexed count, authority, status, neighbors"],
@@ -1550,7 +1519,6 @@ Generated by: `{DERIVATION_COMMAND}`
 `{shortcut_registry['summary']['shortcut_count']}` deterministic shortcuts are active in Phase 4.
 """
 
-
 def render_query_schema_markdown(shortcut_registry: Dict[str, Any], query_registry: Dict[str, Any]) -> str:
     shortcut_rows = [
         [shortcut["shortcut_id"], shortcut["name"], shortcut["trigger"], shortcut["stop_condition"], shortcut["output_type"]]
@@ -1570,7 +1538,6 @@ def render_query_schema_markdown(shortcut_registry: Dict[str, Any], query_regist
 
 {markdown_table(["ID", "Mode", "Shortcuts", "Stop rule"], query_rows)}
 """
-
 
 def render_overview_markdown(dashboard: Dict[str, Any]) -> str:
     return f"""# Phase 4 Structured Neuron Storage
@@ -1607,7 +1574,6 @@ Google Docs remains blocked, so Phase 4 is grounded in the live local corpus, th
 Grand Central substrate, and the active deep root only.
 """
 
-
 def render_edge_markdown(weave_registry: Dict[str, Any]) -> str:
     rows = [
         ["Witness spine", "REF, PROOF", "root basis -> canonical sources -> pair field -> receipt ledger"],
@@ -1621,7 +1587,6 @@ def render_edge_markdown(weave_registry: Dict[str, Any]) -> str:
 
 {markdown_table(["Bridge family", "Kinds", "Scope"], rows)}
 """
-
 
 def render_body_pointers_markdown(body_registry: Dict[str, Any]) -> str:
     rows = [
@@ -1643,7 +1608,6 @@ def render_body_pointers_markdown(body_registry: Dict[str, Any]) -> str:
 {markdown_table(["ID", "Root", "Role", "Status"], anchor_rows)}
 """
 
-
 def render_query_presets_markdown(query_registry: Dict[str, Any]) -> str:
     rows = [
         [query["query_id"], query["mode"], query["scope"], ", ".join(query["active_shortcuts"]), query["writeback_target"]]
@@ -1661,7 +1625,6 @@ python -m self_actualize.runtime.query_phase4_structured_neuron_storage route --
 python -m self_actualize.runtime.query_phase4_structured_neuron_storage neglect --limit 6
 ```
 """
-
 
 def render_dashboard_markdown(dashboard: Dict[str, Any]) -> str:
     validation_rows = [[key, str(value)] for key, value in dashboard["validation"].items()]
@@ -1696,7 +1659,6 @@ Docs gate: `{dashboard['docs_gate']}`
 
 {markdown_table(["Wave", "Pair", "Objective"], wave_rows)}
 """
-
 
 def render_phase4_ledger_markdown(
     body_registry: Dict[str, Any],
@@ -1733,7 +1695,6 @@ Generated: `{dashboard['generated_at']}`
 - primary storage truth: `registries + pair records + wave records`
 """
 
-
 def render_shortcut_markdown(shortcut_registry: Dict[str, Any]) -> str:
     rows = [
         [shortcut["shortcut_id"], shortcut["name"], shortcut["trigger"], shortcut["scoring_rule"], shortcut["stop_condition"]]
@@ -1743,7 +1704,6 @@ def render_shortcut_markdown(shortcut_registry: Dict[str, Any]) -> str:
 
 {markdown_table(["ID", "Name", "Trigger", "Scoring", "Stop"], rows)}
 """
-
 
 def render_neglect_markdown(neglect_registry: Dict[str, Any]) -> str:
     rows = [
@@ -1757,7 +1717,6 @@ def render_neglect_markdown(neglect_registry: Dict[str, Any]) -> str:
 
 {markdown_table(["ID", "Surface", "Type", "Gap", "Score", "Nearest bridge"], rows)}
 """
-
 
 def render_weave_markdown(weave_registry: Dict[str, Any]) -> str:
     rows = [
@@ -1776,7 +1735,6 @@ def render_weave_markdown(weave_registry: Dict[str, Any]) -> str:
 {markdown_table(["ID", "Bridge Edge", "Source", "Target", "Expected gain", "Route"], rows)}
 """
 
-
 def render_replay_markdown(replay_registry: Dict[str, Any]) -> str:
     rows = [
         [receipt["action_id"], receipt["mode"], receipt["stop_condition"], ", ".join(receipt["active_shortcuts"]), receipt["outcome"]]
@@ -1786,7 +1744,6 @@ def render_replay_markdown(replay_registry: Dict[str, Any]) -> str:
 
 {markdown_table(["ID", "Mode", "Stop", "Shortcuts", "Outcome"], rows)}
 """
-
 
 def render_runtime_markdown(dashboard: Dict[str, Any]) -> str:
     return f"""# Phase 4 Structured Neuron Storage Runtime
@@ -1817,7 +1774,6 @@ python -m self_actualize.runtime.derive_phase4_structured_neuron_storage
 ```
 """
 
-
 def render_deep_pair_field_markdown(
     kernel_registry: Dict[str, Any],
     pair_registry: Dict[str, Any],
@@ -1847,7 +1803,6 @@ stored in this deep-root matrix folder.
 
 {markdown_table(["Pair", "Relation", "Dock", "Witness", "Neglect"], pair_rows)}
 """
-
 
 def render_receipt_markdown(dashboard: Dict[str, Any]) -> str:
     outputs = [
@@ -1882,7 +1837,6 @@ def render_receipt_markdown(dashboard: Dict[str, Any]) -> str:
 - weave candidates: `{dashboard['weave_count']}`
 - replay receipts: `{dashboard['receipt_count']}`
 """
-
 
 def write_outputs(
     body_registry: Dict[str, Any],
@@ -1957,7 +1911,6 @@ def write_outputs(
     print(f"Wrote {DASHBOARD_MD_PATH}")
     return 0
 
-
 def main() -> int:
     docs_gate = parse_docs_gate(DOCS_GATE_PATH.read_text(encoding="utf-8"))
     body_rows, anchor_rows = parse_root_basis(ROOT_BASIS_PATH.read_text(encoding="utf-8"))
@@ -2012,7 +1965,6 @@ def main() -> int:
         shortcut_registry, query_registry, neglect_registry, weave_registry,
         replay_registry, dashboard
     )
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                                                      ║
@@ -692,7 +696,6 @@ import importlib
 from pathlib import Path
 from typing import Dict, List, Optional
 
-
 # Cache: symbol -> provider module (e.g. "atlasforge.core")
 _LAZY_EXPORT_INDEX: Optional[Dict[str, List[str]]] = None
 
@@ -722,7 +725,6 @@ _EXPORT_PRIORITY = [
     # Everything else (alphabetical afterwards)
 ]
 
-
 def _extract_static_dunder_all(init_path: Path) -> List[str]:
     """Best-effort extraction of a static __all__ = [...] from a package __init__.py."""
     try:
@@ -744,7 +746,6 @@ def _extract_static_dunder_all(init_path: Path) -> List[str]:
                 return out
     return []
 
-
 def _iter_subpackages(base: Path) -> List[Path]:
     """Return immediate child directories that look like Python packages."""
     pkgs = [p for p in base.iterdir() if p.is_dir() and (p / "__init__.py").exists()]
@@ -756,7 +757,6 @@ def _iter_subpackages(base: Path) -> List[Path]:
 
     pkgs.sort(key=key)
     return pkgs
-
 
 def _build_lazy_export_index() -> Dict[str, List[str]]:
     """Build a mapping from symbol -> [provider_module, ...]."""
@@ -774,13 +774,11 @@ def _build_lazy_export_index() -> Dict[str, List[str]]:
 
     return index
 
-
 def _ensure_lazy_index() -> Dict[str, List[str]]:
     global _LAZY_EXPORT_INDEX
     if _LAZY_EXPORT_INDEX is None:
         _LAZY_EXPORT_INDEX = _build_lazy_export_index()
     return _LAZY_EXPORT_INDEX
-
 
 def __getattr__(name: str):
     """Lazily resolve symbols exported by subpackages.
@@ -813,7 +811,6 @@ def __getattr__(name: str):
         )
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
-
 def __dir__():
     """Improve tab-completion by exposing lazily-exported symbols."""
     base = set(globals().keys())
@@ -822,7 +819,6 @@ def __dir__():
     except Exception:
         pass
     return sorted(base)
-
 
 # Expand __all__ to include statically discoverable exports from subpackages.
 # This keeps `from atlasforge import *` useful for interactive sessions.

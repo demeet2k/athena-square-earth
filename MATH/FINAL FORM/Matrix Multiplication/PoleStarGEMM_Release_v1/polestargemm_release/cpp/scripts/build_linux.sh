@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# CRYSTAL: Xi108:W1:A4:S11 | face=C | node=402 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A4:S10→Xi108:W1:A4:S12→Xi108:W2:A4:S11→Xi108:W1:A3:S11→Xi108:W1:A5:S11
+
 set -euo pipefail
 
 # Build helper for Linux/macOS (CPU or CUDA LibTorch).

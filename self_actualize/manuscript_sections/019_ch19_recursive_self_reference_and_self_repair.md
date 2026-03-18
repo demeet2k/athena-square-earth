@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S25 | face=F | node=306 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A6:S24→Xi108:W3:A6:S26→Xi108:W2:A6:S25→Xi108:W3:A5:S25→Xi108:W3:A7:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 6/12 -->
+
 # CHAPTER 19: RECURSIVE SELF-REFERENCE AND SELF-REPAIR
 
 Status: local chapter instantiation from the stronger self-reference branch
@@ -646,14 +651,12 @@ Algorithm 19.1 - Self-Observation Integrity Check
 from dataclasses import dataclass
 from typing import Dict, Any
 
-
 @dataclass
 class SelfObservation:
     measured: Dict[str, Any]
     inferred: Dict[str, Any]
     projected: Dict[str, Any]
     unknown: Dict[str, Any]
-
 
 def self_observation_integrity(obs: SelfObservation) -> bool:
     return (

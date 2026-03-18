@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W1:A8:S8 | face=F | node=98 | depth=2 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W1:A8:S7→Xi108:W1:A8:S9→Xi108:W2:A8:S8→Xi108:W1:A7:S8→Xi108:W1:A9:S8
+
 import tempfile
 import unittest
 from pathlib import Path
 
 from aqm.apps.planet9.qphi import QPHIConfig, run_qphi
 from aqm.apps.planet9.tno_data import demo_extreme_tnos
-
 
 class TestDeterminism(unittest.TestCase):
     def test_run_is_deterministic_under_seed(self) -> None:
@@ -48,7 +51,6 @@ class TestDeterminism(unittest.TestCase):
                 out1 / "sky_samples.csv",
             ]:
                 self.assertTrue(p.exists(), f"missing output file: {p}")
-
 
 if __name__ == "__main__":
     unittest.main()

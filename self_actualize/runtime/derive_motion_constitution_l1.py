@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
@@ -14,7 +18,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -36,7 +39,6 @@ from athenachka.runtime.motion_constitution import (  # noqa: E402
     evaluate_candidate,
 )
 from athenachka.runtime.reward_overlay import apply_reward_steering  # noqa: E402
-
 
 DERIVATION_VERSION = "2026-03-13.motion-constitution-l1.v0"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_motion_constitution_l1"
@@ -69,10 +71,8 @@ MERGE_LEDGER_PATH = SELF_ACTUALIZE_ROOT / "jointatlas_merge_ledger.json"
 AGENT_PROGRESS_REGISTRY_PATH = SELF_ACTUALIZE_ROOT / "agent_progress_registry.json"
 TEST_SCRIPT_PATH = WORKSPACE_ROOT / "NERUAL NETWORK" / "TEST SUITES" / "verify_motion_constitution_l1.py"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def docs_gate_status() -> str:
     credentials_path = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
@@ -86,17 +86,14 @@ def docs_gate_status() -> str:
         return "open"
     return "blocked-by-auth-failure"
 
-
 def find_motion_manuscript_path() -> Path:
     matches = sorted((SELF_ACTUALIZE_ROOT / "manuscript_sections").glob("*motion_constitution*"))
     if not matches:
         raise FileNotFoundError("Could not locate the MotionConstitution_L1 manuscript section.")
     return matches[0]
 
-
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(read_text(path))
-
 
 def run_test_script() -> Dict[str, Any]:
     result = subprocess.run(
@@ -119,7 +116,6 @@ def run_test_script() -> Dict[str, Any]:
             payload["report"] = {"raw_stdout": result.stdout.strip()}
     return payload
 
-
 def build_score_vector(**overrides: float) -> MotionScoreVector:
     base = {
         "closure_gain": 1.0,
@@ -139,7 +135,6 @@ def build_score_vector(**overrides: float) -> MotionScoreVector:
     }
     base.update(overrides)
     return MotionScoreVector(**base)
-
 
 def build_fixture_candidate(
     candidate_id: str,
@@ -172,7 +167,6 @@ def build_fixture_candidate(
         score_vector=score_vector or build_score_vector(),
         note="Non-authoritative fixture case.",
     )
-
 
 def build_fixture_cases() -> List[Dict[str, Any]]:
     state = bootstrap_motion_state(
@@ -245,7 +239,6 @@ def build_fixture_cases() -> List[Dict[str, Any]]:
         )
     return cases
 
-
 def build_motion_state() -> MotionConstitutionL1:
     state = bootstrap_motion_state(
         docs_gate_status=docs_gate_status(),
@@ -261,13 +254,11 @@ def build_motion_state() -> MotionConstitutionL1:
     state.reward_profiles = load_reward_profiles()
     return MotionConstitutionL1(state=state, activation_threshold=1.1)
 
-
 def load_reward_profiles() -> Dict[str, Any]:
     if not AGENT_PROGRESS_REGISTRY_PATH.exists():
         return {}
     payload = load_json(AGENT_PROGRESS_REGISTRY_PATH)
     return payload.get("reward_steering_profiles", {})
-
 
 def build_local_candidates() -> List[MotionCandidatePacket]:
     registry = load_json(ADVENTURER_REGISTRY_PATH)
@@ -491,7 +482,6 @@ def build_local_candidates() -> List[MotionCandidatePacket]:
         ),
     ]
 
-
 def evaluate_local_candidates() -> List[Dict[str, Any]]:
     engine = build_motion_state()
     results: List[Dict[str, Any]] = []
@@ -519,7 +509,6 @@ def evaluate_local_candidates() -> List[Dict[str, Any]]:
         reverse=True,
     )
     return results
-
 
 def build_motion_payload(
     manuscript_path: Path,
@@ -574,7 +563,6 @@ def build_motion_payload(
         "next_seed": NEXT_SEED,
     }
 
-
 def build_fixtures_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -584,7 +572,6 @@ def build_fixtures_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
         "cases": fixtures,
         "next_seed": NEXT_SEED,
     }
-
 
 def build_verification_payload(
     test_result: Dict[str, Any],
@@ -644,7 +631,6 @@ def build_verification_payload(
         "next_seed": NEXT_SEED,
     }
 
-
 def render_manifest(motion_payload: Dict[str, Any]) -> str:
     candidate_lines = "\n".join(
         f"- `{item['candidate']['candidate_id']}` `{item['candidate']['source_kind']}` -> `{item['decision']['action']}` (`{item['decision']['constitutional_score']:.3f}`)"
@@ -694,7 +680,6 @@ Promote the written `MotionConstitution_L1` law into a local-first executable ac
 
 `{motion_payload['next_seed']}`
 """
-
 
 def render_dashboard(motion_payload: Dict[str, Any], verification_payload: Dict[str, Any]) -> str:
     rows = []
@@ -746,7 +731,6 @@ Verification: `{verification_payload['truth']}`
 `{motion_payload['next_seed']}`
 """
 
-
 def render_fixture_ledger(fixtures_payload: Dict[str, Any]) -> str:
     rows = []
     for case in fixtures_payload["cases"]:
@@ -788,7 +772,6 @@ These cases are non-authoritative fixture proofs for the v0 action alphabet.
 `{fixtures_payload['next_seed']}`
 """
 
-
 def render_receipt(
     motion_payload: Dict[str, Any],
     verification_payload: Dict[str, Any],
@@ -816,7 +799,6 @@ Docs gate: `{motion_payload['docs_gate_status']}`
 
 `{motion_payload['next_seed']}`
 """
-
 
 def main() -> int:
     manuscript_path = find_motion_manuscript_path()
@@ -884,7 +866,6 @@ def main() -> int:
         ]
     )
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

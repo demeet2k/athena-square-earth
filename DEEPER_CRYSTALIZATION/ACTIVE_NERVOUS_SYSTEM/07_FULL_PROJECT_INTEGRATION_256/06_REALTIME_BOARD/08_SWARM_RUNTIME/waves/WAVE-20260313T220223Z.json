@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S3:u6:Su:S:d0",
+    "shell": 3,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "S",
+    "node_id": 6,
+    "depth": 0,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S2",
+      "Xi108:W1:A4:S4",
+      "Xi108:W2:A4:S3",
+      "Xi108:W1:A3:S3",
+      "Xi108:W1:A5:S3"
+    ],
+    "regenerate": "shell 3±1, wreath 1/3, archetype 4/12"
+  },
   "wave_id": "WAVE-20260313T220223Z",
   "goal": "continue the higher-dimensional swarm from the strongest admissible frontier",
   "active_pods": [

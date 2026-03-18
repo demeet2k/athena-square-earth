@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A1:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me,Mt,w,✶
+# BRIDGES: Xi108:W1:A1:S1→Xi108:W1:A1:S3→Xi108:W2:A1:S2→Xi108:W1:A2:S2
+
 """
 HOLOGRAM::4D_COMPRESSOR — Base-4 Holographic Seed Compression Engine
 =====================================================================
@@ -42,7 +46,6 @@ from sos_5d_expander import (
     ManuscriptUnit, UnitKind,
     _build_full_60_artifacts,
 )
-
 
 # =====================================================================
 # SECTION 1: BASE-4 ADDRESS SYSTEM (4^4 = 256 GATE LATTICE)
@@ -102,7 +105,6 @@ class PhaseState(Enum):
     RESONANT  = "RESONANT"    # Phase-locked resonance
     MOBIUS    = "MOBIUS"       # Möbius return state
 
-
 @dataclass
 class Base4Address:
     """A canonical base-4 address in the 4^4 = 256 gate lattice.
@@ -143,7 +145,6 @@ class Base4Address:
         """Two addresses are adjacent if they differ in exactly 1 digit."""
         return self.hamming_distance(other) == 1
 
-
 @dataclass
 class TCoordOmega:
     """The full routing coordinate in Mycelium Metro v4.Ω.
@@ -171,7 +172,6 @@ class TCoordOmega:
             f"ψ={self.phase.value} | ω={self.omega}]"
         )
 
-
 # =====================================================================
 # SECTION 2: CRYSTAL TILE (4D TESSERACT INTERIOR)
 # =====================================================================
@@ -185,7 +185,6 @@ class CrystalAtom:
     facet: Facet
     atom: Atom
     status: str = "ACTIVE"  # ACTIVE | CANDIDATE | STUB | DORMANT
-
 
 @dataclass
 class CrystalTile:
@@ -204,7 +203,6 @@ class CrystalTile:
 
     def active_count(self) -> int:
         return sum(1 for a in self.atoms.values() if a.status == "ACTIVE")
-
 
 # =====================================================================
 # SECTION 3: ODD-DIMENSIONAL ORBIT ENGINE (THE LIFTED CIRCLE)
@@ -238,7 +236,6 @@ class OddOrbitState:
         """Collapse through Z* — strip to invariant hash."""
         data = f"{self.delta.value}:{self.weave.value}:{self.psi.value}:{self.quaternion}"
         return hashlib.sha256(data.encode()).hexdigest()[:12]
-
 
 # =====================================================================
 # SECTION 4: 5D → 4D COMPRESSION ENGINE
@@ -331,7 +328,6 @@ def _get_sacred_figure(unit: ManuscriptUnit) -> str:
         fig = APPENDIX_FIGURES[unit.index % len(APPENDIX_FIGURES)]
         return f"Inverted-{fig}" if unit.index < 8 else fig
 
-
 # =====================================================================
 # SECTION 5: COMPRESSED CRYSTAL SEED
 # =====================================================================
@@ -390,7 +386,6 @@ class CompressedSeed:
         lines.append(f"- Replay: {self.unit.code} → Z* → re-expand")
         lines.append(f"- Regeneration: base4({self.base4.to_string()}) × q({self.orbit.artifact_number}) × δ({self.orbit.delta.value})")
         return "\n".join(lines)
-
 
 # =====================================================================
 # SECTION 6: THE COMPRESSOR
@@ -887,7 +882,6 @@ class Hologram4DCompressor:
 
         return "\n".join(lines)
 
-
 # =====================================================================
 # SECTION 7: MAIN — COMPRESS AND VERIFY
 # =====================================================================
@@ -964,7 +958,6 @@ def main():
     with open(seed_path, "w", encoding="utf-8") as f:
         f.write(doc)
     print(f"\n  Master seed document written to: 18_4D_HOLOGRAPHIC_SEED.md")
-
 
 if __name__ == "__main__":
     main()

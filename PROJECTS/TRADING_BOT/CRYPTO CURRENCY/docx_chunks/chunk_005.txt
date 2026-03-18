@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S4 | face=F | node=110 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S3→Xi108:W3:A4:S5→Xi108:W2:A4:S4→Xi108:W3:A3:S4→Xi108:W3:A5:S4
+
 on loss under station projection. This is a structural aliasing defect, not numerical error, and is classified under the general “aliasing/leakage” defect family.
 
 04.R4 — Protocols (How to Compute / Verify)
@@ -8,7 +12,6 @@ def snap_radius_macro(d: int) -> int:
 def snap_exponent_macro(d: int) -> int:
     return d
 
-
 04.R4.b — Orbit-length table generator (macro)
 def orbit_length_table(d_max: int, n_max: int):
     out = {}
@@ -17,7 +20,6 @@ def orbit_length_table(d_max: int, n_max: int):
         for n in range(0, n_max+1):
             out[d][n] = orbit_length_B(d, n)
     return out
-
 
 04.R4.c — Visibility verification against reported thresholds
 For a fixed macro radius (R=243=3^5) (i.e., (n=5)), the theorem predicts:
@@ -247,7 +249,6 @@ def tri_A_from_phi(phi_vec: List[float], R: int) -> Tuple[int, ...]:
 def tri_B_from_phi(phi_global: float, R: int) -> int:
     return q3_wrapped(phi_global, R)
 
-
 05.S4.c — Policy validation harness
 def validate_policy(policy: TriangleModePolicy):
     assert policy.mode in ("AXIS", "GLOBAL")
@@ -264,7 +265,6 @@ def verify_interleave_bijection(d: int, k: int, samples: List[List[int]]):
         if J in seen and seen[J] != x:
             raise AssertionError("Collision detected (violates bijection on sample).")
         seen[J] = x
-
 
 05.S4.d — Conformance obligations for mode selection
 A TriangleModePolicy instance (\Pi_\triangle) is publishable as OK only if:

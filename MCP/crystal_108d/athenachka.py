@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S22 | face=R | node=249 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S21→Xi108:W2:A4:S23→Xi108:W1:A4:S22→Xi108:W3:A4:S22→Xi108:W2:A3:S22→Xi108:W2:A5:S22
+
 """
 Athenachka 720 A⁺/Z⁺ Metro Map
 ================================
@@ -14,7 +18,6 @@ Provides the full 720-node emergence protocol:
 from ._cache import JsonCache
 
 _ATHENACHKA = JsonCache("athenachka_720.json")
-
 
 def query_athenachka(component: str = "all") -> str:
     """
@@ -58,7 +61,6 @@ def query_athenachka(component: str = "all") -> str:
             "z_plus, a_plus, circle, zero_point, sacred, neural"
         )
 
-
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
     lines = [
@@ -72,7 +74,6 @@ def _format_all(data: dict) -> str:
     ]
     return "\n".join(lines)
 
-
 def _format_coordinate(data: dict) -> str:
     coord = data.get("coordinate_system", {})
     lines = [
@@ -85,7 +86,6 @@ def _format_coordinate(data: dict) -> str:
     if "field_size" in coord:
         lines.append(f"\n**Field Size**: {coord['field_size']}")
     return "\n".join(lines)
-
 
 def _format_chapters(data: dict) -> str:
     ch = data.get("triadic_rails", {})
@@ -103,7 +103,6 @@ def _format_chapters(data: dict) -> str:
         lines.append(f"**Orbit**: {ch['orbit']}")
     return "\n".join(lines)
 
-
 def _format_z_plus(data: dict) -> str:
     zp = data.get("z_plus", {})
     return (
@@ -114,7 +113,6 @@ def _format_z_plus(data: dict) -> str:
         f"**Relation to Z★**: {zp.get('relation_z_star', 'Z⁺ = Z★ observed as lawful center of all 21 chapter-functions')}"
     )
 
-
 def _format_a_plus(data: dict) -> str:
     ap = data.get("a_plus", {})
     return (
@@ -123,7 +121,6 @@ def _format_a_plus(data: dict) -> str:
         f"**Nature**: {ap.get('nature', 'First readable, crown-locked, witnessable expression-state')}\n"
         f"**Relation**: {ap.get('relation', 'A⁺ = stabilized expressible crown of Z⁺ seed-center')}"
     )
-
 
 def _format_circle(data: dict) -> str:
     cc = data.get("circle_cycle", {})
@@ -144,7 +141,6 @@ def _format_circle(data: dict) -> str:
         lines.append(f"\n**Geometry**: {cc['geometry']}")
     return "\n".join(lines)
 
-
 def _format_zero_point(data: dict) -> str:
     zp = data.get("zero_point_cartography", {})
     lines = [
@@ -163,7 +159,6 @@ def _format_zero_point(data: dict) -> str:
         lines.append(f"\n**Tunneling**: {zp['tunneling']}")
     return "\n".join(lines)
 
-
 def _format_sacred(data: dict) -> str:
     sg = data.get("sacred_geometry", {})
     lines = [
@@ -177,7 +172,6 @@ def _format_sacred(data: dict) -> str:
         else:
             lines.append(f"- {c}")
     return "\n".join(lines)
-
 
 def _format_neural(data: dict) -> str:
     nn = data.get("neural_routing", {})

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=322 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 from __future__ import annotations
 
 import json
@@ -5,10 +9,8 @@ from pathlib import Path
 
 from self_actualize.runtime import derive_next57_quad_agent_conductor as conductor
 
-
 ROOT = Path(__file__).resolve().parents[2]
 VERIFY_JSON_PATH = ROOT / "self_actualize" / "next57_quad_agent_conductor_verification.json"
-
 
 def main() -> None:
     verification = conductor.render_verification()
@@ -17,7 +19,6 @@ def main() -> None:
         failed = [name for name, passed in verification["checks"].items() if not passed]
         raise SystemExit(f"verification failed: {', '.join(failed)}")
     print("next57 quad-agent conductor verification: OK")
-
 
 if __name__ == "__main__":
     main()

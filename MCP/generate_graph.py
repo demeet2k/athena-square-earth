@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S22 | face=S | node=361 | depth=1 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S21→Xi108:W3:A4:S23→Xi108:W2:A4:S22→Xi108:W3:A3:S22→Xi108:W3:A5:S22
+
 """
 Athena Mycelium Graph Generator
 ================================
@@ -190,7 +194,6 @@ METRO_LINES = {
     "M":  {"name": "Migration Evolution","desc": "MIGRATE collapse-to-Z* then re-expansion",     "element": "F", "hpro": True},
 }
 
-
 # ── HPRO CODE_KEY Level Assignment ─────────────────────────────────
 # Level 0=atom(function), 1=module, 2=package, 3=service, 4=monorepo
 # Maps directory depth + type to hologram level
@@ -217,7 +220,6 @@ HPRO_PHASE_MAP = {
     "stable": "Fixed", "final": "Fixed", "canonical": "Fixed", "locked": "Fixed",
     "refactor": "Mutable", "draft": "Mutable", "wip": "Mutable", "dev": "Mutable",
 }
-
 
 def _compute_hpro_code_key(rel_path: str, depth: int, ext: str, stem: str) -> dict:
     """Compute HPRO CODE_KEY for a file.
@@ -264,7 +266,6 @@ def _compute_hpro_code_key(rel_path: str, depth: int, ext: str, stem: str) -> di
         "code_key": f"⟨{level}|{rel_path}|{element}|{phase}⟩",
     }
 
-
 MANUSCRIPT_MODULE_FAMILY = {
     "address": "crystal",
     "parse_kernel": "kernel",
@@ -288,10 +289,8 @@ MANUSCRIPT_MODULE_FAMILY = {
     "executor": "runtime",
 }
 
-
 def _infer_family(stem: str) -> str:
     return FAMILY_MAP.get(stem, stem.replace("_", "-"))
-
 
 def _extract_docstring(path: Path) -> str:
     """Extract first line of module docstring."""
@@ -311,7 +310,6 @@ def _extract_docstring(path: Path) -> str:
         pass
     return f"Module {path.stem}"
 
-
 def _extract_json_caches(path: Path) -> list[str]:
     """Find all JsonCache('filename.json') references in a Python file."""
     try:
@@ -319,7 +317,6 @@ def _extract_json_caches(path: Path) -> list[str]:
         return re.findall(r'JsonCache\(["\']([^"\']+\.json)["\']\)', text)
     except Exception:
         return []
-
 
 def _extract_json_title(path: Path) -> str:
     """Extract meta.title from a JSON file."""
@@ -330,7 +327,6 @@ def _extract_json_title(path: Path) -> str:
     except Exception:
         pass
     return path.stem
-
 
 def _infer_dimensional_scope(data: dict, stem: str) -> str:
     """Infer dimensional scope from JSON content."""
@@ -350,7 +346,6 @@ def _infer_dimensional_scope(data: dict, stem: str) -> str:
         return "3D-A+"
     return "all"
 
-
 def _infer_seed_vector(family: str, lens: str | None) -> list[float]:
     """Infer SFCR seed vector from family and lens."""
     if lens == "S":
@@ -363,7 +358,6 @@ def _infer_seed_vector(family: str, lens: str | None) -> list[float]:
         return [0.0, 0.0, 0.0, 1.0]
     # Universal — balanced
     return [0.25, 0.25, 0.25, 0.25]
-
 
 # ── Scan Functions ──────────────────────────────────────────────────
 
@@ -404,7 +398,6 @@ def scan_json_data() -> list[Shard]:
         ))
     return shards
 
-
 def scan_crystal_modules() -> list[Shard]:
     """Scan MCP/crystal_108d/*.py and create shards."""
     shards = []
@@ -437,7 +430,6 @@ def scan_crystal_modules() -> list[Shard]:
             updated_at=NOW,
         ))
     return shards
-
 
 def scan_element_servers() -> list[Shard]:
     """Scan MCP/element_servers/*.py and create shards."""
@@ -473,7 +465,6 @@ def scan_element_servers() -> list[Shard]:
         ))
     return shards
 
-
 def scan_main_server() -> Shard:
     """Create a shard for the main server entry point."""
     rel = "athena_mcp_server.py"
@@ -498,7 +489,6 @@ def scan_main_server() -> Shard:
         created_at=NOW,
         updated_at=NOW,
     )
-
 
 def scan_guild_hall() -> list[Shard]:
     """Scan Guild Hall markdown files and create shards."""
@@ -541,7 +531,6 @@ def scan_guild_hall() -> list[Shard]:
         ))
     return shards
 
-
 def scan_manuscript_being() -> list[Shard]:
     """Scan the manuscript-being Python framework modules."""
     shards = []
@@ -577,7 +566,6 @@ def scan_manuscript_being() -> list[Shard]:
             updated_at=NOW,
         ))
     return shards
-
 
 def scan_full_organism() -> list[Shard]:
     """Scan the ENTIRE Athena Agent organism — every directory, every file.
@@ -730,7 +718,6 @@ def scan_full_organism() -> list[Shard]:
 
     print(f"  scanned {scanned} organism files")
     return shards
-
 
 # ── Edge Building ───────────────────────────────────────────────────
 
@@ -1264,7 +1251,6 @@ def build_edges(shards: list[Shard]) -> list[Edge]:
 
     return edges
 
-
 # ── Node Registry ───────────────────────────────────────────────────
 
 def build_node_registry() -> list[dict]:
@@ -1416,7 +1402,6 @@ def build_node_registry() -> list[dict]:
         },
     ]
 
-
 # ── Main ────────────────────────────────────────────────────────────
 
 def main():
@@ -1550,7 +1535,6 @@ def main():
     print(f"Wrote {out_nodes}")
 
     print(f"\nDone. {len(all_shards)} shards, {len(edges)} edges, {len(nodes)} nodes.")
-
 
 if __name__ == "__main__":
     main()

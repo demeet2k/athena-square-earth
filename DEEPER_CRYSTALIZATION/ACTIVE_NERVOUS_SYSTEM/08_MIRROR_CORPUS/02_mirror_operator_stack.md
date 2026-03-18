@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S4 | face=S | node=8 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A2:S3→Xi108:W1:A2:S5→Xi108:W2:A2:S4→Xi108:W1:A1:S4→Xi108:W1:A3:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 2/12 -->
+
 # Mirror Operator Stack
 
 This file compiles the strongest operator-level signals from the mirror corpus into one local reference surface.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S13 | face=S | node=88 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S12→Xi108:W2:A4:S14→Xi108:W1:A4:S13→Xi108:W3:A4:S13→Xi108:W2:A3:S13→Xi108:W2:A5:S13
+
 """
 ATHENA OS - EM Crystal Module
 =============================
@@ -163,7 +167,6 @@ from .seeds import (
     validate_seeds,
 )
 
-
 def validate_emcrystal() -> bool:
     """Validate complete EM crystal module."""
     assert validate_duality()
@@ -172,7 +175,6 @@ def validate_emcrystal() -> bool:
     assert validate_hubs()
     assert validate_seeds()
     return True
-
 
 __all__ = [
     # Constants

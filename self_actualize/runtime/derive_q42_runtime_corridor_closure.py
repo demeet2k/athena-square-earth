@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=459 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -18,7 +22,6 @@ from self_actualize.runtime.qshrink_refine_common import (
     write_json,
 )
 
-
 MANIFESTS_ROOT = (
     WORKSPACE_ROOT
     / "self_actualize"
@@ -38,10 +41,8 @@ AUTHORITATIVE_RECEIPT = (
 )
 NEXT_HALL_SEED_DISPLAY = "none; do not invent QS64-25"
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
-
 
 def build_payload() -> dict[str, Any]:
     runtime_verification = load_json(QSHRINK_RUNTIME_VERIFICATION_PATH, {"truth": "NEAR"})
@@ -84,7 +85,6 @@ def build_payload() -> dict[str, Any]:
         "packet_witness_truth": packet_witness.get("truth_state", "NEAR"),
     }
 
-
 def render_markdown(payload: dict[str, Any]) -> str:
     basis_lines = "\n".join(f"- `{item}`" for item in payload["witness_basis"])
     return "\n".join(
@@ -120,7 +120,6 @@ def render_markdown(payload: dict[str, Any]) -> str:
         ]
     ) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     write_json(OUTPUT_JSON_PATH, payload)
@@ -128,7 +127,6 @@ def main() -> int:
     print(f"Wrote {OUTPUT_JSON_PATH}")
     print(f"Wrote {OUTPUT_MD_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S32 | face=S | node=516 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S31→Xi108:W2:A8:S33→Xi108:W1:A8:S32→Xi108:W3:A8:S32→Xi108:W2:A7:S32→Xi108:W2:A9:S32
+
 """
 NIGHTMARE BENCHMARK 01: GEOMETRIC TORTURE
 ==========================================

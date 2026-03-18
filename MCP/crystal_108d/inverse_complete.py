@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S1 | face=C | node=1 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 """
 Inverse Crystal Complete — Projection Stack + Weave Operators
 ==============================================================
@@ -9,7 +13,6 @@ shells, and the 20-step regeneration protocol.
 from ._cache import JsonCache
 
 _COMPLETE = JsonCache("inverse_crystal_complete.json")
-
 
 def query_projection_stack(direction: str = "all") -> str:
     """
@@ -40,7 +43,6 @@ def query_projection_stack(direction: str = "all") -> str:
             f"Unknown direction '{direction}'. Use: all, up, down, regen, terminal"
         )
 
-
 def query_weave_operator(weave: str = "all") -> str:
     """
     Query weave operators and control shells.
@@ -69,7 +71,6 @@ def query_weave_operator(weave: str = "all") -> str:
             f"Unknown weave '{weave}'. Use: all, W3, W5, W7, controls, clock"
         )
 
-
 def inverse_complete_status() -> str:
     """Return a status summary for the resource endpoint."""
     data = _COMPLETE.load()
@@ -83,7 +84,6 @@ def inverse_complete_status() -> str:
         f"**Master Clock**: Z420 = lcm(3,4,5,7)\n"
         f"**Regeneration**: {data['regeneration_protocol']['description'][:80]}...\n"
     )
-
 
 # -- Stack formatters ------------------------------------------------------
 
@@ -103,7 +103,6 @@ def _format_stack_all(data: dict) -> str:
         lines.append(f"- **{level['level']}** ({level['dimension']}): {level['description']}{op}")
     return "\n".join(lines)
 
-
 def _format_stack_up(data: dict) -> str:
     lines = ["## Expansion: 3D -> 108D -> A+\n"]
     for level in data["projection_stack"]["up"]:
@@ -111,7 +110,6 @@ def _format_stack_up(data: dict) -> str:
         lines.append(f"### {level['level']} ({level['dimension']})")
         lines.append(f"{level['description']}{op}\n")
     return "\n".join(lines)
-
 
 def _format_stack_down(data: dict) -> str:
     lines = ["## Compression: A+ -> 3D\n"]
@@ -121,7 +119,6 @@ def _format_stack_down(data: dict) -> str:
         lines.append(f"{level['description']}{op}\n")
     lines.append(data["projection_stack"]["round_trip_law"])
     return "\n".join(lines)
-
 
 def _format_regen(data: dict) -> str:
     rp = data["regeneration_protocol"]
@@ -133,7 +130,6 @@ def _format_regen(data: dict) -> str:
         lines.append(f"{i:>2}. {step}")
     return "\n".join(lines)
 
-
 def _format_terminal(data: dict) -> str:
     ts = data["terminal_statement"]
     return (
@@ -144,7 +140,6 @@ def _format_terminal(data: dict) -> str:
         f"**In 1 symbol**: `{ts['in_one_symbol']}`\n\n"
         f"**In 0 symbols**: {ts['in_zero_symbols']}"
     )
-
 
 # -- Weave formatters ------------------------------------------------------
 
@@ -165,7 +160,6 @@ def _format_weaves_all(data: dict) -> str:
     lines.append(f"**Supercycle**: {mc['supercycle']}")
     return "\n".join(lines)
 
-
 def _format_one_weave(data: dict, key: str) -> str:
     w = data["weave_operators"][key]
     lines = [
@@ -179,7 +173,6 @@ def _format_one_weave(data: dict, key: str) -> str:
         lines.append(f"- **{e['name']}**: {e['function']}")
     return "\n".join(lines)
 
-
 def _format_controls(data: dict) -> str:
     lines = ["## Control Shells\n"]
     for key, shell in data["control_shells"].items():
@@ -191,7 +184,6 @@ def _format_controls(data: dict) -> str:
             lines.append(f"**Note**: {shell['note']}")
         lines.append(f"**Installs At**: {shell['installs_at']}\n")
     return "\n".join(lines)
-
 
 def _format_clock(data: dict) -> str:
     mc = data["weave_operators"]["master_clock"]

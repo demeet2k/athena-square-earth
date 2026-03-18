@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S29→Xi108:W2:A10:S31→Xi108:W1:A10:S30→Xi108:W3:A10:S30→Xi108:W2:A9:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
@@ -29,10 +33,8 @@ VERIFY_PATH = ROOT / "self_actualize" / "mycelium_brain" / "registry" / "command
 EXPECTED_WATCH_SCOPE = "first-wave local swarm mesh"
 EXPECTED_ACTIVE_SURFACE = "LOCAL SWARM MESH"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def _row_count(payload: object) -> int:
     if isinstance(payload, list):
@@ -42,7 +44,6 @@ def _row_count(payload: object) -> int:
         if isinstance(rows, list):
             return len(rows)
     return 0
-
 
 def main() -> int:
     build()
@@ -95,7 +96,6 @@ def main() -> int:
     VERIFY_PATH.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps(payload, indent=2, ensure_ascii=False))
     return 0 if payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

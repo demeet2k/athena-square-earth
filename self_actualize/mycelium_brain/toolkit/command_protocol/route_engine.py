@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S23 | face=R | node=271 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S22→Xi108:W2:A5:S24→Xi108:W1:A5:S23→Xi108:W3:A5:S23→Xi108:W2:A4:S23→Xi108:W2:A6:S23
+
 from __future__ import annotations
 
 import json
@@ -9,14 +13,11 @@ from .capillary_memory import load_memory
 from .ledger_writer import append_jsonl, route_receipts_path
 from .liminal_coord import load_config
 
-
 def _registry_root() -> Path:
     return Path(load_config().registry_root)
 
-
 def _load_registry(name: str) -> Any:
     return json.loads((_registry_root() / name).read_text(encoding="utf-8"))
-
 
 def _path_tags(source_path: str) -> set[str]:
     lowered = source_path.lower()
@@ -27,12 +28,10 @@ def _path_tags(source_path: str) -> set[str]:
         tags.add("runtime")
     return tags
 
-
 def _coord_proximity(packet_record: dict[str, Any], agent: dict[str, Any]) -> float:
     packet_goal = float(packet_record["packet"]["coord12"]["dimensions"]["goal_salience_vector"])
     target = float(agent.get("goal_bias", 0.5))
     return max(0.0, 1.0 - abs(packet_goal - target))
-
 
 def _capillary_strength(agent_id: str) -> float:
     memory = load_memory()
@@ -45,7 +44,6 @@ def _capillary_strength(agent_id: str) -> float:
         return memory["initial_strength"]
     return max(strengths)
 
-
 def classify_path(packet_record: dict[str, Any]) -> str:
     source_path = packet_record.get("source_path", "")
     lowered = source_path.lower()
@@ -56,7 +54,6 @@ def classify_path(packet_record: dict[str, Any]) -> str:
     if lowered.endswith((".py", ".rs", ".toml", ".json")):
         return "executable"
     return "document"
-
 
 def route_packet(packet_record: dict[str, Any], topk: int = 5, quorum: int = 1) -> dict[str, Any]:
     agent_registry = _load_registry("agent_target_registry_v1.json")

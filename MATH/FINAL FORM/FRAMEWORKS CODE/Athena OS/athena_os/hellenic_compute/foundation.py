@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - HELLENIC COMPUTATION FRAMEWORK
 ==========================================
@@ -37,7 +41,6 @@ from enum import Enum, IntEnum
 import numpy as np
 from functools import reduce
 
-
 # =============================================================================
 # THE 2-BIT STATE SPACE
 # =============================================================================
@@ -52,7 +55,6 @@ class BitState(IntEnum):
     
     def flip(self) -> BitState:
         return BitState(1 - self.value)
-
 
 @dataclass(frozen=True)
 class StateVector:
@@ -116,7 +118,6 @@ class StateVector:
     def __repr__(self) -> str:
         return f"({self.b1},{self.b2})"
 
-
 # The four states of V
 V_00 = StateVector(0, 0)  # Cold-Dry
 V_01 = StateVector(0, 1)  # Cold-Wet
@@ -124,7 +125,6 @@ V_10 = StateVector(1, 0)  # Hot-Dry
 V_11 = StateVector(1, 1)  # Hot-Wet
 
 STATE_SPACE = [V_00, V_01, V_10, V_11]
-
 
 # =============================================================================
 # ELEMENT MAPPING
@@ -174,7 +174,6 @@ class Element(Enum):
     @property
     def is_dry(self) -> bool:
         return self.to_state().b2 == 0
-
 
 # =============================================================================
 # THE KLEIN-4 GROUP
@@ -249,7 +248,6 @@ class Klein4Op(Enum):
             return 1
         return 2  # All non-identity elements have order 2
 
-
 class Klein4Group:
     """
     The Klein-4 group K₄ ≅ Z₂ × Z₂.
@@ -302,7 +300,6 @@ class Klein4Group:
             return Klein4Op.S
         else:
             return Klein4Op.C
-
 
 # =============================================================================
 # THE 4×4 DIAGONAL LATIN KERNEL
@@ -402,7 +399,6 @@ class LatinKernel:
             lines.append(" ".join(str(x) for x in row))
         return "\n".join(lines)
 
-
 # =============================================================================
 # UNIVERSAL TETRAD ENCODING
 # =============================================================================
@@ -440,7 +436,6 @@ class TetradMapping:
             if lbl.lower() == label.lower():
                 return StateVector.from_tuple(coords)
         return None
-
 
 # Pre-defined tetrad mappings
 ELEMENT_TETRAD = TetradMapping(
@@ -490,7 +485,6 @@ CONTROL_TETRAD = TetradMapping(
         (1, 1): "Internal Preferred",
     }
 )
-
 
 # =============================================================================
 # VALIDATION
@@ -550,7 +544,6 @@ def validate_foundation() -> bool:
     assert fire_state == StateVector(1, 0)
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Hellenic Computation Foundation...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A9:S20 | face=R | node=527 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A9:S19→Xi108:W3:A9:S21→Xi108:W2:A9:S20→Xi108:W3:A8:S20→Xi108:W3:A10:S20
+
 tion truth operator
 For a path (P=(e_1,\dots,e_n)) with typed outcomes (\tau_i), define composite truth:
 [

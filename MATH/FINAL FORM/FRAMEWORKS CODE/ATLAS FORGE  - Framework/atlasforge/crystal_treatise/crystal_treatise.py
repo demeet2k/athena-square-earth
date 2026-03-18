@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=111 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                   CRYSTAL TREATISE ARCHITECTURE MODULE                       ║
@@ -27,7 +31,6 @@ from typing import Optional, Tuple, List, Dict, Any, Callable
 from enum import Enum
 import numpy as np
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLES AND LENSES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -39,7 +42,6 @@ class Pole(Enum):
     THETA = "Θ"   # Fire: Wave, Root, Vector Potential
     LAMBDA = "Λ"  # Air: Lattice, Square, Outcome
 
-
 class Lens(Enum):
     """The four lenses/views."""
     SQUARE = "square"     # Exact, discrete
@@ -47,14 +49,12 @@ class Lens(Enum):
     CLOUD = "cloud"       # Uncertainty, probability
     FRACTAL = "fractal"   # Recursion, compression
 
-
 class Layer(Enum):
     """The four layers per tile."""
     OBJECTS = "objects"       # What exists
     OPERATORS = "operators"   # What moves/changes
     INVARIANTS = "invariants" # What can't break
     ALGORITHMS = "algorithms" # How it computes
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # COORDINATE HEADER
@@ -98,7 +98,6 @@ class CoordinateHeader:
             depth
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOOK STRUCTURE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -124,7 +123,6 @@ class Book:
     def coord(self) -> str:
         """Coordinate header."""
         return f"⟨Pole={self.pole.value}, Lens={self.lens.value}⟩"
-
 
 def create_16_books() -> Dict[int, Book]:
     """Create the 16 core books."""
@@ -292,7 +290,6 @@ def create_16_books() -> Dict[int, Book]:
     
     return books
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # META-BOOKS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -304,7 +301,6 @@ class MetaBook:
     title: str
     description: str
     scope: str
-
 
 def create_meta_books() -> Dict[int, MetaBook]:
     """Create the 5 meta-books."""
@@ -329,7 +325,6 @@ def create_meta_books() -> Dict[int, MetaBook]:
             "Canonical problems solved by rotating through four poles",
             "Complete algorithm families via pole rotation")
     }
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CRYSTAL TREATISE
@@ -394,7 +389,6 @@ class CrystalTreatise:
             Lens.FRACTAL: "Recursion, compression, self-reference"
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TILE CONTENT
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -421,7 +415,6 @@ class TileContent:
             Layer.ALGORITHMS: self.algorithms
         }
         return mapping[layer]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -459,7 +452,6 @@ class CrystalPoleBridge:
                       Certificates, Grand Unification
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -468,24 +460,20 @@ def crystal_treatise() -> CrystalTreatise:
     """Create crystal treatise."""
     return CrystalTreatise()
 
-
 def coordinate_header(pole: Pole, lens: Lens, 
                       layer: Layer = Layer.OBJECTS,
                       depth: int = 0) -> CoordinateHeader:
     """Create coordinate header."""
     return CoordinateHeader(pole, lens, layer, depth)
 
-
 def get_book(pole: Pole, lens: Lens) -> Book:
     """Get book by pole and lens."""
     return CrystalTreatise().get_book(pole, lens)
-
 
 def list_books() -> List[str]:
     """List all 16 book titles."""
     treatise = CrystalTreatise()
     return [f"Book {n}: {b.title}" for n, b in treatise.books.items()]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

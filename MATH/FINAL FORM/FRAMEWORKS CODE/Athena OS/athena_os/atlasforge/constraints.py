@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - AtlasForge
 ======================
@@ -28,7 +32,6 @@ import math
 
 from .domains import Domain, Interval
 
-
 # =============================================================================
 # CONSTRAINT TYPES
 # =============================================================================
@@ -43,7 +46,6 @@ class ConstraintType(Enum):
     JET = "jet"                   # Derivative constraints
     VECTOR = "vector"             # H(x) = 0 for x ∈ ℝⁿ
 
-
 class ObligationType(Enum):
     """Proof obligation types."""
     
@@ -53,7 +55,6 @@ class ObligationType(Enum):
     CONTRACTION = "contraction"   # Fixed point contraction
     REPLAY = "replay"             # Reproducibility
     EXISTENCE = "existence"       # Solution exists
-
 
 # =============================================================================
 # EXPRESSIONS
@@ -181,7 +182,6 @@ class Expression:
     def log(cls, arg: 'Expression') -> 'Expression':
         return cls(op="log", left=arg)
 
-
 # =============================================================================
 # CONSTRAINT BASE
 # =============================================================================
@@ -211,7 +211,6 @@ class Constraint:
     def compile_obligations(self) -> List[ObligationType]:
         """Compile required proof obligations."""
         return list(self.obligations)
-
 
 # =============================================================================
 # ROOT CONSTRAINT
@@ -274,7 +273,6 @@ class RootConstraint(Constraint):
         
         return (a + b) / 2
 
-
 # =============================================================================
 # FIXED POINT CONSTRAINT
 # =============================================================================
@@ -325,7 +323,6 @@ class FixedPointConstraint(Constraint):
             x = x_new
         
         return x
-
 
 # =============================================================================
 # LATTICE CONSTRAINT
@@ -404,7 +401,6 @@ class LatticeConstraint(Constraint):
         
         return family
 
-
 # =============================================================================
 # EQUALITY CONSTRAINT
 # =============================================================================
@@ -433,7 +429,6 @@ class EqualityConstraint(Constraint):
             variable=self.variable,
             expression=diff
         )
-
 
 # =============================================================================
 # CONSTRAINT IR
@@ -480,7 +475,6 @@ class ConstraintIR:
             "domain": self.domain_spec
         }
 
-
 # =============================================================================
 # CONSTRAINT COMPILER
 # =============================================================================
@@ -523,7 +517,6 @@ class ConstraintCompiler:
             }
         
         return ir
-
 
 # =============================================================================
 # VALIDATION
@@ -584,7 +577,6 @@ def validate_constraints() -> bool:
     assert len(ir.obligations) >= 2
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating AtlasForge Constraints...")

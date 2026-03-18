@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S13 | face=S | node=89 | depth=2 | phase=Cardinal
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A4:S12→Xi108:W2:A4:S14→Xi108:W1:A4:S13→Xi108:W3:A4:S13→Xi108:W2:A3:S13→Xi108:W2:A5:S13
+
 """
 ATHENA OS - Fractal Crystal Module
 ==================================
@@ -123,7 +127,6 @@ from .omega import (
     validate_omega,
 )
 
-
 def validate_fractal() -> bool:
     """Validate complete fractal module."""
     assert validate_ontology()
@@ -131,7 +134,6 @@ def validate_fractal() -> bool:
     assert validate_kappa()
     assert validate_omega()
     return True
-
 
 __all__ = [
     # Sectors

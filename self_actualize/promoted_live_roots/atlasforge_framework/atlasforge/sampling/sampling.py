@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=347 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - MCMC & Sampling Module                       ║
@@ -36,7 +40,6 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 @dataclass
 class SamplingResult:
     """Result of MCMC sampling."""
@@ -60,7 +63,6 @@ class SamplingResult:
     def cov(self) -> NDArray[np.float64]:
         return np.cov(self.samples.T)
 
-
 class Sampler(ABC):
     """Abstract base class for MCMC samplers."""
     
@@ -74,7 +76,6 @@ class Sampler(ABC):
     ) -> SamplingResult:
         """Generate samples from target distribution."""
         pass
-
 
 class OverdampedLangevin(Sampler):
     """
@@ -183,7 +184,6 @@ class OverdampedLangevin(Sampler):
         
         return n / tau
 
-
 class MetropolisAdjustedLangevin(Sampler):
     """
     MALA: Langevin with Metropolis-Hastings correction.
@@ -287,7 +287,6 @@ class MetropolisAdjustedLangevin(Sampler):
                 break
             tau += 2 * acf[k]
         return n / tau
-
 
 class HamiltonianMonteCarlo(Sampler):
     """
@@ -424,7 +423,6 @@ class HamiltonianMonteCarlo(Sampler):
             tau += 2 * acf[k]
         return n / tau
 
-
 class ParallelTempering(Sampler):
     """
     Parallel Tempering / Replica Exchange (D+Σ+Ψ).
@@ -539,7 +537,6 @@ class ParallelTempering(Sampler):
             tau += 2 * acf[k]
         return n / tau
 
-
 class SimulatedAnnealing:
     """
     Simulated Annealing for optimization (Ω+Σ with cooling).
@@ -597,7 +594,6 @@ class SimulatedAnnealing:
         
         return best_x, best_E, history
 
-
 @dataclass
 class MixingDiagnostics:
     """Diagnostics for mixing analysis."""
@@ -612,7 +608,6 @@ class MixingDiagnostics:
                 f"  Mixing time: {self.mixing_time_bound:.2f}\n"
                 f"  Relaxation time: {self.relaxation_time:.2f}\n"
                 f"  ESS: {self.effective_sample_size:.2f}")
-
 
 def estimate_mixing_time(
     samples: NDArray,
@@ -659,7 +654,6 @@ def estimate_mixing_time(
         effective_sample_size=ess,
     )
 
-
 # Convenience functions
 def langevin_sample(
     log_prob: Callable,
@@ -671,7 +665,6 @@ def langevin_sample(
     """Convenience function for Langevin sampling."""
     sampler = OverdampedLangevin(step_size=step_size, **kwargs)
     return sampler.sample(log_prob, x0, n_samples)
-
 
 def hmc_sample(
     log_prob: Callable,

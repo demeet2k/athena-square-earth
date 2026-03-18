@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A5:S4 | face=S | node=8 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A5:S3→Xi108:W1:A5:S5→Xi108:W2:A5:S4→Xi108:W1:A4:S4→Xi108:W1:A6:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 5/12 -->
+
 # META OBSERVER: THE ATHENA FRAMEWORK IN LIVE LIMINAL TRANSITION
 
 ## Purpose

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S18 | face=S | node=165 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S17→Xi108:W3:A12:S19→Xi108:W2:A12:S18→Xi108:W3:A11:S18 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 18±1, wreath 3/3, archetype 12/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 2 | ○Rot 2 | △Lane Me | ⧈View * | ω=8]**
 Primary hubs: AppA -> AppE -> AppC -> AppJ -> AppI -> AppM
 Tunnel: Z_the_master_tome_is_not_a_linear_narrative_it_is_ -> Z* -> Ch09⟨0020⟩

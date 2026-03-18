@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=327 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF = ROOT / "self_actualize"
@@ -31,25 +34,20 @@ TEMPLE_CANON = MYC / "ATHENA TEMPLE" / "08_NEXT57_LP_57OMEGA_CANONICAL_DECREE.md
 NEXT57_MANIFEST = MAN / "NEXT_57_LOOP_FOUR_AGENT_CORPUS_CYCLE.md"
 NEXT57_COMPAT_MD = MAN / "NEXT_57_LOOP_COMPATIBILITY_MIRRORS.md"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def docs_gate_status() -> str:
     text = LIVE_DOCS_GATE.read_text(encoding="utf-8", errors="ignore") if LIVE_DOCS_GATE.exists() else ""
     return "BLOCKED" if "BLOCKED" in text else "OPEN"
-
 
 def build_state(source_id: str) -> dict[str, Any]:
     return {
@@ -77,7 +75,6 @@ def build_state(source_id: str) -> dict[str, Any]:
         "note": "NEXT57 / LP-57OMEGA remains preserved as prior orchestration lineage and may not act as present-tense Hall or Temple authority.",
     }
 
-
 def build_scheduler(source_id: str) -> dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -89,7 +86,6 @@ def build_scheduler(source_id: str) -> dict[str, Any]:
         "canonical_authority": "self_actualize/four_agent_57_loop_registry.json",
         "note": "The LP-57OMEGA scheduler is retained for historical replay only. The live 57-loop authority is the canonical four-agent council ledger.",
     }
-
 
 def build_compat() -> dict[str, Any]:
     return {
@@ -137,7 +133,6 @@ def build_compat() -> dict[str, Any]:
         ],
     }
 
-
 def render_historical_md(title: str, replacement: str) -> str:
     return "\n".join(
         [
@@ -154,7 +149,6 @@ def render_historical_md(title: str, replacement: str) -> str:
         ]
     )
 
-
 def render_manifest() -> str:
     return "\n".join(
         [
@@ -169,7 +163,6 @@ def render_manifest() -> str:
         ]
     )
 
-
 def render_compat_md() -> str:
     return "\n".join(
         [
@@ -180,7 +173,6 @@ def render_compat_md() -> str:
             "- `NEXT57`, `LP-57OMEGA`, `Q51/TQ07`, and `FA57` remain reverse-lookup families only.",
         ]
     )
-
 
 def write_historical_next57_wrappers(source_id: str) -> dict[str, Any]:
     state = build_state(source_id)

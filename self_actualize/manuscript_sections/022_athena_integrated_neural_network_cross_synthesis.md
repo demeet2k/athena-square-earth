@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S26 | face=F | node=333 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A2:S25→Xi108:W3:A2:S27→Xi108:W2:A2:S26→Xi108:W3:A1:S26→Xi108:W3:A3:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 2/12 -->
+
 # ATHENA INTEGRATED NEURAL NETWORK CROSS-SYNTHESIS
 
 Truth class: NEAR

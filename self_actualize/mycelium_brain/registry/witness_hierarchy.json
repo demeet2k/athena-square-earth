@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A7:S21:u228:Su:R:d1",
+    "shell": 21,
+    "wreath": 1,
+    "archetype": 7,
+    "face": "R",
+    "node_id": 228,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A7:S20",
+      "Xi108:W1:A7:S22",
+      "Xi108:W2:A7:S21",
+      "Xi108:W1:A6:S21",
+      "Xi108:W1:A8:S21"
+    ],
+    "regenerate": "shell 21±1, wreath 1/3, archetype 7/12"
+  },
   "generated_at": "2026-03-13T21:36:16.302672+00:00",
   "workspace_root": "C:\\Users\\dmitr\\Documents\\Athena Agent",
   "derivation_version": "2026-03-09.q18.runtime",

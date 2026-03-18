@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S7 | face=R | node=24 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S6→Xi108:W3:A1:S8→Xi108:W2:A1:S7→Xi108:W3:A2:S7 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 7±1, wreath 3/3, archetype 1/12 -->
+
 # Ch17<0100> - Deployment and Bounded Agency Through Typed Communication Channels
 
 StationHeader: [Arc 5 | Rot 2 | Lane Su | omega = 16]

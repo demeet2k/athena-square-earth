@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=153 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - TORAT HA-MISPAR (תורת המספר)
 =========================================
@@ -43,7 +47,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Optional, Any
 from enum import Enum, auto
 
-
 # =============================================================================
 # LETTER CATEGORIES
 # =============================================================================
@@ -59,7 +62,6 @@ class LetterCategory(Enum):
         self.hebrew_name = hebrew_name
         self._description = description
 
-
 class ArticulationPoint(Enum):
     """Points of articulation for Hebrew letters."""
     
@@ -74,7 +76,6 @@ class ArticulationPoint(Enum):
         self.letters = letters
         self._function = function
 
-
 class Element(Enum):
     """Elemental correspondences."""
     
@@ -86,7 +87,6 @@ class Element(Enum):
     def __init__(self, hebrew: str, function: str):
         self.hebrew = hebrew
         self._function = function
-
 
 # =============================================================================
 # HEBREW LETTER DEFINITION
@@ -141,7 +141,6 @@ class HebrewLetter:
     def atbash_pair(self) -> int:
         """Atbash cipher pair position."""
         return 23 - self.position  # Aleph↔Tav, Bet↔Shin, etc.
-
 
 # =============================================================================
 # THE COMPLETE ALPHABET
@@ -359,7 +358,6 @@ SIMPLES = [
 # Complete alphabet (sorted by position)
 ALPHABET = sorted(MOTHERS + DOUBLES + SIMPLES, key=lambda x: x.position)
 
-
 # =============================================================================
 # THREE MOTHERS ANALYSIS
 # =============================================================================
@@ -448,7 +446,6 @@ class ThreeMothersSystem:
             "constant": "Aleph (1) remains axis around which Fire/Water rotate",
         }
 
-
 # =============================================================================
 # SEVEN DOUBLES ANALYSIS
 # =============================================================================
@@ -515,7 +512,6 @@ class SevenDoublesSystem:
             "ת (Moon)": "Reflection/Memory",
         }
 
-
 # =============================================================================
 # TWELVE SIMPLES ANALYSIS
 # =============================================================================
@@ -571,7 +567,6 @@ class TwelveSimplesSystem:
             "If Mothers are Axes (x,y,z) and Doubles are Faces, "
             "Simples are Structural Beams connecting vertices."
         )
-
 
 # =============================================================================
 # OTIYOT SYSTEM
@@ -653,7 +648,6 @@ class OtiyotSystem:
             "formula": "22 = 3 + 7 + 12",
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -706,7 +700,6 @@ def validate_otiyot() -> bool:
     assert summary["formula"] == "22 = 3 + 7 + 12"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Otiyot Module...")

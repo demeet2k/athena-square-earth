@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S13→Xi108:W2:A1:S15→Xi108:W1:A1:S14→Xi108:W3:A1:S14→Xi108:W2:A2:S14
+
 """
 PoleStarGEMM Core (Quad-Polar Adaptive GEMM)
 ===========================================
@@ -38,7 +42,6 @@ try:
     import scipy.sparse as sp  # type: ignore
 except Exception:  # pragma: no cover
     sp = None
-
 
 # ----------------------------
 # Fingerprints + Experience DB
@@ -105,7 +108,6 @@ class GEMMFingerprint:
     def hash(self) -> str:
         return hashlib.md5(str(self._bucket()).encode("utf-8")).hexdigest()[:12]
 
-
 @dataclass
 class GEMMRecord:
     fingerprint: GEMMFingerprint
@@ -128,7 +130,6 @@ class GEMMRecord:
         if self.approx_error is not None:
             epen = error_weight * self.approx_error
         return self.time_sec + self.overhead_sec + epen
-
 
 class GEMMExperienceDB:
     """
@@ -187,7 +188,6 @@ class GEMMExperienceDB:
                 d += 0.0 if x == y else 1.0
         return d
 
-
 # ----------------------------
 # Σ probes (cheap diagnostics)
 # ----------------------------
@@ -203,7 +203,6 @@ def _sparsity(A: np.ndarray, sample: int = 8192) -> float:
         return float(np.mean(np.abs(x) < 1e-12))
     idx = np.random.randint(0, x.size, size=sample)
     return float(np.mean(np.abs(x[idx]) < 1e-12))
-
 
 def estimate_rank_ratio(A: np.ndarray, rank_probe: int = 16, oversample: int = 6, seed: int = 0) -> float:
     """
@@ -236,7 +235,6 @@ def estimate_rank_ratio(A: np.ndarray, rank_probe: int = 16, oversample: int = 6
     frac = top / tot
     return float(max(0.0, min(1.0, 1.0 - frac)))
 
-
 def randomized_svd(A: np.ndarray, rank: int, n_iter: int = 1, seed: int = 0) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Randomized SVD (range finder) returning U,S,Vt with S descending.
@@ -257,7 +255,6 @@ def randomized_svd(A: np.ndarray, rank: int, n_iter: int = 1, seed: int = 0) -> 
     Ub, S, Vt = np.linalg.svd(B, full_matrices=False)
     U = Q @ Ub
     return U[:, :r], S[:r], Vt[:r, :]
-
 
 def validate_approx(A: np.ndarray, B: np.ndarray, C: np.ndarray, checks: int = 3, seed: int = 0) -> float:
     """
@@ -280,7 +277,6 @@ def validate_approx(A: np.ndarray, B: np.ndarray, C: np.ndarray, checks: int = 3
         err = float(np.linalg.norm(y_hat - y_ref) / denom)
         worst = max(worst, err)
     return worst
-
 
 # ----------------------------
 # Strassen (Ψ recursion; educational)
@@ -316,7 +312,6 @@ def _strassen(A: np.ndarray, B: np.ndarray, leaf: int) -> np.ndarray:
     C[mid:, mid:] = C22
     return C
 
-
 # ----------------------------
 # Plan result
 # ----------------------------
@@ -329,7 +324,6 @@ class PlanResult:
     approx_error: Optional[float] = None
     overhead_sec: float = 0.0
     details: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class CompiledGEMMPlan:
@@ -390,7 +384,6 @@ class CompiledGEMMPlan:
                 )
 
         return self.engine._run_plan(self.plan, A, B, self.fp, validate=self.allow_approx)
-
 
 # ----------------------------
 # PoleStarGEMM engine
@@ -1016,7 +1009,6 @@ class PoleStarGEMM:
             # Warm to populate factor cache
             _ = self._run_plan(plan, A, B, fp, validate=allow_approx, rtol=rtol, validate_checks=1)
 
-
 def summarize_ablation(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Summarize ablation run results."""
     times = [r["time_sec"] for r in rows]
@@ -1028,7 +1020,6 @@ def summarize_ablation(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
         "mean_err": float(np.mean(errs)) if errs else None,
         "worst_err": float(np.max(errs)) if errs else None,
     }
-
 
 def make_ablation_configs(verbose: bool = False) -> List[Tuple[str, PoleStarGEMM]]:
     """

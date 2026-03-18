@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -22,14 +25,11 @@ OUTPUT_SKILL_MATRIX = ECOSYSTEM_ROOT / "08_QSHRINK_SKILL_ROUTING_MATRIX.md"
 OUTPUT_ARTIFACT_SCHEMA = ECOSYSTEM_ROOT / "09_QSHRINK_HOLOGRAPHIC_ARTIFACT_SCHEMA.json"
 OUTPUT_COMPACTION_CONTRACT = ECOSYSTEM_ROOT / "10_QSHRINK_COMPACTION_CONTRACT.json"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 TOOLKIT_SECTIONS = [
     {
@@ -256,7 +256,6 @@ THIRD_WAVE_SKILLS = [
     },
 ]
 
-
 def build_payload() -> dict:
     network = load_json(NETWORK_INTEGRATION_PATH)
     agent_matrix = load_json(AGENT_MATRIX_PATH)
@@ -385,7 +384,6 @@ def build_payload() -> dict:
         "compaction_contract": compaction_contract,
     }
 
-
 def render_debug_ledger(payload: dict) -> str:
     runtime_checks = payload["runtime_verification"]["checks"]
     lines = [
@@ -449,7 +447,6 @@ def render_debug_ledger(payload: dict) -> str:
     )
     return "\n".join(lines) + "\n"
 
-
 def render_use_case_atlas(payload: dict) -> str:
     lines = [
         "# QSHRINK Maximum-Capacity Use-Case Atlas",
@@ -474,7 +471,6 @@ def render_use_case_atlas(payload: dict) -> str:
         )
     return "\n".join(lines) + "\n"
 
-
 def render_toolkit_handbook(payload: dict) -> str:
     lines = [
         "# QSHRINK Toolkit Handbook",
@@ -494,7 +490,6 @@ def render_toolkit_handbook(payload: dict) -> str:
             ]
         )
     return "\n".join(lines) + "\n"
-
 
 def render_skill_matrix(payload: dict) -> str:
     first_wave = load_json(AGENT_MATRIX_PATH)["first_wave_agents"]
@@ -550,7 +545,6 @@ def render_skill_matrix(payload: dict) -> str:
 
     return "\n".join(lines) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     OUTPUT_CAPABILITY_JSON.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -568,7 +562,6 @@ def main() -> int:
     print(f"Wrote qshrink artifact schema: {OUTPUT_ARTIFACT_SCHEMA}")
     print(f"Wrote qshrink compaction contract: {OUTPUT_COMPACTION_CONTRACT}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

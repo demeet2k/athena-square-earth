@@ -1,12 +1,53 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A8:S20:u202:Su:R:d1",
+    "shell": 20,
+    "wreath": 1,
+    "archetype": 8,
+    "face": "R",
+    "node_id": 202,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A8:S19",
+      "Xi108:W1:A8:S21",
+      "Xi108:W2:A8:S20",
+      "Xi108:W1:A7:S20",
+      "Xi108:W1:A9:S20"
+    ],
+    "regenerate": "shell 20±1, wreath 1/3, archetype 8/12"
+  },
   "generated_at": "2026-03-13T22:00:00-07:00",
   "docs_gate_status": "BLOCKED",
   "truth_class": "NEAR",
   "authority_mode": "live deep root plus local atlas and MATH GOD canon; package export is downstream only",
   "overlay_root": "C:\\Users\\dmitr\\Documents\\Athena Agent\\self_actualize\\mycelium_brain\\dynamic_neural_network\\14_DEEPER_INTEGRATED_CROSS_SYNTHESIS_NETWORK\\11_6D_WATER_CONTROL",
-  "water_native_basis": ["01", "11", "12", "14"],
-  "translated_support": ["02", "03", "04", "05", "09", "10", "15", "16"],
-  "default_appendices": ["AppE", "AppF", "AppI", "AppM", "AppQ"],
+  "water_native_basis": [
+    "01",
+    "11",
+    "12",
+    "14"
+  ],
+  "translated_support": [
+    "02",
+    "03",
+    "04",
+    "05",
+    "09",
+    "10",
+    "15",
+    "16"
+  ],
+  "default_appendices": [
+    "AppE",
+    "AppF",
+    "AppI",
+    "AppM",
+    "AppQ"
+  ],
   "route_columns": [
     "route_id",
     "basis_refs",

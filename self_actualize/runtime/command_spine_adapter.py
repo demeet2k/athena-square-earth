@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me,Cc,Ω
+# BRIDGES: Xi108:W2:A10:S29→Xi108:W2:A10:S31→Xi108:W1:A10:S30→Xi108:W3:A10:S30→Xi108:W2:A9:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 from dataclasses import asdict, is_dataclass
@@ -56,7 +60,6 @@ BENCHMARK_FIELDS = [
 ]
 relpath = rel
 
-
 def _plain(value: Any) -> Any:
     if isinstance(value, SimpleNamespace):
         return {key: _plain(val) for key, val in vars(value).items()}
@@ -68,7 +71,6 @@ def _plain(value: Any) -> Any:
         return [_plain(item) for item in value]
     return value
 
-
 def _rel_to_root(path: Path | str, root: Path) -> str:
     target = Path(path)
     try:
@@ -76,11 +78,9 @@ def _rel_to_root(path: Path | str, root: Path) -> str:
     except ValueError:
         return target.as_posix()
 
-
 def _write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
-
 
 def _normalized_coord12_frame(frame: Any) -> dict[str, Any]:
     payload = _plain(frame)
@@ -92,7 +92,6 @@ def _normalized_coord12_frame(frame: Any) -> dict[str, Any]:
     payload.setdefault("liminal", payload.get("liminal") or [])
     payload.setdefault("coord12_labels", list(COORD12_LABELS))
     return payload
-
 
 def _normalize_packet_fields(packet: Any) -> Any:
     state_hash = str(getattr(packet, "state_hash", "") or "")
@@ -116,7 +115,6 @@ def _normalize_packet_fields(packet: Any) -> Any:
         route_state.setdefault("policy_id", COMMAND_ROUTE_POLICY)
         packet.route_state = route_state
     return packet
-
 
 class CommandMembraneService(BaseCommandMembraneService):
     def event_path(self, event_id: str) -> Path:
@@ -408,7 +406,6 @@ class CommandMembraneService(BaseCommandMembraneService):
 
     def public_state(self) -> dict[str, Any]:
         return self.sync_public_surfaces()
-
 
 __all__ = [
     "BENCHMARK_FIELDS",

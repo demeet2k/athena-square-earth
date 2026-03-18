@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        WAVELET TRANSFORM MODULE                              ║
@@ -29,7 +33,6 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # WAVELET FAMILIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -43,7 +46,6 @@ class WaveletFamily(Enum):
     MEYER = "meyer"
     MEXICAN_HAT = "mexican_hat"
     MORLET = "morlet"
-
 
 @dataclass
 class WaveletFilter:
@@ -73,7 +75,6 @@ class WaveletFilter:
         
         return abs(sum_lo + sum_hi - 2.0) < tol
 
-
 def haar_filters() -> WaveletFilter:
     """Haar wavelet filters."""
     h = np.array([1, 1]) / np.sqrt(2)
@@ -84,7 +85,6 @@ def haar_filters() -> WaveletFilter:
         rec_lo=h[::-1],
         rec_hi=g[::-1]
     )
-
 
 def daubechies_filters(order: int = 4) -> WaveletFilter:
     """
@@ -122,7 +122,6 @@ def daubechies_filters(order: int = 4) -> WaveletFilter:
         rec_lo=h[::-1],
         rec_hi=g[::-1]
     )
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DISCRETE WAVELET TRANSFORM
@@ -209,7 +208,6 @@ class DiscreteWaveletTransform:
             current = self.reconstruct_level(current, detail)
         
         return current
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MULTI-RESOLUTION ANALYSIS
@@ -304,7 +302,6 @@ class MultiResolutionAnalysis:
         
         return result
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # WAVELET PACKET DECOMPOSITION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -320,7 +317,6 @@ class WaveletPacketNode:
     def is_approximation_path(self) -> bool:
         """Check if this node is on the pure approximation path."""
         return self.index == 0
-
 
 @dataclass
 class WaveletPacketDecomposition:
@@ -435,7 +431,6 @@ class WaveletPacketDecomposition:
         find_best(0, 0)
         return best_basis
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTINUOUS WAVELET TRANSFORM
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -496,7 +491,6 @@ class ContinuousWaveletTransform:
         Compute scalogram (squared magnitude of CWT).
         """
         return np.abs(coeffs) ** 2
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PSI-POLE CONNECTOR
@@ -566,7 +560,6 @@ class PsiPoleConnector:
         kappa = 2 ** scale
         return np.pi / (2 * np.sqrt(kappa))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -595,7 +588,6 @@ def dwt(signal: NDArray, wavelet: str = 'haar', levels: int = None
     transform = DiscreteWaveletTransform(filters)
     return transform.decompose(signal, levels)
 
-
 def idwt(coeffs: List[NDArray], wavelet: str = 'haar') -> NDArray[np.float64]:
     """Inverse discrete wavelet transform."""
     if wavelet == 'haar':
@@ -609,7 +601,6 @@ def idwt(coeffs: List[NDArray], wavelet: str = 'haar') -> NDArray[np.float64]:
     transform = DiscreteWaveletTransform(filters)
     return transform.reconstruct(coeffs)
 
-
 def cwt(signal: NDArray, scales: NDArray, wavelet: str = 'mexican_hat'
        ) -> NDArray[np.complex128]:
     """Continuous wavelet transform."""
@@ -622,14 +613,12 @@ def cwt(signal: NDArray, scales: NDArray, wavelet: str = 'mexican_hat'
     
     return cwt_obj.transform(signal, scales)
 
-
 def wavelet_energy_distribution(signal: NDArray, levels: int = None) -> Dict[int, float]:
     """Compute energy distribution across wavelet scales."""
     coeffs = dwt(signal, levels=levels)
     energies = {i: np.sum(c**2) for i, c in enumerate(coeffs)}
     total = sum(energies.values())
     return {k: v/total for k, v in energies.items()} if total > 0 else energies
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=380 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 from typing import Any
@@ -34,13 +38,11 @@ from self_actualize.runtime.qshrink_refine_common import (
     write_json,
 )
 
-
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_network_integration"
 OUTPUT_CAPSULE_PATH = CAPSULE_ROOT / "02_qshrink_shiva_corpus_ecosystem.md"
 ACTIVE_LOCAL_SUBFRONT = "QS64-24 Connectivity-Refine-Fractal"
 NEXT_HALL_SEED = None
 NEXT_HALL_SEED_DISPLAY = "none; do not invent QS64-25"
-
 
 def build_payload() -> dict[str, Any]:
     refine_square = load_json(QSHRINK_REFINEMENT_SQUARE_PATH, {"truth": "NEAR"})
@@ -128,7 +130,6 @@ def build_payload() -> dict[str, Any]:
     }
     return payload
 
-
 def render_family(payload: dict[str, Any]) -> str:
     return "\n".join(
         [
@@ -177,7 +178,6 @@ def render_family(payload: dict[str, Any]) -> str:
             "",
         ]
     ) + "\n"
-
 
 def render_route_map(payload: dict[str, Any]) -> str:
     rails = "\n".join(
@@ -229,7 +229,6 @@ def render_route_map(payload: dict[str, Any]) -> str:
             "",
             ]
     ) + "\n"
-
 
 def render_active_front(payload: dict[str, Any]) -> str:
     top_pressure = payload["top_priority_pressure"]
@@ -307,7 +306,6 @@ def render_active_front(payload: dict[str, Any]) -> str:
         ]
     ) + "\n"
 
-
 def render_capsule(payload: dict[str, Any]) -> str:
     return "\n".join(
         [
@@ -328,7 +326,6 @@ def render_capsule(payload: dict[str, Any]) -> str:
         ]
     ) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     write_json(QSHRINK_NETWORK_INTEGRATION_PATH, payload)
@@ -342,7 +339,6 @@ def main() -> int:
     print(f"Wrote {QSHRINK_ACTIVE_FRONT_PATH}")
     print(f"Wrote {OUTPUT_CAPSULE_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

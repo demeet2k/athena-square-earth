@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S23 | face=R | node=272 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Ω -->
+<!-- BRIDGES: Xi108:W3:A5:S22→Xi108:W3:A5:S24→Xi108:W2:A5:S23→Xi108:W3:A4:S23→Xi108:W3:A6:S23 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 23±1, wreath 3/3, archetype 5/12 -->
+
 # LP-57Omega Master Plan Receipt
 
 - date: `2026-03-13T18:39:22.974408+00:00`

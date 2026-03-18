@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A2:S26 | face=F | node=333 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A2:S25→Xi108:W3:A2:S27→Xi108:W2:A2:S26→Xi108:W3:A1:S26→Xi108:W3:A3:S26 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 26±1, wreath 3/3, archetype 2/12 -->
+
 # CHAPTER 17: PROP TYPES - THE PHYSICS OF COMMUNICATION CHANNELS
 
 ## Cross-Synthesis: Siteswap Architecture (Ch12-16) x Agent Protocol (Ch11 Section 11.3)

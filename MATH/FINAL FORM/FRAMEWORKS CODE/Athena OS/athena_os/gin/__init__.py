@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - GLOBAL INFORMATION NETWORK (GIN)
 =============================================
@@ -150,7 +154,6 @@ from .invariants import (
     validate_invariants,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -164,7 +167,6 @@ def validate_gin() -> bool:
     assert validate_invariants()
     return True
 
-
 # =============================================================================
 # CONVENIENCE FUNCTIONS
 # =============================================================================
@@ -173,21 +175,17 @@ def create_valuation() -> Valuation:
     """Create a fresh valuation function."""
     return Valuation()
 
-
 def create_agent(agent_id: str) -> Agent:
     """Create a new agent."""
     return Agent(agent_id=agent_id)
-
 
 def create_consensus(n_agents: int = 10) -> ConsensusProtocol:
     """Create a consensus protocol."""
     return ConsensusProtocol(n_agents=n_agents)
 
-
 def create_invariant_checker() -> InvariantChecker:
     """Create an invariant checker."""
     return InvariantChecker()
-
 
 def detect_deadlock(state, actions, valuation, transition, gradient=None):
     """
@@ -206,7 +204,6 @@ def detect_deadlock(state, actions, valuation, transition, gradient=None):
         np.array(gradient) if gradient is not None else None
     )
 
-
 def resolve_deadlock(certificate: DeadlockCertificate,
                     params) -> tuple:
     """
@@ -218,7 +215,6 @@ def resolve_deadlock(certificate: DeadlockCertificate,
     
     descent = DescentOperator()
     return descent.apply(certificate, np.array(params))
-
 
 # =============================================================================
 # EXPORTS
@@ -261,7 +257,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "gin"
-
 
 if __name__ == "__main__":
     print("=" * 70)

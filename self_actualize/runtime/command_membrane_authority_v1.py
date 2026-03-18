@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A10:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S25→Xi108:W2:A10:S27→Xi108:W1:A10:S26→Xi108:W3:A10:S26→Xi108:W2:A9:S26→Xi108:W2:A11:S26
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF_ROOT = ROOT / "self_actualize"
@@ -44,10 +47,8 @@ COMMIT_FEED_PATH = DEEP_ROOT_LEDGER / "35_command_cmt_feed.ndjson"
 REINFORCEMENT_FEED_PATH = DEEP_ROOT_LEDGER / "36_command_rin_feed.ndjson"
 CAPILLARY_LEDGER_PATH = DEEP_ROOT_LEDGER / "37_command_capillary_edge_ledger.json"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def rel(path: Path) -> str:
     try:
@@ -55,21 +56,17 @@ def rel(path: Path) -> str:
     except ValueError:
         return path.as_posix()
 
-
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     write_text(path, json.dumps(payload, indent=2, ensure_ascii=False))
-
 
 def touch(path: Path, default_text: str = "") -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         path.write_text(default_text, encoding="utf-8")
-
 
 def docs_gate() -> dict[str, Any]:
     credentials_exists = DOCS_CREDENTIALS.exists()
@@ -83,7 +80,6 @@ def docs_gate() -> dict[str, Any]:
         "checked_paths": [rel(DOCS_CREDENTIALS), rel(DOCS_TOKEN)],
         "witness_class": "LOCAL_ONLY",
     }
-
 
 def coord12_dimensions() -> list[str]:
     return [
@@ -100,7 +96,6 @@ def coord12_dimensions() -> list[str]:
         "goal_salience_vector",
         "change_novelty_vector",
     ]
-
 
 def registry_payload() -> dict[str, Any]:
     return {
@@ -270,7 +265,6 @@ def registry_payload() -> dict[str, Any]:
         },
     }
 
-
 def mirror_protocol_payload(registry: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": registry["generated_at"],
@@ -282,7 +276,6 @@ def mirror_protocol_payload(registry: dict[str, Any]) -> dict[str, Any]:
         "defaults": registry["defaults"],
         "packet_flow": ["GLOBAL COMMAND", "Scout", "Router", "Worker", "Archivist"],
     }
-
 
 def mirror_schema_payload(registry: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -298,7 +291,6 @@ def mirror_schema_payload(registry: dict[str, Any]) -> dict[str, Any]:
         "capillary_fields": registry["packet_types"]["CapillaryEdgeV1"]["required_fields"],
     }
 
-
 def mirror_capillary_payload(registry: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": registry["generated_at"],
@@ -308,7 +300,6 @@ def mirror_capillary_payload(registry: dict[str, Any]) -> dict[str, Any]:
         **registry["capillary_reinforcement"],
     }
 
-
 def mirror_latency_payload(registry: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": registry["generated_at"],
@@ -317,7 +308,6 @@ def mirror_latency_payload(registry: dict[str, Any]) -> dict[str, Any]:
         "compatibility_only": True,
         **registry["latency_benchmarks"],
     }
-
 
 def manifest_markdown(registry: dict[str, Any]) -> str:
     return f"""# COMMAND Membrane Protocol V1
@@ -359,7 +349,6 @@ Command root: `{registry["command_root"]}`
 - Formula: `{registry["latency_benchmarks"]["formula"]}`
 """
 
-
 def build_protocol_artifacts() -> dict[str, Any]:
     registry = registry_payload()
     touch(EVENT_FEED_PATH)
@@ -375,7 +364,6 @@ def build_protocol_artifacts() -> dict[str, Any]:
     write_json(NEXT57_LATENCY_BENCHMARKS_PATH, mirror_latency_payload(registry))
     write_text(MANIFEST_PATH, manifest_markdown(registry))
     return registry
-
 
 def verify_protocol_artifacts() -> dict[str, Any]:
     registry = build_protocol_artifacts()

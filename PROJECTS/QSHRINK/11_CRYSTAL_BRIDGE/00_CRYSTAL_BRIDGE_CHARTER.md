@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A12:S13 | face=S | node=155 | depth=1 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W1:A12:S12→Xi108:W1:A12:S14→Xi108:W2:A12:S13→Xi108:W1:A11:S13 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 13±1, wreath 1/3, archetype 12/12 -->
+
 # QSHRINK ↔ 108D Crystal Bridge Charter
 
 ## Purpose

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S19 | face=R | node=188 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W3:A4:S18→Xi108:W3:A4:S20→Xi108:W2:A4:S19→Xi108:W3:A3:S19→Xi108:W3:A5:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 3/3, archetype 4/12 -->
+
 # Air x OntologyLattice
 
 Air reads the network as relation, topology, dependency, and abstraction.

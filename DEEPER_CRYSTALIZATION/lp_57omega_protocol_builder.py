@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me,Ω
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 from __future__ import annotations
 
 import argparse
@@ -119,7 +123,6 @@ HSIGMA_AUTHORITY_CHAIN = [
     "NERVOUS_SYSTEM/95_MANIFESTS/FOUR_AGENT_57_LOOP_PROGRAM.json",
 ]
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build the canonical LP-57Omega protocol layer.")
     parser.set_defaults(as_json=False)
@@ -129,10 +132,8 @@ def parse_args() -> argparse.Namespace:
     parser.set_defaults(command="build")
     return parser.parse_args()
 
-
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def project_relative(path: Path) -> str:
     try:
@@ -143,7 +144,6 @@ def project_relative(path: Path) -> str:
         except ValueError:
             return str(path.resolve())
 
-
 def live_docs_error() -> str:
     if not LIVE_DOCS_RECEIPT_PATH.exists():
         return "Error: Missing OAuth client file: credentials.json"
@@ -152,18 +152,14 @@ def live_docs_error() -> str:
             return line.strip()
     return "Google Docs gate blocked."
 
-
 def raw_dense_65_payloads() -> dict[str, Any]:
     return build_dense_65_canonical_payloads("BLOCKED")
-
 
 def dense_65_canonical_payloads() -> dict[str, Any]:
     return raw_dense_65_payloads()
 
-
 def dense_65_transfer_index(transfer_registry: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {record["record_id"]: record for record in transfer_registry["records"]}
-
 
 def dense_65_counts(
     shell_registry: dict[str, Any],
@@ -183,21 +179,16 @@ def dense_65_counts(
     )
     return counts
 
-
 def shell_registry_payload() -> dict[str, Any]:
     return dense_65_canonical_payloads()["shell_registry"]
-
 
 def transfer_registry_payload() -> dict[str, Any]:
     return dense_65_canonical_payloads()["transfer_registry"]
 
-
 def shell_counts() -> dict[str, int]:
     return dense_65_counts(shell_registry_payload(), transfer_registry_payload())
 
-
 ENRICHED_TRANSFER_RECORDS = transfer_registry_payload()["records"]
-
 
 def render_dense_block(shell_registry: dict[str, Any], transfer_registry: dict[str, Any]) -> str:
     transfer_index = dense_65_transfer_index(transfer_registry)
@@ -245,7 +236,6 @@ def render_dense_block(shell_registry: dict[str, Any], transfer_registry: dict[s
         )
     return "\n".join(lines)
 
-
 def render_orientation_bindings_markdown(orientation_bindings: list[dict[str, Any]]) -> list[str]:
     lines: list[str] = []
     for binding in orientation_bindings:
@@ -261,14 +251,12 @@ def render_orientation_bindings_markdown(orientation_bindings: list[dict[str, An
         )
     return lines
 
-
 def replace_or_append_section(text: str, heading: str, body_lines: list[str]) -> str:
     block = "\n".join([heading, "", *body_lines]).rstrip() + "\n"
     pattern = re.compile(rf"(?ms)^{re.escape(heading)}\n.*?(?=^## |\Z)")
     if pattern.search(text):
         return pattern.sub(block, text).rstrip() + "\n"
     return text.rstrip() + "\n\n" + block
-
 
 def replace_block(text: str, start_marker: str, end_marker: str, body: str) -> str:
     pattern = re.compile(rf"{re.escape(start_marker)}.*?{re.escape(end_marker)}", re.S)
@@ -277,14 +265,11 @@ def replace_block(text: str, start_marker: str, end_marker: str, body: str) -> s
         return pattern.sub(replacement, text)
     return text.rstrip() + "\n\n" + replacement + "\n"
 
-
 def replace_line(text: str, pattern: str, replacement: str) -> str:
     return re.sub(pattern, replacement, text, count=1, flags=re.MULTILINE)
 
-
 def parse_loop_number(loop_id: str) -> int:
     return int(loop_id.lstrip("L"))
-
 
 def reconcile_hsigma_authority_truth() -> None:
     current_loop_id = "L01"
@@ -398,7 +383,6 @@ def reconcile_hsigma_authority_truth() -> None:
     }
     write_json(HSIGMA_PROGRAM_PATH, public_program)
 
-
 def hsigma_authority_payloads() -> dict[str, Any]:
     return {
         "machine_core": load_json(HSIGMA_MACHINE_CORE_PATH),
@@ -406,7 +390,6 @@ def hsigma_authority_payloads() -> dict[str, Any]:
         "program": load_json(HSIGMA_PROGRAM_PATH),
         "quest_packets": load_json(HSIGMA_QUEST_PACKETS_PATH),
     }
-
 
 def hsigma_control_stack(machine_core: dict[str, Any], program: dict[str, Any]) -> list[str]:
     startup = machine_core["startup_control_story"]
@@ -420,14 +403,11 @@ def hsigma_control_stack(machine_core: dict[str, Any], program: dict[str, Any]) 
         startup["blocked_external_frontier"],
     ]
 
-
 def canonical_loop_state_text(current_loop_id: str, next_loop_id: str) -> str:
     return f"{current_loop_id} complete / {next_loop_id} seeded"
 
-
 def loop_ledger_index(loops: list[dict[str, Any]]) -> dict[int, dict[str, Any]]:
     return {int(loop["loop_index"]): loop for loop in loops}
-
 
 def canonicalize_runner_manifest(
     runner_manifest: dict[str, Any],
@@ -493,7 +473,6 @@ def canonicalize_runner_manifest(
     )
     return canonical_runner
 
-
 def enforce_hsigma_runner_state(
     runner_manifest: dict[str, Any],
     authority: dict[str, Any],
@@ -526,7 +505,6 @@ def enforce_hsigma_runner_state(
     )
     return payload
 
-
 def enforce_hsigma_protocol_state(
     protocol_manifest: dict[str, Any],
     authority: dict[str, Any],
@@ -550,7 +528,6 @@ def enforce_hsigma_protocol_state(
         }
     )
     return payload
-
 
 def seeded_l02_packet_bundle(protocol_manifest: dict[str, Any]) -> dict[str, Any]:
     restart_seed = "L02 Packet Truth Sync [SEEDED_ONLY]"
@@ -666,13 +643,11 @@ def seeded_l02_packet_bundle(protocol_manifest: dict[str, Any]) -> dict[str, Any
         "restart_seed": restart_seed,
     }
 
-
 def render_seeded_packet_lines(packets: list[dict[str, Any]]) -> list[str]:
     return [
         f"- `{packet['packet_id']}` {packet['objective']} :: state `{packet['state']}` :: restart `{packet['restart_seed']}`"
         for packet in packets
     ]
-
 
 def sync_hsigma_seeded_packet_sources(protocol_manifest: dict[str, Any]) -> dict[str, Any]:
     seed_bundle = seeded_l02_packet_bundle(protocol_manifest)
@@ -734,7 +709,6 @@ def sync_hsigma_seeded_packet_sources(protocol_manifest: dict[str, Any]) -> dict
     write_json(HSIGMA_PROGRAM_PATH, public_program)
     return seed_bundle
 
-
 def write_hsigma_reconciliation_receipt(protocol_manifest: dict[str, Any], seed_bundle: dict[str, Any]) -> None:
     receipt_lines = [
         "# LP-57Omega HΣ-First Reconciliation and L02 Seed Receipt",
@@ -766,13 +740,11 @@ def write_hsigma_reconciliation_receipt(protocol_manifest: dict[str, Any], seed_
     ]
     write_text(HSIGMA_RECONCILIATION_RECEIPT_PATH, "\n".join(receipt_lines) + "\n")
 
-
 def legacy_records_index() -> dict[str, dict[str, Any]]:
     if not LEGACY_CYCLE_RECORDS_PATH.exists():
         return {}
     payload = load_json(LEGACY_CYCLE_RECORDS_PATH)
     return {record["loop_id"]: record for record in payload.get("records", [])}
-
 
 def coerce_advancement_tuple(value: Any) -> dict[str, Any]:
     if isinstance(value, dict):
@@ -792,7 +764,6 @@ def coerce_advancement_tuple(value: Any) -> dict[str, Any]:
             if item not in (None, "")
         }
     return {}
-
 
 def merged_loop_catalog(loops: list[dict[str, Any]]) -> list[dict[str, Any]]:
     legacy = legacy_records_index()
@@ -828,7 +799,6 @@ def merged_loop_catalog(loops: list[dict[str, Any]]) -> list[dict[str, Any]]:
         )
     return merged
 
-
 def render_executive_overview(runner_manifest: dict[str, Any]) -> str:
     return "\n".join(
         [
@@ -859,7 +829,6 @@ def render_executive_overview(runner_manifest: dict[str, Any]) -> str:
             "- restart seeds move the organism forward without losing traceability",
         ]
     ) + "\n"
-
 
 def render_master_loop_framework() -> str:
     lines = ["# Master Loop Framework", "", "## Four-Master Cycle", ""]
@@ -910,7 +879,6 @@ def render_master_loop_framework() -> str:
     )
     return "\n".join(lines) + "\n"
 
-
 def render_coordinate_standard() -> str:
     return "\n".join(
         [
@@ -951,7 +919,6 @@ def render_coordinate_standard() -> str:
         ]
     ) + "\n"
 
-
 def render_ledger_standard() -> str:
     lines = ["# Agent Ledger Standard", "", "## Required Fields", ""]
     lines.extend([f"- `{field}`" for field in LEDGER_FIELDS])
@@ -966,7 +933,6 @@ def render_ledger_standard() -> str:
         ]
     )
     return "\n".join(lines) + "\n"
-
 
 def render_loop_plan(loop_catalog: list[dict[str, Any]]) -> str:
     lines = ["# 57-Loop Plan", ""]
@@ -990,7 +956,6 @@ def render_loop_plan(loop_catalog: list[dict[str, Any]]) -> str:
         )
     return "\n".join(lines) + "\n"
 
-
 def render_final_synthesis() -> str:
     return "\n".join(
         [
@@ -1010,7 +975,6 @@ def render_final_synthesis() -> str:
         ]
     ) + "\n"
 
-
 def coordinate_schema() -> dict[str, Any]:
     return {
         "protocol_id": PROTOCOL_ID,
@@ -1025,7 +989,6 @@ def coordinate_schema() -> dict[str, Any]:
         },
     }
 
-
 def ledger_schema() -> dict[str, Any]:
     return {
         "protocol_id": PROTOCOL_ID,
@@ -1037,7 +1000,6 @@ def ledger_schema() -> dict[str, Any]:
             "requires_delta_per_loop": True,
         },
     }
-
 
 def nested_lattice() -> dict[str, Any]:
     return {
@@ -1062,7 +1024,6 @@ def nested_lattice() -> dict[str, Any]:
         },
         "master_agents": MASTER_AGENT_SPECS,
     }
-
 
 def protocol_state(
     shell_registry: dict[str, Any],
@@ -1107,7 +1068,6 @@ def protocol_state(
         "super_cycle_status": super_cycle_manifest["status"],
     }
 
-
 def compatibility_witnesses() -> dict[str, Any]:
     paths = [
         LIVE_DOCS_RECEIPT_PATH,
@@ -1129,7 +1089,6 @@ def compatibility_witnesses() -> dict[str, Any]:
         "legacy_mirror_policy": "reuse as compatibility witnesses, not independent authority",
         "canonical_authority": project_relative(OUTPUT_MANIFEST_PATH),
     }
-
 
 def render_shell_spec(
     shell_registry: dict[str, Any] | None = None,
@@ -1176,7 +1135,6 @@ def render_shell_spec(
         ]
     ) + "\n"
 
-
 def render_transfer_witness_markdown(transfer_registry: dict[str, Any] | None = None) -> str:
     transfer_registry = transfer_registry or transfer_registry_payload()
     orientation_binding_count = sum(len(record["orientation_bindings"]) for record in transfer_registry["records"])
@@ -1219,7 +1177,6 @@ def render_transfer_witness_markdown(transfer_registry: dict[str, Any] | None = 
             )
             lines.extend(render_orientation_bindings_markdown(bindings))
     return "\n".join(lines).rstrip() + "\n"
-
 
 def render_pointer_witness_markdown(pointer_registry: dict[str, Any]) -> str:
     lines = [
@@ -1271,7 +1228,6 @@ def render_pointer_witness_markdown(pointer_registry: dict[str, Any]) -> str:
                 lines.append(f"- Hidden pole: `{record['hidden_pole']}`")
             lines.extend(["", "```json", json.dumps(record["pointers"], indent=2), "```", ""])
     return "\n".join(lines).rstrip() + "\n"
-
 
 def render_shell_supplement(shell_registry: dict[str, Any] | None = None, transfer_registry: dict[str, Any] | None = None) -> str:
     shell_registry = shell_registry or shell_registry_payload()
@@ -1327,7 +1283,6 @@ def render_shell_supplement(shell_registry: dict[str, Any] | None = None, transf
         ]
     ) + "\n"
 
-
 def render_transfer_supplement(transfer_registry: dict[str, Any] | None = None) -> str:
     transfer_registry = transfer_registry or transfer_registry_payload()
     return "\n".join(
@@ -1367,7 +1322,6 @@ def render_transfer_supplement(transfer_registry: dict[str, Any] | None = None) 
             "The registry is supplements-facing documentation of the runtime shell object and is not part of the strict spine.",
         ]
     ) + "\n"
-
 
 def ensure_supplement_entries() -> dict[str, Any]:
     registry = load_json(MANUSCRIPT_MANIFEST_PATH)
@@ -1415,13 +1369,11 @@ def ensure_supplement_entries() -> dict[str, Any]:
     write_json(MANUSCRIPT_MANIFEST_PATH, registry)
     return registry
 
-
 def publish_supplements(shell_registry: dict[str, Any], transfer_registry: dict[str, Any]) -> dict[str, Any]:
     ensure_supplement_entries()
     write_text(SHELL_SUPPLEMENT_PATH, render_shell_supplement(shell_registry, transfer_registry))
     write_text(TRANSFER_SUPPLEMENT_PATH, render_transfer_supplement(transfer_registry))
     return build_manuscript_volumes(MANUSCRIPT_MANIFEST_PATH)
-
 
 def update_runner_manifest(shell_manifest: dict[str, Any], runner_manifest: dict[str, Any]) -> None:
     payload = load_json(RUNNER_MANIFEST_PATH)
@@ -1453,7 +1405,6 @@ def update_runner_manifest(shell_manifest: dict[str, Any], runner_manifest: dict
     payload["base3_antispin_lock"] = BASE3_ANTISPIN_LOCK
     write_json(RUNNER_MANIFEST_PATH, payload)
 
-
 def update_active_readme(manifest: dict[str, Any]) -> None:
     text = ACTIVE_README_PATH.read_text(encoding="utf-8")
     bullet = (
@@ -1477,7 +1428,6 @@ def update_active_readme(manifest: dict[str, Any]) -> None:
     text = replace_or_append_section(text, "## LP-57Omega Protocol State", section_lines)
     text = replace_line(text, r"^- Supplement entries: `\d+`$", f"- Supplement entries: `{manifest['supplement_entry_count']}`")
     write_text(ACTIVE_README_PATH, text)
-
 
 def update_full_stack_manifest(manifest: dict[str, Any]) -> None:
     payload = load_json(FULL_STACK_MANIFEST_PATH)
@@ -1508,7 +1458,6 @@ def update_full_stack_manifest(manifest: dict[str, Any]) -> None:
         payload["layers"]["canonical_spine_registry"]["supplement_entry_ids"] = manifest["supplement_entry_ids"]
     write_json(FULL_STACK_MANIFEST_PATH, payload)
 
-
 def sync_compatibility_markdown(protocol_manifest: dict[str, Any]) -> None:
     protocol_markdown = "\n".join(
         [
@@ -1533,7 +1482,6 @@ def sync_compatibility_markdown(protocol_manifest: dict[str, Any]) -> None:
         ]
     )
     write_text(LEGACY_PROTOCOL_MARKDOWN_PATH, protocol_markdown)
-
 
 def sync_b_prime_pointer_compatibility(protocol_manifest: dict[str, Any]) -> None:
     compatibility_markdown = "\n".join(
@@ -1563,7 +1511,6 @@ def sync_b_prime_pointer_compatibility(protocol_manifest: dict[str, Any]) -> Non
     ) + "\n"
     write_text(FLEET_B_PRIME_COMPAT_PATH, compatibility_markdown)
     write_text(SELF_B_PRIME_COMPAT_PATH, compatibility_markdown)
-
 
 def sync_external_protocol_state(protocol_manifest: dict[str, Any], loop_catalog: list[dict[str, Any]]) -> None:
     state_payload = {
@@ -1620,7 +1567,6 @@ def sync_external_protocol_state(protocol_manifest: dict[str, Any], loop_catalog
             ],
         },
     )
-
 
 def sync_runtime_surfaces(protocol_manifest: dict[str, Any]) -> None:
     seed_bundle = seeded_l02_packet_bundle(protocol_manifest)
@@ -1806,7 +1752,6 @@ def sync_runtime_surfaces(protocol_manifest: dict[str, Any]) -> None:
         text = replace_or_append_section(text, "## Current Temple Packets", temple_seed_lines)
         write_text(BUILD_QUEUE_PATH, text)
 
-
 def build_protocol() -> dict[str, Any]:
     reconcile_hsigma_authority_truth()
     authority = hsigma_authority_payloads()
@@ -1970,7 +1915,6 @@ def build_protocol() -> dict[str, Any]:
     write_hsigma_reconciliation_receipt(manifest, final_seed_bundle)
     return manifest
 
-
 def main() -> None:
     args = parse_args()
     manifest = build_protocol()
@@ -1979,7 +1923,6 @@ def main() -> None:
     else:
         print(f"Built {PROTOCOL_ID} at {LAYER_ROOT}")
         print(f"Runtime manifest: {OUTPUT_MANIFEST_PATH}")
-
 
 if __name__ == "__main__":
     main()

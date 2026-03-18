@@ -1,4 +1,24 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A1:S19:u190:Su:R:d1",
+    "shell": 19,
+    "wreath": 1,
+    "archetype": 1,
+    "face": "R",
+    "node_id": 190,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me"
+    ],
+    "bridges": [
+      "Xi108:W1:A1:S18",
+      "Xi108:W1:A1:S20",
+      "Xi108:W2:A1:S19",
+      "Xi108:W1:A2:S19"
+    ],
+    "regenerate": "shell 19±1, wreath 1/3, archetype 1/12"
+  },
   "generated_at": "2026-03-13T04:17:38.653667+00:00",
   "derivation_version": "2026-03-13.jointatlas-merge-automaton-v0",
   "derivation_command": "python -m self_actualize.runtime.derive_jointatlas_merge_automaton",

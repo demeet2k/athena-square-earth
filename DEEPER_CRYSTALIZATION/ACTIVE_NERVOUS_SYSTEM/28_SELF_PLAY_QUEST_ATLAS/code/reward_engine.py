@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 """
 RewardEngine.v1 — Full Settlement Engine
 
@@ -23,7 +27,6 @@ from .types import (
 )
 from .leveling_engine import amplifier
 
-
 # ═══════════════════════════════════════════════════════════════
 # TRUTH GATE
 # ═══════════════════════════════════════════════════════════════
@@ -35,7 +38,6 @@ def truth_gate(truth: Truth4) -> float:
     if truth == Truth4.NEAR:
         return GAMMA_NEAR
     return GAMMA_ZERO  # AMBIG, FAIL
-
 
 # ═══════════════════════════════════════════════════════════════
 # QUALITY LAW
@@ -53,7 +55,6 @@ def quality_score(elemental: Vec4, pass_weights: tuple) -> float:
         + elemental.earth * pass_weights[3]
     )
     return max(0.0, min(1.0, raw))
-
 
 # ═══════════════════════════════════════════════════════════════
 # SETTLEMENT
@@ -150,7 +151,6 @@ def settle_quest(
         settled_mint=settled_mint,
         settled_vesting=settled_vesting,
     )
-
 
 # ═══════════════════════════════════════════════════════════════
 # EPOCH CLAMP

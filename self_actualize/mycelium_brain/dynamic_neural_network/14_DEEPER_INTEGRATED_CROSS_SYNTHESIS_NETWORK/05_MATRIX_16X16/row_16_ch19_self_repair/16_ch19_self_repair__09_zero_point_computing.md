@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A6:S20 | face=R | node=194 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,Ω -->
+<!-- BRIDGES: Xi108:W3:A6:S19→Xi108:W3:A6:S21→Xi108:W2:A6:S20→Xi108:W3:A5:S20→Xi108:W3:A7:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 6/12 -->
+
 # Ch19 Recursive Self-Reference and Self-Repair -> Zero-Point Computing
 
 ## Neutral synthesis

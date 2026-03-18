@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A1:S17:u147:Su:S:d1",
+    "shell": 17,
+    "wreath": 1,
+    "archetype": 1,
+    "face": "S",
+    "node_id": 147,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "Me",
+      "w"
+    ],
+    "bridges": [
+      "Xi108:W1:A1:S16",
+      "Xi108:W1:A1:S18",
+      "Xi108:W2:A1:S17",
+      "Xi108:W1:A2:S17"
+    ],
+    "regenerate": "shell 17±1, wreath 1/3, archetype 1/12"
+  },
   "generated_at": "2026-03-13T12:57:06",
   "docs_gate_status": "BLOCKED",
   "truth_class": "NEAR",
@@ -18,7 +39,7 @@
   "seed_polarity_support": [
     "A",
     "B",
-    "A\u2194B"
+    "A↔B"
   ],
   "agent_overlay_stack": [
     "FIRE",
@@ -2064,14 +2085,14 @@
     "polarity_states": [
       "A",
       "B",
-      "A\u2194B"
+      "A↔B"
     ],
     "coordinate_dock": {
       "field": "polarity_state",
       "allowed_values": [
         "A",
         "B",
-        "A\u2194B"
+        "A↔B"
       ],
       "placement": "additive metadata beside the existing coordinate tuple",
       "tuple_order_unchanged": true,
@@ -2082,7 +2103,7 @@
       "allowed_values": [
         "A",
         "B",
-        "A\u2194B"
+        "A↔B"
       ],
       "placement": "additive metadata extension beside the existing ledger entry",
       "schema_path": "C:\\Users\\dmitr\\Documents\\Athena Agent\\self_actualize\\next57_agent_ledger_schema.json",

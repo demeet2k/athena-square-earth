@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - ZOROASTRIAN: BINARY FIELD MODULE
 =============================================
@@ -34,7 +38,6 @@ from typing import Dict, List, Set, Optional, Tuple, Callable, Any, Union
 from enum import Enum, auto
 import numpy as np
 
-
 # =============================================================================
 # POLARITY STATES
 # =============================================================================
@@ -57,7 +60,6 @@ class Polarity(Enum):
     def enforce(cls, value: float) -> int:
         """Enforce polarity on any value."""
         return 1 if value >= 0 else -1
-
 
 # =============================================================================
 # SPIN OPERATORS
@@ -102,7 +104,6 @@ class SpinOperator:
     def is_lie(self) -> bool:
         return self.polarity == Polarity.NEGATIVE
 
-
 # Create the primordial operators
 AHURA_MAZDA = SpinOperator(
     name="Ahura_Mazda",
@@ -117,7 +118,6 @@ ANGRA_MAINYU = SpinOperator(
     generative=False,
     entropy_change=1.0   # Entropic
 )
-
 
 # =============================================================================
 # ASHA AND DRUJ
@@ -158,7 +158,6 @@ class AshaVector:
     @property
     def vector(self) -> np.ndarray:
         return self._vector.copy()
-
 
 class DrujOperator:
     """
@@ -202,7 +201,6 @@ class DrujOperator:
         max_diff = 2 * np.linalg.norm(original)
         
         return float(diff / max_diff) if max_diff > 0 else 0.0
-
 
 # =============================================================================
 # BINARY FIELD
@@ -400,7 +398,6 @@ class BinaryField:
         """Check if field is fully ordered (all same spin)."""
         return abs(self._magnetization) > 0.99
 
-
 # =============================================================================
 # RECURSION HAZARD (THE LIE)
 # =============================================================================
@@ -451,7 +448,6 @@ class DrujRecursion:
     @property
     def wasted_cycles(self) -> int:
         return self._iterations if self._trapped else 0
-
 
 class AziDahaka:
     """
@@ -506,7 +502,6 @@ class AziDahaka:
     @property
     def is_bound(self) -> bool:
         return self._bound
-
 
 # =============================================================================
 # VALIDATION
@@ -597,7 +592,6 @@ def validate_binary_field() -> bool:
     assert result["status"] == "BOUND"  # Cannot wake while bound
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Zoroastrian Binary Field Module...")

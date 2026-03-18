@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """Filesystem-backed memory store.
 
 The :class:`~atlasforge.memory.store.MemoryStore` persists :class:`~atlasforge
@@ -28,7 +32,6 @@ from atlasforge.memory.index import MemoryIndex
 from atlasforge.memory.graph import GraphStore
 from atlasforge.memory.session import SessionRecord, SessionStore
 from atlasforge.memory.bootstrap import builtin_seed_entries
-
 
 class MemoryStore:
     """A tiny persistent knowledge base for AtlasForge.
@@ -328,7 +331,6 @@ class MemoryStore:
             extra=extra_dict,
         )
         return self.add(entry)
-
 
     # ---------------------------------------------------------------------
     # KNOWLEDGE SCHEMA CONVENIENCE
@@ -709,7 +711,6 @@ class MemoryStore:
             self._active_session.add_recipe(recipe_hash)
 
         return entry_hash
-
 
     # ------------------------------------------------------------------
     # Graph closure / dependency utilities

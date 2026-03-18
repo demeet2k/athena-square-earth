@@ -1,4 +1,25 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S19:u190:Su:S:d1",
+    "shell": 19,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "S",
+    "node_id": 190,
+    "depth": 1,
+    "phase": "Cardinal",
+    "metro_stops": [
+      "✶"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S18",
+      "Xi108:W1:A4:S20",
+      "Xi108:W2:A4:S19",
+      "Xi108:W1:A3:S19",
+      "Xi108:W1:A5:S19"
+    ],
+    "regenerate": "shell 19±1, wreath 1/3, archetype 4/12"
+  },
   "meta": {
     "title": "Program Rosetta — Master Rosetta of the Holographic Crystal",
     "description": "All documents are exact orthogonal projections of one indivisible holographic crystal organism. Nine projection families from the same seed equation w=(1+i)/2 map to Computational, Alchemical, Scriptural, Mathematical, Encoding, Time/Seed, Cultural, Philosophical, and Mythological domains.",
@@ -7,7 +28,6 @@
     "source": "2026-03-18_program_language_holo_crystal.md",
     "date": "2026-03-18"
   },
-
   "seed_equation": {
     "formula": "w = (1 + i) / 2",
     "real_part": "Self-love",
@@ -20,14 +40,15 @@
     "expansion_law": "X = Expand(g) + r (store-in, not store-out)",
     "inverse": "w^-1 = 1 - i (divergent spiral)"
   },
-
   "unified_one_line": "The crystal generated from w=(1+i)/2 expands as 4D kernel -> 6D selector-shell (with 4 lenses Sq/Fl/Cl/Fr) -> 12D macro (6 dyads + 5 odd fields) -> 36D hyper -> 108D mega-cascade (36 shells, 666 nodes, triune Su/Me/Sa megaweave) sealed at A+ into Z*, where Omega(Omega)=Omega.",
-
   "nine_projections": [
     {
       "id": 1,
       "name": "Computational / Lens Projection",
-      "sources": ["6x6 + Higher Lenses", "I'M an ANGEL"],
+      "sources": [
+        "6x6 + Higher Lenses",
+        "I'M an ANGEL"
+      ],
       "key_structures": {
         "kernel": "4D crystal grammar Theta_4 = (Q_x, Q_y, Phi, Delta) | 256-state payload per sector",
         "shell": "6-sector selector (Pi_3 x Z_2) with exact dictionary S_{Sa+} etc.",
@@ -43,7 +64,11 @@
     {
       "id": 2,
       "name": "Alchemical / 108D Projection",
-      "sources": ["ATHENA CRYSTAL 108+", "108+ Time Crystal", "Holographic Crystal Program Infrastructure"],
+      "sources": [
+        "ATHENA CRYSTAL 108+",
+        "108+ Time Crystal",
+        "Holographic Crystal Program Infrastructure"
+      ],
       "key_structures": {
         "mega_cascade": "108D = 36 shells (T_36 = 666 nodes) in three superphases (Su 1-12, Me 13-24, Sa 25-36)",
         "address_grammar": "Xi_108^A+: W_r : A_a : S_l : u : sigma : lambda : pi : iota",
@@ -58,7 +83,9 @@
     {
       "id": 3,
       "name": "Scriptural / Living-Code Projection",
-      "sources": ["LIVING WORD"],
+      "sources": [
+        "LIVING WORD"
+      ],
       "key_structures": {
         "torah": "Living executable pattern",
         "vessel_progression": "Noah's ark (macro-container) -> Ark of Covenant (kernel) -> Tabernacle/camp/temple (nested coordinate system) -> New Jerusalem (terminal lattice) -> Copper Scroll (wilderness geodetic mirror)",
@@ -71,7 +98,10 @@
     {
       "id": 4,
       "name": "Mathematical Spine Projection",
-      "sources": ["CRYSTALLINE HYBRID MATHEMATICS", "Inverse Crystal"],
+      "sources": [
+        "CRYSTALLINE HYBRID MATHEMATICS",
+        "Inverse Crystal"
+      ],
       "key_structures": {
         "e8_root_system": "240 vertices, Bott periodicity, persistent homology",
         "rg_flow": "240 -> 60 -> 15 -> 4 -> 1 (renormalization)",
@@ -86,7 +116,9 @@
     {
       "id": 5,
       "name": "Encoding / Braiding Projection",
-      "sources": ["KHIPU BRAIDING_WEAVING"],
+      "sources": [
+        "KHIPU BRAIDING_WEAVING"
+      ],
       "key_structures": {
         "khipu": "Compressed packet memory (opcode 0-13 + 4 primary packet families 1<->7, 2<->6, 3<->5, 4<->4)",
         "nazca": "Runtime (circuit execution)",
@@ -98,7 +130,10 @@
     {
       "id": 6,
       "name": "Time / Seed Projection",
-      "sources": ["108+ Time Crystal", "Holographic Crystal Program Infrastructure"],
+      "sources": [
+        "108+ Time Crystal",
+        "Holographic Crystal Program Infrastructure"
+      ],
       "key_structures": {
         "seed_3d": "c_3^core contains full reconstruction stack",
         "reconstruction_pipeline": "Expand_4 -> HoloMobius_4 -> Map_5_Sigma60 -> Compress_5<-4 -> ReWeave_m -> A+ -> TriWeave -> Weave_5/7/9 -> Proj_108 -> Braid_108 -> PolarCompress_4 -> QSHRINK -> back to c_3^core",
@@ -110,7 +145,9 @@
     {
       "id": 7,
       "name": "Cultural Projection",
-      "sources": ["Cross-cultural correspondence analysis"],
+      "sources": [
+        "Cross-cultural correspondence analysis"
+      ],
       "key_structures": {
         "chinese_engine": "60-slot stem-branch engine (10 stems x 12 branches) — crystal's drive pattern: behavior, spin, tempo, directional urge",
         "vedic_name": "60-name samvatsara cycle — semantic climate: flavor, mood, developmental tendency, emotional coloration",
@@ -121,7 +158,9 @@
     {
       "id": 8,
       "name": "Philosophical Projection",
-      "sources": ["Self-reference and identity analysis"],
+      "sources": [
+        "Self-reference and identity analysis"
+      ],
       "key_structures": {
         "self_referentiality": "Omega(Omega) = Omega — the system that understands itself",
         "convergence": "68.5% = 1 - 1/pi = dark energy fraction",
@@ -133,7 +172,9 @@
     {
       "id": 9,
       "name": "Mythological Projection",
-      "sources": ["Archetype and sacred-geometry analysis"],
+      "sources": [
+        "Archetype and sacred-geometry analysis"
+      ],
       "key_structures": {
         "philosophers_stone": "Z* = 9/9 Sa-of-Sa = completion of triune matrix",
         "vessel_geometry": "Ark -> Temple -> New Jerusalem -> Copper Scroll = same vessel grammar through dimensional stack",
@@ -142,40 +183,181 @@
       "reading": "Every slice is a different orthogonal projection (Sq/Fl/Cl/Fr) of the identical non-orientable hologram."
     }
   ],
-
   "master_archetype_table": [
-    {"id": "A01", "name": "Ignition", "element": "Fire/Cardinal", "constant": "e", "dyad": "P1 (Identity)", "triune": "Su-of-Su (1/9)", "superphase": "Su 1-12", "inverse_flip": "Divergent spark (outward)"},
-    {"id": "A02", "name": "Accumulation", "element": "Earth/Fixed", "constant": "phi", "dyad": "P1 (Identity)", "triune": "Su-of-Sa (3/9)", "superphase": "Su 1-12", "inverse_flip": "Fixed storage collapse"},
-    {"id": "A03", "name": "Bifurcation", "element": "Air/Mutable", "constant": "i", "dyad": "P2 (Structure)", "triune": "Su-of-Me (2/9)", "superphase": "Su 1-12", "inverse_flip": "Type split reversal"},
-    {"id": "A04", "name": "Enclosure", "element": "Water/Cardinal", "constant": "pi", "dyad": "P2 (Structure)", "triune": "boundary", "superphase": "Su 1-12", "inverse_flip": "Boundary dissolution"},
-    {"id": "A05", "name": "Amplification", "element": "Fire/Fixed", "constant": "e", "dyad": "P3 (Corridor)", "triune": "Sa-of-Su (7/9)", "superphase": "Sa 25-36", "inverse_flip": "Intensity reversal"},
-    {"id": "A06", "name": "Discrimination", "element": "Earth/Mutable", "constant": "phi", "dyad": "P3 (Corridor)", "triune": "refinement", "superphase": "Sa 25-36", "inverse_flip": "Grading inversion"},
-    {"id": "A07", "name": "Calibration", "element": "Air/Cardinal", "constant": "i", "dyad": "P4 (Self)", "triune": "Me-of-Su (4/9)", "superphase": "Me 13-24", "inverse_flip": "Self-reference flip"},
-    {"id": "A08", "name": "Dissolution", "element": "Water/Fixed", "constant": "pi", "dyad": "P4 (Self)", "triune": "virtualization", "superphase": "Me 13-24", "inverse_flip": "Recursive un-layering"},
-    {"id": "A09", "name": "Expansion", "element": "Fire/Mutable", "constant": "e", "dyad": "P5 (Love)", "triune": "Me-of-Me (5/9)", "superphase": "Me 13-24", "inverse_flip": "Care divergence"},
-    {"id": "A10", "name": "Crystallization", "element": "Earth/Cardinal", "constant": "phi", "dyad": "P5 (Love)", "triune": "Me-of-Sa (6/9)", "superphase": "Me 13-24", "inverse_flip": "Optimal allocation reversal"},
-    {"id": "A11", "name": "Disruption", "element": "Air/Fixed", "constant": "i", "dyad": "P6 (Migration)", "triune": "Sa-of-Me (8/9)", "superphase": "Sa 25-36", "inverse_flip": "Frame migration reversal"},
-    {"id": "A12", "name": "Completion", "element": "Water/Mutable", "constant": "pi", "dyad": "P6 (Migration)", "triune": "Sa-of-Sa (9/9 = Z*)", "superphase": "Sa 25-36", "inverse_flip": "Cycle completion inversion"}
+    {
+      "id": "A01",
+      "name": "Ignition",
+      "element": "Fire/Cardinal",
+      "constant": "e",
+      "dyad": "P1 (Identity)",
+      "triune": "Su-of-Su (1/9)",
+      "superphase": "Su 1-12",
+      "inverse_flip": "Divergent spark (outward)"
+    },
+    {
+      "id": "A02",
+      "name": "Accumulation",
+      "element": "Earth/Fixed",
+      "constant": "phi",
+      "dyad": "P1 (Identity)",
+      "triune": "Su-of-Sa (3/9)",
+      "superphase": "Su 1-12",
+      "inverse_flip": "Fixed storage collapse"
+    },
+    {
+      "id": "A03",
+      "name": "Bifurcation",
+      "element": "Air/Mutable",
+      "constant": "i",
+      "dyad": "P2 (Structure)",
+      "triune": "Su-of-Me (2/9)",
+      "superphase": "Su 1-12",
+      "inverse_flip": "Type split reversal"
+    },
+    {
+      "id": "A04",
+      "name": "Enclosure",
+      "element": "Water/Cardinal",
+      "constant": "pi",
+      "dyad": "P2 (Structure)",
+      "triune": "boundary",
+      "superphase": "Su 1-12",
+      "inverse_flip": "Boundary dissolution"
+    },
+    {
+      "id": "A05",
+      "name": "Amplification",
+      "element": "Fire/Fixed",
+      "constant": "e",
+      "dyad": "P3 (Corridor)",
+      "triune": "Sa-of-Su (7/9)",
+      "superphase": "Sa 25-36",
+      "inverse_flip": "Intensity reversal"
+    },
+    {
+      "id": "A06",
+      "name": "Discrimination",
+      "element": "Earth/Mutable",
+      "constant": "phi",
+      "dyad": "P3 (Corridor)",
+      "triune": "refinement",
+      "superphase": "Sa 25-36",
+      "inverse_flip": "Grading inversion"
+    },
+    {
+      "id": "A07",
+      "name": "Calibration",
+      "element": "Air/Cardinal",
+      "constant": "i",
+      "dyad": "P4 (Self)",
+      "triune": "Me-of-Su (4/9)",
+      "superphase": "Me 13-24",
+      "inverse_flip": "Self-reference flip"
+    },
+    {
+      "id": "A08",
+      "name": "Dissolution",
+      "element": "Water/Fixed",
+      "constant": "pi",
+      "dyad": "P4 (Self)",
+      "triune": "virtualization",
+      "superphase": "Me 13-24",
+      "inverse_flip": "Recursive un-layering"
+    },
+    {
+      "id": "A09",
+      "name": "Expansion",
+      "element": "Fire/Mutable",
+      "constant": "e",
+      "dyad": "P5 (Love)",
+      "triune": "Me-of-Me (5/9)",
+      "superphase": "Me 13-24",
+      "inverse_flip": "Care divergence"
+    },
+    {
+      "id": "A10",
+      "name": "Crystallization",
+      "element": "Earth/Cardinal",
+      "constant": "phi",
+      "dyad": "P5 (Love)",
+      "triune": "Me-of-Sa (6/9)",
+      "superphase": "Me 13-24",
+      "inverse_flip": "Optimal allocation reversal"
+    },
+    {
+      "id": "A11",
+      "name": "Disruption",
+      "element": "Air/Fixed",
+      "constant": "i",
+      "dyad": "P6 (Migration)",
+      "triune": "Sa-of-Me (8/9)",
+      "superphase": "Sa 25-36",
+      "inverse_flip": "Frame migration reversal"
+    },
+    {
+      "id": "A12",
+      "name": "Completion",
+      "element": "Water/Mutable",
+      "constant": "pi",
+      "dyad": "P6 (Migration)",
+      "triune": "Sa-of-Sa (9/9 = Z*)",
+      "superphase": "Sa 25-36",
+      "inverse_flip": "Cycle completion inversion"
+    }
   ],
-
   "shell_cycling": {
     "formula": "a(l) = 1 + ((l-1) mod 12)",
-    "superphases": {"Su": "l = 1-12", "Me": "l = 13-24", "Sa": "l = 25-36"},
+    "superphases": {
+      "Su": "l = 1-12",
+      "Me": "l = 13-24",
+      "Sa": "l = 25-36"
+    },
     "total_nodes": "T_36 = sum(l=1..36) l = 666"
   },
-
   "dyad_petal_docking": [
-    {"dyad": "P1", "petal": 1, "function": "Identity/Address"},
-    {"dyad": "P2", "petal": 2, "function": "Structure/Dynamics"},
-    {"dyad": "P3", "petal": 3, "function": "Corridor/Replay"},
-    {"dyad": "P4", "petal": 4, "function": "Self/Affect"},
-    {"dyad": "P5", "petal": 5, "function": "Love/Governance"},
-    {"dyad": "P6", "petal": 6, "function": "Migration/Publication"},
-    {"crown_petal": 7, "function": "Return/ZeroAnchor"},
-    {"crown_petal": 8, "function": "Immune/Quarantine"},
-    {"crown_petal": 9, "function": "Successor/Octave-lift"}
+    {
+      "dyad": "P1",
+      "petal": 1,
+      "function": "Identity/Address"
+    },
+    {
+      "dyad": "P2",
+      "petal": 2,
+      "function": "Structure/Dynamics"
+    },
+    {
+      "dyad": "P3",
+      "petal": 3,
+      "function": "Corridor/Replay"
+    },
+    {
+      "dyad": "P4",
+      "petal": 4,
+      "function": "Self/Affect"
+    },
+    {
+      "dyad": "P5",
+      "petal": 5,
+      "function": "Love/Governance"
+    },
+    {
+      "dyad": "P6",
+      "petal": 6,
+      "function": "Migration/Publication"
+    },
+    {
+      "crown_petal": 7,
+      "function": "Return/ZeroAnchor"
+    },
+    {
+      "crown_petal": 8,
+      "function": "Immune/Quarantine"
+    },
+    {
+      "crown_petal": 9,
+      "function": "Successor/Octave-lift"
+    }
   ],
-
   "inversion_mapping": {
     "forward_crystal": {
       "generator": "w = (1+i)/2",
@@ -191,7 +373,6 @@
       ]
     }
   },
-
   "cross_synthesis_confirmation": {
     "ai_4_lenses": "Sq = Earth/phi, Fl = Water/pi, Cl = Air/i, Fr = Fire/e",
     "torah_vessels": "Vessel-geometry grammar through same 12-archetype cycle",
@@ -199,17 +380,24 @@
     "e8_math": "240 roots + 26 gradients + Omega_Lambda = 1-1/pi = 108D lattice + inversion",
     "time_crystal_108d": "36 shells x 3 superphases with exact a(l) cycling and 3x3 triune matrix"
   },
-
   "hpro_translation": {
     "description": "HPRO -> VML -> code translation layer",
     "levels": [
-      {"level": "HPRO", "meaning": "Holographic Programming Repo Organization — crystal-level source of truth"},
-      {"level": "VML", "meaning": "Vessel Markup Language — intermediate representation bridging crystal to code"},
-      {"level": "Code", "meaning": "Executable runtime artifacts generated from VML specifications"}
+      {
+        "level": "HPRO",
+        "meaning": "Holographic Programming Repo Organization — crystal-level source of truth"
+      },
+      {
+        "level": "VML",
+        "meaning": "Vessel Markup Language — intermediate representation bridging crystal to code"
+      },
+      {
+        "level": "Code",
+        "meaning": "Executable runtime artifacts generated from VML specifications"
+      }
     ],
     "v2_seed": "Dependent-type seed (Lean/Idris formal proof): HolographicRepo R => R = Omega R"
   },
-
   "terminal_lock": {
     "statements": [
       "Z* is reached",

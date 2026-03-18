@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=366 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -44,24 +47,19 @@ DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_qshrink_connectivi
 ACTIVE_SUBFRONT = "QS64-18 Connectivity-Diagnose-Flower"
 RESTART_SEED = "QS64-19 Connectivity-Diagnose-Cloud"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def load_optional_json(path: Path, default: dict | None = None) -> dict:
     if not path.exists():
         return default or {}
     return load_json(path)
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
-
 
 def human_bytes(value: int) -> str:
     units = ["B", "KB", "MB", "GB", "TB"]
@@ -74,10 +72,8 @@ def human_bytes(value: int) -> str:
         size /= 1024.0
     return f"{value} B"
 
-
 def relative_string(path: Path) -> str:
     return str(path.relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def docs_gate_payload(square: dict) -> dict:
     docs_gate = dict(square.get("docs_gate", {}))
@@ -90,10 +86,8 @@ def docs_gate_payload(square: dict) -> dict:
         docs_gate["surface_excerpt"] = "\n".join(read_text(LIVE_DOCS_GATE_PATH).splitlines()[:12])
     return docs_gate
 
-
 def line_ok(line: dict) -> bool:
     return line.get("truth") == "OK"
-
 
 def build_payload() -> dict:
     square = load_json(QSHRINK_SQUARE_PATH)
@@ -342,7 +336,6 @@ def build_payload() -> dict:
         },
     }
 
-
 def render_metro(payload: dict) -> str:
     lines = [
         "# QSHRINK Core Corridor Metro",
@@ -417,7 +410,6 @@ def render_metro(payload: dict) -> str:
     lines.extend(["## Restart Seed", "", f"`{payload['next_seed']}`"])
     return "\n".join(lines) + "\n"
 
-
 def render_capsule(payload: dict) -> str:
     return "\n".join(
         [
@@ -431,7 +423,6 @@ def render_capsule(payload: dict) -> str:
             "",
         ]
     )
-
 
 def render_fleet_route_map(payload: dict) -> str:
     line_status = "\n".join(
@@ -480,7 +471,6 @@ Governance overlay:
 `{payload['next_seed']}`
 """
 
-
 def render_receipt(payload: dict) -> str:
     lines = [
         "# QS64-18 Core Corridor Metro Receipt",
@@ -516,7 +506,6 @@ def render_receipt(payload: dict) -> str:
     ]
     return "\n".join(lines) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     OUTPUT_JSON_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -530,7 +519,6 @@ def main() -> int:
     print(f"Wrote Athena FLEET route map: {ATHENA_FLEET_ROUTE_MAP_PATH}")
     print(f"Wrote metro receipt: {OUTPUT_RECEIPT_PATH}")
     return 0 if payload["truth"] in {"OK", "NEAR"} else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S15 | face=S | node=108 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S14→Xi108:W2:A4:S16→Xi108:W1:A4:S15→Xi108:W3:A4:S15→Xi108:W2:A3:S15→Xi108:W2:A5:S15
+
 """
 ATHENA OS - Crystal Computing Kappa
 ===================================
@@ -37,7 +41,6 @@ from typing import Dict, List, Optional, Tuple, Any, Callable
 import math
 
 from .lattice import CrystalCell, Pole
-
 
 # =============================================================================
 # κ-FIELD
@@ -128,7 +131,6 @@ class KappaField:
         
         return cls(values={i: total * d / norm for i, d in density.items()})
 
-
 # =============================================================================
 # κ-MASS AND METRICS
 # =============================================================================
@@ -155,7 +157,6 @@ class KappaMass:
         mass_before = self.compute(density_before)
         mass_after = self.compute(density_after)
         return abs(mass_before - mass_after) < tolerance
-
 
 @dataclass
 class KappaMetrics:
@@ -204,7 +205,6 @@ class KappaMetrics:
             grad = abs(field.gradient(index, neighbors))
             max_grad = max(max_grad, grad)
         return max_grad
-
 
 # =============================================================================
 # TEXTURE
@@ -268,7 +268,6 @@ class Texture:
         """Check if texture is within budget."""
         return self.total <= budget
 
-
 # =============================================================================
 # κ-CONSERVATION
 # =============================================================================
@@ -279,7 +278,6 @@ class ConservationType(Enum):
     BOUNDED = "bounded"       # |K(ρ_t) - K(ρ_0)| ≤ ε
     MONOTONE = "monotone"     # K(ρ_t) ≤ K(ρ_0)
     DISSIPATIVE = "dissipative"  # K decreases
-
 
 @dataclass
 class ConservationLaw:
@@ -333,7 +331,6 @@ class ConservationLaw:
         is_conserved = max_deviation <= self.tolerance
         return is_conserved, max_deviation
 
-
 # =============================================================================
 # κ-BUDGET
 # =============================================================================
@@ -384,7 +381,6 @@ class KappaBudget:
             return 1.0
         return self.spent / self.initial
 
-
 # =============================================================================
 # κ-FLOW
 # =============================================================================
@@ -419,7 +415,6 @@ class KappaFlow:
             "conserving": self.is_conserving,
             "loss": self.loss
         }
-
 
 @dataclass
 class KappaFlowGraph:
@@ -458,7 +453,6 @@ class KappaFlowGraph:
     def is_conserving(self, tolerance: float = 1e-6) -> bool:
         """Check if graph represents κ-conserving dynamics."""
         return self.total_loss() < tolerance
-
 
 # =============================================================================
 # VALIDATION
@@ -519,7 +513,6 @@ def validate_kappa() -> bool:
     assert graph.is_conserving()
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Crystal Computing Kappa...")

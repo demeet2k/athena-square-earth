@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=143 | depth=2 | phase=Cardinal
+# METRO: Me,Mt
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - 256 Atlas Compression System
 =========================================
@@ -45,7 +49,6 @@ import math
 
 from .aether import Face, Aether, ProjectorSet, GeneratorSet, Generator
 
-
 # =============================================================================
 # ELEMENT INDEX
 # =============================================================================
@@ -76,7 +79,6 @@ class Element(Enum):
     def from_int(cls, i: int) -> 'Element':
         """Get element from integer."""
         return list(cls)[i % 4]
-
 
 # =============================================================================
 # ATLAS ADDRESS
@@ -168,7 +170,6 @@ class AtlasAddress:
             (Element.EARTH, Element.EARTH): "Mountain",
         }
         return names.get(self.parent_address(), "Unknown")
-
 
 # =============================================================================
 # ATLAS DISTRIBUTION
@@ -316,7 +317,6 @@ class AtlasDistribution:
         dist.normalize()
         return dist
 
-
 # =============================================================================
 # ATLAS ARCHETYPE CATALOG
 # =============================================================================
@@ -340,7 +340,6 @@ class Archetype:
     def short_code(self) -> str:
         """Get 2-letter code like 'FW'."""
         return self.primary.short + self.influence.short
-
 
 # Catalog of 16 archetypes
 ARCHETYPE_CATALOG = [
@@ -381,14 +380,12 @@ ARCHETYPE_CATALOG = [
               "Pure Constraint - absolute stability", ["H5"]),
 ]
 
-
 def get_archetype(primary: Element, influence: Element) -> Optional[Archetype]:
     """Get archetype by elements."""
     for arch in ARCHETYPE_CATALOG:
         if arch.primary == primary and arch.influence == influence:
             return arch
     return None
-
 
 # =============================================================================
 # ATLAS COMPRESSION
@@ -483,7 +480,6 @@ class AtlasCompressor:
         
         return dist
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -542,7 +538,6 @@ def validate_atlas() -> bool:
     assert arch.name == "Lightning"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Atlas Module...")

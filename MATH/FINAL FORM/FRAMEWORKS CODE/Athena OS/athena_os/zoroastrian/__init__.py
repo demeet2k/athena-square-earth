@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=142 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - ZOROASTRIAN: DUAL-PHASE FIELD DYNAMICS
 ===================================================
@@ -243,7 +247,6 @@ from .frashokereti import (
     validate_frashokereti,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -257,7 +260,6 @@ def validate_zoroastrian() -> bool:
     assert validate_rituals()
     assert validate_frashokereti()
     return True
-
 
 # =============================================================================
 # CONVENIENCE CLASSES
@@ -392,7 +394,6 @@ class ZoroastrianComputer:
             "frashokereti_initiated": self.frashokereti._initiated
         }
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -442,7 +443,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "zoroastrian"
-
 
 if __name__ == "__main__":
     print("=" * 70)
@@ -505,7 +505,6 @@ if __name__ == "__main__":
     print(f"  New Progress: {status['progress']:.2%}")
     
     print("\n" + "=" * 70)
-
 
 # Type hints
 from typing import Dict, Tuple

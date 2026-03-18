@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import hashlib
@@ -12,7 +16,6 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -596,7 +599,6 @@ OBSERVATORY_JSON_OUTPUTS = {
     "observatory_manifest": OBSERVATORY_MANIFEST_PATH,
 }
 
-
 @dataclass(frozen=True)
 class BasisAnchor:
     anchor_id: str
@@ -607,41 +609,32 @@ class BasisAnchor:
     role: str
     source_hint: str
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def file_timestamp(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
-
 
 def slugify(value: str) -> str:
     cleaned = re.sub(r"[^a-zA-Z0-9]+", "_", value.lower()).strip("_")
     return cleaned or "untitled"
 
-
 def tokens(value: str) -> list[str]:
     return re.findall(r"[a-z0-9]+", value.lower())
 
-
 def normalize_path(value: str) -> str:
     return value.replace("\\", "/")
-
 
 def parse_docs_gate_status(markdown: str) -> str:
     match = re.search(r"Command status: `([^`]+)`", markdown)
@@ -653,12 +646,10 @@ def parse_docs_gate_status(markdown: str) -> str:
         return "PASS"
     return "UNKNOWN"
 
-
 def load_docs_gate_status() -> str:
     if not DOCS_GATE_PATH.exists():
         return "UNKNOWN"
     return parse_docs_gate_status(DOCS_GATE_PATH.read_text(encoding="utf-8"))
-
 
 def load_aqm_lane() -> dict[str, Any]:
     if not AQM_LANE_PATH.exists():
@@ -676,7 +667,6 @@ def load_aqm_lane() -> dict[str, Any]:
         "generated_at": payload.get("generated_at", ""),
     }
 
-
 def latest_route_baseline(payload: dict[str, Any]) -> float:
     entries = payload.get("entries", [])
     if not entries:
@@ -684,7 +674,6 @@ def latest_route_baseline(payload: dict[str, Any]) -> float:
     tail = entries[-12:]
     scores = [float(entry.get("route_score", 1.0)) for entry in tail]
     return round(sum(scores) / max(len(scores), 1), 4)
-
 
 def load_semantic_mass_weights() -> dict[str, float]:
     if not SEMANTIC_MASS_PATH.exists():
@@ -703,13 +692,11 @@ def load_semantic_mass_weights() -> dict[str, float]:
         for body, share in shares.items()
     }
 
-
 def load_route_quality_factor() -> float:
     if not ROUTE_QUALITY_PATH.exists():
         return 1.0
     payload = load_json(ROUTE_QUALITY_PATH)
     return latest_route_baseline(payload)
-
 
 def load_station_map() -> dict[str, dict[str, Any]]:
     if not GRAND_CENTRAL_PATH.exists():
@@ -720,7 +707,6 @@ def load_station_map() -> dict[str, dict[str, Any]]:
         for item in payload.get("registry", [])
     }
 
-
 def cleanup_previous_outputs(paths: list[Path]) -> None:
     for path in paths:
         if path.is_file():
@@ -730,7 +716,6 @@ def cleanup_previous_outputs(paths: list[Path]) -> None:
                 # Some mirrored artifacts can be held open by desktop viewers on Windows.
                 # Leave them in place and let the subsequent write step refresh what it can.
                 continue
-
 
 def refresh_full_corpus_atlas(output_path: Path = HEMISPHERE_ATLAS_PATH) -> dict[str, Any]:
     if not MANUSCRIPT_INTAKE_SCRIPT.exists():
@@ -771,7 +756,6 @@ def refresh_full_corpus_atlas(output_path: Path = HEMISPHERE_ATLAS_PATH) -> dict
     temp_path.unlink(missing_ok=True)
     return payload
 
-
 def canonical_record_key(record: dict[str, Any]) -> tuple[Any, ...]:
     evidence = record.get("evidence", {})
     heading_count = int(evidence.get("heading_count", 0))
@@ -783,7 +767,6 @@ def canonical_record_key(record: dict[str, Any]) -> tuple[Any, ...]:
         len(relative_path),
         relative_path.lower(),
     )
-
 
 def deduplicate_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -802,7 +785,6 @@ def deduplicate_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
     canonical_records.sort(key=lambda item: item["relative_path"].lower())
     return canonical_records
-
 
 def infer_family(name: str, excerpt: str) -> str:
     text = f"{name} {excerpt}".lower()
@@ -937,7 +919,6 @@ def infer_family(name: str, excerpt: str) -> str:
     best_family = max(scores, key=scores.get)
     return best_family if scores[best_family] > 0 else "general-corpus"
 
-
 def infer_appendix_links(name: str, excerpt: str, family: str) -> list[str]:
     text = f"{name} {excerpt}".lower()
     links: list[str] = []
@@ -971,7 +952,6 @@ def infer_appendix_links(name: str, excerpt: str, family: str) -> list[str]:
             seen.add(item)
     return ordered[:4]
 
-
 def keyword_count(text: str, weights: dict[str, float]) -> float:
     normalized = text.lower()
     score = 0.0
@@ -980,12 +960,10 @@ def keyword_count(text: str, weights: dict[str, float]) -> float:
             score += weight
     return score
 
-
 def smooth_ratio(math_score: float, myth_score: float) -> float:
     safe_math = max(math_score, 0.0) + 1.0
     safe_myth = max(myth_score, 0.0) + 1.0
     return round(safe_math / (safe_math + safe_myth), 4)
-
 
 def path_prior(record: dict[str, Any], station_map: dict[str, dict[str, Any]]) -> float:
     relative_path = normalize_path(record.get("relative_path", "")).lower()
@@ -1017,10 +995,8 @@ def path_prior(record: dict[str, Any], station_map: dict[str, dict[str, Any]]) -
 
     return smooth_ratio(math_score, myth_score)
 
-
 def family_prior(family: str) -> float:
     return FAMILY_PRIORS.get(family, 0.5)
-
 
 def title_heading_lexical_score(record: dict[str, Any]) -> float:
     headings = record.get("heading_candidates") or []
@@ -1031,13 +1007,11 @@ def title_heading_lexical_score(record: dict[str, Any]) -> float:
         keyword_count(text, MYTH_LEXICAL_WEIGHTS),
     )
 
-
 def excerpt_lexical_score(record: dict[str, Any]) -> float:
     return smooth_ratio(
         keyword_count(record.get("excerpt", ""), MATH_LEXICAL_WEIGHTS),
         keyword_count(record.get("excerpt", ""), MYTH_LEXICAL_WEIGHTS),
     )
-
 
 def structural_density_score(record: dict[str, Any]) -> float:
     if not record.get("text_extractable"):
@@ -1082,7 +1056,6 @@ def structural_density_score(record: dict[str, Any]) -> float:
     myth_signal = min(1.0, narrative_hits * 0.08)
     return round(max(0.0, min(1.0, 0.5 + (math_signal - myth_signal) / 2.0)), 4)
 
-
 def weighted_math_score(component_scores: dict[str, float]) -> float:
     score = (
         component_scores["path_prior"] * 0.30
@@ -1092,7 +1065,6 @@ def weighted_math_score(component_scores: dict[str, float]) -> float:
         + component_scores["structural_density"] * 0.05
     )
     return round(max(0.0, min(1.0, score)), 4)
-
 
 def compute_component_scores(
     record: dict[str, Any],
@@ -1107,7 +1079,6 @@ def compute_component_scores(
         "structural_density": structural_density_score(record),
     }
 
-
 def compute_confidence(record: dict[str, Any], math_weight: float) -> float:
     extractable_factor = 1.0 if record.get("text_extractable") else 0.35
     separation = abs(math_weight - 0.5) * 2.0
@@ -1115,7 +1086,6 @@ def compute_confidence(record: dict[str, Any], math_weight: float) -> float:
     if not record.get("text_extractable"):
         confidence = min(confidence, 0.65)
     return round(max(0.0, min(0.98, confidence)), 4)
-
 
 def parse_canonical_sources() -> list[BasisAnchor]:
     if not CANONICAL_SOURCES_PATH.exists():
@@ -1143,7 +1113,6 @@ def parse_canonical_sources() -> list[BasisAnchor]:
         )
     return anchors
 
-
 def anchor_score(record: dict[str, Any], anchor: BasisAnchor) -> float:
     title = Path(record.get("relative_path", "")).stem
     headings = " ".join(record.get("heading_candidates") or [])
@@ -1168,7 +1137,6 @@ def anchor_score(record: dict[str, Any], anchor: BasisAnchor) -> float:
         score += 3.0
     return score
 
-
 def fallback_anchor_ids(family: str, primary_hemisphere: str) -> list[str]:
     preferred = FAMILY_ANCHOR_PREFERENCES.get(family)
     if preferred:
@@ -1176,7 +1144,6 @@ def fallback_anchor_ids(family: str, primary_hemisphere: str) -> list[str]:
     if primary_hemisphere == "MATH":
         return ["DN03", "DN05", "DN07"]
     return ["DN01", "DN11", "DN12"]
-
 
 def assign_basis_anchor_ids(
     record: dict[str, Any],
@@ -1193,7 +1160,6 @@ def assign_basis_anchor_ids(
         chosen = fallback_anchor_ids(family, primary_hemisphere)
     return chosen
 
-
 def family_bucket_digit(family: str) -> int:
     if family in {"higher-dimensional-geometry", "manuscript-architecture"}:
         return 0
@@ -1203,7 +1169,6 @@ def family_bucket_digit(family: str) -> int:
         return 2
     return 3
 
-
 def tract_digit(tract: str) -> int:
     return {
         "address": 0,
@@ -1211,7 +1176,6 @@ def tract_digit(tract: str) -> int:
         "chamber": 2,
         "replay": 3,
     }.get(tract, 0)
-
 
 def holo_tail(record_id: str) -> str:
     digest = hashlib.sha256(record_id.encode("utf-8")).hexdigest()
@@ -1221,7 +1185,6 @@ def holo_tail(record_id: str) -> str:
         digits.append(str(number % 4))
         number //= 4
     return "".join(reversed(digits))
-
 
 def build_holo_address(
     primary_hemisphere: str,
@@ -1242,7 +1205,6 @@ def build_holo_address(
     )
     return f"H4::{prefix}::{holo_tail(record_id)}"
 
-
 def resolve_tract(
     family: str,
     record: dict[str, Any],
@@ -1255,7 +1217,6 @@ def resolve_tract(
     if station:
         return station.get("tract", "address")
     return "address"
-
 
 def metro_line_ids(
     primary_hemisphere: str,
@@ -1280,11 +1241,9 @@ def metro_line_ids(
     ]
     return lines
 
-
 def trace_hash(payload: dict[str, Any]) -> str:
     encoded = json.dumps(payload, sort_keys=True).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()[:24]
-
 
 def record_title(record: dict[str, Any]) -> str:
     headings = record.get("heading_candidates") or []
@@ -1292,14 +1251,12 @@ def record_title(record: dict[str, Any]) -> str:
         return headings[0]
     return Path(record.get("relative_path", "")).stem
 
-
 def record_summary_line(record: dict[str, Any]) -> str:
     return (
         f"`{record['record_id']}` | `{record['primary_hemisphere']}` | "
         f"`{record['math_weight']:.3f}` | `{record['family']}` | "
         f"`{record['relative_path']}`"
     )
-
 
 def mirror_paths() -> list[Path]:
     return [

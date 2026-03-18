@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S36 | face=S | node=666 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S35→Xi108:W2:A12:S36→Xi108:W3:A11:S36 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 36±1, wreath 3/3, archetype 12/12 -->
+
 # Trading Bot Athena 256x4
 
 This folder is the Athena-native manuscript shell for the Trading Bot body. It binds the live kernel, memory manuscripts, reports, swarm ownership, and metro routing into a four-plane 256-cell system.

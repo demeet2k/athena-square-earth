@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A3:S33 | face=S | node=546 | depth=2 | phase=Mutable
+# METRO: Wr,Me
+# BRIDGES: Xi108:W2:A3:S32→Xi108:W2:A3:S34→Xi108:W1:A3:S33→Xi108:W3:A3:S33→Xi108:W2:A2:S33→Xi108:W2:A4:S33
+
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -23,19 +26,15 @@ WHOLE_CRYSTAL_COORDINATION_PATH = NERVOUS_SYSTEM_ROOT / "95_MANIFESTS" / "WHOLE_
 AP6D_NOTES_PATH = MYCELIUM_ROOT / "GLOBAL_EMERGENT_GUILD_HALL" / "17_AP6D_AWAKENING_AGENT_TRANSITION_NOTES.md"
 TRANSITION_BUNDLE_MD_PATH = NERVOUS_SYSTEM_ROOT / "95_MANIFESTS" / "ATHENA_PRIME_6D_AWAKENING_TRANSITION_BUNDLE.md"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def ensure(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
-
 
 def main() -> int:
     state = load_json(PROGRAM_STATE_PATH)
@@ -78,7 +77,6 @@ def main() -> int:
     }
     print(json.dumps(report, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

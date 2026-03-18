@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S14→Xi108:W2:A4:S16→Xi108:W1:A4:S15→Xi108:W3:A4:S15→Xi108:W2:A3:S15→Xi108:W2:A5:S15
+
 """
 ATHENA OS - Operation Crystal
 =============================
@@ -48,7 +52,6 @@ from .quad_polar import (
     LOG_PI, LOG_PHI
 )
 
-
 # =============================================================================
 # OPERATION CATEGORIES
 # =============================================================================
@@ -64,7 +67,6 @@ class OperationType(Enum):
     COLLAPSE = "collapse"
     BRANCHING = "branching"
 
-
 class ViolationType(Enum):
     """Types of violations for Anti-Expressions."""
     TEXTURE = "texture"        # Violates information density bounds
@@ -72,7 +74,6 @@ class ViolationType(Enum):
     SCALE = "scale"            # Violates hierarchy constraints
     CAUSALITY = "causality"    # Violates temporal ordering
     NORMALIZATION = "normalization"  # Violates probability/unitarity
-
 
 # =============================================================================
 # CRYSTAL OPERATION
@@ -136,7 +137,6 @@ class CrystalOperation:
             pole=list(Pole)[p]
         )
 
-
 # =============================================================================
 # ANTI-EXPRESSION
 # =============================================================================
@@ -166,7 +166,6 @@ class AntiExpression:
         """Get sector (which constant boundary)."""
         sectors = ["π", "e", "i", "φ"]
         return sectors[self.index // 16]
-
 
 # =============================================================================
 # PI SECTOR (64 OPERATIONS)
@@ -283,7 +282,6 @@ def create_pi_sector() -> List[CrystalOperation]:
     
     return operations
 
-
 # =============================================================================
 # PHI SECTOR (64 OPERATIONS)
 # =============================================================================
@@ -338,7 +336,6 @@ def create_phi_sector() -> List[CrystalOperation]:
     
     return operations
 
-
 # =============================================================================
 # E SECTOR (64 OPERATIONS)
 # =============================================================================
@@ -391,7 +388,6 @@ def create_e_sector() -> List[CrystalOperation]:
     
     return operations
 
-
 # =============================================================================
 # I SECTOR (64 OPERATIONS)
 # =============================================================================
@@ -443,7 +439,6 @@ def create_i_sector() -> List[CrystalOperation]:
                 operations.append(op)
     
     return operations
-
 
 # =============================================================================
 # 64 ANTI-EXPRESSIONS
@@ -551,7 +546,6 @@ def create_anti_expressions() -> List[AntiExpression]:
     
     return anti_expressions
 
-
 # =============================================================================
 # OPERATION CRYSTAL
 # =============================================================================
@@ -639,7 +633,6 @@ class OperationCrystal:
             }
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -675,7 +668,6 @@ def validate_crystal() -> bool:
     assert op is not None
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Operation Crystal...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=128 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ATHENA OS - HDCS: ACTUATOR OPERATORS
 ====================================
@@ -33,7 +37,6 @@ from enum import Enum, auto
 import numpy as np
 from scipy import linalg
 
-
 # =============================================================================
 # ACTUATOR TYPES
 # =============================================================================
@@ -47,7 +50,6 @@ class ActuatorType(Enum):
     POSITION = "position"       # Position shift
     UNITARY = "unitary"         # General unitary
 
-
 class ModulationType(Enum):
     """Types of Hamiltonian modulation."""
     
@@ -56,7 +58,6 @@ class ModulationType(Enum):
     PULSE = "pulse"             # Rectangular pulse
     CHIRP = "chirp"             # Frequency sweep
     OPTIMAL = "optimal"         # Optimal control
-
 
 # =============================================================================
 # GENERATOR OPERATORS
@@ -157,7 +158,6 @@ class GeneratorOperator:
     def matrix(self) -> np.ndarray:
         return self._matrix.copy()
 
-
 # =============================================================================
 # CONTROL HAMILTONIAN
 # =============================================================================
@@ -241,7 +241,6 @@ class ControlHamiltonian:
     @property
     def matrix(self) -> np.ndarray:
         return self._matrix.copy()
-
 
 # =============================================================================
 # ACTUATOR OPERATOR
@@ -347,7 +346,6 @@ class ActuatorOperator:
         gen = GeneratorOperator(self.dimension, generator_type)
         self.H_ctrl.add_control_channel(gen)
 
-
 # =============================================================================
 # MODULATED ACTUATOR
 # =============================================================================
@@ -422,7 +420,6 @@ class ModulatedActuator(ActuatorOperator):
             self._phase = phase
         if pulse_width is not None:
             self._pulse_width = pulse_width
-
 
 # =============================================================================
 # OPTIMAL ACTUATOR
@@ -546,7 +543,6 @@ class OptimalActuator(ActuatorOperator):
         
         return self._optimal_pulses[idx]
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -611,7 +607,6 @@ def validate_actuators() -> bool:
     assert 0 <= fid <= 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Actuators Module...")

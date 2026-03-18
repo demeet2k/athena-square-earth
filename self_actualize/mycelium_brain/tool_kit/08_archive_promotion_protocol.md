@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S20 | face=R | node=206 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S19→Xi108:W3:A7:S21→Xi108:W2:A7:S20→Xi108:W3:A6:S20→Xi108:W3:A8:S20 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 20±1, wreath 3/3, archetype 7/12 -->
+
 # Archive Promotion Protocol
 
 Use this protocol when a high-yield framework is trapped inside a ZIP-backed archive and needs to become a live, editable source tree without losing lineage.

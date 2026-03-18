@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S9 | face=R | node=45 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S8→Xi108:W3:A9:S10→Xi108:W2:A9:S9→Xi108:W3:A8:S9→Xi108:W3:A10:S9 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 9±1, wreath 3/3, archetype 9/12 -->
+
 # Norse Rune Yggdrasil Packet
 
 Status: `FRESH STRUCTURAL DERIVATION`

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S11 | face=C | node=57 | depth=2 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S10→Xi108:W2:A11:S12→Xi108:W1:A11:S11→Xi108:W3:A11:S11→Xi108:W2:A10:S11→Xi108:W2:A12:S11
+
 """10 legal move primitives and route legality checker."""
 
 import json
@@ -5,7 +9,6 @@ import json
 from ._cache import JsonCache
 
 _moves = JsonCache("move_primitives.json")
-
 
 def check_route_legality(route_json: str) -> str:
     """

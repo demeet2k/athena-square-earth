@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=122 | depth=2 | phase=Cardinal
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ATHENA OS - HOLOGRAPHIC ROTATION PROTOCOL (HRP)
 ================================================
@@ -161,7 +165,6 @@ from .protocol import (
     validate_protocol,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -174,7 +177,6 @@ def validate_hrp() -> bool:
     assert validate_objects()
     assert validate_protocol()
     return True
-
 
 # =============================================================================
 # CONVENIENCE FUNCTIONS
@@ -194,26 +196,21 @@ def holographic_rotation(obj: HolographicObject,
     """
     return run_protocol(obj, config)
 
-
 def create_water_frame(**kwargs) -> WaterFrame:
     """Create Water frame with defaults."""
     return create_frame(Element.WATER, **kwargs)
-
 
 def create_earth_frame(**kwargs) -> EarthFrame:
     """Create Earth frame with defaults."""
     return create_frame(Element.EARTH, **kwargs)
 
-
 def create_fire_frame(**kwargs) -> FireFrame:
     """Create Fire frame with defaults."""
     return create_frame(Element.FIRE, **kwargs)
 
-
 def create_air_frame(**kwargs) -> AirFrame:
     """Create Air frame with defaults."""
     return create_frame(Element.AIR, **kwargs)
-
 
 def texture_from_sequence(sequence) -> TextureTriple:
     """Compute texture from discrete sequence."""
@@ -221,13 +218,11 @@ def texture_from_sequence(sequence) -> TextureTriple:
     analyzer = TextureAnalyzer()
     return analyzer.analyze_sequence(np.array(sequence))
 
-
 def texture_from_points(points) -> TextureTriple:
     """Compute texture from point cloud."""
     import numpy as np
     analyzer = TextureAnalyzer()
     return analyzer.analyze_points(np.array(points))
-
 
 # =============================================================================
 # EXPORTS
@@ -275,7 +270,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "hrp"
-
 
 if __name__ == "__main__":
     import numpy as np

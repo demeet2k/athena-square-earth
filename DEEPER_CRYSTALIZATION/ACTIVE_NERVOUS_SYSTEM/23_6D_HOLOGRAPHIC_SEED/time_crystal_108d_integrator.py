@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3
+
 """
 TIME CRYSTAL 108D INTEGRATOR — TSE_6912 ⋉ Xi_108 FULL CORPUS ENGINE
 =====================================================================
@@ -78,7 +82,6 @@ from time_crystal_108d import (
     ConformanceResult, Sigma60Station, APlusPole,
 )
 
-
 # =====================================================================
 # PHASE 1: DATACLASSES
 # =====================================================================
@@ -92,7 +95,6 @@ class MetroLineType(Enum):
     HCRL_ROTATION     = "HCRL_ROTATION"
     ZERO_REENTRY      = "ZERO_REENTRY"
 
-
 # --- Mycelium Rail Types ---
 class RailType(Enum):
     LEGACY_SU   = "LEGACY_SU"
@@ -103,14 +105,12 @@ class RailType(Enum):
     GAMMA       = "GAMMA"
     ODD_LIFT    = "ODD_LIFT"
 
-
 # --- Z-chain Levels ---
 class ZLevel(Enum):
     Z_STAR_3D   = "Z*_3D"
     Z0_4D       = "Z0_4D"
     Z_PLUS_60D  = "Z+_60D"
     A_PLUS_108D = "A+*_108D"
-
 
 # --- Tunnel Types ---
 class TunnelType(Enum):
@@ -120,7 +120,6 @@ class TunnelType(Enum):
     ARCHETYPE_COLUMN = "ARCHETYPE_COLUMN"
     MOBIUS_PILLAR    = "MOBIUS_PILLAR"
     LEGACY_PRESERVED = "LEGACY_PRESERVED"
-
 
 # --- Route Types ---
 class RouteType(Enum):
@@ -139,7 +138,6 @@ class RouteType(Enum):
     MEGA_METRO     = "Mega-metro"
     TOTAL_CIRCUIT  = "Total circuit"
 
-
 # --- Record Types ---
 class RecordType(Enum):
     DOCUMENT = "DOCUMENT"
@@ -149,14 +147,12 @@ class RecordType(Enum):
     TUNNEL   = "TUNNEL"
     EVENT    = "EVENT"
 
-
 # --- Anchor Types ---
 class AnchorType(Enum):
     WITNESS = "WITNESS"
     REPLAY  = "REPLAY"
     PROOF   = "PROOF"
     SEED    = "SEED"
-
 
 # --- Body Family ---
 class BodyFamily(Enum):
@@ -165,7 +161,6 @@ class BodyFamily(Enum):
     LOWER_APP    = "LOWER-APP"
     UPPER_CANOPY = "UPPER-CANOPY"
     META         = "META"
-
 
 @dataclass
 class MetroLine108D:
@@ -178,7 +173,6 @@ class MetroLine108D:
     def length(self) -> int:
         return len(self.node_sequence)
 
-
 @dataclass
 class MyceliumRail108D:
     """A mycelium rail in the 108D integration."""
@@ -186,7 +180,6 @@ class MyceliumRail108D:
     name: str
     node_stops: list[int]      # global_index list
     color: str = ""
-
 
 @dataclass
 class ZChainPoint:
@@ -198,7 +191,6 @@ class ZChainPoint:
     maps_to: str
     z_hash: str
 
-
 @dataclass
 class SacredFigure108D:
     """Sacred geometry assignment for a node."""
@@ -206,7 +198,6 @@ class SacredFigure108D:
     weave_class: str
     platonic_embedding: str    # Which Platonic solid, if any
     octave: str                # Nigredo / Albedo / Rubedo
-
 
 @dataclass
 class Tunnel108D:
@@ -216,7 +207,6 @@ class Tunnel108D:
     tunnel_type: TunnelType
     quaternion: Quaternion
     gamma_weight: float = 1.0
-
 
 @dataclass
 class LiminalCoordinate:
@@ -251,7 +241,6 @@ class LiminalCoordinate:
         polarity_flag = 0 if self.L9_polarity == "Z*" else 1
         return (jd % 6912) * (self.L7_orbit_phase + 1) + (wreath_idx * 3) + polarity_flag
 
-
 @dataclass
 class CanonicalRoute:
     """One of 14 canonical reading routes."""
@@ -261,14 +250,12 @@ class CanonicalRoute:
     description: str
     node_sequence: list[int]   # global_index sequence
 
-
 @dataclass
 class LedgerRecord:
     """A Master Ledger entry."""
     record_type: RecordType
     key: str
     data: dict
-
 
 @dataclass
 class WitnessAnchor:
@@ -277,7 +264,6 @@ class WitnessAnchor:
     node_index: int
     certification: str
     timestamp: str
-
 
 @dataclass
 class IntegratedNode:
@@ -291,7 +277,6 @@ class IntegratedNode:
     sefirot_stage: str                  # Sefira name
     tunnel_count: int
     liminal: LiminalCoordinate
-
 
 @dataclass
 class TimeCrystalIntegration:
@@ -316,7 +301,6 @@ class TimeCrystalIntegration:
     seed: TimeCrystalSeed
     z_plus: ZPlusPoint
     ae_plus: AEPlusFramework
-
 
 # =====================================================================
 # PHASE 2: MANUSCRIPT UNIT -> 666 NODE MAPPING
@@ -396,7 +380,6 @@ def map_units_to_nodes(
         _anchor(shell, pos, ra.code)
 
     return node_map
-
 
 # =====================================================================
 # PHASE 3: METRO LINES -- ALL 6 CLASSES
@@ -503,7 +486,6 @@ def build_metro_lines(
 
     return lines
 
-
 # =====================================================================
 # PHASE 4: MYCELIUM RAILS
 # =====================================================================
@@ -606,7 +588,6 @@ def build_mycelium_rails(
 
     return rails
 
-
 # =====================================================================
 # PHASE 5: SACRED GEOMETRY PROPAGATION
 # =====================================================================
@@ -651,7 +632,6 @@ PLATONIC_SOLIDS = {
     "Icosahedron":  list(range(1, 61, 5)),   # Every 5th station
 }
 
-
 def assign_sacred_geometry(
     nodes: list[MegaNode],
 ) -> dict[int, SacredFigure108D]:
@@ -686,7 +666,6 @@ def assign_sacred_geometry(
         )
 
     return figures
-
 
 # =====================================================================
 # PHASE 6: Z-POINT CHAIN
@@ -744,7 +723,6 @@ def build_z_chain(
     ))
 
     return chain
-
 
 # =====================================================================
 # PHASE 7: TUNNELING -- ALL 6 TYPES
@@ -858,7 +836,6 @@ def build_tunnels(
 
     return tunnels
 
-
 # =====================================================================
 # PHASE 8: SEFIROT PIPELINE WIRING
 # =====================================================================
@@ -881,7 +858,6 @@ def wire_sefirot(
             node_to_sefira[node.global_index] = "Handoff"
 
     return node_to_sefira
-
 
 # =====================================================================
 # PHASE 9: VERIFICATION (BFS + 18-POINT CONFORMANCE)
@@ -910,7 +886,6 @@ def bfs_reachability(tunnels: list[Tunnel108D], start: int = 1, total: int = 666
                 queue.append(neighbor)
 
     return len(visited)
-
 
 def extended_conformance(
     base_conformance: ConformanceResult,
@@ -971,7 +946,6 @@ def extended_conformance(
     ))
 
     return checks
-
 
 # =====================================================================
 # PHASE 10: 12-AXIS LIMINAL COORDINATES
@@ -1084,7 +1058,6 @@ def assign_liminal_coordinates(
         )
 
     return coordinates
-
 
 # =====================================================================
 # PHASE 11: 14 CANONICAL READING ROUTES
@@ -1203,7 +1176,6 @@ def build_canonical_routes(
 
     return routes
 
-
 # =====================================================================
 # PHASE 12: MASTER LEDGER & REGISTRIES
 # =====================================================================
@@ -1272,7 +1244,6 @@ NEXUS_REGISTRY = [
     {"name": "Shell-24 handoff", "node": 300, "degree": 24, "routes": "R07"},
     {"name": "Shell-36 handoff", "node": 666, "degree": 36, "routes": "R07, R13"},
 ]
-
 
 def build_master_ledger(
     unit_map: dict[int, list[str]],
@@ -1386,7 +1357,6 @@ def build_master_ledger(
     ))
 
     return ledger, witnesses
-
 
 # =====================================================================
 # PHASE 13: DOCUMENT GENERATION
@@ -2151,7 +2121,6 @@ def generate_integrated_document(integration: TimeCrystalIntegration) -> str:
 
     return "\n".join(L)
 
-
 # =====================================================================
 # PHASE 14: MAIN PIPELINE
 # =====================================================================
@@ -2160,7 +2129,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DOC_PATH = os.path.join(BASE_DIR, "21_TIME_CRYSTAL_108D_INTEGRATED.md")
 RECEIPT_DIR = os.path.join(BASE_DIR, "00_RECEIPTS")
 RECEIPT_PATH = os.path.join(RECEIPT_DIR, "108D_MASTER_LEDGER_RECEIPT.md")
-
 
 def main():
     print("=" * 72)
@@ -2462,7 +2430,6 @@ def main():
     print("  Su -> Me -> Sa -> Su")
     print("  The organism is alive.")
     print("=" * 72)
-
 
 if __name__ == "__main__":
     main()

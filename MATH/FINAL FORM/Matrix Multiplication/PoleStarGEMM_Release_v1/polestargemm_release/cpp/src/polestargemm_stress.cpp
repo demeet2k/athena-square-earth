@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S12 | face=C | node=402 | depth=2 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A7:S11→Xi108:W2:A7:S13→Xi108:W1:A7:S12→Xi108:W3:A7:S12→Xi108:W2:A6:S12→Xi108:W2:A8:S12
+
 #include <torch/script.h>
 #include <torch/torch.h>
 

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S14 | face=S | node=97 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S13→Xi108:W2:A1:S15→Xi108:W1:A1:S14→Xi108:W3:A1:S14→Xi108:W2:A2:S14
+
 """
 ATHENA OS - AtlasForge: VERIFIER KERNEL
 =======================================
@@ -45,12 +49,10 @@ import hashlib
 import time
 import json
 
-
 # Import from other modules (assuming they exist)
 # from .proof_pack import ProofPack, Certificate, TruthProfile, CertificateLevel
 # from .solve_plan import SolvePlan
 # from .recipes import Recipe
-
 
 # =============================================================================
 # VERIFICATION STATES
@@ -65,7 +67,6 @@ class VerificationState(Enum):
     REJECTED = "rejected"            # Failed verification
     EXPIRED = "expired"              # Verification expired
 
-
 class RejectionReason(Enum):
     """Reasons for verification rejection."""
     
@@ -78,7 +79,6 @@ class RejectionReason(Enum):
     BUDGET_EXCEEDED = "budget_exceeded"
     INTERNAL_ERROR = "internal_error"
 
-
 class CheckType(Enum):
     """Types of verification checks."""
     
@@ -87,7 +87,6 @@ class CheckType(Enum):
     REPLAY = "replay"
     CERTIFICATE = "certificate"
     BOUND = "bound"
-
 
 # =============================================================================
 # VERIFICATION RESULT
@@ -115,7 +114,6 @@ class CheckResult:
             "message": self.message,
             "duration_seconds": self.duration_seconds
         }
-
 
 @dataclass
 class VerificationResult:
@@ -175,7 +173,6 @@ class VerificationResult:
             "all_checks_passed": self.all_checks_passed
         }
 
-
 # =============================================================================
 # VERIFICATION BUDGET
 # =============================================================================
@@ -216,7 +213,6 @@ class VerificationBudget:
         """Consume iteration budget. Returns False if exceeded."""
         self.iterations_used += count
         return self.iterations_used <= self.max_replay_iterations
-
 
 # =============================================================================
 # VERIFIER POLICY
@@ -286,7 +282,6 @@ class VerifierPolicy:
             fail_on_warning=True,
             require_all_certificates=True
         )
-
 
 # =============================================================================
 # VERIFIER KERNEL
@@ -592,7 +587,6 @@ class VerifierKernel:
         result = self._check_integrity(recipe_data)
         return result.passed
 
-
 # =============================================================================
 # VERIFICATION REGISTRY
 # =============================================================================
@@ -645,7 +639,6 @@ class VerificationRegistry:
             "pending": total - verified - rejected,
             "verification_rate": verified / total if total > 0 else 0.0
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -707,7 +700,6 @@ def validate_verifier_kernel() -> bool:
     assert stats["total"] == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Verifier Kernel Module...")

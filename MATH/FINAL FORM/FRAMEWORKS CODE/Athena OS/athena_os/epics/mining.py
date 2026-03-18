@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=149 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - EPICS: MINING PROTOCOL
 ===================================
@@ -38,7 +42,6 @@ from .state_extraction import StateVariable, StateVector, StateSpace, StateDimen
 from .failure_modes import CrashSignature, CrashSeverity, FailureAnalyzer
 from .protocols import Protocol, ProtocolStep, ProtocolPhase, Invariant
 
-
 # =============================================================================
 # MINING PASS
 # =============================================================================
@@ -56,7 +59,6 @@ class MiningPass(Enum):
     PASS_7_FORMAL = 7
     PASS_8_CROSS_EPIC = 8
     PASS_9_ENCODING = 9
-
 
 # =============================================================================
 # NARRATIVE SEGMENT
@@ -87,7 +89,6 @@ class NarrativeSegment:
     
     # Outputs (deaths, oaths, power changes)
     outputs: List[str] = field(default_factory=list)
-
 
 # =============================================================================
 # TOKEN/RESOURCE
@@ -124,7 +125,6 @@ class NarrativeToken:
         self.transfers.append((from_agent, to_agent, reason))
         self.holder = to_agent
 
-
 # =============================================================================
 # MINING RESULT
 # =============================================================================
@@ -141,7 +141,6 @@ class MiningResult:
     
     # Warnings/notes
     notes: List[str] = field(default_factory=list)
-
 
 @dataclass
 class FullMiningResult:
@@ -163,7 +162,6 @@ class FullMiningResult:
     def is_complete(self) -> bool:
         """Check if all passes completed."""
         return len(self.passes) == 10
-
 
 # =============================================================================
 # EPIC MINER
@@ -529,7 +527,6 @@ class EpicMiner:
         
         return patterns
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -592,7 +589,6 @@ def validate_mining() -> bool:
     assert "universal_invariants" in patterns
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Mining Module...")

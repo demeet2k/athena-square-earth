@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Advanced Optimization Module                 ║
@@ -28,7 +32,6 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 @dataclass
 class OptimizationResult:
     """Result of optimization."""
@@ -44,7 +47,6 @@ class OptimizationResult:
     def __repr__(self):
         return (f"OptimizationResult(value={self.value:.6e}, "
                 f"converged={self.converged}, iters={self.iterations})")
-
 
 class LineSearch:
     """Line search methods for step size selection."""
@@ -133,7 +135,6 @@ class LineSearch:
         
         return alpha, evals
 
-
 class MultivariateOptimizer(ABC):
     """Abstract base class for multivariate optimizers."""
     
@@ -146,7 +147,6 @@ class MultivariateOptimizer(ABC):
     ) -> OptimizationResult:
         """Minimize objective function."""
         pass
-
 
 class GradientDescent(MultivariateOptimizer):
     """
@@ -275,7 +275,6 @@ class GradientDescent(MultivariateOptimizer):
             grad[i] = (f(x_plus) - f(x_minus)) / (2 * eps)
         return grad
 
-
 class NewtonMethod(MultivariateOptimizer):
     """
     Newton's method for optimization.
@@ -398,7 +397,6 @@ class NewtonMethod(MultivariateOptimizer):
                 H[j, i] = H[i, j]
         return H
 
-
 class BFGS(MultivariateOptimizer):
     """
     BFGS quasi-Newton method.
@@ -501,7 +499,6 @@ class BFGS(MultivariateOptimizer):
             grad[i] = (f(x_plus) - f(x_minus)) / (2 * eps)
         return grad
 
-
 class SimulatedAnnealing(MultivariateOptimizer):
     """
     Simulated annealing for global optimization.
@@ -585,7 +582,6 @@ class SimulatedAnnealing(MultivariateOptimizer):
             history=history,
         )
 
-
 class BasinHopping(MultivariateOptimizer):
     """
     Basin hopping global optimization.
@@ -666,7 +662,6 @@ class BasinHopping(MultivariateOptimizer):
             message="Basin hopping completed",
             history=history,
         )
-
 
 # Convenience functions
 def minimize(

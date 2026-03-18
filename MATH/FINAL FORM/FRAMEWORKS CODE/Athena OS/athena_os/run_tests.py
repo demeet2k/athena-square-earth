@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=88 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - COMPREHENSIVE TEST RUNNER
 =====================================
@@ -15,7 +19,6 @@ from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass, field
 from datetime import datetime
 
-
 @dataclass
 class TestResult:
     """Result of a single test."""
@@ -23,7 +26,6 @@ class TestResult:
     passed: bool
     duration: float
     error: Optional[str] = None
-
 
 @dataclass
 class TestReport:
@@ -80,7 +82,6 @@ class TestReport:
         
         lines.append("=" * 70)
         return "\n".join(lines)
-
 
 class AthenaTestRunner:
     """Test runner for ATHENA OS modules."""
@@ -212,7 +213,6 @@ class AthenaTestRunner:
         ]
         return self.run_all(core_modules)
 
-
 def main():
     """Main entry point."""
     import argparse
@@ -254,7 +254,6 @@ def main():
     print("\n" + report.summary())
     
     return 0 if report.failed_tests == 0 else 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

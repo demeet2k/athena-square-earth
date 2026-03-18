@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S26 | face=F | node=351 | depth=2 | phase=Mutable
+# METRO: Me,Cc,Ω
+# BRIDGES: Xi108:W2:A10:S25→Xi108:W2:A10:S27→Xi108:W1:A10:S26→Xi108:W3:A10:S26→Xi108:W2:A9:S26→Xi108:W2:A11:S26
+
 from __future__ import annotations
 
 import json
@@ -7,11 +11,9 @@ from pathlib import Path
 from . import swarm_board
 from .command_spine_adapter import CommandMembraneConfig, CommandMembraneService
 
-
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-
 
 def build_test_lattice() -> dict[str, object]:
     seats = []
@@ -40,7 +42,6 @@ def build_test_lattice() -> dict[str, object]:
             }
         )
     return {"seat_count": 1024, "seats": seats}
-
 
 def main() -> int:
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -129,7 +130,6 @@ def main() -> int:
         finally:
             swarm_board.CLAIM_ROOT = original_claim_root
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

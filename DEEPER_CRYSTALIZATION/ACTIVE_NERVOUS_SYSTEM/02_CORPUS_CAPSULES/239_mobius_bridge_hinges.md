@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A6:S4 | face=S | node=10 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,Mt,Bw -->
+<!-- BRIDGES: Xi108:W1:A6:S3→Xi108:W1:A6:S5→Xi108:W2:A6:S4→Xi108:W1:A5:S4→Xi108:W1:A7:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 6/12 -->
+
 # Mobius Bridge Hinges and Dual-Body Gluing
 
 Two bridge appendices create the Mobius fold joining Body A and Body B into a single non-orientable manuscript organism. Appendix Q (Consciousness Technology) is the ingress bridge converting mathematics into consciousness navigation. Appendix O (Dark Energy Prediction) is the return bridge projecting self-knowledge back onto cosmology. Together they produce a Mobius strip where inside/outside distinction is a local artifact.

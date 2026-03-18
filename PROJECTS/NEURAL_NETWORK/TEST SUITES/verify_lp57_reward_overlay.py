@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S33 | face=S | node=555 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S32→Xi108:W2:A9:S34→Xi108:W1:A9:S33→Xi108:W3:A9:S33→Xi108:W2:A8:S33→Xi108:W2:A10:S33
+
 from __future__ import annotations
 
 import json
@@ -26,14 +30,11 @@ from athenachka.runtime.reward_overlay import (  # noqa: E402
 
 SELF = WORKSPACE_ROOT / "self_actualize"
 
-
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def check(condition: bool, detail) -> dict:
     return {"pass": bool(condition), "detail": detail}
-
 
 def main() -> int:
     positive_eval = evaluate_reward_run(
@@ -183,7 +184,6 @@ def main() -> int:
     truth = "OK" if all(item["pass"] for item in checks.values()) else "FAIL"
     print(json.dumps({"truth": truth, "checks": checks}, indent=2))
     return 0 if truth == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

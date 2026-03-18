@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # 13 Open Conjectures (Frontier Chapter)
 
 Chapter 21 states 13 precisely formulated conjectures with tractability analysis: 6 are computationally tractable (solvable with existing code), 2 are observationally testable (waiting for DESI/Euclid data by ~2030), and 5 require new mathematical ideas. The deepest is Conjecture 21.5 (the cos(108 degrees) generation principle): can the entire crystal be derived from one angle?

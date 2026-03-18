@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=95 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       CATEGORY THEORY MODULE                                 ║
@@ -27,11 +31,9 @@ from typing import (
 from enum import Enum, auto
 import numpy as np
 
-
 A = TypeVar('A')
 B = TypeVar('B')
 C = TypeVar('C')
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CATEGORIES
@@ -53,7 +55,6 @@ class Object:
     
     def __repr__(self):
         return self.name
-
 
 @dataclass
 class Morphism:
@@ -77,7 +78,6 @@ class Morphism:
     def __matmul__(self, other: 'Morphism') -> 'Morphism':
         """Use @ for composition: g @ f = g ∘ f."""
         return other.compose(self)
-
 
 @dataclass
 class Category:
@@ -147,7 +147,6 @@ class Category:
         cat.add_morphism(Morphism(A, B, "→"))
         return cat
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # FUNCTORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -208,7 +207,6 @@ class Functor:
         """Contravariant representable Hom(-, B)."""
         return cls(f"Hom(-,{B.name})", category, "Set", is_contravariant=True)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # NATURAL TRANSFORMATIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -255,7 +253,6 @@ class NaturalTransformation:
         """Identity natural transformation id_F: F ⟹ F."""
         return cls(f"id_{F.name}", F, F)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LIMITS AND COLIMITS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -272,7 +269,6 @@ class LimitType(Enum):
     INITIAL = auto()
     LIMIT = auto()
     COLIMIT = auto()
-
 
 @dataclass
 class UniversalCone:
@@ -330,7 +326,6 @@ class UniversalCone:
         """Terminal object 1."""
         return cls(Object("1"), {}, "empty", LimitType.TERMINAL)
 
-
 @dataclass
 class UniversalCocone:
     """
@@ -382,7 +377,6 @@ class UniversalCocone:
         """Initial object 0."""
         return cls(Object("0"), {}, "empty", LimitType.INITIAL)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ADJUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -426,7 +420,6 @@ class Adjunction:
         U = Functor(forgetful_name, "Grp", "Set")
         return cls(F, U)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # KAN EXTENSIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -459,7 +452,6 @@ class KanExtension:
         else:
             return f"(Ran_K F)(d) = lim_{{(c,k)∈(d↓K)}} F(c)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # YONEDA LEMMA
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -490,7 +482,6 @@ class YonedaEmbedding:
     def presheaf_category(self) -> str:
         """Target presheaf category."""
         return f"[{self.category_name}^op, Set]"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MONOIDAL CATEGORIES
@@ -534,7 +525,6 @@ class MonoidalStructure:
             "σ"
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY-CATEGORY BRIDGE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -574,7 +564,6 @@ class GatewayCategoryBridge:
             "D": "Finite limits (discrete diagrams)"
         }
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -583,41 +572,33 @@ def category(name: str) -> Category:
     """Create a category."""
     return Category(name)
 
-
 def obj(name: str, cat: Optional[str] = None) -> Object:
     """Create an object."""
     return Object(name, cat)
-
 
 def morphism(source: Object, target: Object, name: str = "f") -> Morphism:
     """Create a morphism."""
     return Morphism(source, target, name)
 
-
 def functor(name: str, source: str, target: str) -> Functor:
     """Create a functor."""
     return Functor(name, source, target)
-
 
 def product_cone(A: Object, B: Object) -> UniversalCone:
     """Create product cone."""
     return UniversalCone.product(A, B)
 
-
 def coproduct_cocone(A: Object, B: Object) -> UniversalCocone:
     """Create coproduct cocone."""
     return UniversalCocone.coproduct(A, B)
-
 
 def adjunction(left: Functor, right: Functor) -> Adjunction:
     """Create adjunction F ⊣ G."""
     return Adjunction(left, right)
 
-
 def yoneda(category: str) -> YonedaEmbedding:
     """Create Yoneda embedding."""
     return YonedaEmbedding(category)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

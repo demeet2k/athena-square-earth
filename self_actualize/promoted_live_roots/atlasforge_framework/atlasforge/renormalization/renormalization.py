@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=301 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Renormalization Group (Ψ)                    ║
@@ -38,7 +42,6 @@ import math
 import numpy as np
 from numpy.typing import NDArray
 
-
 class RGTransformType(Enum):
     """Types of RG transformations."""
     BLOCK_AVERAGE = "block_average"     # Average over blocks
@@ -46,7 +49,6 @@ class RGTransformType(Enum):
     MAJORITY_RULE = "majority_rule"     # Discrete block spin
     MOMENTUM_SHELL = "momentum_shell"   # Integrate out high-k modes
     VARIATIONAL = "variational"         # Variational RG
-
 
 @dataclass
 class EffectiveLaw:
@@ -70,7 +72,6 @@ class EffectiveLaw:
     def gibbs_weight(self, state: NDArray, temperature: float = 1.0) -> float:
         """Compute Gibbs weight exp(-H/T)."""
         return np.exp(-self.energy(state) / temperature)
-
 
 @dataclass
 class RGFlow:
@@ -110,7 +111,6 @@ class RGFlow:
         
         return np.linalg.norm(last - prev) < tol
 
-
 class RGTransform(ABC):
     """Abstract base class for RG transformations."""
     
@@ -128,7 +128,6 @@ class RGTransform(ABC):
         """Compute beta function: dθ/d(log ℓ)."""
         coarse_law = self.transform_law(law)
         return coarse_law.couplings - law.couplings
-
 
 class BlockAverageRG(RGTransform):
     """
@@ -179,7 +178,6 @@ class BlockAverageRG(RGTransform):
             dimension=n_coarse,
         )
 
-
 class DecimationRG(RGTransform):
     """
     Decimation RG: keep every k-th degree of freedom.
@@ -205,7 +203,6 @@ class DecimationRG(RGTransform):
             energy_func=law.energy_func,
             dimension=len(coarse_couplings),
         )
-
 
 class MajorityRuleRG(RGTransform):
     """
@@ -255,7 +252,6 @@ class MajorityRuleRG(RGTransform):
             dimension=n_coarse,
         )
 
-
 @dataclass
 class FixedPoint:
     """
@@ -273,7 +269,6 @@ class FixedPoint:
     
     def is_unstable(self) -> bool:
         return self.stability == "unstable"
-
 
 class RGFlowAnalyzer:
     """
@@ -366,7 +361,6 @@ class RGFlowAnalyzer:
         
         return np.linalg.eigvals(jacobian)
 
-
 @dataclass
 class HierarchicalLaw:
     """
@@ -392,7 +386,6 @@ class HierarchicalLaw:
     
     def n_scales(self) -> int:
         return len(self.laws)
-
 
 class VerticalHybridFlow:
     """
@@ -461,7 +454,6 @@ class VerticalHybridFlow:
         
         return samples, hier_law
 
-
 # Noise-to-law transition helper
 def noise_to_law_transition(
     noise_samples: NDArray,
@@ -503,7 +495,6 @@ def noise_to_law_transition(
         current_law = coarse_law
     
     return hier_law
-
 
 # 1D Ising model RG (exact decimation)
 class Ising1DRG(RGTransform):

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A10:S16 | face=S | node=347 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W3:A10:S15→Xi108:W3:A10:S17→Xi108:W2:A10:S16→Xi108:W3:A9:S16→Xi108:W3:A11:S16
+
  A corridor lock is not allowed to silently choose among multiple incompatible policy explanations without emitting AMBIG or NEAR evidence.
 Define the policy ambiguity witness:
 [

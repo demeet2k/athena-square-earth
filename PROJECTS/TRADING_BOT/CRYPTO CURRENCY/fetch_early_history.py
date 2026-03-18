@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=354 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 """
 Third pass: Extend history for older coins using:
 1. CoinGecko /coins/{id}/history endpoint (date-by-date, works on free tier)
@@ -15,7 +19,6 @@ from datetime import datetime, timezone, timedelta
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(OUTPUT_DIR, "data")
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -23,7 +26,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 # ── Kraken OHLCV ──────────────────────────────────────────────────────────────
 
@@ -92,7 +94,6 @@ def fetch_kraken_ohlcv(pair, interval=1440, since=0):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 # ── CoinGecko /history endpoint (single date) ────────────────────────────────
 
 def fetch_coingecko_date_range(coin_id, start_date, end_date, step_days=7):
@@ -154,7 +155,6 @@ def fetch_coingecko_date_range(coin_id, start_date, end_date, step_days=7):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 # ── Trading indicators ────────────────────────────────────────────────────────
 
 def add_trading_features(df):
@@ -199,7 +199,6 @@ def add_trading_features(df):
 
     return df
 
-
 def merge_and_save(symbol, early_df, filepath):
     """Merge early data with existing file and save."""
     if os.path.exists(filepath):
@@ -226,7 +225,6 @@ def merge_and_save(symbol, early_df, filepath):
     file_size_mb = os.path.getsize(filepath) / (1024 * 1024)
     log(f"  SAVED: {symbol}_full_history.csv ({len(merged)} rows, {file_size_mb:.2f} MB)")
     log(f"  History: {merged['date'].iloc[0]} to {merged['date'].iloc[-1]}")
-
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -317,7 +315,6 @@ def main():
 
     log(f"{'-' * 50}")
     log(f"TOTAL: {total_rows} data points, {total_size:.2f} MB across {len(files)} coins")
-
 
 if __name__ == "__main__":
     main()

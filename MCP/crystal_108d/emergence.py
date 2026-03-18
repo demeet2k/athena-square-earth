@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S16 | face=R | node=124 | depth=2 | phase=Cardinal
+# METRO: Sa,Dl
+# BRIDGES: Xi108:W2:A7:S15→Xi108:W2:A7:S17→Xi108:W1:A7:S16→Xi108:W3:A7:S16→Xi108:W2:A6:S16→Xi108:W2:A8:S16
+
 """
 Dimensional Emergence Path
 ===========================
@@ -9,7 +13,6 @@ successor, WHAT lens upgrades occur, and WHICH transport layers unlock.
 from ._cache import JsonCache
 
 _EMERGENCE = JsonCache("dimensional_emergence.json")
-
 
 def query_emergence(component: str = "all") -> str:
     """
@@ -47,7 +50,6 @@ def query_emergence(component: str = "all") -> str:
             "phase:<N or name>, kernel, lenses, lens:<stage>, bodies"
         )
 
-
 def emergence_status() -> str:
     """Return a status summary for the resource endpoint."""
     data = _EMERGENCE.load()
@@ -60,7 +62,6 @@ def emergence_status() -> str:
         f"**Phases**: {m['total_phases']}\n"
         f"**Source**: {m['source']}\n"
     )
-
 
 # ── Formatters ──────────────────────────────────────────────────────
 
@@ -86,7 +87,6 @@ def _format_all(data: dict) -> str:
     lines.append(f"\n**Expansion**: {data['kernel_embedding']['expansion_factor']}")
     return "\n".join(lines)
 
-
 def _format_phases(data: dict) -> str:
     lines = ["## Emergence Phases\n"]
     for phase in data["emergence_phases"]:
@@ -101,7 +101,6 @@ def _format_phases(data: dict) -> str:
             lines.append(f"- **Directory**: {phase['directory']}")
         lines.append(f"\n{phase['description']}")
     return "\n".join(lines)
-
 
 def _format_one_phase(data: dict, query: str) -> str:
     phases = data["emergence_phases"]
@@ -124,7 +123,6 @@ def _format_one_phase(data: dict, query: str) -> str:
 
     return f"Phase '{query}' not found. Use index 1-7 or dimension pair like '4D->6D'."
 
-
 def _render_phase(phase: dict) -> str:
     lines = [
         f"## Phase {phase['index']}: {phase['name']}",
@@ -140,7 +138,6 @@ def _render_phase(phase: dict) -> str:
     lines.append(f"\n{phase['description']}")
     return "\n".join(lines)
 
-
 def _format_kernel(data: dict) -> str:
     ke = data["kernel_embedding"]
     lines = [
@@ -153,7 +150,6 @@ def _format_kernel(data: dict) -> str:
         lines.append(f"  - **{step['dimension']}D**: {step['embedding']}")
     return "\n".join(lines)
 
-
 def _format_lenses(data: dict) -> str:
     lines = ["## Cross-Lens Upgrade Sequence\n"]
     lines.append("| Stage | Square | Flower | Cloud | Fractal | Combined |")
@@ -164,7 +160,6 @@ def _format_lenses(data: dict) -> str:
             f"{row['cloud']} | {row['fractal']} | {row['combined']} |"
         )
     return "\n".join(lines)
-
 
 def _format_lens_at(data: dict, stage: str) -> str:
     stage_upper = stage.upper()
@@ -180,7 +175,6 @@ def _format_lens_at(data: dict, stage: str) -> str:
             )
     stages = [r["stage"] for r in data["cross_lens_upgrade_sequence"]]
     return f"Stage '{stage}' not found. Available: {', '.join(stages)}"
-
 
 def _format_bodies(data: dict) -> str:
     m = data["meta"]

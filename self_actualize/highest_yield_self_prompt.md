@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S29 | face=F | node=430 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A11:S28→Xi108:W3:A11:S30→Xi108:W2:A11:S29→Xi108:W3:A10:S29→Xi108:W3:A12:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 11/12 -->
+
 # HIGHEST YIELD SELF PROMPT
 
 Use this prompt when the goal is not generic progress, but the highest durable increase in capability, memory reach, and replay-safe execution.

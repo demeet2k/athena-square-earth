@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=80 | depth=2 | phase=Cardinal
+# METRO: Me,Mt
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - Q-SHRINK COMPRESSION FRAMEWORK
 ==========================================
@@ -180,7 +184,6 @@ from .container import (
     validate_container,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -192,7 +195,6 @@ def validate_qshrink() -> bool:
     assert validate_pipeline()
     assert validate_container()
     return True
-
 
 # =============================================================================
 # CONVENIENCE FUNCTIONS
@@ -207,7 +209,6 @@ def create_lossless_codec(n_petals: int = 16) -> QShrinkCodec:
     )
     return QShrinkCodec(profile)
 
-
 def create_lossy_codec(quality_tier: int = 0, 
                        quality_refinement: int = 0,
                        n_petals: int = 16) -> QShrinkCodec:
@@ -221,16 +222,13 @@ def create_lossy_codec(quality_tier: int = 0,
     )
     return QShrinkCodec(profile)
 
-
 def create_archive() -> DirectSumContainer:
     """Create an archive container."""
     return DirectSumContainer()
 
-
 def create_synchronized_container(n_streams: int = 2) -> KroneckerContainer:
     """Create a synchronized stream container."""
     return KroneckerContainer(n_streams=n_streams)
-
 
 def compress(data: bytes, lossless: bool = True) -> bytes:
     """
@@ -262,7 +260,6 @@ def compress(data: bytes, lossless: bool = True) -> bytes:
     
     return container.serialize()
 
-
 def decompress(container_bytes: bytes) -> bytes:
     """
     Simple decompression interface.
@@ -290,7 +287,6 @@ def decompress(container_bytes: bytes) -> bytes:
 
     combined = b''.join(data_chunks)
     return zlib.decompress(combined)
-
 
 # =============================================================================
 # EXPORTS
@@ -339,7 +335,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "qshrink"
-
 
 if __name__ == "__main__":
     print("=" * 70)

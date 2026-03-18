@@ -1,13 +1,15 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 MASTER_LEDGER_ROOT = WORKSPACE_ROOT / "self_actualize" / "master_ledger"
 LEDGER_JSON_PATH = MASTER_LEDGER_ROOT / "ATHENACHKA_MASTER_LEDGER.json"
-
 
 def main() -> int:
     if not LEDGER_JSON_PATH.exists():
@@ -34,7 +36,6 @@ def main() -> int:
     for key, value in checks.items():
         print(f"{key}: {value}")
     return 0 if all(checks.values()) else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

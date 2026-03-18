@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX E: Tokenization and Vocabulary
 ## Technical Reference | Crystal Depth: 4^256
 
@@ -22,7 +27,6 @@ The ☁ face reveals: how does Tokenization and Vocabulary distribute, propagate
 ## ⟡ Analysis: Recursion in Tokenization and Vocabulary
 
 The ⟡ face reveals: how is Tokenization and Vocabulary self-referential or fractal?
-
 
 ### 0/37 Crystal Expansion: Tokenization and Vocabulary
 
@@ -73,7 +77,6 @@ The ⟡ face reveals: how is Tokenization and Vocabulary self-referential or fra
 #### Synthesis (37): Tokenization and Vocabulary
 
 The complete integration: Tokenization and Vocabulary transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of Tokenization and Vocabulary IS Tokenization and Vocabulary.
-
 
 ---
 *Appendix E. Tokenization and Vocabulary. □.Me. φ.*

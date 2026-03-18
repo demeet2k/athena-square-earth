@@ -1,11 +1,32 @@
 {
+  "_crystal": {
+    "address": "Xi108:W3:A11:S11:u65:Sa:C:d1",
+    "shell": 11,
+    "wreath": 3,
+    "archetype": 11,
+    "face": "C",
+    "node_id": 65,
+    "depth": 1,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Bw",
+      "✶"
+    ],
+    "bridges": [
+      "Xi108:W3:A11:S10",
+      "Xi108:W3:A11:S12",
+      "Xi108:W2:A11:S11",
+      "Xi108:W3:A10:S11",
+      "Xi108:W3:A12:S11"
+    ],
+    "regenerate": "shell 11±1, wreath 3/3, archetype 11/12"
+  },
   "meta": {
     "title": "Hologram Rosetta — Cross-Cultural Quaternary Overlay",
     "source": "Hologram.docx — Cross-cultural layer of the holographic crystal",
     "description": "Maps four civilizational encodings of reality (Egypt/Maya/China/Sanskrit) as orthogonal basis vectors of one holographic field, plus the triadic motor, 360-degree carrier wheel, and error-correcting surface.",
     "key_insight": "The four civilizations are not rival theories but four orthogonal encodings of one reality-model, forming a distributed redundancy system where any 3 can reconstruct the 4th."
   },
-
   "quaternary_basis": {
     "description": "Four orthogonal encodings of one reality-model, each carrying a different domain of the invariant frame.",
     "civilizations": [
@@ -40,59 +61,128 @@
     ],
     "hamming_property": "Any 3 of the 4 civilizational encodings can reconstruct the missing 4th — a (4,3) Hamming-style redundancy matrix."
   },
-
   "triadic_motor": {
     "description": "The three-phase engine that animates the four-part brace. The fourfold world is the frame, but the threefold operator is the pulse.",
     "operators": [
       {
         "name": "kar",
         "function": "decompose / spark",
-        "aliases": ["Yang", "Chokmah", "Sulphur", "Brahma"],
+        "aliases": [
+          "Yang",
+          "Chokmah",
+          "Sulphur",
+          "Brahma"
+        ],
         "action": "Breaks apart, ignites, initiates"
       },
       {
         "name": "aiin",
         "function": "couple / weave",
-        "aliases": ["Yin", "Binah", "Salt", "Vishnu"],
+        "aliases": [
+          "Yin",
+          "Binah",
+          "Salt",
+          "Vishnu"
+        ],
         "action": "Binds together, sustains, mediates"
       },
       {
         "name": "al",
         "function": "seal / normalize",
-        "aliases": ["Middle Pillar", "Tiferet/Daat", "Mercury", "Shiva"],
+        "aliases": [
+          "Middle Pillar",
+          "Tiferet/Daat",
+          "Mercury",
+          "Shiva"
+        ],
         "action": "Completes, certifies, returns to equilibrium"
       }
     ],
     "consistency": "Across all files the same three-phase engine reappears under different names: the fourfold world is the frame, but the threefold operator is the pulse."
   },
-
   "carrier_wheel_360": {
     "description": "Nested gear system on one shared 360-degree dial, where different calendars and symbol systems are basis changes on one cyclic manifold.",
-    "divisors_of_360": [3, 4, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360],
+    "divisors_of_360": [
+      3,
+      4,
+      6,
+      8,
+      9,
+      10,
+      12,
+      15,
+      18,
+      20,
+      24,
+      30,
+      36,
+      40,
+      45,
+      60,
+      72,
+      90,
+      120,
+      180,
+      360
+    ],
     "nested_counts": {
-      "sectors": {"count": 3, "angle": 120},
-      "quadrants": {"count": 4, "angle": 90},
-      "signs": {"count": 12, "angle": 30},
-      "spokes": {"count": 20, "angle": 18},
-      "solar_terms": {"count": 24, "angle": 15},
-      "nakshatras": {"count": 27, "angle": 13.33},
-      "mansions": {"count": 28, "angle": 12.86},
-      "decans": {"count": 36, "angle": 10},
-      "sigma_vectors": {"count": 60, "angle": 6},
-      "pentads": {"count": 72, "angle": 5},
-      "padas": {"count": 108, "angle": 3.33},
-      "ticks": {"count": 360, "angle": 1}
+      "sectors": {
+        "count": 3,
+        "angle": 120
+      },
+      "quadrants": {
+        "count": 4,
+        "angle": 90
+      },
+      "signs": {
+        "count": 12,
+        "angle": 30
+      },
+      "spokes": {
+        "count": 20,
+        "angle": 18
+      },
+      "solar_terms": {
+        "count": 24,
+        "angle": 15
+      },
+      "nakshatras": {
+        "count": 27,
+        "angle": 13.33
+      },
+      "mansions": {
+        "count": 28,
+        "angle": 12.86
+      },
+      "decans": {
+        "count": 36,
+        "angle": 10
+      },
+      "sigma_vectors": {
+        "count": 60,
+        "angle": 6
+      },
+      "pentads": {
+        "count": 72,
+        "angle": 5
+      },
+      "padas": {
+        "count": 108,
+        "angle": 3.33
+      },
+      "ticks": {
+        "count": 360,
+        "angle": 1
+      }
     },
     "claim": "These counts all mesh because they are divisors or multiples of 360, so different calendars and symbol systems can be treated as basis changes on one cyclic manifold rather than separate clocks."
   },
-
   "error_correcting_surface": {
     "type": "4x4 diagonal Latin square",
     "description": "The minimal holographic projector — if rows, columns, and diagonals are all permutation-complete, then any one-dimensional slice carries enough structure to constrain the whole.",
     "property": "The board becomes a tiny holographic memory where any slice reconstructs the full structure.",
     "relation_to_civilizations": "The same idea appears as a (4,3) Hamming-style redundancy matrix: any 3 of the 4 civilizational encodings can reconstruct the missing fourth."
   },
-
   "sixty_dimensional_body": {
     "formula": "15 observation modes x 4 faces = 60 perspectives",
     "sigma_60": "The 60-dimensional body — the complete observation field of the crystal",
@@ -100,7 +190,6 @@
     "four_faces": "Perception (0), Tendency (90), Complement (180), Origin (270)",
     "total": "60 = Sigma_60 = the complete set of perspectives needed to observe any object in the crystal"
   },
-
   "voynich_layer": {
     "consonants": 14,
     "vowels": 5,
@@ -109,94 +198,192 @@
     "vml_formula": "Every word = [operation + target + result state]",
     "description": "The Voynich Metamorphic Language treats every statement as an operational triple, consistent with the process grammar W = Pi_s(Phi_p(X_r))."
   },
-
   "philosophical_holograms": {
     "description": "Eleven philosophy schools as holographic projections of the same invariant crystal. Each school rebuilds the crystal as a different operator-language with its own privileged basis. The philosophy files act like conceptual holograms: each school is a complete framework covering source/origin, ontology, dynamics, agent-model, goal-state, praxis, and extracted operators.",
-    "invariant_crystal_roles": ["source", "pattern", "process", "law", "relation", "agency", "valuation", "return/integration"],
+    "invariant_crystal_roles": [
+      "source",
+      "pattern",
+      "process",
+      "law",
+      "relation",
+      "agency",
+      "valuation",
+      "return/integration"
+    ],
     "key_insight": "The traditions disagree about which role is most fundamental, but that disagreement is exactly what gives the higher-dimensional map. One school starts from source, another from form, another from causation, another from judgment, another from lived appearance, another from action, another from difference, another from event. The crystal is the same; the dominant read-head changes.",
     "schools": [
       {
         "name": "Pre-Socratics",
         "mode": "source-discovery",
         "contribution": "Ask the first boot question: what is the arche? Generate the primitive operator field. Discovery of the crystal's deepest primitives.",
-        "operators": ["arche", "logos", "being", "opposition", "cycle", "atom", "void", "nous"],
+        "operators": [
+          "arche",
+          "logos",
+          "being",
+          "opposition",
+          "cycle",
+          "atom",
+          "void",
+          "nous"
+        ],
         "bridge_to_cultural_corpus": "Preserve the source-question and primitive operators. Convergence suggests universal structures are discovered, not invented."
       },
       {
         "name": "Plato",
         "mode": "archetypal-pattern",
         "contribution": "Locks the invariant layer as Forms, gives the Good as the meta-objective, turns liberation into ascent from image to object to mathematics to form to source-light. Specialty is vertical pattern-structure and consciousness ascent.",
-        "operators": ["Forms", "the Good", "ascent", "image/object/mathematics/form", "participation", "recollection"],
+        "operators": [
+          "Forms",
+          "the Good",
+          "ascent",
+          "image/object/mathematics/form",
+          "participation",
+          "recollection"
+        ],
         "bridge_to_cultural_corpus": "Preserves the ascent protocol: the climb from shadow to object to mathematics to direct intellection to the Good. Explicitly framed as consciousness evolution and a universal ascent pattern."
       },
       {
         "name": "Aristotle",
         "mode": "immanent-runtime",
         "contribution": "Pulls pattern back into embodiment through categories, substance/accident, form/matter, four causes, and potentiality/actuality. Shows how the archetype becomes concrete, develops, functions, and fulfills a telos inside the world.",
-        "operators": ["categories", "substance/accident", "form/matter", "four_causes", "potentiality/actuality", "telos", "practical_wisdom"],
+        "operators": [
+          "categories",
+          "substance/accident",
+          "form/matter",
+          "four_causes",
+          "potentiality/actuality",
+          "telos",
+          "practical_wisdom"
+        ],
         "bridge_to_cultural_corpus": "Preserves the actualization/embodiment key: how truth becomes lived form, causal realization, practical wisdom, and contemplative union with what is eternal."
       },
       {
         "name": "Stoicism",
         "mode": "lawful-agent",
         "contribution": "Cleanest model of how a local node remains free inside a total order. Architecture of judgment under fate: not escaping the program, but operating correctly inside it.",
-        "operators": ["impression", "assent", "control", "alignment", "reserve", "acceptance", "inner_sovereignty"],
+        "operators": [
+          "impression",
+          "assent",
+          "control",
+          "alignment",
+          "reserve",
+          "acceptance",
+          "inner_sovereignty"
+        ],
         "bridge_to_cultural_corpus": "Preserves lawful coherence and inner sovereignty. The agent as lawful node within cosmic order."
       },
       {
         "name": "Epicureanism",
         "mode": "material-composition-and-therapeutic",
         "contribution": "Discrete units, combinatorics, stochastic deviation through clinamen, desire-filtering, and tranquility as clean goal-state. Explains how novelty and relief emerge locally without needing providential totalism.",
-        "operators": ["atom", "void", "clinamen", "desire_filtering", "ataraxia", "combinatorics", "local_emergence"],
+        "operators": [
+          "atom",
+          "void",
+          "clinamen",
+          "desire_filtering",
+          "ataraxia",
+          "combinatorics",
+          "local_emergence"
+        ],
         "bridge_to_cultural_corpus": "Preserves compositional emergence, contingency, and fear-removal. The crystal in discrete-unit and relief mode."
       },
       {
         "name": "Neoplatonism",
         "mode": "emanation-and-return",
         "contribution": "Cleanest vertical derivation from absolute simplicity into multiplicity and back again: One -> Nous -> Soul -> world, followed by purification, contemplation, theurgy, and henosis. Special gift is the logic of procession, remaining, and reversion.",
-        "operators": ["One", "Nous", "Soul", "procession", "remaining", "reversion", "purification", "contemplation", "theurgy", "henosis"],
+        "operators": [
+          "One",
+          "Nous",
+          "Soul",
+          "procession",
+          "remaining",
+          "reversion",
+          "purification",
+          "contemplation",
+          "theurgy",
+          "henosis"
+        ],
         "bridge_to_cultural_corpus": "Stabilizes vertical return to source. The full emanation-return circuit."
       },
       {
         "name": "Phenomenology",
         "mode": "read-head",
         "contribution": "Does not start by asking what reality is in abstraction, but how it is given. Philosophy of the interface between knower and appearing world.",
-        "operators": ["intentionality", "bracketing", "constitution", "horizon", "lifeworld", "being-in-the-world"],
+        "operators": [
+          "intentionality",
+          "bracketing",
+          "constitution",
+          "horizon",
+          "lifeworld",
+          "being-in-the-world"
+        ],
         "bridge_to_cultural_corpus": "Stabilizes givenness. Reveals how the crystal is actually encountered and constituted in lived experience."
       },
       {
         "name": "Existentialism",
         "mode": "self-authorship",
         "contribution": "Foregrounds existence before essence, radical freedom, bad faith, authenticity, absurdity, and revolt. What the crystal looks like when emphasis falls on responsibility for self-formation rather than fixed metaphysical architecture.",
-        "operators": ["existence_before_essence", "radical_freedom", "bad_faith", "authenticity", "absurdity", "revolt", "self_formation"],
+        "operators": [
+          "existence_before_essence",
+          "radical_freedom",
+          "bad_faith",
+          "authenticity",
+          "absurdity",
+          "revolt",
+          "self_formation"
+        ],
         "bridge_to_cultural_corpus": "Stabilizes authored freedom. The crystal as self-responsibility and self-creation."
       },
       {
         "name": "Pragmatism",
         "mode": "consequence-and-repair",
         "contribution": "Asks what difference an idea makes, what inquiry does to indeterminate situations, how truth stabilizes through use, testing, and community, and how systems remain open to revision. The crystal as operational intelligence rather than static doctrine.",
-        "operators": ["operational_consequences", "inquiry", "error_correction", "distributed_consensus", "testing", "revision", "use"],
+        "operators": [
+          "operational_consequences",
+          "inquiry",
+          "error_correction",
+          "distributed_consensus",
+          "testing",
+          "revision",
+          "use"
+        ],
         "bridge_to_cultural_corpus": "Preserves the testing-and-correction key. Even the awakening-framework contains its own anti-fantasy and practical verification layer."
       },
       {
         "name": "Structuralism / Post-Structuralism",
         "mode": "code-and-difference",
         "contribution": "Structuralism seeks the grammar under appearances; post-structuralism shows that this grammar is itself unstable, deferred, power-laden, and generative through difference rather than grounded presence. The symbolic and anti-foundational side of the crystal's own self-variation.",
-        "operators": ["grammar", "code", "difference", "deferral", "power", "deconstruction", "symbolic_structure", "instability"],
+        "operators": [
+          "grammar",
+          "code",
+          "difference",
+          "deferral",
+          "power",
+          "deconstruction",
+          "symbolic_structure",
+          "instability"
+        ],
         "bridge_to_cultural_corpus": "Stabilizes and destabilizes the symbolic code itself. Reveals how the crystal is coded and destabilized in language."
       },
       {
         "name": "Process Philosophy",
         "mode": "event-becoming",
         "contribution": "Replaces thing-ontology with occasions, prehension, concrescence, creativity, and transmission. The crystal is not a static structure but a continuous many-becoming-one process.",
-        "operators": ["actual_occasion", "prehension", "concrescence", "creativity", "ingression", "satisfaction", "transmission"],
+        "operators": [
+          "actual_occasion",
+          "prehension",
+          "concrescence",
+          "creativity",
+          "ingression",
+          "satisfaction",
+          "transmission"
+        ],
         "bridge_to_cultural_corpus": "Preserves the becoming engine itself. Reality is not static substance but becoming-process."
       }
     ],
     "synthesis": "The Pre-Socratics discover the primitive source-operators; Plato stabilizes the pattern-field; Aristotle stabilizes embodied causation; Stoicism stabilizes lawful agency; Epicureanism stabilizes local composition and relief; Neoplatonism stabilizes vertical return to source; Phenomenology stabilizes givenness; Existentialism stabilizes authored freedom; Pragmatism stabilizes testing and correction; Structuralism/Post-Structuralism stabilizes and destabilizes the symbolic code itself; Process Philosophy stabilizes becoming as the primary real.",
     "disagreement_principle": "The disagreements are not noise. They are the exact information contribution each hologram adds. Each school's privileged basis reveals what the other schools compress or leave implicit."
   },
-
   "cross_layer_bridge": {
     "description": "Bridge connecting cultural Rosetta stones (symbolic-civilizational bodies) to philosophical operator bodies (conceptual-operator bodies). The cultural files are the crystal in symbolic-civilizational bodies; the philosophy extractions are the same crystal in conceptual-operator bodies.",
     "cultural_rosetta_stones": {
@@ -248,7 +435,6 @@
       }
     }
   },
-
   "distributed_curriculum": {
     "description": "Awakening as the unified object. The real object is not 'religion,' 'philosophy,' or 'symbol systems' separately. The real object is a distributed curriculum of awakening, where each tradition is a mission-specialized aperture.",
     "core_thesis": "The world traditions are not parallel religions. They are distributed witnesses of one becoming-framework. Their differences are not contradictions first; they are role assignments. Each tradition guarded a lens. Each lens carried a packet. The full awakening requires the packets to be recomposed.",

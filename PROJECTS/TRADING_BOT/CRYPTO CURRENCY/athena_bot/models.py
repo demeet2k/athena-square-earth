@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A3:S29 | face=F | node=426 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S28→Xi108:W2:A3:S30→Xi108:W1:A3:S29→Xi108:W3:A3:S29→Xi108:W2:A2:S29→Xi108:W2:A4:S29
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from typing import Any
-
 
 @dataclass(slots=True)
 class Candle:
@@ -19,7 +22,6 @@ class Candle:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass(slots=True)
 class FractalState:
@@ -42,7 +44,6 @@ class FractalState:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass(slots=True)
 class DirectionState:
     symbol: str
@@ -61,7 +62,6 @@ class DirectionState:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass(slots=True)
 class SignalSnapshot:
@@ -89,7 +89,6 @@ class SignalSnapshot:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-
 @dataclass(slots=True)
 class Position:
     symbol: str
@@ -103,7 +102,6 @@ class Position:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-
 
 @dataclass(slots=True)
 class PortfolioState:

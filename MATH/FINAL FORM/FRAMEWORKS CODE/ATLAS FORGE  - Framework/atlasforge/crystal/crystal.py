@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      ATLAS FORGE - Crystal Combat System                      ║
@@ -28,7 +32,6 @@ from atlasforge.core.base import ContentAddressed
 from atlasforge.core.enums import Pole
 from atlasforge.lenses.chart import Chart
 
-
 class CardType(Enum):
     ATTACK = auto()
     DEFEND = auto()
@@ -38,13 +41,11 @@ class CardType(Enum):
     LOCK = auto()
     UNLOCK = auto()
 
-
 class CardRarity(Enum):
     COMMON = 1
     UNCOMMON = 2
     RARE = 3
     LEGENDARY = 5
-
 
 @dataclass
 class CrystalCard(ContentAddressed):
@@ -97,7 +98,6 @@ class CrystalCard(ContentAddressed):
     def reset(self):
         self.current_cooldown = 0
 
-
 @dataclass
 class CrystalDeck:
     """A deck of Crystal Cards."""
@@ -129,7 +129,6 @@ class CrystalDeck:
         for card in self.cards:
             card.reset()
         self.current_energy = self.max_energy
-
 
 class StandardCards:
     """Factory for standard Crystal Cards."""
@@ -173,7 +172,6 @@ class StandardCards:
         return CrystalCard(name="Perturb", card_type=CardType.ATTACK,
                           operation=lambda x: x + random.gauss(0, scale),
                           cost=1.5, cooldown=2, pole=Pole.SIGMA)
-
 
 @dataclass
 class ZStarLock:
@@ -232,7 +230,6 @@ class ZStarLock:
         self.stable_count = 0
         self.last_value = None
 
-
 class PivotRule(ABC):
     """Abstract base for pivot rules."""
     
@@ -240,17 +237,14 @@ class PivotRule(ABC):
     def select(self, playable: List[CrystalCard], state: Any, residual: float) -> CrystalCard:
         pass
 
-
 class GreedyPivot(PivotRule):
     def select(self, playable: List[CrystalCard], state: Any, residual: float) -> CrystalCard:
         return min(playable, key=lambda c: c.cost)
-
 
 class AggressivePivot(PivotRule):
     def select(self, playable: List[CrystalCard], state: Any, residual: float) -> CrystalCard:
         attacks = [c for c in playable if c.card_type == CardType.ATTACK]
         return attacks[0] if attacks else playable[0]
-
 
 class AdaptivePivot(PivotRule):
     def __init__(self, high_threshold: float = 1.0, low_threshold: float = 0.01):
@@ -265,7 +259,6 @@ class AdaptivePivot(PivotRule):
         attacks = [c for c in playable if c.card_type == CardType.ATTACK]
         return min(attacks, key=lambda c: c.cost) if attacks else min(playable, key=lambda c: c.cost)
 
-
 class PolePivot(PivotRule):
     def __init__(self):
         self.current_pole = Pole.D
@@ -276,7 +269,6 @@ class PolePivot(PivotRule):
         card = pole_cards[0] if pole_cards else playable[0]
         self.current_pole = self.pole_order[(self.pole_order.index(self.current_pole) + 1) % 4]
         return card
-
 
 @dataclass
 class Rotor:
@@ -299,7 +291,6 @@ class Rotor:
     def inverse_transform(self, y: float) -> float:
         return self.current.inverse(y) if self.current else y
 
-
 @dataclass
 class CrystalSolverResult:
     """Result from Crystal Solver."""
@@ -313,7 +304,6 @@ class CrystalSolverResult:
     value_history: List[float] = field(default_factory=list)
     locked: bool = False
     lock_reason: str = ""
-
 
 class CrystalSolver:
     """The Crystal Combat solver."""
@@ -381,7 +371,6 @@ class CrystalSolver:
             self.deck.add_card(StandardCards.bisect_step(H, bracket))
             self.deck.add_card(StandardCards.project_to_interval(domain))
         self.deck.add_card(StandardCards.random_perturbation(0.1))
-
 
 class CrystalCombatArena:
     """Arena for Crystal Combat matches."""

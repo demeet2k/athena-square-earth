@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A3:S25 | face=R | node=142 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W1:A3:S24→Xi108:W1:A3:S26→Xi108:W2:A3:S25→Xi108:W1:A2:S25→Xi108:W1:A4:S25
+
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 project(adaptive_qpgemm_deploy CXX)
 

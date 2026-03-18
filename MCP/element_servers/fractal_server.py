@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S21 | face=R | node=225 | depth=2 | phase=Cardinal
+# METRO: ✶
+# BRIDGES: Xi108:W2:A3:S20→Xi108:W2:A3:S22→Xi108:W1:A3:S21→Xi108:W3:A3:S21→Xi108:W2:A2:S21→Xi108:W2:A4:S21
+
 """
 ATHENA FRACTAL SERVER — Air Element (R)
 =======================================
@@ -61,18 +65,15 @@ mcp.tool()(query_3d_crystal)
 mcp.tool()(query_projection_stack)
 mcp.tool()(query_hologram)
 
-
 @mcp.tool()
 def fractal_guild_status() -> str:
     """Compressed Guild Hall status from the fractal/seed perspective."""
     return _guild_hall_status()
 
-
 # ── Core fractal/compression tools ────────────────────────────────
 ATHENA_ROOT = Path(os.environ["ATHENA_ROOT"])
 NS_ROOT = ATHENA_ROOT / "DEEPER_CRYSTALIZATION" / "ACTIVE_NERVOUS_SYSTEM"
 BOARD_DIR = NS_ROOT / "07_FULL_PROJECT_INTEGRATION_256" / "06_REALTIME_BOARD"
-
 
 def _read_file(path: Path, limit: int = 500) -> str:
     if not path.exists():
@@ -83,13 +84,11 @@ def _read_file(path: Path, limit: int = 500) -> str:
         return "\n".join(lines[:limit]) + f"\n\n[…truncated at {limit} lines]"
     return text
 
-
 @mcp.tool()
 def athena_status() -> str:
     """Full system status including 108D summary and brain network."""
     from crystal_108d import status_summary
     return status_summary() + "\n" + brain_status()
-
 
 @mcp.tool()
 def list_families() -> str:
@@ -101,7 +100,6 @@ def list_families() -> str:
     if not families:
         return "No active families."
     return "## Active Families\n\n" + "\n".join(f"- {f.stem}" for f in families)
-
 
 # ── Mycelium: Recursion & Compression ─────────────────────────────
 
@@ -142,7 +140,6 @@ def lift_shard(shard_id: str = "", target_dimension: str = "6D") -> str:
         for e in derives:
             lines.append(f"- → `{e['target_shard']}` (w={e['weight']})")
     return "\n".join(lines)
-
 
 @mcp.tool()
 def compress_recursive_family(family: str = "") -> str:
@@ -193,7 +190,6 @@ def compress_recursive_family(family: str = "") -> str:
     ]
     return "\n".join(lines)
 
-
 # ── Fractal-specific resource ─────────────────────────────────────
 @mcp.resource("athena://fractal-air")
 def resource_fractal() -> str:
@@ -207,7 +203,6 @@ def resource_fractal() -> str:
         "**Tools**: 14 registered\n\n"
         + brain_status()
     )
-
 
 if __name__ == "__main__":
     mcp.run()

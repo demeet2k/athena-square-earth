@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=327 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 """
 Comprehensive Cryptocurrency Historical Data Downloader
 ========================================================
@@ -56,7 +60,6 @@ COINGECKO_BASE = "https://api.coingecko.com/api/v3"
 # Rate limiting: CoinGecko free tier allows ~10-30 req/min
 REQUEST_DELAY = 6  # seconds between requests to stay safe
 
-
 def log(msg):
     timestamp = datetime.now().strftime("%H:%M:%S")
     try:
@@ -64,7 +67,6 @@ def log(msg):
     except UnicodeEncodeError:
         print(f"[{timestamp}] {msg.encode('ascii', 'replace').decode()}")
     sys.stdout.flush()
-
 
 # -- CoinGecko: Coin Metadata --------------------------------------------------
 
@@ -82,7 +84,6 @@ def fetch_coin_metadata(coin_id):
     resp = requests.get(url, params=params, timeout=30)
     resp.raise_for_status()
     return resp.json()
-
 
 def extract_metadata(data):
     """Extract key metadata fields from CoinGecko coin data."""
@@ -120,7 +121,6 @@ def extract_metadata(data):
         "atl_change_percentage_usd": md.get("atl_change_percentage", {}).get("usd"),
         "last_updated": data.get("last_updated"),
     }
-
 
 # -- CoinGecko: Full Historical Market Data -------------------------------------
 
@@ -162,7 +162,6 @@ def fetch_full_history_coingecko(coin_id):
     df = df.drop_duplicates(subset=["date"], keep="last")
     df = df.sort_values("date").reset_index(drop=True)
     return df
-
 
 # -- Binance: Full Historical OHLCV (Klines) -----------------------------------
 
@@ -232,7 +231,6 @@ def fetch_binance_klines(symbol, interval="1d", start_str="2017-01-01"):
     df = df.sort_values("date").reset_index(drop=True)
     return df
 
-
 # -- CryptoDataDownload: OHLCV CSV ---------------------------------------------
 
 def fetch_cryptodatadownload_ohlcv(symbol):
@@ -266,7 +264,6 @@ def fetch_cryptodatadownload_ohlcv(symbol):
     except Exception as e:
         log(f"  CryptoDataDownload error for {symbol}: {e}")
         return None
-
 
 # -- Derived Features for Trading Bot ------------------------------------------
 
@@ -321,7 +318,6 @@ def add_trading_features(df):
         df["volume_ratio"] = df["total_volume_usd"] / df["volume_sma_20"]
 
     return df
-
 
 # -- Main Pipeline --------------------------------------------------------------
 
@@ -463,7 +459,6 @@ def main():
     log(f"TOTAL: {total_rows} data points, {total_size:.2f} MB across {len(summary_rows)} coins")
     log(f"\nAll files saved to: {DATA_DIR}")
     log("DONE!")
-
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A4:S23 | face=R | node=261 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me,T -->
+<!-- BRIDGES: Xi108:W3:A4:S22→Xi108:W3:A4:S24→Xi108:W2:A4:S23→Xi108:W3:A3:S23→Xi108:W3:A5:S23 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 23±1, wreath 3/3, archetype 4/12 -->
+
 # Fire x OntologyLattice
 
 Fire reads the network as ignition, decision, risk concentration, and decisive transformation.

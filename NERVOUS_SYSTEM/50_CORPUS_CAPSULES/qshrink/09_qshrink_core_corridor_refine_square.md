@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A1:S12 | face=R | node=78 | depth=3 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A1:S11→Xi108:W3:A1:S13→Xi108:W2:A1:S12→Xi108:W3:A2:S12 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 12±1, wreath 3/3, archetype 1/12 -->
+
 # QSHRINK Core Corridor Refinement Square
 
 Truth class: `OK`

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me,□
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """Crystal address normalization utilities.
 
 AtlasForge uses a 4×4×4×4 = 256 cell "crystal" taxonomy (Pole × Lens × Layer × Depth).
@@ -15,17 +19,14 @@ from __future__ import annotations
 from typing import Any, Optional, Tuple
 import re
 
-
 def _try_int(s: str) -> Optional[int]:
     try:
         return int(s)
     except Exception:
         return None
 
-
 def _normalize_token(s: str) -> str:
     return re.sub(r"\s+", "", (s or "").strip()).lower()
-
 
 def _parse_layer_token(tok: str):
     # Late import to avoid cycles.
@@ -47,7 +48,6 @@ def _parse_layer_token(tok: str):
             return layer
     return None
 
-
 def _parse_depth_token(tok: str):
     import atlasforge as af  # type: ignore
 
@@ -65,7 +65,6 @@ def _parse_depth_token(tok: str):
         if _normalize_token(depth.name) == t:
             return depth
     return None
-
 
 def _parse_pole_token(tok: str):
     import atlasforge as af  # type: ignore
@@ -93,7 +92,6 @@ def _parse_pole_token(tok: str):
             return pole
     return None
 
-
 def _parse_lens_token(tok: str):
     import atlasforge as af  # type: ignore
 
@@ -115,7 +113,6 @@ def _parse_lens_token(tok: str):
         if _normalize_token(lens.name) == t_norm:
             return lens
     return None
-
 
 def parse_crystal_address_string(address: str) -> Optional[int]:
     """Try to parse a crystal address string into an index 0..255.
@@ -172,7 +169,6 @@ def parse_crystal_address_string(address: str) -> Optional[int]:
     except Exception:
         return None
     return None
-
 
 def normalize_address(address: Any) -> Tuple[Optional[str], Optional[int]]:
     """Normalize a crystal address into (string, linear_index).

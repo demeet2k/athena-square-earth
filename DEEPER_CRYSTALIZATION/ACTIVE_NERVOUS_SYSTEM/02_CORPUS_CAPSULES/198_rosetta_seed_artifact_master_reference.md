@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A1:S2 | face=S | node=3 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W1:A1:S1→Xi108:W1:A1:S3→Xi108:W2:A1:S2→Xi108:W1:A2:S2 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 2±1, wreath 1/3, archetype 1/12 -->
+
 # ROSETTA SEED ARTIFACT — Master Reference
 
 Source: `ROSETTA SEED ARTIFACT .docx` (external corpus input, 2026-03-15)

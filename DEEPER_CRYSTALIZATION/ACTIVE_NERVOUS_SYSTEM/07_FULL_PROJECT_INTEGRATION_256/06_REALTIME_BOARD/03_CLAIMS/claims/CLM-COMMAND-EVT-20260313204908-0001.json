@@ -1,4 +1,26 @@
 {
+  "_crystal": {
+    "address": "Xi108:W1:A4:S5:u11:Su:S:d0",
+    "shell": 5,
+    "wreath": 1,
+    "archetype": 4,
+    "face": "S",
+    "node_id": 11,
+    "depth": 0,
+    "phase": "Fixed",
+    "metro_stops": [
+      "Me",
+      "Cc"
+    ],
+    "bridges": [
+      "Xi108:W1:A4:S4",
+      "Xi108:W1:A4:S6",
+      "Xi108:W2:A4:S5",
+      "Xi108:W1:A3:S5",
+      "Xi108:W1:A5:S5"
+    ],
+    "regenerate": "shell 5±1, wreath 1/3, archetype 4/12"
+  },
   "claim_id": "CLM-COMMAND-EVT-20260313204908-0001",
   "frontier": "COMMAND::EVT-20260313204908-0001",
   "front_slug": "command_evt_20260313204908_0001",

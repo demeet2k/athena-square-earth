@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=375 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import json
@@ -14,7 +18,6 @@ from self_actualize.runtime.derive_crystal_remaster import (
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -42,7 +45,6 @@ from athenachka.immune.merge_boundary import (  # noqa: E402
     destination_for_terminal_state,
     emit_required_artifacts,
 )
-
 
 DERIVATION_VERSION = "2026-03-13.jointatlas-merge-automaton-v0"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_jointatlas_merge_automaton"
@@ -88,10 +90,8 @@ FIXTURE_STATE_ORDER = [
     ("refuse_path", MergeState.DECIDED_REFUSE),
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def docs_gate_status() -> str:
     credentials_path = WORKSPACE_ROOT / "Trading Bot" / "credentials.json"
@@ -104,7 +104,6 @@ def docs_gate_status() -> str:
     if "Command status: `OPEN`" in gate_text:
         return "open"
     return "blocked-by-auth-failure"
-
 
 def run_test_script() -> Dict[str, Any]:
     result = subprocess.run(
@@ -127,7 +126,6 @@ def run_test_script() -> Dict[str, Any]:
             payload["report"] = {"raw_stdout": result.stdout.strip()}
     return payload
 
-
 def build_committee_pack(case_id: str) -> CommitteePack:
     return CommitteePack(
         committee_pack_id=f"CP-{case_id}",
@@ -147,7 +145,6 @@ def build_committee_pack(case_id: str) -> CommitteePack:
         note="Non-authoritative fixture case.",
     )
 
-
 def build_witness_pack(case_id: str, committee_pack_id: str) -> WitnessPack:
     return WitnessPack(
         witness_pack_id=f"WPK-{case_id}",
@@ -155,7 +152,6 @@ def build_witness_pack(case_id: str, committee_pack_id: str) -> WitnessPack:
         witness_refs=[f"WIT-{case_id}-001", f"WIT-{case_id}-002"],
         route_witness_ref=f"ROUTE-{case_id}",
     )
-
 
 def build_replay_pack(case_id: str, committee_pack_id: str) -> ReplayPack:
     return ReplayPack(
@@ -165,7 +161,6 @@ def build_replay_pack(case_id: str, committee_pack_id: str) -> ReplayPack:
         replay_closure_ref=f"REPLAY-CLOSURE-{case_id}",
     )
 
-
 def build_seed(case_id: str) -> ContinuationSeed:
     return ContinuationSeed(
         seed_id=f"SEED-{case_id}",
@@ -173,7 +168,6 @@ def build_seed(case_id: str) -> ContinuationSeed:
         objective="Replace boolean governance gating with typed motion scoring.",
         note="V0 successor seed emitted from every fixture case.",
     )
-
 
 def build_governance_approval(case_id: str, committee_pack_id: str, approved: bool) -> GovernanceApproval:
     return GovernanceApproval(
@@ -183,7 +177,6 @@ def build_governance_approval(case_id: str, committee_pack_id: str, approved: bo
         approver_refs=["council::01", "council::02"],
         note="Non-authoritative fixture approval.",
     )
-
 
 def drive_case(case_name: str, terminal_state: MergeState) -> Dict[str, Any]:
     committee_pack = build_committee_pack(case_name)
@@ -260,7 +253,6 @@ def drive_case(case_name: str, terminal_state: MergeState) -> Dict[str, Any]:
         "decision_path": decisions,
     }
 
-
 def build_fixture_cases() -> List[Dict[str, Any]]:
     cases: List[Dict[str, Any]] = []
     for case_index, (case_name, terminal_state) in enumerate(FIXTURE_STATE_ORDER, start=1):
@@ -292,7 +284,6 @@ def build_fixture_cases() -> List[Dict[str, Any]]:
         case["ledger_entry"] = ledger_entry.to_dict()
         cases.append(case)
     return cases
-
 
 def build_automaton_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
     transitions = [
@@ -329,7 +320,6 @@ def build_automaton_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
         "next_seed": NEXT_SEED,
     }
 
-
 def build_contract_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -348,7 +338,6 @@ def build_contract_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
         "next_seed": NEXT_SEED,
     }
 
-
 def build_ledger_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -362,7 +351,6 @@ def build_ledger_payload(fixtures: List[Dict[str, Any]]) -> Dict[str, Any]:
         "entries": [case["ledger_entry"] for case in fixtures],
         "next_seed": NEXT_SEED,
     }
-
 
 def render_manifest(automaton: Dict[str, Any]) -> str:
     transition_lines = "\n".join(
@@ -410,7 +398,6 @@ Install the first typed collective adjudication membrane between packet transpor
 `{automaton['next_seed']}`
 """
 
-
 def render_ledger_markdown(ledger_payload: Dict[str, Any], fixtures: List[Dict[str, Any]]) -> str:
     rows = []
     for case in fixtures:
@@ -441,7 +428,6 @@ Truth: `{ledger_payload['truth']}`
 `{ledger_payload['next_seed']}`
 """
 
-
 def render_dashboard(verification: Dict[str, Any], automaton: Dict[str, Any], ledger: Dict[str, Any]) -> str:
     check_lines = "\n".join(f"- `{check['name']}`: `{check['truth']}`" for check in verification["checks"])
     return f"""# JOINTATLAS MERGE BOUNDARY DASHBOARD
@@ -466,7 +452,6 @@ Docs gate: `{automaton['docs_gate_status']}`
 `{verification['next_seed']}`
 """
 
-
 def render_receipt(verification: Dict[str, Any]) -> str:
     return f"""# 2026-03-13 JointAtlas Merge Boundary Automaton
 
@@ -487,7 +472,6 @@ def render_receipt(verification: Dict[str, Any]) -> str:
 - `{relative_string(LEDGER_MD_PATH)}`
 - `{relative_string(DASHBOARD_MD_PATH)}`
 """
-
 
 def build_verification_payload(package_test: Dict[str, Any], fixtures: List[Dict[str, Any]], atlas_records: Dict[str, Any]) -> Dict[str, Any]:
     entry_ids = [case["ledger_entry"]["entry_id"] for case in fixtures]
@@ -512,7 +496,6 @@ def build_verification_payload(package_test: Dict[str, Any], fixtures: List[Dict
         "checks": checks,
         "next_seed": NEXT_SEED,
     }
-
 
 def main() -> int:
     package_test = run_test_script()
@@ -563,7 +546,6 @@ def main() -> int:
 
     print(json.dumps(verification_payload, indent=2))
     return 0 if verification_payload["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

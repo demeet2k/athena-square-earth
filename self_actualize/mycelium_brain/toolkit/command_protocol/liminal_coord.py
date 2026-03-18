@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S20 | face=R | node=194 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S19→Xi108:W2:A8:S21→Xi108:W1:A8:S20→Xi108:W3:A8:S20→Xi108:W2:A7:S20→Xi108:W2:A9:S20
+
 from __future__ import annotations
 
 import json
@@ -7,11 +11,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-
 CONFIG_PATH = Path(__file__).with_name("config_v1.json")
 SYNODIC_MONTH = 29.53058867
 LUNAR_EPOCH = datetime(2000, 1, 6, 18, 14, tzinfo=UTC)
-
 
 @dataclass(slots=True)
 class Config:
@@ -29,16 +31,13 @@ class Config:
     reconcile_seconds: int
     dedupe_window_ms: int
 
-
 def load_config() -> Config:
     raw = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     return Config(**raw)
 
-
 def _julian_date(dt_utc: datetime) -> float:
     unix_epoch_jd = 2440587.5
     return unix_epoch_jd + dt_utc.timestamp() / 86400.0
-
 
 def _sidereal_phase(dt_utc: datetime, lon: float | None) -> float:
     jd = _julian_date(dt_utc)
@@ -47,34 +46,27 @@ def _sidereal_phase(dt_utc: datetime, lon: float | None) -> float:
     lmst = gmst + (lon or 0.0)
     return (lmst % 360.0) / 360.0
 
-
 def _lunar_phase(dt_utc: datetime) -> float:
     days = (dt_utc - LUNAR_EPOCH).total_seconds() / 86400.0
     return (days / SYNODIC_MONTH) % 1.0
-
 
 def _solar_phase(local_dt: datetime) -> float:
     equinox_offset = 79
     return ((local_dt.timetuple().tm_yday - equinox_offset) % 365) / 365.0
 
-
 def _orbital_phase(local_dt: datetime) -> float:
     year_days = 366 if local_dt.year % 4 == 0 and (local_dt.year % 100 != 0 or local_dt.year % 400 == 0) else 365
     return (local_dt.timetuple().tm_yday - 1 + local_dt.hour / 24.0) / year_days
-
 
 def _rotation_phase(local_dt: datetime) -> float:
     seconds = local_dt.hour * 3600 + local_dt.minute * 60 + local_dt.second + local_dt.microsecond / 1_000_000
     return seconds / 86400.0
 
-
 def _sky_slot(sidereal_phase: float) -> int:
     return int(math.floor(sidereal_phase * 12)) % 12
 
-
 def _goal_salience(priority: float, confidence: float) -> float:
     return round((priority + confidence) / 2.0, 6)
-
 
 def _novelty_score(event_type: str, path_depth: int, watch_fallback: bool) -> float:
     base = {
@@ -87,10 +79,8 @@ def _novelty_score(event_type: str, path_depth: int, watch_fallback: bool) -> fl
     fallback_penalty = 0.15 if watch_fallback else 0.0
     return max(0.0, min(1.0, round(base + depth_adjust - fallback_penalty, 6)))
 
-
 def liminal_timestamp(dt_utc: datetime) -> str:
     return f"LT-{dt_utc.timestamp():012.3f}"
-
 
 def build_coord12(
     *,
@@ -146,10 +136,8 @@ def build_coord12(
         "coord_quality": coord_quality,
     }, liminal_timestamp(dt_utc)
 
-
 def earth_timestamp() -> str:
     return datetime.now(tz=UTC).isoformat()
-
 
 def make_lookup_addr(
     *,

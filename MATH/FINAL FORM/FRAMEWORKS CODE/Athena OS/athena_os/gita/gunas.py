@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ATHENA OS - BHAGAVAD GĪTĀ COMPUTATIONAL FRAMEWORK
 ==================================================
@@ -43,7 +47,6 @@ import numpy as np
 from scipy.linalg import expm
 from scipy.ndimage import laplace
 
-
 # =============================================================================
 # GUNA TYPES
 # =============================================================================
@@ -61,7 +64,6 @@ class GunaType(Enum):
         self.comp_type = comp_type
         self.operator_symbol = operator
         self.description = description
-
 
 class TattvaCategory(Enum):
     """The 24 Tattva categories (Sāṅkhya)."""
@@ -103,7 +105,6 @@ class TattvaCategory(Enum):
         self._name = name
         self.dominant_guna = dominant_guna
         self.description = description
-
 
 # =============================================================================
 # THE SATTVA OPERATOR (CURL)
@@ -177,7 +178,6 @@ class SattvaOperator:
     def prakasha(self) -> str:
         """Light/Illumination property."""
         return "prakāśa"  # Clarity, luminosity
-
 
 # =============================================================================
 # THE RAJAS OPERATOR (GRADIENT)
@@ -260,7 +260,6 @@ class RajasOperator:
     def pravritta(self) -> str:
         """Activity/Projection property."""
         return "pravṛtta"  # Outward-moving, active
-
 
 # =============================================================================
 # THE TAMAS OPERATOR (LAPLACIAN)
@@ -348,7 +347,6 @@ class TamasOperator:
     def gurutva(self) -> str:
         """Heaviness/Mass property."""
         return "gurutva"  # Weight, inertia
-
 
 # =============================================================================
 # THE UNIVERSAL HAMILTONIAN
@@ -469,7 +467,6 @@ class UniversalHamiltonian:
         
         return guna_map[max_key]
 
-
 # =============================================================================
 # THE 24 TATTVA EVOLUTION
 # =============================================================================
@@ -569,7 +566,6 @@ class TattvaEvolution:
         
         return mahabhutas
 
-
 # =============================================================================
 # THE PANCHĪKARAṆA MATRIX
 # =============================================================================
@@ -585,7 +581,6 @@ def panchakarana_matrix() -> np.ndarray:
     Pi = np.ones((5, 5)) * 0.125
     np.fill_diagonal(Pi, 0.5)
     return Pi
-
 
 # =============================================================================
 # VALIDATION
@@ -667,7 +662,6 @@ def validate_gunas() -> bool:
     assert "manas" in antahkarana
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Guṇas Module...")

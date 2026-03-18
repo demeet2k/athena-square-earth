@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S21 | face=R | node=231 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A7:S20→Xi108:W3:A7:S22→Xi108:W2:A7:S21→Xi108:W3:A6:S21→Xi108:W3:A8:S21 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 21±1, wreath 3/3, archetype 7/12 -->
+
 # Q25 Semantic Witness And Archive Leverage Ranking Receipt
 
 - Generated: `2026-03-10T03:47:49.434282+00:00`

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=406 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Registry System                         ║
@@ -34,9 +38,7 @@ from atlasforge.core.enums import CertificateLevel
 from atlasforge.recipes.recipe import Recipe, RecipeOutput, Blueprint
 from atlasforge.certificates.certificate import Certificate, ProofPack
 
-
 T = TypeVar('T', bound=ContentAddressed)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STORAGE BACKEND
@@ -65,7 +67,6 @@ class StorageBackend(ABC):
     def list_keys(self, prefix: str = "") -> List[str]:
         pass
 
-
 class MemoryBackend(StorageBackend):
     """In-memory storage backend."""
     
@@ -90,7 +91,6 @@ class MemoryBackend(StorageBackend):
     
     def list_keys(self, prefix: str = "") -> List[str]:
         return [k for k in self._store.keys() if k.startswith(prefix)]
-
 
 class FileBackend(StorageBackend):
     """File-based storage backend."""
@@ -138,7 +138,6 @@ class FileBackend(StorageBackend):
                 if f.startswith(prefix):
                     keys.append(f)
         return keys
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTENT STORE
@@ -200,7 +199,6 @@ class ContentStore(Generic[T]):
         """List all stored content hashes."""
         keys = self.backend.list_keys(self.prefix)
         return [k[len(self.prefix):] if self.prefix else k for k in keys]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # RECIPE STORE
@@ -284,7 +282,6 @@ class RecipeStore:
         """Check if a recipe has a cached output."""
         return recipe_hash in self._recipe_outputs
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DEPENDENCY DAG
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -297,7 +294,6 @@ class DependencyNode:
     dependencies: Set[str] = field(default_factory=set)
     dependents: Set[str] = field(default_factory=set)
     metadata: Dict[str, Any] = field(default_factory=dict)
-
 
 class DependencyDAG:
     """
@@ -404,7 +400,6 @@ class DependencyDAG:
         """
         return self.get_all_dependents(content_hash) | {content_hash}
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LEDGER
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -427,7 +422,6 @@ class LedgerEntry:
             'artifact_hash': self.artifact_hash,
             'metadata': self.metadata,
         }
-
 
 class Ledger:
     """
@@ -511,7 +505,6 @@ class Ledger:
     
     def __iter__(self) -> Iterator[LedgerEntry]:
         return iter(self.entries)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # REGISTRY (UNIFIED ACCESS)

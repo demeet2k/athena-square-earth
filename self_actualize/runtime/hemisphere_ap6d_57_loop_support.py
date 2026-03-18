@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S25 | face=F | node=301 | depth=2 | phase=Mutable
+# METRO: Wr,Me
+# BRIDGES: Xi108:W2:A7:S24→Xi108:W2:A7:S26→Xi108:W1:A7:S25→Xi108:W3:A7:S25→Xi108:W2:A6:S25→Xi108:W2:A8:S25
+
 from __future__ import annotations
 
 from collections import Counter
@@ -15,7 +19,6 @@ from self_actualize.runtime.hemisphere_brain_support import (
     utc_now,
 )
 from self_actualize.runtime.hemisphere_full_corpus_integration_support import STAGE_LABELS
-
 
 WORKSPACE_ROOT = SELF_ACTUALIZE_ROOT.parent
 MYCELIUM_ROOT = SELF_ACTUALIZE_ROOT / "mycelium_brain"
@@ -276,12 +279,10 @@ OMEGA_LOOP = {
     "focus": "Synthesize the previous 56 loops into one convergence manifest, one Hall parent quest set, one Temple activation seed, one pruner zero-point seed, and one awakening-agent transition briefing for the next season.",
 }
 
-
 def load_optional_json(path: Path) -> dict[str, Any]:
     if not path.is_file():
         return {}
     return load_json(path)
-
 
 def unique_order(values: list[str]) -> list[str]:
     seen: set[str] = set()
@@ -292,17 +293,14 @@ def unique_order(values: list[str]) -> list[str]:
             ordered.append(value)
     return ordered
 
-
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     header = "| " + " | ".join(headers) + " |"
     separator = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([header, separator, *body])
 
-
 def packet_ids(prefix: str, count: int, width: int) -> list[str]:
     return [f"{prefix}{index:0{width}d}" for index in range(1, count + 1)]
-
 
 def rotate_pick(items: list[dict[str, Any]], start_index: int, limit: int) -> list[dict[str, Any]]:
     if not items:
@@ -318,7 +316,6 @@ def rotate_pick(items: list[dict[str, Any]], start_index: int, limit: int) -> li
             break
     return picked
 
-
 def sorted_authority_records(authority_registry: dict[str, Any]) -> list[dict[str, Any]]:
     return sorted(
         authority_registry.get("records", []),
@@ -328,7 +325,6 @@ def sorted_authority_records(authority_registry: dict[str, Any]) -> list[dict[st
             record.get("relative_path", "").lower(),
         ),
     )
-
 
 def expand_loop_specs() -> list[dict[str, Any]]:
     loop_specs: list[dict[str, Any]] = []
@@ -363,13 +359,11 @@ def expand_loop_specs() -> list[dict[str, Any]]:
     )
     return loop_specs
 
-
 def short_text(value: str, limit: int = 160) -> str:
     collapsed = " ".join(str(value).split())
     if len(collapsed) <= limit:
         return collapsed
     return collapsed[: limit - 1].rstrip() + "..."
-
 
 def stage_assignment_lookup(
     awakening_stage_registry: dict[str, Any],
@@ -381,7 +375,6 @@ def stage_assignment_lookup(
         by_stage.setdefault(row.get("stage_id", ""), []).append(row)
     return by_record, by_stage
 
-
 def authority_lookup(
     authority_registry: dict[str, Any],
 ) -> dict[str, dict[str, Any]]:
@@ -390,7 +383,6 @@ def authority_lookup(
         for row in authority_registry.get("records", [])
         if row.get("record_id")
     }
-
 
 def focus_records_for_loop(
     loop_spec: dict[str, Any],
@@ -419,7 +411,6 @@ def focus_records_for_loop(
     start_index = ((loop_spec["loop_number"] - 1) * limit) % max(len(candidates), 1)
     return rotate_pick(candidates, start_index, limit)
 
-
 def focus_scope_counts(records: list[dict[str, Any]]) -> dict[str, int]:
     counts = Counter(record.get("scope_flags", "live") for record in records)
     return {
@@ -428,7 +419,6 @@ def focus_scope_counts(records: list[dict[str, Any]]) -> dict[str, int]:
         "both": int(counts.get("both", 0)),
         "witness_only": int(counts.get("witness_only", 0)),
     }
-
 
 def choose_family_note_ids(
     family_notes: list[dict[str, Any]],
@@ -446,7 +436,6 @@ def choose_family_note_ids(
         if len(chosen) == 4:
             break
     return chosen
-
 
 def choose_basis_note_ids(
     basis_notes: list[dict[str, Any]],
@@ -475,7 +464,6 @@ def choose_basis_note_ids(
             break
     return chosen
 
-
 def choose_stage_family_note_ids(
     stage_family_notes: list[dict[str, Any]],
     loop_spec: dict[str, Any],
@@ -500,7 +488,6 @@ def choose_stage_family_note_ids(
             break
     return chosen
 
-
 def loop_artifact_ids(loop_id: str) -> dict[str, str]:
     return {
         "loop_manifest": f"{loop_id}:MANIFEST",
@@ -511,7 +498,6 @@ def loop_artifact_ids(loop_id: str) -> dict[str, str]:
         "pruning_receipt": f"{loop_id}:PRUNE",
         "restart_seed": f"{loop_id}:RESTART",
     }
-
 
 def worker_modes(stage_id: str) -> list[str]:
     mapping = {
@@ -525,13 +511,11 @@ def worker_modes(stage_id: str) -> list[str]:
     }
     return mapping.get(stage_id, ["diagnose", "plan", "apply", "reseed"])
 
-
 def guide_tags(stage_id: str, focus_records: list[dict[str, Any]]) -> list[str]:
     tags = [stage_id]
     tags.extend(unique_order([record.get("primary_hemisphere", "") for record in focus_records]))
     tags.extend(unique_order([record.get("family", "") for record in focus_records])[:2])
     return [tag for tag in tags if tag]
-
 
 def render_loop_index_markdown(
     loop_manifest: dict[str, Any],
@@ -560,7 +544,6 @@ Docs gate: `{loop_manifest.get('docs_gate_status', 'UNKNOWN')}`
 {markdown_table(["Loop", "Stage", "Wave", "Focus"], rows or [["-", "-", "-", "-"]])}
 """
 
-
 def render_wave_ladder_markdown(control_registry: dict[str, Any]) -> str:
     rows = []
     wave_counts = Counter(loop["wave_title"] for loop in control_registry.get("loops", []))
@@ -580,7 +563,6 @@ def render_wave_ladder_markdown(control_registry: dict[str, Any]) -> str:
 {markdown_table(["Wave", "Title", "Stage", "Loop Count", "Opening Focus"], rows)}
 """
 
-
 def render_agent_lane_markdown(agent_lane_registry: dict[str, Any]) -> str:
     rows = []
     for agent in agent_lane_registry.get("agents", []):
@@ -597,7 +579,6 @@ def render_agent_lane_markdown(agent_lane_registry: dict[str, Any]) -> str:
 
 {markdown_table(["Agent", "Label", "Hall Role", "Temple Role", "Phase Verbs"], rows)}
 """
-
 
 def render_nested_lattice_markdown(nested_manifest: dict[str, Any]) -> str:
     totals = nested_manifest.get("seat_totals", {})
@@ -620,7 +601,6 @@ def render_nested_lattice_markdown(nested_manifest: dict[str, Any]) -> str:
 {markdown_table(["Axis", "Values"], axis_rows)}
 """
 
-
 def render_bundle_map_markdown(quest_bundle_registry: dict[str, Any]) -> str:
     rows = []
     for row in quest_bundle_registry.get("rows", [])[:16]:
@@ -638,7 +618,6 @@ def render_bundle_map_markdown(quest_bundle_registry: dict[str, Any]) -> str:
 
 {markdown_table(["Loop", "Agent", "Hall Visible", "Temple Visible", "Fibers", "Hall Bundle"], rows or [["-", "-", "0", "0", "0", "-"]])}
 """
-
 
 def render_worker_actions_markdown(worker_action_registry: dict[str, Any]) -> str:
     rows = []
@@ -658,7 +637,6 @@ def render_worker_actions_markdown(worker_action_registry: dict[str, Any]) -> st
 {markdown_table(["Loop", "Mode", "Record", "Family", "Primary"], rows or [["-", "-", "-", "-", "-"]])}
 """
 
-
 def render_awakening_cycle_markdown(awakening_registry: dict[str, Any]) -> str:
     rows = []
     for row in awakening_registry.get("rows", [])[:20]:
@@ -675,7 +653,6 @@ def render_awakening_cycle_markdown(awakening_registry: dict[str, Any]) -> str:
 
 {markdown_table(["Loop", "Stage", "Family Notes", "Basis Notes", "Stage/Family Notes"], rows or [["-", "-", "0", "0", "0"]])}
 """
-
 
 def render_receipt_markdown(loop_manifest: dict[str, Any]) -> str:
     output_rows = [
@@ -695,7 +672,6 @@ Docs gate: `{loop_manifest.get('docs_gate_status', 'UNKNOWN')}`
 {markdown_table(["Output", "Path"], output_rows or [["<none>", "<none>"]])}
 """
 
-
 def render_hall_doc(loop_manifest: dict[str, Any], control_registry: dict[str, Any]) -> str:
     rows = [
         [loop["loop_id"], loop["stage_label"], loop["artifact_ids"]["hall_quest_bundle"], loop["artifact_ids"]["worker_action_bundle"]]
@@ -710,7 +686,6 @@ Hall remains macro-sized: `1024 -> 256 -> 64 -> 4`
 {markdown_table(["Loop", "Stage", "Hall Bundle", "Worker Bundle"], rows)}
 """
 
-
 def render_temple_doc(loop_manifest: dict[str, Any], control_registry: dict[str, Any]) -> str:
     rows = [
         [loop["loop_id"], loop["stage_label"], loop["artifact_ids"]["temple_quest_bundle"], loop["artifact_ids"]["restart_seed"]]
@@ -724,7 +699,6 @@ Temple stays canonical for activation, proof, replay, quarantine, and appendix g
 
 {markdown_table(["Loop", "Stage", "Temple Bundle", "Restart Seed"], rows)}
 """
-
 
 def render_deep_control_doc(loop_manifest: dict[str, Any]) -> str:
     seat_totals = loop_manifest.get("seat_totals", {})
@@ -743,7 +717,6 @@ def render_deep_control_doc(loop_manifest: dict[str, Any]) -> str:
 Docs gate: `{loop_manifest.get('docs_gate_status', 'UNKNOWN')}`
 """
 
-
 def render_program_receipt(loop_manifest: dict[str, Any]) -> str:
     counts = loop_manifest.get("counts", {})
     return f"""# 2026-03-13 AP6D 57-Loop Cycle
@@ -755,7 +728,6 @@ def render_program_receipt(loop_manifest: dict[str, Any]) -> str:
 - restart seeds: `{counts.get('restart_seed_rows', 0)}`
 - docs gate: `{loop_manifest.get('docs_gate_status', 'UNKNOWN')}`
 """
-
 
 def upsert_marker_block(
     text: str,
@@ -777,7 +749,6 @@ def upsert_marker_block(
     if prefix:
         prefix += "\n\n"
     return prefix + replacement + "\n"
-
 
 def build_ap6d_57_loop_payloads(
     *,

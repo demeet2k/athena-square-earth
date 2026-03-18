@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ATHENA OS - ALCHEMICAL STATE SPACE
 ==================================
@@ -42,7 +46,6 @@ import math
 import cmath
 import numpy as np
 
-
 # =============================================================================
 # ELEMENTS
 # =============================================================================
@@ -75,7 +78,6 @@ class Element(Enum):
             Element.EARTH: Element.AIR
         }
         return opposites[self]
-
 
 # =============================================================================
 # ELEMENTAL STATE VECTOR
@@ -215,7 +217,6 @@ class ElementalState:
     def __rmul__(self, scalar: complex) -> 'ElementalState':
         return self.__mul__(scalar)
 
-
 # =============================================================================
 # QUALITY SPACE
 # =============================================================================
@@ -279,7 +280,6 @@ class QualityState:
             (self.moisture - other.moisture)**2
         )
 
-
 # =============================================================================
 # QUALITY MAPPING
 # =============================================================================
@@ -325,7 +325,6 @@ class QualityMapping:
         """
         result = cls.Q_MATRIX @ np.abs(dPsi)
         return (result[0], result[1])
-
 
 # =============================================================================
 # THE ARISTOTELIAN SQUARE
@@ -407,7 +406,6 @@ class AristotelianSquare:
         
         return []
 
-
 # =============================================================================
 # COMPLETE STATE SPACE
 # =============================================================================
@@ -460,7 +458,6 @@ class AlchemicalState:
             "Sagittarius", "Capricorn", "Aquarius", "Pisces"
         ]
         return signs[self.archetype % 12]
-
 
 # =============================================================================
 # VALIDATION
@@ -515,7 +512,6 @@ def validate_alchemical_state_space() -> bool:
     assert state1.inner_product(state1) == 1  # Self = 1
     
     return True
-
 
 if __name__ == "__main__":
     print("=" * 60)

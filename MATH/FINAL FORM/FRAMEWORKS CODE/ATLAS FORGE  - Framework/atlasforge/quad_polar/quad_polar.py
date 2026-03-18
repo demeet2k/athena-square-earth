@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=83 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      QUAD-POLAR COSMOLOGY MODULE                             ║
@@ -31,7 +35,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIVERSE SECTORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -42,7 +45,6 @@ class UniverseSector(Enum):
     INVERTED = "inverted"   # U_ℝ- : Void, repulsive geometry
     IMAGINARY = "imaginary" # U_𝕀+ : Probability, superposition
     CONJUGATE = "conjugate" # U_𝕀- : Memory, records
-
 
 @dataclass
 class SectorProperties:
@@ -97,7 +99,6 @@ class SectorProperties:
             "Static/slowly evolving information about histories"
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SECTOR HILBERT SPACES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -131,7 +132,6 @@ class SectorHilbertSpace:
             return result
         return state
 
-
 @dataclass
 class TotalHilbertSpace:
     """
@@ -163,7 +163,6 @@ class TotalHilbertSpace:
             UniverseSector.CONJUGATE: self.h_conjugate
         }
         return mapping[sector]
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUAD-POLAR STATE
@@ -237,7 +236,6 @@ class QuadPolarState:
         other = np.sqrt((1 - weight**2) / 3)
         return cls(weight, other, other, other, tau)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUATERNIONIC REPRESENTATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -292,7 +290,6 @@ class Quaternion:
             state.psi_conjugate.real
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # COUPLING OPERATORS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -303,7 +300,6 @@ class CouplingType(Enum):
     LOGGING = "logging"             # C_{+→ī} : event → record
     GEOMETRY_INDUCTION = "geometry" # C_{ī→-} : record → void
     RE_OSCILLATION = "oscillation"  # C_{-→i} : void → potential
-
 
 @dataclass
 class CouplingOperator:
@@ -395,7 +391,6 @@ class CouplingOperator:
             state.tau + dt
         )
 
-
 @dataclass
 class CouplingCycle:
     """
@@ -420,7 +415,6 @@ class CouplingCycle:
             current = op.apply(current, dt)
         return current
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # Q-HAMILTONIAN
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -438,7 +432,6 @@ class SectorHamiltonian:
     def expectation(self, psi: complex) -> float:
         """Energy expectation in sector."""
         return self.energy_scale * abs(psi) ** 2
-
 
 @dataclass
 class QuadPolarHamiltonian:
@@ -498,7 +491,6 @@ class QuadPolarHamiltonian:
         # Apply coupling interactions
         return self.coupling_cycle.apply_cycle(intermediate, dt)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROTATION OPERATOR
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -529,7 +521,6 @@ class SectorRotation:
         for _ in range(n % 4):
             result = self.rotate(result)
         return result
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -582,7 +573,6 @@ class QuadPolarPoleBridge:
           |Ψ⟩ ≅ |ψ_+⟩ + i|ψ_i⟩ + j|ψ_-⟩ + k|ψ_ī⟩
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -597,33 +587,27 @@ def sector_properties(sector: UniverseSector) -> SectorProperties:
     }
     return mapping[sector]
 
-
 def quad_polar_state(psi_p: complex = 0.5, psi_inv: complex = 0.5,
                      psi_im: complex = 0.5, psi_conj: complex = 0.5,
                      tau: float = 0.0) -> QuadPolarState:
     """Create quad-polar state."""
     return QuadPolarState(psi_p, psi_inv, psi_im, psi_conj, tau)
 
-
 def quaternion(a: float, b: float, c: float, d: float) -> Quaternion:
     """Create quaternion."""
     return Quaternion(a, b, c, d)
-
 
 def coupling_cycle() -> CouplingCycle:
     """Create complete coupling cycle."""
     return CouplingCycle()
 
-
 def quad_hamiltonian() -> QuadPolarHamiltonian:
     """Create default Q-Hamiltonian."""
     return QuadPolarHamiltonian.default()
 
-
 def sector_rotation() -> SectorRotation:
     """Create sector rotation operator."""
     return SectorRotation()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

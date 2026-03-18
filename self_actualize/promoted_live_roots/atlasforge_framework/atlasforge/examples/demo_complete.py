@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE v3.0.0 - Complete Demo                         ║
@@ -59,13 +63,11 @@ from atlasforge import (
     BFGS, GradientDescent, minimize,
 )
 
-
 def banner(title: str):
     """Print a banner."""
     print("\n" + "=" * 70)
     print(f"  {title}")
     print("=" * 70)
-
 
 def demo_operator_simplex():
     """Demonstrate the operator simplex and splitting schemes."""
@@ -111,7 +113,6 @@ where (α_D, α_Ω, α_Σ, α_Ψ) ∈ Δ³ (the 3-simplex).
     print("  • Strang:       e^{τG} ≈ e^{τA/2}e^{τB}e^{τA/2} (2nd order)")
     print("  • Yoshida:      4th order symmetric splitting")
 
-
 def demo_multigrid():
     """Demonstrate multigrid solver (Ψ pole)."""
     banner("MULTIGRID SOLVER (Ψ POLE)")
@@ -148,7 +149,6 @@ Multigrid achieves O(N) complexity for elliptic problems:
     print(f"  Jacobi would need: ~{int(condition_number(A))} iterations")
     print(f"  CG would need: ~{int(np.sqrt(condition_number(A)))} iterations")
     print(f"  Multigrid needs: {result.iterations} iterations")
-
 
 def demo_sampling():
     """Demonstrate MCMC sampling methods (Σ pole)."""
@@ -197,7 +197,6 @@ Sampling algorithms in quad-polar decomposition:
     print(f"   Mean: {result_p.mean()}")
     print(f"   Swap rate: {result_p.accept_rate:.2%}")
 
-
 def demo_spectral():
     """Demonstrate spectral analysis."""
     banner("SPECTRAL ANALYSIS")
@@ -235,7 +234,6 @@ Spectral properties control convergence rates:
     # Shortcut factor
     shortcut = compute_shortcut_factor(A, 'gradient_descent', 'conjugate_gradient')
     print(f"\nShortcut factor (GD → CG): {shortcut.speedup_factor:.1f}x")
-
 
 def demo_representations():
     """Demonstrate representation routing."""
@@ -282,7 +280,6 @@ Route through the representation that makes the operation simplest!
         opt = optimal_representation_for_task(task)
         print(f"  '{task}': {opt.value.upper()}")
 
-
 def demo_shortcut_patterns():
     """Demonstrate shortcut patterns."""
     banner("ALGORITHMIC SHORTCUT PATTERNS")
@@ -307,7 +304,6 @@ Shortcuts arise when adding poles addresses failure modes:
     print(f"  Hybrid: {analysis.hybrid.name}")
     print(f"  Speedup: {analysis.iteration_speedup:.1f}x")
     print(f"  Complexity: {analysis.complexity_speedup}")
-
 
 def demo_invariants():
     """Demonstrate invariant conservation."""
@@ -342,7 +338,6 @@ def demo_invariants():
     print("\nSymplectic structure (for Hamiltonian systems):")
     symp = SymplecticStructure(dimension=2)
     print(f"  J matrix:\n{symp.J}")
-
 
 def main():
     """Run all demos."""
@@ -392,7 +387,6 @@ Key insight from empirical testing:
 
 For more information, see FRAMEWORK_SUMMARY.md
 """)
-
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=441 | depth=2 | phase=Mutable
+# METRO: Me,Bw
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import json
@@ -16,7 +20,6 @@ HISTORICAL_DEEP_MIRRORS = [
 ]
 ORGANISM_LAW = "Theta_plus = (AddressMesh, RelationMetro, ChamberMembrane, ReplayReturnAxis; EconomySalienceBudget)"
 
-
 @dataclass(frozen=True)
 class BasisDoc:
     idx: int
@@ -27,7 +30,6 @@ class BasisDoc:
     role: str
     source_hint: str
     hubs: tuple[str, ...]
-
 
 LOOPS = [
     ("CorpusMap", "maps the whole corpus as one routed body"),
@@ -104,15 +106,12 @@ SKILLS = [
     ),
 ]
 
-
 def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
-
 
 def write_text(path: Path, text: str) -> None:
     ensure_dir(path.parent)
     path.write_text(text.strip() + "\n", encoding="utf-8")
-
 
 def sanitize(text: str) -> str:
     out = []
@@ -123,12 +122,10 @@ def sanitize(text: str) -> str:
         slug = slug.replace("__", "_")
     return slug.strip("_")
 
-
 def load_manifest() -> dict:
     if MANIFEST_PATH.exists():
         return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     return {"live_docs_gate": "UNKNOWN", "live_record_count": 0, "archive_record_count": 0}
-
 
 def build_basis() -> list[BasisDoc]:
     return [
@@ -150,10 +147,8 @@ def build_basis() -> list[BasisDoc]:
         BasisDoc(16, "ch19_self_repair", "Ch19 Recursive Self-Reference and Self-Repair", "Fire", "autonomic repair", "lets the organism watch, checkpoint, and heal itself", r"self_actualize\manuscript_sections\019_ch19_recursive_self_reference_and_self_repair.md", ("AppA", "AppM", "AppP")),
     ]
 
-
 def shared_hubs(left: BasisDoc, right: BasisDoc) -> list[str]:
     return sorted(set(left.hubs).intersection(right.hubs))
-
 
 def pair_relation(left: BasisDoc, right: BasisDoc) -> str:
     if left.slug == right.slug:
@@ -166,7 +161,6 @@ def pair_relation(left: BasisDoc, right: BasisDoc) -> str:
     if pair in ({"Fire", "Air"}, {"Water", "Earth"}):
         return "translational cross-bridge"
     return "diagonal tension bridge"
-
 
 def pair_bridge(left: BasisDoc, right: BasisDoc) -> str:
     pair = {left.element, right.element}
@@ -184,14 +178,11 @@ def pair_bridge(left: BasisDoc, right: BasisDoc) -> str:
         return "stabilize force so it can become durable practice instead of flash"
     return "turn relation and circulation into a coherent field that can cross hostile boundaries"
 
-
 def link_name(doc: BasisDoc) -> str:
     return f"{doc.idx:02d}_{doc.slug}"
 
-
 def primary_appendices(doc: BasisDoc) -> str:
     return ", ".join(doc.hubs)
-
 
 def basis_table(basis: list[BasisDoc]) -> str:
     lines = [
@@ -205,21 +196,17 @@ def basis_table(basis: list[BasisDoc]) -> str:
         )
     return "\n".join(lines)
 
-
 def doc_line(doc: BasisDoc) -> str:
     return (
         f"- `{doc.idx:02d}` {doc.title} [{doc.element}]"
         f": {doc.role}. Cluster: {doc.cluster}. Source hint: `{doc.source_hint}`."
     )
 
-
 def doc_basis_for_element(basis: list[BasisDoc], element: str) -> list[BasisDoc]:
     return [doc for doc in basis if doc.element == element] + [doc for doc in basis if doc.element != element]
 
-
 def element_loop_filename(idx: int, loop_name: str) -> str:
     return f"{idx:02d}_{sanitize(loop_name)}.md"
-
 
 def loop_observation(element: str, loop_name: str, loop_desc: str, doc: BasisDoc) -> str:
     relation = "native driver" if doc.element == element else "translated counterpart"
@@ -228,7 +215,6 @@ def loop_observation(element: str, loop_name: str, loop_desc: str, doc: BasisDoc
         f" {relation} for `{loop_name}`. It {loop_desc}, using {doc.cluster} as the anchor"
         f" and {doc.role} as the contribution. Appendix stack: {primary_appendices(doc)}."
     )
-
 
 def pair_neutral_synthesis(left: BasisDoc, right: BasisDoc) -> str:
     hubs = shared_hubs(left, right)
@@ -239,7 +225,6 @@ def pair_neutral_synthesis(left: BasisDoc, right: BasisDoc) -> str:
         f" becomes the receiving surface. Their governing relation is `{pair_relation(left, right)}`, and"
         f" the bridge law is to {pair_bridge(left, right)}. Shared support surfaces: {hub_text}."
     )
-
 
 def pair_element_view(element: str, left: BasisDoc, right: BasisDoc) -> str:
     focus = {
@@ -253,7 +238,6 @@ def pair_element_view(element: str, left: BasisDoc, right: BasisDoc) -> str:
         f" and the test is whether one document's strengths survive translation into the other's domain."
     )
 
-
 def loop_pair_sentence(loop_name: str, loop_desc: str, left: BasisDoc, right: BasisDoc) -> str:
     return (
         f"- `{loop_name}`: {left.title} contributes {left.role}, while {right.title} contributes"
@@ -261,14 +245,12 @@ def loop_pair_sentence(loop_name: str, loop_desc: str, left: BasisDoc, right: Ba
         f" {right.cluster} through {pair_bridge(left, right)}."
     )
 
-
 def pair_appendix_stack(left: BasisDoc, right: BasisDoc) -> list[str]:
     shared = shared_hubs(left, right)
     ordered = shared + [hub for hub in left.hubs + right.hubs if hub not in shared]
     if "AppQ" not in ordered:
         ordered.append("AppQ")
     return ordered[:7]
-
 
 def build_readme(manifest: dict, basis: list[BasisDoc]) -> None:
     text = f"""
@@ -330,7 +312,6 @@ The two older roots remain readable historical mirrors, not peer authorities.
 """
     write_text(OUTPUT_ROOT / "README.md", text)
 
-
 def build_control_docs(manifest: dict, basis: list[BasisDoc]) -> None:
     control_root = OUTPUT_ROOT / "00_CONTROL"
     basis_lines = "\n".join(doc_line(doc) for doc in basis)
@@ -373,7 +354,6 @@ This folder is the contract for the deeper integrated cross-synthesis network.
     write_text(control_root / "04_ALGORITHMIC_PIPELINE.md", "# Algorithmic Pipeline\n\n1. Honor deep-root precedence and keep `14_DEEPER...` as the only live deep root.\n2. Read the live corpus atlas and derive deterministic `3D` ingress bindings for every record.\n3. Read the canonical basis.\n4. Check the live Docs gate.\n5. Apply the `EconomySalienceBudget` so high-yield legal routes get priority.\n6. Bind atlas bodies and folder stations into `14_3D_INGRESS_NETWORK`.\n7. Feed `3D_INGRESS` into the ordered matrix rather than bypassing the existing `4D` compiled basis.\n8. Build the ordered matrix.\n9. Build the observer lattice.\n10. Collapse to symmetry.\n11. Lift through the Level `1-7` metro stack and appendix governance.\n12. Preserve FIRE `5D/6D`, Water `6D`, AIR `6D`, Earth `6D`, and downstream `7D_SEED` overlays without rewriting canon.\n13. Publish skills for reuse.")
     write_text(control_root / "05_4D_PLUS_ECONOMY_LAW.md", f"# 4D Plus Economy Law\n\nThe deeper network is a replay surface inside the wider organism and therefore follows:\n\n`{ORGANISM_LAW}`\n\n- `AddressMesh`: where a basis document or appendix support surface lives.\n- `RelationMetro`: which corridor, metro line, or ordered pair carries the bridge.\n- `ChamberMembrane`: which truth, burden, or appendix shell constrains the move.\n- `ReplayReturnAxis`: how the move rebuilds, compresses, and reseeds.\n- `EconomySalienceBudget`: which valid move receives scarce build attention first.\n")
 
-
 def build_element_files(basis: list[BasisDoc]) -> None:
     for element in ("Fire", "Water", "Air", "Earth"):
         folder = ELEMENT_PATHS[element]
@@ -385,7 +365,6 @@ def build_element_files(basis: list[BasisDoc]) -> None:
             observations = "\n".join(loop_observation(element, loop_name, loop_desc, doc) for doc in ordered_basis)
             write_text(folder / filename, f"# {element} x {loop_name}\n\n{ELEMENT_INTROS[element]}\n\n## Loop mandate\n\n`{loop_name}` {loop_desc}.\n\n## Full-basis observation\n\n{observations}\n")
         write_text(folder / "00_INDEX.md", "\n".join(index_lines))
-
 
 def build_matrix_files(basis: list[BasisDoc]) -> None:
     matrix_root = OUTPUT_ROOT / "05_MATRIX_16X16"
@@ -407,7 +386,6 @@ def build_matrix_files(basis: list[BasisDoc]) -> None:
         write_text(row_dir / "00_INDEX.md", "\n".join(row_lines))
     write_text(matrix_root / "00_INDEX.md", "\n".join(index_lines))
 
-
 def build_symmetry_files(basis: list[BasisDoc]) -> None:
     symmetry_root = OUTPUT_ROOT / "06_SYMMETRY_STACK"
     index_lines = ["# Symmetry Stack", "", "## Files", ""]
@@ -426,7 +404,6 @@ def build_symmetry_files(basis: list[BasisDoc]) -> None:
     write_text(symmetry_root / "99_zero_point.md", "# Symmetry Zero Point\n\nThe zero point compresses the full fifteen-symmetry stack into one seed that still knows how to rebuild the network.")
     write_text(symmetry_root / "00_INDEX.md", "\n".join(index_lines))
 
-
 def build_metro_files(basis: list[BasisDoc]) -> None:
     metro_root = OUTPUT_ROOT / "07_METRO_STACK"
     level2_nodes = "\n".join(f'    N{doc.idx}["{doc.idx:02d} {doc.title}"]' for doc in basis)
@@ -441,7 +418,6 @@ def build_metro_files(basis: list[BasisDoc]) -> None:
     write_text(metro_root / "02_level_3_deeper_neural_map.md", "# Level 3 Deeper Neural Map\n\nLevel 3 binds the `16 -> 64 -> 256 -> 1024` tissue into one neural routing view while preserving the `3D` ingress body that fed it.")
     write_text(metro_root / "03_level_4_transcendence_metro_map.md", "# Level 4 Transcendence Metro Map\n\nLevel 4 is the 4D-native compiled field. Levels `5-7` remain additive overlays and downstream seed targets, not replacements for the core lattice.")
     write_text(metro_root / "04_route_selection.md", "# Route Selection\n\nUse Level 1 for corpus ingress, Level 2 for atlas-to-basis bridge pressure, Level 3 for active neural tissue, Level 4 for compiled native routes, Level 5 for Mobius bridge traffic, Level 6 for hologram weave, and Level 7 for downstream seed handoff.")
-
 
 def build_ingress_files() -> None:
     ingress_root = OUTPUT_ROOT / "14_3D_INGRESS_NETWORK"
@@ -466,7 +442,6 @@ def build_ingress_files() -> None:
         "# Reentry Into 4D Native\n\nNo 3D ingress route is complete until it names the 4D compiled basis refs it feeds, the appendix support it requires, and the replay-safe return spine through `Ch12<0023>`, `Ch13<0030>`, `Ch16<0033>`, `AppI`, and `AppM` when higher-dimensional overlays become active.\n",
     )
 
-
 def build_appendix_files() -> None:
     appendix_root = OUTPUT_ROOT / "08_APPENDIX_CRYSTAL"
     index_lines = ["# Appendix Crystal", "", "## Appendices", ""]
@@ -480,7 +455,6 @@ def build_appendix_files() -> None:
     write_text(appendix_root / "AppQ_appendix_only_metro_map.md", "# Appendix Q: Appendix-Only Metro Map\n\nAppendix Q is the appendix-only transit layer linking A-P without depending on chapter prose.\n")
     write_text(appendix_root / "00_INDEX.md", "\n".join(index_lines))
 
-
 def build_skill_files() -> None:
     skill_root = OUTPUT_ROOT / "09_SKILLS"
     write_text(
@@ -492,7 +466,6 @@ def build_skill_files() -> None:
             skill_root / name / "SKILL.md",
             f"---\nname: {name}\ndescription: {description}\n---\n\n# {name}\n\n{usage}\n\n## Workflow\n\n1. Read `../../00_CONTROL/04_ALGORITHMIC_PIPELINE.md`.\n2. Check `../../10_LEDGERS/01_CANONICAL_SOURCES.md`.\n3. If needed, inspect `../../05_MATRIX_16X16`, `../../07_METRO_STACK`, and `../../08_APPENDIX_CRYSTAL`.\n\n## Output contract\n\n- Name the basis documents.\n- Name the active element or symmetry.\n- Name the metro level.\n- Name the appendix stack.\n",
         )
-
 
 def build_ledgers(manifest: dict, basis: list[BasisDoc]) -> None:
     ledger_root = OUTPUT_ROOT / "10_LEDGERS"
@@ -523,7 +496,6 @@ def build_ledgers(manifest: dict, basis: list[BasisDoc]) -> None:
     }
     write_text(ledger_root / "generated_manifest.json", json.dumps(generated_manifest, indent=2))
 
-
 def main() -> None:
     manifest = load_manifest()
     basis = build_basis()
@@ -539,7 +511,6 @@ def main() -> None:
     build_ingress_files()
     build_ledgers(manifest, basis)
     print(f"Built deeper integrated network at {OUTPUT_ROOT}")
-
 
 if __name__ == "__main__":
     main()

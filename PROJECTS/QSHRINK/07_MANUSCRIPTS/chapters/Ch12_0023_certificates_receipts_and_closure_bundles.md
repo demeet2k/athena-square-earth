@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S32 | face=S | node=516 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A12:S31→Xi108:W3:A12:S33→Xi108:W2:A12:S32→Xi108:W3:A11:S32 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 32±1, wreath 3/3, archetype 12/12 -->
+
 # Ch12<0023> - Certificates, Receipts, and Closure Bundles
 
 ## Station header

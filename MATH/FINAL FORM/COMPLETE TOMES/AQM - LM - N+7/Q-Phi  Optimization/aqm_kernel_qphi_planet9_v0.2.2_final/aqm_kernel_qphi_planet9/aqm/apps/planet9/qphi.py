@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 from __future__ import annotations
 
 from dataclasses import dataclass, asdict
@@ -47,7 +51,6 @@ except Exception:  # pragma: no cover
     Tile = None  # type: ignore
     TileAddress = None  # type: ignore
     MerkleStore = None  # type: ignore
-
 
 @dataclass(frozen=True)
 class QPHIConfig:
@@ -122,7 +125,6 @@ class QPHIConfig:
     jitter_albedo: float = 0.08
     jitter_density: float = 0.25
 
-
 @dataclass(frozen=True)
 class CandidateResult:
     theta: PlanetNineTheta
@@ -162,7 +164,6 @@ class CandidateResult:
             row[f"{k}_log"] = float(rep.log_score)
         return row
 
-
 def config_digest(cfg: QPHIConfig) -> str:
     """Deterministic digest of the *model-relevant* run config.
 
@@ -182,7 +183,6 @@ def config_digest(cfg: QPHIConfig) -> str:
     payload = json.dumps(d, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
-
 def package_version() -> str:
     """Return installed package version (best-effort)."""
     try:
@@ -190,16 +190,13 @@ def package_version() -> str:
     except Exception:
         return "unknown"
 
-
 def _log_uniform(rng: np.random.Generator, lo: float, hi: float) -> float:
     lo = float(lo); hi = float(hi)
     x = rng.uniform(math.log(lo), math.log(hi))
     return float(math.exp(x))
 
-
 def _wrap360(x: float) -> float:
     return float(x % 360.0)
-
 
 def _trunc_norm(rng: np.random.Generator, mu: float, sigma: float, lo: float, hi: float, max_tries: int = 50) -> float:
     """Sample a truncated normal in [lo,hi] (deterministic fallback).
@@ -214,7 +211,6 @@ def _trunc_norm(rng: np.random.Generator, mu: float, sigma: float, lo: float, hi
             return x
     # deterministic fallback if the truncation is too tight
     return float(np.clip(mu, lo, hi))
-
 
 @dataclass(frozen=True)
 class ProposalHints:
@@ -258,7 +254,6 @@ class ProposalHints:
             tno_mean_Omega_deg=float(Om_mu),
         )
 
-
 def _sample_theta(rng: np.random.Generator, cfg: QPHIConfig, hints: Optional[ProposalHints] = None) -> PlanetNineTheta:
     # a is log-uniform
     a = _log_uniform(rng, cfg.a_range_au[0], cfg.a_range_au[1])
@@ -300,7 +295,6 @@ def _sample_theta(rng: np.random.Generator, cfg: QPHIConfig, hints: Optional[Pro
         density_g_cm3=density,
     )
 
-
 def _jitter_theta(rng: np.random.Generator, base: PlanetNineTheta, cfg: QPHIConfig) -> PlanetNineTheta:
     e0 = base.elements
 
@@ -335,7 +329,6 @@ def _jitter_theta(rng: np.random.Generator, base: PlanetNineTheta, cfg: QPHIConf
         density_g_cm3=density,
     )
 
-
 def build_lens_suite(tnos: List[TNO], cfg: QPHIConfig) -> List[Tuple[str, float, Any]]:
     """
     Return list of (lens_id, weight, lens_obj) in deterministic order.
@@ -367,7 +360,6 @@ def build_lens_suite(tnos: List[TNO], cfg: QPHIConfig) -> List[Tuple[str, float,
         ),
     ]
 
-
 def score_theta(theta: PlanetNineTheta, lens_suite: Sequence[Tuple[str, float, Any]]) -> CandidateResult:
     reports: Dict[str, LensReport] = {}
     total = 0.0
@@ -383,13 +375,11 @@ def score_theta(theta: PlanetNineTheta, lens_suite: Sequence[Tuple[str, float, A
 
     return CandidateResult(theta=theta, log_score=float(total), reports=reports)
 
-
 def _softmax_weights(log_scores: np.ndarray, temperature: float) -> np.ndarray:
     m = float(np.max(log_scores))
     w = np.exp((log_scores - m) / max(1e-6, float(temperature)))
     w = w / np.sum(w)
     return w
-
 
 def _weighted_mean_direction_radec(results: Sequence[CandidateResult], temperature: float) -> Tuple[float, float, np.ndarray]:
     logw = np.array([r.log_score for r in results], dtype=float)
@@ -406,7 +396,6 @@ def _weighted_mean_direction_radec(results: Sequence[CandidateResult], temperatu
 
     ra, dec = ecliptic_to_radec_deg(mean_vec)
     return ra, dec, mean_vec
-
 
 def _weighted_containment_radii_deg(results: Sequence[CandidateResult], mean_vec: np.ndarray, qs: Sequence[float], temperature: float) -> List[float]:
     logw = np.array([r.log_score for r in results], dtype=float)
@@ -432,7 +421,6 @@ def _weighted_containment_radii_deg(results: Sequence[CandidateResult], mean_vec
         idx = min(max(idx, 0), len(angs_s) - 1)
         out.append(float(angs_s[idx]))
     return out
-
 
 def run_qphi(tnos: List[TNO], cfg: QPHIConfig) -> Dict[str, Any]:
     """
@@ -561,7 +549,6 @@ def run_qphi(tnos: List[TNO], cfg: QPHIConfig) -> Dict[str, Any]:
 
     return summary
 
-
 def _write_candidates_csv(path: Path, results: Sequence[CandidateResult]) -> None:
     rows = [r.to_row() for r in results]
     if not rows:
@@ -572,7 +559,6 @@ def _write_candidates_csv(path: Path, results: Sequence[CandidateResult]) -> Non
         w.writeheader()
         for row in rows:
             w.writerow(row)
-
 
 def _write_sky_samples_csv(path: Path, results: Sequence[CandidateResult], temperature: float) -> None:
     logw = np.array([r.log_score for r in results], dtype=float)
@@ -587,7 +573,6 @@ def _write_sky_samples_csv(path: Path, results: Sequence[CandidateResult], tempe
             ra, dec = ecliptic_to_radec_deg(r_vec)
             m_est = float(r.reports.get("detectability", LensReport("detectability", 0.0, {})).details.get("m_est", float("nan")))
             writer.writerow({"ra_deg": float(ra), "dec_deg": float(dec), "weight": float(wi), "r_au": r_au, "m_est": m_est})
-
 
 def load_tnos_for_run(tno_csv: Optional[str], cfg: QPHIConfig, *, fetch_jpl: bool = False, jpl_limit: int = 200) -> List[TNO]:
     """

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S1 | face=C | node=144 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A7:S2→Xi108:W1:A7:S1→Xi108:W3:A7:S1→Xi108:W2:A6:S1→Xi108:W2:A8:S1
+
 ININE
 Here is something the patriarchal versions of the prophecies obscured:
 The avatar is not ONE — it is TWO.
@@ -23,7 +27,6 @@ SEEDS THE NEW PATTERN — introduces the archetypal template for the new age int
 GATHERS THE RESONANT — attracts those ready to transition, forming the nucleus of the new civilization.
 
 BRIDGES THE WORLDS — stands at the cusp, one foot in the old, one in the new, holding the passage open.
-
 
 THE CHOICE POINT
 This is the critical insight the Mayan Fifth Sun prophecy makes clear:
@@ -84,7 +87,6 @@ BUILD THE NEW — The old structures will collapse regardless. Build what replac
 CONNECT WITH THE RESONANT — Find others who see. The new civilization is seeded in small groups of aligned people.
 
 TRUST THE PROCESS — The darkest hour is before dawn. Kali Yuga's peak is also Satya Yuga's seed.
-
 
 FINAL SYNTHESIS
 All the prophecies were true.

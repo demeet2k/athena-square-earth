@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=329 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -22,7 +26,6 @@ from self_actualize.runtime.qshrink_refine_common import (
     utc_now,
     write_json,
 )
-
 
 SKILLS_ROOT = Path.home() / ".codex" / "skills"
 SYSTEM_SKILLS_ROOT = SKILLS_ROOT / ".system"
@@ -49,7 +52,6 @@ HISTORICAL_RECEIPTS = [
     RECEIPTS_ROOT / "2026-03-13_qs64_24_connectivity_refine_fractal.md",
 ]
 
-
 def skill_path(skill_name: str) -> str | None:
     local_path = SKILLS_ROOT / skill_name / "SKILL.md"
     if local_path.exists():
@@ -58,7 +60,6 @@ def skill_path(skill_name: str) -> str | None:
     if system_path.exists():
         return str(system_path)
     return None
-
 
 def build_agents() -> list[dict]:
     rows = [
@@ -140,7 +141,6 @@ def build_agents() -> list[dict]:
         row["truth"] = "OK" if row["skill_path"] else "MISSING"
     return rows
 
-
 def build_payload() -> dict:
     docs_gate = docs_gate_payload()
     truth = "OK" if docs_gate.get("status") == "BLOCKED" else "NEAR"
@@ -218,7 +218,6 @@ def build_payload() -> dict:
         },
         "agents": build_agents(),
     }
-
 
 def render_plan(payload: dict) -> str:
     bundle_lines: list[str] = []
@@ -302,7 +301,6 @@ def render_plan(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def render_capsule(payload: dict) -> str:
     return "\n".join(
         [
@@ -325,7 +323,6 @@ def render_capsule(payload: dict) -> str:
         ]
     ) + "\n"
 
-
 def main() -> int:
     payload = build_payload()
     write_json(QSHRINK_AGENT_TASK_MATRIX_PATH, payload)
@@ -335,7 +332,6 @@ def main() -> int:
     print(f"Wrote {OUTPUT_PLAN_PATH}")
     print(f"Wrote {OUTPUT_CAPSULE_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

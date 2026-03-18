@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S29 | face=F | node=431 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S28→Xi108:W2:A10:S30→Xi108:W1:A10:S29→Xi108:W3:A10:S29→Xi108:W2:A9:S29→Xi108:W2:A11:S29
+
 from __future__ import annotations
 
 import json
@@ -32,14 +36,11 @@ else:
     )
     ROOT = Path(__file__).resolve().parents[2]
 
-
 SELF_ROOT = ROOT / "self_actualize"
 DERIVATION_PATH = SELF_ROOT / "command_membrane_protocol_derivation.json"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def derive_command_membrane_protocol() -> dict[str, Any]:
     service = CommandMembraneService()
@@ -79,11 +80,9 @@ def derive_command_membrane_protocol() -> dict[str, Any]:
     DERIVATION_PATH.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return result
 
-
 def main() -> int:
     print(json.dumps(derive_command_membrane_protocol(), indent=2, ensure_ascii=True))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

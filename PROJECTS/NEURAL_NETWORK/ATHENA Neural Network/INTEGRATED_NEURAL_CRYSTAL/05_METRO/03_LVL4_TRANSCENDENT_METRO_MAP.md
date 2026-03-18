@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A1:S24 | face=C | node=288 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 24±1, wreath 2/3, archetype 1/12 -->
+
 # LEVEL 4 TRANSCENDENT METRO MAP
 
 Truth class: NEAR

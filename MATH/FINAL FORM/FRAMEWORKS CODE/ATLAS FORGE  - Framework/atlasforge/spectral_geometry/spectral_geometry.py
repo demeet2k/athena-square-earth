@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=152 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                 SPECTRAL-GEOMETRIC DUALITY MODULE                            ║
@@ -26,7 +30,6 @@ import numpy as np
 from numpy.typing import NDArray
 from scipy.special import sph_harm
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PLATONIC SOLIDS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -38,7 +41,6 @@ class PlatonicSolid(Enum):
     OCTAHEDRON = "octahedron"      # 8 faces, 6 vertices, 12 edges
     DODECAHEDRON = "dodecahedron"  # 12 faces, 20 vertices, 30 edges
     ICOSAHEDRON = "icosahedron"    # 20 faces, 12 vertices, 30 edges
-
 
 @dataclass
 class PlatonicShell:
@@ -217,7 +219,6 @@ class PlatonicShell:
         spec = self.spectrum()
         return spec[1] if len(spec) > 1 else 0.0
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPHERICAL HARMONICS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -269,7 +270,6 @@ class SphericalHarmonic:
         """Number of nodal great circles."""
         return self.ell
 
-
 @dataclass
 class SphericalHarmonicExpansion:
     """
@@ -313,7 +313,6 @@ class SphericalHarmonicExpansion:
         for (ell, m), c in self.coefficients.items():
             spectrum[ell] += abs(c) ** 2
         return spectrum
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # NODAL DOMAINS
@@ -372,7 +371,6 @@ class NodalDomain:
         """Upper bound from Courant theorem."""
         return self.eigenfunction_index
 
-
 @dataclass
 class NodalAnalysis:
     """
@@ -404,7 +402,6 @@ class NodalAnalysis:
             'violations': sum(c > b for c, b in zip(counts, bounds)),
             'saturation_fraction': np.mean([c/b for c, b in zip(counts, bounds)])
         }
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECTRAL GEOMETRY
@@ -500,7 +497,6 @@ class SpectralGeometry:
         
         return area_estimate
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECTRAL-GEOMETRIC TRANSLATOR
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -570,7 +566,6 @@ class SpectralGeometricTranslator:
         
         return D
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -587,12 +582,10 @@ def platonic_spectrum(solid: str) -> NDArray[np.float64]:
     shell = PlatonicShell(solid_map[solid.lower()])
     return shell.spectrum()
 
-
 def spherical_harmonic(ell: int, m: int, theta: NDArray, phi: NDArray) -> NDArray:
     """Evaluate spherical harmonic Y_ℓ^m."""
     Y = SphericalHarmonic(ell, m)
     return Y(theta, phi)
-
 
 def spectral_embedding(laplacian: NDArray, dim: int = 3) -> NDArray:
     """Spectral embedding of graph from Laplacian."""
@@ -600,12 +593,10 @@ def spectral_embedding(laplacian: NDArray, dim: int = 3) -> NDArray:
     translator = SpectralGeometricTranslator()
     return translator.spectrum_to_embedding(sg, dim)
 
-
 def heat_kernel_trace(laplacian: NDArray, t: float) -> float:
     """Compute heat kernel trace Z(t)."""
     sg = SpectralGeometry(laplacian)
     return sg.heat_trace(t)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

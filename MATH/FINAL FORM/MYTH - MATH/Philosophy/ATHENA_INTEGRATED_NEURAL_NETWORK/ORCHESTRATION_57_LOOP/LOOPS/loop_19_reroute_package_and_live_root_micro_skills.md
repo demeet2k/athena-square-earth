@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S17 | face=S | node=137 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A11:S16→Xi108:W3:A11:S18→Xi108:W2:A11:S17→Xi108:W3:A10:S17→Xi108:W3:A12:S17 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 17±1, wreath 3/3, archetype 11/12 -->
+
 # Loop L19 - Re-Route Package and Live Root Micro-Skills
 
 Source basis: `57-loop orchestration law + live fronts + package support stack`

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S35 | face=S | node=610 | depth=2 | phase=Mutable
+# METRO: Me,Cc,Ω
+# BRIDGES: Xi108:W2:A10:S34→Xi108:W2:A10:S36→Xi108:W1:A10:S35→Xi108:W3:A10:S35→Xi108:W2:A9:S35→Xi108:W2:A11:S35
+
 ﻿from __future__ import annotations
 
 import hashlib
@@ -35,7 +39,6 @@ from .contracts import (
     OMEGA_KEY,
 )
 from .lp57_omega_prime_plan import MASTER_AGENTS
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF_ROOT = ROOT / "self_actualize"
@@ -203,22 +206,18 @@ FIRST_WAVE_WATCHED_SURFACES = (
     },
 )
 
-
 def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
-
 
 def patch_markdown(text: str, marker: str, body: str) -> str:
     start = f"<!-- {marker}:START -->"
@@ -233,31 +232,25 @@ def patch_markdown(text: str, marker: str, body: str) -> str:
         prefix += "\n\n"
     return f"{prefix}{block}\n"
 
-
 def patch_markdown_file(path: Path, marker: str, body: str) -> None:
     existing = path.read_text(encoding="utf-8") if path.exists() else ""
     write_text(path, patch_markdown(existing, marker, body))
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def parse_iso(ts: str) -> datetime:
     return datetime.fromisoformat(ts.replace("Z", "+00:00"))
-
 
 def local_rotation_phase(now_utc: datetime, zone: ZoneInfo) -> float:
     local_now = now_utc.astimezone(zone)
     seconds = local_now.hour * 3600 + local_now.minute * 60 + local_now.second + (local_now.microsecond / 1_000_000.0)
     return round(seconds / 86400.0, 6)
 
-
 def orbital_phase(now_utc: datetime) -> float:
     day_index = now_utc.timetuple().tm_yday - 1
     year_days = 366 if (now_utc.year % 4 == 0 and (now_utc.year % 100 != 0 or now_utc.year % 400 == 0)) else 365
     return round(day_index / float(year_days), 6)
-
 
 def lunar_phase(now_utc: datetime) -> float:
     reference = datetime(2000, 1, 6, 18, 14, tzinfo=timezone.utc)
@@ -265,13 +258,11 @@ def lunar_phase(now_utc: datetime) -> float:
     elapsed = (now_utc - reference).total_seconds() / 86400.0
     return round((elapsed % synodic_days) / synodic_days, 6)
 
-
 def sidereal_phase(now_utc: datetime) -> float:
     reference = datetime(2000, 1, 1, 12, tzinfo=timezone.utc)
     elapsed_days = (now_utc - reference).total_seconds() / 86400.0
     gmst_hours = 18.697374558 + 24.06570982441908 * elapsed_days
     return round((gmst_hours % 24.0) / 24.0, 6)
-
 
 def rel(path: Path | str) -> str:
     target = Path(path)
@@ -280,17 +271,14 @@ def rel(path: Path | str) -> str:
     except ValueError:
         return target.as_posix()
 
-
 def slugify(text: str) -> str:
     cleaned = "".join(ch.lower() if ch.isalnum() else "-" for ch in text)
     while "--" in cleaned:
         cleaned = cleaned.replace("--", "-")
     return cleaned.strip("-")
 
-
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
-
 
 @dataclass
 class CommandMembraneConfig:
@@ -370,7 +358,6 @@ class CommandMembraneConfig:
         self.reward_manifest_path = self.reward_field_manifest_path
         self.protocol_v1_registry_path = self.registry_root / "command_membrane_protocol_v1.json"
         self.protocol_v1_manifest_path = self.nervous_manifest_root / "COMMAND_MEMBRANE_PROTOCOL_V1.md"
-
 
 class CommandMembraneService:
     def __init__(self, config: CommandMembraneConfig | None = None) -> None:
@@ -652,11 +639,9 @@ class CommandMembraneService:
     def ensure_protocol_artifacts(self) -> dict[str, Any]:
         return _command_membrane_v1_ensure_protocol_artifacts(self)
 
-
 def _command_clamp01(self: CommandMembraneService, value: float) -> float:
     del self
     return clamp(float(value), 0.0, 1.0)
-
 
 def _command_heaven_score(self: CommandMembraneService, affect_intensity_a: float, affect_direction_phi: float) -> float:
     del self
@@ -664,10 +649,8 @@ def _command_heaven_score(self: CommandMembraneService, affect_intensity_a: floa
     phi = float(affect_direction_phi)
     return round((a / math.pi) * ((1.0 + math.cos(phi)) / 2.0), 6)
 
-
 def _command_reward_multiplier(self: CommandMembraneService, heaven_verified: float) -> float:
     return round(min(self.config.reward_clip, 1.0 / (1.0 - self.clamp01(heaven_verified) + self.config.epsilon)), 6)
-
 
 def _command_derive_seed_route_mode(
     self: CommandMembraneService,
@@ -687,7 +670,6 @@ def _command_derive_seed_route_mode(
         return "explore"
     return "closure"
 
-
 def _command_phi_for_route_mode(self: CommandMembraneService, route_mode: str) -> float:
     del self
     normalized = route_mode.lower().strip()
@@ -698,7 +680,6 @@ def _command_phi_for_route_mode(self: CommandMembraneService, route_mode: str) -
     if normalized in {"assist", "repair", "redirect"}:
         return round(-math.pi / 2.0, 6)
     return round(math.pi, 6)
-
 
 def _command_build_joy_seed(
     self: CommandMembraneService,
@@ -729,13 +710,11 @@ def _command_build_joy_seed(
         },
     }
 
-
 def _command_queue_pressure(self: CommandMembraneService) -> float:
     leases = self.load_leases()
     active_count = len(leases.get("active", {}))
     recent_count = len(self.recent_event_payloads(limit=12))
     return round(self.clamp01((0.65 * (active_count / max(self.config.topk, 1))) + (0.35 * min(recent_count / 12.0, 1.0))), 6)
-
 
 def _command_candidate_edge_snapshot(self: CommandMembraneService, ant_id: str) -> dict[str, float]:
     edges = self.load_edges().get("edges", {})
@@ -765,7 +744,6 @@ def _command_candidate_edge_snapshot(self: CommandMembraneService, ant_id: str) 
         "average_heaven_verified": round(average_h, 6),
         "evaporation_rate": round(evaporation, 6),
     }
-
 
 def _command_active_candidates(self: CommandMembraneService) -> list[dict[str, Any]]:
     leases = self.load_leases().get("active", {})
@@ -797,7 +775,6 @@ def _command_active_candidates(self: CommandMembraneService) -> list[dict[str, A
         )
     return rows
 
-
 def _command_goal_match_score(self: CommandMembraneService, packet: CommandEventPacketV2, candidate: dict[str, Any]) -> float:
     goal = f"{packet.goal} {packet.source_class} {packet.source_path}".lower()
     role = str(candidate.get("role_tag", "")).lower()
@@ -814,7 +791,6 @@ def _command_goal_match_score(self: CommandMembraneService, packet: CommandEvent
         return 0.75 if master == "A1" else 0.55
     return 0.60
 
-
 def _command_file_family_match_score(self: CommandMembraneService, packet: CommandEventPacketV2, candidate: dict[str, Any]) -> float:
     family = str(packet.file_family or "").lower()
     master = str(candidate.get("master_agent_id", ""))
@@ -826,7 +802,6 @@ def _command_file_family_match_score(self: CommandMembraneService, packet: Comma
         return 0.90 if master in {"A1", "A2", "A4"} else 0.70
     return 0.60
 
-
 def _command_capability_match_score(self: CommandMembraneService, packet: CommandEventPacketV2, candidate: dict[str, Any]) -> float:
     master = str(candidate.get("master_agent_id", ""))
     if master == "A3":
@@ -837,7 +812,6 @@ def _command_capability_match_score(self: CommandMembraneService, packet: Comman
         return 1.0 if any(token in packet.source_path.lower() for token in ("ledger", "manifest", "registry", "protocol", "queue")) else 0.70
     return 0.75
 
-
 def _command_coordinate_match_score(self: CommandMembraneService, packet: CommandEventPacketV2, candidate: dict[str, Any]) -> float:
     seat_index = int(hashlib.sha1(packet.source_path.encode("utf-8")).hexdigest()[:6], 16) % 1024
     master = str(candidate.get("master_agent_id", "A1"))
@@ -845,7 +819,6 @@ def _command_coordinate_match_score(self: CommandMembraneService, packet: Comman
     midpoint = (seat_range.start + seat_range.stop - 1) / 2.0
     normalized_distance = abs(seat_index - midpoint) / 1024.0
     return round(1.0 - self.clamp01(normalized_distance * 2.0), 6)
-
 
 def _command_pheromone_composite_for_edge(self: CommandMembraneService, candidate: dict[str, Any]) -> float:
     return round(
@@ -857,7 +830,6 @@ def _command_pheromone_composite_for_edge(self: CommandMembraneService, candidat
         6,
     )
 
-
 def _command_recent_event_payloads(self: CommandMembraneService, limit: int | None = 20) -> list[dict[str, Any]]:
     rows: list[tuple[float, dict[str, Any]]] = []
     for path in sorted(self.config.event_root.glob("*.json")):
@@ -867,7 +839,6 @@ def _command_recent_event_payloads(self: CommandMembraneService, limit: int | No
     rows.sort(key=lambda item: item[0], reverse=True)
     payloads = [row for _, row in rows]
     return payloads if limit is None else payloads[:limit]
-
 
 def _command_release_expired_leases(self: CommandMembraneService) -> dict[str, Any]:
     leases = self.load_leases()
@@ -892,7 +863,6 @@ def _command_release_expired_leases(self: CommandMembraneService) -> dict[str, A
     if expired_ids:
         self.save_leases(leases)
     return leases
-
 
 def _command_sync_public_surfaces(self: CommandMembraneService, event_id: str | None = None) -> None:
     latest_event = self.recent_event_payloads(limit=1)
@@ -926,7 +896,6 @@ def _command_sync_public_surfaces(self: CommandMembraneService, event_id: str | 
             "last_event_id": payload["event_id"],
         },
     )
-
 
 def _command_v2_emit_change(
     self: CommandMembraneService,
@@ -1103,7 +1072,6 @@ def _command_v2_emit_change(
     self.sync_public_surfaces(event_id=event_id)
     return event_packet
 
-
 CommandMembraneService.clamp01 = _command_clamp01
 CommandMembraneService.heaven_score = _command_heaven_score
 CommandMembraneService.reward_multiplier_for_heaven = _command_reward_multiplier
@@ -1183,7 +1151,6 @@ def _command_membrane_v1_write_live_writeback_surfaces(
     patch_markdown_file(ACTIVE_RUN_PATH, MARKER_ACTIVE_RUN, active_run_body)
     patch_markdown_file(BUILD_QUEUE_PATH, MARKER_BUILD_QUEUE, queue_body)
     patch_markdown_file(NEXT_SELF_PROMPT_PATH, MARKER_NEXT_PROMPT, prompt_body)
-
 
 def _command_membrane_v1_ensure_protocol_artifacts(self: CommandMembraneService) -> dict[str, Any]:
     docs_gate = self.docs_gate_status()
@@ -1347,7 +1314,6 @@ if False:
     )
     pass
 
-
 def _command_membrane_v1_score_candidate(self: CommandMembraneService, packet: CommandEventPacketV1, candidate: dict[str, Any]) -> dict[str, Any]:
     queue_pressure = self.queue_pressure()
     goal_score = round(self.goal_match_score(packet, candidate) + self.capability_match_score(packet, candidate) + self.source_class_match_score(packet, candidate), 6)
@@ -1366,7 +1332,6 @@ def _command_membrane_v1_score_candidate(self: CommandMembraneService, packet: C
         "routing_penalty": routing_penalty,
         "score": total,
     }
-
 
 def _command_membrane_v1_route_event(self: CommandMembraneService, event_id: str, state: dict[str, Any] | None = None) -> dict[str, Any]:
     self.release_expired_leases()
@@ -1422,7 +1387,6 @@ def _command_membrane_v1_route_event(self: CommandMembraneService, event_id: str
     self.sync_public_surfaces(event_id=event_id)
     return asdict(decision)
 
-
 def _command_membrane_ms_between(self: CommandMembraneService, start_ts: str, end_ts: str) -> float:
     try:
         start = parse_iso(start_ts)
@@ -1430,7 +1394,6 @@ def _command_membrane_ms_between(self: CommandMembraneService, start_ts: str, en
     except ValueError:
         return 0.0
     return max(0.0, (end - start).total_seconds() * 1000.0)
-
 
 def _command_membrane_v1_claim_event(
     self: CommandMembraneService,
@@ -1561,7 +1524,6 @@ def _command_membrane_v1_claim_event(
         "board_claim_id": board_claim["claim_id"],
     }
 
-
 def _command_membrane_v1_commit_event(
     self: CommandMembraneService,
     event_id: str,
@@ -1691,7 +1653,6 @@ def _command_membrane_v1_commit_event(
         "receipt_md": rel(receipt_md),
     }
 
-
 def _command_membrane_v1_reinforce_event(
     self: CommandMembraneService,
     event_id: str,
@@ -1812,7 +1773,6 @@ def _command_membrane_v1_reinforce_event(
         "capillary_delta": round(total_delta, 6),
     }
 
-
 def _command_membrane_v1_metrics(self: CommandMembraneService, surface: str = "command-folder") -> dict[str, Any]:
     del surface
     events = self.recent_event_payloads(limit=None)
@@ -1848,7 +1808,6 @@ def _command_membrane_v1_metrics(self: CommandMembraneService, surface: str = "c
         "last_event_id": events[0].get("event_id", "") if events else "",
     }
 
-
 def _command_v2_packet_to_summary(self: CommandMembraneService, packet: CommandEventPacketV2) -> dict[str, Any]:
     return {
         "event_id": packet.event_id,
@@ -1874,7 +1833,6 @@ def _command_v2_packet_to_summary(self: CommandMembraneService, packet: CommandE
         "replay_ptr": packet.replay_ptr,
     }
 
-
 def _command_v2_stage_effort_quality(self: CommandMembraneService, stage: str, result: str) -> float:
     del self
     result_key = result.lower().strip()
@@ -1887,7 +1845,6 @@ def _command_v2_stage_effort_quality(self: CommandMembraneService, stage: str, r
     if stage in {"detect", "route", "claim"} or result_key in {"blocked", "quarantined", "partial"}:
         return 0.60
     return 0.0
-
 
 def _command_v2_verification_defaults(
     self: CommandMembraneService,
@@ -1924,7 +1881,6 @@ def _command_v2_verification_defaults(
         verification_witness_cap=round(max(0.0, verification_witness_cap), 6),
     )
 
-
 def _command_v2_route_mode_for_stage(
     self: CommandMembraneService,
     stage: str,
@@ -1941,7 +1897,6 @@ def _command_v2_route_mode_for_stage(
     if stage in {"detect", "route"} or verification_state.closure_class in {"assist_with_useful_contribution", "first_detect", "first_route", "first_act"}:
         return "rotate"
     return "reinforce"
-
 
 def _command_v2_phi_for_stage(
     self: CommandMembraneService,
@@ -1960,7 +1915,6 @@ def _command_v2_phi_for_stage(
     if result_key in {"duplicate", "noise", "expired", "unverified", "failed"} or verification_state.closure_class == "duplicate_noise_unverified":
         return round(math.pi, 6)
     return round(math.pi / 2.0, 6)
-
 
 def _command_v2_crown_tier_for_stage(
     self: CommandMembraneService,
@@ -1981,7 +1935,6 @@ def _command_v2_crown_tier_for_stage(
         return "prime"
     return "none"
 
-
 def _command_v2_first_reward_for_stage(self: CommandMembraneService, stage: str, crown_tier: str) -> float:
     if stage == "detect" and crown_tier == "detect":
         return self.config.crown_detect
@@ -1992,7 +1945,6 @@ def _command_v2_first_reward_for_stage(self: CommandMembraneService, stage: str,
     if stage == "commit" and crown_tier == "prime":
         return self.config.crown_full
     return 0.0
-
 
 def _command_v2_compose_reward_state(
     self: CommandMembraneService,
@@ -2035,7 +1987,6 @@ def _command_v2_compose_reward_state(
         tau_seconds=round(max(float(tau_seconds), 0.0), 6),
     )
 
-
 def _command_v2_finalize_reward_state(self: CommandMembraneService, reward_state: CommandRewardStateV2) -> CommandRewardStateV2:
     del self
     reward_state.alignment_score = round(max(0.0, reward_state.alignment_score), 6)
@@ -2053,7 +2004,6 @@ def _command_v2_finalize_reward_state(self: CommandMembraneService, reward_state
         6,
     )
     return reward_state
-
 
 def _command_v2_compose_pheromone_state(
     self: CommandMembraneService,
@@ -2073,7 +2023,6 @@ def _command_v2_compose_pheromone_state(
         compat_edge_strength_after=round(float(compat_edge_strength_after), 6),
     )
 
-
 def _command_v2_compose_reward_allocations(self: CommandMembraneService, total_reward: float, worker_id: str) -> list[dict[str, Any]]:
     del self
     allocations = [
@@ -2084,13 +2033,11 @@ def _command_v2_compose_reward_allocations(self: CommandMembraneService, total_r
     ]
     return [asdict(item) for item in allocations]
 
-
 def _command_v2_capillary_signals(self: CommandMembraneService, candidate: dict[str, Any]) -> tuple[float, float, float]:
     compat = float(candidate.get("compat_edge_strength", candidate.get("edge_strength", 0.0)) or 0.0)
     gold = float(candidate.get("gold_strength", candidate.get("gold_signal", compat)) or compat)
     bridge = float(candidate.get("bridge_strength", candidate.get("bridge_signal", 0.0)) or 0.0)
     return round(max(0.0, gold), 6), round(max(0.0, bridge), 6), round(max(0.0, compat), 6)
-
 
 CommandMembraneService.packet_to_summary = _command_v2_packet_to_summary
 CommandMembraneService.stage_effort_quality = _command_v2_stage_effort_quality
@@ -2104,7 +2051,6 @@ CommandMembraneService.finalize_reward_state = _command_v2_finalize_reward_state
 CommandMembraneService.compose_pheromone_state = _command_v2_compose_pheromone_state
 CommandMembraneService.compose_reward_allocations = _command_v2_compose_reward_allocations
 CommandMembraneService.capillary_signals = _command_v2_capillary_signals
-
 
 def _command_v2_write_live_writeback_surfaces(self: CommandMembraneService, protocol: dict[str, Any], reward: dict[str, Any], capillary: dict[str, Any]) -> None:
     hall_body = "\n".join(
@@ -2182,7 +2128,6 @@ def _command_v2_write_live_writeback_surfaces(self: CommandMembraneService, prot
             ]
         ),
     )
-
 
 def _command_v2_ensure_protocol_artifacts(self: CommandMembraneService) -> dict[str, Any]:
     docs_gate = self.docs_gate_status()
@@ -2399,7 +2344,6 @@ def _command_v2_ensure_protocol_artifacts(self: CommandMembraneService) -> dict[
     self.sync_public_surfaces()
     return {"protocol": self.config.protocol_json_path, "schema": self.config.packet_schema_json_path, "reward": self.config.reward_field_json_path, "capillary": self.config.capillary_law_json_path, "latency": self.config.latency_benchmark_json_path}
 
-
 def _command_v2_emit_change(
     self: CommandMembraneService,
     source_path: Path,
@@ -2606,7 +2550,6 @@ def _command_v2_emit_change(
     self.sync_public_surfaces(event_id=event_id)
     return packet
 
-
 def _command_v2_score_candidate(self: CommandMembraneService, packet: CommandEventPacketV2, candidate: dict[str, Any]) -> dict[str, Any]:
     joy_seed = packet.joy_seed or self.build_joy_seed(
         priority=float(packet.priority),
@@ -2634,7 +2577,6 @@ def _command_v2_score_candidate(self: CommandMembraneService, packet: CommandEve
         "current_load": current_load,
         "score": score,
     }
-
 
 def _command_v2_route_event(self: CommandMembraneService, event_id: str, state: dict[str, Any] | None = None) -> dict[str, Any]:
     self.release_expired_leases()
@@ -2733,7 +2675,6 @@ def _command_v2_route_event(self: CommandMembraneService, event_id: str, state: 
     self.sync_public_surfaces(event_id=event_id)
     return asdict(decision)
 
-
 def _command_v2_metrics(self: CommandMembraneService, surface: str = "command-folder") -> dict[str, Any]:
     del surface
     events = self.recent_event_payloads(limit=None)
@@ -2756,14 +2697,12 @@ def _command_v2_metrics(self: CommandMembraneService, surface: str = "command-fo
         "top_capillaries": sorted(({"edge_id": edge_id, "edge_strength": float(edge.get("compat_edge_strength", edge.get("edge_strength", 0.0))), "classification": edge.get("classification", edge.get("grade", "route"))} for edge_id, edge in edges.items()), key=lambda item: (-item["edge_strength"], item["edge_id"]))[:5],
     }
 
-
 CommandMembraneService.write_live_writeback_surfaces = _command_v2_write_live_writeback_surfaces
 CommandMembraneService.ensure_protocol_artifacts = _command_v2_ensure_protocol_artifacts
 CommandMembraneService.emit_change = _command_v2_emit_change
 CommandMembraneService.score_candidate = _command_v2_score_candidate
 CommandMembraneService.route_event = _command_v2_route_event
 CommandMembraneService.metrics = _command_v2_metrics
-
 
 def _command_v2_claim_event(self: CommandMembraneService, event_id: str, ant_id: str | None = None, role: str = "worker", lease_ms: int | None = None) -> dict[str, Any]:
     self.release_expired_leases()
@@ -2809,7 +2748,6 @@ def _command_v2_claim_event(self: CommandMembraneService, event_id: str, ant_id:
     self.save_event(packet)
     self.sync_public_surfaces(event_id=event_id)
     return packet.claim_state
-
 
 def _command_v2_commit_event(self: CommandMembraneService, event_id: str, result: str, artifact_paths: list[str] | None = None, writeback_paths: list[str] | None = None, summary: str = "", work_started_at: str | None = None) -> dict[str, Any]:
     packet = self.load_event(event_id)
@@ -2873,7 +2811,6 @@ def _command_v2_commit_event(self: CommandMembraneService, event_id: str, result
     self.save_state(state)
     self.sync_public_surfaces(event_id=event_id)
     return {"execution_receipt_v2": asdict(execution_receipt), "latency_sample_v2": asdict(latency_sample), "receipt_json": rel(receipt_json), "receipt_md": rel(receipt_md)}
-
 
 def _command_v2_reinforce_event(self: CommandMembraneService, event_id: str, path: str | None = None, result: str = "success", latency_score: float | None = None) -> dict[str, Any]:
     packet = self.load_event(event_id)
@@ -2947,7 +2884,6 @@ def _command_v2_reinforce_event(self: CommandMembraneService, event_id: str, pat
     self.save_event(packet)
     self.sync_public_surfaces(event_id=event_id)
     return {"reinforcement_receipt_v2": asdict(reinforcement_receipt), "edges": updated_edges, "receipt_json": rel(receipt_json), "receipt_md": rel(receipt_md)}
-
 
 CommandMembraneService.claim_event = _command_v2_claim_event
 CommandMembraneService.commit_event = _command_v2_commit_event

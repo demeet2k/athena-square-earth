@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=124 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        TENSOR NETWORK MODULE                                 ║
@@ -32,7 +36,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Dict, Any
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TENSOR CORE
@@ -88,7 +91,6 @@ class Tensor:
         """Create identity matrix as tensor."""
         return cls(np.eye(dim, dtype=np.complex128), [left, right])
 
-
 def contract(A: Tensor, B: Tensor, indices: List[str]) -> Tensor:
     """
     Contract two tensors over specified indices.
@@ -109,7 +111,6 @@ def contract(A: Tensor, B: Tensor, indices: List[str]) -> Tensor:
     
     return Tensor(result_data, result_indices)
 
-
 def trace_tensor(T: Tensor, idx1: str, idx2: str) -> Tensor:
     """Trace over two indices of same dimension."""
     ax1 = T.indices.index(idx1)
@@ -119,7 +120,6 @@ def trace_tensor(T: Tensor, idx1: str, idx2: str) -> Tensor:
     result_indices = [i for i in T.indices if i not in [idx1, idx2]]
     
     return Tensor(result_data, result_indices)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MATRIX PRODUCT STATE (MPS)
@@ -249,7 +249,6 @@ class MPS:
         mps = cls(tensors)
         return mps.normalize()
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MATRIX PRODUCT OPERATOR (MPO)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -303,7 +302,6 @@ class MPO:
             W = np.eye(physical_dim).reshape(1, physical_dim, physical_dim, 1)
             tensors.append(W.astype(np.complex128))
         return cls(tensors)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TREE TENSOR NETWORK (TTN)
@@ -362,7 +360,6 @@ class TreeTensorNetwork:
             current_level = next_level
         
         return cls(list(mps.tensors), internal)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ENTANGLEMENT
@@ -427,7 +424,6 @@ class EntanglementAnalyzer:
         _, S, _ = np.linalg.svd(matrix, full_matrices=False)
         
         return S / np.linalg.norm(S)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONTRACTION OPTIMIZER
@@ -497,7 +493,6 @@ class ContractionPath:
         
         return cls(operations, total_cost)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -506,7 +501,6 @@ def create_mps(length: int, physical_dim: int = 2,
               bond_dim: int = 4) -> MPS:
     """Create random MPS."""
     return MPS.random(length, physical_dim, bond_dim)
-
 
 def mps_overlap(mps1: MPS, mps2: MPS) -> complex:
     """Compute ⟨ψ_1|ψ_2⟩."""
@@ -526,16 +520,13 @@ def mps_overlap(mps1: MPS, mps2: MPS) -> complex:
     
     return np.trace(E)
 
-
 def entanglement_entropy(mps: MPS, cut: int) -> float:
     """Entanglement entropy at bipartition."""
     return EntanglementAnalyzer.bipartite_entropy_mps(mps, cut)
 
-
 def contract_tensors(A: Tensor, B: Tensor, indices: List[str]) -> Tensor:
     """Contract two tensors."""
     return contract(A, B, indices)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

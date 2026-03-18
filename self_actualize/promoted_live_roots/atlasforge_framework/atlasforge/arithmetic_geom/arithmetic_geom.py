@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=343 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                     ARITHMETIC GEOMETRY MODULE                               ║
@@ -23,7 +27,6 @@ from typing import Optional, Tuple, List, Dict, Any, Set
 from enum import Enum, auto
 import numpy as np
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # AFFINE SCHEMES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -48,7 +51,6 @@ class PrimeIdeal:
     def residue_field(self) -> str:
         """k(𝔭) = Frac(R/𝔭) for 𝔭 prime."""
         return f"k({self.symbol})"
-
 
 @dataclass
 class AffineScheme:
@@ -98,7 +100,6 @@ class AffineScheme:
         vars = ", ".join([f"x_{i}" for i in range(1, n+1)])
         return cls(f"{field}[{vars}]", f"Affine {n}-space over {field}")
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SCHEMES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -113,7 +114,6 @@ class SchemeType(Enum):
     SINGULAR = "Singular"
     REDUCED = "Reduced"
     INTEGRAL = "Integral"
-
 
 @dataclass
 class Scheme:
@@ -150,7 +150,6 @@ class Scheme:
         """ω_X = Ω^n_X for smooth X of dim n."""
         return f"ω_{self.name}"
 
-
 @dataclass
 class ProjectiveScheme(Scheme):
     """
@@ -167,7 +166,6 @@ class ProjectiveScheme(Scheme):
             [SchemeType.PROJECTIVE, SchemeType.SMOOTH]
         )
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MORPHISMS OF SCHEMES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -182,7 +180,6 @@ class MorphismType(Enum):
     ETALE = "Étale"
     PROPER = "Proper"
     SEPARATED = "Separated"
-
 
 @dataclass
 class SchemeMorphism:
@@ -215,7 +212,6 @@ class SchemeMorphism:
         """f_*F - pushforward of sheaf."""
         return f"{self.name}_*{F}"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ÉTALE TOPOLOGY AND COHOMOLOGY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -233,7 +229,6 @@ class EtaleCover:
     def is_galois(self) -> bool:
         """Check if cover is Galois (has Galois group action)."""
         return len(self.covering_maps) == 1
-
 
 @dataclass
 class EtaleSheaf:
@@ -263,7 +258,6 @@ class EtaleSheaf:
         """μ_n = n-th roots of unity."""
         return cls(scheme, f"μ_{n}")
 
-
 @dataclass
 class EtaleCohomology:
     """
@@ -292,7 +286,6 @@ class EtaleCohomology:
     def frobenius_action(self, p: int, i: int) -> str:
         """Action of Frobenius at p on H^i."""
         return f"Frob_p: H^{i}_ét → H^{i}_ét"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # L-ADIC COHOMOLOGY
@@ -335,7 +328,6 @@ class LadicCohomology:
             "Betti numbers: b_i = degree of i-th factor"
         ]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GALOIS REPRESENTATIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -373,7 +365,6 @@ class GaloisRepresentation:
         """Conductor of the representation."""
         return f"N({self.name})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ARAKELOV THEORY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -400,7 +391,6 @@ class ArithmeticVariety:
     def arithmetic_genus(self) -> str:
         """Arithmetic genus."""
         return f"p_a({self.name})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -444,7 +434,6 @@ class ArithmeticPoleBridge:
         """
         return "Gateway ↔ Galois: Frob action on H^*_ét"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -453,27 +442,22 @@ def spec(ring: str) -> AffineScheme:
     """Create affine scheme Spec(R)."""
     return AffineScheme(ring)
 
-
 def proj_space(n: int, base: str = "k") -> ProjectiveScheme:
     """Create projective space ℙⁿ."""
     return ProjectiveScheme.projective_space(n, base)
 
-
 def affine_space(n: int, base: str = "k") -> AffineScheme:
     """Create affine space 𝔸ⁿ."""
     return AffineScheme.affine_space(n, base)
-
 
 def etale_cohomology(scheme: Scheme, sheaf: str) -> EtaleCohomology:
     """Create étale cohomology object."""
     F = EtaleSheaf(scheme, sheaf)
     return EtaleCohomology(scheme, F)
 
-
 def galois_rep(field: str, dim: int, prime: int = None) -> GaloisRepresentation:
     """Create Galois representation."""
     return GaloisRepresentation(field, dim, prime=prime)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

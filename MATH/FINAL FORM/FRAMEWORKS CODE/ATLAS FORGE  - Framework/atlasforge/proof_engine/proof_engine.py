@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=85 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      PROOF ENGINE MODULE                                     ║
@@ -28,7 +32,6 @@ import hashlib
 import json
 from datetime import datetime
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SEED: MINIMAL PUBLISHABLE UNIT
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -58,7 +61,6 @@ class GeneratorPacket:
         }, sort_keys=True)
         return hashlib.sha256(data.encode()).hexdigest()[:16]
 
-
 class RegularityClass(Enum):
     """Regularity class for admissibility."""
     CONTINUOUS = "C0"
@@ -68,14 +70,12 @@ class RegularityClass(Enum):
     MEROMORPHIC = "M"
     DISTRIBUTIONAL = "D'"
 
-
 class EqualityPolicy(Enum):
     """Equality policy for scope."""
     EXACT = "exact"
     INTERVAL = "interval"
     SYMBOLIC = "symbolic"
     HASH_BASED = "hash"
-
 
 @dataclass
 class Scope:
@@ -97,7 +97,6 @@ class Scope:
         return (self.domain == other.domain and 
                 self.branch_sheet == other.branch_sheet)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONSTRAINT IR (INTERMEDIATE REPRESENTATION)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -111,7 +110,6 @@ class ConstraintType(Enum):
     KERNEL_MORPHISM = "kernel"    # W K_X = K_Y W
     JET_LOCK = "jet"              # H = H' = ... = H^{(m-1)} = 0
     SINGULAR = "singular"         # H(z) = 0 and det J_H(z) = 0
-
 
 @dataclass
 class ConstraintTile:
@@ -133,7 +131,6 @@ class ConstraintTile:
     def to_ir(self) -> str:
         """Convert to normalized IR string."""
         return f"{self.constraint_type.value}:{self.expression}:{self.multiplicity}"
-
 
 @dataclass
 class ConstraintIR:
@@ -179,7 +176,6 @@ class ConstraintIR:
         """Content-addressable hash of IR."""
         return hashlib.sha256(self.normalize().encode()).hexdigest()[:16]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CERTIFICATES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -195,7 +191,6 @@ class CertificateClass(Enum):
     JACOBIAN_RANK = "rank"            # Degeneracy/singularity
     COMMUTATION = "commute"           # Diagram commutativity
     SYMMETRY_LIFT = "symmetry"        # Orbit lifting
-
 
 @dataclass
 class Certificate:
@@ -224,7 +219,6 @@ class Certificate:
         """Verify certificate using kernel."""
         return verifier.check_certificate(self)
 
-
 @dataclass
 class CertBundle:
     """
@@ -248,7 +242,6 @@ class CertBundle:
             if not valid:
                 errors.append(f"{cert.cert_id}: {msg}")
         return len(errors) == 0, errors
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # REPLAY SYSTEM
@@ -278,7 +271,6 @@ class EnvironmentFingerprint:
             json.dumps(self.to_dict(), sort_keys=True).encode()
         ).hexdigest()[:12]
 
-
 @dataclass
 class ReplayStep:
     """Single step in replay transcript."""
@@ -291,7 +283,6 @@ class ReplayStep:
         """Hash of this step."""
         data = f"{self.step_id}:{self.operation}:{json.dumps(self.inputs, sort_keys=True, default=str)}"
         return hashlib.sha256(data.encode()).hexdigest()[:8]
-
 
 @dataclass
 class ReplayTranscript:
@@ -320,7 +311,6 @@ class ReplayTranscript:
         expected = hashlib.sha256(combined.encode()).hexdigest()[:16]
         return expected == self.final_hash
 
-
 @dataclass
 class ReplayProcedure:
     """
@@ -338,7 +328,6 @@ class ReplayProcedure:
         new_transcript.add_step("reconstruct", {"gen": self.generator.content_hash()}, {})
         new_transcript.finalize()
         return None, new_transcript
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SEED: COMPLETE PUBLISHABLE UNIT
@@ -382,7 +371,6 @@ class Seed:
         
         return len(errors) == 0, errors
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # VERIFIER KERNEL
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -393,7 +381,6 @@ class VerificationStatus(Enum):
     REJECT = "reject"
     TIMEOUT = "timeout"
     ERROR = "error"
-
 
 @dataclass
 class VerifierKernel:
@@ -499,7 +486,6 @@ class VerifierKernel:
             return True, f"Published: {seed.seed_id}"
         return False, f"Rejected: {'; '.join(errors)}"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PROOF-CARRYING STANDARD
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -509,7 +495,6 @@ class ProofStandard(Enum):
     PCS_D = "deductive"       # Deductive proof in formal system
     PCS_C = "certificate"     # Seed + certificates + replay
     PCS_H = "hybrid"          # Deductive + certificate strengthening
-
 
 @dataclass
 class PublishableArtifact:
@@ -533,7 +518,6 @@ class PublishableArtifact:
             status, _ = verifier.verify_seed(self.seed)
             return has_proof and status == VerificationStatus.ACCEPT
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CANONICALIZATION AND EQUIVALENCE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -553,7 +537,6 @@ class NormalForm:
         for pattern, replacement in self.rewrite_rules:
             result = result.replace(pattern, replacement)
         return result
-
 
 @dataclass
 class EquivalenceChecker:
@@ -593,7 +576,6 @@ class EquivalenceChecker:
         
         # Would do deeper transport witness check here
         return False, "No equivalence witness found"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -687,7 +669,6 @@ class ProofEnginePoleBridge:
         Ψ: Recursive replay, dependency DAG
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -696,23 +677,19 @@ def generator_packet(**params) -> GeneratorPacket:
     """Create generator packet."""
     return GeneratorPacket(parameters=params)
 
-
 def scope(domain: str = "ℂ", regularity: RegularityClass = RegularityClass.ANALYTIC) -> Scope:
     """Create scope."""
     return Scope(domain=domain, regularity=regularity)
 
-
 def constraint_ir() -> ConstraintIR:
     """Create empty constraint IR."""
     return ConstraintIR()
-
 
 def certificate(cert_class: CertificateClass, claim: str, 
                 witness: Dict = None, bounds: Dict = None) -> Certificate:
     """Create certificate."""
     return Certificate(cert_class, claim=claim, 
                       witness=witness or {}, bounds=bounds or {})
-
 
 def cert_bundle(*certs: Certificate) -> CertBundle:
     """Create certificate bundle."""
@@ -721,16 +698,13 @@ def cert_bundle(*certs: Certificate) -> CertBundle:
         bundle.add(c)
     return bundle
 
-
 def verifier_kernel() -> VerifierKernel:
     """Create verifier kernel."""
     return VerifierKernel()
 
-
 def equivalence_checker() -> EquivalenceChecker:
     """Create equivalence checker."""
     return EquivalenceChecker()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

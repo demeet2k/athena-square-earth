@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S33 | face=S | node=555 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S32→Xi108:W2:A9:S34→Xi108:W1:A9:S33→Xi108:W3:A9:S33→Xi108:W2:A8:S33→Xi108:W2:A10:S33
+
 """
 NIGHTMARE BENCHMARK 04: CAMOUFLAGE
 ==================================

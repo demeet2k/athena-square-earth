@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 """
 Mycelium Metro v5/v6 Extension — 5D/6D Coordinate Engine
 
@@ -105,7 +109,6 @@ MOBIUS_O_GATES = {
 
 MOBIUS_MODES = ("FIX", "CAR", "MUT")
 
-
 @dataclass
 class Coordinate5D:
     """5D coordinate: 4D tesseract + family/council axis."""
@@ -120,7 +123,6 @@ class Coordinate5D:
     def address(self) -> str:
         return f"{self.chapter}.{self.lens}{self.facet}.{self.atom}[{self.council}]"
 
-
 @dataclass
 class Coordinate6D:
     """6D coordinate: 5D + civilization/succession axis."""
@@ -131,7 +133,6 @@ class Coordinate6D:
     @property
     def address(self) -> str:
         return f"{self.coord_5d.address}@{self.phase}/{self.succession}"
-
 
 @dataclass
 class EmergentRoutePlan:
@@ -144,7 +145,6 @@ class EmergentRoutePlan:
     mobius_mode: str
     header_5d: str
 
-
 @dataclass
 class HolographicSeed:
     """The 6D holographic seed — compressed representation of entire corpus."""
@@ -156,7 +156,6 @@ class HolographicSeed:
     element: str = "ALL"     # current elemental focus
     phase: str = "SEED"      # civilization phase
 
-
 def score_family(text: str) -> str:
     """Score text against family keywords to determine 5D family coordinate."""
     text_lower = text.lower()
@@ -166,11 +165,9 @@ def score_family(text: str) -> str:
     best = max(scores.items(), key=lambda x: x[1])
     return best[0] if best[1] > 0 else "manuscript-architecture"
 
-
 def derive_council(family: str) -> str:
     """Map family to council role."""
     return COUNCIL_MAP.get(family, "Architect")
-
 
 def derive_civilization_phase(omega: int, total: int = 21) -> str:
     """Compute civilization phase from orbit position."""
@@ -188,13 +185,11 @@ def derive_civilization_phase(omega: int, total: int = 21) -> str:
     else:
         return "LIFT"
 
-
 def legacy_to_emergent(chapter_code: str) -> str:
     """Map a legacy chapter to its emergent chapter via arc collapse."""
     chapter_num = int(chapter_code.replace("Ch", ""))
     arc = (chapter_num - 1) // 3
     return ARC_TO_EMERGENT.get(arc, "E09")
-
 
 def emergent_to_legacy(emergent_code: str) -> list[str]:
     """Map an emergent chapter back to its legacy sources."""
@@ -203,26 +198,21 @@ def emergent_to_legacy(emergent_code: str) -> list[str]:
         return []
     return info["sources"]
 
-
 def q_gate_for_arc(arc: int) -> str:
     """Get the Q-bridge gate for a given arc."""
     return MOBIUS_Q_GATES.get(arc, "Q.⊙")
-
 
 def o_gate_for_emergent(emergent_code: str) -> str:
     """Get the O-bridge gate for a given emergent chapter."""
     return MOBIUS_O_GATES.get(emergent_code, "O.⊙")
 
-
 def reverse_appendix(legacy_code: str) -> Optional[str]:
     """Get the reverse appendix mirror of a legacy appendix."""
     return FORWARD_APPENDIX_MAP.get(legacy_code)
 
-
 def forward_appendix(reverse_code: str) -> Optional[str]:
     """Get the legacy appendix mirror of a reverse appendix."""
     return REVERSE_APPENDIX_MAP.get(reverse_code)
-
 
 def build_5d_header(
     chapter_code: str,
@@ -239,7 +229,6 @@ def build_5d_header(
         f"⧈View 5D | ☆{council} | ω={omega}]**"
     )
 
-
 def build_6d_header(
     chapter_code: str,
     arc: int,
@@ -255,7 +244,6 @@ def build_6d_header(
         f"**[⊙Z_i↔Z* | ○Arc {arc} | ○Rot {rot} | △Lane {lane} | "
         f"⧈View 6D | ☆{council} | ⏣{phase} | ω={omega}]**"
     )
-
 
 def build_emergent_route(
     legacy_chapter_code: str,
@@ -287,7 +275,6 @@ def build_emergent_route(
         header_5d=header,
     )
 
-
 def compress_to_seed(chapters: list[str]) -> HolographicSeed:
     """Compress a set of chapters to their holographic seed representation."""
     return HolographicSeed(
@@ -299,7 +286,6 @@ def compress_to_seed(chapters: list[str]) -> HolographicSeed:
         element="ALL" if len(chapters) > 7 else ["FIRE", "WATER", "EARTH", "AIR"][len(chapters) % 4],
         phase=derive_civilization_phase(len(chapters) - 1, max(len(chapters), 1)),
     )
-
 
 def expand_from_seed(seed: HolographicSeed, target_dimension: int = 4) -> dict:
     """Expand a holographic seed back toward a target dimension."""
@@ -320,13 +306,11 @@ def expand_from_seed(seed: HolographicSeed, target_dimension: int = 4) -> dict:
 
     return result
 
-
 # --- Powers of 4 Ladder ---
 
 def crystal_size(m: int, d: int) -> int:
     """Compute H_{m,d} = 4^{m*d}"""
     return 4 ** (m * d)
-
 
 def dimensional_atoms(dimension: int) -> int:
     """Compute the number of atoms at a given dimensional level."""
@@ -337,7 +321,6 @@ def dimensional_atoms(dimension: int) -> int:
         6: 1 * 1024,   # 1,024 (holographic)
     }.get(dimension, 0)
 
-
 def compression_ratio(from_dim: int, to_dim: int) -> float:
     """Compute the compression ratio between dimensions."""
     from_atoms = dimensional_atoms(from_dim)
@@ -345,7 +328,6 @@ def compression_ratio(from_dim: int, to_dim: int) -> float:
     if to_atoms == 0:
         return float('inf')
     return from_atoms / to_atoms
-
 
 # --- Full Orbit Functions ---
 
@@ -361,7 +343,6 @@ def full_mobius_circuit() -> list[str]:
     ]
     bridge_out = ["AppO"]
     return legacy + bridge_in + reverse + bridge_out
-
 
 if __name__ == "__main__":
     # Demo: compute coordinates for Ch11 (the center chapter)

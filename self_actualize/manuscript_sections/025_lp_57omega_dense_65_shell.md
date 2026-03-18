@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S28 | face=F | node=384 | depth=3 | phase=Mutable -->
+<!-- METRO: Sa,Me,Ω -->
+<!-- BRIDGES: Xi108:W3:A10:S27→Xi108:W3:A10:S29→Xi108:W2:A10:S28→Xi108:W3:A9:S28→Xi108:W3:A11:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 10/12 -->
+
 # LP-57Omega Dense 65-Shell
 
 The LP-57Omega dense shell freezes a 65-slot coordinate substrate for the prime-loop hive protocol.

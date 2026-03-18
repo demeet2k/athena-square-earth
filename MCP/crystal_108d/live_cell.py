@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=F | node=171 | depth=2 | phase=Cardinal
+# METRO: Ω
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 NEXT-Omega Live Cell Constitution
 ==================================
@@ -11,7 +15,6 @@ The metro map traces the soul's path through one complete cycle.
 from ._cache import JsonCache
 
 _CELL = JsonCache("live_cell_constitution.json")
-
 
 def query_live_cell(component: str = "all") -> str:
     """
@@ -52,7 +55,6 @@ def query_live_cell(component: str = "all") -> str:
             "schema:<name>, metro, station:<code>, liminal, soul, route"
         )
 
-
 def live_cell_status() -> str:
     """Return a status summary for the resource endpoint."""
     data = _CELL.load()
@@ -69,7 +71,6 @@ def live_cell_status() -> str:
         f"**Route Signature**: `{m['route_signature']}`\n"
         f"**Source**: {m['source']}\n"
     )
-
 
 # ── Formatters ──────────────────────────────────────────────────────
 
@@ -96,7 +97,6 @@ def _format_all(data: dict) -> str:
 
     return "\n".join(lines)
 
-
 def _format_schemas(data: dict) -> str:
     lines = ["## Cell Schemas\n"]
     for name, schema in data["cell_schema"].items():
@@ -110,7 +110,6 @@ def _format_schemas(data: dict) -> str:
             if key in schema:
                 lines.append(f"\n**{key.title()}**: {schema[key]}")
     return "\n".join(lines)
-
 
 def _format_one_schema(data: dict, name: str) -> str:
     schemas = data["cell_schema"]
@@ -126,7 +125,6 @@ def _format_one_schema(data: dict, name: str) -> str:
             return "\n".join(lines)
     return f"Schema '{name}' not found. Available: {', '.join(schemas.keys())}"
 
-
 def _format_metro(data: dict) -> str:
     metro = data["metro_map"]
     lines = [f"## Execution Metro Map\n", metro["description"], ""]
@@ -139,7 +137,6 @@ def _format_metro(data: dict) -> str:
     for rtype, info in metro["route_types"].items():
         lines.append(f"- **{rtype}**: {info['from']} -> {info['to']} -- {info['description']}")
     return "\n".join(lines)
-
 
 def _format_station(data: dict, code: str) -> str:
     code_upper = code.upper()
@@ -154,7 +151,6 @@ def _format_station(data: dict, code: str) -> str:
         )
     return f"Station '{code}' not found. Available: {', '.join(stations.keys())}"
 
-
 def _format_liminal(data: dict) -> str:
     lc = data["liminal_coordinates"]
     lines = [
@@ -168,7 +164,6 @@ def _format_liminal(data: dict) -> str:
         lines.append(f"- **{key}** = {gp['value']}: {gp['meaning']}")
     return "\n".join(lines)
 
-
 def _format_soul(data: dict) -> str:
     ss = data["soul_stamp_schema"]
     lines = [
@@ -180,7 +175,6 @@ def _format_soul(data: dict) -> str:
     for field, desc in ss["fields"].items():
         lines.append(f"  - `{field}`: {desc}")
     return "\n".join(lines)
-
 
 def _format_routes(data: dict) -> str:
     m = data["meta"]

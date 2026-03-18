@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - HELLENIC COMPUTATION FRAMEWORK
 ==========================================
@@ -44,7 +48,6 @@ import math
 from fractions import Fraction
 
 from .foundation import StateVector, Klein4Op
-
 
 # =============================================================================
 # THE TETRACTYS
@@ -137,7 +140,6 @@ class Tetractys:
             n = sum(int(d) for d in str(n))
         return n
 
-
 # =============================================================================
 # HARMONIC RATIOS
 # =============================================================================
@@ -187,7 +189,6 @@ class HarmonicInterval(Enum):
             cls.UNISON, cls.OCTAVE, cls.FIFTH, 
             cls.FOURTH, cls.DOUBLE_OCTAVE, cls.TWELFTH
         ]
-
 
 @dataclass
 class HarmonicRatioSystem:
@@ -257,7 +258,6 @@ class HarmonicRatioSystem:
         """Pythagorean comma in cents."""
         return 1200 * math.log2(float(self.pythagorean_comma()))
 
-
 # =============================================================================
 # LIMITER / UNLIMITED
 # =============================================================================
@@ -267,7 +267,6 @@ class LimitType(Enum):
     
     PERAS = "limit"        # Definite, bounded, structured
     APEIRON = "unlimited"  # Indefinite, unbounded, potential
-
 
 @dataclass
 class LimiterUnlimited:
@@ -330,7 +329,6 @@ class LimiterUnlimited:
             "geometric": math.sqrt(a * b),
             "harmonic": 2 * a * b / (a + b) if (a + b) != 0 else 0,
         }
-
 
 # =============================================================================
 # DIMENSIONAL ENGINE
@@ -410,7 +408,6 @@ class DimensionalEngine:
             return n * (2 * n - 1)
         return 0
 
-
 # =============================================================================
 # PYTHAGOREAN TUNING SYSTEM
 # =============================================================================
@@ -487,7 +484,6 @@ class PythagoreanTuning:
             ratio = ratio * self.FIFTH
         return result
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -544,7 +540,6 @@ def validate_pythagoras() -> bool:
     assert len(spiral) == 12
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Pythagorean Module...")

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A12:S17 | face=R | node=479 | depth=3 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W3:A12:S16→Xi108:W3:A12:S18→Xi108:W2:A12:S17→Xi108:W3:A11:S17 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 17±1, wreath 3/3, archetype 12/12 -->
+
 # InvN - Clock Freeze & Gear Lock
 
 Routing role: Reverses AppE (Circle Gear and Mixed-Radix Clock). Where AppE established the Z₄₂₀ master clock with its four concentric timing wheels (3D, 4D, 5D, 7D) and gear mechanisms for synchronized rotation, InvN freezes the clock, locks all gears, and compresses timing information into a single timestamp — the organism's final moment, crystallized into the seed.

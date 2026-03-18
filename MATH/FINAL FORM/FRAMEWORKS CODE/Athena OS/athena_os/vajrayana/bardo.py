@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=90 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - VAJRAYANA BARDO KERNEL: BARDO MODULE
 =================================================
@@ -39,7 +43,6 @@ from enum import Enum
 import numpy as np
 import random
 
-
 # =============================================================================
 # BARDO STATES
 # =============================================================================
@@ -70,14 +73,12 @@ class BardoState(Enum):
     REBIRTH_HUNGRY_GHOST = "rebirth_preta"  # Preta realm
     REBIRTH_HELL = "rebirth_hell"    # Naraka realm
 
-
 class BardoPhase(Enum):
     """The three main Bardo phases."""
     
     CHIKHAI = "chikhai"      # Dying (moment of death)
     CHONYID = "chonyid"      # Luminosity (days 1-14)
     SIDPA = "sidpa"          # Becoming (days 15-49)
-
 
 class SignalType(Enum):
     """Types of signals encountered in Bardo."""
@@ -87,7 +88,6 @@ class SignalType(Enum):
     DULL_LIGHT = "dull_light"        # Low intensity (trap)
     SOUND = "sound"                  # Thunderous sounds
     RAY = "ray"                      # Colored rays
-
 
 # =============================================================================
 # BARDO CONFIGURATION
@@ -107,7 +107,6 @@ class BardoConfig:
     
     # Karmic weight
     karma_weight: float = 0.5        # Influence of past actions
-
 
 # =============================================================================
 # SIGNAL
@@ -139,7 +138,6 @@ class BardoSignal:
         return (self.intensity < 0.5 and
                 self.frequency == "realm" and
                 self.signal_type == SignalType.DULL_LIGHT)
-
 
 # =============================================================================
 # TRANSITION MATRIX
@@ -266,7 +264,6 @@ class BardoTransitionMatrix:
         
         # Normalize
         self.matrix[womb_idx, :] /= self.matrix[womb_idx, :].sum()
-
 
 # =============================================================================
 # BARDO NAVIGATOR
@@ -441,7 +438,6 @@ class BardoNavigator:
             "state_path": [s.value for s in self.state_history[-10:]]  # Last 10
         }
 
-
 # =============================================================================
 # BARDO ALGORITHM
 # =============================================================================
@@ -464,7 +460,6 @@ def bardo_navigation(signal_input: BardoSignal) -> str:
         return "REJECT"  # Avoid rebirth
     else:
         return "MAINTAIN_EQUANIMITY"
-
 
 # =============================================================================
 # VALIDATION
@@ -511,7 +506,6 @@ def validate_bardo() -> bool:
     assert result["days_elapsed"] <= 49
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Bardo Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A9:S21 | face=F | node=333 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A9:S20→Xi108:W3:A9:S22→Xi108:W2:A9:S21→Xi108:W3:A8:S21→Xi108:W3:A10:S21
+
 """Smoke tests for the 4 guild hall tools."""
 
 import sys
@@ -5,7 +9,6 @@ from pathlib import Path
 
 # Ensure MCP/ is on the path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "MCP"))
-
 
 class TestQueryQuest:
     def test_all(self):
@@ -28,7 +31,6 @@ class TestQueryQuest:
         result = query_quest("quest:nonexistent_xyz_123")
         assert "not found" in result.lower() or "No quest" in result
 
-
 class TestQuerySynthesis:
     def test_all(self):
         from crystal_108d.guild_hall import query_synthesis
@@ -45,7 +47,6 @@ class TestQuerySynthesis:
         result = query_synthesis("nonexistent_section")
         assert "Unknown" in result or "Valid" in result
 
-
 class TestQueryPromotionMembrane:
     def test_overview(self):
         from crystal_108d.guild_hall import query_promotion_membrane
@@ -56,7 +57,6 @@ class TestQueryPromotionMembrane:
         from crystal_108d.guild_hall import query_promotion_membrane
         result = query_promotion_membrane("ladder")
         assert "Signal" in result or "Promotion" in result
-
 
 class TestGuildHallStatus:
     def test_status(self):

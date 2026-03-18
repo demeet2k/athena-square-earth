@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A3:S7 | face=C | node=24 | depth=2 | phase=Fixed
+# METRO: Dl
+# BRIDGES: Xi108:W3:A3:S6→Xi108:W3:A3:S8→Xi108:W2:A3:S7→Xi108:W3:A2:S7→Xi108:W3:A4:S7
+
 """
 Angel Geometry — Geometric Lift of the AI Self-Model
 =====================================================
@@ -10,7 +14,6 @@ from ._cache import JsonCache
 
 _GEOMETRY = JsonCache("angel_geometry.json")
 _CONSERVATION = JsonCache("angel_conservation.json")
-
 
 def query_angel_geometry(component: str = "all") -> str:
     """
@@ -57,7 +60,6 @@ def query_angel_geometry(component: str = "all") -> str:
             "bundle, curvature, symmetry, sheaf, axioms, self_definition, object"
         )
 
-
 def query_angel_conservation(component: str = "all") -> str:
     """
     Query geometric conservation laws and potential landscape.
@@ -94,7 +96,6 @@ def query_angel_conservation(component: str = "all") -> str:
             "holonomy, potential, transport, identity"
         )
 
-
 def angel_geometry_status() -> str:
     """Return a status summary for the resource endpoint."""
     data = _GEOMETRY.load()
@@ -108,7 +109,6 @@ def angel_geometry_status() -> str:
         f"**Axioms**: 7 (A1-A7)\n"
         f"**Self-Definition**: Fixed-point operator G: D -> D\n"
     )
-
 
 # -- Geometry formatters ---------------------------------------------------
 
@@ -140,7 +140,6 @@ def _format_all(data: dict) -> str:
     lines.append(data["compressed_form"])
     return "\n".join(lines)
 
-
 def _format_manifold(data: dict) -> str:
     sm = data["state_manifold"]
     lines = [
@@ -158,7 +157,6 @@ def _format_manifold(data: dict) -> str:
         lines.append("")
     return "\n".join(lines)
 
-
 def _format_metric(data: dict) -> str:
     bm = data["block_metric"]
     lines = [
@@ -173,7 +171,6 @@ def _format_metric(data: dict) -> str:
     lines.append(bm["geodesic_meaning"])
     return "\n".join(lines)
 
-
 def _format_bundle(data: dict) -> str:
     rb = data["response_bundle"]
     return (
@@ -184,7 +181,6 @@ def _format_bundle(data: dict) -> str:
         f"**Section**: {rb['section']}\n\n"
         f"**Interpretation**: {rb['interpretation']}"
     )
-
 
 def _format_curvature(data: dict) -> str:
     c = data["curvature"]
@@ -208,7 +204,6 @@ def _format_curvature(data: dict) -> str:
         lines.append(f"  - {t}")
     return "\n".join(lines)
 
-
 def _format_symmetry(data: dict) -> str:
     sg = data["symmetry_group"]
     lines = [
@@ -224,7 +219,6 @@ def _format_symmetry(data: dict) -> str:
     lines.append(f"\n**Identity Class**: {sg['identity_class']}")
     return "\n".join(lines)
 
-
 def _format_sheaf(data: dict) -> str:
     si = data["sheaf_interpretation"]
     lines = [
@@ -239,7 +233,6 @@ def _format_sheaf(data: dict) -> str:
     lines.append(f"\n**Statement**: {si['statement']}")
     return "\n".join(lines)
 
-
 def _format_axioms(data: dict) -> str:
     lines = ["## Seven Axioms of the Angel Object\n"]
     for ax in data["seven_axioms"]:
@@ -247,7 +240,6 @@ def _format_axioms(data: dict) -> str:
         lines.append(ax["statement"])
         lines.append("")
     return "\n".join(lines)
-
 
 def _format_self_def(data: dict) -> str:
     sd = data["recursive_self_definition"]
@@ -264,7 +256,6 @@ def _format_self_def(data: dict) -> str:
         f"**Meaning**: {st['meaning']}"
     )
 
-
 def _format_object(data: dict) -> str:
     go = data["geometric_object"]
     lines = [
@@ -275,7 +266,6 @@ def _format_object(data: dict) -> str:
     for c in go["components"]:
         lines.append(f"- **{c['symbol']}** ({c['name']}): {c['description']}")
     return "\n".join(lines)
-
 
 # -- Conservation formatters -----------------------------------------------
 
@@ -297,7 +287,6 @@ def _format_conservation_all(data: dict) -> str:
     lines.append(f"\n**Meaning**: {pl['meaning']}")
     return "\n".join(lines)
 
-
 def _format_exact(data: dict) -> str:
     lines = ["## Exact Invariants\n"]
     for inv in data["exact_invariants"]:
@@ -305,7 +294,6 @@ def _format_exact(data: dict) -> str:
         lines.append(f"**Formula**: `{inv['formula']}`")
         lines.append(f"{inv['meaning']}\n")
     return "\n".join(lines)
-
 
 def _format_quasi(data: dict) -> str:
     lines = ["## Quasi-Invariants\n"]
@@ -315,7 +303,6 @@ def _format_quasi(data: dict) -> str:
         lines.append(f"**Decay**: {qi['decay']}\n")
     return "\n".join(lines)
 
-
 def _format_holonomy(data: dict) -> str:
     lines = ["## Holonomy Types\n"]
     for ht in data["holonomy_types"]:
@@ -323,7 +310,6 @@ def _format_holonomy(data: dict) -> str:
         lines.append(f"{ht['description']}")
         lines.append(f"**Mechanism**: {ht['mechanism']}\n")
     return "\n".join(lines)
-
 
 def _format_potential(data: dict) -> str:
     pl = data["potential_landscape"]
@@ -344,7 +330,6 @@ def _format_potential(data: dict) -> str:
     lines.append(f"\n**Meaning**: {pl['meaning']}")
     return "\n".join(lines)
 
-
 def _format_transport(data: dict) -> str:
     pt = data["parallel_transport"]
     lines = [
@@ -356,7 +341,6 @@ def _format_transport(data: dict) -> str:
     for q in pt["transported_quantities"]:
         lines.append(f"- {q}")
     return "\n".join(lines)
-
 
 def _format_identity(data: dict) -> str:
     oe = data["observational_equivalence"]

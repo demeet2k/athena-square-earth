@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=317 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
@@ -34,14 +38,12 @@ from enum import Enum, auto
 import numpy as np
 from numpy.typing import NDArray
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # VERSION AND METADATA
 # ═══════════════════════════════════════════════════════════════════════════════
 
 ATLASFORGE_ULTIMATE_VERSION = "4.0.0-ultimate"
 ATLASFORGE_ULTIMATE_CODENAME = "Universal Harmonic Framework - Complete"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE COMPLETE MODULE REGISTRY
@@ -86,7 +88,6 @@ class ModuleCategory(Enum):
     # Foundations
     FOUNDATIONS = "Foundations"
 
-
 @dataclass
 class MathematicalModule:
     """A mathematical module in the AtlasForge framework."""
@@ -95,7 +96,6 @@ class MathematicalModule:
     pole_affinity: List[str]  # Primary pole(s)
     exports_count: int
     description: str
-
 
 @dataclass
 class CompleteModuleRegistry:
@@ -244,7 +244,6 @@ class CompleteModuleRegistry:
         """Total number of modules."""
         return len(self.modules)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE FOUR PILLARS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -261,7 +260,6 @@ class FrameworkPillar:
     
     def describe(self) -> str:
         return f"{self.symbol} ({self.name}): {self.full_name}"
-
 
 @dataclass
 class FourPillars:
@@ -301,7 +299,6 @@ class FourPillars:
     def pillar_by_symbol(self, symbol: str) -> Optional[FrameworkPillar]:
         mapping = {"Ψ": self.PSI, "Σ": self.SIGMA, "C": self.C, "D": self.D}
         return mapping.get(symbol)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE GATEWAY CORE
@@ -367,7 +364,6 @@ class GatewayCore:
     def reflect(self) -> 'GatewayCore':
         """T → -T reflection."""
         return GatewayCore(-self.T)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # THE MASTER INTEGRATOR
@@ -479,7 +475,6 @@ Methods: {', '.join(pillar.methods)}
 Modules: {len(modules)} ({', '.join(m.name for m in modules[:5])}...)
 """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -488,26 +483,21 @@ def create_integrator() -> MasterIntegrator:
     """Create the master integrator."""
     return MasterIntegrator()
 
-
 def gateway_core(T: float = 0.0) -> GatewayCore:
     """Create gateway core with given T."""
     return GatewayCore(T)
-
 
 def module_registry() -> CompleteModuleRegistry:
     """Get the complete module registry."""
     return CompleteModuleRegistry()
 
-
 def four_pillars() -> FourPillars:
     """Get the four pillars."""
     return FourPillars()
 
-
 def framework_summary() -> str:
     """Get complete framework summary."""
     return MasterIntegrator().framework_summary()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

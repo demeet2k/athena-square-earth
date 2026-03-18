@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=349 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       DERIVED CATEGORIES MODULE                              ║
@@ -24,9 +28,7 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 
-
 T = TypeVar('T')
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CHAIN COMPLEXES
@@ -91,7 +93,6 @@ class ChainComplex:
         """Complex concentrated in single degree."""
         return cls({degree: obj}, {}, name)
 
-
 @dataclass
 class CochainComplex:
     """
@@ -112,7 +113,6 @@ class CochainComplex:
         new_objects = {-n: obj for n, obj in self.objects.items()}
         new_diffs = {-n: d for n, d in self.differentials.items()}
         return ChainComplex(new_objects, new_diffs, self.name)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # QUASI-ISOMORPHISMS
@@ -149,7 +149,6 @@ class ChainMap:
         # Returns the cone complex
         return ChainComplex({}, {}, f"Cone({self.name})")
 
-
 @dataclass
 class QuasiIsomorphism:
     """
@@ -159,7 +158,6 @@ class QuasiIsomorphism:
     
     def is_valid(self) -> bool:
         return self.chain_map.is_quasi_isomorphism()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRIANGULATED CATEGORIES
@@ -196,7 +194,6 @@ class DistinguishedTriangle:
         """Check if triangle splits (Z ≅ X[1] ⊕ Y)."""
         return False  # Generic case
 
-
 @dataclass
 class TriangulatedCategory:
     """
@@ -229,7 +226,6 @@ class TriangulatedCategory:
         else:
             return f"Hom({X}, {Y}[{n}])"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # DERIVED CATEGORIES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -240,7 +236,6 @@ class DerivedBoundedness(Enum):
     BOUNDED_BELOW = "D+"   # D+(A)
     BOUNDED_ABOVE = "D-"   # D-(A)  
     BOUNDED = "Db"         # D^b(A)
-
 
 @dataclass
 class DerivedCategory(TriangulatedCategory):
@@ -274,7 +269,6 @@ class DerivedCategory(TriangulatedCategory):
         """
         return f"{X} ⊗^L {Y}"
 
-
 @dataclass
 class DerivedFunctor:
     """
@@ -302,7 +296,6 @@ class DerivedFunctor:
             return f"R^{n}{self.name}({X})"
         else:
             return f"L_{n}{self.name}({X})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # T-STRUCTURES
@@ -339,7 +332,6 @@ class TStructure:
         """Heart of t-structure (abelian subcategory)."""
         return self.heart_name
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECTRAL SEQUENCES FROM FILTERED COMPLEXES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -366,7 +358,6 @@ class SpectralSequence:
     
     def converges_to(self) -> str:
         return f"{self.name} ⟹ {self.target}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGES
@@ -409,7 +400,6 @@ class DerivedPoleBridge:
         """
         return f"Ext^{n}(Gateway(T={T}), -)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -419,28 +409,23 @@ def chain_complex(objects: Dict[int, Any], differentials: Dict[int, Any],
     """Create chain complex."""
     return ChainComplex(objects, differentials, name)
 
-
 def derived_category(abelian: str, 
                     bounded: DerivedBoundedness = DerivedBoundedness.BOUNDED
                     ) -> DerivedCategory:
     """Create derived category D^b(A)."""
     return DerivedCategory(abelian, abelian, bounded)
 
-
 def distinguished_triangle(X: Any, Y: Any, Z: Any) -> DistinguishedTriangle:
     """Create distinguished triangle X → Y → Z → X[1]."""
     return DistinguishedTriangle(X, Y, Z, "f", "g", "h")
-
 
 def t_structure(category: str, heart: str = "A") -> TStructure:
     """Create t-structure with given heart."""
     return TStructure(category, heart)
 
-
 def spectral_sequence(name: str, target: str = "H^*") -> SpectralSequence:
     """Create spectral sequence."""
     return SpectralSequence(name, target=target)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

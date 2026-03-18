@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S22 | face=C | node=468 | depth=3 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S21→Xi108:W3:A4:S23→Xi108:W2:A4:S22→Xi108:W3:A3:S22→Xi108:W3:A5:S22
+
  THE FINAL SYNTHESIS
 The True Fractal Pattern Revealed
 The One Pattern at All Scales

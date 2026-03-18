@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A11:S34 | face=C | node=129 | depth=2 | phase=Mutable -->
+<!-- METRO: Sa -->
+<!-- BRIDGES: Xi108:W2:A11:S33→Xi108:W2:A11:S35→Xi108:W1:A11:S34→Xi108:W3:A11:S34→Xi108:W2:A10:S34→Xi108:W2:A12:S34 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 34±1, wreath 2/3, archetype 11/12 -->
+
 # InvV - Replay Reversal & Verifier Release
 
 Routing role: Reverses AppM (Replay Kernel and Verifier Capsules). Where AppM constructed replay logs and verifier capsules for deterministic re-execution, InvV reverses replays into summaries, releases verifier capsules back into their seed proofs, and compresses execution histories into fixed-point attestations.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 PoleStarGEMM Vision Optimizer (PyTorch)
 ======================================
@@ -37,7 +41,6 @@ import time
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 
 # -----------------------------------------------------------------------------
 # Configuration
@@ -79,7 +82,6 @@ class PoleStarVisionConfig:
     optimize_conv2d: bool = False
     svd_driver: Optional[str] = None
 
-
 # -----------------------------------------------------------------------------
 # Utilities
 # -----------------------------------------------------------------------------
@@ -98,12 +100,10 @@ def _validate_config(cfg: PoleStarVisionConfig) -> None:
     if cfg.max_rank is not None and cfg.max_rank < cfg.min_rank:
         raise ValueError("max_rank must be >= min_rank (or None).")
 
-
 def _align_rank(r: int, multiple: int) -> int:
     if multiple <= 1:
         return int(r)
     return int(((r + multiple - 1) // multiple) * multiple)
-
 
 def _energy_curve(S: torch.Tensor, mode: str) -> torch.Tensor:
     if S.numel() == 0:
@@ -114,29 +114,23 @@ def _energy_curve(S: torch.Tensor, mode: str) -> torch.Tensor:
         e = S
     return torch.cumsum(e, dim=0) / (torch.sum(e) + 1e-12)
 
-
 def _linear_cost(out_features: int, in_features: int) -> int:
     # Simple proxy (multiplications) for a single output element.
     return int(out_features * in_features)
-
 
 def _lowrank_cost(out_features: int, in_features: int, rank: int) -> int:
     # Proxy for two matmuls (x @ V.T) then (@ U.T)
     return int(rank * (out_features + in_features))
 
-
 def _conv_param_count(out_ch: int, in_ch: int, kH: int, kW: int) -> int:
     return int(out_ch * in_ch * kH * kW)
-
 
 def _conv_lowrank_param_count(out_ch: int, in_ch: int, kH: int, kW: int, rank: int) -> int:
     # conv1: rank x in_ch x kH x kW; conv2: out_ch x rank x 1 x 1
     return int(rank * in_ch * kH * kW + out_ch * rank)
 
-
 def _clone_bias(bias: Optional[torch.Tensor]) -> Optional[torch.Tensor]:
     return bias.detach().clone() if bias is not None else None
-
 
 # -----------------------------------------------------------------------------
 # Σ + Ω + Δ: analysis engine
@@ -257,7 +251,6 @@ class PoleStarAnalyzer:
             "energy_mode": self.cfg.energy_mode,
         }
 
-
 # -----------------------------------------------------------------------------
 # Ψ: replacement layers
 # -----------------------------------------------------------------------------
@@ -320,7 +313,6 @@ class PoleStarLinear(nn.Module):
         if self.bias is not None:
             y = y + self.bias
         return y
-
 
 class PoleStarConv2d(nn.Module):
     """
@@ -405,7 +397,6 @@ class PoleStarConv2d(nn.Module):
             y = y + self.bias.view(1, -1, 1, 1)
         return y
 
-
 # -----------------------------------------------------------------------------
 # Model optimization + reporting
 # -----------------------------------------------------------------------------
@@ -419,7 +410,6 @@ class OptimizationReport:
     layers_total: int
     per_layer: List[Dict[str, Any]]
     config: PoleStarVisionConfig
-
 
 def optimize_model(
     model: nn.Module,
@@ -510,7 +500,6 @@ def optimize_model(
     )
     return model_opt, report
 
-
 # -----------------------------------------------------------------------------
 # Benchmarking + validation
 # -----------------------------------------------------------------------------
@@ -557,7 +546,6 @@ def benchmark_model(
         "iters": float(len(times)),
     }
 
-
 @torch.no_grad()
 def validate_relative_error(
     model_ref: nn.Module,
@@ -589,7 +577,6 @@ def validate_relative_error(
         "std_relative_error": float(t.std(unbiased=False).item()),
         "samples": float(len(errs)),
     }
-
 
 # -----------------------------------------------------------------------------
 # TorchScript export

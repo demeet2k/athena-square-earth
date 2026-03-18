@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=333 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 import json
@@ -6,7 +10,6 @@ from pathlib import Path
 from typing import Any
 
 from . import swarm_board
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -43,23 +46,18 @@ OUTPUT_JSON_PATH = SELF_ACTUALIZE_ROOT / "skill_cohesion_registry.json"
 DERIVATION_VERSION = "2026-03-12.skill-cohesion.registry.v1"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_skill_cohesion_registry"
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def rel(path: Path) -> str:
     return path.relative_to(WORKSPACE_ROOT).as_posix()
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-
 
 def replacement_for(path: Path, classification: str) -> str:
     name = path.parent.name if path.name == "SKILL.md" else path.stem
@@ -71,7 +69,6 @@ def replacement_for(path: Path, classification: str) -> str:
     if classification == "live_authority":
         return rel(path if path == LIVE_ROUTER_PATH else LIVE_ROUTER_PATH)
     return replacements.get(name, rel(LIVE_ROUTER_PATH))
-
 
 def redirect_present(text: str, replacement: str) -> bool:
     lowered = text.lower()
@@ -86,14 +83,12 @@ def redirect_present(text: str, replacement: str) -> bool:
         return all(part.lower() in lowered for part in replacement.split(" + "))
     return replacement.lower() in lowered
 
-
 def boundary_notice_present(text: str, classification: str) -> bool:
     if classification == "historical_mirror":
         return "historical mirror notice" in text.lower() or "historical precursor notice" in text.lower()
     if classification == "family_local":
         return "family-local boundary" in text.lower()
     return False
-
 
 def truth_class(text: str, classification: str) -> str:
     lowered = text.lower()
@@ -107,7 +102,6 @@ def truth_class(text: str, classification: str) -> str:
         return "FAMILY_LOCAL"
     return "AMBIG"
 
-
 def authority_scope(classification: str) -> str:
     if classification == "live_authority":
         return "whole_corpus_deep_root"
@@ -116,7 +110,6 @@ def authority_scope(classification: str) -> str:
     if classification == "family_local":
         return "family_local"
     return "rogue_whole_corpus_candidate"
-
 
 def deep_routing_candidate(path: Path, text: str) -> bool:
     lowered = text.lower()
@@ -130,7 +123,6 @@ def deep_routing_candidate(path: Path, text: str) -> bool:
         "router",
     ]
     return sum(token in lowered for token in candidate_tokens) >= 2
-
 
 def overclaims_live_authority(text: str, classification: str) -> bool:
     if classification != "prunable_bloat":
@@ -146,11 +138,9 @@ def overclaims_live_authority(text: str, classification: str) -> bool:
     ]
     return not any(token in lowered for token in safe_tokens)
 
-
 def skill_id_for(path: Path) -> str:
     relative = rel(path).replace("/", "__").replace(".", "_").replace("-", "_")
     return relative.lower()
-
 
 def record_for(path: Path, root_family: str, classification: str, docs_gate_status: str) -> dict[str, Any]:
     text = read_text(path)
@@ -168,7 +158,6 @@ def record_for(path: Path, root_family: str, classification: str, docs_gate_stat
         "docs_gate_status": docs_gate_status,
         "overclaims_live_authority": overclaims_live_authority(text, classification),
     }
-
 
 def scan_fixed_roots(docs_gate_status: str) -> tuple[list[dict[str, Any]], set[Path]]:
     records: list[dict[str, Any]] = []
@@ -194,7 +183,6 @@ def scan_fixed_roots(docs_gate_status: str) -> tuple[list[dict[str, Any]], set[P
         records.append(record_for(path=path, root_family=root_family, classification=classification, docs_gate_status=docs_gate_status))
     return records, seen_paths
 
-
 def scan_prunable_bloat(docs_gate_status: str, seen_paths: set[Path]) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for path in sorted(WORKSPACE_ROOT.rglob("SKILL.md")):
@@ -214,7 +202,6 @@ def scan_prunable_bloat(docs_gate_status: str, seen_paths: set[Path]) -> list[di
         )
     return records
 
-
 def summary_for(records: list[dict[str, Any]], docs_gate_status: str) -> dict[str, Any]:
     counts: dict[str, int] = {}
     for record in records:
@@ -228,7 +215,6 @@ def summary_for(records: list[dict[str, Any]], docs_gate_status: str) -> dict[st
         "family_local_paths": [record["path"] for record in records if record["classification"] == "family_local"],
         "prunable_bloat_paths": [record["path"] for record in records if record["classification"] == "prunable_bloat"],
     }
-
 
 def build_payload() -> dict[str, Any]:
     docs_gate_status = swarm_board.docs_gate_status()["status"]
@@ -244,7 +230,6 @@ def build_payload() -> dict[str, Any]:
         "summary": summary_for(records, docs_gate_status),
     }
 
-
 def main() -> int:
     payload = build_payload()
     write_json(OUTPUT_JSON_PATH, payload)
@@ -252,7 +237,6 @@ def main() -> int:
     print(f"Record count: {payload['summary']['record_count']}")
     print(f"Docs gate: {payload['summary']['docs_gate_status']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

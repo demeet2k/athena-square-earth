@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A3:S15 | face=S | node=111 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A3:S14→Xi108:W3:A3:S16→Xi108:W2:A3:S15→Xi108:W3:A2:S15→Xi108:W3:A4:S15 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 15±1, wreath 3/3, archetype 3/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 0 | ○Rot 0 | △Lane Su | ⧈View * | ω=0]**
 Primary hubs: AppA -> AppC -> AppB -> AppJ -> AppI -> AppM
 Tunnel: Z_voynich_program_master_tome -> Z* -> Ch01⟨0000⟩

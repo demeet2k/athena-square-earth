@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=151 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS — UNIFIED STATE PROTOCOL
 ==================================
@@ -37,10 +41,8 @@ from .core import (
     CrystalAddress, HolographicAddress, ZResult, Constants
 )
 
-
 T = TypeVar('T')
 S = TypeVar('S', bound='UnifiedState')
-
 
 # =============================================================================
 # STATE CATEGORIES
@@ -57,7 +59,6 @@ class StateCategory(Enum):
     THERMAL = "thermal"          # Temperature-based
     SPIRITUAL = "spiritual"      # Soul/spirit states
 
-
 class ProcessPhase(IntEnum):
     """Universal process phases."""
     INIT = 0        # Initialized
@@ -67,20 +68,17 @@ class ProcessPhase(IntEnum):
     FAILED = 4      # Finished with error
     SUSPENDED = 5   # Temporarily halted
 
-
 class ModalPhase(Enum):
     """Modal phases (Aristotelian)."""
     ACTUALITY = "act"       # ἐνέργεια - fully realized
     POTENTIALITY = "pot"    # δύναμις - capable of becoming
     PRIVATION = "priv"      # στέρησις - absence of form
 
-
 class OntologicalPhase(Enum):
     """Ontological phases (Parmenidean/Heraclitean)."""
     BEING = "is"            # τὸ ὄν - that which is
     BECOMING = "flux"       # γένεσις - coming-to-be
     NON_BEING = "not"       # τὸ μὴ ὄν - that which is not
-
 
 # =============================================================================
 # UNIFIED STATE PROTOCOL
@@ -125,7 +123,6 @@ class UnifiedState(Protocol):
     def hash(self) -> str:
         """State content hash."""
         ...
-
 
 # =============================================================================
 # BASE STATE IMPLEMENTATION
@@ -217,7 +214,6 @@ class BaseState:
         content = f"{self._category.value}:{self._phase}:{self._element.name}"
         return hashlib.sha256(content.encode()).hexdigest()[:16]
 
-
 # =============================================================================
 # ELEMENTAL STATE
 # =============================================================================
@@ -300,7 +296,6 @@ class ElementalState(BaseState):
             earth=self.earth * (1 - r) + other.earth * r
         )
 
-
 # =============================================================================
 # HUMORAL STATE
 # =============================================================================
@@ -366,7 +361,6 @@ class HumoralState(BaseState):
             black_bile=state.earth,
             phlegm=state.water
         )
-
 
 # =============================================================================
 # QUANTUM STATE
@@ -462,7 +456,6 @@ class QuantumState(BaseState):
         else:  # TOP
             return cls.superposition()
 
-
 # =============================================================================
 # STATE MACHINE
 # =============================================================================
@@ -476,7 +469,6 @@ class StateTransition:
     condition: Optional[Callable[[UnifiedState], bool]] = None
     action: Optional[Callable[[UnifiedState], None]] = None
     certificate: Optional[Certificate] = None
-
 
 class StateMachine:
     """
@@ -533,7 +525,6 @@ class StateMachine:
         if hasattr(self.current, 'hash'):
             return self.current.hash()
         return hashlib.sha256(str(self.current).encode()).hexdigest()[:16]
-
 
 # =============================================================================
 # STATE PROJECTOR
@@ -601,7 +592,6 @@ class StateProjector:
         else:  # BOT
             return ElementalState(fire=0.0, air=0.0, water=0.5, earth=0.5)
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -622,7 +612,6 @@ __all__ = [
     # Projector
     'StateProjector',
 ]
-
 
 # =============================================================================
 # VERIFICATION

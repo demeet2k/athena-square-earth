@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S14 | face=S | node=95 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S13→Xi108:W3:A5:S15→Xi108:W2:A5:S14→Xi108:W3:A4:S14→Xi108:W3:A6:S14 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 14±1, wreath 3/3, archetype 5/12 -->
+
 # AP7D Self-Improvement Swarm Export
 
 Generated: 2026-03-13T19:57:06Z

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=138 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       DEFORMATION THEORY MODULE                              ║
@@ -23,9 +27,7 @@ from typing import Optional, Tuple, List, Dict, Any, Generic, TypeVar
 from enum import Enum, auto
 import numpy as np
 
-
 T = TypeVar('T')
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ARTINIAN RINGS AND INFINITESIMALS
@@ -67,7 +69,6 @@ class ArtinianRing:
         """k[ε]/(ε^{n+1}) - n-th order."""
         return cls(k, "(ε)", n + 1)
 
-
 @dataclass
 class FormalScheme:
     """
@@ -92,7 +93,6 @@ class FormalScheme:
         """Spf(k[[t₁,...,tₙ]]) - formal n-disk."""
         vars = ", ".join([f"t_{i}" for i in range(1, n+1)])
         return cls(f"{k}[[{vars}]]", f"({vars})")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DEFORMATION FUNCTORS
@@ -131,7 +131,6 @@ class DeformationFunctor:
         """Pro-representing hull R if exists."""
         return f"R_{{{self.name}}}"
 
-
 @dataclass
 class InfinitesimalDeformation:
     """
@@ -149,7 +148,6 @@ class InfinitesimalDeformation:
     def is_trivial(self) -> bool:
         """Check if deformation is trivial (product)."""
         return False
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TANGENT AND OBSTRUCTION THEORY
@@ -189,7 +187,6 @@ class TangentObstructionTheory:
         """χ(T_X) = dim T⁰ - dim T¹ + dim T² - ..."""
         return f"χ({self.object_name}, {self.tangent_sheaf})"
 
-
 @dataclass
 class CotangentComplex:
     """
@@ -225,7 +222,6 @@ class CotangentComplex:
         """Check if 𝕃 is perfect (bounded amplitude)."""
         return True  # For lci morphisms
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULI THEORY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -258,7 +254,6 @@ class ModuliProblem:
         """Check if representable by scheme."""
         return False  # Usually need stack
 
-
 @dataclass
 class ModuliSpace:
     """
@@ -285,7 +280,6 @@ class ModuliSpace:
         """Obstruction space at point."""
         return f"Obs_{{{x}}} {self.name}"
 
-
 @dataclass
 class ModuliStack:
     """
@@ -308,7 +302,6 @@ class ModuliStack:
     def at_point(self, x: str) -> str:
         """Local structure at point (gerbe)."""
         return f"{self.name} near {x} ≃ [pt/Aut({x})]"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # KURANISHI MAP
@@ -341,7 +334,6 @@ class KuranishiMap:
     def local_moduli(self) -> str:
         """Local model of moduli space."""
         return f"κ⁻¹(0) / Aut"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECIFIC DEFORMATION THEORIES
@@ -381,7 +373,6 @@ class CurveDeformations:
             return 1  # Translations
         return 0
 
-
 @dataclass
 class SurfaceDeformations:
     """
@@ -403,7 +394,6 @@ class SurfaceDeformations:
     def is_rigid(self) -> bool:
         """Check if surface is rigid (no deformations)."""
         return False  # Check T¹ = 0
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -447,7 +437,6 @@ class DeformationPoleBridge:
         """
         return "Gateway ↔ Kuranishi: κ: T¹ → T² (def ↔ obs)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -456,26 +445,21 @@ def dual_numbers(k: str = "k") -> ArtinianRing:
     """Create dual numbers k[ε]/ε²."""
     return ArtinianRing.dual_numbers(k)
 
-
 def deformation_functor(name: str, obj_type: str, base: str) -> DeformationFunctor:
     """Create a deformation functor."""
     return DeformationFunctor(name, obj_type, base)
-
 
 def tangent_obstruction(X: str) -> TangentObstructionTheory:
     """Create tangent-obstruction theory for X."""
     return TangentObstructionTheory(X)
 
-
 def cotangent_complex(X: str, S: str = "Spec(k)") -> CotangentComplex:
     """Create cotangent complex 𝕃_{X/S}."""
     return CotangentComplex(X, S)
 
-
 def moduli_curves(g: int) -> CurveDeformations:
     """Deformation theory for curves of genus g."""
     return CurveDeformations(g)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

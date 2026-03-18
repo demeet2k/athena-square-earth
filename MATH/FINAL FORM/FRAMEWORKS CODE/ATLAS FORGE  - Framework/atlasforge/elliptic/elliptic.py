@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S16 | face=S | node=134 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S15→Xi108:W2:A10:S17→Xi108:W1:A10:S16→Xi108:W3:A10:S16→Xi108:W2:A9:S16→Xi108:W2:A11:S16
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                       ELLIPTIC CURVES MODULE                                 ║
@@ -28,7 +32,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Union
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ELLIPTIC CURVE POINT
@@ -73,7 +76,6 @@ class ECPoint:
         if self.is_infinity:
             return "O"
         return f"({self.x:.6f}, {self.y:.6f})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ELLIPTIC CURVE
@@ -247,7 +249,6 @@ class EllipticCurve:
             b = 2 * c
             return cls(a, b)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ISOGENY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -272,7 +273,6 @@ class Isogeny:
     def multiplication_by_n(cls, E: EllipticCurve, n: int) -> 'Isogeny':
         """[n]: E → E multiplication map (degree n²)."""
         return cls(E, E, n * n)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TORSION SUBGROUP
@@ -312,7 +312,6 @@ class TorsionSubgroup:
         """Check if torsion is cyclic."""
         return self.order() == self.n
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # WEIL PAIRING (SIMPLIFIED)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -346,7 +345,6 @@ class WeilPairing:
         val = self.evaluate(P, Q)
         return not np.isclose(val, 1)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # MORDELL-WEIL GROUP
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -374,7 +372,6 @@ class MordellWeilGroup:
         if P.is_infinity:
             return 0
         return max(np.log(abs(P.x) + 1), np.log(abs(P.y) + 1))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GATEWAY-CURVE BRIDGE
@@ -420,7 +417,6 @@ class GatewayCurveBridge:
             return ECPoint(pt_x, np.sqrt(pt_y_sq))
         return None
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -429,26 +425,21 @@ def elliptic_curve(a: float, b: float) -> EllipticCurve:
     """Create elliptic curve y² = x³ + ax + b."""
     return EllipticCurve(a, b)
 
-
 def curve_discriminant(a: float, b: float) -> float:
     """Compute discriminant Δ = -16(4a³ + 27b²)."""
     return -16 * (4 * a**3 + 27 * b**2)
-
 
 def ec_j_invariant(a: float, b: float) -> float:
     """Compute j-invariant."""
     return EllipticCurve(a, b).j_invariant()
 
-
 def point_addition(E: EllipticCurve, P: ECPoint, Q: ECPoint) -> ECPoint:
     """Add two points on curve."""
     return E.add(P, Q)
 
-
 def scalar_multiply(E: EllipticCurve, n: int, P: ECPoint) -> ECPoint:
     """Compute nP."""
     return E.multiply(n, P)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

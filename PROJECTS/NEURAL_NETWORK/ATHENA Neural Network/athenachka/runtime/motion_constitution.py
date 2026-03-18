@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S24 | face=C | node=288 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24
+
 from __future__ import annotations
 
 from copy import deepcopy
@@ -14,7 +18,6 @@ from ..contracts import (
     stable_hash,
 )
 from .reward_overlay import apply_reward_steering
-
 
 ACCEPTED_SOURCE_KINDS = (
     "quest_board",
@@ -44,22 +47,17 @@ COMMITTEE_BLOCKERS = {"committee_pending_conflict", "stewardship_gate", "branch_
 FORWARD_BLOCKERS = {"forward_circulation_blocked"}
 REPLAY_BLOCKERS = {"replay_missing"}
 
-
 class MotionConstitutionError(ValueError):
     """Base error for the offline action chamber."""
-
 
 class MotionCandidateError(MotionConstitutionError):
     """Raised when a candidate packet is structurally invalid."""
 
-
 def accepted_source_kinds() -> tuple[str, ...]:
     return ACCEPTED_SOURCE_KINDS
 
-
 def action_alphabet() -> tuple[str, ...]:
     return tuple(action.value for action in MotionAction)
-
 
 def bootstrap_motion_state(
     *,
@@ -93,7 +91,6 @@ def bootstrap_motion_state(
         docs_gate_status=docs_gate_status,
     )
 
-
 def constitutional_score(score_vector: MotionScoreVector) -> float:
     numerator = (
         score_vector.closure_gain
@@ -115,13 +112,11 @@ def constitutional_score(score_vector: MotionScoreVector) -> float:
     pressure_factor = 1.0 + (0.5 * score_vector.pressure_gradient)
     return (numerator * pressure_factor) / denominator
 
-
 def effective_score_vector(
     candidate: MotionCandidatePacket,
     state: MotionConstitutionState,
 ) -> MotionScoreVector:
     return _effective_score_vector(candidate, state)
-
 
 def evaluate_candidate(
     candidate: MotionCandidatePacket,
@@ -183,7 +178,6 @@ def evaluate_candidate(
     )
     return decision, receipt, next_state
 
-
 class MotionConstitutionL1:
     """Small stateful wrapper around the pure offline evaluator."""
 
@@ -208,7 +202,6 @@ class MotionConstitutionL1:
         self.state = next_state
         return decision, receipt
 
-
 def _validate_candidate(candidate: MotionCandidatePacket) -> None:
     if not candidate.candidate_id:
         raise MotionCandidateError("candidate_id is required")
@@ -221,7 +214,6 @@ def _validate_candidate(candidate: MotionCandidatePacket) -> None:
     if not candidate.expected_packet_type:
         raise MotionCandidateError("expected_packet_type is required")
 
-
 def _effective_score_vector(
     candidate: MotionCandidatePacket,
     state: MotionConstitutionState,
@@ -232,7 +224,6 @@ def _effective_score_vector(
     adjusted, _ = apply_reward_steering(adjusted, steering_profile)
     return adjusted
 
-
 def _duplicate_branch_penalty(
     candidate: MotionCandidatePacket,
     state: MotionConstitutionState,
@@ -242,7 +233,6 @@ def _duplicate_branch_penalty(
     if candidate.current_family in active_families or candidate.source_ref in recent_candidates:
         return 1.0
     return 0.0
-
 
 def _gate_candidate(
     *,
@@ -363,7 +353,6 @@ def _gate_candidate(
         "Low constitutional score keeps the candidate on hold.",
     )
 
-
 def _is_admissible(candidate: MotionCandidatePacket, state: MotionConstitutionState) -> bool:
     admissible_source_kinds = set(
         state.legality_projector.get("admissible_source_kinds", ACCEPTED_SOURCE_KINDS)
@@ -375,7 +364,6 @@ def _is_admissible(candidate: MotionCandidatePacket, state: MotionConstitutionSt
         return False
     return True
 
-
 def _requires_quarantine(
     candidate: MotionCandidatePacket,
     state: MotionConstitutionState,
@@ -383,7 +371,6 @@ def _requires_quarantine(
     blockers = set(candidate.blockers)
     _ = state
     return bool(blockers & QUARANTINE_BLOCKERS)
-
 
 def _has_replay_gap(candidate: MotionCandidatePacket, score_vector: MotionScoreVector) -> bool:
     blockers = set(candidate.blockers)
@@ -393,11 +380,9 @@ def _has_replay_gap(candidate: MotionCandidatePacket, score_vector: MotionScoreV
         return True
     return score_vector.replay_readiness < 0.5
 
-
 def _witness_burden_met(candidate: MotionCandidatePacket, score_vector: MotionScoreVector) -> bool:
     required_witnesses = TRUTH_BURDEN_WITNESS_FLOOR.get(candidate.truth_burden.upper(), 1)
     return len(candidate.witness_refs) >= required_witnesses and score_vector.truth_readiness >= 0.5
-
 
 def _requires_help(candidate: MotionCandidatePacket, state: MotionConstitutionState) -> bool:
     blockers = set(candidate.blockers)
@@ -405,7 +390,6 @@ def _requires_help(candidate: MotionCandidatePacket, state: MotionConstitutionSt
         return True
     resolved = set(state.route_graph.get("resolved_dependencies", []))
     return any(dependency not in resolved for dependency in candidate.dependencies)
-
 
 def _requires_committee(candidate: MotionCandidatePacket, state: MotionConstitutionState) -> bool:
     blockers = set(candidate.blockers)
@@ -416,7 +400,6 @@ def _requires_committee(candidate: MotionCandidatePacket, state: MotionConstitut
         return True
     return any(reference.startswith("pending:") for reference in candidate.committee_refs)
 
-
 def _forward_blocked_but_seed_alive(candidate: MotionCandidatePacket) -> bool:
     blockers = set(candidate.blockers)
     return bool(
@@ -424,7 +407,6 @@ def _forward_blocked_but_seed_alive(candidate: MotionCandidatePacket) -> bool:
         and candidate.continuation_seed
         and candidate.score_vector.seed_value > 0.0
     )
-
 
 def _store_replay(
     *,

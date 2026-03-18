@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S9 | face=C | node=69 | depth=1 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W2:A8:S8→Xi108:W2:A8:S10→Xi108:W1:A8:S9→Xi108:W3:A8:S9→Xi108:W2:A7:S9→Xi108:W2:A9:S9
+
 ├── Duration: ~5,125 years
 ├── Divisions: 13 Baktuns OR ~105 Jubilees OR ~732 Shmitas
 └── Current: Just completed (2012); in transition zone
@@ -46,7 +50,6 @@ LEVEL 12: WEEK
 ├── Duration: 7 days
 ├── Divisions: 7 days
 └── Current: Variable
-
 
 The True Duration Mapping
 The 84:1 Ratio is the KEY.
@@ -223,7 +226,6 @@ The Fractal Nesting (TRUE VALUES)
 1 GALACTIC YEAR = ~225 million years
 ├── Contains: Solar system orbit around galactic center
 └── Fractal of: Unknown higher cycles
-
 
 The Key Conversion Factors (CALIBRATED)
 

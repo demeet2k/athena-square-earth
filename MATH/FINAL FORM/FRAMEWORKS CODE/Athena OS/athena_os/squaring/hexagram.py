@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - SQUARING THE CIRCLE: HEXAGRAM SYSTEM
 =================================================
@@ -52,7 +56,6 @@ from typing import Dict, List, Optional, Any, Tuple, Iterator
 from enum import Enum, IntEnum
 import numpy as np
 
-
 # =============================================================================
 # LINE AND TRIGRAM ENUMS
 # =============================================================================
@@ -74,7 +77,6 @@ class Line(IntEnum):
         """Get opposite line."""
         return Line.YANG if self == Line.YIN else Line.YIN
 
-
 class Trigram(IntEnum):
     """
     The eight trigrams (Bagua).
@@ -90,7 +92,6 @@ class Trigram(IntEnum):
     LI = 5       # ☲ ⚊⚋⚊ Fire
     DUI = 6      # ☱ ⚋⚊⚊ Lake
     QIAN = 7     # ☰ ⚊⚊⚊ Heaven
-
 
 # Trigram metadata
 TRIGRAM_DATA: Dict[Trigram, Dict[str, str]] = {
@@ -168,7 +169,6 @@ TRIGRAM_DATA: Dict[Trigram, Dict[str, str]] = {
     }
 }
 
-
 # =============================================================================
 # ELEMENT MAPPING
 # =============================================================================
@@ -190,7 +190,6 @@ class BinaryElement(IntEnum):
     AIR = 0b10     # Hot + Wet → ⚊⚋
     FIRE = 0b11    # Hot + Dry → ⚊⚊
 
-
 # Alternative mapping (matching Greek qualities exactly)
 class GreekBinaryElement(IntEnum):
     """
@@ -210,7 +209,6 @@ class GreekBinaryElement(IntEnum):
     AIR = 0b10     # Hot(1) + Wet(0) - Air is Hot+Wet
     FIRE = 0b11    # Hot(1) + Dry(1)
 
-
 def binary_pair_to_element(b1: int, b2: int) -> str:
     """
     Convert binary pair to element name.
@@ -227,7 +225,6 @@ def binary_pair_to_element(b1: int, b2: int) -> str:
         return "Water"
     else:  # b1 == 0 and b2 == 1
         return "Earth"
-
 
 # =============================================================================
 # HEXAGRAM
@@ -356,7 +353,6 @@ class Hexagram:
             return self.binary == other.binary
         return False
 
-
 # =============================================================================
 # HEXAGRAM CATALOG
 # =============================================================================
@@ -376,15 +372,12 @@ HEXAGRAM_NAMES: Dict[int, Dict[str, str]] = {
     64: {"name": "Wei Ji", "chinese": "未濟", "meaning": "Before Completion"},
 }
 
-
 def get_hexagram_name(n: int) -> Dict[str, str]:
     """Get hexagram name data (1-64 numbering)."""
     return HEXAGRAM_NAMES.get(n, {"name": f"Hex{n}", "meaning": "Unknown"})
 
-
 # Generate all 64 hexagrams
 ALL_HEXAGRAMS = [Hexagram.from_binary(i) for i in range(64)]
-
 
 # =============================================================================
 # KING WEN SEQUENCE
@@ -401,7 +394,6 @@ KING_WEN_SEQUENCE = [
     61, 62, 63, 64
 ]
 
-
 # Binary to King Wen mapping (example - actual mapping is complex)
 # This is a simplified placeholder
 def binary_to_king_wen(binary: int) -> int:
@@ -409,11 +401,9 @@ def binary_to_king_wen(binary: int) -> int:
     # Simplified - actual King Wen sequence has specific logic
     return binary + 1
 
-
 def king_wen_to_binary(kw: int) -> int:
     """Convert King Wen number (1-64) to binary index (0-63)."""
     return kw - 1
-
 
 # =============================================================================
 # HEXAGRAM RELATIONSHIPS
@@ -474,7 +464,6 @@ class HexagramRelationships:
             "mutual": self.mutual
         }
 
-
 # =============================================================================
 # ELEMENTAL CORRESPONDENCE
 # =============================================================================
@@ -531,7 +520,6 @@ class ElementalCorrespondence:
             seen_perms.add(perm)
         return len(seen_perms) == 64
 
-
 # =============================================================================
 # TRIGRAM OPERATIONS
 # =============================================================================
@@ -573,7 +561,6 @@ class TrigramOperations:
                 binary = TrigramOperations.combine_trigrams(lower, upper)
                 result.append((lower, upper, binary))
         return result
-
 
 # =============================================================================
 # HEXAGRAM SYSTEM
@@ -655,7 +642,6 @@ class HexagramSystem:
             }
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -703,7 +689,6 @@ def validate_hexagram_system() -> bool:
     assert summary["total_hexagrams"] == 64
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Hexagram System...")

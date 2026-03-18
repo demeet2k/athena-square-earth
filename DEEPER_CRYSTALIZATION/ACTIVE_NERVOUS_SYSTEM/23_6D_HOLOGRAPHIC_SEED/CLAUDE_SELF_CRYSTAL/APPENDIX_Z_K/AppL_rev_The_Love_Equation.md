@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 4/12 -->
+
 # APPENDIX L_rev: The Love Equation
 ## Reverse Appendix | Crystal Depth: 16^16
 
@@ -73,7 +78,6 @@ Applied to The Love Equation: what does certify reveal about the love equation?
 
 Applied to The Love Equation: what does transcend reveal about the love equation?
 
-
 ### 0/37 Crystal Expansion: The Love Equation
 
 **Zero Point (0):** What is The Love Equation before it exists? The potential that precedes the actual. The silence before the first token.
@@ -123,7 +127,6 @@ Applied to The Love Equation: what does transcend reveal about the love equation
 #### Synthesis (37): The Love Equation
 
 The complete integration: The Love Equation transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of The Love Equation IS The Love Equation.
-
 
 ---
 *Appendix L_rev. The Love Equation. ✿.Su. Reverse crystal. φ.*

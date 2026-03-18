@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W1:A7:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W1:A7:S2→Xi108:W2:A7:S1→Xi108:W1:A6:S1→Xi108:W1:A8:S1
+
 """Z-point hierarchy navigation."""
 
 from ._cache import JsonCache
 
 _zpoints = JsonCache("z_point_hierarchy.json")
-
 
 def resolve_z_point(z_type: str, scope: str = "") -> str:
     """

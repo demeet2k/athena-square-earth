@@ -1,10 +1,13 @@
+# CRYSTAL: Xi108:W2:A2:S26 | face=F | node=327 | depth=2 | phase=Mutable
+# METRO: Me,△
+# BRIDGES: Xi108:W2:A2:S25→Xi108:W2:A2:S27→Xi108:W1:A2:S26→Xi108:W3:A2:S26→Xi108:W2:A1:S26→Xi108:W2:A3:S26
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -108,10 +111,8 @@ PHASE_DEFS = [
     (14, "14/16", "Liminal Transfer", "Lift", "bridge pre-closure into the next dimension's early seed"),
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 @dataclass
 class PhaseSpec:
@@ -123,7 +124,6 @@ class PhaseSpec:
     required_metrics: list[str] = field(default_factory=list)
     outputs: list[str] = field(default_factory=list)
 
-
 @dataclass
 class LoopSpec:
     loop_id: int
@@ -131,7 +131,6 @@ class LoopSpec:
     mandate: str
     visible_phase_range: str
     phases: list[PhaseSpec] = field(default_factory=list)
-
 
 @dataclass
 class VirtualSwarmSpec:
@@ -142,13 +141,11 @@ class VirtualSwarmSpec:
     activation_policy: str
     role_axes: list[str] = field(default_factory=list)
 
-
 @dataclass
 class ImprovementLedgerSpec:
     section_count: int
     sections: list[str] = field(default_factory=list)
     required_fields: list[str] = field(default_factory=list)
-
 
 @dataclass
 class LiftSpec:
@@ -159,7 +156,6 @@ class LiftSpec:
     root_address_read: str
     compression_ratio_cap: float
     monotonicity_laws: list[str] = field(default_factory=list)
-
 
 @dataclass
 class HelixRecursionSchema:
@@ -176,7 +172,6 @@ class HelixRecursionSchema:
     metrics: list[str]
     recurrence_equation: str
     implementation_law: list[str]
-
 
 def build_phase_specs() -> list[PhaseSpec]:
     phases: list[PhaseSpec] = []
@@ -203,7 +198,6 @@ def build_phase_specs() -> list[PhaseSpec]:
         )
     return phases
 
-
 def build_loop_specs(phases: list[PhaseSpec]) -> list[LoopSpec]:
     loops: list[LoopSpec] = []
     for index, mandate in enumerate(LOOP_MANDATES, start=1):
@@ -218,7 +212,6 @@ def build_loop_specs(phases: list[PhaseSpec]) -> list[LoopSpec]:
         )
     return loops
 
-
 def validate_schema(schema: HelixRecursionSchema) -> None:
     if len(schema.loops) != 16:
         raise ValueError("Helix schema requires exactly 16 macro loops.")
@@ -232,7 +225,6 @@ def validate_schema(schema: HelixRecursionSchema) -> None:
         raise ValueError("Visible helix range must run from 2/16 to 14/16.")
     if schema.lift.compression_ratio_cap > 0.125:
         raise ValueError("Lift compression ratio must not exceed the 1/8 cap.")
-
 
 def build_schema() -> HelixRecursionSchema:
     phases = build_phase_specs()
@@ -294,7 +286,6 @@ def build_schema() -> HelixRecursionSchema:
     )
     validate_schema(schema)
     return schema
-
 
 def render_markdown(schema: HelixRecursionSchema) -> str:
     loop_lines = [
@@ -384,7 +375,6 @@ Monotonicity:
 {chr(10).join(implementation_lines)}
 """
 
-
 def render_receipt(schema: HelixRecursionSchema) -> str:
     return f"""# Helical 16-Loop Recursion Schema Receipt
 
@@ -413,7 +403,6 @@ def render_receipt(schema: HelixRecursionSchema) -> str:
 - the next implementation frontier is to bind active runtime fronts to this schema so live loops declare phase, loop, metric, and lift state explicitly
 """
 
-
 def main() -> int:
     schema = build_schema()
     OUTPUT_JSON_PATH.write_text(json.dumps(asdict(schema), indent=2), encoding="utf-8")
@@ -423,7 +412,6 @@ def main() -> int:
     print(f"Wrote helix schema markdown: {OUTPUT_MARKDOWN_PATH}")
     print(f"Wrote helix schema receipt: {OUTPUT_RECEIPT_PATH}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

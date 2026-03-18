@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S14 | face=S | node=105 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S13→Xi108:W2:A11:S15→Xi108:W1:A11:S14→Xi108:W3:A11:S14→Xi108:W2:A10:S14→Xi108:W2:A12:S14
+
 """
 ATHENA OS - Sieve Wheels and Desert Certificates
 =================================================
@@ -29,7 +33,6 @@ from .certificates import (
     is_prime_miller_rabin
 )
 
-
 # =============================================================================
 # PRIMORIAL AND WHEEL COMPUTATION
 # =============================================================================
@@ -49,7 +52,6 @@ def primes_up_to(n: int) -> List[int]:
     
     return [i for i in range(2, n + 1) if sieve[i]]
 
-
 def primorial(B: int) -> int:
     """
     Compute P_B = ∏_{p≤B} p (primorial).
@@ -61,7 +63,6 @@ def primorial(B: int) -> int:
     for p in primes:
         result *= p
     return result
-
 
 def euler_phi(n: int) -> int:
     """Compute Euler's totient function φ(n)."""
@@ -80,7 +81,6 @@ def euler_phi(n: int) -> int:
         result -= result // temp_n
     
     return result
-
 
 @dataclass
 class PrimorialWheel:
@@ -150,7 +150,6 @@ class PrimorialWheel:
                 return p
         return None
 
-
 # =============================================================================
 # JACOBSTHAL FUNCTION
 # =============================================================================
@@ -188,7 +187,6 @@ def jacobsthal(m: int) -> int:
     
     return max_gap
 
-
 def max_desert_length(B: int) -> int:
     """
     Maximum length of a prime-free run using sieve up to B.
@@ -197,7 +195,6 @@ def max_desert_length(B: int) -> int:
     """
     P = primorial(B)
     return jacobsthal(P) - 1
-
 
 # =============================================================================
 # HARD DESERT DETECTION
@@ -238,7 +235,6 @@ class HardDesert:
         if not self.is_above_cutoff:
             return False
         return len(self.covering_primes) == self.length
-
 
 def find_hard_desert(wheel: PrimorialWheel, start: int, 
                      min_length: int = 2) -> Optional[HardDesert]:
@@ -292,7 +288,6 @@ def find_hard_desert(wheel: PrimorialWheel, start: int,
     
     return None
 
-
 # =============================================================================
 # DESERT CERTIFICATE
 # =============================================================================
@@ -315,7 +310,6 @@ class CoverageCertificate:
         """Verify that p divides n."""
         self.verified = (self.n % self.p == 0 and self.p > 1)
         return self.verified
-
 
 @dataclass
 class SurvivorCompositeProof:
@@ -341,7 +335,6 @@ class SurvivorCompositeProof:
             self.factor * self.cofactor == self.n
         )
         return self.verified
-
 
 @dataclass
 class DesertCertificate:
@@ -403,7 +396,6 @@ class DesertCertificate:
             'timestamp': self.timestamp.isoformat()
         }
 
-
 def certify_desert(start: int, length: int, B: int = 30) -> DesertCertificate:
     """
     Create a desert certificate for an interval.
@@ -455,7 +447,6 @@ def certify_desert(start: int, length: int, B: int = 30) -> DesertCertificate:
     
     return cert
 
-
 # =============================================================================
 # FACTORIAL DESERT CONSTRUCTION
 # =============================================================================
@@ -491,7 +482,6 @@ def factorial_desert(m: int) -> Tuple[int, int, DesertCertificate]:
     
     return start, length, cert
 
-
 # =============================================================================
 # CRT DESERT ENGINEERING
 # =============================================================================
@@ -521,7 +511,6 @@ def crt_reconstruct(residues: List[Tuple[int, int]]) -> int:
     
     return result % M
 
-
 def extended_gcd(a: int, b: int) -> Tuple[int, int, int]:
     """Extended Euclidean algorithm. Returns (gcd, x, y) where ax + by = gcd."""
     if a == 0:
@@ -532,7 +521,6 @@ def extended_gcd(a: int, b: int) -> Tuple[int, int, int]:
     y = x1
     
     return gcd, x, y
-
 
 def engineer_desert(length: int, moduli: List[int] = None) -> Tuple[int, DesertCertificate]:
     """
@@ -572,7 +560,6 @@ def engineer_desert(length: int, moduli: List[int] = None) -> Tuple[int, DesertC
     cert.verify()
     
     return N + 1, cert
-
 
 # =============================================================================
 # VALIDATION
@@ -618,7 +605,6 @@ def validate_sieves() -> bool:
     assert cert.length == 5
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Sieve Wheels and Desert Certificates...")

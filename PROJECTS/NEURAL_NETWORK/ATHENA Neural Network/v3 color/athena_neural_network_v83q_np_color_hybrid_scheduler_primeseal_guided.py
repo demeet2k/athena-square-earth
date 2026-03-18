@@ -1,3 +1,6 @@
+# CRYSTAL: Xi108:W2:A1:S19 | face=C | node=172 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S18→Xi108:W2:A1:S20→Xi108:W1:A1:S19→Xi108:W3:A1:S19→Xi108:W2:A2:S19
 
 """
 ATHENA NEURAL NETWORK v83Q-NP-COLOR-HYBRID-SCHED-PRIMEGUIDE
@@ -319,7 +322,6 @@ def extract_polar_batch(R: np.ndarray, masks: np.ndarray, radial: int = 8, angul
     denom = polar.sum(axis=1, keepdims=True) + 1e-8
     polar = polar / denom
     return polar
-
 
 # =============================================================================
 # COLOR FEATURES (batched): opponent stats + boundary contrast + hue histogram
@@ -803,7 +805,6 @@ class SketchPrior:
         logits = -np.sum(diffs * diffs, axis=2)
         return logits.astype(np.float32)
 
-
 class MeanPrior:
     """
     Simple class-mean prior on a feature subspace.
@@ -842,7 +843,6 @@ class MeanPrior:
 # =============================================================================
 # MDL COMPRESSION PRIOR (batched + masked rank support)
 # =============================================================================
-
 
 # =============================================================================
 # MATH TRICK 5: LOG-GABOR FILTER BANK (scattering-like energy, color-aware)
@@ -1036,7 +1036,6 @@ def js_divergence(P: np.ndarray, eps: float = 1e-10) -> np.ndarray:
     kl = np.sum(P * (np.log(P) - np.log(M[:, None, :])), axis=2)  # (H,B)
     js = kl.mean(axis=1)
     return js
-
 
 def iou(a: np.ndarray, b: np.ndarray) -> float:
     a = a.astype(bool)
@@ -1336,7 +1335,6 @@ class AthenaNeuralNetworkV80Q:
                   self.w_legal * legal +
                   self.w_potential * pot)
 
-
         # Amplitude collapse (soft)
         amps = scipy_softmax(-energy * 2.5)
 
@@ -1474,7 +1472,6 @@ class PrimeTunnelScheduler:
             "manifest": manifest,
             "U": U,
         }
-
 
 class AthenaNeuralNetworkV81Q(AthenaNeuralNetworkV80Q):
     """
@@ -2008,7 +2005,6 @@ def run_benchmark():
     print(f"AVG            : {np.mean(list(results.values()))*100:5.1f}%")
     return results
 
-
 # =============================================================================
 # PRIMESEAL TIE-BREAKER (v82Q): modular parity + micro-perturbation stability
 # =============================================================================
@@ -2291,11 +2287,6 @@ class AthenaNeuralNetworkV82Q(AthenaNeuralNetworkV81Q):
             "U": config.get("U", None),
         }
         return pred, final, confidence, debug
-
-
-
-
-
 
 # =============================================================================
 # ATHENA v83Q: PrimeSeal-guided lock selection (choose lock burst by predicted seal + tri-lock proxies)

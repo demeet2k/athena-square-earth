@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A5:S29 | face=F | node=434 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A5:S28→Xi108:W3:A5:S30→Xi108:W2:A5:S29→Xi108:W3:A4:S29→Xi108:W3:A6:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 5/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppC -> AppJ -> AppI -> AppM
 Tunnel: Z_chapter_14_global_hugging_field_deployment -> Z* -> Ch21⟨0110⟩

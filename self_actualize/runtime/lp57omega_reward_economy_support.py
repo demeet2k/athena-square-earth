@@ -1,7 +1,10 @@
+# CRYSTAL: Xi108:W2:A3:S27 | face=F | node=375 | depth=2 | phase=Mutable
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A3:S26→Xi108:W2:A3:S28→Xi108:W1:A3:S27→Xi108:W3:A3:S27→Xi108:W2:A2:S27→Xi108:W2:A4:S27
+
 from __future__ import annotations
 
 from typing import Any
-
 
 PHI = 1.61803398875
 MAX_LEVEL = 100
@@ -105,14 +108,11 @@ ROLE_LANE_WEIGHTS = {
     "A4": {"compression": 1.0, "coherence": 0.5, "route_clarity": 0.5},
 }
 
-
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
 
-
 def zero_metrics() -> dict[str, float]:
     return {name: 0.0 for name in METRIC_NAMES}
-
 
 def build_level_thresholds(max_level: int = MAX_LEVEL) -> list[int]:
     thresholds = [0]
@@ -120,9 +120,7 @@ def build_level_thresholds(max_level: int = MAX_LEVEL) -> list[int]:
         thresholds.append(thresholds[-1] + round(100 * (PHI ** (n / 25))))
     return thresholds
 
-
 LEVEL_THRESHOLDS = build_level_thresholds()
-
 
 def level_for_xp(xp: int, thresholds: list[int] | None = None) -> int:
     ladder = thresholds or LEVEL_THRESHOLDS
@@ -135,13 +133,11 @@ def level_for_xp(xp: int, thresholds: list[int] | None = None) -> int:
             break
     return min(level, MAX_LEVEL)
 
-
 def rank_for_level(level: int) -> str:
     for rank, lo, hi in RANK_BANDS:
         if lo <= level <= hi:
             return rank
     return "S"
-
 
 def reward_operator_registry() -> dict[str, Any]:
     return {
@@ -162,7 +158,6 @@ def reward_operator_registry() -> dict[str, Any]:
             "total_virtual_seats": MINI_HIVE_TOTAL_SEATS,
         },
     }
-
 
 def band_multipliers(loop_number: int) -> dict[str, float]:
     if loop_number <= 16:
@@ -205,7 +200,6 @@ def band_multipliers(loop_number: int) -> dict[str, float]:
         "route_clarity": 1.02,
     }
 
-
 def projected_end_state_metrics(loop_number: int, master_agent_id: str) -> dict[str, float]:
     base = ROLE_METRIC_BASE[master_agent_id]
     mods = band_multipliers(loop_number)
@@ -217,7 +211,6 @@ def projected_end_state_metrics(loop_number: int, master_agent_id: str) -> dict[
         metrics[metric_name] = round(clamp(value, -1.0, 1.0), 6)
     return metrics
 
-
 def metric_deltas(
     start_state_metrics: dict[str, float], end_state_metrics: dict[str, float]
 ) -> dict[str, float]:
@@ -227,7 +220,6 @@ def metric_deltas(
         )
         for metric_name in METRIC_NAMES
     }
-
 
 def net_gain(metric_delta_vector: dict[str, float]) -> float:
     return (
@@ -240,10 +232,8 @@ def net_gain(metric_delta_vector: dict[str, float]) -> float:
         + 0.05 * metric_delta_vector["route_clarity_delta"]
     )
 
-
 def positivity_score(metric_delta_vector: dict[str, float]) -> int:
     return int(clamp(round(100 * net_gain(metric_delta_vector)), -100, 100))
-
 
 def xp_delta_from_score(
     positivity: int, reward_multiplier: float
@@ -254,12 +244,10 @@ def xp_delta_from_score(
     capped = min(250, uncapped)
     return -capped, uncapped > 250
 
-
 def metrics_are_contradictory(metric_delta_vector: dict[str, float]) -> bool:
     if set(metric_delta_vector.keys()) != set(DELTA_NAMES):
         return True
     return any(value < -1.0 or value > 1.0 for value in metric_delta_vector.values())
-
 
 def lane_contribution_vector(metric_delta_vector: dict[str, float]) -> dict[str, float]:
     lane_scores: dict[str, float] = {}
@@ -274,7 +262,6 @@ def lane_contribution_vector(metric_delta_vector: dict[str, float]) -> dict[str,
     return {
         lane_id: round(score / total, 6) for lane_id, score in lane_scores.items()
     }
-
 
 def reward_operator_for_loop(loop: dict[str, Any], master_agent_id: str) -> dict[str, Any]:
     loop_number = loop["loop_index"]
@@ -315,7 +302,6 @@ def reward_operator_for_loop(loop: dict[str, Any], master_agent_id: str) -> dict
     operator["master_agent_id"] = master_agent_id
     return operator
 
-
 def projected_packet_reward(loop: dict[str, Any], master_agent_id: str) -> dict[str, Any]:
     operator = reward_operator_for_loop(loop, master_agent_id)
     start_state = zero_metrics()
@@ -329,7 +315,6 @@ def projected_packet_reward(loop: dict[str, Any], master_agent_id: str) -> dict[
         "penalty_cap_applied": penalty_cap,
         "promotion_eligibility_hint": "eligible when admissible and cumulative local level reaches 100",
     }
-
 
 def build_initial_progression(
     seat_row: dict[str, Any], lineage_id: str | None = None
@@ -353,7 +338,6 @@ def build_initial_progression(
         "last_positive_run_ref": None,
         "last_negative_run_ref": None,
     }
-
 
 def build_child_hive_atlas(
     parent_agent_tag: str, parent_lineage_id: str, new_dimension_index: int
@@ -391,7 +375,6 @@ def build_child_hive_atlas(
         "virtual_seat_count": len(rows),
         "rows": rows,
     }
-
 
 def build_run_reward_evaluation(
     *,
@@ -467,7 +450,6 @@ def build_run_reward_evaluation(
         "linked_ledger_ref": linked_ledger_ref,
         "timestamp_internal": timestamp_internal,
     }
-
 
 def apply_evaluation_to_progression(
     progression: dict[str, Any], evaluation: dict[str, Any]

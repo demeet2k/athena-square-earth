@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A7:S25 | face=F | node=312 | depth=3 | phase=Mutable -->
+<!-- METRO: Me,Bw -->
+<!-- BRIDGES: Xi108:W3:A7:S24→Xi108:W3:A7:S26→Xi108:W2:A7:S25→Xi108:W3:A6:S25→Xi108:W3:A8:S25 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 25±1, wreath 3/3, archetype 7/12 -->
+
 **[⊙Z_i↔Z* | ○Arc 6 | ○Rot 0 | △Lane Sa | ⧈View * | ω=20]**
 Primary hubs: AppA -> AppP -> AppI -> AppJ -> AppM
 Tunnel: Z_athena_integrated_neural_network_cross_synthesis -> Z* -> Ch21⟨0110⟩

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=83 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - CELTIC OGHAM KERNEL: OTHERWORLD MODULE
 ===================================================
@@ -40,7 +44,6 @@ import numpy as np
 import random
 import time
 
-
 # =============================================================================
 # REALM DEFINITIONS
 # =============================================================================
@@ -54,7 +57,6 @@ class Realm(Enum):
     MUIR = "muir"              # Sea (Fluid/transition)
     NEM = "nem"                # Sky (Abstract/elevated)
 
-
 class TimeMetric(Enum):
     """Time flow metrics for different realms."""
     
@@ -63,7 +65,6 @@ class TimeMetric(Enum):
     CONTRACTED = "contracted"  # t' = k*t where k < 1 (faster)
     CYCLICAL = "cyclical"      # t' = t mod T (repeating)
     SUSPENDED = "suspended"    # t' = 0 (frozen)
-
 
 # =============================================================================
 # OTHERWORLD VECTOR SPACE
@@ -105,7 +106,6 @@ class OtherworldState:
         if mapping:
             return mapping(self.position)
         return self.position.copy()
-
 
 class DualVectorSpace:
     """
@@ -212,7 +212,6 @@ class DualVectorSpace:
         self.physical_time += physical_dt
         self.otherworld_time += physical_dt / self.time_dilation
 
-
 # =============================================================================
 # THE CAULDRON OF REBIRTH
 # =============================================================================
@@ -225,7 +224,6 @@ class CauldronState:
     stored_at: float
     integrity: float = 1.0
     restoration_count: int = 0
-
 
 class CauldronOfRebirth:
     """
@@ -327,7 +325,6 @@ class CauldronOfRebirth:
         
         return max(0, stored.integrity - degradation)
 
-
 # =============================================================================
 # IMRAM (VOYAGE) - STOCHASTIC WALK
 # =============================================================================
@@ -341,7 +338,6 @@ class VoyageNode:
     properties: Dict[str, Any] = field(default_factory=dict)
     discovered: bool = False
     visit_count: int = 0
-
 
 class ImramVoyage:
     """
@@ -463,7 +459,6 @@ class ImramVoyage:
             "discoveries": self.discoveries
         }
 
-
 # =============================================================================
 # NEMED (SACRED SPACE) - PROTECTED MEMORY
 # =============================================================================
@@ -537,7 +532,6 @@ class NemedSpace:
         """Get access log."""
         return self._access_log.copy()
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -604,7 +598,6 @@ def validate_otherworld() -> bool:
     assert data is None
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Otherworld Module...")

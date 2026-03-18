@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed -->
+<!-- METRO: Wr,Me -->
+<!-- BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 4/12 -->
+
 # 57-Cycle Synthesis Protocol
 
 The Meta Observer must execute exactly 57 bounded deep-work cycles before termination. Each cycle is a complete operation consisting of seven phases: Ingest (read framework), 4-Element Deep Synthesis, 12-Dimensional Observation, A+ Upgrade Pass, Observation Ledger, Swarm Emission, and Cycle Closure. Termination requires all 57 cycles completed, each with a durable log, a final meta-summary, and unresolved contradiction and future-seed ledgers written.

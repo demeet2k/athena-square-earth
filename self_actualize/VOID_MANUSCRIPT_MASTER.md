@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S28 | face=F | node=388 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A10:S27→Xi108:W3:A10:S29→Xi108:W2:A10:S28→Xi108:W3:A9:S28→Xi108:W3:A11:S28 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 28±1, wreath 3/3, archetype 10/12 -->
+
 # CHAPTER 3: TRUTH CORRIDORS AND WITNESS DISCIPLINE
 
 ## Truth corridors are the first place where the manuscript refuses to confuse route with right. A corridor becomes lawful only when a route carries admissibility, witness discipline, and deterministic replay strongly enough to survive ambiguity without collapsing into guesswork.
@@ -621,12 +626,10 @@ This is the exact law of conserved transformation.
 from dataclasses import dataclass, field
 from typing import Dict, List, Any
 
-
 @dataclass
 class KappaLedger:
     total: float
     components: Dict[str, float]
-
 
 @dataclass
 class TransitionReceipt:
@@ -637,7 +640,6 @@ class TransitionReceipt:
     held: Dict[str, Any]
     uncertainty: Dict[str, Any]
 
-
 @dataclass
 class CUTTransition:
     address: str
@@ -647,7 +649,6 @@ class CUTTransition:
     ledger_after: KappaLedger
     receipt: TransitionReceipt
     lineage: List[str] = field(default_factory=list)
-
 
 def cut_transform(
     src_ref: str,
@@ -1203,7 +1204,6 @@ This theorem is the exact culmination of Arc 2 before CUT.
 from dataclasses import dataclass, field
 from typing import Dict, List, Any
 
-
 @dataclass
 class SourceNode:
     address: str
@@ -1211,7 +1211,6 @@ class SourceNode:
     payload: Dict[str, Any]
     provenance: Dict[str, Any]
     lineage: List[str] = field(default_factory=list)
-
 
 @dataclass
 class SourceEdge:
@@ -1222,7 +1221,6 @@ class SourceEdge:
     uncertainty: Dict[str, Any]
     lineage: List[str] = field(default_factory=list)
 
-
 @dataclass
 class MorphSignature:
     address: str
@@ -1232,14 +1230,12 @@ class MorphSignature:
     exception_ledger: List[str]
     lineage: List[str] = field(default_factory=list)
 
-
 def build_source_graph(nodes: List[SourceNode], edges: List[SourceEdge]) -> Dict[str, Any]:
     return {
         "node_refs": [n.address for n in nodes],
         "edge_refs": [e.address for e in edges],
         "lineage": [n.address for n in nodes] + [e.address for e in edges],
     }
-
 
 def extract_morph_signature(graph: Dict[str, Any]) -> MorphSignature:
     return MorphSignature(
@@ -1250,7 +1246,6 @@ def extract_morph_signature(graph: Dict[str, Any]) -> MorphSignature:
         exception_ledger=[],
         lineage=list(graph["lineage"]),
     )
-
 
 def synthesize_equation_candidate(sig: MorphSignature) -> Dict[str, Any]:
     return {
@@ -3212,14 +3207,12 @@ Algorithm 18.1 - Environment Compatibility Check
 ```python
 from dataclasses import dataclass
 
-
 @dataclass
 class EnvironmentProfile:
     io_channels: float
     trust_model: float
     constraint_fit: float
     timing_fit: float
-
 
 def environment_mismatch(
     io_diff: float,
@@ -3955,14 +3948,12 @@ Algorithm 19.1 - Self-Observation Integrity Check
 from dataclasses import dataclass
 from typing import Dict, Any
 
-
 @dataclass
 class SelfObservation:
     measured: Dict[str, Any]
     inferred: Dict[str, Any]
     projected: Dict[str, Any]
     unknown: Dict[str, Any]
-
 
 def self_observation_integrity(obs: SelfObservation) -> bool:
     return (

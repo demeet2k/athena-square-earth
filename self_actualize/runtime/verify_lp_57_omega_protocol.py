@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=363 | depth=2 | phase=Mutable
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 import json
@@ -7,7 +11,6 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 if str(WORKSPACE_ROOT) not in sys.path:
     sys.path.insert(0, str(WORKSPACE_ROOT))
@@ -16,7 +19,6 @@ from self_actualize.runtime.hemisphere_dense_65_shell_support import (  # noqa: 
     DENSE_65_CANONICAL_SEED_TABLE,
     DENSE_65_ROUTE_KEYS,
 )
-
 
 PROTOCOL_ROOT = (
     WORKSPACE_ROOT
@@ -48,10 +50,8 @@ REPRESENTATIVE_EXPECTATIONS = {
     "T33": [("t3", "AE=(Flower,T3,B33:h=A;Residual)")],
 }
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def parse_ae(location: str) -> dict[str, str | None]:
     match = AE_PATTERN.match(location)
@@ -59,13 +59,11 @@ def parse_ae(location: str) -> dict[str, str | None]:
         raise ValueError(f"Invalid AE location: {location}")
     return match.groupdict()
 
-
 def append_check(results: list[dict[str, Any]], name: str, result: bool, detail: str | None = None) -> None:
     entry: dict[str, Any] = {"name": name, "result": result}
     if detail:
         entry["detail"] = detail
     results.append(entry)
-
 
 def verify_registry() -> dict[str, Any]:
     transfer_registry = load_json(TRANSFER_REGISTRY_PATH)
@@ -232,7 +230,6 @@ def verify_registry() -> dict[str, Any]:
         "checks": checks,
     }
 
-
 def write_reports(report: dict[str, Any]) -> None:
     VERIFICATION_JSON_PATH.write_text(json.dumps(report, indent=2), encoding="utf-8")
 
@@ -254,13 +251,11 @@ def write_reports(report: dict[str, Any]) -> None:
     lines.append("")
     VERIFICATION_MD_PATH.write_text("\n".join(lines), encoding="utf-8")
 
-
 def main() -> int:
     report = verify_registry()
     write_reports(report)
     print(json.dumps({"truth": report["truth"], "check_count": len(report["checks"])}, indent=2))
     return 0 if report["truth"] == "OK" else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

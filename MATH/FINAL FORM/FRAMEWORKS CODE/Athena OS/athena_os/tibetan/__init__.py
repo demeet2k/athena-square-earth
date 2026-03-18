@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A2:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A2:S13→Xi108:W2:A2:S15→Xi108:W1:A2:S14→Xi108:W3:A2:S14→Xi108:W2:A1:S14→Xi108:W2:A3:S14
+
 """
 ATHENA OS - TIBETAN VAJRAYANA: THE BARDO TRANSITION MATRIX
 ===========================================================
@@ -207,7 +211,6 @@ from .kalachakra import (
     validate_kalachakra,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -221,7 +224,6 @@ def validate_tibetan() -> bool:
     assert validate_tulku()
     assert validate_kalachakra()
     return True
-
 
 # =============================================================================
 # TIBETAN COMPUTER
@@ -356,7 +358,6 @@ class TibetanComputer:
             "tulku_protocols": len(self._tulku_protocols)
         }
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -395,7 +396,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "tibetan"
-
 
 if __name__ == "__main__":
     print("=" * 70)
@@ -439,7 +439,6 @@ if __name__ == "__main__":
     print(f"\nDream Yoga: lucidity = {training['lucidity']:.2f}")
     
     print("\n" + "=" * 70)
-
 
 # Type hints
 from typing import Dict

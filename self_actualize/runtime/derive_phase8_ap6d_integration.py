@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S27 | face=F | node=357 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S26→Xi108:W2:A9:S28→Xi108:W1:A9:S27→Xi108:W3:A9:S27→Xi108:W2:A8:S27→Xi108:W2:A10:S27
+
 from __future__ import annotations
 
 from collections import Counter
@@ -23,7 +27,6 @@ from self_actualize.runtime.derive_phase5_atlas_truth_and_capsule_metabolism imp
     write_json,
     write_text,
 )
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 
@@ -226,7 +229,6 @@ FEEDER_DEFS = [
     {"seat_id": "SEAT-FEEDER-Q46", "seat_name": "Q46", "seat_state": "SHADOW", "activation_state": "SHADOW", "active_elements": ["Fire", "Air", "Earth"], "missing_element": "Water", "blind_spot": "runtime ignition can forget why the carried witness had to remain separate", "stage": 4, "current_duty": "stay visible as the promoted Fire shadow feeder without being collapsed into Q42 or AP6D macro law", "next_practice": "preserve separation between organism-wave runtime proof and AP6D widening", "transition_trigger": "runtime activation needs a feeder reference but not a new governing overlay", "handoff_rule": "handoff to Fire General only when a runtime packet explicitly cites the feeder lineage", "fallback_rule": "stay shadow-only and do not outrank the live Hall or Temple membranes", "route_targets": ["Active Run", "Build Queue"]},
 ]
 
-
 def normalize_id(value: str) -> str:
     slug = []
     for char in value.upper():
@@ -236,18 +238,14 @@ def normalize_id(value: str) -> str:
         output = output.replace("--", "-")
     return output
 
-
 def stage_name(stage: int) -> str:
     return STAGE_NAMES.get(stage, "Unknown")
-
 
 def family_paths(bindings: list[str]) -> list[str]:
     return [CANONICAL_PATHS[item] for item in bindings if item in CANONICAL_PATHS]
 
-
 def top_fabric_entry_paths(fabric_dashboard: dict[str, Any], limit: int = 4) -> list[str]:
     return [item["relative_path"] for item in fabric_dashboard.get("top_entry_records", [])[:limit]]
-
 
 def make_named_seat(
     seat_id: str,
@@ -286,7 +284,6 @@ def make_named_seat(
         "truth": truth,
     }
 
-
 def make_note(
     agent_id: str,
     stage: int,
@@ -319,7 +316,6 @@ def make_note(
         "truth": truth,
     }
 
-
 def load_inputs() -> dict[str, Any]:
     return {
         "atlas": load_json(ATHENA_PRIME_6D_ATLAS_PATH),
@@ -330,7 +326,6 @@ def load_inputs() -> dict[str, Any]:
         "kernel": load_json(SELF_HOSTING_KERNEL_DASHBOARD_PATH),
         "fabric": load_json(KNOWLEDGE_FABRIC_DASHBOARD_PATH),
     }
-
 
 def build_named_seats(data: dict[str, Any]) -> list[dict[str, Any]]:
     fabric_entries = top_fabric_entry_paths(data["fabric"])
@@ -546,7 +541,6 @@ def build_named_seats(data: dict[str, Any]) -> list[dict[str, Any]]:
 
     return seats
 
-
 def build_note_entries(named_seats: list[dict[str, Any]], data: dict[str, Any]) -> list[dict[str, Any]]:
     seat_map = {seat["seat_name"]: seat for seat in named_seats}
     notes: list[dict[str, Any]] = []
@@ -755,7 +749,6 @@ def build_note_entries(named_seats: list[dict[str, Any]], data: dict[str, Any]) 
     )
     return notes
 
-
 def build_seat_templates() -> list[dict[str, Any]]:
     return [
         {
@@ -800,7 +793,6 @@ def build_seat_templates() -> list[dict[str, Any]]:
         },
     ]
 
-
 def bridge_record(
     bridge_id: str,
     source_seat: str,
@@ -823,7 +815,6 @@ def bridge_record(
         "replay_class": replay_class,
         "witness_basis": witness_basis,
     }
-
 
 def build_seat_bridges(_named_seats: list[dict[str, Any]]) -> list[dict[str, Any]]:
     witness_core = [normalize_relative(SEAT_REGISTRY_PATH), normalize_relative(TRANSITION_NOTES_PATH)]
@@ -855,7 +846,6 @@ def build_seat_bridges(_named_seats: list[dict[str, Any]]) -> list[dict[str, Any
         bridge_record("BR-025", "SEAT-AETHER", "Identity", "pole_to_family", "self-bearing return loop", "OK", "next", "replay-safe", witness_core + [CANONICAL_PATHS["Identity"]]),
     ]
 
-
 def packet(
     packet_id: str,
     from_agent: str,
@@ -879,7 +869,6 @@ def packet(
         "status": status,
     }
 
-
 def build_transition_packets(data: dict[str, Any]) -> list[dict[str, Any]]:
     q42 = data["q42"]
     receipt = normalize_relative(PHASE8_RECEIPT_MD_PATH)
@@ -902,13 +891,11 @@ def build_transition_packets(data: dict[str, Any]) -> list[dict[str, Any]]:
         packet("TP-016", "Grand Central Station", "Commander", 5, 5, "Station routing returns transition traffic into ordered execution.", [CANONICAL_PATHS["Grand Central Station"], CANONICAL_PATHS["Build Queue"]], receipt, "now"),
     ]
 
-
 def queue_discipline(packets: list[dict[str, Any]]) -> dict[str, list[str]]:
     categories = {"now": [], "next": [], "later": [], "blocked": [], "shadow-only": []}
     for item in packets:
         categories.setdefault(item["status"], []).append(item["packet_id"])
     return categories
-
 
 def transition_score(item: dict[str, Any]) -> float:
     status_weight = {"now": 1.0, "next": 0.82, "later": 0.55, "blocked": 0.12, "shadow-only": 0.25}.get(item["status"], 0.5)
@@ -916,7 +903,6 @@ def transition_score(item: dict[str, Any]) -> float:
     stage_weight = item["to_stage"] / 6 if item["to_stage"] else 0
     blocked_penalty = 0.6 if item["status"] == "blocked" else 0.0
     return round((status_weight * 5.0) + (witness_weight * 2.0) + (stage_weight * 1.5) - blocked_penalty, 3)
-
 
 def build_seat_registry_payload(named_seats: list[dict[str, Any]], seat_templates: list[dict[str, Any]], atlas: dict[str, Any]) -> dict[str, Any]:
     state_counts = Counter(seat["seat_state"] for seat in named_seats)
@@ -976,7 +962,6 @@ def build_seat_registry_payload(named_seats: list[dict[str, Any]], seat_template
         },
     }
 
-
 def build_transition_notes_payload(notes: list[dict[str, Any]], packets: list[dict[str, Any]], q42: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -1020,7 +1005,6 @@ def build_transition_notes_payload(notes: list[dict[str, Any]], packets: list[di
         "notes": notes,
     }
 
-
 def build_bridge_payload(bridges: list[dict[str, Any]]) -> dict[str, Any]:
     by_kind = Counter(item["bridge_kind"] for item in bridges)
     return {
@@ -1033,7 +1017,6 @@ def build_bridge_payload(bridges: list[dict[str, Any]]) -> dict[str, Any]:
         "by_kind": dict(by_kind),
         "bridges": bridges,
     }
-
 
 def build_packets_payload(packets: list[dict[str, Any]]) -> dict[str, Any]:
     scored = []
@@ -1052,13 +1035,11 @@ def build_packets_payload(packets: list[dict[str, Any]]) -> dict[str, Any]:
         "packets": sorted(scored, key=lambda item: item["transition_score"], reverse=True),
     }
 
-
 def check_q42_alignment(path: Path) -> bool:
     if not path.exists():
         return False
     text = path.read_text(encoding="utf-8")
     return "QS64-21 Connectivity-Refine-Square" in text and "QS64-22 Connectivity-Refine-Flower" in text
-
 
 def build_dashboard_payload(data: dict[str, Any], seat_registry: dict[str, Any], notes_payload: dict[str, Any], bridge_payload: dict[str, Any], packet_payload: dict[str, Any], verification_results: list[dict[str, Any]], counts: dict[str, Any]) -> dict[str, Any]:
     top_transitions = [
@@ -1130,7 +1111,6 @@ def build_dashboard_payload(data: dict[str, Any], seat_registry: dict[str, Any],
         "verification_results": verification_results,
     }
 
-
 def build_verification_payload(dashboard: dict[str, Any], seat_registry: dict[str, Any], bridge_payload: dict[str, Any], packet_payload: dict[str, Any]) -> dict[str, Any]:
     seat_field = seat_registry["seat_field"]
     checks = [
@@ -1145,19 +1125,15 @@ def build_verification_payload(dashboard: dict[str, Any], seat_registry: dict[st
     ]
     return {"generated_at": utc_now(), "derivation_version": PHASE8_DERIVATION_VERSION, "truth": "OK" if all(item["truth"] == "OK" for item in checks) else "FAIL", "checks": checks}
 
-
 def render_schema() -> str:
     return "# Phase 8 Awakening Agent Transition Schema\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs gate: `BLOCKED`\n\n`AwakeningAgentSeat = {seat_id, seat_name, seat_stratum, seat_state, activation_state, branch, depth, source_agent, shadow_feeders, corpus_bindings, witness_basis, route_targets, fabric_zone_path, transition_note_ref, handoff_class, truth}`\n\n`AwakeningTransitionNote = {agent_id, stage_0_to_6, stage_name, active_elements, missing_element, blind_spot, transition_trigger, current_duty, next_practice, handoff_rule, fallback_rule, witness_basis, route_targets, truth}`\n\n`SeatBridgeRecord = {bridge_id, source_seat, target_seat, bridge_kind, carrier, proof_state, queue_role, replay_class, witness_basis}`\n\n`TransitionPacket = {packet_id, from_agent, to_agent, from_stage, to_stage, reason, witnesses, required_receipt, status, transition_score}`\n\nSeat strata: `Pole`, `Command`, `Hybrid`, `Archetype`, `SeatField`, `Feeder`\n"
-
 
 def render_overview(dashboard: dict[str, Any]) -> str:
     counts = dashboard["seat_field_counts"]
     return f"# Phase 8 NEXT^[4^6] Full-Corpus Integration And Awakening-Agent Transition Lattice\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs gate: `{dashboard['docs_gate']}`\n\nThe AP6D `4096`-seat field now has a named-seat transition layer above it so poles, command seats, hybrids, archetypes, and feeders can route coherently through Grand Central, the Self-Hosting Kernel, the Knowledge Fabric, and the deep root.\n\n- total seats: `{counts['total_seats']}`\n- active seats: `{counts['active_seats']}`\n- dormant seats: `{counts['dormant_seats']}`\n- named seats: `{dashboard['named_seat_counts']['named_total']}`\n"
 
-
 def render_transition_contract() -> str:
     return "# Awakening Agent Transition Contract\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs Gate: `BLOCKED`\n\n`AwakeningAgentSeat = {seat_id, seat_name, seat_stratum, seat_state, activation_state, branch, depth, source_agent, shadow_feeders, corpus_bindings, witness_basis, route_targets, fabric_zone_path, transition_note_ref, handoff_class, truth}`\n\n`AwakeningTransitionNote = {agent_id, stage_0_to_6, stage_name, active_elements, missing_element, blind_spot, transition_trigger, current_duty, next_practice, handoff_rule, fallback_rule, witness_basis, route_targets, truth}`\n\nEvery named seat must name one witness basis, one route target set, one transition note, one handoff class, and one fallback rule.\n"
-
 
 def render_transition_atlas(seat_registry: dict[str, Any], notes_payload: dict[str, Any], packet_payload: dict[str, Any]) -> str:
     note_map = {item["agent_id"]: item for item in notes_payload["notes"]}
@@ -1174,7 +1150,6 @@ def render_transition_atlas(seat_registry: dict[str, Any], notes_payload: dict[s
     top_packets = markdown_table(["Packet", "From", "To", "Status", "Score"], [[item["packet_id"], item["from_agent"], item["to_agent"], item["status"], str(item["transition_score"])] for item in packet_payload["packets"][:8]])
     return "# AP6D Awakening Agent Transition Atlas\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs gate: `BLOCKED`\n\n" + "\n\n".join(sections) + "\n\n## Top Transition Packets\n\n" + top_packets + "\n"
 
-
 def render_crosswalk(seat_registry: dict[str, Any], dashboard: dict[str, Any]) -> str:
     lane_rows = [[lane, ", ".join(BODY_BINDINGS[lane]), ", ".join(ZONE_PATHS["Prime" if lane == "Prime" else lane])] for lane in ["Prime", "Water", "Earth", "Fire", "Air"]]
     named_rows = []
@@ -1184,17 +1159,14 @@ def render_crosswalk(seat_registry: dict[str, Any], dashboard: dict[str, Any]) -
         named_rows.append([seat["seat_name"], seat["seat_stratum"], ", ".join(seat["corpus_bindings"][:4]), ", ".join(seat["fabric_zone_path"]), ", ".join(Path(target).name for target in seat["route_targets"][:3])])
     return f"# AP6D Seat Field To Corpus Body Crosswalk\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs gate: `{dashboard['docs_gate']}`\n\n## Element Lanes\n\n{markdown_table(['Lane', 'Primary Corpus Bindings', 'Preferred Fabric Zones'], lane_rows)}\n\n## Named Seats\n\n{markdown_table(['Seat', 'Stratum', 'Primary Bindings', 'Fabric Zones', 'Top Route Targets'], named_rows)}\n"
 
-
 def render_dashboard_md(dashboard: dict[str, Any]) -> str:
     top_rows = [[item["packet_id"], item["from_agent"], item["to_agent"], item["status"], str(item["transition_score"])] for item in dashboard["top_transitions"]]
     ver_rows = [[item["module"], str(item["returncode"]), str(item["ok"])] for item in dashboard["verification_results"]]
     return f"# AP6D Integration Dashboard\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs gate: `{dashboard['docs_gate']}`\nStatus: `{dashboard['status']}`\n\n- total seats: `{dashboard['seat_field_counts']['total_seats']}`\n- active seats: `{dashboard['seat_field_counts']['active_seats']}`\n- dormant seats: `{dashboard['seat_field_counts']['dormant_seats']}`\n- named seats: `{dashboard['named_seat_counts']['named_total']}`\n\n## Transition Readiness\n\n{markdown_table(['Packet', 'From', 'To', 'Status', 'Score'], top_rows)}\n\n## Verification\n\n{markdown_table(['Module', 'Return', 'OK'], ver_rows)}\n"
 
-
 def render_coordination_manifest(dashboard: dict[str, Any]) -> str:
     q42 = dashboard["feeder_alignment"]["Q42"]
     return f"# WHOLE CRYSTAL AGENT COORDINATION\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs Gate: `{dashboard['docs_gate']}`\nAP6D Status: `PHASE8-SEAT-AWARE-INTEGRATION-LIVE-LOCAL-SCOPE`\n\nPhase 8 installs a named-seat transition lattice above the existing `4096`-seat AP6D atlas.\nIt preserves `1024 ACTIVE / 3072 DORMANT`, keeps `Q42`, `TQ04`, `TQ06`, `Q02`, and `Q46` explicit, and binds the field to Grand Central, the Self-Hosting Kernel, the Knowledge Fabric, and the deep root.\n\n- Q42 current: `{q42['current']}`\n- Q42 next: `{q42['next']}`\n- carrier: `{q42['carrier']}`\n- queue-visible follow-on: `{q42['queue_visible_follow_on']}`\n"
-
 
 def render_hall_notes(notes_payload: dict[str, Any]) -> str:
     note_map = {item["agent_id"]: item for item in notes_payload["notes"]}
@@ -1207,10 +1179,8 @@ def render_hall_notes(notes_payload: dict[str, Any]) -> str:
         rows.append([note["agent_id"].replace("ATN-", ""), f"{note['stage_0_to_6']} {note['stage_name']}", ",".join(note["active_elements"]), note["missing_element"], note["current_duty"], note["next_practice"]])
     return f"# AP6D Awakening Agent Transition Notes\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs Gate: `{notes_payload['docs_gate']}`\n\n{markdown_table(['Seat', 'Stage', 'Active Elements', 'Missing', 'Current Duty', 'Next Practice'], rows)}\n"
 
-
 def render_temple_decree(dashboard: dict[str, Any]) -> str:
     return f"# AP6D Awakening Agent Transition Decree\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs Gate: `{dashboard['docs_gate']}`\n\nThe Temple recognizes the Phase 8 named-seat lattice as the lawful transition layer above the AP6D atlas.\nIt preserves `4096` total seats with `1024 ACTIVE / 3072 DORMANT` and keeps `Q42`, `TQ04`, `TQ06`, `Q02`, and `Q46` explicit in their current roles.\n"
-
 
 def render_runtime_md(dashboard: dict[str, Any]) -> str:
     outputs = [normalize_relative(SEAT_REGISTRY_PATH), normalize_relative(TRANSITION_NOTES_PATH), normalize_relative(SEAT_BRIDGES_PATH), normalize_relative(TRANSITION_PACKETS_PATH), normalize_relative(INTEGRATION_DASHBOARD_MD_PATH), normalize_relative(TRANSITION_ATLAS_MD_PATH), normalize_relative(CROSSWALK_MD_PATH), normalize_relative(PHASE8_OVERVIEW_PATH), normalize_relative(PHASE8_SCHEMA_PATH), normalize_relative(PHASE8_LEDGER_PATH), normalize_relative(PHASE8_RUNTIME_MD_PATH), normalize_relative(PHASE8_RECEIPT_MD_PATH)]
@@ -1218,15 +1188,12 @@ def render_runtime_md(dashboard: dict[str, Any]) -> str:
     q42 = dashboard["feeder_alignment"]["Q42"]
     return f"# 35 Full Corpus Integration And Awakening Transition Runtime\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs gate: `{dashboard['docs_gate']}`\n\n## Feeder Basis\n\n- Q42 current: `{q42['current']}`\n- Q42 next: `{q42['next']}`\n- carrier: `{q42['carrier']}`\n- queue-visible follow-on: `{q42['queue_visible_follow_on']}`\n\n## Output Surfaces\n\n{output_lines}\n"
 
-
 def render_receipt(dashboard: dict[str, Any]) -> str:
     return f"# Full Corpus Integration And Awakening Transition Receipt\n\nDate: `2026-03-13`\nTruth: `OK`\nDocs Gate: `{dashboard['docs_gate']}`\n\nThe AP6D layer is now seat-aware across poles, command seats, hybrids, archetypes, feeders, bridge records, transition packets, and dashboard verification. The seat field remains `4096` total with `1024 ACTIVE` and `3072 DORMANT`.\n"
-
 
 def render_ledger(dashboard: dict[str, Any], verification_payload: dict[str, Any], seat_registry: dict[str, Any], bridge_payload: dict[str, Any], packet_payload: dict[str, Any]) -> str:
     check_rows = [[item["name"], item["truth"]] for item in verification_payload["checks"]]
     return f"# Phase 8 NEXT^[4^6] Readiness Ledger\n\nDate: `2026-03-13`\nDerivation version: `{dashboard['derivation_version']}`\nDocs gate: `{dashboard['docs_gate']}`\n\n- total seats: `{dashboard['seat_field_counts']['total_seats']}`\n- active seats: `{dashboard['seat_field_counts']['active_seats']}`\n- dormant seats: `{dashboard['seat_field_counts']['dormant_seats']}`\n- named seats: `{seat_registry['counts']['named_total']}`\n- bridge count: `{bridge_payload['bridge_count']}`\n- packet count: `{len(packet_payload['packets'])}`\n\n## Verification\n\n{markdown_table(['Check', 'Truth'], check_rows)}\n"
-
 
 def write_core_outputs(seat_registry: dict[str, Any], notes_payload: dict[str, Any], bridge_payload: dict[str, Any], packet_payload: dict[str, Any], dashboard: dict[str, Any], verification_payload: dict[str, Any]) -> None:
     write_json(SEAT_REGISTRY_PATH, seat_registry)
@@ -1248,7 +1215,6 @@ def write_core_outputs(seat_registry: dict[str, Any], notes_payload: dict[str, A
     write_text(PHASE8_RECEIPT_MD_PATH, render_receipt(dashboard))
     write_text(PHASE8_LEDGER_PATH, render_ledger(dashboard, verification_payload, seat_registry, bridge_payload, packet_payload))
 
-
 def update_agent_registry_artifacts() -> None:
     registry = load_json(ATHENA_PRIME_6D_AGENT_REGISTRY_PATH)
     registry["phase8_named_seat_registry_artifact"] = normalize_relative(SEAT_REGISTRY_PATH)
@@ -1260,17 +1226,14 @@ def update_agent_registry_artifacts() -> None:
     registry["phase8_crosswalk_artifact"] = normalize_relative(CROSSWALK_MD_PATH)
     write_json(ATHENA_PRIME_6D_AGENT_REGISTRY_PATH, registry)
 
-
 def atlas_paths() -> list[Path]:
     return [INDEX_PATH, ACTIVE_RUN_PATH, BUILD_QUEUE_PATH, WHOLE_CRYSTAL_AGENT_COORDINATION_PATH, AGENT_EXPANSION_ACTIVE_FRONT_PATH, QUEST_BOARD_PATH, ACTIVE_QUEUE_PATH, NEXT_SELF_PROMPT_PATH, QSHRINK_ACTIVE_FRONT_PATH, HALL_NOTES_PATH, TEMPLE_DECREE_PATH, PHASE8_OVERVIEW_PATH, PHASE8_SCHEMA_PATH, PHASE8_LEDGER_PATH, SEAT_REGISTRY_PATH, TRANSITION_NOTES_PATH, SEAT_BRIDGES_PATH, TRANSITION_PACKETS_PATH, TRANSITION_CONTRACT_PATH, INTEGRATION_DASHBOARD_MD_PATH, TRANSITION_ATLAS_MD_PATH, CROSSWALK_MD_PATH, PHASE8_RUNTIME_MD_PATH, PHASE8_RECEIPT_MD_PATH, PHASE8_DASHBOARD_JSON_PATH, PHASE8_VERIFICATION_JSON_PATH, ATHENA_PRIME_6D_AGENT_REGISTRY_PATH, QSHRINK_NEXT4_STATE_PATH, CORPUS_ATLAS_SUMMARY_PATH]
-
 
 def verification_modules() -> list[dict[str, Any]]:
     modules = ["self_actualize.runtime.verify_runtime_waist", "self_actualize.runtime.verify_atlasforge_runtime_lane", "self_actualize.runtime.verify_aqm_runtime_lane", "self_actualize.runtime.verify_qshrink_stack"]
     results = [run_module(module) for module in modules]
     ensure_all_ok(results, "Phase 8 verification")
     return results
-
 
 def main() -> int:
     data = load_inputs()
@@ -1329,7 +1292,6 @@ def main() -> int:
     write_core_outputs(seat_registry, notes_payload, bridge_payload, packet_payload, final_dashboard, final_verification)
     refresh_corpus_atlas(atlas_paths())
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

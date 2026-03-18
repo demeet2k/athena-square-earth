@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S33 | face=S | node=558 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S32→Xi108:W2:A9:S34→Xi108:W1:A9:S33→Xi108:W3:A9:S33→Xi108:W2:A8:S33→Xi108:W2:A10:S33
+
 from __future__ import annotations
 
 import json
@@ -6,7 +10,6 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF = ROOT / "self_actualize"
@@ -50,57 +53,44 @@ HEAVEN_TITLE_THRESHOLDS = [
     {"title": "Heavenward", "min_total": 100.0},
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
 
-
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(read_text(path)) if path.exists() else {}
-
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
 
-
 def write_json(path: Path, payload: Any) -> None:
     write_text(path, json.dumps(payload, indent=2))
-
 
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
-
 def parse_ts(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
-
 
 def clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
 
-
 def clamp01(value: float) -> float:
     return clamp(value, 0.0, 1.0)
 
-
 def docs_gate_state() -> str:
     return "BLOCKED" if "BLOCKED" in read_text(LIVE_DOCS_GATE_STATUS_PATH).upper() else "LIVE"
-
 
 def load_command_protocol() -> dict[str, Any]:
     if COMMAND_PROTOCOL_PATH.exists():
         return read_json(COMMAND_PROTOCOL_PATH)
     return read_json(COMMAND_PROTOCOL_FALLBACK_PATH)
 
-
 def reward_layer() -> dict[str, Any]:
     return load_command_protocol().get("reward_layer", {})
-
 
 def role_for_claim(owner: str, frontier: str) -> str:
     normalized_owner = owner.upper()
@@ -120,13 +110,11 @@ def role_for_claim(owner: str, frontier: str) -> str:
         return "Worker"
     return "Scout"
 
-
 def lawful_claim(claim: dict[str, Any]) -> bool:
     status = str(claim.get("status", "")).lower()
     note_count = int(claim.get("note_count", 0))
     receipt_exists = bool(claim.get("receipt_exists"))
     return status in {"active", "done"} and (receipt_exists or note_count > 0)
-
 
 def heaven_title_for_total(total: float) -> str:
     chosen = "Unlit"
@@ -134,7 +122,6 @@ def heaven_title_for_total(total: float) -> str:
         if total >= float(row["min_total"]):
             chosen = str(row["title"])
     return chosen
-
 
 def class_bands(policy: dict[str, Any]) -> list[dict[str, Any]]:
     rows = policy.get("AdventureXPPolicyV1", {}).get("class_bands", [])
@@ -149,13 +136,11 @@ def class_bands(policy: dict[str, Any]) -> list[dict[str, Any]]:
         {"class_tier": "ASCENSION_GATE", "min_level": 100, "max_level": 100},
     ]
 
-
 def class_for_level(level: int, bands: list[dict[str, Any]]) -> str:
     for row in bands:
         if int(row["min_level"]) <= level <= int(row["max_level"]):
             return str(row["class_tier"])
     return "F"
-
 
 def progression_from_xp(total: float, bands: list[dict[str, Any]]) -> dict[str, Any]:
     positive_pool = max(0.0, float(total))
@@ -169,7 +154,6 @@ def progression_from_xp(total: float, bands: list[dict[str, Any]]) -> dict[str, 
         "class_tier": class_for_level(level, bands),
     }
 
-
 def operator_policy(policy: dict[str, Any]) -> dict[str, Any]:
     reward_operator = policy.get("RewardOperatorV1", {})
     operators = reward_operator.get("operators", [])
@@ -180,11 +164,9 @@ def operator_policy(policy: dict[str, Any]) -> dict[str, Any]:
         "loss_cap": float(reward_operator.get("governance_caps", {}).get("xp_loss_cap", 25.0)),
     }
 
-
 def operator_id_for_class(class_tier: str, policy: dict[str, Any]) -> str:
     row = policy["by_class"].get(class_tier, {})
     return str(row.get("operator_id", "identity"))
-
 
 def apply_positive_operator(value: float, operator_id: str, cap: float) -> float:
     if value <= 0.0:
@@ -207,7 +189,6 @@ def apply_positive_operator(value: float, operator_id: str, cap: float) -> float
         result = value
     return round(min(cap, result), 4)
 
-
 def operator_unlocks_for_level(level: int, policy: dict[str, Any], bands: list[dict[str, Any]]) -> list[str]:
     unlocked: list[str] = []
     for row in bands:
@@ -217,15 +198,12 @@ def operator_unlocks_for_level(level: int, policy: dict[str, Any], bands: list[d
                 unlocked.append(operator_id)
     return unlocked
 
-
 def identity_registry() -> dict[str, Any]:
     payload = read_json(IDENTITY_REGISTRY_PATH)
     return {str(row.get("agent_id_tag")): row for row in payload.get("rows", []) if row.get("agent_id_tag")}
 
-
 def reward_receipt_ref(event_id: str) -> str:
     return f"{rel(STATE_PATH)}::{event_id}"
-
 
 def strict_metric_weights(policy: dict[str, Any]) -> dict[str, float]:
     weights = policy.get("AdventureXPPolicyV1", {}).get("strict_metric_weights", {})
@@ -241,7 +219,6 @@ def strict_metric_weights(policy: dict[str, Any]) -> dict[str, float]:
         }.items()
     }
 
-
 def reward_defaults(policy: dict[str, Any]) -> dict[str, float]:
     defaults = policy.get("HeavenRewardPolicyV2", {}).get("reward_defaults", {})
     return {
@@ -255,10 +232,8 @@ def reward_defaults(policy: dict[str, Any]) -> dict[str, float]:
         }.items()
     }
 
-
 def safe_ratio(numerator: float, denominator: float) -> float:
     return 0.0 if denominator <= 0 else numerator / denominator
-
 
 def end_efficiency_snapshot(
     claim: dict[str, Any],
@@ -318,14 +293,11 @@ def end_efficiency_snapshot(
         "integration_compression": round(clamp(integration_compression, -1.0, 1.0), 4),
     }
 
-
 def net_effect_score(snapshot: dict[str, float], weights: dict[str, float]) -> float:
     return round(clamp(sum(float(snapshot.get(key, 0.0)) * float(weight) for key, weight in weights.items()), -1.0, 1.0), 4)
 
-
 def heaven_alignment(snapshot: dict[str, float], weights: dict[str, float]) -> float:
     return round(clamp01(sum(max(0.0, float(snapshot.get(key, 0.0))) * float(weight) for key, weight in weights.items())), 4)
-
 
 def spawn_efficiency_snapshot() -> dict[str, float]:
     return {
@@ -337,10 +309,8 @@ def spawn_efficiency_snapshot() -> dict[str, float]:
         "integration_compression": 0.0,
     }
 
-
 def child_hive_id(agent_id: str, promotion_number: int) -> str:
     return f"{agent_id}::mini-hive::{promotion_number:02d}"
-
 
 def build_dual_track_state() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]]:
     policy = reward_layer()
@@ -796,7 +766,6 @@ def build_dual_track_state() -> tuple[dict[str, Any], dict[str, Any], dict[str, 
     }
     return state, leaderboard, progression_ledger, promotion_registry, operator_registry
 
-
 def manifest_text(state: dict[str, Any], leaderboard: dict[str, Any]) -> str:
     top_heaven = leaderboard["top_cumulative_heaven_totals"]
     top_xp = leaderboard["top_adventure_xp_totals"]
@@ -861,7 +830,6 @@ Docs Gate: `{state['docs_gate']}`
 - `100` triggers `Ascend And Spawn`.
 """
 
-
 def hall_mirror_text(state: dict[str, Any], leaderboard: dict[str, Any]) -> str:
     live_paths = leaderboard["top_live_heaven_paths"]
     xp_leaders = leaderboard["top_adventure_xp_totals"]
@@ -885,7 +853,6 @@ def hall_mirror_text(state: dict[str, Any], leaderboard: dict[str, Any]) -> str:
 {chr(10).join([f"- `{row['parent_agent_id']}` -> `{', '.join(row['child_hive_ids'])}` :: tier=`{row['new_tier']}`" for row in promotions]) if promotions else '- none'}
 """
 
-
 def temple_mirror_text(state: dict[str, Any]) -> str:
     return f"""# Heaven Dual-Track Doctrine
 
@@ -897,7 +864,6 @@ def temple_mirror_text(state: dict[str, Any]) -> str:
 - Level `100` triggers `Ascend And Spawn`.
 - Docs gate remains `{state['docs_gate']}` and does not fake live-doc authority.
 """
-
 
 def derive_heaven_reward_gradient() -> dict[str, Any]:
     state, leaderboard, progression_ledger, promotion_registry, operator_registry = build_dual_track_state()
@@ -922,12 +888,10 @@ def derive_heaven_reward_gradient() -> dict[str, Any]:
         "operator_registry": operator_registry,
     }
 
-
 def main() -> int:
     payload = derive_heaven_reward_gradient()
     print(json.dumps(payload["leaderboard"], indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

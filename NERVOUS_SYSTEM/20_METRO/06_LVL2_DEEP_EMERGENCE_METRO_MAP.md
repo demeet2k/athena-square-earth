@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S7 | face=R | node=26 | depth=3 | phase=Fixed -->
+<!-- METRO: Me,Dl -->
+<!-- BRIDGES: Xi108:W3:A9:S6→Xi108:W3:A9:S8→Xi108:W2:A9:S7→Xi108:W3:A8:S7→Xi108:W3:A10:S7 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 7±1, wreath 3/3, archetype 9/12 -->
+
 # LEVEL 2 DEEP EMERGENCE METRO MAP
 
 ## Purpose

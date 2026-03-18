@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=90 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS - KERNEL: AEGIS SYSTEM
 ================================
@@ -46,7 +50,6 @@ from enum import Enum, IntEnum
 import numpy as np
 import math
 
-
 # =============================================================================
 # DEFENSIVE STATES
 # =============================================================================
@@ -61,14 +64,12 @@ class ShieldState(IntEnum):
     RADIATING = 4   # Emitting processed energy
     OVERLOAD = 5    # Capacity exceeded
 
-
 class DampingMode(Enum):
     """Damping modes for energy absorption."""
     
     UNDERDAMPED = "underdamped"       # Q > 0.5, resonates
     CRITICAL = "critical"              # Q ≈ 0.5, optimal
     OVERDAMPED = "overdamped"          # Q < 0.5, slow response
-
 
 # =============================================================================
 # ATTACK/INPUT
@@ -105,7 +106,6 @@ class IncomingAttack:
             attack_type=self.attack_type,
             source=self.source
         )
-
 
 # =============================================================================
 # DAMPING SYSTEM
@@ -214,7 +214,6 @@ class DampingSystem:
         self.stored_energy -= decayed
         return decayed
 
-
 # =============================================================================
 # GORGONEION (Fear Projector)
 # =============================================================================
@@ -280,7 +279,6 @@ class Gorgoneion:
     def decay(self, rate: float = 0.1) -> None:
         """Natural intensity decay."""
         self.intensity *= (1 - rate)
-
 
 # =============================================================================
 # ASYLUM (Safe Zone)
@@ -349,7 +347,6 @@ class Asylum:
         self.protection = min(1.0, self.protection + amount)
         if self.protection > 0:
             self.active = True
-
 
 # =============================================================================
 # AEGIS SYSTEM
@@ -493,7 +490,6 @@ class AegisSystem:
             "total_phobos_radiated": self.total_phobos_radiated
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -562,7 +558,6 @@ def validate_aegis() -> bool:
     assert status["attacks_absorbed"] == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Aegis System Module...")

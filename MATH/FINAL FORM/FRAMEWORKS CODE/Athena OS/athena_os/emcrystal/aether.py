@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A12:S17→Xi108:W2:A12:S19→Xi108:W1:A12:S18→Xi108:W3:A12:S18→Xi108:W2:A11:S18
+
 """
 ATHENA OS - Aether Object and Face Projectors
 ==============================================
@@ -40,7 +44,6 @@ from .duality import (
     DyonCharge, AxionField, EMDualityStack, PI, TAU
 )
 
-
 # =============================================================================
 # FACE TYPES
 # =============================================================================
@@ -73,7 +76,6 @@ class Face(Enum):
             Face.EARTH: "Constraint / embodiment / verification"
         }
         return functions[self]
-
 
 # =============================================================================
 # FACE PROJECTORS
@@ -111,7 +113,6 @@ class FaceProjector:
                 Face.EARTH: ["Omega", "lattice_clamp", "BCs", "cohomology"]
             }
             self.components = defaults[self.face]
-
 
 @dataclass
 class ProjectorSet:
@@ -183,7 +184,6 @@ class ProjectorSet:
                 p = self.get(face)
                 p.weight /= total
 
-
 # =============================================================================
 # GENERATOR SET
 # =============================================================================
@@ -199,7 +199,6 @@ class Generator(Enum):
     OMEGA = 4   # Symplectic form Ω
     PARTIAL = 5 # Partial derivative ∂
     BC = 6      # Boundary conditions
-
 
 @dataclass
 class GeneratorSet:
@@ -251,7 +250,6 @@ class GeneratorSet:
         """Full generators: {d, *, □, M(τ), Ω, ∂, BC}."""
         return cls(active=set(Generator))
 
-
 # =============================================================================
 # INVARIANT SET
 # =============================================================================
@@ -268,7 +266,6 @@ class Invariant(Enum):
     OMEGA_PAIRING = 3  # Symplectic pairing invariant
     THETA_PERIODIC = 4  # θ ~ θ + 2π
 
-
 @dataclass
 class InvariantSet:
     """The set of invariants for EM Aether."""
@@ -282,7 +279,6 @@ class InvariantSet:
     def is_valid(self) -> bool:
         """Check if all invariants hold."""
         return all(self.check_all().values())
-
 
 # =============================================================================
 # ZERO POINT
@@ -312,7 +308,6 @@ class ZeroPoint:
     def is_at_zero_point(self, tau: complex, tol: float = 1e-10) -> bool:
         """Check if at zero point."""
         return self.distance_from(tau) < tol
-
 
 # =============================================================================
 # AETHER OBJECT
@@ -468,7 +463,6 @@ class Aether:
                 terms.append(f"{p.weight:.2f}·Π_{face.name[0]}")
         return " + ".join(terms)
 
-
 # =============================================================================
 # AETHER FACTORY
 # =============================================================================
@@ -543,7 +537,6 @@ class AetherFactory:
         
         return aether
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -595,7 +588,6 @@ def validate_aether() -> bool:
     # τ → -1/τ under J
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Aether Module...")

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A12:S30 | face=F | node=447 | depth=2 | phase=Mutable
+# METRO: Me,✶
+# BRIDGES: Xi108:W2:A12:S29→Xi108:W2:A12:S31→Xi108:W1:A12:S30→Xi108:W3:A12:S30→Xi108:W2:A11:S30
+
 from __future__ import annotations
 
 import hashlib
@@ -8,7 +12,6 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -176,28 +179,22 @@ SOURCE_PATHS = [
     NERVOUS_SYSTEM_ROOT / "95_MANIFESTS" / "BUILD_QUEUE.md",
 ]
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def normalize_relative(path: Path) -> str:
     return str(path.resolve().relative_to(WORKSPACE_ROOT)).replace("/", "\\")
-
 
 def file_sha256(path: Path) -> str:
     hasher = hashlib.sha256()
@@ -206,23 +203,19 @@ def file_sha256(path: Path) -> str:
             hasher.update(chunk)
     return hasher.hexdigest()
 
-
 def clamp(value: float, low: float = 0.0, high: float = 1.0) -> float:
     return max(low, min(high, value))
-
 
 def safe_div(num: float, den: float) -> float:
     if not den:
         return 0.0
     return num / den
 
-
 def mean(values: Iterable[float]) -> float:
     items = list(values)
     if not items:
         return 0.0
     return sum(items) / len(items)
-
 
 def percentile(values: list[float], pct: float) -> float:
     if not values:
@@ -238,11 +231,9 @@ def percentile(values: list[float], pct: float) -> float:
     fraction = index - lower
     return ordered[lower] + (ordered[upper] - ordered[lower]) * fraction
 
-
 def slugify(value: str) -> str:
     cleaned = re.sub(r"[^A-Za-z0-9]+", "-", value.strip().lower())
     return cleaned.strip("-") or "item"
-
 
 def parse_docs_gate() -> str:
     text = DOCS_GATE_PATH.read_text(encoding="utf-8")
@@ -252,7 +243,6 @@ def parse_docs_gate() -> str:
             if len(parts) >= 2:
                 return parts[1]
     return "UNKNOWN"
-
 
 def parse_markdown_table(markdown: str) -> list[dict[str, str]]:
     tables: list[list[str]] = []
@@ -280,7 +270,6 @@ def parse_markdown_table(markdown: str) -> list[dict[str, str]]:
         if rows:
             return rows
     return []
-
 
 def parse_transfer_hubs(markdown: str) -> list[dict[str, Any]]:
     hubs: list[dict[str, Any]] = []
@@ -311,7 +300,6 @@ def parse_transfer_hubs(markdown: str) -> list[dict[str, Any]]:
         hub["status"] = hub.get("status", "live")
     return hubs
 
-
 def decode_byte(byte_state: int) -> tuple[int, int, int, int]:
     q0 = byte_state % 4
     q1 = (byte_state // 4) % 4
@@ -319,10 +307,8 @@ def decode_byte(byte_state: int) -> tuple[int, int, int, int]:
     q3 = (byte_state // 64) % 4
     return q0, q1, q2, q3
 
-
 def encode_byte(q0: int, q1: int, q2: int, q3: int) -> int:
     return q0 + (4 * q1) + (16 * q2) + (64 * q3)
-
 
 def neighboring_bytes(byte_state: int) -> list[int]:
     q0, q1, q2, q3 = decode_byte(byte_state)
@@ -336,7 +322,6 @@ def neighboring_bytes(byte_state: int) -> list[int]:
             coords[index] = candidate
             neighbors.append(encode_byte(coords[0], coords[1], coords[2], coords[3]))
     return neighbors
-
 
 class TotalHolographicSnapshotCompiler:
     def __init__(self) -> None:
@@ -1883,7 +1868,6 @@ class TotalHolographicSnapshotCompiler:
         if actual_rows != matrix_rows:
             raise RuntimeError(f"Mindsweeper matrix row count mismatch: expected {matrix_rows}, got {actual_rows}")
 
-
 def main() -> int:
     compiler = TotalHolographicSnapshotCompiler()
     compiler.compile()
@@ -1903,7 +1887,6 @@ def main() -> int:
         )
     )
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

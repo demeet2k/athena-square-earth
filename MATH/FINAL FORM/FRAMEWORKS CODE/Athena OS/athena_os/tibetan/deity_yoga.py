@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=114 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ATHENA OS - TIBETAN: DEITY YOGA MODULE
 =======================================
@@ -39,7 +43,6 @@ import numpy as np
 
 from .mandala import BuddhaFamily, FIVE_BUDDHAS, DhyaniBuddha
 
-
 # =============================================================================
 # YIDAM CLASSES
 # =============================================================================
@@ -52,7 +55,6 @@ class YidamClass(Enum):
     MAGNETIZING = "magnetizing"     # Vashikarana - attracting
     WRATHFUL = "wrathful"           # Abhicharuka - destroying
 
-
 class YidamFamily(Enum):
     """Major Yidam lineages."""
     
@@ -64,7 +66,6 @@ class YidamFamily(Enum):
     HEVAJRA = "hevajra"                   # Non-dual wisdom
     YAMANTAKA = "yamantaka"               # Death-conquering
     GUHYASAMAJA = "guhyasamaja"           # Secret assembly
-
 
 # =============================================================================
 # SEED SYLLABLE (BIJA)
@@ -133,7 +134,6 @@ class SeedSyllable:
         
         return 0.0
 
-
 # Common seed syllables
 SEED_SYLLABLES = {
     "OM": SeedSyllable("OM", 432.0, "white", "space", 
@@ -154,7 +154,6 @@ SEED_SYLLABLES = {
     "HUM_PHAT": SeedSyllable("HUM_PHAT", 963.0, "dark_blue", "space",
                               yidam=YidamFamily.VAJRAPANI),
 }
-
 
 # =============================================================================
 # MALA (ITERATION COUNTER)
@@ -231,7 +230,6 @@ class Mala:
     def rounds(self) -> int:
         return self._rounds
 
-
 # =============================================================================
 # YIDAM (VIRTUAL MACHINE)
 # =============================================================================
@@ -251,7 +249,6 @@ class YidamAttributes:
     # Consort
     has_consort: bool = False
     consort_name: Optional[str] = None
-
 
 class Yidam:
     """
@@ -420,7 +417,6 @@ class Yidam:
     def has_root_access(self) -> bool:
         return self._root_access
 
-
 # =============================================================================
 # ILLUSION BODY (GYULU)
 # =============================================================================
@@ -521,7 +517,6 @@ class IllusionBody:
     @property
     def shielding(self) -> float:
         return self._shielding
-
 
 # =============================================================================
 # DEITY YOGA PRACTICE
@@ -638,7 +633,6 @@ class DeityYogaPractice:
     def has_root_access(self) -> bool:
         return self.yidam.has_root_access
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -718,7 +712,6 @@ def validate_deity_yoga() -> bool:
     assert result["total_mantras"] > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Tibetan Deity Yoga Module...")

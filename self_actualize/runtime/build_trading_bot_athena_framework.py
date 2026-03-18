@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=465 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 from __future__ import annotations
 
 import ast
@@ -158,27 +162,21 @@ APPENDIX_NOTES = {
     "AppP": "Connects the Trading Bot body to the wider Athena mycelium.",
 }
 
-
 def txt(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
 
-
 def ded(text: str) -> str:
     return dedent(text).strip() + "\n"
-
 
 def write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
-
 def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
-
 
 def b4(num: int, width: int = 4) -> str:
     out = []
@@ -188,10 +186,8 @@ def b4(num: int, width: int = 4) -> str:
         n //= 4
     return "".join(reversed(out))
 
-
 def idx(seed: str, size: int) -> int:
     return int(md5(seed.encode("utf-8")).hexdigest()[:8], 16) % size
-
 
 def picks(items: list[str], seed: str, count: int = 3) -> list[str]:
     if not items:
@@ -199,13 +195,11 @@ def picks(items: list[str], seed: str, count: int = 3) -> list[str]:
     start = idx(seed, len(items))
     return [items[(start + i) % len(items)] for i in range(count)]
 
-
 def classes(path: Path) -> list[str]:
     if not path.exists():
         return []
     tree = ast.parse(path.read_text(encoding="utf-8", errors="ignore"))
     return [n.name for n in tree.body if isinstance(n, ast.ClassDef)]
-
 
 def atlas_summary() -> dict[str, object]:
     raw = json.loads(txt(ATLAS)) if ATLAS.exists() else {"records": []}
@@ -218,17 +212,14 @@ def atlas_summary() -> dict[str, object]:
         kind[str(rec.get("kind", "unknown"))] += 1
     return {"records": len(raw.get("records", [])), "body": body, "ext": ext, "kind": kind}
 
-
 def kw_counts(text: str) -> Counter:
     low = text.lower()
     keys = ["square", "circle", "triangle", "fractal", "metro", "time", "kernel", "state", "256", "torus", "tunnel"]
     return Counter({k: len(re.findall(rf"\b{k}\b", low)) for k in keys})
 
-
 def rx(pattern: str, text: str, default: str = "unknown") -> str:
     m = re.search(pattern, text, re.MULTILINE)
     return m.group(1) if m else default
-
 
 SUMMARY = atlas_summary()
 DOCX_TEXT = txt(DOCX)
@@ -245,7 +236,6 @@ ALIGN = rx(r"Average kernel alignment:\s+([0-9.]+%)", TR_TEXT)
 FX_DAYS = rx(r"Dataset:\s+([0-9,]+ trading days)", FR_TEXT)
 FX_PERIOD = rx(r"Period:\s+([0-9\-]+\s+to\s+[0-9\-]+)", FR_TEXT)
 
-
 def folder_stats(root: Path, folders: list[str]) -> dict[str, dict[str, float]]:
     stats: dict[str, dict[str, float]] = {}
     for folder in folders:
@@ -259,37 +249,29 @@ def folder_stats(root: Path, folders: list[str]) -> dict[str, dict[str, float]]:
         }
     return stats
 
-
 BASELINE_STATS = folder_stats(
     OUT,
     ["00_CONTROL", "01_ATLAS", "02_KERNEL", "03_METRO", "04_SWARM", "06_APPENDICES", "07_MANUSCRIPTS", "08_PLANES", "09_LEDGERS"],
 ) if OUT.exists() else {}
 
-
 def top_lines(counter: Counter, limit: int) -> str:
     return "\n".join(f"- `{k}`: {v}" for k, v in counter.most_common(limit))
-
 
 def role(seed: str) -> tuple[str, str, str]:
     return ROLES[idx(seed, len(ROLES))]
 
-
 def line(seed: str) -> tuple[str, str, str]:
     return LINES[idx(seed, len(LINES))]
-
 
 def hubs(seed: str) -> tuple[tuple[str, str], tuple[str, str]]:
     a = idx(seed, len(HUBS))
     return HUBS[a], HUBS[(a + 3) % len(HUBS)]
 
-
 def chapter(seed: str) -> tuple[str, str]:
     return CHAPTERS[idx(seed, len(CHAPTERS))]
 
-
 def appendix(seed: str) -> tuple[str, str]:
     return APPENDICES[idx(seed, len(APPENDICES))]
-
 
 def carrier_profile(addr: str) -> tuple[str, str]:
     c = Counter(addr)
@@ -297,10 +279,8 @@ def carrier_profile(addr: str) -> tuple[str, str]:
     lines = [f"- `{CARRIERS[d][0]}`: {c[d]} slots -> {CARRIERS[d][1]}" for d in "0123"]
     return CARRIERS[dom][0], "\n".join(lines)
 
-
 def add(files: dict[Path, str], relpath: str, text: str) -> None:
     files[OUT / relpath] = ded(text)
-
 
 def readme(total: int) -> str:
     return ded(
@@ -342,7 +322,6 @@ def readme(total: int) -> str:
         10. `09_LEDGERS/05_NEXT_EXPANSION_SEED.md`
         """
     )
-
 
 def build() -> dict[Path, str]:
     files: dict[Path, str] = {}
@@ -531,7 +510,6 @@ def build() -> dict[Path, str]:
             add(files, f"{plane['dir']}/cells/{plane['key']}_{addr}_{slug('_'.join(comp[:2]))}.md", f"# {plane['label']} {addr}\n\n## Address Signature\n\n- plane: `{plane['key']}`\n- address: `{addr}`\n- components: `{comp[0]}` -> `{comp[1]}` -> `{comp[2]}` -> `{comp[3]}`\n- dominant carrier: `{dom}`\n\n## Carrier Profile\n\n{profile}\n\n## Live Bindings\n\n- `{rel(SIGNALS)}`\n- `{rel(ENGINE)}`\n- `{rel(TR)}`\n- `{rel(FR)}`\n\nSample crypto focus: `{crypto}`\nSample forex focus: `{forex}`\n\n## Metro Connectivity\n\n- line: `{ln[0]} {ln[1]}`\n- hubs: `{ha[0]} {ha[1]}` -> `{hb[0]} {hb[1]}`\n- role: `{r[0]} {r[1]}`\n- chapter: `{ch[0]} {ch[1]}`\n- appendix: `{ap[0]} {ap[1]}`\n- task cell: `04_SWARM/task_cells/task_{addr[:3]}.md`\n- output atom: `04_SWARM/output_atoms/atom_{addr}.md`\n\n## 256^4 Expansion Vector\n\n- kernel address: `{addr if plane['key'] == 'kernel' else market}`\n- market address: `{addr if plane['key'] == 'market' else market}`\n- execution address: `{addr if plane['key'] == 'execution' else exe}`\n- governance address: `{addr if plane['key'] == 'governance' else gov}`")
     return files
 
-
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     files = build()
@@ -540,7 +518,6 @@ def main() -> None:
     total = sum(1 for p in OUT.rglob("*") if p.is_file())
     write(OUT / "README.md", readme(total))
     print(f"Generated {total} files at {OUT}")
-
 
 if __name__ == "__main__":
     main()

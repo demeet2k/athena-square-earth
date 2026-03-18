@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=99 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         ATLAS FORGE - Canonical Lenses                        ║
@@ -27,7 +31,6 @@ from numpy.typing import NDArray
 
 from atlasforge.core.types import Interval
 from atlasforge.lenses.chart import Chart, Lens, CorridorCondition, ChartError
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # IDENTITY LENS
@@ -61,7 +64,6 @@ class IdentityLens(Chart[float, float]):
     
     def jacobian(self, x: float) -> float:
         return 1.0
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LOGARITHMIC LENS
@@ -141,7 +143,6 @@ class LogLens(Chart[float, float]):
         log_sum = sum(self.forward(v) for v in values)
         return self.inverse(log_sum / len(values))
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # EXPONENTIAL LENS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -198,7 +199,6 @@ class ExpLens(Chart[float, float]):
     def add_as_mul(self, x: float, y: float) -> float:
         """Addition in original coords = Multiplication in exp coords."""
         return self.inverse(self.forward(x) * self.forward(y))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TRIGONOMETRIC LENSES
@@ -271,7 +271,6 @@ class TrigLens(Chart[float, float]):
             return math.cos(x)
         else:
             return -math.sin(x)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PHI LENS (PHASE UNIFICATION)
@@ -358,7 +357,6 @@ class PhiLens(Chart[float, complex]):
         """
         diff = abs(math.log(x) - math.log(y))
         return min(diff % (2 * math.pi), 2 * math.pi - diff % (2 * math.pi))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # FOURIER LENS
@@ -450,7 +448,6 @@ class FourierLens(Chart[NDArray[np.float64], NDArray[np.complex128]]):
         """
         return np.sum(np.abs(f) ** 2)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SPECIAL LENSES
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -491,7 +488,6 @@ class LogitLens(Chart[float, float]):
     
     def jacobian(self, p: float) -> float:
         return 1 / (p * (1 - p))
-
 
 @dataclass
 class ProbityLens(Chart[float, float]):
@@ -534,7 +530,6 @@ class ProbityLens(Chart[float, float]):
         from scipy import stats
         z = stats.norm.ppf(p)
         return 1 / stats.norm.pdf(z)
-
 
 @dataclass
 class BoxCoxLens(Chart[float, float]):
@@ -583,7 +578,6 @@ class BoxCoxLens(Chart[float, float]):
         if abs(self.lam) < 1e-10:
             return 1 / x
         return x ** (self.lam - 1)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LENS CATALOG

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A9:S33 | face=S | node=537 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A9:S32→Xi108:W3:A9:S34→Xi108:W2:A9:S33→Xi108:W3:A8:S33→Xi108:W3:A10:S33 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 33±1, wreath 3/3, archetype 9/12 -->
+
 # THE COMPLETE VML ZODIAC TRANSLATION
 ## Every Ring, Every Nymph, Every Word — Atomically Decoded
 
@@ -12,7 +17,6 @@
 **Image reference for visual context:** Beinecke Library digital collection (brbl-dl.library.yale.edu), Jason Davies viewer (jasondavies.com/voynich), Voynich.nu MS Browser. Key visual features noted per page: nymph clothing/nudity, barrels, crowns, male figures, star-with-tail markers, facing direction (retrograde planets), colored stars.
 
 ---
-
 
 ## VML QUICK REFERENCE
 
@@ -43,14 +47,11 @@
 
 ---
 
-
-
 # ═══════════════════════════════════════════════════════════════════
 # PART I: LINE-BY-LINE INTERPRETIVE TRANSLATIONS (Hand-Decoded)
 # ═══════════════════════════════════════════════════════════════════
 
 This part provides detailed, line-by-line translations with full alchemical interpretation. Every word is manually decomposed through VML atomics with procedural synthesis explaining what each line DOES in the alchemical process.
-
 
 # THE COMPLETE VML ZODIAC TRANSLATION
 ## Every Ring, Every Nymph, Every Word — Atomically Decoded
@@ -567,7 +568,6 @@ The outer band traces a FINER cycle overlaid on the 10-step inner clock:
 
 **Elemental signature:** Water sign, but the labels are dominated by FIRE (ot-, o-) and EARTH (al, -dy, d-) morphemes. Why? Because Pisces as the FINAL sign completes the cycle by FIXING (Earth) what was ACTIVATED (Fire) throughout the year. The water nature appears in the ring texts (shol, sheol, dissolution vocabulary) rather than in the structural degree-addresses.
 
-
 ---
 
 # ═══════════════════════════════════════════════════════
@@ -749,7 +749,6 @@ S2.7 (otchodals) is the ONLY nymph label in Pisces Light that contains Sulphur (
 **R2 (Middle corridor):** Contains "oteody · oteos · ockhey · oteesaey · lsheotey · okalody..." — notable for ockhey (valve-essence-active) appearing early. The middle process runs THROUGH THE VALVE.
 
 **R3 (Inner kernel):** "oteeol · otal · chs · char · cheky · chetshy · okeeody · oteey · chekeen · okeol" — compact 10-word kernel. Contains char (Salt-spirit-base) and chetshy (Mercury-drive-vigorous-active). ALL THREE TRIA PRIMA in the kernel: che (Mercury), cho is implied by chetshy's thermal drive, and cha/char (Salt-spirit). The Aries kernel holds the complete philosophical triad.
-
 
 ---
 
@@ -955,7 +954,6 @@ S1.9 (okaircham) is the longest and most complex outer label — it contains the
 
 S1.11 (otaran) contains -an (completion) — the rooting COMPLETES. After this, the remaining labels (12-15) are simpler, resolving toward final union (otalam).
 
-
 ---
 
 # ═══════════════════════════════════════════════════════
@@ -1103,22 +1101,17 @@ The F-ATOM appears at Y.8, Y.11, Y.12, Y.13 — FOUR times in the outer ring. Me
 
 The CLOSING PAIR: Y.17 (okaly = phase structure active) → Y.18 (okaldy = phase structure FIXED). The month ends by LOCKING what was active. The identical root (ok-al-) changes only its suffix from -y (active) to -dy (fixed). This is the clearest possible demonstration that VML suffixes encode REAL STATE CHANGES — the same structure, the same phase, but the final degree FIXES what the penultimate degree kept MOVING.
 
-
-
-
 # ═══════════════════════════════════════════════════════════════════
 # PART II: COMPLETE WORD-BY-WORD DECOMPOSITION TABLES (All Pages)
 # ═══════════════════════════════════════════════════════════════════
 
 This part provides systematic word-by-word decomposition for EVERY token on EVERY zodiac page, including the pages not covered in Part I (Libra, Scorpio, Sagittarius). Each word is broken into its VML prefix → root → suffix with a compact gloss.
 
-
 # ═══ F70R2 — PISCES GATE (MASTER PARAGRAPH) / March (Mars) ═══
 
 **Element/Quality/Ruler:** Water / Mutable / Jupiter
 
 **Physical Structure:** NE paragraph text: 14 lines of continuous operational instructions for reading all zodiac wheels
-
 
 ### P (Master Paragraph)
 **Source text:** otchey.sheol.chkey.shep.al.r.ar.chly.sheteal.aram dair.cheey.s.chotey.dshy.dam.chchetal.ykly ykeeo.y.s.al.shey.cthy.shekey.qokal.aiir.oteom daiin.okeey.shoaiin.ckhhey.otal.shshy.tal.dam tal.cheeo.dal.chcthy.qotal.ddlor.chal.dal ytar.aral.yol.al.aloees.ytaiir.otaldal daiin.daiin.she.tal.qokal.chol.ckhhy.dy ytas.alal.dalam.dal.cthol.oparam dolshol.shol.shol.shocthey.dalaly qokal.chol.kshody.tol.cheey.okal daiin.chotal.qokalchol.chotals qokal.shkal.dal.shy.qokal.chdy qotal.chey.key.okchey.chdy.cham okaiin.chcthey.s.or.ary
@@ -1223,7 +1216,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 96 | **or** | — | or [mouth/outlet] | — | mouth/outlet |
 | 97 | **ary** | — | ar [root/radix/base] | -y [active/volatile] | root/radix/base → active |
 
-
 ---
 
 # ═══ F70V2 — PISCES (DARK) / March (Mars) ═══
@@ -1231,7 +1223,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Water / Mutable / Jupiter
 
 **Physical Structure:** 2 fish center. 3 text rings. Hub label. S1=10 inner nymphs, S2=19 outer nymphs. Total ~29 degrees.
-
 
 ### R2 (Outer Ring — Governing Corridor)
 **Source text:** chedaiin.otchy.dair.shchey.daiin.chalaly.oteody.chotol.chedy.oteatey.otcheor.ar.alody.daiir.oteedar.otchy.tchy.dal.al.cheoltey.oteedy.sheeteey.s {fold} hes.keeol.ykeeos.shey.okear.ar.ar.alos.daimdy.otar.am.ar.al.otard
@@ -1277,7 +1268,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 37 | **al** | — | al [solid-matrix/structure] | — | solid-matrix/structure |
 | 38 | **otard** | o- [heat/activate] | tar [active-root/projection] | -d [fix-point] | heat → active-root/projection → fix-point |
 
-
 ### R1 (Inner Ring — Core Kernel Loop)
 **Source text:** otal.dlay.oteoal.dal.aildy.otaiir.ar.oteey.shal.o.qoteeal.ar.al.otaiin.al.teodaiin.oteeo.cthey.otchos.oteos.aiin.diy
 
@@ -1306,12 +1296,10 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 21 | **aiin** | — | aiin [] | — |  |
 | 22 | **diy** | d- [fix/coagulate] | iy [] | — | fix →  |
 
-
 ### C (Central Hub)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
 | 1 | **otylal** | ot- [temporal-gate] + y- [receive/moisten] + l- [locate/layer] | al [solid-matrix/structure] | — | temporal-gate → receive → locate → solid-matrix/structure |
-
 
 ### S1 (Inner Band — 10 Coarse Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -1326,7 +1314,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 8 | **okaldal** | o- [heat/activate] | kal [contained-solid-framework] | -dal [fixed-structural] | heat → contained-solid-framework → fixed-structural |
 | 9 | **ykolaiin** | y- [receive/moisten] | kol [contained-fluid-collector] | -aiin [double-life-cycle] | receive → contained-fluid-collector → double-life-cycle |
 | 10 | **sar.am** | — | — | — | crystalline-base ·  |
-
 
 ### S2 (Outer Band — 19 Fine Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -1351,7 +1338,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 18 | **okasy** | ok- [phase-step] | asy [] | — | phase-step →  |
 | 19 | **otar** | o- [heat/activate] | tar [active-root/projection] | — | heat → active-root/projection |
 
-
 ---
 
 # ═══ F70V1 — PISCES LIGHT / ARIES DARK / March–April transition ═══
@@ -1359,7 +1345,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Water→Fire transition
 
 **Physical Structure:** Ram/goat center. 2 text rings. S1=5 inner, S2=10 outer. 15 nymphs.
-
 
 ### R2 (Outer Ring — Environment Loop)
 **Source text:** sheal.dalalody.oteoshey.okoksheo.shokey.raiin.otor.ochy.sais.cheody.cheey.oteoeey.oamr.chcthy.dlal.oteodaiin.ykeody.oteody.sheo.daiin.oteedy.chekalchs.dar.shoteeody.okeeo.dal.cheody.okchoteees.oteeody.cheokeo.otaiin.shes.toar.aly.daly.sheal.daly
@@ -1404,7 +1389,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 36 | **sheal** | she- [steam/vigorous-infusion] | al [solid-matrix/structure] | — | steam → solid-matrix/structure |
 | 37 | **daly** | d- [fix/coagulate] | al [solid-matrix/structure] | -y [active/volatile] | fix → solid-matrix/structure → active |
 
-
 ### R1 (Inner Ring — Stabilizing Cadence)
 **Source text:** dal.daiin.okey.otodal.cheokeeo.okeodal.shol.olaiin.saiin.sheo.qokeeol.oteeykey.chekeal.oteosaiin.chekey.okeolol.chees.oteey.opotey.dal.al.s.otecheo
 
@@ -1434,7 +1418,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 22 | **s** | — | — | — | dissolve/transition |
 | 23 | **otecheo** | o- [heat/activate] | te [agent/tincture] + che [Mercury/volatile-spirit] | -o [] | heat → agent/tincture → Mercury/volatile-spirit →  |
 
-
 ### S1 (Inner — 5 Subphases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1443,7 +1426,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 3 | **oteo.alols.asaly** | — | — | — | heat → agent/tincture →  · solid-matrix/structure → fluid-state → flowing ·  |
 | 4 | **oteoeey.otal.okeal.ar** | — | — | — | heat → heat → agent/tincture →  · heat → active-solid-matrix/boiler · heat → essence/kernel → structural-state · root/radix/base |
 | 5 | **oteas.araydy** | — | — | — | heat → agent/tincture →  · root/radix/base →  |
-
 
 ### S2 (Outer — 10 Phases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -1459,7 +1441,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **otshshdy** | ot- [temporal-gate] + sh- [vigorous-flow] + sh- [vigorous-flow] + d- [fix/coagulate] | y [] | — | temporal-gate → vigorous-flow → vigorous-flow → fix →  |
 | 10 | **otol.ypsharal** | — | — | — | heat → active-fluid-conduit · receive → press → vigorous-flow → root/radix/base → structural-state |
 
-
 ---
 
 # ═══ F71R — ARIES (LIGHT) / April (Abiril) ═══
@@ -1467,7 +1448,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Fire / Cardinal / Mars
 
 **Physical Structure:** Ram center. 3 text rings. S1=10 outer, S2=5 inner. 15 dressed nymphs.
-
 
 ### R1 (Outer Ring — Corridor)
 **Source text:** olkeeody.okody.okchedy.oky.eey.okeodar.okeoky.oteody.oto.otol.oteey.ar.ykooar.aiin.aekeeey.okeokeokeody.okeodar.chy.s.aiin.otokeoar.or.ar.al.otol.al.shckhey.oteeeodar.oteody.otol.aiin.shoekey.sal.al.ald.cheeokseo.qorky.choly
@@ -1513,7 +1493,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 37 | **qorky** | qo- [circulate/sublimate] + r- [rotate/run] + k- [contain/seal] | y [] | — | circulate → rotate → contain →  |
 | 38 | **choly** | — | chol [spirit-in-fluid/quicksilver] | -y [active/volatile] | spirit-in-fluid/quicksilver → active |
 
-
 ### R2 (Middle Ring — Phase Break)
 **Source text:** oteody.oteos.ockhey.oteesaey.lsheotey.okalody.shs.shey.oteey.otechar.chekal.okody.eeedy.oteodal.okol.lkchol.daiin.okeeees.ykees.al.okchy.otey.oteoshaly {gap} o
 
@@ -1545,7 +1524,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 24 | **{gap}** |  |  |  | [marker: {gap}] |
 | 25 | **o** | — | — | — | heat |
 
-
 ### R3 (Inner Ring — Kernel Seal)
 **Source text:** oteeol.otal.chs.char.cheky.chetshy.okeeody.oteey.chekeen.okeol
 
@@ -1562,7 +1540,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **chekeen** | — | che [Mercury/volatile-spirit] + ke [essence/kernel] | -en [] | Mercury/volatile-spirit → essence/kernel →  |
 | 10 | **okeol** | o- [heat/activate] | ke [essence/kernel] | -ol [fluid-state] | heat → essence/kernel → fluid-state |
 
-
 ### S1 (Outer — 10 Phases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1577,7 +1554,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **oteotey.sary** | — | — | — | heat → temporal-gate → agent/tincture →  · crystalline-base → active |
 | 10 | **otalaly** | o- [heat/activate] | tal [active-solid-matrix/boiler] | -al [structural-state] + -y [active/volatile] | heat → active-solid-matrix/boiler → structural-state → active |
 
-
 ### S2 (Inner — 5 Subphases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1587,7 +1563,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 4 | **otolchd** | o- [heat/activate] + ch- [channel/bind] | tol [active-fluid-conduit] | -d [fix-point] | heat → channel → active-fluid-conduit → fix-point |
 | 5 | **otal.dar** | — | — | — | heat → active-solid-matrix/boiler · fixed-root |
 
-
 ---
 
 # ═══ F71V — TAURUS / May (May) ═══
@@ -1595,7 +1570,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Earth / Fixed / Venus
 
 **Physical Structure:** Bull center. R2 middle ring + R3 inner ring. S1=10 outer, S2=5 inner. 15 nymphs.
-
 
 ### R2 (Middle Ring — Governing Corridor)
 **Source text:** okol.sheeor.chal.oteeos.al.shsky.okalar.ar.okeo.dar.oty.oto.kaiin.chey.tol.otchr.chtos.cheor.shepchol.otor.sheo.shopcho.ar.aly.okeo.cheey.otal.al.shldy.otaly
@@ -1633,7 +1607,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 29 | **shldy** | sh- [vigorous-flow] + l- [locate/layer] + d- [fix/coagulate] | y [] | — | vigorous-flow → locate → fix →  |
 | 30 | **otaly** | o- [heat/activate] | tal [active-solid-matrix/boiler] | -y [active/volatile] | heat → active-solid-matrix/boiler → active |
 
-
 ### R3 (Inner Ring — Kernel Commit)
 **Source text:** kal.okeey.okeosar.otaiin.chkeeal.okal.cheekaiin.okaiin.okchor.dar.oteey
 
@@ -1651,7 +1624,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 10 | **dar** | — | dar [fixed-root] | — | fixed-root |
 | 11 | **oteey** | o- [heat/activate] | te [agent/tincture] | -ey [] | heat → agent/tincture →  |
 
-
 ### S1 (Outer — 10 Phases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1666,7 +1638,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **opalar.am.dan** | — | — | — | expand → solid-matrix/structure → rooted ·  · fix →  |
 | 10 | **opalor.ar** | — | — | — | expand → solid-matrix/structure → at-outlet · root/radix/base |
 
-
 ### S2 (Inner — 5 Subphases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1676,7 +1647,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 4 | **otar.shor** | — | — | — | heat → active-root/projection · vigorous-flow → mouth/outlet |
 | 5 | **sholshdy** | sh- [vigorous-flow] | ol [fluid-medium] | -s [flowing] + -hdy [] | vigorous-flow → fluid-medium → flowing →  |
 
-
 ---
 
 # ═══ F72R1 — GEMINI (TAURUS DARK) / June (Yony) ═══
@@ -1684,7 +1654,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Air / Mutable / Mercury
 
 **Physical Structure:** Twin figures. R1 outer + R2 middle + R3 inner. S0=5 outside, S1=10 outer (free), S2=5 inner (barrels). 15 nymphs total.
-
 
 ### R1 (Outer Ring — Corridor)
 **Source text:** okoiin.oteeo.ckhey.cholo.cheol.olchear.al.oteey.chedal.oteedy.okeodaly.cheol.chokeol.cheolky.okaiis.okeedy.sheoltey.cheor.aiin.ydal.okochey.sho.okalshey.shol.chalaiin.chekeol.kol.otos.ar.aiin.otar.otam.chotam.sal.okeo.dar.ar.adal.dar.okeeas.aiin.oteey
@@ -1734,7 +1703,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 41 | **aiin** | — | aiin [] | — |  |
 | 42 | **oteey** | o- [heat/activate] | te [agent/tincture] | -ey [] | heat → agent/tincture →  |
 
-
 ### R2 (Middle Ring — Transition)
 **Source text:** oteodar.ytey.otey.shetey.chokshor.okalal.otaiin.sheol.aiin.otaiin.chetey.cheolor.oteoteeody.otor.chokaiin.okaiin.al.alo.cheedy.oteorar.cheky.chokal.otas.al.oqokar {gap}
 
@@ -1767,7 +1735,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 25 | **oqokar** | o- [heat/activate] + qo- [circulate/sublimate] | kar [contained-root] | — | heat → circulate → contained-root |
 | 26 | **{gap}** |  |  |  | [marker: {gap}] |
 
-
 ### R3 (Inner Ring — Kernel with Double Gap)
 **Source text:** oteeols.yroly {gap} okees.al.aiin.okeor.chol.o.oteos.aiin.chal.otaiin.otchor.chckhy {gap}
 
@@ -1790,7 +1757,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 15 | **chckhy** | ch- [channel/bind] | ckh [valve/clamp] | -y [active/volatile] | channel → valve/clamp → active |
 | 16 | **{gap}** |  |  |  | [marker: {gap}] |
 
-
 ### S1 (Outer — 10 Free Nymphs)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1805,7 +1771,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **otalef.as.ainam** | — | — | — | heat → active-solid-matrix/boiler →  ·  ·  |
 | 10 | **ochol.charam** | — | — | — | heat → spirit-in-fluid/quicksilver · rotate → Salt/body → union |
 
-
 ### S2 (Inner — 5 Barrel Nymphs)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1815,7 +1780,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 4 | **okeey.ary** | — | — | — | heat → essence/kernel →  · root/radix/base → active |
 | 5 | **otainy** | ot- [temporal-gate] | ainy [] | — | temporal-gate →  |
 
-
 ---
 
 # ═══ F72R2 — CANCER / July (Jollet) ═══
@@ -1823,7 +1787,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Water / Cardinal / Moon
 
 **Physical Structure:** Crab center. R1 outer (fold+gap) + R2 middle + R3 inner. S0=5 outside, S1=15 outer inside, S2=9 inner inside. ~30 degrees.
-
 
 ### R1 (Outer Ring — Law Loop with Fold+Gap)
 **Source text:** otais.otees.oteos.aiin.okeo.daiin.okeey.cheokeodal.cheol.okeol.olcthhy.oteeykeey.tey.okalaiin.okalchal.chey {fold} al.okeey.daiin.otar.al.chtaiin.otseey.qooeel.ckhal.chekaiin.otaiin.chy.d.r.aiin.al.y.sho.chekaiin.otedo.qokeodal.saiin {gap}
@@ -1871,7 +1834,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 39 | **saiin** | s- [dissolve/flow] | aiin [] | — | dissolve →  |
 | 40 | **{gap}** |  |  |  | [marker: {gap}] |
 
-
 ### R2 (Middle Ring — Transition)
 **Source text:** oteey.tey.teodal.chokaly.ol.cheol.yaiin.oteodaiin.shokal.otey.otaiin.otal.y.dal.okaly.dalchdy.cseteeey.okal.shey.qoteeody.sheycthy.chotal.chees.otoees.aiin
 
@@ -1903,7 +1865,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 24 | **otoees** | ot- [temporal-gate] + o- [heat/activate] | ees [] | — | temporal-gate → heat →  |
 | 25 | **aiin** | — | aiin [] | — |  |
 
-
 ### R3 (Inner Ring — Kernel)
 **Source text:** otees.chs.chchs.ar.yly.kaly.dar.otchey.okaiin.ola.in.dy.otoar.air.aloy.okaiin
 
@@ -1926,7 +1887,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 15 | **aloy** | o- [heat/activate] | al [solid-matrix/structure] | -y [active/volatile] | heat → solid-matrix/structure → active |
 | 16 | **okaiin** | ok- [phase-step] | aiin [] | — | phase-step →  |
 
-
 ### S0 (External Pre-Labels)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1935,7 +1895,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 3 | **okaram** | o- [heat/activate] | kar [contained-root] | -am [union/amalgamated] | heat → contained-root → union |
 | 4 | **okairy** | ok- [phase-step] | airy [] | — | phase-step →  |
 | 5 | **okeolar** | o- [heat/activate] | ke [essence/kernel] | -ol [fluid-state] + -ar [rooted/at-base] | heat → essence/kernel → fluid-state → rooted |
-
 
 ### S1 (Outer — 15 Phases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -1956,7 +1915,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 14 | **okyd** | ok- [phase-step] + y- [receive/moisten] | d [] | — | phase-step → receive →  |
 | 15 | **otolam** | o- [heat/activate] | tol [active-fluid-conduit] | -am [union/amalgamated] | heat → active-fluid-conduit → union |
 
-
 ### S2 (Inner — 9 Subphases)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -1970,7 +1928,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 8 | **ainaly** | — | ainaly [] | — |  |
 | 9 | **okar.cham** | — | — | — | heat → contained-root · Salt/body →  |
 
-
 ---
 
 # ═══ F72V3 — LEO / August (Augst) ═══
@@ -1978,7 +1935,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Fire / Fixed / Sun
 
 **Physical Structure:** Lion center. R1+R2+R3 (damaged). S1=18 outer, S2=12 inner. 30 degrees. Many star-with-tail markers.
-
 
 ### R1 (Outer Ring — Boundary, damaged)
 **Source text:** otchs.otedar.oteody.oteodal.oteos.otek.eody.shy.sheody.shedykel.eody.okoleeolar.okeey.shedy.oey.sho.shol.teody.okol.ykedey.okechy.olaiin.shokdy.ol.chopchey.teey.teod.cher.okechy.otl.chor.cheey.daein.o.yteedar.chr.cthy.otycheedy.oteeoly.chokory
@@ -2026,7 +1982,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 39 | **oteeoly** | o- [heat/activate] | te [agent/tincture] | -eoly [] | heat → agent/tincture →  |
 | 40 | **chokory** | k- [contain/seal] | cho [Sulphur/fiery-soul] | -or [at-outlet] + -y [active/volatile] | contain → Sulphur/fiery-soul → at-outlet → active |
 
-
 ### R2 (Middle Ring — Interior, damaged)
 **Source text:** hos.otc.eeody.cheoke.okeoekl.oteo.aiin.yl.eeedy.okeos.aly.shy.oky.okeeey.okeedal.y.cholairy.oke.chees.y.okeeol.chey.oey.aldy.chdy.dl.oksoloky.oty.aiin.chs.oty.ok.etoteer
 
@@ -2066,7 +2021,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 32 | **ok** | o- [heat/activate] | k [] | — | heat →  |
 | 33 | **etoteer** | — | etoteer [] | — |  |
 
-
 ### R3 (Inner Ring — Kernel, damaged)
 **Source text:** oks.r.or.ckekol.okeol.iin.cholal.ykeo.darar.oleeo.dy.shedy.soar.aldy.oteor.cheor
 
@@ -2088,7 +2042,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 14 | **aldy** | — | al [solid-matrix/structure] | -dy [fixed/stabilized] | solid-matrix/structure → fixed |
 | 15 | **oteor** | o- [heat/activate] | te [agent/tincture] | -or [at-outlet] | heat → agent/tincture → at-outlet |
 | 16 | **cheor** | — | che [Mercury/volatile-spirit] | -or [at-outlet] | Mercury/volatile-spirit → at-outlet |
-
 
 ### S1 (Outer — 18 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -2112,7 +2065,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 17 | **okaly** | o- [heat/activate] | kal [contained-solid-framework] | -y [active/volatile] | heat → contained-solid-framework → active |
 | 18 | **okaldy** | o- [heat/activate] | kal [contained-solid-framework] | -dy [fixed/stabilized] | heat → contained-solid-framework → fixed |
 
-
 ### S2 (Inner — 12 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -2129,7 +2081,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 11 | **al** | — | al [solid-matrix/structure] | — | solid-matrix/structure |
 | 12 | **otaly** | o- [heat/activate] | tal [active-solid-matrix/boiler] | -y [active/volatile] | heat → active-solid-matrix/boiler → active |
 
-
 ---
 
 # ═══ F72V2 — VIRGO / September (Septembr) ═══
@@ -2137,7 +2088,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Earth / Mutable / Mercury (nocturnal)
 
 **Physical Structure:** Maiden center. R1+R2+R3. S1=18 outer, S2=12 inner. 30 degrees.
-
 
 ### R1 (Outer Ring — Boundary, partially damaged)
 **Source text:** ataseos.oty.oteos.oty.chotey.dchy.chopchy.otycoyl.ctheol.shey.tchols.choraiin.chekaiphy.oteeos.yly.oksedy.cseo.cthey.ecky.geem.cths.okeeel.okedy.cheos.okeeor.cheey.okeey.tchy.cheeey.ekeolol.sheeoeky.oekeeor.aiin.olal.olal.kair.okolraiin
@@ -2182,7 +2132,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 36 | **kair** | k- [contain/seal] | air [] | — | contain →  |
 | 37 | **okolraiin** | o- [heat/activate] | kol [contained-fluid-collector] | -raiin [rotation-cycle-×2] | heat → contained-fluid-collector → rotation-cycle-×2 |
 
-
 ### R2 (Middle Ring — Interior)
 **Source text:** otees.ody.otey.otchos.sheot.yteed.dchsaiin.shol.okches.air.am.shey.qokeodal.oteotey.oteoldy.otealchedy.chotal.al.okal.cheol.saraiin.cheokaidy.sandy.otol.chskar.alteol.oltar.or
 
@@ -2217,7 +2166,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 27 | **oltar** | — | ol [fluid-medium] + tar [active-root/projection] | — | fluid-medium → active-root/projection |
 | 28 | **or** | — | or [mouth/outlet] | — | mouth/outlet |
 
-
 ### R3 (Inner Ring — Kernel)
 **Source text:** otaiin.otshedy.chokeedy.otes.al.al.ar.chetolain.sheodaly.sheokey.okealy.sany
 
@@ -2235,7 +2183,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 10 | **sheokey** | she- [steam/vigorous-infusion] + o- [heat/activate] | ke [essence/kernel] | -y [active/volatile] | steam → heat → essence/kernel → active |
 | 11 | **okealy** | o- [heat/activate] | ke [essence/kernel] | -al [structural-state] + -y [active/volatile] | heat → essence/kernel → structural-state → active |
 | 12 | **sany** | s- [dissolve/flow] | any [] | — | dissolve →  |
-
 
 ### S1 (Outer — 18 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -2259,7 +2206,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 17 | **opaiinar** | op- [expand/pressurize] | aiinar [] | — | expand →  |
 | 18 | **eeeoloy** | — | eeeoloy [] | — |  |
 
-
 ### S2 (Inner — 12 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -2276,7 +2222,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 11 | **oraiin** | — | or [mouth/outlet] | -aiin [double-life-cycle] | mouth/outlet → double-life-cycle |
 | 12 | **okeo.rar** | — | — | — | heat → essence/kernel →  · rotate → root/radix/base |
 
-
 ---
 
 # ═══ F72V1 — LIBRA / October (Octembre) ═══
@@ -2284,7 +2229,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Air / Cardinal / Venus
 
 **Physical Structure:** Balance/scales center. R1+R2+R3. S1=20 outer, S2=10 inner. 30 degrees.
-
 
 ### R1 (Outer Ring — Boundary)
 **Source text:** otar.air.chpaly.oteody.okchesal.otear.alshey.oleealy.shetey.oteos.alal.dals.alchol.ytolaiin.ydaiin.chotar.ytal.oto.shoty.otey.okchedyly.shdary.sar.otedy.oto.rar.shedy.opsheytey.opairaly.choshydy.otar.cheedy.otalaiin.cheeky.okalar.ysry.s.okst.oteos.alar
@@ -2332,7 +2276,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 39 | **oteos** | o- [heat/activate] | te [agent/tincture] | -os [saturated/quality] | heat → agent/tincture → saturated |
 | 40 | **alar** | — | al [solid-matrix/structure] | -ar [rooted/at-base] | solid-matrix/structure → rooted |
 
-
 ### R2 (Middle Ring — Interior, with hole+stroke)
 **Source text:** otariir.otoltopar.oteol.aiin.ofas.al.otshedy.ofalar.alshdy.chpar.aiin.okaly.okar {hole} yaly.opcheolfy.opar.cheoekey.otolopaiin.shaldy.chepchy.atey.tear {stroke}
 
@@ -2363,7 +2306,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 23 | **tear** | — | te [agent/tincture] | -ar [rooted/at-base] | agent/tincture → rooted |
 | 24 | **{stroke}** |  |  |  | [marker: {stroke}] |
 
-
 ### R3 (Inner Ring — Kernel)
 **Source text:** otalal.dalal.ykeols.oteos.aiin.yotoam.oteey.saiin.oteoos.am
 
@@ -2379,7 +2321,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 8 | **saiin** | s- [dissolve/flow] | aiin [] | — | dissolve →  |
 | 9 | **oteoos** | o- [heat/activate] + o- [heat/activate] | te [agent/tincture] | -os [saturated/quality] | heat → heat → agent/tincture → saturated |
 | 10 | **am** | — | am [] | — |  |
-
 
 ### S1 (Outer — 20 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -2405,7 +2346,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 19 | **cheoepy** | o- [heat/activate] | che [Mercury/volatile-spirit] | -epy [] | heat → Mercury/volatile-spirit →  |
 | 20 | **ykeedy** | y- [receive/moisten] | ke [essence/kernel] | -edy [] | receive → essence/kernel →  |
 
-
 ### S2 (Inner — 10 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -2420,7 +2360,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **oeeody** | o- [heat/activate] | eeody [] | — | heat →  |
 | 10 | **okeol** | o- [heat/activate] | ke [essence/kernel] | -ol [fluid-state] | heat → essence/kernel → fluid-state |
 
-
 ---
 
 # ═══ F73R — SCORPIO / November (Novembre) ═══
@@ -2428,7 +2367,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Water / Fixed / Mars
 
 **Physical Structure:** Scorpion center. R1+R2+R3. S0=4 outside, S1=16 outer, S2=10 inner. 30 degrees.
-
 
 ### R1 (Outer Ring — Boundary, with / breaks)
 **Source text:** ypolcheey.salchedal.chepchey.daraly.oteos.air.ar.oteosdal.chotchy.soteees.alshey.ches.al / chees.cheoly.leiir.choteey.cheteey.cheteeeosaiin.chetchody.chedar.ar.cheteey.oteor.ar.air / alor.shetch.ytchy.cheody.ykeydom.oteos.alar.alcheky
@@ -2472,7 +2410,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 35 | **alar** | — | al [solid-matrix/structure] | -ar [rooted/at-base] | solid-matrix/structure → rooted |
 | 36 | **alcheky** | k- [contain/seal] | al [solid-matrix/structure] + che [Mercury/volatile-spirit] | -y [active/volatile] | contain → solid-matrix/structure → Mercury/volatile-spirit → active |
 
-
 ### R2 (Middle Ring — Interior, with / break)
 **Source text:** oteey.dar.al.opaiin.olalaiin.sair.ar.chopchedy.chdar.orom.otoreees.olteey.okees.otar.chey / oteas.ohor.opar.chey.daiin.qoiheey.scheey.dal.cheesy
 
@@ -2504,7 +2441,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 24 | **dal** | d- [fix/coagulate] | al [solid-matrix/structure] | — | fix → solid-matrix/structure |
 | 25 | **cheesy** | — | che [Mercury/volatile-spirit] | -es [saturated-essence] + -y [active/volatile] | Mercury/volatile-spirit → saturated-essence → active |
 
-
 ### R3 (Inner Ring — Kernel)
 **Source text:** osaiin.chedain.oteey.chedaly.okechs.chepchees.aly.oteodal
 
@@ -2519,7 +2455,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 7 | **aly** | — | al [solid-matrix/structure] | -y [active/volatile] | solid-matrix/structure → active |
 | 8 | **oteodal** | o- [heat/activate] + o- [heat/activate] | te [agent/tincture] | -dal [fixed-structural] | heat → heat → agent/tincture → fixed-structural |
 
-
 ### S0 (External — 4 Anchors)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -2527,7 +2462,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 2 | **chockhy** | — | cho [Sulphur/fiery-soul] + ckh [valve/clamp] | -y [active/volatile] | Sulphur/fiery-soul → valve/clamp → active |
 | 3 | **okedy** | o- [heat/activate] | ke [essence/kernel] | -dy [fixed/stabilized] | heat → essence/kernel → fixed |
 | 4 | **yteeody** | y- [receive/moisten] | te [agent/tincture] | -eody [] | receive → agent/tincture →  |
-
 
 ### S1 (Outer — 16 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -2549,7 +2483,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 15 | **opaiin** | op- [expand/pressurize] | aiin [] | — | expand →  |
 | 16 | **okeos** | o- [heat/activate] | ke [essence/kernel] | -os [saturated/quality] | heat → essence/kernel → saturated |
 
-
 ### S2 (Inner — 10 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -2564,7 +2497,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **ar** | — | ar [root/radix/base] | — | root/radix/base |
 | 10 | **kar** | — | kar [contained-root] | — | contained-root |
 
-
 ---
 
 # ═══ F73V — SAGITTARIUS / December (Decembre) ═══
@@ -2572,7 +2504,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 **Element/Quality/Ruler:** Fire / Mutable / Jupiter
 
 **Physical Structure:** Crossbowman center. R1+R2+R3. S0=4 outside, S1=17 outer, S2=11 inner. ~30 degrees. LAST EXTANT ZODIAC PAGE.
-
 
 ### R1 (Outer Ring — Boundary)
 **Source text:** otoar.ykeody.okody.qopchey.opaiin.qoteedy.py.otedy.edy.qokeody.cheor.al.okedal.oteody.shedy.otesal.od.air.chy.y.aly.y.keol.y.dys.opchey.dy.toly.chfakch.ytedar.y.qokeey.oty.yteedy.choldy.qokalaiin.ykaipy.orary
@@ -2618,7 +2549,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 37 | **ykaipy** | y- [receive/moisten] + k- [contain/seal] | aipy [] | — | receive → contain →  |
 | 38 | **orary** | — | or [mouth/outlet] | -ar [rooted/at-base] + -y [active/volatile] | mouth/outlet → rooted → active |
 
-
 ### R2 (Middle Ring — Interior)
 **Source text:** oteotor.alshy.oteolain.chokdam.otody.qoty.shedy.chdy.tchol.oteody.cheytey.choty.okey.dy.okecholy.otey.chodaiin.chey.okdy.aly.ar.daly
 
@@ -2647,7 +2577,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 21 | **ar** | — | ar [root/radix/base] | — | root/radix/base |
 | 22 | **daly** | d- [fix/coagulate] | al [solid-matrix/structure] | -y [active/volatile] | fix → solid-matrix/structure → active |
 
-
 ### R3 (Inner Ring — Kernel)
 **Source text:** otchor.alar.olkch.oto.lam.oks.chory.ytaly.laly.otaam
 
@@ -2664,7 +2593,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **laly** | l- [locate/layer] | al [solid-matrix/structure] | -y [active/volatile] | locate → solid-matrix/structure → active |
 | 10 | **otaam** | ot- [temporal-gate] | aam [] | — | temporal-gate →  |
 
-
 ### S0 (External — 4 Anchors)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -2672,7 +2600,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 2 | **oteody** | o- [heat/activate] + o- [heat/activate] | te [agent/tincture] | -dy [fixed/stabilized] | heat → heat → agent/tincture → fixed |
 | 3 | **oteody** | o- [heat/activate] + o- [heat/activate] | te [agent/tincture] | -dy [fixed/stabilized] | heat → heat → agent/tincture → fixed |
 | 4 | **cheody** | o- [heat/activate] | che [Mercury/volatile-spirit] | -dy [fixed/stabilized] | heat → Mercury/volatile-spirit → fixed |
-
 
 ### S1 (Outer — 17 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
@@ -2694,7 +2621,6 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 15 | **ykeear** | y- [receive/moisten] | ke [essence/kernel] | -ear [] | receive → essence/kernel →  |
 | 16 | **qokeoly** | qo- [circulate/sublimate] | ke [essence/kernel] | -ol [fluid-state] + -y [active/volatile] | circulate → essence/kernel → fluid-state → active |
 
-
 ### S2 (Inner — 11 Ticks)
 | # | EVA Label | Prefix(es) | Root(s) | Suffix(es) | Gloss |
 |---|-----------|-----------|---------|-----------|-------|
@@ -2709,9 +2635,7 @@ This part provides systematic word-by-word decomposition for EVERY token on EVER
 | 9 | **ypal** | y- [receive/moisten] + p- [press/place] | al [solid-matrix/structure] | — | receive → press → solid-matrix/structure |
 | 10 | **otedy** | o- [heat/activate] | te [agent/tincture] | -dy [fixed/stabilized] | heat → agent/tincture → fixed |
 
-
 ---
-
 
 # ═══════════════════════════════════════════════════════
 # CROSS-ZODIAC PATTERN ANALYSIS
@@ -2842,8 +2766,6 @@ The innermost ring (R3 or R1 in 2-ring pages) is the KERNEL — the irreducible 
 ---
 
 **DOCUMENT STATISTICS:** 863 ring-text words translated + 269 nymph/star labels translated = 1132 total VML tokens decomposed across 12 zodiac pages.
-
-
 
 ## 8. MALE NYMPHS — THE VALVE OPERATORS
 

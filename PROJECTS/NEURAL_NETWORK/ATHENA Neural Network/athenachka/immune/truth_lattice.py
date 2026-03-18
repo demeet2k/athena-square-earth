@@ -1,7 +1,10 @@
+# CRYSTAL: Xi108:W2:A1:S24 | face=C | node=288 | depth=2 | phase=Cardinal
+# METRO: Me,T
+# BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24
+
 from __future__ import annotations
 
 import numpy as np
-
 
 def classify_truth(
     trace: dict[str, object],

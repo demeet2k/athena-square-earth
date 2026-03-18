@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A1:S23 | face=C | node=259 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A1:S22→Xi108:W2:A1:S24→Xi108:W1:A1:S23→Xi108:W3:A1:S23→Xi108:W2:A2:S23 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 23±1, wreath 2/3, archetype 1/12 -->
+
 # Water Lens - 64 Observations
 
 This is the water-specific pass over the whole framework. It observes the same 16-family body through the lens of memory, manuscript continuity, carrying capacity, and identity flow.

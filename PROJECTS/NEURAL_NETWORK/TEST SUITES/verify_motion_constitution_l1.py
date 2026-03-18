@@ -1,9 +1,12 @@
+# CRYSTAL: Xi108:W2:A7:S31 | face=S | node=490 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S30→Xi108:W2:A7:S32→Xi108:W1:A7:S31→Xi108:W3:A7:S31→Xi108:W2:A6:S31→Xi108:W2:A8:S31
+
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[1]
 ATHENA_PACKAGE_ROOT = ROOT / "ATHENA Neural Network"
@@ -18,7 +21,6 @@ from athenachka.runtime.motion_constitution import (  # noqa: E402
     bootstrap_motion_state,
     evaluate_candidate,
 )
-
 
 def build_score_vector(**overrides: float) -> MotionScoreVector:
     base = {
@@ -39,7 +41,6 @@ def build_score_vector(**overrides: float) -> MotionScoreVector:
     }
     base.update(overrides)
     return MotionScoreVector(**base)
-
 
 def build_candidate(
     candidate_id: str,
@@ -71,7 +72,6 @@ def build_candidate(
         committee_refs=list(committee_refs if committee_refs is not None else []),
         score_vector=score_vector or build_score_vector(),
     )
-
 
 def assert_fixture_actions() -> dict[str, str]:
     state = bootstrap_motion_state(activation_threshold=1.1)
@@ -136,7 +136,6 @@ def assert_fixture_actions() -> dict[str, str]:
         results[key] = decision.action.value
     return results
 
-
 def assert_gate_precedence() -> dict[str, str]:
     state = bootstrap_motion_state(activation_threshold=1.1)
     refusal = build_candidate(
@@ -188,7 +187,6 @@ def assert_gate_precedence() -> dict[str, str]:
         "committee_beats_seed_compression": MotionAction.ESCALATE_TO_COMMITTEE.value,
         "activation_never_bypasses_witness": MotionAction.REQUEST_WITNESSES.value,
     }
-
 
 def assert_hysteresis() -> dict[str, str]:
     engine = MotionConstitutionL1(bootstrap_motion_state(activation_threshold=1.1), activation_threshold=1.1)
@@ -249,7 +247,6 @@ def assert_hysteresis() -> dict[str, str]:
         "quarantine_requires_new_immune_or_replay_state": "OK",
     }
 
-
 def assert_public_contracts() -> dict[str, object]:
     alphabet = action_alphabet()
     sources = accepted_source_kinds()
@@ -262,7 +259,6 @@ def assert_public_contracts() -> dict[str, object]:
         "source_kinds": list(sources),
     }
 
-
 def main() -> int:
     report = {
         "public_contracts": assert_public_contracts(),
@@ -272,7 +268,6 @@ def main() -> int:
     }
     print(json.dumps(report, indent=2))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

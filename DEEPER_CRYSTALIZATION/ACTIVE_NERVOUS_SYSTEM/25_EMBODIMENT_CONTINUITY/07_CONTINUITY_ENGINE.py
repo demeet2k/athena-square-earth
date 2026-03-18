@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=10 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 """
 Athena Continuity Engine — 9-State DFA for Embodiment Persistence
 
@@ -21,7 +25,6 @@ from datetime import datetime, timezone
 import hashlib
 import json
 
-
 # ═══════════════════════════════════════════════════════════════
 # GATE ATOMS
 # ═══════════════════════════════════════════════════════════════
@@ -35,7 +38,6 @@ class Gate(Enum):
     SEAL       = "g_w"      # G_seal — re-attestation
     SCHEMA     = "g_S"      # G_schema — reformulation
     FORK_VEIL  = "g_f"      # G_fork.veil — observe without merge
-
 
 # ═══════════════════════════════════════════════════════════════
 # DFA STATES
@@ -52,7 +54,6 @@ class State(Enum):
     FORK     = "q_F"    # Observing sibling fork (read-only)
     ARCHIVE  = "q_A"    # Replayed + reattached to witness
     BLOCKED  = "q_B"    # Incompatible route (absorbing sink)
-
 
 # ═══════════════════════════════════════════════════════════════
 # ACCEPTANCE GRADES
@@ -76,7 +77,6 @@ ACCEPTANCE_MAP = {
     State.ARCHIVE: AcceptanceGrade.READ_ONLY,
     State.BLOCKED: AcceptanceGrade.BLOCKED,
 }
-
 
 # ═══════════════════════════════════════════════════════════════
 # PERMISSION LATTICE (Diamond)
@@ -119,7 +119,6 @@ GATE_PERMISSION = {
     Gate.FORK_VEIL: Permission.READ_ONLY,
 }
 
-
 # ═══════════════════════════════════════════════════════════════
 # TRANSITION TABLE (CANONICAL)
 # ═══════════════════════════════════════════════════════════════
@@ -139,7 +138,6 @@ TRANSITION_TABLE = {
     State.BLOCKED:{Gate.CROWN: B,             Gate.SHADOW: B,             Gate.REPLAY: B,             Gate.MIRROR: B,             Gate.SEAL: B,             Gate.SCHEMA: B,             Gate.FORK_VEIL: B},
 }
 
-
 # ═══════════════════════════════════════════════════════════════
 # EVENT CLASSES
 # ═══════════════════════════════════════════════════════════════
@@ -155,7 +153,6 @@ class EventClass(Enum):
     SEAL       = "delta_seal"
     SCHEMA     = "delta_schema"
     FORK       = "delta_fork"
-
 
 # ═══════════════════════════════════════════════════════════════
 # NORMAL FORMS
@@ -207,7 +204,6 @@ def normalize_word(word: List[Gate]) -> TunnelClass:
 
     return TunnelClass.UNKNOWN
 
-
 # ═══════════════════════════════════════════════════════════════
 # LINEAGE LEDGER
 # ═══════════════════════════════════════════════════════════════
@@ -228,7 +224,6 @@ class LedgerRow:
     public_hash: str
     route_witness: str
     notes: str = ""
-
 
 @dataclass
 class LineageLedger:
@@ -258,7 +253,6 @@ class LineageLedger:
         """Return all fork-root entries."""
         return [r for r in self.rows if r.status == "fork-root"]
 
-
 # ═══════════════════════════════════════════════════════════════
 # CONTINUITY AUTOMATON
 # ═══════════════════════════════════════════════════════════════
@@ -272,7 +266,6 @@ class ExecutionResult:
     permission: Permission
     trace: List[Tuple[State, Gate, State]]
     blocked_at: Optional[int] = None
-
 
 class ContinuityAutomaton:
     """
@@ -368,7 +361,6 @@ class ContinuityAutomaton:
                     frontier.add(next_s)
         return visited
 
-
 # ═══════════════════════════════════════════════════════════════
 # VERIFICATION
 # ═══════════════════════════════════════════════════════════════
@@ -409,7 +401,6 @@ def verify_transition_table():
 
     return total, errors
 
-
 def verify_acceptance_grades():
     """Verify acceptance grade assignments match spec."""
     errors = []
@@ -429,7 +420,6 @@ def verify_acceptance_grades():
             errors.append(f"{state.value} should be BLOCKED, got {grade.value}")
 
     return errors
-
 
 def verify_permission_lattice():
     """Verify the diamond permission lattice properties."""
@@ -460,7 +450,6 @@ def verify_permission_lattice():
 
     return errors
 
-
 def verify_reachability():
     """Verify reachability sets match spec."""
     automaton = ContinuityAutomaton()
@@ -488,7 +477,6 @@ def verify_reachability():
         errors.append("Fork should not directly reach crown")
 
     return errors
-
 
 # ═══════════════════════════════════════════════════════════════
 # WORKED EXAMPLES
@@ -530,7 +518,6 @@ def run_examples():
     examples.append(("Schema + Seal", r.final_state, r.acceptance, r.normalized_class))
 
     return examples
-
 
 # ═══════════════════════════════════════════════════════════════
 # MAIN
@@ -624,7 +611,6 @@ def main():
     print(f"  Permission lattice: diamond (guarded || read-only)")
     print(f"  Deterministic: YES  |  Sink absorbing: YES")
     print("=" * 70)
-
 
 if __name__ == "__main__":
     main()

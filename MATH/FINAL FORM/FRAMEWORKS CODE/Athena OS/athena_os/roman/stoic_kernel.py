@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S17 | face=S | node=142 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S16→Xi108:W2:A1:S18→Xi108:W1:A1:S17→Xi108:W3:A1:S17→Xi108:W2:A2:S17
+
 """
 ATHENA OS - ROMAN KERNEL: STOIC CONTROL MODULE
 ===============================================
@@ -45,7 +49,6 @@ from typing import Dict, List, Optional, Any, Tuple, Callable
 from enum import Enum
 import numpy as np
 
-
 # =============================================================================
 # STATE SPACE ENUMS
 # =============================================================================
@@ -56,7 +59,6 @@ class StateType(Enum):
     INTERNAL = "internal"     # Within our power (eph' hēmin)
     EXTERNAL = "external"     # Not within our power (ouk eph' hēmin)
 
-
 class VirtueType(Enum):
     """The four cardinal virtues (Stoic tetrad)."""
     
@@ -64,7 +66,6 @@ class VirtueType(Enum):
     JUSTICE = "justice"       # Dikaiosyne/Iustitia - giving each their due
     COURAGE = "courage"       # Andreia/Fortitudo - enduring hardship
     TEMPERANCE = "temperance" # Sophrosyne/Temperantia - moderation
-
 
 class EmotionType(Enum):
     """Types of passions (pathē) - cognitive errors."""
@@ -83,14 +84,12 @@ class EmotionType(Enum):
     ENVY = "envy"             # Pain at others' good
     ANXIETY = "anxiety"       # Fear of uncertain future
 
-
 class IndifferentType(Enum):
     """Preferred and dispreferred indifferents."""
     
     PREFERRED = "preferred"       # Health, wealth, reputation
     DISPREFERRED = "dispreferred" # Sickness, poverty, obscurity
     ABSOLUTE = "absolute"         # Truly neutral
-
 
 # =============================================================================
 # STATE VECTORS
@@ -164,7 +163,6 @@ class InternalState:
         }
         return max(virtues, key=virtues.get)
 
-
 @dataclass
 class ExternalState:
     """
@@ -202,7 +200,6 @@ class ExternalState:
         """Check if external conditions are adverse."""
         return np.mean(self.to_vector()) < 0.4
 
-
 @dataclass
 class GlobalState:
     """Complete state X = (x_int, x_ext)."""
@@ -217,7 +214,6 @@ class GlobalState:
     def project_external(self) -> ExternalState:
         """P_ext: X → x_ext"""
         return self.external
-
 
 # =============================================================================
 # STOIC VALUATION FUNCTIONS
@@ -263,7 +259,6 @@ class ValuationFunction:
         current = current_valuation(external)
         return abs(current - proper)
 
-
 # =============================================================================
 # DICHOTOMY OF CONTROL
 # =============================================================================
@@ -280,7 +275,6 @@ class Goal:
     def is_controllable(self) -> bool:
         """Check if goal is within our control."""
         return self.state_type == StateType.INTERNAL
-
 
 class DichotomyOfControl:
     """
@@ -336,7 +330,6 @@ class DichotomyOfControl:
         Returns transformed goals in controllable subspace.
         """
         return [DichotomyOfControl.transform_goal(g) for g in goals]
-
 
 # =============================================================================
 # STOIC THERAPEUTIC ALGORITHMS
@@ -412,7 +405,6 @@ class PremeditatiaMalorum:
             "readiness": "high"
         }
 
-
 class EveningReview:
     """
     Evening Review - Daily self-examination.
@@ -487,7 +479,6 @@ class EveningReview:
             }
         
         return result
-
 
 # =============================================================================
 # STOIC KERNEL
@@ -655,7 +646,6 @@ class StoicKernel:
             "contingencies_prepared": len(self.premeditatio.contingency_policies)
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -704,7 +694,6 @@ def validate_stoic_kernel() -> bool:
     assert "cost" in status
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Stoic Kernel Module...")

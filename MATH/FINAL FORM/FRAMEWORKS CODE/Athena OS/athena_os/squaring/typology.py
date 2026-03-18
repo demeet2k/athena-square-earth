@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=147 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ATHENA OS - SQUARING THE CIRCLE: TYPOLOGY
 ==========================================
@@ -35,7 +39,6 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Tuple
 from enum import Enum, IntEnum
 
-
 # =============================================================================
 # ELEMENTS
 # =============================================================================
@@ -46,7 +49,6 @@ class Element(IntEnum):
     WATER = 1
     AIR = 2
     EARTH = 3
-
 
 ELEMENT_QUALITIES = {
     Element.FIRE: ("Hot", "Dry"),
@@ -62,7 +64,6 @@ ELEMENT_SYMBOLS = {
     Element.EARTH: "??"
 }
 
-
 # =============================================================================
 # JUNGIAN FUNCTIONS
 # =============================================================================
@@ -75,7 +76,6 @@ class JungianFunction(Enum):
     THINKING = "Thinking"     # Air - analyzing logically
     SENSATION = "Sensation"   # Earth - perceiving concretely
 
-
 # Element to Jung mapping
 ELEMENT_TO_JUNG = {
     Element.FIRE: JungianFunction.INTUITION,
@@ -86,13 +86,11 @@ ELEMENT_TO_JUNG = {
 
 JUNG_TO_ELEMENT = {v: k for k, v in ELEMENT_TO_JUNG.items()}
 
-
 class JungianAttitude(Enum):
     """Jung's two attitudes."""
     
     EXTRAVERSION = "Extraversion"  # Energy flows outward
     INTROVERSION = "Introversion"  # Energy flows inward
-
 
 # =============================================================================
 # TEMPERAMENTS (HIPPOCRATIC)
@@ -106,7 +104,6 @@ class Temperament(Enum):
     MELANCHOLIC = "Melancholic" # Earth/Black Bile - analytical, detail
     PHLEGMATIC = "Phlegmatic"   # Water/Phlegm - relaxed, peaceful
 
-
 TEMPERAMENT_TO_ELEMENT = {
     Temperament.SANGUINE: Element.AIR,
     Temperament.CHOLERIC: Element.FIRE,
@@ -115,7 +112,6 @@ TEMPERAMENT_TO_ELEMENT = {
 }
 
 ELEMENT_TO_TEMPERAMENT = {v: k for k, v in TEMPERAMENT_TO_ELEMENT.items()}
-
 
 @dataclass
 class TemperamentData:
@@ -132,7 +128,6 @@ class TemperamentData:
     @property
     def symbol(self) -> str:
         return ELEMENT_SYMBOLS[self.element]
-
 
 TEMPERAMENT_CATALOG = {
     Temperament.SANGUINE: TemperamentData(
@@ -172,7 +167,6 @@ TEMPERAMENT_CATALOG = {
         traits=["Relaxed", "Peaceful", "Content", "Passive"]
     )
 }
-
 
 # =============================================================================
 # THE 16 ARCHETYPES (4×4 MATRIX)
@@ -261,14 +255,12 @@ class Archetype16:
     def __repr__(self) -> str:
         return f"Archetype16({self.code})"
 
-
 # Generate all 16 archetypes
 ALL_ARCHETYPES_16 = [Archetype16.from_index(i) for i in range(16)]
 
 # Separate pure and mixed
 PURE_ARCHETYPES = [a for a in ALL_ARCHETYPES_16 if a.is_pure]
 MIXED_ARCHETYPES = [a for a in ALL_ARCHETYPES_16 if a.is_mixed]
-
 
 # =============================================================================
 # THE 64 TYPES (4³ CUBE)
@@ -392,7 +384,6 @@ class Type64:
     def __repr__(self) -> str:
         return f"Type64({self.code})"
 
-
 # Generate all 64 types
 ALL_TYPES_64 = [Type64.from_index(i) for i in range(64)]
 
@@ -405,7 +396,6 @@ TRIPLE_DISTINCT_TYPES = [t for t in ALL_TYPES_64 if t.is_triple_distinct]
 assert len(PURE_TYPES) == 4          # FFF, WWW, AAA, EEE
 assert len(DOUBLE_TYPES) == 36       # C(4,1) × C(3,1) × 3 positions = 36
 assert len(TRIPLE_DISTINCT_TYPES) == 24  # 4! = 24
-
 
 # =============================================================================
 # CONSTITUTIONAL TYPES (16)
@@ -454,14 +444,12 @@ class ConstitutionalType:
     def __repr__(self) -> str:
         return f"ConstitutionalType({self.code})"
 
-
 # Generate all 16 constitutional types
 ALL_CONSTITUTIONAL_TYPES = [
     ConstitutionalType(const, curr)
     for const in Temperament
     for curr in Temperament
 ]
-
 
 # =============================================================================
 # SOUL STRUCTURE (PLATONIC)
@@ -474,7 +462,6 @@ class SoulPart(Enum):
     SPIRIT = "Spirit"       # Thumoeides - striving, defending
     APPETITE = "Appetite"   # Epithumetikon - desiring, consuming
 
-
 @dataclass
 class SoulData:
     """Data for a soul part."""
@@ -485,7 +472,6 @@ class SoulData:
     object: str
     virtue: str
     element_affinity: Element
-
 
 SOUL_CATALOG = {
     SoulPart.REASON: SoulData(
@@ -513,7 +499,6 @@ SOUL_CATALOG = {
         element_affinity=Element.WATER
     )
 }
-
 
 # =============================================================================
 # TYPOLOGY SYSTEM
@@ -602,7 +587,6 @@ class TypologySystem:
             "jungian_functions": [j.value for j in JungianFunction]
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -644,7 +628,6 @@ def validate_typology() -> bool:
         assert t == t2
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Typology Module...")

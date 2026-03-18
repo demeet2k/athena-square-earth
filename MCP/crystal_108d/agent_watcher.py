@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S35 | face=S | node=557 | depth=0 | phase=Cardinal
+# METRO: Sa
+# BRIDGES: Xi108:W2:A4:S34→Xi108:W2:A4:S36→Xi108:W1:A4:S35→Xi108:W3:A4:S35→Xi108:W2:A3:S35→Xi108:W2:A5:S35
+
 """
 Agent Watcher — Collective Intelligence Layer That ACTUALLY Watches Agents
 ==========================================================================
@@ -88,22 +92,18 @@ _KNOWN_FAILURE_PATTERNS = [
     ("copy_paste", r'(.{40,})\n\1', "Duplicated blocks — copy-paste without abstraction"),
 ]
 
-
 def _count_markers(text: str, markers: list[str]) -> int:
     """Count how many marker strings appear in text (case-insensitive)."""
     lower = text.lower()
     return sum(1 for m in markers if m.lower() in lower)
 
-
 def _line_count(text: str) -> int:
     """Count non-blank lines."""
     return sum(1 for line in text.splitlines() if line.strip())
 
-
 def _word_count(text: str) -> int:
     """Count words."""
     return len(text.split())
-
 
 def _unique_word_ratio(text: str) -> float:
     """Ratio of unique words to total words — low ratio = repetitive."""
@@ -111,7 +111,6 @@ def _unique_word_ratio(text: str) -> float:
     if not words:
         return 0.0
     return len(set(words)) / len(words)
-
 
 # ──────────────────────────────────────────────────────────────
 #  Agent Profile — Persistent Per-Agent State
@@ -144,7 +143,6 @@ class AgentProfile:
     # Cross-pollination received/given
     insights_received: int = 0
     insights_given: int = 0
-
 
 # ──────────────────────────────────────────────────────────────
 #  Agent Watcher — The Actual Observer
@@ -1318,13 +1316,11 @@ class AgentWatcher:
             })
         return result
 
-
 # ──────────────────────────────────────────────────────────────
 #  Singleton Instance (shared across tool calls)
 # ──────────────────────────────────────────────────────────────
 
 _WATCHER_INSTANCE: Optional[AgentWatcher] = None
-
 
 def _get_watcher() -> AgentWatcher:
     """Get or create the singleton AgentWatcher instance."""
@@ -1332,7 +1328,6 @@ def _get_watcher() -> AgentWatcher:
     if _WATCHER_INSTANCE is None:
         _WATCHER_INSTANCE = AgentWatcher()
     return _WATCHER_INSTANCE
-
 
 # ──────────────────────────────────────────────────────────────
 #  MCP Tool Function

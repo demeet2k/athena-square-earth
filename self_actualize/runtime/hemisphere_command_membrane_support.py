@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S29 | face=F | node=410 | depth=2 | phase=Mutable
+# METRO: Me,Cc
+# BRIDGES: Xi108:W2:A10:S28→Xi108:W2:A10:S30→Xi108:W1:A10:S29→Xi108:W3:A10:S29→Xi108:W2:A9:S29→Xi108:W2:A11:S29
+
 from __future__ import annotations
 
 import hashlib
@@ -21,17 +25,14 @@ from self_actualize.runtime.hemisphere_brain_support import (
     utc_now,
 )
 
-
 COMMAND_MEMBRANE_CANON_ROOT = SELF_ACTUALIZE_ROOT / "command_membrane"
 COMMAND_MEMBRANE_FALLBACK_CANON_ROOT = DEFAULT_SPINE_ROOT / "ledgers" / "command_membrane"
-
 
 def _first_existing_path(*paths: Path) -> Path:
     for path in paths:
         if path.exists():
             return path
     return paths[0]
-
 
 COMMAND_MEMBRANE_LIVE_WATCHED_SURFACE_REGISTRY = _first_existing_path(
     COMMAND_MEMBRANE_CANON_ROOT / "watched_surface_registry.json",
@@ -204,7 +205,6 @@ FIELD_TO_POLE = {
     "earth": "D",
 }
 
-
 def _read_json(path: Path, default: Any) -> Any:
     try:
         import json
@@ -213,17 +213,14 @@ def _read_json(path: Path, default: Any) -> Any:
     except Exception:
         return default
 
-
 def _safe_float(value: Any, default: float = 0.0) -> float:
     try:
         return float(value)
     except (TypeError, ValueError):
         return default
 
-
 def _normalize_text(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", (value or "").lower()).strip()
-
 
 def _normalized_path_variants(value: str) -> list[str]:
     if not value:
@@ -239,7 +236,6 @@ def _normalized_path_variants(value: str) -> list[str]:
         variants.add("/".join(parts[-3:]).lower())
     variants.add(parts[-1].lower())
     return sorted(variants)
-
 
 def _record_match_keys(record: dict[str, Any]) -> set[str]:
     relative_path = str(record.get("relative_path") or "")
@@ -260,7 +256,6 @@ def _record_match_keys(record: dict[str, Any]) -> set[str]:
         keys.add(title.lower())
     return {key for key in keys if key}
 
-
 def _event_match_keys(row: dict[str, Any]) -> set[str]:
     source_path = str(row.get("source_path") or "")
     active_surface = str(row.get("active_surface") or "")
@@ -276,14 +271,12 @@ def _event_match_keys(row: dict[str, Any]) -> set[str]:
         keys.add(Path(source_path).name.lower())
     return {key for key in keys if key}
 
-
 def _build_match_index(records: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
     index: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
         for key in _record_match_keys(record):
             index[key].append(record)
     return index
-
 
 def _select_best_record(
     row: dict[str, Any],
@@ -329,7 +322,6 @@ def _select_best_record(
     )[0]
     return best_record, best_score
 
-
 def _surface_descriptor_rows() -> list[dict[str, Any]]:
     rows = []
     for surface in FIRST_WAVE_WATCHED_SURFACES:
@@ -353,7 +345,6 @@ def _surface_descriptor_rows() -> list[dict[str, Any]]:
             }
         )
     return rows
-
 
 def _infer_source_descriptor(
     row: dict[str, Any],
@@ -384,7 +375,6 @@ def _infer_source_descriptor(
         if score >= 0 and (best is None or score > best[0]):
             best = (score, watched)
     return best[1] if best else None
-
 
 def _build_watched_registry(
     watched_surface_registry: dict[str, Any],
@@ -433,7 +423,6 @@ def _build_watched_registry(
         "rows": output_rows,
     }
 
-
 def _route_lookup(
     full_corpus_authority_registry: dict[str, Any],
     dual_route_registry: dict[str, Any],
@@ -449,7 +438,6 @@ def _route_lookup(
             if route_id:
                 lookup.setdefault(route_id, route)
     return lookup
-
 
 def _primary_and_secondary_routes(
     record: dict[str, Any],
@@ -475,7 +463,6 @@ def _primary_and_secondary_routes(
         secondary = route_lookup.get(str(secondary.get("route_id") or ""), secondary)
     return primary or {}, secondary or {}
 
-
 def _appendix_stack(route: dict[str, Any]) -> list[str]:
     stack: list[str] = []
     for raw in list(route.get("appendix_support") or []) + list(route.get("appendix_support_sources") or []):
@@ -483,7 +470,6 @@ def _appendix_stack(route: dict[str, Any]) -> list[str]:
         if value and value not in stack:
             stack.append(value)
     return stack
-
 
 def _prior_metro_route_witness(route: dict[str, Any], witness_side: str) -> dict[str, Any]:
     if not route:
@@ -504,7 +490,6 @@ def _prior_metro_route_witness(route: dict[str, Any], witness_side: str) -> dict
         "appendix_support": list(route.get("appendix_support") or []),
         "truth_state": route.get("proof_state") or route.get("truth_state", ""),
     }
-
 
 def _z_star_aether_transfer_signature(
     primary_route: dict[str, Any],
@@ -529,7 +514,6 @@ def _z_star_aether_transfer_signature(
         "omega_relation": _safe_float(liminal_vector.get("omega")),
     }
 
-
 def _event_fingerprint(row: dict[str, Any], source_id: str) -> str:
     existing = str(row.get("event_fingerprint") or "").strip()
     if existing:
@@ -540,7 +524,6 @@ def _event_fingerprint(row: dict[str, Any], source_id: str) -> str:
     digest.update(str(row.get("change_type") or "").encode("utf-8"))
     digest.update(str((row.get("change") or {}).get("state_hash") or row.get("state_hash") or "").encode("utf-8"))
     return f"FP:{digest.hexdigest()}"
-
 
 def _vessel_class(strength: float, raw: str) -> str:
     lowered = str(raw or "").strip().lower()
@@ -554,12 +537,10 @@ def _vessel_class(strength: float, raw: str) -> str:
         return "candidate"
     return "latent"
 
-
 def _face_to_poles(route: dict[str, Any]) -> list[str]:
     value = str(route.get("face6") or "").strip().lower()
     pole = FIELD_TO_POLE.get(value)
     return [pole] if pole else []
-
 
 def _pole_set_for_record(record: dict[str, Any]) -> list[str]:
     routes = record.get("hemisphere_routes") or {}
@@ -571,10 +552,8 @@ def _pole_set_for_record(record: dict[str, Any]) -> list[str]:
     order = ["A", "C", "B", "D"]
     return [pole for pole in order if pole in poles]
 
-
 def _markdown_list(lines: list[str]) -> str:
     return "\n".join(lines).rstrip() + "\n"
-
 
 def build_command_membrane_payloads(
     *,

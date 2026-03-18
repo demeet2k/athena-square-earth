@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A10:S28 | face=F | node=392 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A10:S27→Xi108:W2:A10:S29→Xi108:W1:A10:S28→Xi108:W3:A10:S28→Xi108:W2:A9:S28→Xi108:W2:A11:S28
+
 from __future__ import annotations
 
 import argparse
@@ -10,7 +14,6 @@ from pathlib import Path
 from typing import Any, Callable
 
 from . import swarm_board
-
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 SELF_ACTUALIZE_ROOT = WORKSPACE_ROOT / "self_actualize"
@@ -211,7 +214,6 @@ QUEST_OVERRIDES: dict[str, dict[str, str]] = {
     "TQ06": {"domain": "Guild", "move": "Refine", "lens": "Fractal", "witness_class": "derived", "surface": "Temple", "lane": "Bridge", "scope": "organism", "method": "derive", "artifact": "manifest", "verify": "receipt", "writeback": "queue", "restart": "hall_seed"},
 }
 
-
 @dataclass
 class QuestRecord:
     quest_id: str
@@ -240,7 +242,6 @@ class QuestRecord:
     round_trip_certificate_id: str = ""
     round_trip_class: str = ""
 
-
 @dataclass
 class WavePacket:
     packet_id: str
@@ -260,7 +261,6 @@ class WavePacket:
     round_trip_certificate_id: str = ""
     round_trip_class: str = ""
 
-
 @dataclass
 class InvariantBundle:
     gate: str
@@ -270,7 +270,6 @@ class InvariantBundle:
     terminal_type: str
     receipt_debt: list[str]
 
-
 @dataclass
 class TransformLaw:
     transform_family: str
@@ -278,7 +277,6 @@ class TransformLaw:
     required_invariants: list[str]
     residual_requirements: list[str]
     obligations: list[str]
-
 
 @dataclass
 class RoundTripCertificate:
@@ -299,42 +297,33 @@ class RoundTripCertificate:
     docs_gate_status: str
     lawful: bool
 
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def relpath(path: Path) -> str:
     return path.relative_to(WORKSPACE_ROOT).as_posix()
-
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
 
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
-
 
 def load_json(path: Path, default: Any = None) -> Any:
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding="utf-8"))
 
-
 def clean_line(value: str) -> str:
     return value.strip().strip("`").strip()
 
-
 def normalize_status(raw_status: str) -> str:
     return raw_status.split()[0].upper()
-
 
 def unique_list(items: list[str]) -> list[str]:
     seen: set[str] = set()
@@ -347,7 +336,6 @@ def unique_list(items: list[str]) -> list[str]:
         ordered.append(normalized)
     return ordered
 
-
 def path_like_items(items: list[str]) -> list[str]:
     results = []
     for item in items:
@@ -356,13 +344,11 @@ def path_like_items(items: list[str]) -> list[str]:
             results.append(normalized)
     return results
 
-
 def path_exists(relative_or_absolute: str) -> bool:
     candidate = Path(relative_or_absolute)
     if not candidate.is_absolute():
         candidate = WORKSPACE_ROOT / candidate
     return candidate.exists()
-
 
 def parse_markdown_quests(path: Path, source_board: str) -> list[dict[str, Any]]:
     text = read_text(path)
@@ -435,10 +421,8 @@ def parse_markdown_quests(path: Path, source_board: str) -> list[dict[str, Any]]
     flush()
     return quests
 
-
 def detect_gate_blocked() -> bool:
     return "Status: **BLOCKED**" in read_text(GATE_STATUS_PATH)
-
 
 def load_change_feed_signals() -> list[str]:
     signals = []
@@ -448,14 +432,11 @@ def load_change_feed_signals() -> list[str]:
             signals.append(stripped)
     return signals[-10:]
 
-
 def load_existing_claims() -> list[dict[str, Any]]:
     return swarm_board.load_board_claims()
 
-
 def load_existing_notes() -> list[dict[str, Any]]:
     return swarm_board.load_notes()
-
 
 def match_owner(quest_id: str, quest_title: str, claims: list[dict[str, Any]]) -> str:
     for claim in claims:
@@ -465,7 +446,6 @@ def match_owner(quest_id: str, quest_title: str, claims: list[dict[str, Any]]) -
         if quest_id and quest_id in frontier:
             return claim.get("owner", "")
     return ""
-
 
 def infer_domain(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
@@ -482,7 +462,6 @@ def infer_domain(record: dict[str, Any]) -> str:
         return "Source"
     return "Guild" if record["source_board"] == "hall" else "Stack"
 
-
 def infer_move(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
     if override.get("move"):
@@ -495,7 +474,6 @@ def infer_move(record: dict[str, Any]) -> str:
     if any(token in low for token in ["mirror", "externalize", "promote", "create", "emit", "synthesize", "turn"]):
         return "Synthesize"
     return "Scale" if any(token in low for token in ["scale", "densify", "couple", "expand", "rank"]) else "Refine"
-
 
 def infer_lens(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
@@ -510,7 +488,6 @@ def infer_lens(record: dict[str, Any]) -> str:
         return "Flower"
     return "Square"
 
-
 def infer_witness_class(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
     if override.get("witness_class"):
@@ -521,7 +498,6 @@ def infer_witness_class(record: dict[str, Any]) -> str:
     if "archive" in low or "zip" in low:
         return "archive"
     return "direct" if any(token in low for token in ["origin", "source", "docx", "direct"]) else "derived"
-
 
 def infer_surface(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
@@ -536,7 +512,6 @@ def infer_surface(record: dict[str, Any]) -> str:
         return "Family"
     return "Hall"
 
-
 def infer_lane(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
     if override.get("lane"):
@@ -549,7 +524,6 @@ def infer_lane(record: dict[str, Any]) -> str:
     if any(token in low for token in ["origin", "family", "mirror", "source"]):
         return "Sa"
     return "Me"
-
 
 def infer_scope(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
@@ -564,7 +538,6 @@ def infer_scope(record: dict[str, Any]) -> str:
         return "folder"
     return "file"
 
-
 def infer_method(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
     if override.get("method"):
@@ -577,7 +550,6 @@ def infer_method(record: dict[str, Any]) -> str:
     if any(token in low for token in ["compress", "qshrink"]):
         return "compress"
     return "derive"
-
 
 def infer_artifact(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
@@ -592,7 +564,6 @@ def infer_artifact(record: dict[str, Any]) -> str:
         return "mirror"
     return "ledger"
 
-
 def infer_verify(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
     if override.get("verify"):
@@ -605,7 +576,6 @@ def infer_verify(record: dict[str, Any]) -> str:
     if "theorem" in low or "proof" in low or "contract" in low:
         return "proof"
     return "receipt"
-
 
 def infer_writeback(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
@@ -620,7 +590,6 @@ def infer_writeback(record: dict[str, Any]) -> str:
         return "manifest"
     return "questboard"
 
-
 def infer_restart(record: dict[str, Any]) -> str:
     override = QUEST_OVERRIDES.get(record["quest_id"], {})
     if override.get("restart"):
@@ -634,10 +603,8 @@ def infer_restart(record: dict[str, Any]) -> str:
         return "same_lane"
     return "hall_seed"
 
-
 def encode_index(a: str, b: str, c: str, values_a: list[str], values_b: list[str], values_c: list[str]) -> int:
     return values_a.index(a) * 16 + values_b.index(b) * 4 + values_c.index(c) + 1
-
 
 def build_address_components(record: dict[str, Any]) -> dict[str, Any]:
     domain = infer_domain(record)
@@ -659,10 +626,8 @@ def build_address_components(record: dict[str, Any]) -> dict[str, Any]:
         "return64": {"index": encode_index(verify, writeback, restart, VERIFY_TYPES, WRITEBACK_TYPES, RESTART_TYPES), "verify": verify, "writeback": writeback, "restart": restart},
     }
 
-
 def quest_address_from_components(components: dict[str, Any]) -> str:
     return f"A{components['intent64']['index']:02d}.B{components['witness64']['index']:02d}.C{components['execution64']['index']:02d}.D{components['return64']['index']:02d}"
-
 
 def should_exclude_for_gate(record: QuestRecord, gate_blocked: bool) -> bool:
     if not gate_blocked:
@@ -670,10 +635,8 @@ def should_exclude_for_gate(record: QuestRecord, gate_blocked: bool) -> bool:
     low = " ".join(record.target_surfaces).lower()
     return record.quest_id == "Q02" or "trading bot/docs_search.py" in low
 
-
 def round_trip_required(record: QuestRecord) -> bool:
     return record.quest_id in ROUND_TRIP_GOVERNED_FRONTS
-
 
 def canonicalize_value(value: Any) -> Any:
     if isinstance(value, dict):
@@ -685,7 +648,6 @@ def canonicalize_value(value: Any) -> Any:
         return normalized
     return value
 
-
 def canonicalize_invariant_bundle(bundle: InvariantBundle | dict[str, Any]) -> dict[str, Any]:
     payload = asdict(bundle) if isinstance(bundle, InvariantBundle) else deepcopy(bundle)
     payload["route_min"] = sorted(set(payload.get("route_min", [])))
@@ -696,10 +658,8 @@ def canonicalize_invariant_bundle(bundle: InvariantBundle | dict[str, Any]) -> d
     }
     return canonicalize_value(payload)
 
-
 def canonicalize_representation(payload: dict[str, Any]) -> dict[str, Any]:
     return canonicalize_value(payload)
-
 
 def truth_for_record(record: QuestRecord) -> str:
     if record.status == "PROMOTED":
@@ -710,7 +670,6 @@ def truth_for_record(record: QuestRecord) -> str:
         return "FAIL"
     return "NEAR"
 
-
 def overlay_debt_for_record(record: QuestRecord) -> dict[str, str]:
     truth = truth_for_record(record)
     if truth == "AMBIG":
@@ -720,7 +679,6 @@ def overlay_debt_for_record(record: QuestRecord) -> dict[str, str]:
     if truth == "FAIL":
         return {"K": f"QuarantineReceipt::{relpath(GATE_STATUS_PATH)}::{record.quest_id}"}
     return {}
-
 
 def receipt_debt_for_record(record: QuestRecord) -> list[str]:
     receipts: list[str] = []
@@ -736,7 +694,6 @@ def receipt_debt_for_record(record: QuestRecord) -> list[str]:
         receipts.append(f"ParityPtr::{relpath(RECEIPT_PATH)}")
     return unique_list(receipts)
 
-
 def terminal_type_for_record(record: QuestRecord) -> str:
     if record.status == "PROMOTED":
         return "checkpoint"
@@ -745,7 +702,6 @@ def terminal_type_for_record(record: QuestRecord) -> str:
     if record.status == "SUPERSEDED":
         return "return"
     return "transit"
-
 
 def invariant_bundle_for_record(record: QuestRecord) -> InvariantBundle:
     return InvariantBundle(
@@ -756,7 +712,6 @@ def invariant_bundle_for_record(record: QuestRecord) -> InvariantBundle:
         terminal_type=terminal_type_for_record(record),
         receipt_debt=receipt_debt_for_record(record),
     )
-
 
 def build_transform_law(transform_family: str) -> TransformLaw:
     spec = ROUND_TRIP_TRANSFORM_SPECS[transform_family]
@@ -770,7 +725,6 @@ def build_transform_law(transform_family: str) -> TransformLaw:
         residual_requirements=list(residual_requirements),
         obligations=list(spec["obligations"]),
     )
-
 
 def representation_payload(
     record: QuestRecord,
@@ -790,7 +744,6 @@ def representation_payload(
         payload.update(deepcopy(extra))
     return canonicalize_representation(payload)
 
-
 def retag_representation(
     target_representation: str,
     extra: dict[str, Any] | None = None,
@@ -809,7 +762,6 @@ def retag_representation(
 
     return apply
 
-
 def payload_loss_findings(source_payload: dict[str, Any], recovered_payload: dict[str, Any]) -> list[str]:
     protected_keys = {"invariant_bundle", "quest_id", "quest_address", "source_board", "surface_hint", "representation"}
     losses: list[str] = []
@@ -819,7 +771,6 @@ def payload_loss_findings(source_payload: dict[str, Any], recovered_payload: dic
         if source_payload.get(key) != recovered_payload.get(key):
             losses.append(key)
     return losses
-
 
 def illegal_loss_findings(
     invariant_before: dict[str, Any],
@@ -849,7 +800,6 @@ def illegal_loss_findings(
     if proof_bundle.get("corridor_widening") and "ATTEST" not in set(proof_bundle.get("receipt_obligations", [])):
         findings.append("corridor_widening_without_attestation")
     return findings
-
 
 def round_trip_certify(
     source_repr: dict[str, Any],
@@ -899,7 +849,6 @@ def round_trip_certify(
         lawful=lawful,
     )
 
-
 def build_governed_round_trip_certificate(record: QuestRecord) -> RoundTripCertificate | None:
     spec = ROUND_TRIP_FRONT_CONTEXT.get(record.quest_id)
     if spec is None:
@@ -946,7 +895,6 @@ def build_governed_round_trip_certificate(record: QuestRecord) -> RoundTripCerti
             "inverse_transform": f"{spec['transformed_representation']}->{spec['recovered_representation']}",
         },
     )
-
 
 def build_reference_round_trip_examples() -> list[RoundTripCertificate]:
     example_record = QuestRecord(
@@ -1070,7 +1018,6 @@ def build_reference_round_trip_examples() -> list[RoundTripCertificate]:
     )
     return [residual, illegal]
 
-
 def apply_round_trip_certificate(record: QuestRecord, certificate: RoundTripCertificate) -> None:
     record.round_trip_required = True
     record.round_trip_certificate_id = certificate.certificate_id
@@ -1085,7 +1032,6 @@ def apply_round_trip_certificate(record: QuestRecord, certificate: RoundTripCert
     record.success_gate["completion_receipt"]["round_trip_certificate_id"] = certificate.certificate_id
     record.success_gate["completion_receipt"]["round_trip_class"] = certificate.round_trip_class
     record.success_gate["completion_receipt"]["round_trip_lawful"] = certificate.lawful
-
 
 def build_round_trip_registry(records_by_id: dict[str, QuestRecord]) -> dict[str, Any]:
     governed_certificates: list[RoundTripCertificate] = []
@@ -1113,7 +1059,6 @@ def build_round_trip_registry(records_by_id: dict[str, QuestRecord]) -> dict[str
         "governed_certificates": [asdict(certificate) for certificate in governed_certificates],
         "reference_examples": [asdict(certificate) for certificate in reference_examples],
     }
-
 
 def completion_receipt_for_record(record: QuestRecord) -> dict[str, Any]:
     terminal_statuses = {"PROMOTED", "BLOCKED", "SUPERSEDED"}
@@ -1144,7 +1089,6 @@ def completion_receipt_for_record(record: QuestRecord) -> dict[str, Any]:
         "round_trip_class": record.round_trip_class,
     }
 
-
 def success_gate_for_record(record: QuestRecord) -> dict[str, Any]:
     receipt = completion_receipt_for_record(record)
     ready = bool(
@@ -1162,7 +1106,6 @@ def success_gate_for_record(record: QuestRecord) -> dict[str, Any]:
         "round_trip_certificate_id": record.round_trip_certificate_id,
         "round_trip_class": record.round_trip_class,
     }
-
 
 def normalize_record(raw: dict[str, Any], claims: list[dict[str, Any]]) -> QuestRecord:
     components = build_address_components(raw)
@@ -1194,15 +1137,12 @@ def normalize_record(raw: dict[str, Any], claims: list[dict[str, Any]]) -> Quest
     record.success_gate = success_gate_for_record(record)
     return record
 
-
 def load_previous_tracker() -> dict[str, Any]:
     payload = load_json(CLAIM_TRACKER_PATH, {})
     return payload.get("claims", payload)
 
-
 def load_previous_loop_state() -> dict[str, Any]:
     return load_json(LOOP_STATE_PATH, {})
-
 
 def select_next_frontier(records: list[QuestRecord], gate_blocked: bool) -> str:
     hall_open = [
@@ -1225,7 +1165,6 @@ def select_next_frontier(records: list[QuestRecord], gate_blocked: bool) -> str:
     blocked = [record for record in records if record.status == "BLOCKED"]
     return blocked[0].quest_id if blocked else "NONE"
 
-
 def sort_records(records: list[QuestRecord]) -> list[QuestRecord]:
     board_order = {"hall": 0, "temple": 1, "conductor": 2}
     preferred = {quest_id: index for index, quest_id in enumerate(CURRENT_FIRST_WAVE)}
@@ -1239,13 +1178,11 @@ def sort_records(records: list[QuestRecord]) -> list[QuestRecord]:
         ),
     )
 
-
 def build_records() -> list[QuestRecord]:
     claims = load_existing_claims()
     hall = [normalize_record(item, claims) for item in parse_markdown_quests(QUEST_BOARD_PATH, "hall")]
     temple = [normalize_record(item, claims) for item in parse_markdown_quests(TEMPLE_BOARD_PATH, "temple")]
     return sort_records(hall + temple)
-
 
 def priority_score_for_record(record: QuestRecord, records_by_id: dict[str, QuestRecord]) -> float:
     base = CONDUCTOR_PRIORITY.get(record.quest_id, 50.0)
@@ -1258,14 +1195,12 @@ def priority_score_for_record(record: QuestRecord, records_by_id: dict[str, Ques
         base += 1.25
     return base
 
-
 def resolve_first_present(records_by_id: dict[str, QuestRecord], candidates: tuple[str, ...]) -> QuestRecord | None:
     for quest_id in candidates:
         record = records_by_id.get(quest_id)
         if record is not None:
             return record
     return None
-
 
 def merge_components(
     intent_source: QuestRecord,
@@ -1279,7 +1214,6 @@ def merge_components(
         "execution64": dict(execution_source.address_components["execution64"]),
         "return64": dict(return_source.address_components["return64"]),
     }
-
 
 def build_seeded_record(
     seed_id: str,
@@ -1345,7 +1279,6 @@ def build_seeded_record(
     record.success_gate = success_gate_for_record(record)
     return record
 
-
 def build_seeded_records(records_by_id: dict[str, QuestRecord]) -> list[QuestRecord]:
     used_addresses = {record.quest_address for record in records_by_id.values()}
     seeded: list[QuestRecord] = []
@@ -1356,7 +1289,6 @@ def build_seeded_records(records_by_id: dict[str, QuestRecord]) -> list[QuestRec
             continue
         seeded.append(build_seeded_record(seed_id, hall_record, temple_record, label, used_addresses))
     return seeded
-
 
 def active_front_records(records_by_id: dict[str, QuestRecord], gate_blocked: bool) -> list[QuestRecord]:
     selected: list[QuestRecord] = []
@@ -1371,7 +1303,6 @@ def active_front_records(records_by_id: dict[str, QuestRecord], gate_blocked: bo
         record.priority_score = priority_score_for_record(record, records_by_id)
         selected.append(record)
     return selected
-
 
 def evidence_surfaces_for_record(record: QuestRecord, records_by_id: dict[str, QuestRecord]) -> list[str]:
     surfaces: list[str] = [relpath(GATE_STATUS_PATH), relpath(ACTIVE_RUN_PATH)]
@@ -1399,7 +1330,6 @@ def evidence_surfaces_for_record(record: QuestRecord, records_by_id: dict[str, Q
         surfaces.extend(path_like_items(record.target_surfaces))
     return unique_list(surfaces)[:16]
 
-
 def priority_reason_for_record(record: QuestRecord) -> str:
     if record.quest_id == "Q42":
         return "Highest Hall-side live frontier; QSHRINK Fractal carrythrough remains the first lawful active contraction."
@@ -1408,7 +1338,6 @@ def priority_reason_for_record(record: QuestRecord) -> str:
     if record.quest_id.startswith("TQ"):
         return "Active Temple pressure that can emit Hall-facing writeback into the same conductor cycle."
     return "Seeded adjacent bridge packet widening the live frontier without bulk-filling the lattice."
-
 
 def build_wave_packets(
     live_fronts: list[QuestRecord],
@@ -1443,7 +1372,6 @@ def build_wave_packets(
         )
     return packets
 
-
 def close_non_wave_claims(active_packets: list[WavePacket]) -> list[str]:
     active_front_by_owner = {packet.assigned_owner: packet.source_front for packet in active_packets}
     released: list[str] = []
@@ -1472,7 +1400,6 @@ def close_non_wave_claims(active_packets: list[WavePacket]) -> list[str]:
         released.append(claim.get("claim_id", ""))
     return released
 
-
 def claim_paths_for_packet(packet: WavePacket, records_by_id: dict[str, QuestRecord]) -> list[str]:
     record = records_by_id.get(packet.source_front)
     paths = []
@@ -1481,7 +1408,6 @@ def claim_paths_for_packet(packet: WavePacket, records_by_id: dict[str, QuestRec
     paths.extend(packet.evidence_surfaces)
     paths.extend([relpath(CONDUCTOR_STATE_PATH), relpath(WAVE_PACKETS_PATH), relpath(MANIFEST_PATH)])
     return unique_list(paths)[:16]
-
 
 def ensure_wave_claims(active_packets: list[WavePacket], records_by_id: dict[str, QuestRecord]) -> list[str]:
     receipt_relative = relpath(RECEIPT_PATH)
@@ -1538,7 +1464,6 @@ def ensure_wave_claims(active_packets: list[WavePacket], records_by_id: dict[str
         updated_fronts.append(packet.source_front)
     return updated_fronts
 
-
 def update_claim_tracker(
     claims: list[dict[str, Any]],
     notes: list[dict[str, Any]],
@@ -1584,7 +1509,6 @@ def update_claim_tracker(
         }
     return tracker
 
-
 def maybe_release_stale_claims(claim_tracker: dict[str, Any]) -> list[str]:
     board_claims = {claim["claim_id"]: claim for claim in swarm_board.load_board_claims()}
     released = []
@@ -1607,7 +1531,6 @@ def maybe_release_stale_claims(claim_tracker: dict[str, Any]) -> list[str]:
         )
         released.append(claim_id)
     return released
-
 
 def build_agent_state(next_frontier: str, records: list[QuestRecord], packets: list[WavePacket]) -> dict[str, Any]:
     terminal_statuses = {"PROMOTED", "BLOCKED", "SUPERSEDED"}
@@ -1647,7 +1570,6 @@ def build_agent_state(next_frontier: str, records: list[QuestRecord], packets: l
         "agents": agents,
     }
 
-
 def build_loop_state(
     records: list[QuestRecord],
     next_frontier: str,
@@ -1683,7 +1605,6 @@ def build_loop_state(
         "stale_release_after_inactive_cycles": STALE_SCAN_THRESHOLD,
         "round_trip_governed_front_count": sum(1 for record in records if record.round_trip_required),
     }
-
 
 def build_conductor_state(
     packets: list[WavePacket],
@@ -1731,7 +1652,6 @@ def build_conductor_state(
             "shared_address": records_by_id["Q46"].quest_address if "Q46" in records_by_id else "",
         },
     }
-
 
 def render_manifest(
     loop_state: dict[str, Any],
@@ -1809,7 +1729,6 @@ def render_manifest(
         ]
     )
     return "\n".join(lines)
-
 
 def render_hall_doc(
     loop_state: dict[str, Any],
@@ -1919,7 +1838,6 @@ def render_hall_doc(
     )
     return "\n".join(lines)
 
-
 def render_receipt(
     next_frontier: str,
     packets: list[WavePacket],
@@ -1987,7 +1905,6 @@ def render_receipt(
     )
     return "\n".join(lines)
 
-
 def render_round_trip_receipt(round_trip_registry: dict[str, Any]) -> str:
     lines = [
         "# 2026-03-13 RoundTripCertificate v0",
@@ -2040,14 +1957,12 @@ def render_round_trip_receipt(round_trip_registry: dict[str, Any]) -> str:
     )
     return "\n".join(lines)
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Derive the Adventurer 64^4 hybrid conductor state.")
     parser.add_argument("--agent-id", default=FLOATING_AGENTS[0])
     parser.add_argument("--bootstrap-claim", action="store_true")
     parser.add_argument("--sync-wave-claims", action="store_true")
     return parser.parse_args()
-
 
 def main() -> int:
     args = parse_args()
@@ -2170,7 +2085,6 @@ def main() -> int:
     print(f"Next frontier: {next_frontier}")
     print(f"Synced fronts: {', '.join(synced_fronts) if synced_fronts else 'none'}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

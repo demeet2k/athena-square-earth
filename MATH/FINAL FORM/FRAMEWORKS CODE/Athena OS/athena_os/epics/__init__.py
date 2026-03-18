@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S13 | face=S | node=84 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A7:S12→Xi108:W2:A7:S14→Xi108:W1:A7:S13→Xi108:W3:A7:S13→Xi108:W2:A6:S13→Xi108:W2:A8:S13
+
 """
 ATHENA OS - EPICS: THE CRASH LOGS
 ==================================
@@ -180,7 +184,6 @@ from .mining import (
     validate_mining,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -193,7 +196,6 @@ def validate_epics() -> bool:
     assert validate_protocols()
     assert validate_mining()
     return True
-
 
 # =============================================================================
 # EPIC COMPUTER
@@ -277,7 +279,6 @@ class EpicComputer:
             "epics_mined": len(self._mined_epics)
         }
 
-
 # =============================================================================
 # EXPORTS
 # =============================================================================
@@ -316,10 +317,8 @@ __all__ = [
 __version__ = "1.0.0"
 __module_name__ = "epics"
 
-
 # Type hints
 from typing import Dict, List, Optional
-
 
 if __name__ == "__main__":
     print("=" * 70)

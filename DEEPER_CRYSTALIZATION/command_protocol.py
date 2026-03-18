@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed
+# METRO: Me,Cc
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 from __future__ import annotations
 
 import hashlib
@@ -9,7 +13,6 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 WORKSPACE_ROOT = PROJECT_ROOT.parent
@@ -218,15 +221,12 @@ ANT_REGISTRY = [
     },
 ]
 
-
 def stable_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
 
 def normalized_hash_float(text: str) -> float:
     value = int(stable_hash(text)[:8], 16)
     return round(value / 0xFFFFFFFF, 6)
-
 
 def live_docs_error() -> str:
     if not LIVE_DOCS_GATE_PATH.exists():
@@ -236,12 +236,10 @@ def live_docs_error() -> str:
             return line.strip()
     return "Google Docs gate remains blocked."
 
-
 def watch_backend_name() -> str:
     if os.name == "nt":
         return "windows-native-watch"
     return WATCH_BACKEND_FALLBACK
-
 
 def local_timezone() -> ZoneInfo:
     try:
@@ -249,20 +247,16 @@ def local_timezone() -> ZoneInfo:
     except Exception:
         return ZoneInfo("UTC")
 
-
 def utc_now_dt() -> datetime:
     return datetime.now(UTC)
-
 
 def liminal_timestamp(dt: datetime | None = None) -> str:
     dt = dt or utc_now_dt()
     return f"LT-{dt.strftime('%Y%m%d%H%M%S')}.{int(dt.microsecond / 1000):03d}"
 
-
 def fraction_of_day(dt: datetime) -> float:
     total_seconds = dt.hour * 3600 + dt.minute * 60 + dt.second + dt.microsecond / 1_000_000
     return round(total_seconds / 86400.0, 6)
-
 
 def fraction_of_year(dt: datetime) -> float:
     start = datetime(dt.year, 1, 1, tzinfo=dt.tzinfo)
@@ -271,31 +265,25 @@ def fraction_of_year(dt: datetime) -> float:
     elapsed = (dt - start).total_seconds()
     return round(elapsed / total, 6)
 
-
 def lunar_phase_fraction(dt: datetime) -> float:
     reference = datetime(2000, 1, 6, 18, 14, tzinfo=UTC)
     synodic_days = 29.53058867
     phase_days = ((dt - reference).total_seconds() / 86400.0) % synodic_days
     return round(phase_days / synodic_days, 6)
 
-
 def sidereal_phase_fraction(dt: datetime) -> float:
     sidereal_day_seconds = 86164.0905
     unix_seconds = dt.timestamp()
     return round((unix_seconds % sidereal_day_seconds) / sidereal_day_seconds, 6)
 
-
 def sky_anchor_slot(dt: datetime) -> float:
     return round(((dt.hour * 60 + dt.minute) / (24 * 60)), 6)
-
 
 def local_node_anchor() -> float:
     return normalized_hash_float(str(COMMAND_ROOT.resolve()))
 
-
 def runtime_node_anchor() -> float:
     return normalized_hash_float(socket.gethostname())
-
 
 def canonical_relative_path(path: Path | str) -> str:
     raw = Path(path)
@@ -307,7 +295,6 @@ def canonical_relative_path(path: Path | str) -> str:
         except Exception:
             return str(raw).replace("\\", "/")
 
-
 def source_state_hash(path: Path | str, change_type: str, extra: str = "") -> str:
     candidate = Path(path)
     if candidate.exists():
@@ -316,7 +303,6 @@ def source_state_hash(path: Path | str, change_type: str, extra: str = "") -> st
     else:
         basis = f"{canonical_relative_path(candidate)}|{change_type}|missing|{extra}"
     return f"H:{stable_hash(basis)[:16].upper()}"
-
 
 def command_membrane_snapshot(root: Path = COMMAND_ROOT) -> dict[str, dict[str, Any]]:
     snapshot: dict[str, dict[str, Any]] = {}
@@ -335,7 +321,6 @@ def command_membrane_snapshot(root: Path = COMMAND_ROOT) -> dict[str, dict[str, 
         }
     return snapshot
 
-
 def diff_snapshots(
     old_snapshot: dict[str, dict[str, Any]],
     new_snapshot: dict[str, dict[str, Any]],
@@ -353,7 +338,6 @@ def diff_snapshots(
             events.append({"source_path": new["source_path"], "change_type": "modified"})
     return events
 
-
 def infer_goal(change_type: str, source_path: str) -> str:
     lower = source_path.lower()
     if "math" in lower or "equation" in lower or "compiler" in lower:
@@ -363,7 +347,6 @@ def infer_goal(change_type: str, source_path: str) -> str:
     if change_type == "deleted":
         return "detect-classify-repair"
     return "detect-classify-assign"
-
 
 def infer_tag(change_type: str, source_path: str) -> str:
     lower = source_path.lower()
@@ -375,13 +358,11 @@ def infer_tag(change_type: str, source_path: str) -> str:
         return f"runtime.{change_type}"
     return f"command.mem.{change_type}"
 
-
 def novelty_score(source_path: str, prior_snapshot: dict[str, dict[str, Any]] | None = None) -> float:
     relative = canonical_relative_path(source_path)
     if not prior_snapshot or relative not in prior_snapshot:
         return 1.0
     return 0.55
-
 
 def infer_priority(source_path: str, change_type: str) -> float:
     lower = source_path.lower()
@@ -394,7 +375,6 @@ def infer_priority(source_path: str, change_type: str) -> float:
         priority += 0.05
     return min(1.0, round(priority, 3))
 
-
 def infer_confidence(source_path: str, change_type: str) -> float:
     confidence = DEFAULT_CONFIDENCE
     if change_type == "deleted":
@@ -402,7 +382,6 @@ def infer_confidence(source_path: str, change_type: str) -> float:
     if source_path.lower().endswith(".docx"):
         confidence -= 0.03
     return round(max(0.55, confidence), 3)
-
 
 def coord12_named(
     earth_dt: datetime,
@@ -426,10 +405,8 @@ def coord12_named(
         "novelty_routing_concentration": round(novelty, 6),
     }
 
-
 def coord12_tuple(named: dict[str, float]) -> list[float]:
     return [named[name] for name in COORDINATE_DIMENSIONS]
-
 
 def coordinate_stamp(packet: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -448,15 +425,12 @@ def coordinate_stamp(packet: dict[str, Any]) -> dict[str, Any]:
         "coord12": packet["coord12"],
     }
 
-
 def packet_sequence(existing_packets: list[dict[str, Any]]) -> int:
     return len(existing_packets) + 1
-
 
 def make_event_id(sequence: int, earth_dt: datetime | None = None) -> str:
     earth_dt = earth_dt or utc_now_dt()
     return f"EVT-{earth_dt.strftime('%Y%m%d')}-{sequence:04d}"
-
 
 def build_event_packet(
     source_path: str,
@@ -516,7 +490,6 @@ def build_event_packet(
     packet["coordinate_stamp"] = coordinate_stamp(packet)
     return packet
 
-
 def ant_relevance(packet: dict[str, Any], ant: dict[str, Any]) -> float:
     source = packet["source_path"].lower()
     goal = packet["goal"].lower()
@@ -544,7 +517,6 @@ def ant_relevance(packet: dict[str, Any], ant: dict[str, Any]) -> float:
         score += 0.15
     return round(min(1.0, score), 6)
 
-
 def stage_targets(packet: dict[str, Any], topk: int = DEFAULT_TOPK) -> list[dict[str, Any]]:
     router_targets = sorted(
         [dict(ant, relevance=ant_relevance(packet, ant)) for ant in ANT_REGISTRY if ant["ant_class"] == "Router"],
@@ -569,11 +541,9 @@ def stage_targets(packet: dict[str, Any], topk: int = DEFAULT_TOPK) -> list[dict
         staged.append(archivist_targets[0])
     return staged[:topk]
 
-
 def route_signature(packet: dict[str, Any], targets: list[dict[str, Any]]) -> str:
     chain = [packet["detected_by"], *(target["ant_id"] for target in targets)]
     return ">".join(chain)
-
 
 def motion_candidate_world(packet: dict[str, Any], targets: list[dict[str, Any]]) -> dict[str, Any]:
     blocked_classes = []
@@ -643,7 +613,6 @@ def motion_candidate_world(packet: dict[str, Any], targets: list[dict[str, Any]]
         ],
     }
 
-
 def capillary_registry_template() -> dict[str, Any]:
     return {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -652,7 +621,6 @@ def capillary_registry_template() -> dict[str, Any]:
         "edges": {},
     }
 
-
 def route_ledger_template() -> dict[str, Any]:
     return {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -660,14 +628,12 @@ def route_ledger_template() -> dict[str, Any]:
         "entries": [],
     }
 
-
 def claim_registry_template() -> dict[str, Any]:
     return {
         "generated_at": datetime.now(UTC).isoformat(),
         "truth_status": TRUTH_STATUS,
         "claims": [],
     }
-
 
 def watcher_health_template() -> dict[str, Any]:
     return {
@@ -680,7 +646,6 @@ def watcher_health_template() -> dict[str, Any]:
         "last_event_ts": None,
         "last_error": None,
     }
-
 
 def membrane_status_template(snapshot: dict[str, dict[str, Any]]) -> dict[str, Any]:
     return {
@@ -698,14 +663,12 @@ def membrane_status_template(snapshot: dict[str, dict[str, Any]]) -> dict[str, A
         "snapshot": snapshot,
     }
 
-
 def classify_edge_maturity(weight: float) -> str:
     if weight >= CAPILLARY_PARAMS["vein_threshold"]:
         return "vein"
     if weight >= CAPILLARY_PARAMS["weak_threshold"]:
         return "capillary"
     return "weak-edge"
-
 
 def update_capillary_weight(
     current_weight: float,
@@ -722,7 +685,6 @@ def update_capillary_weight(
         - CAPILLARY_PARAMS["delta_noise"] * noise_penalty
     )
     return round(max(0.0, min(3.0, updated)), 6)
-
 
 def command_packet_schema() -> dict[str, Any]:
     return {
@@ -756,7 +718,6 @@ def command_packet_schema() -> dict[str, Any]:
             "truth_status": {"type": "string"},
         },
     }
-
 
 def fixture_event_seeds() -> list[dict[str, Any]]:
     global_readme = COMMAND_ROOT / "ATHENA" / "READ ME.txt"
@@ -804,7 +765,6 @@ def fixture_event_seeds() -> list[dict[str, Any]]:
             "confidence": 0.91,
         },
     ]
-
 
 __all__ = [
     "ACTIVE_README_PATH",

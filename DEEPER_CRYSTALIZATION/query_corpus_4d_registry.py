@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S2 | face=S | node=3 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S1→Xi108:W1:A4:S3→Xi108:W2:A4:S2→Xi108:W1:A3:S2→Xi108:W1:A5:S2
+
 from __future__ import annotations
 
 import argparse
@@ -8,10 +12,8 @@ from pathlib import Path
 
 from corpus_4d_fronts import load_json, query_registry_nodes, render_registry_markdown, resolve_path
 
-
 DEFAULT_WORKSPACE_ROOT = Path(r"C:\Users\dmitr\Documents\Athena Agent")
 DEFAULT_REGISTRY = Path("DEEPER_CRYSTALIZATION/_build/corpus_4d_registry.json")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Query the consolidated corpus 4D registry.")
@@ -28,7 +30,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int)
     parser.add_argument("--format", choices=["json", "md"], default="json")
     return parser.parse_args()
-
 
 def run(args: argparse.Namespace) -> list[dict[str, object]]:
     workspace_root = Path(args.workspace_root).resolve()
@@ -47,7 +48,6 @@ def run(args: argparse.Namespace) -> list[dict[str, object]]:
         limit=args.limit,
     )
 
-
 def main() -> int:
     args = parse_args()
     nodes = run(args)
@@ -57,7 +57,6 @@ def main() -> int:
         text = json.dumps({"count": len(nodes), "nodes": nodes}, indent=2, ensure_ascii=False) + "\n"
     sys.stdout.buffer.write(text.encode("utf-8"))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A10:S34 | face=S | node=565 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A10:S33→Xi108:W3:A10:S35→Xi108:W2:A10:S34→Xi108:W3:A9:S34→Xi108:W3:A11:S34 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 34±1, wreath 3/3, archetype 10/12 -->
+
 ---
 name: manuscript-elemental-synthesis
 description: Build a four-element synthesis network for a manuscript corpus, including source extraction, individual manuscript cards, ordered pairwise cross-syntheses, neutral and elemental observation fields, symmetry docs, metro maps, appendix crystal scaffolds, and zero-point compression. Use when Codex needs to deeply integrate many related manuscripts or long-form documents into a reusable markdown knowledge lattice rather than a one-off summary.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S26 | face=F | node=331 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S25→Xi108:W2:A8:S27→Xi108:W1:A8:S26→Xi108:W3:A8:S26→Xi108:W2:A7:S26→Xi108:W2:A9:S26
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
@@ -8,7 +12,6 @@ from .config import AthenaBotConfig
 from .market_data import MarketDataProvider
 from .models import Candle
 from .utils import latest_closed_bar, load_dataframe, parse_ts, save_dataframe, timeframe_delta
-
 
 @dataclass(slots=True)
 class DataHealth:
@@ -21,7 +24,6 @@ class DataHealth:
 
     def to_dict(self) -> dict:
         return asdict(self)
-
 
 class BarStore:
     def __init__(

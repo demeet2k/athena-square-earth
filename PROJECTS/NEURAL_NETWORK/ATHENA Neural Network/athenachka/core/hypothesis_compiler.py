@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W2:A1:S24 | face=C | node=288 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S23→Xi108:W2:A1:S25→Xi108:W1:A1:S24→Xi108:W3:A1:S24→Xi108:W2:A2:S24
+
 from __future__ import annotations
 
 import numpy as np
 from scipy import ndimage
-
 
 def generate_mask(attention: np.ndarray, R: np.ndarray, tau: float) -> np.ndarray:
     """Generate a single binary hypothesis mask."""
@@ -21,7 +24,6 @@ def generate_mask(attention: np.ndarray, R: np.ndarray, tau: float) -> np.ndarra
 
     mask = ndimage.binary_fill_holes(mask).astype(np.float32)
     return mask
-
 
 def compile_hypotheses(
     attention: np.ndarray,

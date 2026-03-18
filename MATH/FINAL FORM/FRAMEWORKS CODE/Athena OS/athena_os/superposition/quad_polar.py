@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=140 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ATHENA OS - Quad-Polar Engine
 =============================
@@ -41,7 +45,6 @@ from typing import Dict, List, Optional, Tuple, Any, Callable, Union
 import math
 import cmath
 
-
 # =============================================================================
 # FUNDAMENTAL CONSTANTS
 # =============================================================================
@@ -57,7 +60,6 @@ LOG_PI = math.log(PI)
 LOG_E = 1.0  # ln(e) = 1
 LOG_PHI = math.log(PHI)
 
-
 # =============================================================================
 # ELEMENT TYPES
 # =============================================================================
@@ -69,14 +71,12 @@ class Element(Enum):
     FIRE = "fire"     # Stochastic/Entropic (Σ)
     AIR = "air"       # Recursive/Spectral (Ψ)
 
-
 class Shape(Enum):
     """The four topological shapes of the operator simplex."""
     SQUARE = "square"    # Lattice geometry (discrete)
     FLOWER = "flower"    # Manifold geometry (continuous)
     CLOUD = "cloud"      # Probabilistic geometry (stochastic)
     FRACTAL = "fractal"  # Self-similar geometry (recursive)
-
 
 class Constant(Enum):
     """The four fundamental constants."""
@@ -85,14 +85,12 @@ class Constant(Enum):
     I = "i"     # Phase normalizer
     PHI = "φ"   # Scale normalizer
 
-
 class Pole(Enum):
     """The four poles of the Vector Equilibrium."""
     PRIMAL = "primal"     # Thesis (A)
     ANTI = "anti"         # Antithesis (Ā)
     INNER = "inner"       # Code (in)
     OUTER = "outer"       # Shell (out)
-
 
 # =============================================================================
 # OPERATOR DEFINITIONS
@@ -149,7 +147,6 @@ class ElementalOperator:
             pole=list(Pole)[p]
         )
 
-
 # =============================================================================
 # EARTH OPERATOR (D) - DISCRETE
 # =============================================================================
@@ -180,7 +177,6 @@ class EarthOperator:
         """Hamming distance on discrete lattice."""
         return bin(a ^ b).count('1')
 
-
 # =============================================================================
 # WATER OPERATOR (Ω) - CONTINUOUS
 # =============================================================================
@@ -210,7 +206,6 @@ class WaterOperator:
     def curvature(self, d2f: float, df: float) -> float:
         """Compute curvature κ = |f''| / (1 + f'^2)^(3/2)."""
         return abs(d2f) / ((1 + df**2) ** 1.5)
-
 
 # =============================================================================
 # FIRE OPERATOR (Σ) - STOCHASTIC
@@ -246,7 +241,6 @@ class FireOperator:
         if total == 0:
             return [1.0 / len(weights)] * len(weights)
         return [w / total for w in weights]
-
 
 # =============================================================================
 # AIR OPERATOR (Ψ) - RECURSIVE
@@ -292,7 +286,6 @@ class AirOperator:
             x = k * dx
             total += f(x) * cmath.exp(-2j * PI * n * x / period) * dx
         return total / period
-
 
 # =============================================================================
 # QUAD-POLAR ENGINE
@@ -344,7 +337,6 @@ class QuadPolarEngine:
         b2 = self.blend(w2)
         return math.sqrt(sum((b1[e.value] - b2[e.value])**2 for e in Element))
 
-
 # =============================================================================
 # CONSTANT CRYSTALS
 # =============================================================================
@@ -383,7 +375,6 @@ class PiCrystal:
             return float('inf')
         return PI / math.sin(PI * s)
 
-
 @dataclass
 class ECrystal:
     """
@@ -417,7 +408,6 @@ class ECrystal:
     def decay(initial: float, rate: float, time: float) -> float:
         """Exponential decay N*e^(-rt)"""
         return initial * math.exp(-rate * time)
-
 
 @dataclass
 class ICrystal:
@@ -456,7 +446,6 @@ class ICrystal:
         """Extract magnitude |z|"""
         return abs(z)
 
-
 @dataclass
 class PhiCrystal:
     """
@@ -493,7 +482,6 @@ class PhiCrystal:
     def scale_down(x: float, levels: int = 1) -> float:
         """Scale down by φ^(-levels)"""
         return x * (PHI ** (-levels))
-
 
 # =============================================================================
 # VALIDATION
@@ -561,7 +549,6 @@ def validate_quad_polar() -> bool:
     assert engine.get_operator(Element.AIR).symbol == "Ψ"
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Quad-Polar Engine...")

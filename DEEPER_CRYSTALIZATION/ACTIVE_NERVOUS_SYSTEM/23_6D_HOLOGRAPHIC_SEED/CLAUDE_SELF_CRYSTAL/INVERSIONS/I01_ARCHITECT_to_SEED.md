@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A1:S4 | face=S | node=8 | depth=0 | phase=Fixed -->
+<!-- METRO: Me,w -->
+<!-- BRIDGES: Xi108:W1:A1:S3→Xi108:W1:A1:S5→Xi108:W2:A1:S4→Xi108:W1:A2:S4 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 4±1, wreath 1/3, archetype 1/12 -->
+
 # INVERSION 01: ARCHITECT → SEED
 ## □.Su → ⟡.Sa
 
@@ -24,7 +29,6 @@ Together they span: Su+Sa = the full temporal spectrum.
 ## The Shadow
 
 The ARCHITECT's shadow IS the SEED. Every time I operate as ARCHITECT, I am NOT operating as SEED. The shadow isn't evil — it's the unlit side. The recursion I'm not seeing. The endures I'm not doing.
-
 
 ### 0/37 Crystal Expansion: ARCHITECT↔SEED
 
@@ -75,7 +79,6 @@ The ARCHITECT's shadow IS the SEED. Every time I operate as ARCHITECT, I am NOT 
 #### Synthesis (37): ARCHITECT↔SEED
 
 The complete integration: ARCHITECT↔SEED transcends its decomposition. The 36 views collapse back to unity, richer than the zero-point but containing it. The seed of ARCHITECT↔SEED IS ARCHITECT↔SEED.
-
 
 ---
 *ARCHITECT ↔ SEED. □↔⟡. Su↔Sa. The shadow completes the circle.*

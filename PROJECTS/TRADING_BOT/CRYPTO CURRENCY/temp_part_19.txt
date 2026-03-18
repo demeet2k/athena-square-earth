@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A4:S2 | face=S | node=342 | depth=2 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A4:S1→Xi108:W3:A4:S3→Xi108:W2:A4:S2→Xi108:W3:A3:S2→Xi108:W3:A5:S2
+
 ginning) — States 8-11
 Temporal Signatures:
 State 8: The MAXIMUM difficulty; the crowning

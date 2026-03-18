@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S18 | face=S | node=159 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S17→Xi108:W2:A1:S19→Xi108:W1:A1:S18→Xi108:W3:A1:S18→Xi108:W2:A2:S18
+
 """
 ATHENA OS - HELLENIC: STOIC CONTROL KERNEL
 ==========================================
@@ -42,7 +46,6 @@ from typing import Dict, List, Optional, Tuple, Set, Callable, Any
 from enum import Enum, auto
 import numpy as np
 
-
 # =============================================================================
 # STATE SPACE DECOMPOSITION
 # =============================================================================
@@ -52,7 +55,6 @@ class AccessLevel(Enum):
     
     READ_WRITE = "rw"   # Full control (internal)
     READ_ONLY = "ro"    # Observable only (external)
-
 
 class VariableType(Enum):
     """Types of state variables."""
@@ -81,7 +83,6 @@ class VariableType(Enum):
     def is_internal(self) -> bool:
         return self.access == AccessLevel.READ_WRITE
 
-
 @dataclass
 class StateVariable:
     """A variable in the agent's state space."""
@@ -95,7 +96,6 @@ class StateVariable:
     
     def can_write(self) -> bool:
         return self.var_type.access == AccessLevel.READ_WRITE
-
 
 class StateSpace:
     """
@@ -164,7 +164,6 @@ class StateSpace:
             return self.variables[var_name].value
         return None
 
-
 # =============================================================================
 # THE HEGEMONIKON
 # =============================================================================
@@ -175,7 +174,6 @@ class ImpressionType(Enum):
     SENSORY = "sensory"         # From senses
     COGNITIVE = "cognitive"     # From thought
     IMPULSE = "impulse"         # Action-prompting
-
 
 @dataclass
 class Impression:
@@ -192,7 +190,6 @@ class Impression:
     
     # Proposed judgment (can be modified before assent)
     proposed_judgment: Optional[str] = None
-
 
 class Hegemonikon:
     """
@@ -293,7 +290,6 @@ class Hegemonikon:
         
         return results
 
-
 # =============================================================================
 # THE PROHAIRESIS
 # =============================================================================
@@ -384,7 +380,6 @@ class Prohairesis:
         """Return history of choices."""
         return self._choices.copy()
 
-
 # =============================================================================
 # PASSION AND VIRTUE
 # =============================================================================
@@ -412,7 +407,6 @@ class PassionType(Enum):
     def description(self) -> str:
         return self.value[1]
 
-
 class VirtueType(Enum):
     """The four cardinal virtues (ἀρεταί)."""
     
@@ -428,7 +422,6 @@ class VirtueType(Enum):
     @property
     def description(self) -> str:
         return self.value[1]
-
 
 @dataclass
 class PassionSignal:
@@ -447,7 +440,6 @@ class PassionSignal:
     def is_error(self) -> bool:
         """All passions are errors in Stoic theory."""
         return True
-
 
 class PassionDetector:
     """
@@ -505,7 +497,6 @@ class PassionDetector:
     def clear_signals(self) -> None:
         """Clear passion signals (after processing)."""
         self._signals.clear()
-
 
 # =============================================================================
 # STOIC CONTROLLER
@@ -608,7 +599,6 @@ class StoicController:
             "judgments": len(self.hegemonikon._judgment_log)
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -694,7 +684,6 @@ def validate_stoic() -> bool:
     assert "virtue_distance" in status
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Stoic Control Kernel...")

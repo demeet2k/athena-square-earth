@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=93 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - HBAS-Ω: CANDIDATES MODULE
 ======================================
@@ -43,7 +47,6 @@ from .encoders import (
     BardoEncoder, DuatEncoder
 )
 
-
 # =============================================================================
 # CANDIDATE CLASSIFICATION
 # =============================================================================
@@ -54,7 +57,6 @@ class CandidateTier(Enum):
     CORE = "core"       # Already fully implemented
     TIER_1 = "tier_1"   # Strong signal, likely full systems
     TIER_2 = "tier_2"   # Partial signal, require investigation
-
 
 class EncodingFocus(Enum):
     """Primary encoding focus of a system."""
@@ -67,7 +69,6 @@ class EncodingFocus(Enum):
     COORDINATE_SPATIAL = "spatial"
     VIBRATIONAL = "vibration"
     LABYRINTHINE = "labyrinth"
-
 
 # =============================================================================
 # CANDIDATE SYSTEM
@@ -113,7 +114,6 @@ class CandidateSystem:
         """Get encoder by type."""
         return self._encoders.get(encoder_type)
 
-
 # =============================================================================
 # TIER 1 CANDIDATES
 # =============================================================================
@@ -143,7 +143,6 @@ def create_ifa_candidate() -> CandidateSystem:
     system.add_encoder("binary", IfaEncoder())
     return system
 
-
 def create_norse_candidate() -> CandidateSystem:
     """Create Norse/Germanic candidate system."""
     system = CandidateSystem(
@@ -169,7 +168,6 @@ def create_norse_candidate() -> CandidateSystem:
     system.add_encoder("graph", YggdrasilEncoder())
     return system
 
-
 def create_zoroastrian_candidate() -> CandidateSystem:
     """Create Zoroastrian candidate system."""
     return CandidateSystem(
@@ -193,7 +191,6 @@ def create_zoroastrian_candidate() -> CandidateSystem:
         },
         confidence=0.85
     )
-
 
 def create_tibetan_candidate() -> CandidateSystem:
     """Create Tibetan Vajrayana candidate system."""
@@ -220,7 +217,6 @@ def create_tibetan_candidate() -> CandidateSystem:
     system.add_encoder("transition", BardoEncoder())
     return system
 
-
 def create_pythagorean_candidate() -> CandidateSystem:
     """Create Pythagorean/Orphic candidate system."""
     system = CandidateSystem(
@@ -243,7 +239,6 @@ def create_pythagorean_candidate() -> CandidateSystem:
     )
     system.add_encoder("spectral", PythagoreanEncoder())
     return system
-
 
 def create_kabbalistic_candidate() -> CandidateSystem:
     """Create Hebrew/Kabbalistic candidate system."""
@@ -270,7 +265,6 @@ def create_kabbalistic_candidate() -> CandidateSystem:
     system.add_encoder("graph", SefirotEncoder())
     return system
 
-
 def create_dogon_candidate() -> CandidateSystem:
     """Create Dogon candidate system."""
     return CandidateSystem(
@@ -293,7 +287,6 @@ def create_dogon_candidate() -> CandidateSystem:
         confidence=0.70  # Lower due to interpretation disputes
     )
 
-
 def create_polynesian_candidate() -> CandidateSystem:
     """Create Polynesian/Hawaiian candidate system."""
     return CandidateSystem(
@@ -315,7 +308,6 @@ def create_polynesian_candidate() -> CandidateSystem:
         },
         confidence=0.80
     )
-
 
 # =============================================================================
 # TIER 2 CANDIDATES
@@ -343,7 +335,6 @@ def create_incan_candidate() -> CandidateSystem:
         confidence=0.65
     )
 
-
 def create_celtic_candidate() -> CandidateSystem:
     """Create Celtic/Druidic candidate system."""
     return CandidateSystem(
@@ -365,7 +356,6 @@ def create_celtic_candidate() -> CandidateSystem:
         },
         confidence=0.55
     )
-
 
 def create_japanese_candidate() -> CandidateSystem:
     """Create Japanese Esoteric (Shingon) candidate system."""
@@ -389,7 +379,6 @@ def create_japanese_candidate() -> CandidateSystem:
         confidence=0.60
     )
 
-
 def create_minoan_candidate() -> CandidateSystem:
     """Create Minoan/Mycenaean candidate system."""
     return CandidateSystem(
@@ -410,7 +399,6 @@ def create_minoan_candidate() -> CandidateSystem:
         },
         confidence=0.40  # Lower due to undeciphered script
     )
-
 
 # =============================================================================
 # CORE SYSTEMS (Already Implemented)
@@ -438,7 +426,6 @@ def create_taoist_candidate() -> CandidateSystem:
     system.add_encoder("binary", IChingEncoder())
     return system
 
-
 def create_egyptian_candidate() -> CandidateSystem:
     """Create Egyptian/KHEMET candidate system."""
     system = CandidateSystem(
@@ -464,7 +451,6 @@ def create_egyptian_candidate() -> CandidateSystem:
     system.add_encoder("transition", DuatEncoder())
     return system
 
-
 def create_vedic_candidate() -> CandidateSystem:
     """Create Vedic/Sanātana candidate system."""
     return CandidateSystem(
@@ -486,7 +472,6 @@ def create_vedic_candidate() -> CandidateSystem:
         },
         confidence=1.0
     )
-
 
 def create_sumerian_candidate() -> CandidateSystem:
     """Create Sumerian candidate system."""
@@ -510,7 +495,6 @@ def create_sumerian_candidate() -> CandidateSystem:
     )
     system.add_encoder("metrological", SumerianEncoder())
     return system
-
 
 def create_maya_candidate() -> CandidateSystem:
     """Create Maya candidate system."""
@@ -536,7 +520,6 @@ def create_maya_candidate() -> CandidateSystem:
     )
     system.add_encoder("metrological", MayaEncoder())
     return system
-
 
 # =============================================================================
 # CANDIDATE REGISTRY
@@ -629,7 +612,6 @@ class CandidateRegistry:
             }
         }
 
-
 # =============================================================================
 # COMPLEMENTARY RADIX THESIS
 # =============================================================================
@@ -704,7 +686,6 @@ class ComplementaryRadixAnalysis:
         
         return modules
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -755,7 +736,6 @@ def validate_candidates() -> bool:
     assert len(modules["binary_hypercube"]) > 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating HBAS Candidates Module...")

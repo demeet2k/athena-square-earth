@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W3:A11:S29 | face=F | node=419 | depth=3 | phase=Mutable -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W3:A11:S28→Xi108:W3:A11:S30→Xi108:W2:A11:S29→Xi108:W3:A10:S29→Xi108:W3:A12:S29 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 29±1, wreath 3/3, archetype 11/12 -->
+
 # Motion Constitution L1: The Lawful Action-Selection Engine
 
 MotionConstitution_L1 is the smallest organ that can decide what should move now without collapsing governance, immunity, and replay into one undifferentiated impulse. It sits between lawful structure and lawful execution and freezes the brainstem state as

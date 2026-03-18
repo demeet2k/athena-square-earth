@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S14 | face=S | node=101 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S13→Xi108:W2:A1:S15→Xi108:W1:A1:S14→Xi108:W3:A1:S14→Xi108:W2:A2:S14
+
 """
 ATHENA OS - IFÁ KERNEL: DIVINATION MODULE
 =========================================
@@ -40,7 +44,6 @@ import numpy as np
 
 from .hypercube import Q8Hypercube, Odu, OduSuperposition, PrincipalOdu
 
-
 # =============================================================================
 # CASTING METHODS
 # =============================================================================
@@ -52,13 +55,11 @@ class CastingMethod(Enum):
     OPELE = "opele"       # Chain casting (8-bit)
     IKIN = "ikin"         # Palm nut ceremony (full)
 
-
 class CastingResult(Enum):
     """Result of a single cast."""
     
     OPEN = 1      # | (one mark) - Yang/Active
     CLOSED = 0    # : (two marks) - Yin/Potential
-
 
 # =============================================================================
 # EBÓ TYPES
@@ -72,7 +73,6 @@ class EboType(Enum):
     IDAJO = "idajo"       # Phase correction
     SARA = "sara"         # Distribution/sharing
 
-
 class EboStatus(Enum):
     """Status of ebó prescription."""
     
@@ -80,7 +80,6 @@ class EboStatus(Enum):
     COMPLETED = "completed"     # Performed
     PENDING = "pending"         # Not yet done
     REJECTED = "rejected"       # Refused (dangerous)
-
 
 # =============================================================================
 # DIVINATION SESSION
@@ -97,7 +96,6 @@ class DivinationQuery:
     
     # Optional context
     context: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class CastResult:
@@ -119,7 +117,6 @@ class CastResult:
     @property
     def binary(self) -> str:
         return format(self.odu_index, '08b')
-
 
 @dataclass
 class DivinationReading:
@@ -157,7 +154,6 @@ class DivinationReading:
             lines.append(f"Ebó Required: Yes ({self.ebo_details.get('type', 'general')})")
         
         return "\n".join(lines)
-
 
 # =============================================================================
 # CASTING ENGINE
@@ -274,7 +270,6 @@ class CastingEngine:
         prob = odu.hamming_weight / 12  # Max ~0.67 for weight 8
         return self.rng.random() < prob
 
-
 # =============================================================================
 # EBÓ SYSTEM
 # =============================================================================
@@ -299,7 +294,6 @@ class EboPrescription:
     attenuation_factor: float = 0.0
     
     status: EboStatus = EboStatus.PRESCRIBED
-
 
 class EboEngine:
     """
@@ -401,7 +395,6 @@ class EboEngine:
             "attenuate": attenuate_indices.tolist(),
             "total_correction": float(np.sum(np.abs(diff)))
         }
-
 
 # =============================================================================
 # DIVINATION SYSTEM
@@ -526,7 +519,6 @@ class DivinationSystem:
             "ebo_performed": len(self.ebo.performed_ebos)
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -580,7 +572,6 @@ def validate_divination() -> bool:
     assert stats["total_readings"] == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Divination Module...")

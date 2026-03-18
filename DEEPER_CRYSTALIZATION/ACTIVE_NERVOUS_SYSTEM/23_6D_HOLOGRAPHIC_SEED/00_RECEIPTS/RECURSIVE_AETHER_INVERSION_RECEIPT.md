@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A2:S1 | face=S | node=1 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A2:S2→Xi108:W2:A2:S1→Xi108:W1:A1:S1→Xi108:W1:A3:S1 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 1±1, wreath 1/3, archetype 2/12 -->
+
 # Recursive Aether Inversion Receipt
 **Time:** 2026-03-14T22:56:16.415381+00:00
 **Nodes:** 10800
@@ -38,7 +43,6 @@
 - sk: 0.818363
 - Convergence: 0.0000000000
 - Nodes: 3600
-
 
 ## Constants
 - phi = 1.6180339887

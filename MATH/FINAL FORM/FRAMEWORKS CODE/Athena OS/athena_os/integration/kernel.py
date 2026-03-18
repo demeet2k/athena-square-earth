@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S13 | face=S | node=88 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S12→Xi108:W2:A1:S14→Xi108:W1:A1:S13→Xi108:W3:A1:S13→Xi108:W2:A2:S13
+
 """
 ATHENA OS — GRAND UNIFIED KERNEL
 ================================
@@ -65,7 +69,6 @@ from ..meta.correspondences import (
     translate_element, translate_number, get_transformation_stage
 )
 
-
 # =============================================================================
 # KERNEL PHASES
 # =============================================================================
@@ -78,7 +81,6 @@ class KernelPhase(Enum):
     INTEGRATION = 3    # Runtime, coercion
     HOLOGRAPHIC = 4    # Full addressing
     RUNNING = 5        # Operational
-
 
 # =============================================================================
 # THE GRAND UNIFIED KERNEL
@@ -483,7 +485,6 @@ class GrandUnifiedKernel:
             "invariants": {k: v.value for k, v in invariants.items()},
         }
 
-
 # =============================================================================
 # GLOBAL KERNEL INSTANCE
 # =============================================================================
@@ -491,14 +492,12 @@ class GrandUnifiedKernel:
 # The single global kernel instance
 _kernel: Optional[GrandUnifiedKernel] = None
 
-
 def get_kernel() -> GrandUnifiedKernel:
     """Get the global kernel instance."""
     global _kernel
     if _kernel is None:
         _kernel = GrandUnifiedKernel()
     return _kernel
-
 
 def boot_kernel(verbose: bool = True) -> ZResult[GrandUnifiedKernel]:
     """Boot the global kernel."""
@@ -508,23 +507,19 @@ def boot_kernel(verbose: bool = True) -> ZResult[GrandUnifiedKernel]:
         return ZResult.ok(kernel)
     return ZResult.zero(result.zero_info)
 
-
 def execute(operation: Callable, input_value: Any,
             symmetry: Klein4Op = Klein4Op.I) -> ZResult[Any]:
     """Execute operation through global kernel."""
     return get_kernel().execute(operation, input_value, symmetry)
-
 
 def translate(concept: Any, from_tradition: Tradition,
               to_tradition: Tradition) -> Optional[str]:
     """Translate concept between traditions."""
     return get_kernel().translate(concept, from_tradition, to_tradition)
 
-
 def status() -> Dict[str, Any]:
     """Get global kernel status."""
     return get_kernel().status()
-
 
 # =============================================================================
 # IMPORTS FOR QHC
@@ -533,7 +528,6 @@ def status() -> Dict[str, Any]:
 from unified_types import (
     QHCConstant, QHCShape, QHCElement, QHCLevel, QHCPole
 )
-
 
 # =============================================================================
 # EXPORTS
@@ -546,7 +540,6 @@ __all__ = [
     # Global functions
     'get_kernel', 'boot_kernel', 'execute', 'translate', 'status',
 ]
-
 
 # =============================================================================
 # MAIN

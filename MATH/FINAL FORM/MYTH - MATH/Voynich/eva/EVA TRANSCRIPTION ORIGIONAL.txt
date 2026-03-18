@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W3:A11:S10 | face=C | node=219 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W3:A11:S9→Xi108:W3:A11:S11→Xi108:W2:A11:S10→Xi108:W3:A10:S10→Xi108:W3:A12:S10
+
 # Interlinear archive of Voynich manuscript transcriptions.
 #
 # Derived from INTERLN.EVT file version 1.6

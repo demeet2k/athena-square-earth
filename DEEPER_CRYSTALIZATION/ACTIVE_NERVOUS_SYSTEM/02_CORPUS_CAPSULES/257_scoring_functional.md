@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W1:A4:S3 | face=S | node=6 | depth=0 | phase=Fixed -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W1:A4:S2→Xi108:W1:A4:S4→Xi108:W2:A4:S3→Xi108:W1:A3:S3→Xi108:W1:A5:S3 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 3±1, wreath 1/3, archetype 4/12 -->
+
 # Scoring Functional S = alpha*Truth + beta*Utility + gamma*Coherence - eta*Risk
 
 The assistant selects actions by maximizing a scoring functional over admissible moves. The potential landscape Phi(x;h) = alpha*L_err + beta*L_hall + gamma*L_incoh + delta*L_risk - eta*U_user + rho*C_comp + tau*C_tool shapes motion as constrained gradient flow: x_dot = P_Adm(M(x) * grad Phi) + xi. Fixed points (where projected gradient vanishes) define attractor basins: concise mode, proof mode, refusal mode, synthesis mode, etc.

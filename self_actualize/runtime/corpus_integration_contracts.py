@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S28 | face=F | node=406 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S27→Xi108:W2:A4:S29→Xi108:W1:A4:S28→Xi108:W3:A4:S28→Xi108:W2:A3:S28→Xi108:W2:A5:S28
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, is_dataclass
@@ -6,12 +10,10 @@ import hashlib
 import json
 from typing import Any
 
-
 class DeploymentState(str, Enum):
     ACTIVE = "active"
     GATED = "gated"
     BLOCKED = "blocked"
-
 
 class RuntimeLane(str, Enum):
     OFFLINE_REPLAY = "offline_replay"
@@ -20,13 +22,11 @@ class RuntimeLane(str, Enum):
     FEDERATION_RELEASE = "federation_release"
     LIVE_AUTONOMOUS = "live_autonomous"
 
-
 class MonitorDecision(str, Enum):
     SUSTAIN = "sustain"
     ROLLBACK = "rollback"
     ESCALATE = "escalate"
     BLOCK = "block"
-
 
 class RegionClass(str, Enum):
     LIVE_AUTHORITY = "live_authority"
@@ -35,13 +35,11 @@ class RegionClass(str, Enum):
     EXPERIMENTAL = "experimental"
     RESIDUAL = "residual"
 
-
 class ReceiptClass(str, Enum):
     REPLAY = "replay_receipt"
     MONITOR = "monitor_receipt"
     PROMOTION = "promotion_ledger"
     BLOCKED = "blocked_notice"
-
 
 OBJECT_FAMILY = [
     "CorpusIntegrationWave",
@@ -76,7 +74,6 @@ WHOLE_WAVE_DATAFLOW = (
     "DeploymentProfile -> Monitoring -> Receipt -> Dashboard -> Seed/Promote"
 )
 
-
 def serialize(value: Any) -> Any:
     if isinstance(value, Enum):
         return value.value
@@ -88,14 +85,11 @@ def serialize(value: Any) -> Any:
         return [serialize(item) for item in value]
     return value
 
-
 def stable_json(value: Any) -> str:
     return json.dumps(serialize(value), indent=2, sort_keys=True)
 
-
 def stable_hash(value: Any) -> str:
     return hashlib.sha256(stable_json(value).encode("utf-8")).hexdigest()
-
 
 @dataclass
 class MonitoringProbe:
@@ -103,7 +97,6 @@ class MonitoringProbe:
     signal: str
     cadence: str
     success_condition: str
-
 
 @dataclass
 class AlertPolicy:
@@ -114,7 +107,6 @@ class AlertPolicy:
     overload_rule: str
     replay_failure_rule: str
 
-
 @dataclass
 class HealthWindow:
     window_id: str
@@ -122,13 +114,11 @@ class HealthWindow:
     observation_window: str
     failure_threshold: str
 
-
 @dataclass
 class RollbackTrigger:
     trigger_id: str
     trigger_condition: str
     rollback_target: str
-
 
 @dataclass
 class EscalationRoute:
@@ -136,7 +126,6 @@ class EscalationRoute:
     source_lane: str
     destination: str
     reason: str
-
 
 @dataclass
 class ActivationGate:
@@ -147,14 +136,12 @@ class ActivationGate:
     federation_terms_required: bool
     docs_gate_required_ready: bool
 
-
 @dataclass
 class ObservabilitySurface:
     surface_id: str
     probes: list[MonitoringProbe]
     alert_policy: AlertPolicy
     health_window: HealthWindow
-
 
 @dataclass
 class DeploymentProfile:
@@ -167,7 +154,6 @@ class DeploymentProfile:
     escalation_route: EscalationRoute
     notes: list[str]
 
-
 @dataclass
 class ExecutionReceipt:
     receipt_id: str
@@ -177,7 +163,6 @@ class ExecutionReceipt:
     deployment_lane: str
     emitted_state: str
 
-
 @dataclass
 class DeploymentMonitorResult:
     result_id: str
@@ -185,7 +170,6 @@ class DeploymentMonitorResult:
     reasons: list[str]
     receipt_ref: str
     next_seed: str
-
 
 @dataclass
 class TransitionSupportNote:
@@ -195,7 +179,6 @@ class TransitionSupportNote:
     support_note: str
     writeback_surface: str
     escalation_target: str
-
 
 @dataclass
 class AwakeningAgentProfile:
@@ -208,7 +191,6 @@ class AwakeningAgentProfile:
     handoff_targets: list[str]
     contraction_target: str
 
-
 @dataclass
 class RegionLaneAssignment:
     region_name: str
@@ -219,7 +201,6 @@ class RegionLaneAssignment:
     authority_surface: str
     status_note: str
 
-
 @dataclass
 class IntegrationMonitorResult:
     result_id: str
@@ -229,7 +210,6 @@ class IntegrationMonitorResult:
     monitor_decision: MonitorDecision
     blocked_reasons: list[str]
 
-
 @dataclass
 class DeploymentMonitoringSurface:
     surface_id: str
@@ -238,7 +218,6 @@ class DeploymentMonitoringSurface:
     policy_hash: str
     route_basis: list[str]
     whole_wave_dataflow: str
-
 
 @dataclass
 class CorpusIntegrationWave:

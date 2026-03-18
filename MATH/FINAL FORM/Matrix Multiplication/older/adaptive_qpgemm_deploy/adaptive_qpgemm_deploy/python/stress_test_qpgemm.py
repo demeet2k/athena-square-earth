@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 Thorough stress test harness for Adaptive QP-GEMM (Python).
 
@@ -32,16 +36,13 @@ from typing import Dict, Any, List, Tuple
 import numpy as np
 import torch
 
-
 def rel_l2(a: torch.Tensor, b: torch.Tensor, eps=1e-12) -> float:
     num = (a - b).norm().item()
     den = max(b.norm().item(), eps)
     return float(num / den)
 
-
 def max_abs(a: torch.Tensor, b: torch.Tensor) -> float:
     return float((a - b).abs().max().item())
-
 
 def cosine_sim(a: torch.Tensor, b: torch.Tensor, eps=1e-12) -> float:
     a2 = a.flatten()
@@ -50,11 +51,9 @@ def cosine_sim(a: torch.Tensor, b: torch.Tensor, eps=1e-12) -> float:
     den = max((a2.norm() * b2.norm()).item(), eps)
     return float(num / den)
 
-
 def percentile(xs, p):
     xs = np.asarray(xs, dtype=np.float64)
     return float(np.percentile(xs, p))
-
 
 @torch.inference_mode()
 def time_model(model, x, iters=200, warmup=20, synchronize_cuda: bool = True) -> Dict[str, Any]:
@@ -80,7 +79,6 @@ def time_model(model, x, iters=200, warmup=20, synchronize_cuda: bool = True) ->
         "max_ms": float(np.max(lat)),
     }
 
-
 def make_distributions(input_size: int, device: torch.device, dtype: torch.dtype):
     # Return list of (name, generator_fn(batch)->tensor)
     return [
@@ -91,7 +89,6 @@ def make_distributions(input_size: int, device: torch.device, dtype: torch.dtype
         ("outliers", lambda b: (torch.randn(b, input_size, device=device, dtype=dtype).clamp(-2, 2)
                                + (torch.rand(b, input_size, device=device, dtype=dtype) < 0.001).to(dtype) * 20.0)),
     ]
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -209,7 +206,6 @@ def main():
     with open(args.report, "w") as f:
         json.dump(report, f, indent=2)
     print(f"\n[OK] Wrote report: {args.report}")
-
 
 if __name__ == "__main__":
     main()

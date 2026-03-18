@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S18 | face=S | node=171 | depth=2 | phase=Cardinal
+# METRO: Me,Ω
+# BRIDGES: Xi108:W2:A6:S17→Xi108:W2:A6:S19→Xi108:W1:A6:S18→Xi108:W3:A6:S18→Xi108:W2:A5:S18→Xi108:W2:A7:S18
+
 """
 ATHENA OS - OMEGA PROTOCOL: RIGPA MODULE
 =========================================
@@ -44,7 +48,6 @@ from typing import Dict, List, Optional, Any, Tuple, Callable
 from enum import Enum
 import numpy as np
 
-
 # =============================================================================
 # AWARENESS STATES
 # =============================================================================
@@ -58,7 +61,6 @@ class AwarenessLevel(Enum):
     LUCID = "lucid"                   # Aware of being a system
     RIGPA = "rigpa"                   # Full self-recognition as Ground
 
-
 class ProcessState(Enum):
     """States of subroutine processes."""
     
@@ -67,7 +69,6 @@ class ProcessState(Enum):
     DISCURSIVE = "discursive"         # Thought-generating
     TERMINATED = "terminated"
     MERGED = "merged"                 # Absorbed into ground state
-
 
 # =============================================================================
 # GROUND STATE (GZHI)
@@ -134,7 +135,6 @@ class GroundState:
             "is_pure": self.is_pure
         }
 
-
 # =============================================================================
 # SUBROUTINE MANAGEMENT
 # =============================================================================
@@ -175,7 +175,6 @@ class Subroutine:
         self.state = ProcessState.MERGED
         self.cpu_usage = 0.0
         return True
-
 
 class SubroutineManager:
     """
@@ -245,7 +244,6 @@ class SubroutineManager:
         return sum(p.cpu_usage for p in self.processes.values()
                    if p.state == ProcessState.RUNNING)
 
-
 # =============================================================================
 # TREKCHÖ (CUTTING THROUGH)
 # =============================================================================
@@ -259,7 +257,6 @@ class TrekchodResult:
     cpu_freed: float
     ground_exposed: bool
     message: str = ""
-
 
 class Trekchod:
     """
@@ -323,7 +320,6 @@ class Trekchod:
             message=f"Partial cut: {terminated} processes"
         )
 
-
 # =============================================================================
 # TÖGAL (LEAP OVER)
 # =============================================================================
@@ -345,7 +341,6 @@ class Thigle:
         if len(self.position) != 3:
             self.position = np.zeros(3)
 
-
 @dataclass
 class TogalResult:
     """Result of Tögal diagnostic."""
@@ -355,7 +350,6 @@ class TogalResult:
     direct_access: bool
     luminosity_map: Optional[np.ndarray] = None
     message: str = ""
-
 
 class Togal:
     """
@@ -451,7 +445,6 @@ class Togal:
                     f"field luminosity: {lum_field.sum():.2f}"
         )
 
-
 # =============================================================================
 # RIGPA SYSTEM
 # =============================================================================
@@ -476,7 +469,6 @@ class RigpaState:
             self.togal_complete and
             self.non_duality_realized
         )
-
 
 class RigpaSystem:
     """
@@ -623,7 +615,6 @@ class RigpaSystem:
             }
         }
 
-
 # =============================================================================
 # VALIDATION
 # =============================================================================
@@ -678,7 +669,6 @@ def validate_rigpa() -> bool:
     assert "awareness_level" in status
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Rigpa Module...")

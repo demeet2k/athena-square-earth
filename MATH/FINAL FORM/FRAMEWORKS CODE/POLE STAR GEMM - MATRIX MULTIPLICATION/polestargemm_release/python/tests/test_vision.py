@@ -1,8 +1,11 @@
+# CRYSTAL: Xi108:W3:A6:S8 | face=R | node=645 | depth=0 | phase=Fixed
+# METRO: Sa
+# BRIDGES: Xi108:W3:A6:S7→Xi108:W3:A6:S9→Xi108:W2:A6:S8→Xi108:W3:A5:S8→Xi108:W3:A7:S8
+
 import torch
 import torch.nn as nn
 
 from polestargemm.vision import PoleStarVisionConfig, optimize_model, validate_relative_error
-
 
 class Toy(nn.Module):
     def __init__(self):
@@ -13,7 +16,6 @@ class Toy(nn.Module):
 
     def forward(self, x):
         return self.fc2(self.act(self.fc1(x)))
-
 
 def test_optimize_model_runs():
     torch.manual_seed(0)

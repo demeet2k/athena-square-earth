@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S25 | face=F | node=303 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S24→Xi108:W2:A1:S26→Xi108:W1:A1:S25→Xi108:W3:A1:S25→Xi108:W2:A2:S25
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                        AETHER LATTICE MODULE                                 ║
@@ -20,7 +24,6 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Dict, Any, Set
 from enum import Enum
 import numpy as np
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LENS AXIS (L0-L3)
@@ -61,7 +64,6 @@ class Lens(Enum):
         """Round-trip stamp for this lens."""
         return f"RT{self.symbol}"
 
-
 class AetherPhase(Enum):
     """
     The four phases of the breath cycle.
@@ -75,7 +77,6 @@ class AetherPhase(Enum):
     def short_name(self) -> str:
         return self.name[:3]
 
-
 class AetherBundle(Enum):
     """
     The four bundles at each phase.
@@ -85,7 +86,6 @@ class AetherBundle(Enum):
     DYNAMICS = 2    # Transformation operators
     VERIFICATION = 3  # RT stamps, certificates
 
-
 class Slot(Enum):
     """
     The four slots for data organization.
@@ -94,7 +94,6 @@ class Slot(Enum):
     TICKET = 1    # Transformation record
     RESIDUAL = 2  # Error/drift
     TEST = 3      # Verification fixtures
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CELL DEFINITION
@@ -125,7 +124,6 @@ class AetherCell:
         """Human-readable name."""
         return f"{self.lens.element}/{self.phase.name.title()}/{self.bundle.name.title()}"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LETTER DEFINITIONS (A-Z)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -141,7 +139,6 @@ class AetherLetter:
     z_point: str  # Core definition
     cells: List[str] = field(default_factory=list)  # Cell coordinates
     slot_keys: List[int] = field(default_factory=list)
-
 
 # Complete AETHER alphabet
 AETHER_ALPHABET: Dict[str, AetherLetter] = {
@@ -172,7 +169,6 @@ AETHER_ALPHABET: Dict[str, AetherLetter] = {
     'Y': AetherLetter('Y', "selectors collapse multivalued inverse", ["META/*/P0/B1"], [1, 3]),
     'Z': AetherLetter('Z', "zero-point atlas", ["META/*/P0/B1", "META/*/P3/B1"], [1, 3]),
 }
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # AETHER LATTICE
@@ -396,7 +392,6 @@ class AetherLattice:
         """Total number of cells."""
         return len(self.cells)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # RT STAMPS (ROUND-TRIP VERIFICATION)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -424,7 +419,6 @@ class RTStamp:
         hash_value = hashlib.sha256(str(content).encode()).hexdigest()[:16]
         return cls(lens, True, hash_value)
 
-
 @dataclass
 class RTRegistry:
     """
@@ -450,7 +444,6 @@ class RTRegistry:
         RT□ + RT✿ + RT☁ + RT⟂ with commutator→BO_R rule.
         """
         return self.is_complete()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -497,7 +490,6 @@ class AetherPoleBridge:
         all four poles and all four phases of computation.
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -506,11 +498,9 @@ def aether_lattice() -> AetherLattice:
     """Create complete AETHER lattice."""
     return AetherLattice()
 
-
 def get_letter(letter: str) -> Optional[AetherLetter]:
     """Get AETHER letter definition."""
     return AETHER_ALPHABET.get(letter.upper())
-
 
 def rt_stamp(lens: Lens, content: Any = None) -> RTStamp:
     """Create RT stamp."""
@@ -518,11 +508,9 @@ def rt_stamp(lens: Lens, content: Any = None) -> RTStamp:
         return RTStamp.verify(lens, content)
     return RTStamp(lens)
 
-
 def rt_registry() -> RTRegistry:
     """Create RT registry."""
     return RTRegistry()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=132 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                      AQM LIMINAL SPACE MODULE                                ║
@@ -30,7 +34,6 @@ from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
 import hashlib
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # REGIME CHARTS
@@ -69,7 +72,6 @@ class RegimeChart:
         """Project global state onto this regime."""
         return projector @ global_state @ projector.T
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # GRADED LIMINAL UNIVERSE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -88,7 +90,6 @@ class LiminalEdge:
     @property
     def name(self) -> str:
         return f"Λ_{self.source}→{self.target}"
-
 
 @dataclass
 class GradedUniverse:
@@ -154,7 +155,6 @@ class GradedUniverse:
         total = sum(masses.values())
         return np.isclose(total, 1.0, atol=1e-6)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # REGIME COHERENCE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -198,7 +198,6 @@ class RegimeCoherence:
 
         return 0.5 * np.linalg.norm(diff, ord='nuc')
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # TYPED INSTRUMENTS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -209,7 +208,6 @@ class TransitionBranch(Enum):
     LIFT = "lift"         # Enter target regime (emergence!)
     RESIDENT = "resident" # Enter liminal space
     FAIL = "fail"         # Typed failure with remediation
-
 
 @dataclass
 class TypedInstrument:
@@ -275,7 +273,6 @@ class TypedInstrument:
         
         total = sum(op.T @ op for op in operators)
         return np.allclose(total, np.eye(len(total)))
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIVERSAL EMERGENCE COORDINATES
@@ -352,7 +349,6 @@ class EmergenceCoordinates:
         """
         return self.omega * self.integration * self.coherence * self.function
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # ORGANIZATIONAL JETS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -414,7 +410,6 @@ class OrganizationalJet:
         """Request escalation to higher jet order."""
         return self.order + 1
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # BOUNDARY TAXONOMY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -426,7 +421,6 @@ class BoundaryType(Enum):
     BIFURCATION = "bifurcation"  # Multiple possible targets
     CRITICAL = "critical"     # Phase transition
     CATASTROPHIC = "catastrophic"  # Sudden regime collapse
-
 
 @dataclass
 class BoundaryClassification:
@@ -466,7 +460,6 @@ class BoundaryClassification:
         
         return cls(btype, source, targets, width)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CYCLE CARRY / RENORMALIZATION
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -492,7 +485,6 @@ class CycleLog:
             hashlib.sha256(s.tobytes()).hexdigest()[:16]
             for s in self.states
         ]
-
 
 @dataclass
 class CompressionOperator:
@@ -537,7 +529,6 @@ class CompressionOperator:
         
         return macro_state, carry, cert
 
-
 @dataclass
 class OctaveLift:
     """
@@ -576,7 +567,6 @@ class OctaveLift:
         else:
             return None, "FAIL: no lift or resident branch", [comp_cert, "Cert.Fail"]
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # PROOF-CARRYING EMERGENCE
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -598,7 +588,6 @@ class ResultBundle:
                 sum(self.liminal_masses.values()) + 
                 self.fail_mass)
 
-
 @dataclass
 class CertBundle:
     """
@@ -618,7 +607,6 @@ class CertBundle:
             self.cptp_cert,
             self.metric_cert
         ])
-
 
 @dataclass
 class EmergenceVerifier:
@@ -649,7 +637,6 @@ class EmergenceVerifier:
             return False, "Emergence coordinates not viable"
         
         return True, "Verified"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -710,7 +697,6 @@ class AQMLiminalPoleBridge:
           Ψ: Hierarchical octave structure
         """
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -719,43 +705,35 @@ def regime_chart(name: str, dimension: int) -> RegimeChart:
     """Create regime chart."""
     return RegimeChart(name=name, dimension=dimension)
 
-
 def graded_universe() -> GradedUniverse:
     """Create graded liminal universe."""
     return GradedUniverse()
-
 
 def liminal_edge(source: str, target: str, dim: int = 1) -> LiminalEdge:
     """Create liminal edge."""
     return LiminalEdge(source, target, dim)
 
-
 def typed_instrument(edge: str) -> TypedInstrument:
     """Create typed instrument."""
     return TypedInstrument(edge_name=edge)
 
-
 def emergence_coordinates(rho: NDArray) -> EmergenceCoordinates:
     """Compute emergence coordinates."""
     return EmergenceCoordinates.compute(rho)
-
 
 def organizational_jet(rho: NDArray, regimes: List[str],
                        projectors: Dict[str, NDArray]) -> OrganizationalJet:
     """Extract organizational jet."""
     return OrganizationalJet.extract(rho, regimes, projectors)
 
-
 def boundary_classification(source: str, targets: List[str],
                             mass_grad: float, coh_grad: float) -> BoundaryClassification:
     """Classify boundary."""
     return BoundaryClassification.classify(source, targets, mass_grad, coh_grad)
 
-
 def compression_operator() -> CompressionOperator:
     """Create compression operator."""
     return CompressionOperator()
-
 
 def octave_lift(source: str, target: str) -> OctaveLift:
     """Create octave lift."""
@@ -766,11 +744,9 @@ def octave_lift(source: str, target: str) -> OctaveLift:
         lift_instrument=TypedInstrument(f"Λ_{source}→{target}")
     )
 
-
 def emergence_verifier() -> EmergenceVerifier:
     """Create emergence verifier."""
     return EmergenceVerifier()
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

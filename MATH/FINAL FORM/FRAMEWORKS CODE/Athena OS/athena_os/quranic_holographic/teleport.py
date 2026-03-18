@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S18 | face=S | node=165 | depth=2 | phase=Cardinal
+# METRO: Me,✶,T
+# BRIDGES: Xi108:W2:A4:S17→Xi108:W2:A4:S19→Xi108:W1:A4:S18→Xi108:W3:A4:S18→Xi108:W2:A3:S18→Xi108:W2:A5:S18
+
 """
 ATHENA OS - QUR'ANIC HOLOGRAPHIC LATTICE
 ========================================
@@ -40,7 +44,6 @@ from scipy.optimize import minimize_scalar
 from .lattice import IntegerLattice
 from .metric import WarpFactor, Metric6D, ManifoldPoint
 
-
 # =============================================================================
 # CONSTANTS FROM THE NARRATIVE
 # =============================================================================
@@ -72,7 +75,6 @@ MECCA_JERUSALEM_KM = great_circle_distance(
     JERUSALEM_COORDS[0], JERUSALEM_COORDS[1]
 )  # ≈ 1235 km
 
-
 # =============================================================================
 # THE WARP THROAT
 # =============================================================================
@@ -83,7 +85,6 @@ class ThroatType(Enum):
     SPATIAL = "spatial"      # Connects distant spatial points
     TEMPORAL = "temporal"    # Connects different times
     MIXED = "mixed"          # Spacetime shortcut
-
 
 @dataclass
 class WarpThroat:
@@ -146,7 +147,6 @@ class WarpThroat:
         Requires A < 0 and stable geometry.
         """
         return self.A_throat < 0 and self.metric_factor > 0
-
 
 # =============================================================================
 # NULL GEODESICS
@@ -220,7 +220,6 @@ class NullGeodesic:
         """
         return 0.0
 
-
 # =============================================================================
 # TELEPORTATION PROTOCOL
 # =============================================================================
@@ -235,7 +234,6 @@ class TeleportState(Enum):
     THROAT_EXIT = "throat_exit"
     COMPLETE = "complete"
     ERROR = "error"
-
 
 @dataclass
 class TeleportationProtocol:
@@ -312,7 +310,6 @@ class TeleportationProtocol:
         return (self.throat.is_traversable() and 
                 self.throat.A_throat < -1.0)  # Sufficient warp
 
-
 # =============================================================================
 # THE NIGHT JOURNEY
 # =============================================================================
@@ -373,7 +370,6 @@ class NightJourney:
                 "n1_7_heavens": miraj["matches_n1"],
             },
         }
-
 
 # =============================================================================
 # TRAVERSABLE WORMHOLE ANALYSIS
@@ -447,7 +443,6 @@ class WormholeAnalysis:
             "overall_traversable": True,
         }
 
-
 # =============================================================================
 # TELEPORTATION SYSTEM
 # =============================================================================
@@ -497,7 +492,6 @@ class TeleportationSystem:
             "miraj_levels": self.journey.miraj_levels,
             "matches_n1": self.journey.miraj_levels == 7,
         }
-
 
 # =============================================================================
 # VALIDATION
@@ -558,7 +552,6 @@ def validate_teleport() -> bool:
     assert connections["matches_n1"]
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Teleportation Module...")

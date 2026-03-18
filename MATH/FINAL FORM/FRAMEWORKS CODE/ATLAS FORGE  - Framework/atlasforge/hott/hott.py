@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S17 | face=S | node=145 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S16→Xi108:W2:A11:S18→Xi108:W1:A11:S17→Xi108:W3:A11:S17→Xi108:W2:A10:S17→Xi108:W2:A12:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    HOMOTOPY TYPE THEORY MODULE                               ║
@@ -22,11 +26,9 @@ from dataclasses import dataclass, field
 from typing import Optional, Tuple, List, Dict, Any, Callable, Generic, TypeVar
 from enum import Enum, auto
 
-
 T = TypeVar('T')
 A = TypeVar('A')
 B = TypeVar('B')
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TYPES
@@ -72,7 +74,6 @@ class HType:
         """Boolean 𝟚."""
         return cls("𝟚", 0)
 
-
 @dataclass
 class Universe:
     """
@@ -94,7 +95,6 @@ class Universe:
     def successor(self) -> 'Universe':
         """U_{n+1}."""
         return Universe(self.level + 1)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TYPE FORMERS
@@ -127,7 +127,6 @@ class ProductType:
         """Second projection."""
         return f"π₂({p})"
 
-
 @dataclass
 class SumType:
     """
@@ -152,7 +151,6 @@ class SumType:
         """Right injection."""
         return f"inr({b})"
 
-
 @dataclass
 class FunctionType:
     """
@@ -176,7 +174,6 @@ class FunctionType:
         """Function application."""
         return f"{f}({a})"
 
-
 @dataclass
 class DependentProduct:
     """
@@ -195,7 +192,6 @@ class DependentProduct:
         """Check if it's a non-dependent function type."""
         return False
 
-
 @dataclass
 class DependentSum:
     """
@@ -213,7 +209,6 @@ class DependentSum:
     def pair(self, a: str, b: str) -> str:
         """Dependent pair."""
         return f"({a}, {b})"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # IDENTITY TYPES (PATH SPACES)
@@ -247,7 +242,6 @@ class IdentityType:
         """Check if path is a loop (a = a)."""
         return self.left == self.right
 
-
 @dataclass
 class PathSpace:
     """
@@ -270,7 +264,6 @@ class PathSpace:
         """π₁(A, a) = ||Ω(A, a)||₀."""
         return f"π₁({self.base_type.name}, {self.basepoint})"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # HOMOTOPY LEVELS (n-TYPES)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -283,7 +276,6 @@ class HLevel(Enum):
     GROUPOID = 1       # 1-groupoid
     TWO_GROUPOID = 2   # 2-groupoid
     # n-type for any n
-
 
 @dataclass
 class NType:
@@ -312,7 +304,6 @@ class NType:
     def truncation(self) -> str:
         """n-truncation ||A||_n."""
         return f"||{self.base_type.name}||_{self.level}"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # UNIVALENCE
@@ -343,7 +334,6 @@ class Equivalence:
         """Inverse equivalence."""
         return f"{self.function}⁻¹"
 
-
 @dataclass
 class UnivalenceAxiom:
     """
@@ -366,7 +356,6 @@ class UnivalenceAxiom:
     def is_equiv_ua(self) -> str:
         """ua is an equivalence."""
         return "isEquiv(ua)"
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HIGHER INDUCTIVE TYPES
@@ -422,7 +411,6 @@ class HigherInductiveType:
         return cls(f"{A}/R", [f"[a] for a : {A}"],
                   [f"eq : a R b → [a] = [b]"])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SYNTHETIC HOMOTOPY THEORY
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -450,7 +438,6 @@ class HomotopyGroup:
         """Corresponding loop space."""
         return f"Ω^{self.n}({self.space.name}, {self.basepoint})"
 
-
 @dataclass
 class Fibration:
     """
@@ -477,7 +464,6 @@ class Fibration:
     def long_exact_sequence(self) -> str:
         """Long exact sequence of homotopy groups."""
         return "... → πₙ(F) → πₙ(E) → πₙ(B) → π_{n-1}(F) → ..."
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # POLE BRIDGE
@@ -521,7 +507,6 @@ class HoTTPoleBridge:
         """
         return "Gateway ↔ Univalence: (A ≃ B) ≃ (A = B)"
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -530,31 +515,25 @@ def htype(name: str, level: int = 0) -> HType:
     """Create a type."""
     return HType(name, level)
 
-
 def identity_type(A: HType, a: str, b: str) -> IdentityType:
     """Create identity type a =_A b."""
     return IdentityType(A, a, b)
-
 
 def equivalence(A: HType, B: HType) -> Equivalence:
     """Create equivalence A ≃ B."""
     return Equivalence(A, B)
 
-
 def circle() -> HigherInductiveType:
     """The circle S¹."""
     return HigherInductiveType.circle()
-
 
 def sphere(n: int) -> HigherInductiveType:
     """The n-sphere Sⁿ."""
     return HigherInductiveType.sphere(n)
 
-
 def homotopy_group(A: HType, a: str, n: int) -> HomotopyGroup:
     """Create πₙ(A, a)."""
     return HomotopyGroup(A, a, n)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

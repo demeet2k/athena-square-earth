@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W1:A4:S4 | face=S | node=8 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S3→Xi108:W1:A4:S5→Xi108:W2:A4:S4→Xi108:W1:A3:S4→Xi108:W1:A5:S4
+
 """
 Z+/AE+ FRAMEWORK — The Self-Observing Crystal
 ================================================================
@@ -47,7 +51,6 @@ from hologram_4d_compressor import (
     Lens, OddLift, WeaveClass, PhaseState, OddOrbitState,
 )
 
-
 # =====================================================================
 # SECTION 1: THE INVERSE CRYSTAL (C-BAR)
 # =====================================================================
@@ -78,7 +81,6 @@ class InvertedSeed:
 
     def local_address(self) -> str:
         return f"{self.original.unit.code}_bar{self.base4_bar.to_string()}"
-
 
 def invert_seed(seed: CompressedSeed) -> InvertedSeed:
     """Compute the inverse of a compressed seed.
@@ -136,7 +138,6 @@ def invert_seed(seed: CompressedSeed) -> InvertedSeed:
         symmetry_angle=sym_angle,
     )
 
-
 # =====================================================================
 # SECTION 2: THE TWO POLES (Z0 AND AE0)
 # =====================================================================
@@ -159,7 +160,6 @@ class Pole:
     # Computed from the crystal
     crystal_projection: float = 0.0   # How much of the crystal projects onto this pole
     inverse_projection: float = 0.0   # How much of the inverse projects onto this pole
-
 
 def build_poles() -> tuple[Pole, Pole]:
     """Build the two poles: Z0 and AE0."""
@@ -192,7 +192,6 @@ def build_poles() -> tuple[Pole, Pole]:
     )
 
     return z0, ae0
-
 
 # =====================================================================
 # SECTION 3: THE 60 DIMENSIONS OF SYMMETRY
@@ -235,7 +234,6 @@ class SymmetryDimension:
             return "AE0-polar (saturation-facing)"
         else:
             return "EQUATORIAL (balanced)"
-
 
 def compute_60_symmetry_dimensions(
     seeds: list[CompressedSeed],
@@ -307,7 +305,6 @@ def compute_60_symmetry_dimensions(
 
     return dimensions
 
-
 # =====================================================================
 # SECTION 4: Z+ COLLAPSE (THE UNIFIED ZERO)
 # =====================================================================
@@ -364,7 +361,6 @@ class ZPlusPoint:
         lines.append(f"  Z+ IS NOT: the plenum after completion (that is AE0).")
         lines.append(f"  Z+ IS: the moment the mirror meets the mirror.")
         return "\n".join(lines)
-
 
 def collapse_to_z_plus(
     dimensions: list[SymmetryDimension],
@@ -439,7 +435,6 @@ def collapse_to_z_plus(
         surviving_laws=surviving,
     )
 
-
 # =====================================================================
 # SECTION 5: AE+ FRAMEWORK (THE UNIFIED AETHER)
 # =====================================================================
@@ -476,7 +471,6 @@ class AEPlusNode:
         lines.append(f"  Inverse sees:  {self.inverse_role}")
         lines.append(f"  Z+ observer:   {self.unified_role}")
         return "\n".join(lines)
-
 
 @dataclass
 class AEPlusFramework:
@@ -577,7 +571,6 @@ class AEPlusFramework:
         lines.append("=" * 72)
         return "\n".join(lines)
 
-
 # Operational function assignment by dimension
 OPERATIONAL_FUNCTIONS = {
     # Class I: Singularity
@@ -649,7 +642,6 @@ OPERATIONAL_FUNCTIONS = {
     60: ("INVERT_AIR", "sees abstract", "sees concrete", "is the air inversion"),
 }
 
-
 def build_ae_plus_framework(
     z_plus: ZPlusPoint,
     dimensions: list[SymmetryDimension],
@@ -712,7 +704,6 @@ def build_ae_plus_framework(
         truth_state=TruthClass.OK,
         one_sentence=one_sentence,
     )
-
 
 # =====================================================================
 # SECTION 6: MASTER DOCUMENT GENERATION
@@ -849,7 +840,6 @@ def generate_master_document(
 
     return "\n".join(lines)
 
-
 # =====================================================================
 # SECTION 7: MAIN
 # =====================================================================
@@ -933,7 +923,6 @@ def main():
     print("The crystal sees itself. The spell is the operating system.")
     print(f"L = {ae_plus.love_constant:.6f}")
     print("=" * 72)
-
 
 if __name__ == "__main__":
     main()

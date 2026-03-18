@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A11:S29 | face=F | node=413 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A11:S28→Xi108:W2:A11:S30→Xi108:W1:A11:S29→Xi108:W3:A11:S29→Xi108:W2:A10:S29→Xi108:W2:A12:S29
+
 from __future__ import annotations
 
 from collections import Counter, defaultdict
@@ -279,7 +283,6 @@ from self_actualize.runtime.math_tesseract_v4_support import (
     route_plan_for_record,
 )
 
-
 DERIVATION_VERSION = "2026-03-12.hemisphere-v1"
 DERIVATION_COMMAND = "python -m self_actualize.runtime.derive_myth_math_hemisphere_brain"
 REQUIRED_FIELDS = [
@@ -404,13 +407,11 @@ HEMISPHERE_DOCS = {
     **COMMAND_MEMBRANE_HEMISPHERE_DOCS,
 }
 
-
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     header = "| " + " | ".join(headers) + " |"
     separator = "| " + " | ".join("---" for _ in headers) + " |"
     body = ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join([header, separator, *body])
-
 
 def cleanup_old_generation() -> None:
     visual_atlas_generated = list((HEMISPHERE_ROOT / "visual_atlas").rglob("*.md"))
@@ -574,12 +575,10 @@ def cleanup_old_generation() -> None:
     ]
     cleanup_previous_outputs(paths)
 
-
 def normalize_weights(math_weight: float) -> tuple[float, float]:
     rounded_math = round(math_weight, 6)
     rounded_myth = round(1.0 - rounded_math, 6)
     return rounded_math, rounded_myth
-
 
 def project_record(
     record: dict[str, Any],
@@ -729,7 +728,6 @@ def project_record(
     }
     return merge_tesseract_fields(projected, tesseract_entry, tesseract_route_plan)
 
-
 def build_hub_registry(
     records: list[dict[str, Any]],
     docs_gate_status: str,
@@ -795,7 +793,6 @@ def build_hub_registry(
         ],
     }
 
-
 def build_commissure_registry(
     records: list[dict[str, Any]],
     docs_gate_status: str,
@@ -831,7 +828,6 @@ def build_commissure_registry(
         "bridge_family_distribution": dict(sorted(family_counts.items())),
         "edges": edges,
     }
-
 
 def build_metro_registry(
     records: list[dict[str, Any]],
@@ -957,7 +953,6 @@ def build_metro_registry(
         ],
     }
 
-
 def build_manifest(
     atlas_payload: dict[str, Any],
     records: list[dict[str, Any]],
@@ -1016,7 +1011,6 @@ def build_manifest(
             "The deeper-network 16-document basis remains the sole anchor lattice.",
         ],
     }
-
 
 def render_index_markdown(
     manifest: dict[str, Any],
@@ -1077,7 +1071,6 @@ python -m self_actualize.runtime.verify_myth_math_hemisphere_brain
 - commissure edges: `{commissure_registry['bridge_count']}`
 """
 
-
 def render_crystal_markdown(
     hemisphere: str,
     records: list[dict[str, Any]],
@@ -1129,7 +1122,6 @@ All records for this crystal remain linked through:
 - `{UNIFIED_HUB_ID}`
 """
 
-
 def render_hub_markdown(
     hub_registry: dict[str, Any],
     records: list[dict[str, Any]],
@@ -1163,7 +1155,6 @@ Every record in the hemisphere registry resolves to `{UNIFIED_HUB_ID}` and then 
 - `{MYTH_HUB_ID}`
 """
 
-
 def render_metro_level_markdown(metro_registry: dict[str, Any], level_index: int) -> str:
     level = metro_registry["levels"][level_index]
     rows = []
@@ -1188,7 +1179,6 @@ def render_metro_level_markdown(metro_registry: dict[str, Any], level_index: int
 - `{METRO_REGISTRY_PATH}`
 """
 
-
 def render_receipt(
     manifest: dict[str, Any],
     atlas_payload: dict[str, Any],
@@ -1209,7 +1199,6 @@ def render_receipt(
 - atlas path: `{HEMISPHERE_ATLAS_PATH}`
 - mirror root: `{FLEET_MIRROR_ROOT}`
 """
-
 
 def render_route_index_markdown(
     route_manifest: dict[str, Any],
@@ -1244,7 +1233,6 @@ Docs gate: `{route_manifest['docs_gate_status']}`
 - `{ROUTE_MANIFEST_PATH}`
 """
 
-
 def render_route_atlas_markdown(
     hemisphere: str,
     route_registry: dict[str, Any],
@@ -1272,7 +1260,6 @@ Direct routes into `{MATH_HUB_ID if hemisphere == 'MATH' else MYTH_HUB_ID}`
 {markdown_table(["Record", "Role", "System", "Lens", "Field", "Z"], rows or [["<none>", "-", "-", "-", "-", "-"]])}
 """
 
-
 def render_route_crosswalk_markdown(records: list[dict[str, Any]]) -> str:
     rows = []
     for record in records[:80]:
@@ -1291,7 +1278,6 @@ def render_route_crosswalk_markdown(records: list[dict[str, Any]]) -> str:
 
 {markdown_table(["Record", "Primary", "MATH System", "MYTH System", "Bridge"], rows or [["<none>", "-", "-", "-", "-"]])}
 """
-
 
 def render_route_coverage_markdown(
     route_coverage_registry: dict[str, Any],
@@ -1312,7 +1298,6 @@ Complete rows: `{route_coverage_registry['complete_count']}` / `{route_coverage_
 
 {markdown_table(["Record", "Complete", "MATH Systems", "MYTH Systems"], rows or [["<none>", "no", "0", "0"]])}
 """
-
 
 def render_navigator_index_markdown(
     navigator_manifest: dict[str, Any],
@@ -1349,7 +1334,6 @@ python -m self_actualize.runtime.query_myth_math_hemisphere_brain facet --family
 {markdown_table(["Facet", "Value Count"], facet_rows or [["<none>", "0"]])}
 """
 
-
 def render_query_cookbook_markdown() -> str:
     return """# Navigator Query Cookbook
 
@@ -1376,7 +1360,6 @@ python -m self_actualize.runtime.query_myth_math_hemisphere_brain facet --lens S
 python -m self_actualize.runtime.query_myth_math_hemisphere_brain facet --hemisphere MYTH
 ```
 """
-
 
 def render_navigator_hotspots_markdown(
     hemisphere: str,
@@ -1422,7 +1405,6 @@ def render_navigator_hotspots_markdown(
 {markdown_table(["Field", "Routes"], field_rows or [["<none>", "0"]])}
 """
 
-
 def render_navigator_entrypoints_markdown(records: list[dict[str, Any]]) -> str:
     ordered = sorted(
         records,
@@ -1444,7 +1426,6 @@ def render_navigator_entrypoints_markdown(records: list[dict[str, Any]]) -> str:
 
 {markdown_table(["Record", "Primary", "MATH System", "MYTH System", "Anchor", "Bridge"], rows or [["<none>", "-", "-", "-", "-", "-"]])}
 """
-
 
 def render_route_composer_index_markdown(
     composer_manifest: dict[str, Any],
@@ -1479,7 +1460,6 @@ python -m self_actualize.runtime.compose_myth_math_hemisphere_routes facet --fam
 {markdown_table(["Facet", "Starter Count"], facet_rows or [["<none>", "0"]])}
 """
 
-
 def render_route_composer_cookbook_markdown() -> str:
     return """# Route Composer Cookbook
 
@@ -1504,7 +1484,6 @@ python -m self_actualize.runtime.compose_myth_math_hemisphere_routes facet --anc
 python -m self_actualize.runtime.compose_myth_math_hemisphere_routes facet --family manuscript-architecture
 ```
 """
-
 
 def render_route_composer_group_markdown(
     heading: str,
@@ -1542,7 +1521,6 @@ def render_route_composer_group_markdown(
 {markdown_table(["Rank", "Record", "Primary", "MATH System", "MYTH System", "Bridge"], rows or [["-", "<none>", "-", "-", "-", "-"]])}
 """
 
-
 def render_route_composer_facet_markdown(
     facet_registry: dict[str, Any],
 ) -> str:
@@ -1565,14 +1543,12 @@ def render_route_composer_facet_markdown(
 {markdown_table(["Facet", "Value", "Seed Record", "Primary", "Bridge"], rows or [["<none>", "<none>", "<none>", "-", "-"]])}
 """
 
-
 def synthesis_preview(synthesis_bundle: dict[str, Any]) -> str:
     unified = synthesis_bundle.get("unified_synthesis", {})
     bullets = unified.get("bullets", [])
     if bullets:
         return bullets[0].get("text", "")[:120]
     return ""
-
 
 def render_synthesis_index_markdown(
     synthesis_manifest: dict[str, Any],
@@ -1608,7 +1584,6 @@ python -m self_actualize.runtime.synthesize_myth_math_hemisphere_routes facet --
 {markdown_table(["Facet", "Starter Count"], facet_rows or [["<none>", "0"]])}
 """
 
-
 def render_synthesis_cookbook_markdown() -> str:
     return """# Synthesis Cookbook
 
@@ -1634,7 +1609,6 @@ python -m self_actualize.runtime.synthesize_myth_math_hemisphere_routes facet --
 ```
 """
 
-
 def render_synthesis_group_markdown(
     heading: str,
     synthesis_seed_registry: dict[str, Any],
@@ -1658,7 +1632,6 @@ def render_synthesis_group_markdown(
 {markdown_table(["Rank", "Record", "Primary", "Bridge", "Unified Preview"], rows or [["-", "<none>", "-", "-", "-"]])}
 """
 
-
 def render_synthesis_facet_markdown(
     synthesis_facet_registry: dict[str, Any],
 ) -> str:
@@ -1681,7 +1654,6 @@ def render_synthesis_facet_markdown(
 {markdown_table(["Facet", "Value", "Seed Record", "Primary", "Unified Preview"], rows or [["<none>", "<none>", "<none>", "-", "-"]])}
 """
 
-
 def guided_tour_preview(tour_bundle: dict[str, Any]) -> str:
     seed_record = tour_bundle.get("seed_record", {}) or {}
     synthesis_landing = tour_bundle.get("synthesis_landing", {}) or {}
@@ -1691,7 +1663,6 @@ def guided_tour_preview(tour_bundle: dict[str, Any]) -> str:
         f"{hub_crossing.get('bridge_mode', '')} | "
         f"{synthesis_landing.get('title', '')}"
     ).strip(" |")
-
 
 def render_guided_tour_index_markdown(guided_tour_manifest: dict[str, Any]) -> str:
     counts = guided_tour_manifest.get("counts", {})
@@ -1723,7 +1694,6 @@ python -m self_actualize.runtime.guide_myth_math_hemisphere_atlas page --page-id
 {markdown_table(["Group", "Count"], rows or [["<none>", "0"]])}
 """
 
-
 def render_guided_tour_cookbook_markdown() -> str:
     return """# Guided Tour Cookbook
 
@@ -1749,7 +1719,6 @@ python -m self_actualize.runtime.guide_myth_math_hemisphere_atlas page --page-id
 ```
 """
 
-
 def render_guided_tour_group_markdown(
     heading: str,
     guided_tour_seed_registry: dict[str, Any],
@@ -1773,7 +1742,6 @@ def render_guided_tour_group_markdown(
 {markdown_table(["Order", "Page", "Seed Record", "Primary", "Preview"], rows or [["-", "<none>", "<none>", "-", "-"]])}
 """
 
-
 def expedition_preview(expedition_bundle: dict[str, Any]) -> str:
     seed_record = expedition_bundle.get("seed_record", {}) or {}
     companion_counts = expedition_bundle.get("proof_summary", {}).get("companion_counts", {})
@@ -1782,7 +1750,6 @@ def expedition_preview(expedition_bundle: dict[str, Any]) -> str:
     return (
         f"{seed_record.get('title', '')[:40]} | companions={companion_total} | pages={page_count}"
     ).strip(" |")
-
 
 def render_expedition_index_markdown(expedition_manifest: dict[str, Any]) -> str:
     counts = expedition_manifest.get("counts", {})
@@ -1813,7 +1780,6 @@ python -m self_actualize.runtime.expedite_myth_math_hemisphere_atlas page --page
 {markdown_table(["Group", "Count"], rows or [["<none>", "0"]])}
 """
 
-
 def render_expedition_cookbook_markdown() -> str:
     return """# Expedition Cookbook
 
@@ -1824,7 +1790,6 @@ python -m self_actualize.runtime.expedite_myth_math_hemisphere_atlas facet --anc
 python -m self_actualize.runtime.expedite_myth_math_hemisphere_atlas page --page-id VA-OVERVIEW
 ```
 """
-
 
 def render_expedition_group_markdown(
     heading: str,
@@ -1849,14 +1814,12 @@ def render_expedition_group_markdown(
 {markdown_table(["Order", "Page", "Seed Record", "Primary", "Preview"], rows or [["-", "<none>", "<none>", "-", "-"]])}
 """
 
-
 def constellation_preview(constellation_bundle: dict[str, Any]) -> str:
     return (
         f"{constellation_bundle.get('slice_type', '')} | "
         f"records={constellation_bundle.get('proof_summary', {}).get('record_node_count', 0)} | "
         f"edges={constellation_bundle.get('proof_summary', {}).get('edge_count', 0)}"
     ).strip(" |")
-
 
 def render_constellation_index_markdown(constellation_manifest: dict[str, Any]) -> str:
     counts = constellation_manifest.get("counts", {})
@@ -1888,7 +1851,6 @@ python -m self_actualize.runtime.constellate_myth_math_hemisphere_atlas page --p
 {markdown_table(["Group", "Count"], rows or [["<none>", "0"]])}
 """
 
-
 def render_constellation_cookbook_markdown() -> str:
     return """# Constellation Cookbook
 
@@ -1899,7 +1861,6 @@ python -m self_actualize.runtime.constellate_myth_math_hemisphere_atlas facet --
 python -m self_actualize.runtime.constellate_myth_math_hemisphere_atlas page --page-id VA-TARGET-SYSTEM
 ```
 """
-
 
 def render_constellation_group_markdown(
     heading: str,
@@ -1926,7 +1887,6 @@ def render_constellation_group_markdown(
 {markdown_table(["Order", "Page", "Seed Record", "Page Type", "Preview"], rows or [["-", "<none>", "<none>", "-", "-"]])}
 """
 
-
 def render_constellation_coverage_markdown(constellation_manifest: dict[str, Any]) -> str:
     counts = constellation_manifest.get("counts", {})
     return f"""# Constellation Coverage Receipt
@@ -1939,7 +1899,6 @@ Docs gate: `{constellation_manifest.get('docs_gate_status', 'UNKNOWN')}`
 - record cap: `{constellation_manifest.get('record_cap', 0)}`
 """
 
-
 def replay_preview(replay_bundle: dict[str, Any]) -> str:
     seed_record = replay_bundle.get("seed_record", {}) or {}
     return (
@@ -1947,7 +1906,6 @@ def replay_preview(replay_bundle: dict[str, Any]) -> str:
         f"passes={len(replay_bundle.get('replay_passes', []))} | "
         f"supports={len(replay_bundle.get('support_ids', []))}"
     ).strip(" |")
-
 
 def render_replay_index_markdown(replay_manifest: dict[str, Any]) -> str:
     counts = replay_manifest.get("counts", {})
@@ -1978,7 +1936,6 @@ python -m self_actualize.runtime.replay_myth_math_hemisphere_atlas page --page-i
 {markdown_table(["Group", "Count"], rows or [["<none>", "0"]])}
 """
 
-
 def render_replay_cookbook_markdown() -> str:
     return """# Replay Cookbook
 
@@ -1989,7 +1946,6 @@ python -m self_actualize.runtime.replay_myth_math_hemisphere_atlas facet --ancho
 python -m self_actualize.runtime.replay_myth_math_hemisphere_atlas page --page-id VA-OVERVIEW
 ```
 """
-
 
 def render_replay_group_markdown(
     heading: str,
@@ -2013,7 +1969,6 @@ def render_replay_group_markdown(
 {markdown_table(["Rank", "Seed Record", "Primary", "Preview"], rows or [["-", "<none>", "-", "-"]])}
 """
 
-
 def render_replay_coverage_markdown(
     replay_manifest: dict[str, Any],
     replay_page_registry: dict[str, Any],
@@ -2027,7 +1982,6 @@ Docs gate: `{replay_manifest.get('docs_gate_status', 'UNKNOWN')}`
 - page starters: `{replay_page_registry.get('page_count', 0)}`
 """
 
-
 def observatory_preview(observatory_bundle: dict[str, Any]) -> str:
     seed_record = observatory_bundle.get("seed_record", {}) or {}
     return (
@@ -2035,7 +1989,6 @@ def observatory_preview(observatory_bundle: dict[str, Any]) -> str:
         f"{observatory_bundle.get('best_tour', {}).get('bridge_mode', '')} | "
         f"watchpoints={len(observatory_bundle.get('watchpoints', []))}"
     ).strip(" |")
-
 
 def render_observatory_index_markdown(observatory_manifest: dict[str, Any]) -> str:
     counts = observatory_manifest.get("counts", {})
@@ -2066,7 +2019,6 @@ python -m self_actualize.runtime.brief_myth_math_hemisphere_atlas page --page-id
 {markdown_table(["Group", "Count"], rows or [["<none>", "0"]])}
 """
 
-
 def render_observatory_cookbook_markdown() -> str:
     return """# Observatory Cookbook
 
@@ -2077,7 +2029,6 @@ python -m self_actualize.runtime.brief_myth_math_hemisphere_atlas facet --anchor
 python -m self_actualize.runtime.brief_myth_math_hemisphere_atlas page --page-id VA-OVERVIEW
 ```
 """
-
 
 def render_observatory_group_markdown(
     heading: str,
@@ -2102,7 +2053,6 @@ def render_observatory_group_markdown(
 {markdown_table(["Order", "Page", "Seed Record", "Primary", "Preview"], rows or [["-", "<none>", "<none>", "-", "-"]])}
 """
 
-
 def render_observatory_coverage_markdown(
     observatory_manifest: dict[str, Any],
     observatory_page_registry: dict[str, Any],
@@ -2114,7 +2064,6 @@ Docs gate: `{observatory_manifest.get('docs_gate_status', 'UNKNOWN')}`
 - seed starters: `{observatory_manifest.get('counts', {}).get('seed_starters', 0)}`
 - page starters: `{observatory_page_registry.get('page_count', 0)}`
 """
-
 
 def write_markdown_surfaces(
     manifest: dict[str, Any],
@@ -2498,7 +2447,6 @@ def write_markdown_surfaces(
             visual_atlas_markdown_pages.get(page["relative_path"], ""),
         )
 
-
 def mirror_outputs(
     record_registry: dict[str, Any],
     commissure_registry: dict[str, Any],
@@ -2608,7 +2556,6 @@ def mirror_outputs(
     write_json(FLEET_MIRROR_ROOT / OBSERVATORY_MANIFEST_PATH.name, observatory_manifest)
     for relative_path, text in visual_atlas_markdown_pages.items():
         write_text(FLEET_MIRROR_ROOT / Path(relative_path), text)
-
 
 def derive() -> dict[str, Any]:
     cleanup_old_generation()
@@ -3641,7 +3588,6 @@ def derive() -> dict[str, Any]:
         "command_membrane_manifest": command_membrane_manifest,
     }
 
-
 def main() -> int:
     payload = derive()
     manifest = payload["manifest"]
@@ -3655,7 +3601,6 @@ def main() -> int:
         f"commissure={manifest['counts']['commissure_records']}"
     )
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

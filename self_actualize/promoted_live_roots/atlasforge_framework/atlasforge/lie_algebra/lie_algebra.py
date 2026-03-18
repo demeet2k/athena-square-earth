@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A6:S30 | face=F | node=453 | depth=2 | phase=Mutable
+# METRO: Me
+# BRIDGES: Xi108:W2:A6:S29→Xi108:W2:A6:S31→Xi108:W1:A6:S30→Xi108:W3:A6:S30→Xi108:W2:A5:S30→Xi108:W2:A7:S30
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                         LIE ALGEBRAS MODULE                                  ║
@@ -29,7 +33,6 @@ from typing import Optional, Tuple, List, Dict, Set
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LIE ALGEBRA BASE
@@ -160,7 +163,6 @@ class LieAlgebra:
         
         return center_basis
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CLASSICAL LIE ALGEBRAS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -252,7 +254,6 @@ class ClassicalLieAlgebras:
         """Abelian Lie algebra: all brackets zero."""
         c = np.zeros((n, n, n))
         return LieAlgebra(n, c, f"ℝ^{n}")
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ROOT SYSTEMS
@@ -389,7 +390,6 @@ class RootSystem:
         
         return cls(n, roots)
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # LIE ALGEBRA REPRESENTATIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -454,7 +454,6 @@ class LieAlgebraRep:
         # Should be scalar on irreducible rep
         return np.trace(casimir) / self.dimension
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # SL(2) REPRESENTATIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -485,7 +484,6 @@ def sl2_irrep(j: float) -> LieAlgebraRep:
     algebra = ClassicalLieAlgebras.sl2()
     return LieAlgebraRep(algebra, [H, E, F])
 
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONVENIENCE FUNCTIONS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -494,26 +492,21 @@ def sl2_algebra() -> LieAlgebra:
     """Create sl(2) Lie algebra."""
     return ClassicalLieAlgebras.sl2()
 
-
 def so3_algebra() -> LieAlgebra:
     """Create so(3) Lie algebra."""
     return ClassicalLieAlgebras.so3()
-
 
 def heisenberg_algebra(n: int = 1) -> LieAlgebra:
     """Create Heisenberg algebra."""
     return ClassicalLieAlgebras.heisenberg(n)
 
-
 def lie_bracket(g: LieAlgebra, X: NDArray, Y: NDArray) -> NDArray:
     """Compute Lie bracket [X, Y]."""
     return g.bracket(X, Y)
 
-
 def killing_form(g: LieAlgebra, X: NDArray, Y: NDArray) -> float:
     """Compute Killing form κ(X, Y)."""
     return g.killing_form(X, Y)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # MODULE EXPORTS

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A7:S26 | face=C | node=109 | depth=3 | phase=Mutable
+# METRO: Sa
+# BRIDGES: Xi108:W2:A7:S25→Xi108:W2:A7:S27→Xi108:W1:A7:S26→Xi108:W3:A7:S26→Xi108:W2:A6:S26→Xi108:W2:A8:S26
+
 21.3.3. Monitoring determinism law: monitoring reports pinned status only
 Monitoring is permitted only as reporting, never as semantic mutation. Monitoring outputs MUST be deterministic functions of:
 (\mathsf{did}(\mathsf{DPf})),

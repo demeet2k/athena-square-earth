@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A9:S15 | face=S | node=120 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A9:S14→Xi108:W2:A9:S16→Xi108:W1:A9:S15→Xi108:W3:A9:S15→Xi108:W2:A8:S15→Xi108:W2:A10:S15
+
 """
 ███████████████████████████████████████████████████████████████████████████████
 █                                                                             █
@@ -40,7 +44,6 @@ from scipy.sparse.linalg import cg, eigsh, gmres
 import warnings
 warnings.filterwarnings('ignore')
 
-
 # ============================================================================
 # CORE DATA STRUCTURES
 # ============================================================================
@@ -55,7 +58,6 @@ class ProblemType(Enum):
     ROOT_FINDING = auto()
     INTEGRATION = auto()
     AUTO = auto()  # Let the solver figure it out
-
 
 @dataclass
 class ProblemSignature:
@@ -96,7 +98,6 @@ class ProblemSignature:
     pole_weights: Dict[str, float] = field(default_factory=dict)
     recommended_method: str = ""
 
-
 @dataclass 
 class SolverResult:
     """Complete result from the solver."""
@@ -110,7 +111,6 @@ class SolverResult:
     signature: ProblemSignature
     history: List[float] = field(default_factory=list)
     extra: Dict[str, Any] = field(default_factory=dict)
-
 
 # ============================================================================
 # STRUCTURE ANALYZER - The Brain
@@ -341,7 +341,6 @@ class StructureAnalyzer:
             active = [k for k, v in sig.pole_weights.items() if v > 0.2]
             sig.recommended_method = "+".join(sorted(active))
 
-
 # ============================================================================
 # THE FOUR POLES - Algorithm Components
 # ============================================================================
@@ -387,7 +386,6 @@ class PsiPole:
         
         return float(v @ A @ v), v
 
-
 class OmegaPole:
     """Ω - Continuous/gradient methods."""
     
@@ -425,7 +423,6 @@ class OmegaPole:
         result = minimize(objective, x0, method='L-BFGS-B',
                          options={'maxiter': maxiter, 'disp': False})
         return result.x
-
 
 class SigmaPole:
     """Σ - Stochastic methods."""
@@ -503,7 +500,6 @@ class SigmaPole:
         
         return best_x
 
-
 class DeltaPole:
     """D - Direct/discrete methods."""
     
@@ -563,7 +559,6 @@ class DeltaPole:
     def project_discrete(x: np.ndarray) -> np.ndarray:
         """Project to {-1, +1}."""
         return np.sign(x)
-
 
 # ============================================================================
 # THE ULTIMATE SOLVER
@@ -909,7 +904,6 @@ class UltimateSolver:
             iterations=n_samples, time_seconds=0, signature=sig
         )
 
-
 # ============================================================================
 # CONVENIENCE FUNCTIONS
 # ============================================================================
@@ -932,7 +926,6 @@ def linear_solve(A, b):
 def eigensolve(A, k=1):
     """Find k eigenvalues of A."""
     return _solver.solve(matrix=A, n_eigenvalues=k, problem_type=ProblemType.EIGENVALUE)
-
 
 # ============================================================================
 # DEMONSTRATION
@@ -1027,7 +1020,6 @@ THE ULTIMATE SOLVER automatically:
   ✓ Works for linear systems, eigenvalues, optimization, sampling
   ✓ Handles both continuous and discrete problems
     """)
-
 
 if __name__ == "__main__":
     demo()

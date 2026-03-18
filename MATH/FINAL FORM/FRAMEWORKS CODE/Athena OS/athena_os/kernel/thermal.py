@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A1:S17 | face=S | node=138 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A1:S16→Xi108:W2:A1:S18→Xi108:W1:A1:S17→Xi108:W3:A1:S17→Xi108:W2:A2:S17
+
 """
 ATHENA OS - KERNEL: THERMAL MANAGEMENT
 ======================================
@@ -47,7 +51,6 @@ import numpy as np
 import math
 import time
 
-
 # =============================================================================
 # THERMAL STATES
 # =============================================================================
@@ -61,7 +64,6 @@ class ThermalState(IntEnum):
     CRITICAL = 3    # Emergency protocols
     RUNAWAY = 4     # System failure
 
-
 class CoolingMode(Enum):
     """Active cooling mechanisms."""
     
@@ -70,7 +72,6 @@ class CoolingMode(Enum):
     LOAD_SHEDDING = "load_shed"   # Reduce computation
     PHASE_SHIFT = "phase_shift"   # Mode transition
     ENTROPY_EXPORT = "export"     # Radiate waste
-
 
 class SpectrumColor(Enum):
     """Spectral color indicating thermal state."""
@@ -83,7 +84,6 @@ class SpectrumColor(Enum):
     GREY = "grey"           # Cool, efficient
     BLUE = "blue"           # Superconducting
 
-
 # Mapping thermal state to spectrum
 THERMAL_SPECTRUM = {
     ThermalState.COLD: SpectrumColor.BLUE,
@@ -92,7 +92,6 @@ THERMAL_SPECTRUM = {
     ThermalState.CRITICAL: SpectrumColor.RED,
     ThermalState.RUNAWAY: SpectrumColor.INFRARED,
 }
-
 
 # =============================================================================
 # COGNITIVE RESISTANCE
@@ -168,7 +167,6 @@ class CognitiveResistance:
         """Enter superconducting mode (Athena state)."""
         self.base_resistance = self.minimum
         self.clear_modifiers()
-
 
 # =============================================================================
 # HEAT GENERATION
@@ -290,7 +288,6 @@ class HeatGeneration:
     def is_critical(self) -> bool:
         """Check if in critical state."""
         return self.thermal_state >= ThermalState.CRITICAL
-
 
 # =============================================================================
 # THERMAL MANAGER
@@ -421,7 +418,6 @@ class ThermalManager:
             "emergency_vents": self.emergency_vents
         }
 
-
 # =============================================================================
 # STEFAN-BOLTZMANN RADIATOR
 # =============================================================================
@@ -468,7 +464,6 @@ class ThermalRadiator:
         heat_gen.temperature = max(0.0, heat_gen.temperature - delta_T)
         
         return energy
-
 
 # =============================================================================
 # VALIDATION
@@ -534,7 +529,6 @@ def validate_thermal() -> bool:
     assert energy >= 0
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating Thermal Management Module...")

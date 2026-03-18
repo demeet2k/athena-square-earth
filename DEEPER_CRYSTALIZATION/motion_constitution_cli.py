@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# CRYSTAL: Xi108:W1:A4:S1 | face=S | node=1 | depth=0 | phase=Fixed
+# METRO: Me
+# BRIDGES: Xi108:W1:A4:S2→Xi108:W2:A4:S1→Xi108:W1:A3:S1→Xi108:W1:A5:S1
+
 from __future__ import annotations
 
 import argparse
@@ -15,7 +19,6 @@ from canonical_manuscript_audit import (
 )
 from canonical_manuscript_builder import DEFAULT_MANIFEST, build_manuscript_volumes
 from nervous_system_core import slugify, utc_now, write_json, write_text
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 ACTIVE_ROOT = PROJECT_ROOT / "ACTIVE_NERVOUS_SYSTEM"
@@ -86,7 +89,6 @@ ACTION_ALPHABET = [
 ]
 DEFAULT_WEIGHTS = {axis: 1.0 for axis in SCORE_AXES}
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Build and exercise MotionConstitution_L1 as an offline action-selection layer."
@@ -109,10 +111,8 @@ def parse_args() -> argparse.Namespace:
 
     return parser.parse_args()
 
-
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
 
 def replace_or_append_section(text: str, heading: str, body_lines: list[str]) -> str:
     block = "\n".join([heading, "", *body_lines]).rstrip()
@@ -121,14 +121,12 @@ def replace_or_append_section(text: str, heading: str, body_lines: list[str]) ->
         return pattern.sub("\n" + block + "\n", text).rstrip() + "\n"
     return text.rstrip() + "\n\n" + block + "\n"
 
-
 def ensure_line_after_anchor(text: str, anchor: str, line_to_add: str) -> str:
     if line_to_add in text:
         return text
     if anchor in text:
         return text.replace(anchor, anchor + "\n" + line_to_add, 1)
     return text.rstrip() + "\n" + line_to_add + "\n"
-
 
 def live_docs_error() -> str:
     if not LIVE_DOCS_GATE_PATH.exists():
@@ -137,7 +135,6 @@ def live_docs_error() -> str:
         if "Missing OAuth client file" in line:
             return line.strip()
     return "Google Docs preflight blocked."
-
 
 def source_basis() -> list[dict[str, str]]:
     return [
@@ -193,7 +190,6 @@ def source_basis() -> list[dict[str, str]]:
             "role": "scheduler law using closure gain, heart need, replay readiness, cost, risk, and failure debt",
         },
     ]
-
 
 def motion_constitution_object() -> dict[str, Any]:
     return {
@@ -269,7 +265,6 @@ def motion_constitution_object() -> dict[str, Any]:
             "QueueMutation",
         ],
     }
-
 
 def organ_current_route_table() -> dict[str, Any]:
     return {
@@ -464,7 +459,6 @@ def organ_current_route_table() -> dict[str, Any]:
         ],
     }
 
-
 def initial_hysteresis_state() -> dict[str, Any]:
     return {
         "generated_at": utc_now(),
@@ -474,7 +468,6 @@ def initial_hysteresis_state() -> dict[str, Any]:
         "committee_pending_routes": [],
         "history": [],
     }
-
 
 def candidate_world_schema() -> dict[str, Any]:
     return {
@@ -559,7 +552,6 @@ def candidate_world_schema() -> dict[str, Any]:
             },
         },
     }
-
 
 def all_action_fixture() -> dict[str, Any]:
     def axes(**overrides: float) -> dict[str, float]:
@@ -763,7 +755,6 @@ def all_action_fixture() -> dict[str, Any]:
         "candidates": candidates,
     }
 
-
 def load_hysteresis_state(path: Path | None = None) -> dict[str, Any]:
     target = path or HYSTERESIS_STATE_PATH
     if target.exists():
@@ -772,20 +763,17 @@ def load_hysteresis_state(path: Path | None = None) -> dict[str, Any]:
     write_json(target, state)
     return state
 
-
 def normalize_axes(raw_axes: dict[str, Any]) -> dict[str, float]:
     normalized: dict[str, float] = {}
     for axis in SCORE_AXES:
         normalized[axis] = max(0.0, float(raw_axes.get(axis, 0.0)))
     return normalized
 
-
 def route_signature(candidate: dict[str, Any]) -> str:
     return (
         f"{candidate.get('source_organ', '?')}->{candidate.get('target_organ', '?')}:"
         f"{candidate.get('current_family', '?')}:{candidate.get('packet_type_expected', '?')}"
     )
-
 
 def validate_candidate_world(candidate_world: dict[str, Any]) -> None:
     if "brainstem_state" not in candidate_world or "candidates" not in candidate_world:
@@ -794,7 +782,6 @@ def validate_candidate_world(candidate_world: dict[str, Any]) -> None:
         queue = candidate.get("source_queue")
         if queue not in ALLOWED_SOURCE_QUEUES:
             raise ValueError(f"Unsupported source_queue {queue!r}. Allowed queues: {ALLOWED_SOURCE_QUEUES}")
-
 
 def base_score(axes: dict[str, float], weights: dict[str, float], beta: float) -> dict[str, float]:
     numerator = (
@@ -822,7 +809,6 @@ def base_score(axes: dict[str, float], weights: dict[str, float], beta: float) -
         "priority_score": priority_score,
         "urgency_modulated_score": urgency_modulated_score,
     }
-
 
 def apply_hysteresis(
     candidate: dict[str, Any],
@@ -860,7 +846,6 @@ def apply_hysteresis(
         "duplicate_count": duplicate_count,
         "seed_rich_witness_poor": seed_rich_witness_poor,
     }
-
 
 def lawful_actions_for_candidate(
     candidate: dict[str, Any],
@@ -920,7 +905,6 @@ def lawful_actions_for_candidate(
     }
     return lawful, gating
 
-
 def choose_action(
     lawful_actions: list[str],
     gating: dict[str, bool],
@@ -947,7 +931,6 @@ def choose_action(
     if gating["continuation_value_remaining"]:
         return "COMPRESS_TO_SEED", "Activation is not yet lawful, but the packet still preserves continuation value."
     return "HOLD", "No override fires, but the score does not yet justify activation."
-
 
 def obligations_for_action(action: str) -> list[str]:
     obligations = {
@@ -992,7 +975,6 @@ def obligations_for_action(action: str) -> list[str]:
     }
     return obligations[action]
 
-
 def make_successor_seed(candidate: dict[str, Any], action: str, score_payload: dict[str, float]) -> dict[str, Any]:
     base_seed = candidate.get("continuation_seed") or slugify(candidate["title"])
     return {
@@ -1014,7 +996,6 @@ def make_successor_seed(candidate: dict[str, Any], action: str, score_payload: d
         }[action],
         "priority_score": round(score_payload["urgency_modulated_score"], 6),
     }
-
 
 def evaluate_candidate_world(candidate_world: dict[str, Any]) -> dict[str, Any]:
     validate_candidate_world(candidate_world)
@@ -1084,7 +1065,6 @@ def evaluate_candidate_world(candidate_world: dict[str, Any]) -> dict[str, Any]:
         "hysteresis_state_path": str(hysteresis_state_path),
     }
 
-
 def update_hysteresis_state(
     hysteresis_state: dict[str, Any],
     evaluation: dict[str, Any],
@@ -1139,7 +1119,6 @@ def update_hysteresis_state(
     updated["history"] = history[-200:]
     write_json(path, updated)
     return updated
-
 
 def simulate_candidate_world(candidate_world: dict[str, Any]) -> dict[str, Any]:
     evaluation = evaluate_candidate_world(candidate_world)
@@ -1228,7 +1207,6 @@ def simulate_candidate_world(candidate_world: dict[str, Any]) -> dict[str, Any]:
         "updated_hysteresis_state": updated_hysteresis_state,
     }
 
-
 def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     lines = [
         "| " + " | ".join(headers) + " |",
@@ -1237,7 +1215,6 @@ def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
     for row in rows:
         lines.append("| " + " | ".join(row) + " |")
     return "\n".join(lines)
-
 
 def render_motion_spec_markdown(constitution: dict[str, Any]) -> str:
     laws = "\n".join(f"- {law}" for law in constitution["constitutional_spine"]["laws"])
@@ -1305,7 +1282,6 @@ Each candidate packet remains typed by source organ, target organ, current famil
 {sources}
 """
 
-
 def render_score_law_markdown() -> str:
     return f"""# MotionConstitution_L1 Score Law
 
@@ -1343,7 +1319,6 @@ Default parameterization:
 Truth readiness is carried as a gate rather than a numerator term. `v0` treats it as the membrane deciding whether witness burden has been satisfied strongly enough for activation.
 """
 
-
 def render_action_rules_markdown() -> str:
     rows = [
         ["ACTIVATE_NOW", "Highest lawful motion; no override fires; replay and truth burdens satisfied."],
@@ -1373,7 +1348,6 @@ def render_action_rules_markdown() -> str:
 {chr(10).join(f"- {item}" for item in overrides)}
 """
 
-
 def render_hysteresis_markdown() -> str:
     rules = [
         "recently refused packets require stronger evidence before reactivation",
@@ -1394,7 +1368,6 @@ The inhibition layer exists because the organism has repeatedly shown the failur
 
 The persisted local ledger at `09_hysteresis_state.json` is therefore not optional bookkeeping. It is the memory surface that lets the brainstem become self-stabilizing instead of merely clever.
 """
-
 
 def render_route_table_markdown(route_table: dict[str, Any]) -> str:
     admissible_rows = [
@@ -1424,7 +1397,6 @@ Truth state: `{TRUTH_STATE}`
 
 {markdown_table(["Route", "Trigger"], seed_rows)}
 """
-
 
 def render_motion_readme(manifest: dict[str, Any]) -> str:
     return f"""# Motion Constitution Layer
@@ -1461,7 +1433,6 @@ python "C:\\Users\\dmitr\\Documents\\Athena Agent\\DEEPER_CRYSTALIZATION\\motion
 - Runtime manifest: `06_RUNTIME/16_motion_constitution_manifest.json`
 """
 
-
 def render_motion_supplement(constitution: dict[str, Any], manifest: dict[str, Any]) -> str:
     return f"""# Motion Constitution L1: The Lawful Action-Selection Engine
 
@@ -1487,7 +1458,6 @@ The present object is frozen as `{manifest['truth']}` because live Google Docs a
 
 SUPPLEMENT - MOTION CONSTITUTION L1
 """
-
 
 def render_route_supplement(route_table: dict[str, Any], manifest: dict[str, Any]) -> str:
     organ_list = ", ".join(item["organ_id"] for item in route_table["organ_classes"])
@@ -1517,7 +1487,6 @@ This table is frozen as `{manifest['truth']}`. It is not yet a live scheduler ro
 SUPPLEMENT - ORGAN CURRENT ROUTE TABLE V0
 """
 
-
 def update_active_readme(manifest: dict[str, Any]) -> None:
     text = README_PATH.read_text(encoding="utf-8")
     text = ensure_line_after_anchor(
@@ -1544,7 +1513,6 @@ def update_active_readme(manifest: dict[str, Any]) -> None:
     text = replace_or_append_section(text, "## Motion Constitution State", body)
     write_text(README_PATH, text)
 
-
 def update_full_stack_manifest(manifest: dict[str, Any]) -> None:
     full_stack = load_json(FULL_STACK_MANIFEST_PATH)
     full_stack["generated_at"] = utc_now()
@@ -1562,7 +1530,6 @@ def update_full_stack_manifest(manifest: dict[str, Any]) -> None:
         "live_docs_blocked": True,
     }
     write_json(FULL_STACK_MANIFEST_PATH, full_stack)
-
 
 def build_motion_constitution() -> dict[str, Any]:
     constitution = motion_constitution_object()
@@ -1624,18 +1591,15 @@ def build_motion_constitution() -> dict[str, Any]:
     write_json(MANIFEST_PATH, manifest)
     return manifest
 
-
 def build_if_missing() -> None:
     if not MANIFEST_PATH.exists():
         build_motion_constitution()
-
 
 def load_candidate_world_from_arg(raw_path: str) -> dict[str, Any]:
     path = Path(raw_path)
     if not path.is_absolute():
         path = (Path.cwd() / path).resolve()
     return load_json(path)
-
 
 def render_score_markdown(result: dict[str, Any]) -> str:
     lines = [
@@ -1663,7 +1627,6 @@ def render_score_markdown(result: dict[str, Any]) -> str:
         )
     return "\n".join(lines).rstrip() + "\n"
 
-
 def render_simulation_markdown(result: dict[str, Any]) -> str:
     lines = [
         "# MotionConstitution_L1 Simulation Report",
@@ -1684,7 +1647,6 @@ def render_simulation_markdown(result: dict[str, Any]) -> str:
             lines.append(f"- `{step['state']}` :: {step['guard']}")
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
-
 
 def render_route_table_output(route_table: dict[str, Any]) -> str:
     lines = [
@@ -1708,7 +1670,6 @@ def render_route_table_output(route_table: dict[str, Any]) -> str:
         lines.append(f"- `{item['route']}` :: {item['law']}")
     lines.append("")
     return "\n".join(lines).rstrip() + "\n"
-
 
 def source_basis() -> list[dict[str, str]]:
     return [
@@ -1765,7 +1726,6 @@ def source_basis() -> list[dict[str, str]]:
         },
     ]
 
-
 def main() -> int:
     args = parse_args()
     if args.command == "build":
@@ -1808,7 +1768,6 @@ def main() -> int:
         return 0
 
     raise ValueError(f"Unsupported command: {args.command}")
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

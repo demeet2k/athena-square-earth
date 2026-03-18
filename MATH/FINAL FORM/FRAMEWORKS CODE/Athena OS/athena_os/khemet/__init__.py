@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A3:S15 | face=S | node=117 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A3:S14→Xi108:W2:A3:S16→Xi108:W1:A3:S15→Xi108:W3:A3:S15→Xi108:W2:A2:S15→Xi108:W2:A4:S15
+
 """
 ATHENA OS - KHEMET: SYMMETRY-PROTECTED TOPOLOGICAL STATE
 =========================================================
@@ -219,7 +223,6 @@ from .storage import (
     validate_storage,
 )
 
-
 # =============================================================================
 # MODULE VALIDATION
 # =============================================================================
@@ -232,7 +235,6 @@ def validate_khemet() -> bool:
     assert validate_validation()
     assert validate_storage()
     return True
-
 
 # =============================================================================
 # CONVENIENCE CLASSES
@@ -303,14 +305,12 @@ class KhemetSystem:
     def is_initialized(self) -> bool:
         return self._initialized
 
-
 # =============================================================================
 # NUMPY IMPORT
 # =============================================================================
 
 import numpy as np
 from typing import List, Dict
-
 
 # =============================================================================
 # EXPORTS
@@ -361,7 +361,6 @@ __all__ = [
 
 __version__ = "1.0.0"
 __module_name__ = "khemet"
-
 
 if __name__ == "__main__":
     print("=" * 70)

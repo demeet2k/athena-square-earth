@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A8:S14 | face=S | node=95 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A8:S13→Xi108:W2:A8:S15→Xi108:W1:A8:S14→Xi108:W3:A8:S14→Xi108:W2:A7:S14→Xi108:W2:A9:S14
+
 """
 ATHENA OS - AtlasForge
 ======================
@@ -33,7 +37,6 @@ import time
 
 from .recipes import Recipe, ProofPack
 
-
 # =============================================================================
 # VERIFICATION STATUS
 # =============================================================================
@@ -46,7 +49,6 @@ class VerificationStatus(Enum):
     VERIFIED = "verified"
     FAILED = "failed"
     REVOKED = "revoked"
-
 
 # =============================================================================
 # INDEX KEYS
@@ -104,7 +106,6 @@ class IndexKeys:
         
         return keys
 
-
 # =============================================================================
 # REGISTRY ENTRY
 # =============================================================================
@@ -139,7 +140,6 @@ class RegistryEntry:
     @property
     def is_verified(self) -> bool:
         return self.status == VerificationStatus.VERIFIED
-
 
 # =============================================================================
 # DEPENDENCY GRAPH
@@ -241,7 +241,6 @@ class DependencyGraph:
                     queue.append(dependent)
         
         return result
-
 
 # =============================================================================
 # REGISTRY
@@ -414,7 +413,6 @@ class Registry:
             ]
         }
 
-
 # =============================================================================
 # VERIFIED CORPUS
 # =============================================================================
@@ -463,7 +461,6 @@ class VerifiedCorpus:
             rid for rid, guarantees in self.guarantees.items()
             if guarantee_type in guarantees
         ]
-
 
 # =============================================================================
 # VALIDATION
@@ -535,7 +532,6 @@ def validate_registry() -> bool:
     assert corpus.registry.verified_count == 1
     
     return True
-
 
 if __name__ == "__main__":
     print("Validating AtlasForge Registry...")

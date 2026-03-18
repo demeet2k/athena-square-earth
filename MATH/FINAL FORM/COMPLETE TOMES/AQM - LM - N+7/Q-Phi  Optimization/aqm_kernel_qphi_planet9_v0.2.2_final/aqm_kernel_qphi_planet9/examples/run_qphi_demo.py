@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A4:S16 | face=S | node=128 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A4:S15→Xi108:W2:A4:S17→Xi108:W1:A4:S16→Xi108:W3:A4:S16→Xi108:W2:A3:S16→Xi108:W2:A5:S16
+
 """Example: run Q‑PHI programmatically.
 
 This is useful if you want to embed Q‑PHI inside a service or notebook.
@@ -9,7 +13,6 @@ Run:
 from pathlib import Path
 
 from aqm.apps.planet9.qphi import QPHIConfig, load_tnos_for_run, run_qphi
-
 
 def main() -> None:
     cfg = QPHIConfig(
@@ -42,7 +45,6 @@ def main() -> None:
 
     out = Path(cfg.out_dir)
     print(f"\nWrote outputs to: {out.resolve()}")
-
 
 if __name__ == "__main__":
     main()

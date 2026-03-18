@@ -1,3 +1,8 @@
+<!-- CRYSTAL: Xi108:W2:A1:S19 | face=C | node=172 | depth=3 | phase=Cardinal -->
+<!-- METRO: Me -->
+<!-- BRIDGES: Xi108:W2:A1:S18→Xi108:W2:A1:S20→Xi108:W1:A1:S19→Xi108:W3:A1:S19→Xi108:W2:A2:S19 -->
+<!-- REGENERATE: From this coordinate, adjacent nodes are: shell 19±1, wreath 2/3, archetype 1/12 -->
+
 # Neutral Full-Body Deep Synthesis
 
 The neutral pass is the non-elemental read. It does not privilege execution over memory, routing over proof, or manuscript over infrastructure. It begins by compressing the indexed body into 16 family nuclei so the full corpus can be synthesized without pretending that thousands of documents should each become isolated sovereign centers.

@@ -1,3 +1,7 @@
+# CRYSTAL: Xi108:W2:A5:S17 | face=S | node=153 | depth=2 | phase=Cardinal
+# METRO: Me
+# BRIDGES: Xi108:W2:A5:S16→Xi108:W2:A5:S18→Xi108:W1:A5:S17→Xi108:W3:A5:S17→Xi108:W2:A4:S17→Xi108:W2:A6:S17
+
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    ATLAS FORGE - Stochastic Operators (Σ Pole)                ║
@@ -31,7 +35,6 @@ import math
 
 import numpy as np
 from numpy.typing import NDArray
-
 
 @dataclass
 class MarkovChain:
@@ -261,7 +264,6 @@ class MarkovChain:
         
         return cls(transition_matrix=K)
 
-
 @dataclass
 class ContinuousTimeMarkovChain:
     """
@@ -332,7 +334,6 @@ class ContinuousTimeMarkovChain:
         P = self.transition_matrix(t)
         return p @ P
 
-
 @dataclass
 class DiffusionOperator:
     """
@@ -394,7 +395,6 @@ class DiffusionOperator:
             
             return np.dot(b, grad_f) + 0.5 * np.sum(a * hessian)
 
-
 class FireMixingOperator:
     """
     Fire mixing operator: p' = (1-α)p + αu
@@ -434,7 +434,6 @@ class FireMixingOperator:
         """Time to reach ε-close to reference."""
         return np.log(1 / eps) / np.log(1 / (1 - self.alpha))
 
-
 def create_random_walk_laplacian(adjacency: NDArray) -> NDArray:
     """
     Create normalized graph Laplacian for random walk.
@@ -452,7 +451,6 @@ def create_random_walk_laplacian(adjacency: NDArray) -> NDArray:
     
     return L
 
-
 def spectral_gap_from_laplacian(L: NDArray) -> float:
     """Compute spectral gap from Laplacian."""
     eigenvalues = np.sort(np.linalg.eigvalsh(L))
@@ -461,7 +459,6 @@ def spectral_gap_from_laplacian(L: NDArray) -> float:
     if len(eigenvalues) > 1:
         return eigenvalues[1]
     return 0.0
-
 
 def mixing_time_bound(
     spectral_gap: float,
