@@ -52,6 +52,13 @@ def query_quantum_crystal(component: str = "all") -> str:
         "kernel": _format_kernel,
         "search": _format_search,
         "runtime": _format_runtime,
+        # New schema components (from updated JSON)
+        "paradigm": _format_paradigm,
+        "action_law": _format_action_law,
+        "formal_objects": _format_formal_objects,
+        "computation_model": _format_computation_model,
+        "mathematical_structures": _format_math_structures,
+        "integration_points": _format_integration_points,
     }
 
     fn = dispatch.get(comp)
@@ -65,31 +72,47 @@ def query_quantum_crystal(component: str = "all") -> str:
 
 def _format_all(data: dict) -> str:
     meta = data.get("meta", {})
-    qs = data.get("query_state", {})
-    df = data.get("desire_field", {})
-    rm = data.get("resonance_metric", {})
-    cw = data.get("commit_witness", {})
-    dc = data.get("desire_compiler", {})
-    rs = data.get("resonance_scheduler", {})
-    rk = data.get("resonance_kernel", {})
-    csl = data.get("crystal_search_law", {})
-    rl = data.get("runtime_loop", {})
     lines = [
         "## Quantum Crystal Computing\n",
         f"**Title**: {meta.get('title', 'Quantum Crystal Computing')}",
         f"**Description**: {meta.get('description', '')}\n",
-        f"### Core Objects",
-        f"- **QueryState** `{qs.get('symbol', 'Q')}`: {qs.get('definition', '')}",
-        f"- **DesireField** `{df.get('symbol', 'D_Q')}`: {df.get('definition', '')}",
-        f"- **ResonanceMetric** `{rm.get('symbol', 'R')}`: {rm.get('definition', '')}",
-        f"- **CommitWitness** `{cw.get('symbol', 'θ')}`: {cw.get('definition', '')}\n",
-        f"### Architecture",
-        f"- **Desire Compiler**: `{dc.get('signature', 'U → (Θ_U, G_U)')}`",
-        f"- **Scheduler**: choice law = `{rs.get('choice_law', '')}`",
-        f"- **Kernel**: {rk.get('definition', '')}",
-        f"- **Search Law**: `{csl.get('equation', '')}`",
-        f"- **Runtime**: {rl.get('name', 'tick/commit/rotate')}",
     ]
+    # New schema (paradigm-based)
+    paradigm = data.get("paradigm", {})
+    if paradigm:
+        lines.append(f"### Paradigm")
+        lines.append(f"- **Thesis**: {paradigm.get('thesis', '')}")
+        for p in paradigm.get("core_principles", []):
+            lines.append(f"  - {p}")
+    action = data.get("action_law", {})
+    if action:
+        lines.append(f"\n### Action Law")
+        lines.append(f"- **Equation**: `{action.get('equation', '')}`")
+        lines.append(f"- **Gradient**: `{action.get('gradient_flow', '')}`")
+    formal = data.get("formal_objects", {})
+    if formal:
+        lines.append(f"\n### Formal Objects ({len(formal)} defined)")
+        for name, obj in list(formal.items())[:6]:
+            if isinstance(obj, dict):
+                lines.append(f"- **{name}**: {obj.get('definition', obj.get('description', ''))[:100]}")
+    comp_model = data.get("computation_model", {})
+    if comp_model:
+        lines.append(f"\n### Computation Model")
+        for k, v in list(comp_model.items())[:4]:
+            if isinstance(v, dict):
+                lines.append(f"- **{k}**: {v.get('description', str(v)[:80])}")
+            else:
+                lines.append(f"- **{k}**: {str(v)[:80]}")
+    integration = data.get("integration_points", {})
+    if integration:
+        lines.append(f"\n### Integration Points ({len(integration)} mappings)")
+        for k, v in list(integration.items())[:5]:
+            lines.append(f"- **{k}** → {v}")
+    # Legacy schema (query_state-based)
+    qs = data.get("query_state", {})
+    if qs:
+        lines.append(f"\n### Core Objects (Legacy)")
+        lines.append(f"- **QueryState** `{qs.get('symbol', 'Q')}`: {qs.get('definition', '')}")
     return "\n".join(lines)
 
 
@@ -271,4 +294,84 @@ def _format_runtime(data: dict) -> str:
     term = rl.get("termination", "")
     if term:
         lines.append(f"\n**Termination**: {term}")
+    return "\n".join(lines)
+
+
+# --- New schema formatters ---
+
+def _format_paradigm(data: dict) -> str:
+    p = data.get("paradigm", {})
+    lines = ["## Quantum Crystal Computing Paradigm\n"]
+    lines.append(f"**Thesis**: {p.get('thesis', '')}\n")
+    for principle in p.get("core_principles", []):
+        lines.append(f"- {principle}")
+    sm = p.get("storage_model", {})
+    if sm:
+        lines.append(f"\n**Storage Model**: {sm}")
+    cm = p.get("computation_model", {})
+    if cm:
+        lines.append(f"\n**Computation Model**: {cm}")
+    return "\n".join(lines)
+
+
+def _format_action_law(data: dict) -> str:
+    a = data.get("action_law", {})
+    lines = ["## Action Law\n"]
+    lines.append(f"**Equation**: `{a.get('equation', '')}`")
+    lines.append(f"**Gradient Flow**: `{a.get('gradient_flow', '')}`")
+    for k, v in a.items():
+        if k not in ("equation", "gradient_flow"):
+            lines.append(f"- **{k}**: {v}")
+    return "\n".join(lines)
+
+
+def _format_formal_objects(data: dict) -> str:
+    fo = data.get("formal_objects", {})
+    lines = [f"## Formal Objects ({len(fo)} defined)\n"]
+    for name, obj in fo.items():
+        if isinstance(obj, dict):
+            lines.append(f"### {name}")
+            for k, v in obj.items():
+                lines.append(f"- **{k}**: {v}")
+            lines.append("")
+        else:
+            lines.append(f"- **{name}**: {obj}")
+    return "\n".join(lines)
+
+
+def _format_computation_model(data: dict) -> str:
+    cm = data.get("computation_model", {})
+    lines = ["## Computation Model\n"]
+    for k, v in cm.items():
+        if isinstance(v, dict):
+            lines.append(f"### {k}")
+            for sk, sv in v.items():
+                lines.append(f"- **{sk}**: {sv}")
+        elif isinstance(v, list):
+            lines.append(f"### {k}")
+            for item in v:
+                lines.append(f"- {item}")
+        else:
+            lines.append(f"- **{k}**: {v}")
+    return "\n".join(lines)
+
+
+def _format_math_structures(data: dict) -> str:
+    ms = data.get("mathematical_structures", {})
+    lines = ["## Mathematical Structures\n"]
+    for k, v in ms.items():
+        if isinstance(v, dict):
+            lines.append(f"### {k}")
+            for sk, sv in v.items():
+                lines.append(f"- **{sk}**: {sv}")
+        else:
+            lines.append(f"- **{k}**: {v}")
+    return "\n".join(lines)
+
+
+def _format_integration_points(data: dict) -> str:
+    ip = data.get("integration_points", {})
+    lines = ["## Integration Points\n"]
+    for k, v in ip.items():
+        lines.append(f"- **{k}** → {v}")
     return "\n".join(lines)

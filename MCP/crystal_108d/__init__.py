@@ -370,6 +370,15 @@ def register_108d_tools(mcp) -> None:
         pass  # Non-fatal: sandbox observer is enhancement, not requirement
 
     # ------------------------------------------------------------------
+    # SVG Self-Play — visual generation skill improvement engine
+    # ------------------------------------------------------------------
+    try:
+        from .svg_mcp import register_svg_tools
+        register_svg_tools(mcp)
+    except Exception:
+        pass  # Non-fatal: SVG self-play is enhancement
+
+    # ------------------------------------------------------------------
     # Background processes: continuous self-play + observer swarm
     # ------------------------------------------------------------------
     try:

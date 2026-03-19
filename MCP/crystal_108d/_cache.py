@@ -74,6 +74,7 @@ _ALL_JSON_FILES = [
     "bridge_transport.json",
     "crystal_weaving.json",
     "crystal_4d_manifest.json",
+    "kc27_runtime_closure.json",
 ]
 
 class JsonCache:

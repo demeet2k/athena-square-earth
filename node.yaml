@@ -243,9 +243,9 @@ sync_sources:
 
 github_repo: "https://github.com/demeet2k/athena-mcp-server"
 
-tool_count: 110
+tool_count: 111
 resource_count: 21
 mirror_count: 45
 shard_count: 14750
-edge_count: 48755
-cross_medium_edges: 626
+edge_count: 55903
+cross_medium_edges: 10640
