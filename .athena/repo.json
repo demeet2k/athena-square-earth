@@ -1,0 +1,30 @@
+{
+  "repository_id": "athena.repo.view.square-earth",
+  "github": "demeet2k/athena-square-earth",
+  "role": "view",
+  "authority_domain": "projection-square-earth",
+  "default_branch": "master",
+  "release": "contract-proposal-0.1.0",
+  "manifest_cid": null,
+  "entrypoints": [
+    "README.md"
+  ],
+  "build": null,
+  "test": null,
+  "exports": [
+    "athena.repo.view.square-earth@contract-proposal-0.1.0"
+  ],
+  "imports": [
+    "athena.repo.control@git:3d33fbcd6248fc2dc2991fbbab5e93a7eb184246"
+  ],
+  "coordinates": [
+    "athena://resource/athena.repo.view.square-earth@contract-proposal-0.1.0",
+    "github://demeet2k/athena-square-earth@dafd62e7af64eb2a58975ecef27b8ef4792868f9/README.md"
+  ],
+  "return": {
+    "human": "RETURN.md",
+    "machine": ".athena/edges.jsonl",
+    "class": "compensated"
+  },
+  "privacy": "public"
+}
