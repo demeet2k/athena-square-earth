@@ -1,0 +1,25 @@
+{
+  "schema": "athena.repository-contract-receipt/v2",
+  "repository": "demeet2k/athena-square-earth",
+  "resource": "athena.repo.view.square-earth",
+  "verdict": "PROPOSED",
+  "base_commit": "dafd62e7af64eb2a58975ecef27b8ef4792868f9",
+  "contract_commit": "f45cd9440be9ad5c354822dffcf5d116d0e35556",
+  "control_commit": "3d33fbcd6248fc2dc2991fbbab5e93a7eb184246",
+  "checked": [
+    ".athena/repo.json",
+    ".athena/exports.jsonl",
+    ".athena/imports.lock.json",
+    ".athena/edges.jsonl",
+    ".athena/status.json",
+    "RETURN.md"
+  ],
+  "invariants": {
+    "existing_code_changed": false,
+    "existing_history_rewritten": false,
+    "control_import_is_immutable": true,
+    "forward_edge_has_return": true,
+    "promotion_claimed": false
+  },
+  "next": "Pin the completed proposal head in the Athena federation lock."
+}
