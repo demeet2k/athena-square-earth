@@ -1,0 +1,42 @@
+{
+  "schema": "ATHENA.SYNAPSE.NODE.MANIFEST.V1",
+  "node_id": "earth",
+  "repository": "demeet2k/athena-square-earth",
+  "default_branch": "master",
+  "role": "Structure / Address / Admissibility lobe",
+  "standing": "DECLARED_NO_ADAPTER",
+  "observed_revision": "dafd62e7af64eb2a58975ecef27b8ef4792868f9",
+  "native_surfaces": [
+    {
+      "surface_id": "earth-resource",
+      "kind": "MCP_RESOURCE",
+      "reference": "athena://square-earth",
+      "mutation_class": "READ_ONLY",
+      "evidence_ref": "blob:MCP/element_servers/square_server.py@d5c478fb00bf17376db5cdc563d0e5b837b23788",
+      "notes": "FastMCP resource declared by the observed Square/Earth element server."
+    },
+    {
+      "surface_id": "earth-tool-module",
+      "kind": "MCP_TOOL_MODULE",
+      "reference": "MCP/element_servers/square_server.py",
+      "mutation_class": "READ_ONLY",
+      "evidence_ref": "blob:MCP/element_servers/square_server.py@d5c478fb00bf17376db5cdc563d0e5b837b23788",
+      "notes": "Observed crystal/address navigation, manifest reading, normalization, invariant checking and brain-routing tool registrations; no write operator observed in this module."
+    }
+  ],
+  "synapse_profiles": [],
+  "import_profiles": [],
+  "return_routes": ["athena://square-earth"],
+  "authority_class": "SELF_DECLARED_NATIVE_SURFACE",
+  "truth_ceiling": "REPOSITORY_CODE_SURFACE_ONLY",
+  "evidence_refs": [
+    "commit:dafd62e7af64eb2a58975ecef27b8ef4792868f9",
+    "blob:MCP/element_servers/square_server.py@d5c478fb00bf17376db5cdc563d0e5b837b23788"
+  ],
+  "residuals": [
+    "RUNTIME_START_UNOBSERVED",
+    "SYNAPSE_ADAPTER_NOT_IMPLEMENTED",
+    "FOREIGN_PROFILE_IMPORT_UNOBSERVED",
+    "CROSS_REPO_RECEIPT_UNOBSERVED"
+  ]
+}
